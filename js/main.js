@@ -193,8 +193,10 @@
     wireCardInteractions(box);
   }
 
-  function categoriesOf(articles) {
-    return [...new Set(articles.map(a => a.category).filter(Boolean))].sort();
+function categoriesOf(articles) {
+    return [...new Set(articles.map(a => a.category).filter(Boolean))]
+      .filter(cat => !/[\u0600-\u06FF]/.test(cat)) // هذا السطر يمنع ظهور أي تصنيف يحتوي على لغة عربية
+      .sort();
   }
 
   function renderFilters() {
