@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TechPulse — Shared Utilities (common.js) - Supabase Connected
+   TechPulse — Shared Utilities (common.js) - Supabase Connected (Separate Views Table)
    ========================================================================== */
 window.TPCommon = (function () {
   'use strict';
@@ -94,6 +94,10 @@ window.TPCommon = (function () {
     }
 
     cache = published;
+    
+    // جلب جميع المشاهدات دفعة واحدة من الجدول المستقل وتخزينها محلياً لضمان سرعة العرض
+    fetchAndUpdateAllViews(published);
+
     return published;
   }
 
@@ -107,17 +111,76 @@ window.TPCommon = (function () {
     return cachedVersion;
   }
 
-  /* ---------- View counts ---------- */
+  /* ---------- View counts (Supabase - Separate Table) ---------- */
+  let viewCache = {};
+
+  async function fetchAndUpdateAllViews(articles) {
+    try {
+      const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+      if (window.supabase && articles && articles.length > 0) {
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const { data, error } = await sb.from('article_views').select('*');
+        if (!error && data) {
+          data.forEach(row => {
+            viewCache[row.article_id] = row.views_count;
+            localStorage.setItem('tp_views_' + row.article_id, String(row.views_count));
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch views table:', e);
+    }
+  }
+
   function getViews(id) {
+    if (viewCache[id] !== undefined) return viewCache[id];
     return parseInt(localStorage.getItem('tp_views_' + id) || '0', 10);
   }
-  function registerView(id) {
+
+  async function registerView(id) {
     const seenKey = 'tp_seen_' + id;
+    // منع تكرار احتساب نفس الزائر في نفس الجلسة
     if (sessionStorage.getItem(seenKey)) return getViews(id);
     sessionStorage.setItem(seenKey, '1');
-    const v = getViews(id) + 1;
-    localStorage.setItem('tp_views_' + id, String(v));
-    return v;
+
+    // تحديث محلي سريع للتفاعل الفوري
+    let current = (viewCache[id] !== undefined ? viewCache[id] : getViews(id)) + 1;
+    viewCache[id] = current;
+    localStorage.setItem('tp_views_' + id, String(current));
+
+    try {
+      const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+
+      if (window.supabase) {
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // 1. جلب العدد الحالي من جدول المشاهدات المستقل
+        const { data, error } = await sb
+          .from('article_views')
+          .select('views_count')
+          .eq('article_id', id)
+          .maybeSingle();
+
+        let newViews = current;
+        if (!error && data) {
+          newViews = (data.views_count || 0) + 1;
+        }
+
+        // 2. تحديث أو إدخال السطر في جدول article_views المستقل
+        await sb
+          .from('article_views')
+          .upsert({ article_id: id, views_count: newViews });
+
+        viewCache[id] = newViews;
+        localStorage.setItem('tp_views_' + id, String(newViews));
+      }
+    } catch (err) {
+      console.warn('Could not update views in separate table:', err);
+    }
+
+    return getViews(id);
   }
 
   /* ---------- Likes ---------- */
