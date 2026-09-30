@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | TechPulse</title>
+  <meta name="description" content="Contact TechPulse for questions, feedback, or editorial inquiries.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact | TechPulse">
+  <meta property="og:description" content="Contact TechPulse for questions, feedback, or editorial inquiries.">
+  <meta property="og:image" content="https://techpulse.example.com/assets/og-default.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css?v=20260920c">
+</head>
+<body>
+  <div class="ticker" aria-label="Tech news ticker">
+    <span class="ticker-label" id="tickerLabel">Live</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" class="active" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">English</option>
+          <option value="zh">中文 (Chinese)</option>
+          <option value="es">Español</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="fr">Français</option>
+        </select>
+
+        <a href="admin.html" id="adminBtn" class="admin-btn" style="display: none;">Admin</a>
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-content">
+      <h1 data-i18n="contact_title">Contact Us</h1>
+      <p data-i18n="contact_intro">Have questions, feedback, or editorial inquiries? Reach out via the form below or send us an email.</p>
+
+      <!--
+        This form is wired for Netlify Forms (free, no backend needed since the
+        site is hosted on Netlify). Netlify scans the built HTML for a form
+        with data-netlify="true" and a matching hidden "form-name" field, then
+        auto-creates an inbox for it in your Netlify dashboard (Site > Forms).
+        The JS below submits it in the background (no page reload) and shows
+        a toast instead. If you ever move off Netlify, swap the action URL
+        for a service like Formspree and remove the data-netlify attribute.
+      -->
+      <form
+        class="contact-form"
+        id="contactForm"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="contact">
+        <p class="visually-hidden" style="position:absolute;left:-9999px">
+          <label>Don't fill this out if you're human: <input name="bot-field"></label>
+        </p>
+
+        <div class="form-group">
+          <label for="cname" data-i18n="contact_name_ph">Full Name</label>
+          <input type="text" id="cname" name="name" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="cemail" data-i18n="contact_email_ph">Email</label>
+          <input type="email" id="cemail" name="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="cmsg" data-i18n="contact_msg_ph">Message</label>
+          <textarea id="cmsg" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" data-i18n="btn_send">Send Message</button>
+        <p class="form-status" id="contactStatus" aria-live="polite"></p>
+      </form>
+
+      <p style="margin-top:20px">
+        <span data-i18n="contact_email_intro">Or email us directly at</span>
+        <strong>contact@techpulse.example.com</strong>
+      </p>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/live-news.js?v=20260920c"></script>
+  <script src="js/common.js?v=20260920c"></script>
+  <script src="js/i18n.js?v=20260920c"></script>
+  <script src="js/main.js?v=20260920c"></script>
+  <script>
+    (function () {
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('contactStatus');
+      if (!form) return;
+
+      function encode(data) {
+        return Object.keys(data)
+          .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+          .join('&');
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = Object.fromEntries(new FormData(form).entries());
+
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode(formData)
+        })
+          .then(() => {
+            status.textContent = window.TPI18N.t('contact_success');
+            window.showToast && window.showToast(window.TPI18N.t('contact_success'));
+            form.reset();
+          })
+          .catch(() => {
+            status.textContent = window.TPI18N.t('contact_error');
+          });
+      });
+    })();
+  </script>
+</body>
+</html>

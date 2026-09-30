@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechPulse | Community Forum</title>
+  <meta name="description" content="Join the TechPulse engineering community to discuss technology, petroleum, natural gas, and programming.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css?v=20260922_v6">
+
+  <!-- Supabase JS v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    /* ============================================================
+       THEME TOKENS (fix: previously undefined, now properly set)
+       ============================================================ */
+    :root {
+      --card-bg:      #1e293b;
+      --border-color: #334155;
+      --text-main:    #e2e8f0;
+      --text-muted:   #94a3b8;
+      --bg-main:      #0b1120;
+      --accent:       #38bdf8;
+      --accent-2:     #0284c7;
+      --success:      #059669;
+      --danger:       #dc2626;
+      --radius:       12px;
+    }
+    html[data-theme="light"] {
+      --card-bg:      #ffffff;
+      --border-color: #e2e8f0;
+      --text-main:    #0f172a;
+      --text-muted:   #64748b;
+      --bg-main:      #f1f5f9;
+    }
+
+    /* ============================================================
+       ORIGINAL STYLES (kept intact)
+       ============================================================ */
+    .forum-hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      border-radius: 16px;
+      margin: 20px 0 30px 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border: 1px solid #334155;
+    }
+    .forum-hero h1 { font-size: 2.2rem; margin-bottom: 10px; color: #38bdf8; }
+    .forum-hero p  { color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto 20px auto; }
+
+    .forum-actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    .user-status-area { font-size: 0.95rem; font-weight: 500; color: var(--text-main); }
+
+    .btn-action {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, opacity .2s;
+      font-family: inherit;
+      font-size: .9rem;
+    }
+    .btn-action:hover  { background: #0369a1; }
+    .btn-action:disabled { opacity: .6; cursor: not-allowed; }
+    .btn-success { background: var(--success); }
+    .btn-success:hover { background: #047857; }
+    .btn-muted  { background: #64748b; }
+    .btn-muted:hover   { background: #475569; }
+
+    .forum-categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .forum-cat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all .3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .forum-cat-card:hover,
+    .forum-cat-card.active-cat {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+    }
+    .cat-icon-wrapper { font-size: 2.5rem; margin-bottom: 15px; }
+    .forum-cat-card h3 { font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main); }
+    .forum-cat-card p  { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4; }
+    .cat-stats {
+      font-size: 0.8rem;
+      color: #0284c7;
+      font-weight: 600;
+      background: rgba(2, 132, 199, 0.1);
+      padding: 6px 10px;
+      border-radius: 6px;
+      align-self: flex-start;
+    }
+
+    .live-topics-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+    .topic-item-card {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .topic-item-card:hover { background: rgba(56,189,248,.05); }
+    .topic-item-card:last-child { border-bottom: none; }
+    .topic-item-card .topic-title { margin: 0 0 5px 0; color: var(--text-main); font-size: 1rem; }
+    .topic-item-card small { color: var(--text-muted); }
+    .reply-badge {
+      background: rgba(2,132,199,0.1);
+      color: #0284c7;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: .85rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none; justify-content: center; align-items: center;
+      z-index: 1000; padding: 16px;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-content {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-content.lg { max-width: 640px; }
+    .modal-content input,
+    .modal-content select,
+    .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+      font-size: .95rem;
+      background: #fff;
+      color: #0f172a;
+    }
+    .modal-content textarea { resize: vertical; min-height: 90px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+
+    /* Toasts */
+    #toastBox {
+      position: fixed; top: 20px; right: 20px;
+      display: flex; flex-direction: column; gap: 10px;
+      z-index: 2000; pointer-events: none;
+    }
+    .toast {
+      background: #1e293b;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      font-size: .9rem;
+      min-width: 220px;
+      pointer-events: auto;
+      animation: slideIn .25s ease;
+    }
+    .toast.success { border-left-color: var(--success); }
+    .toast.error   { border-left-color: var(--danger); }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Replies */
+    .reply-item {
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: rgba(148,163,184,.05);
+    }
+    .reply-item .reply-head {
+      display: flex; justify-content: space-between; gap: 10px;
+      font-size: .8rem; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .reply-item p { margin: 0; font-size: .92rem; color: var(--text-main); white-space: pre-wrap; }
+    .loading-row { text-align:center; color: var(--text-muted); padding: 18px; }
+
+    @media (max-width: 560px) {
+      .forum-hero h1 { font-size: 1.6rem; }
+      .forum-actions-bar { flex-direction: column; align-items: stretch; }
+      .topic-item-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker" aria-label="Notice">
+    <span class="ticker-label">Community</span>
+    <div class="ticker-track" aria-hidden="true">
+      <span class="ticker-item"><a href="#">Welcome to TechPulse Community Forum — Live Database Sync Active</a></span>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="forum.html" class="active">Forum</a>
+        <a href="news.html">News</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button type="button" id="darkModeToggle" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="forum-hero">
+      <h1>TechPulse Community Forum</h1>
+      <p>Ask questions, share engineering projects, and discuss Technology, Petroleum, Natural Gas, and Programming.</p>
+    </section>
+
+    <!-- Auth / New topic bar -->
+    <div class="forum-actions-bar">
+      <div class="user-status-area" id="userStatusDisplay">👤 Guest User (Please Sign In)</div>
+      <div>
+        <button type="button" class="btn-action" id="authBtn">Sign In</button>
+        <button type="button" class="btn-action btn-success" id="newTopicBtn" style="margin-left:8px;">+ New Topic</button>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="forum-categories-grid">
+      <div class="forum-cat-card" data-cat="Technology" onclick="filterCategory('Technology', this)">
+        <div class="cat-icon-wrapper">💻</div>
+        <div><h3>Technology</h3><p>Microcontrollers, IoT hardware, and automation systems.</p></div>
+        <span class="cat-stats" id="stat-Technology">Loading...</span>
+      </div>
+      <div class="forum-cat-card" data-cat="Petroleum" onclick="filterCategory('Petroleum', this)">
+        <div class="cat-icon-wrapper">🛢️</div>
+        <div><h3>Petroleum</h3><p>Upstream &amp; downstream engineering, and process machinery.</p></div>
+        <span class="cat-stats" id="stat-Petroleum">Loading...</span>
+      </div>
+      <div class="forum-cat-card" data-cat="Gas" onclick="filterCategory('Gas', this)">
+        <div class="cat-icon-wrapper">🔥</div>
+        <div><h3>Natural Gas</h3><p>Gas processing, pipeline distribution, and safety.</p></div>
+        <span class="cat-stats" id="stat-Gas">Loading...</span>
+      </div>
+      <div class="forum-cat-card" data-cat="Programming" onclick="filterCategory('Programming', this)">
+        <div class="cat-icon-wrapper">⚡</div>
+        <div><h3>Programming</h3><p>C++, MicroPython, Python, and firmware development.</p></div>
+        <span class="cat-stats" id="stat-Programming">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Live topics -->
+    <section class="live-topics-section">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:15px;">
+        <h3 style="margin:0; color:var(--text-main);">💬 Real Community Discussions</h3>
+        <button type="button" class="btn-action btn-muted" id="refreshBtn" style="padding:6px 12px; font-size:.8rem;">↻ Refresh</button>
+      </div>
+      <div id="liveTopicsContainer">
+        <p class="loading-row">Fetching topics from database...</p>
+      </div>
+    </section>
+
+    <!-- Disqus -->
+    <section class="live-topics-section">
+      <h3 style="margin-top:0; margin-bottom:20px; color:var(--text-main);">🌐 Global Discussion Board</h3>
+      <div id="disqus_thread"></div>
+    </section>
+
+  </main>
+
+  <!-- ===== New Topic Modal ===== -->
+  <div id="topicModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 style="margin-top:0;">Create New Discussion</h3>
+      <input type="text" id="newTitle" placeholder="Topic Title..." maxlength="140">
+      <select id="newCategory">
+        <option value="Technology">Technology</option>
+        <option value="Petroleum">Petroleum</option>
+        <option value="Gas">Natural Gas</option>
+        <option value="Programming">Programming</option>
+      </select>
+      <textarea id="newContent" rows="5" placeholder="Describe your topic or question..."></textarea>
+      <div class="modal-actions">
+        <button type="button" class="btn-action btn-muted" onclick="closeTopicModal()">Cancel</button>
+        <button type="button" class="btn-action" id="publishTopicBtn" onclick="submitNewTopic()">Publish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Auth Modal ===== -->
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 style="margin-top:0;" id="authModalTitle">Sign In / Register</h3>
+      <input type="email" id="authEmail" placeholder="Email Address..." autocomplete="email">
+      <input type="password" id="authPassword" placeholder="Password (min 6 chars)..." autocomplete="current-password">
+      <div class="modal-actions" style="justify-content:space-between;">
+        <button type="button" class="btn-action" id="signInBtn">Sign In</button>
+        <button type="button" class="btn-action btn-success" id="signUpBtn">Register</button>
+        <button type="button" class="btn-action btn-muted" onclick="closeAuthModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Topic Detail Modal ===== -->
+  <div id="topicDetailModal" class="modal-overlay">
+    <div class="modal-content lg">
+      <h3 id="detailTitle" style="margin-top:0; color:var(--text-main);"></h3>
+      <small id="detailMeta" style="color:var(--text-muted);"></small>
+      <p id="detailContent" style="white-space:pre-wrap; margin:14px 0 20px; color:var(--text-main);"></p>
+
+      <hr style="border:none; border-top:1px solid var(--border-color); margin:18px 0;">
+      <h4 style="margin:0 0 10px; color:var(--text-main);">Replies</h4>
+      <div id="repliesContainer"><p class="loading-row">Loading replies...</p></div>
+
+      <div id="replyFormWrap" style="margin-top:16px; display:none;">
+        <textarea id="replyContent" rows="3" placeholder="Write a reply..."></textarea>
+        <div class="modal-actions">
+          <button type="button" class="btn-action btn-muted" onclick="closeTopicDetail()">Close</button>
+          <button type="button" class="btn-action" id="postReplyBtn" onclick="submitReply()">Post Reply</button>
+        </div>
+      </div>
+      <div id="replyLoginHint" style="margin-top:16px; display:none; text-align:center;">
+        <p style="color:var(--text-muted); font-size:.9rem;">Sign in to reply to this topic.</p>
+        <button type="button" class="btn-action" onclick="closeTopicDetail(); openAuthModal();">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastBox"></div>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse Community. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/common.js?v=20260922_v6"></script>
+
+  <script>
+  /* ================================================================
+     ✅ DATABASE SETUP (run once in Supabase → SQL Editor)
+     ----------------------------------------------------------------
+     create table if not exists public.forum_topics (
+       id uuid primary key default gen_random_uuid(),
+       title text not null,
+       category text not null,
+       content text,
+       author text,
+       author_id uuid references auth.users(id) on delete set null,
+       replies_count int default 0,
+       created_at timestamptz default now()
+     );
+
+     create table if not exists public.forum_replies (
+       id uuid primary key default gen_random_uuid(),
+       topic_id uuid references public.forum_topics(id) on delete cascade,
+       content text not null,
+       author text,
+       author_id uuid references auth.users(id) on delete set null,
+       created_at timestamptz default now()
+     );
+
+     alter table public.forum_topics  enable row level security;
+     alter table public.forum_replies enable row level security;
+
+     create policy "topics readable by everyone"
+       on public.forum_topics for select using (true);
+     create policy "topics insert by authenticated"
+       on public.forum_topics for insert with check (auth.role() = 'authenticated');
+     create policy "topics update by authenticated"
+       on public.forum_topics for update using (auth.role() = 'authenticated');
+
+     create policy "replies readable by everyone"
+       on public.forum_replies for select using (true);
+     create policy "replies insert by authenticated"
+       on public.forum_replies for insert with check (auth.role() = 'authenticated');
+     ================================================================ */
+
+  (function () {
+    'use strict';
+
+    /* ------------------------------------------------------------
+       1) CONFIG — replace with your real Supabase values
+       ------------------------------------------------------------ */
+    const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+    /* ------------------------------------------------------------
+       2) STATE
+       ------------------------------------------------------------ */
+    let sb             = null;   // Supabase client
+    let currentUser    = null;   // auth user
+    let allTopics      = [];     // cached topics
+    let activeCategory = null;   // current filter
+    let activeTopic    = null;   // topic in detail modal
+    let realtimeChannel = null;
+
+    /* ------------------------------------------------------------
+       3) HELPERS
+       ------------------------------------------------------------ */
+    const $ = (id) => document.getElementById(id);
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function fmtDate(iso) {
+      try {
+        return new Date(iso).toLocaleString(undefined, {
+          year: 'numeric', month: 'short', day: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        });
+      } catch { return ''; }
+    }
+
+    function toast(message, type = 'info', ms = 3200) {
+      const box = $('toastBox');
+      const el = document.createElement('div');
+      el.className = 'toast ' + type;
+      el.textContent = message;
+      box.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(30px)';
+        el.style.transition = 'all .25s ease';
+        setTimeout(() => el.remove(), 260);
+      }, ms);
+    }
+
+    function configMissing() {
+      return !SUPABASE_URL.startsWith('http') ||
+             SUPABASE_URL.includes('YOUR-PROJECT-REF') ||
+             SUPABASE_ANON_KEY.includes('YOUR-PUBLIC');
+    }
+
+    /* ------------------------------------------------------------
+       4) SUPABASE INIT
+       ------------------------------------------------------------ */
+    function initSupabase() {
+      // Prefer a client already created by common.js
+      if (window.supabaseClient) {
+        sb = window.supabaseClient;
+        return true;
+      }
+      if (!window.supabase || !window.supabase.createClient) {
+        console.error('[TechPulse] supabase-js failed to load.');
+        return false;
+      }
+      if (configMissing()) {
+        console.warn('[TechPulse] Supabase credentials not set — running in offline demo mode.');
+        return false;
+      }
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+      });
+      window.supabaseClient = sb;
+      return true;
+    }
+
+    /* ------------------------------------------------------------
+       5) AUTH
+       ------------------------------------------------------------ */
+    async function refreshAuthUI() {
+      const statusEl = $('userStatusDisplay');
+      const authBtn  = $('authBtn');
+
+      if (!sb) {
+        statusEl.textContent = '👤 Guest User (offline mode)';
+        authBtn.textContent  = 'Sign In';
+        authBtn.onclick = () => toast('Supabase is not configured yet.', 'error');
+        return;
+      }
+
+      const { data: { session } } = await sb.auth.getSession();
+      currentUser = session?.user ?? null;
+
+      if (currentUser) {
+        const name = currentUser.email.split('@')[0];
+        statusEl.innerHTML = `👤 Connected as: <b>${escapeHtml(currentUser.email)}</b>`;
+        authBtn.textContent = 'Sign Out';
+        authBtn.className = 'btn-action btn-muted';
+        authBtn.onclick = userSignOut;
+      } else {
+        statusEl.textContent = '👤 Guest User (Please Sign In)';
+        authBtn.textContent = 'Sign In';
+        authBtn.className = 'btn-action';
+        authBtn.onclick = openAuthModal;
+      }
+    }
+
+    async function userSignIn() {
+      if (!sb) return toast('Supabase is not configured.', 'error');
+      const email    = $('authEmail').value.trim();
+      const password = $('authPassword').value;
+
+      if (!email || !password) return toast('Enter email and password.', 'error');
+
+      const btn = $('signInBtn');
+      btn.disabled = true; btn.textContent = '...';
+
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+
+      btn.disabled = false; btn.textContent = 'Sign In';
+
+      if (error) return toast(error.message, 'error');
+
+      toast('Signed in successfully.', 'success');
+      closeAuthModal();
+      $('authEmail').value = '';
+      $('authPassword').value = '';
+      // onAuthStateChange will refresh the UI
+    }
+
+    async function userSignUp() {
+      if (!sb) return toast('Supabase is not configured.', 'error');
+      const email    = $('authEmail').value.trim();
+      const password = $('authPassword').value;
+
+      if (!email || !password) return toast('Enter email and password.', 'error');
+      if (password.length < 6) return toast('Password must be at least 6 characters.', 'error');
+
+      const btn = $('signUpBtn');
+      btn.disabled = true; btn.textContent = '...';
+
+      const { data, error } = await sb.auth.signUp({ email, password });
+
+      btn.disabled = false; btn.textContent = 'Register';
+
+      if (error) return toast(error.message, 'error');
+
+      if (data.session) {
+        toast('Account created — you are signed in.', 'success');
+        closeAuthModal();
+      } else {
+        toast('Account created! Check your email to confirm (if required).', 'success', 5000);
+        closeAuthModal();
+      }
+    }
+
+    async function userSignOut() {
+      if (!sb) return;
+      await sb.auth.signOut();
+      toast('Signed out.', 'info');
+      // onAuthStateChange will refresh the UI
+    }
+
+    /* ------------------------------------------------------------
+       6) TOPICS — LOAD / RENDER
+       ------------------------------------------------------------ */
+    async function loadTopics() {
+      if (!sb) {
+        renderTopics([]);
+        return;
+      }
+
+      const container = $('liveTopicsContainer');
+      container.innerHTML = '<p class="loading-row">Fetching topics from database...</p>';
+
+      const { data, error } = await sb
+        .from('forum_topics')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('[loadTopics]', error);
+        container.innerHTML =
+          `<p style="color:#f87171; text-align:center;">
+             Failed to load topics: ${escapeHtml(error.message)}
+           </p>`;
+        return;
+      }
+
+      allTopics = data || [];
+      renderTopics(applyFilter(allTopics));
+      updateStats(allTopics);
+    }
+
+    function applyFilter(topics) {
+      return activeCategory
+        ? topics.filter(t => t.category === activeCategory)
+        : topics;
+    }
+
+    function renderTopics(topics) {
+      const container = $('liveTopicsContainer');
+
+      if (!topics.length) {
+        container.innerHTML =
+          '<p style="text-align:center; color:var(--text-muted);">No discussions found. Be the first to start one!</p>';
+        return;
+      }
+
+      container.innerHTML = topics.map(t => `
+        <div class="topic-item-card" onclick="openTopicDetail('${t.id}')">
+          <div style="min-width:0;">
+            <h4 class="topic-title">${escapeHtml(t.title)}</h4>
+            <small>
+              By <b>${escapeHtml(t.author || 'Member')}</b>
+              in <b>${escapeHtml(t.category)}</b>
+              — ${fmtDate(t.created_at)}
+            </small>
+          </div>
+          <span class="reply-badge">💬 ${Number(t.replies_count) || 0}</span>
+        </div>
+      `).join('');
+    }
+
+    function updateStats(topics) {
+      const counts = { Technology: 0, Petroleum: 0, Gas: 0, Programming: 0 };
+      topics.forEach(t => {
+        if (counts[t.category] !== undefined) counts[t.category]++;
+      });
+      $('stat-Technology').textContent  = `${counts.Technology} Topics`;
+      $('stat-Petroleum').textContent   = `${counts.Petroleum} Topics`;
+      $('stat-Gas').textContent         = `${counts.Gas} Topics`;
+      $('stat-Programming').textContent = `${counts.Programming} Topics`;
+    }
+
+    /* ------------------------------------------------------------
+       7) CATEGORY FILTER
+       ------------------------------------------------------------ */
+    window.filterCategory = function (catName, el) {
+      if (activeCategory === catName) {
+        // click the same category → clear filter
+        activeCategory = null;
+        document.querySelectorAll('.forum-cat-card')
+          .forEach(c => c.classList.remove('active-cat'));
+      } else {
+        activeCategory = catName;
+        document.querySelectorAll('.forum-cat-card')
+          .forEach(c => c.classList.remove('active-cat'));
+        el?.classList.add('active-cat');
+      }
+      renderTopics(applyFilter(allTopics));
+    };
+
+    /* ------------------------------------------------------------
+       8) NEW TOPIC
+       ------------------------------------------------------------ */
+    window.openTopicModal = function () {
+      if (!sb) return toast('Supabase is not configured.', 'error');
+      if (!currentUser) {
+        toast('Please sign in first to create a new topic.', 'error');
+        openAuthModal();
+        return;
+      }
+      $('topicModal').classList.add('open');
+      setTimeout(() => $('newTitle').focus(), 60);
+    };
+
+    window.closeTopicModal = function () {
+      $('topicModal').classList.remove('open');
+    };
+
+    window.submitNewTopic = async function () {
+      if (!sb || !currentUser) return;
+
+      const title    = $('newTitle').value.trim();
+      const category = $('newCategory').value;
+      const content  = $('newContent').value.trim();
+
+      if (!title)   return toast('Please enter a title.', 'error');
+      if (title.length > 140) return toast('Title is too long (max 140).', 'error');
+
+      const btn = $('publishTopicBtn');
+      btn.disabled = true; btn.textContent = 'Publishing...';
+
+      const { error } = await sb.from('forum_topics').insert([{
+        title,
+        category,
+        content,
+        author: currentUser.email.split('@')[0],
+        author_id: currentUser.id,
+        replies_count: 0
+      }]);
+
+      btn.disabled = false; btn.textContent = 'Publish';
+
+      if (error) return toast('Error: ' + error.message, 'error');
+
+      toast('Topic published.', 'success');
+      $('newTitle').value   = '';
+      $('newContent').value = '';
+      closeTopicModal();
+      loadTopics();
+    };
+
+    /* ------------------------------------------------------------
+       9) TOPIC DETAIL + REPLIES
+       ------------------------------------------------------------ */
+    window.openTopicDetail = async function (topicId) {
+      const topic = allTopics.find(t => t.id === topicId);
+      if (!topic) return;
+
+      activeTopic = topic;
+      $('detailTitle').textContent   = topic.title;
+      $('detailMeta').textContent    =
+        `By ${topic.author || 'Member'} • ${topic.category} • ${fmtDate(topic.created_at)}`;
+      $('detailContent').textContent = topic.content || '(no description)';
+      $('repliesContainer').innerHTML = '<p class="loading-row">Loading replies...</p>';
+
+      $('topicDetailModal').classList.add('open');
+      $('replyFormWrap').style.display  = currentUser ? 'block' : 'none';
+      $('replyLoginHint').style.display = currentUser ? 'none'  : 'block';
+
+      await loadReplies(topicId);
+    };
+
+    window.closeTopicDetail = function () {
+      $('topicDetailModal').classList.remove('open');
+      activeTopic = null;
+      $('replyContent').value = '';
+    };
+
+    async function loadReplies(topicId) {
+      const box = $('repliesContainer');
+
+      if (!sb) {
+        box.innerHTML = '<p class="loading-row">Offline mode — no replies available.</p>';
+        return;
+      }
+
+      const { data, error } = await sb
+        .from('forum_replies')
+        .select('*')
+        .eq('topic_id', topicId)
+        .order('created_at', { ascending: true });
+
+      if (error) {
+        console.warn('[loadReplies]', error);
+        box.innerHTML =
+          '<p class="loading-row">No replies yet (or replies table is missing).</p>';
+        return;
+      }
+
+      if (!data || !data.length) {
+        box.innerHTML = '<p class="loading-row">No replies yet — be the first!</p>';
+        return;
+      }
+
+      box.innerHTML = data.map(r => `
+        <div class="reply-item">
+          <div class="reply-head">
+            <b>${escapeHtml(r.author || 'Member')}</b>
+            <span>${fmtDate(r.created_at)}</span>
+          </div>
+          <p>${escapeHtml(r.content)}</p>
+        </div>
+      `).join('');
+    }
+
+    window.submitReply = async function () {
+      if (!sb || !currentUser || !activeTopic) return;
+
+      const content = $('replyContent').value.trim();
+      if (!content) return toast('Write something first.', 'error');
+
+      const btn = $('postReplyBtn');
+      btn.disabled = true; btn.textContent = 'Posting...';
+
+      const { error } = await sb.from('forum_replies').insert([{
+        topic_id: activeTopic.id,
+        content,
+        author: currentUser.email.split('@')[0],
+        author_id: currentUser.id
+      }]);
+
+      if (error) {
+        btn.disabled = false; btn.textContent = 'Post Reply';
+        return toast('Error: ' + error.message, 'error');
+      }
+
+      // bump replies_count (best-effort)
+      const newCount = (Number(activeTopic.replies_count) || 0) + 1;
+      await sb.from('forum_topics')
+        .update({ replies_count: newCount })
+        .eq('id', activeTopic.id);
+
+      activeTopic.replies_count = newCount;
+      const local = allTopics.find(t => t.id === activeTopic.id);
+      if (local) local.replies_count = newCount;
+
+      $('replyContent').value = '';
+      btn.disabled = false; btn.textContent = 'Post Reply';
+
+      toast('Reply posted.', 'success');
+      await loadReplies(activeTopic.id);
+      renderTopics(applyFilter(allTopics));
+    };
+
+    /* ------------------------------------------------------------
+       10) MODAL HELPERS
+       ------------------------------------------------------------ */
+    window.openAuthModal  = function () { $('authModal').classList.add('open'); };
+    window.closeAuthModal = function () {
+      $('authModal').classList.remove('open');
+      $('authPassword').value = '';
+    };
+
+    // close modal when clicking on the dark overlay
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.classList.remove('open');
+      });
+    });
+
+    // Esc closes any open modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open')
+          .forEach(m => m.classList.remove('open'));
+      }
+    });
+
+    /* ------------------------------------------------------------
+       11) REALTIME
+       ------------------------------------------------------------ */
+    function subscribeRealtime() {
+      if (!sb || realtimeChannel) return;
+
+      realtimeChannel = sb
+        .channel('techpulse_forum')
+        .on('postgres_changes',
+            { event: '*', schema: 'public', table: 'forum_topics' },
+            () => loadTopics())
+        .on('postgres_changes',
+            { event: 'INSERT', schema: 'public', table: 'forum_replies' },
+            (payload) => {
+              if (activeTopic && payload.new.topic_id === activeTopic.id) {
+                loadReplies(activeTopic.id);
+              }
+            })
+        .subscribe((status) => {
+          if (status === 'SUBSCRIBED') {
+            console.log('[TechPulse] Realtime connected.');
+          }
+        });
+    }
+
+    /* ------------------------------------------------------------
+       12) THEME TOGGLE
+       ------------------------------------------------------------ */
+    function initTheme() {
+      const saved = localStorage.getItem('tp-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      const btn = $('darkModeToggle');
+      if (btn) btn.textContent = saved === 'light' ? '☀️' : '🌙';
+
+      btn?.addEventListener('click', () => {
+        const cur  = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('tp-theme', next);
+        btn.textContent = next === 'light' ? '☀️' : '🌙';
+      });
+    }
+
+    /* ------------------------------------------------------------
+       13) BOOTSTRAP
+       ------------------------------------------------------------ */
+    async function initForum() {
+      initTheme();
+
+      const ok = initSupabase();
+
+      if (ok) {
+        // React to sign-in / sign-out
+        sb.auth.onAuthStateChange((_event, session) => {
+          currentUser = session?.user ?? null;
+          refreshAuthUI();
+          // If the detail modal is open, update reply form visibility
+          if (activeTopic) {
+            $('replyFormWrap').style.display  = currentUser ? 'block' : 'none';
+            $('replyLoginHint').style.display = currentUser ? 'none'  : 'block';
+          }
+        });
+      }
+
+      await refreshAuthUI();
+      await loadTopics();
+
+      if (ok) subscribeRealtime();
+
+      // Events
+      $('signInBtn')?.addEventListener('click', userSignIn);
+      $('signUpBtn')?.addEventListener('click', userSignUp);
+      $('newTopicBtn')?.addEventListener('click', openTopicModal);
+      $('refreshBtn')?.addEventListener('click', () => {
+        loadTopics();
+        toast('Refreshed.', 'info', 1500);
+      });
+
+      // Enter key inside auth modal submits sign-in
+      $('authPassword')?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') userSignIn();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initForum);
+  })();
+  </script>
+
+  <!-- Disqus -->
+  <script>
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = 'techpulse_community_forum';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://techpulse-1.disqus.com/embed.js';
+      s.setAttribute('timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+</body>
+</html>

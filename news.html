@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live News | TechPulse</title>
+  <meta name="description" content="Live technology news and oil & gas industry headlines, refreshed automatically every hour.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css?v=20260920c">
+</head>
+<body>
+  <div class="ticker" aria-label="Tech news ticker">
+    <span class="ticker-label" id="tickerLabel">Live</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" class="active" data-i18n="nav_news">News</a>
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">English</option>
+          <option value="zh">中文 (Chinese)</option>
+          <option value="es">Español</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="fr">Français</option>
+        </select>
+
+        <a href="admin.html" id="adminBtn" class="admin-btn" style="display: none;">Admin</a>
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="forum-hero">
+      <h1 data-i18n="news_page_title">Live News</h1>
+      <p data-i18n="hero_desc">Explore exclusive hardware tutorials and practical engineering projects.</p>
+      <p style="margin-top:10px;font-size:0.85rem;color:var(--text-muted)">
+        <span data-i18n="news_last_updated">Last updated</span>: <span id="newsLastUpdated">—</span>
+        &nbsp;·&nbsp;
+        <button type="button" id="newsRefreshBtn" class="btn-secondary" style="padding:4px 12px;font-size:0.8rem" data-i18n="news_refresh">Refresh now</button>
+      </p>
+    </section>
+
+    <div class="news-columns">
+      <section class="widget">
+        <h3><span data-i18n="news_tech_label">Technology</span></h3>
+        <div id="newsTechList"><p class="loading-state" data-i18n="loading">Loading...</p></div>
+      </section>
+      <section class="widget">
+        <h3><span data-i18n="news_oil_label">Oil & Gas</span></h3>
+        <div id="newsOilList"><p class="loading-state" data-i18n="loading">Loading...</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/live-news.js?v=20260920c"></script>
+  <script src="js/common.js?v=20260920c"></script>
+  <script src="js/i18n.js?v=20260920c"></script>
+  <script src="js/main.js?v=20260920c"></script>
+  <script>
+    (function () {
+      let feed = [];
+
+      function render() {
+        const lang = window.TPI18N.getLang();
+        const techList = document.getElementById('newsTechList');
+        const oilList = document.getElementById('newsOilList');
+        const renderItems = (items) => items.length
+          ? items.map(item => {
+              const titleText = (item.title && item.title[lang]) ? item.title[lang] : (item.title.en || item.title);
+              const href = item.url && item.url !== '#' ? item.url : '#';
+              return `<a class="news-widget-item" href="${window.TPCommon.esc(href)}"${href !== '#' ? ' target="_blank" rel="noopener"' : ''}>${item.live ? '🟢 ' : ''}${window.TPCommon.esc(titleText)}</a>`;
+            }).join('')
+          : `<p class="loading-state">${window.TPI18N.t('no_results')}</p>`;
+
+        techList.innerHTML = renderItems(feed.filter(i => i.category === 'tech'));
+        oilList.innerHTML = renderItems(feed.filter(i => i.category === 'oil_gas'));
+      }
+
+      function setUpdatedNow() {
+        document.getElementById('newsLastUpdated').textContent = new Date().toLocaleTimeString();
+      }
+
+      document.addEventListener('tp:langchange', render);
+
+      if (window.TPLiveNews) {
+        window.TPLiveNews.startAutoRefresh(newFeed => {
+          feed = newFeed;
+          render();
+          setUpdatedNow();
+        });
+      }
+
+      document.getElementById('newsRefreshBtn').addEventListener('click', async () => {
+        if (!window.TPLiveNews) return;
+        feed = await window.TPLiveNews.getFeed();
+        render();
+        setUpdatedNow();
+      });
+    })();
+  </script>
+</body>
+</html>

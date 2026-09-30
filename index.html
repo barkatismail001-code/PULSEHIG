@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechPulse | Technical Tutorials &amp; Embedded Systems</title>
+  <meta name="description" content="TechPulse - Your primary hub for hardware tutorials, microcontrollers, and embedded systems.">
+  <meta name="keywords" content="embedded systems, microcontrollers, ESP32, IoT, tutorials, hardware">
+  <link rel="canonical" href="https://techpulse12.vercel.app/index.html" />
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TechPulse | Technical Tutorials & Embedded Systems">
+  <meta property="og:description" content="Your primary hub for hardware tutorials, microcontrollers, and embedded systems.">
+  <meta property="og:url" content="https://techpulse.example.com/">
+  <meta property="og:image" content="https://techpulse.example.com/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" title="TechPulse RSS" href="rss.xml">
+  <link rel="stylesheet" href="css/style.css?v=20260920c">
+
+  <!-- مكتبة Supabase للاتصال بقاعدة البيانات لعرض المقالات -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- Top Scroll Progress Bar -->
+  <div id="readingProgressBar"></div>
+
+  <!-- Dynamic News Ticker -->
+  <div class="ticker" aria-label="Tech news ticker">
+    <span class="ticker-label" id="tickerLabel">Live</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" class="active" data-i18n="nav_home">Home</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms</a>
+
+        <!-- Global Language Selector -->
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">English</option>
+          <option value="zh">中文 (Chinese)</option>
+          <option value="es">Español</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="fr">Français</option>
+        </select>
+
+        <!-- Admin link: hidden for every visitor by default (see js/common.js) -->
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-section">
+      <h1 data-i18n="hero_title">Advanced Embedded Systems &amp; Technical Guides</h1>
+      <p data-i18n="hero_desc">Explore exclusive hardware tutorials and practical engineering projects.</p>
+      <div class="site-stats-bar" id="siteStatsBar"></div>
+    </section>
+
+    <section id="featuredSection" style="display:none">
+      <h2 class="section-heading" data-i18n="featured_heading">⭐ Featured</h2>
+      <div class="featured-spotlight" id="featuredSpotlight"></div>
+    </section>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="Search articles..." aria-label="Search articles" data-i18n-ph="search_ph">
+      </div>
+    </div>
+
+    <div class="filters" id="filters" aria-label="Filter by category"></div>
+
+    <div class="layout">
+      <div>
+        <section class="articles-grid" id="articles-container" aria-live="polite">
+          <p class="loading-state" data-i18n="loading">Loading articles...</p>
+        </section>
+      </div>
+
+      <aside class="sidebar" aria-label="Sidebar">
+        <!-- Live News Widget -->
+        <div class="widget" id="newsWidget">
+          <h3 data-i18n="widget_news">📡 Latest News</h3>
+          <div id="newsWidgetList">
+            <p class="loading-state" data-i18n="loading">Loading...</p>
+          </div>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;" data-i18n="news_updated">Updated hourly</p>
+          <a href="news.html" style="font-size:0.8rem;font-weight:600" data-i18n="view_all_news">View all news →</a>
+        </div>
+
+        <!-- Bookmarked Articles Widget -->
+        <div class="widget">
+          <h3 data-i18n="widget_bookmarks">🔖 Saved Articles</h3>
+          <ul id="bookmarksList" style="list-style:none; padding:0; font-size:0.88rem; color:var(--text-muted);">
+            <li data-i18n="no_bookmarks">No saved articles yet.</li>
+          </ul>
+        </div>
+
+        <div class="widget">
+          <h3 data-i18n="widget_trending">🔥 Trending</h3>
+          <ol class="popular-list" id="trendingList">
+            <li style="color:var(--text-muted);font-size:0.9rem" data-i18n="loading">Loading...</li>
+          </ol>
+        </div>
+
+        <div class="widget">
+          <h3 data-i18n="widget_newsletter">📬 Newsletter</h3>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:12px;" data-i18n="newsletter_desc">
+            Weekly digest of the best tech articles. No spam.
+          </p>
+          <form class="newsletter-form" name="newsletter" data-netlify="true" novalidate>
+            <input type="hidden" name="form-name" value="newsletter">
+            <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+            <button type="submit" data-i18n="btn_subscribe">Subscribe</button>
+            <p class="newsletter-msg" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="widget">
+          <h3 data-i18n="widget_topics">🏷 Topics</h3>
+          <div class="tags" id="tagList"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <script src="js/live-news.js?v=20260920c"></script>
+  <script src="js/common.js?v=20260920c"></script>
+  <script src="js/i18n.js?v=20260920c"></script>
+  <script src="js/main.js?v=20260920c"></script>
+</body>
+</html>
