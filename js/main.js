@@ -35,8 +35,8 @@
 
       statsContainer.innerHTML = `
         <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-          <span>📊 زيارات اليوم للموقع: <strong>${stats.daily}</strong> <small style="color:#aaa;">(${encDaily})</small></span>
-          <span>🌐 إجمالي زيارات الموقع: <strong>${stats.total}</strong> <small style="color:#aaa;">(${encTotal})</small></span>
+          <span>📊 Today: <strong>${stats.daily}</strong> <small style="color:#aaa;">(${encDaily})</small></span>
+          <span>🌐 All: <strong>${stats.total}</strong> <small style="color:#aaa;">(${encTotal})</small></span>
         </div>
       `;
     }
