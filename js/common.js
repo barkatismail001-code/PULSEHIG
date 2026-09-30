@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TechPulse — Shared Utilities (common.js) - Supabase Connected (Separate Views Table)
+   TechPulse — Shared Utilities (common.js) - Global Site Stats & Encryption
    ========================================================================== */
 window.TPCommon = (function () {
   'use strict';
@@ -54,13 +54,20 @@ window.TPCommon = (function () {
     });
   }
 
+  /* ---------- دالة تشفير إحصائيات الموقع إلى رموز لا يفهمها الزوار ---------- */
+  function encryptStatCode(num) {
+    if (isNaN(num)) num = 0;
+    const salt = "TP-GLOBAL-SEC";
+    let encoded = btoa(num + "-" + salt).split('').reverse().join('');
+    return "⚡[" + encoded.substring(0, 6) + "::" + (num * 4 + 9) + "]";
+  }
+
   /* ---------- Article data from Supabase Database ---------- */
   let cache = null;
   async function getArticles(force) {
     if (cache && !force) return cache;
     let published = [];
 
-    // الاتصال بقاعدة بيانات Supabase لجلب المقالات الحية
     try {
       const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
       const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
@@ -80,7 +87,6 @@ window.TPCommon = (function () {
       console.warn('Could not load from Supabase database, trying fallback...', err);
     }
 
-    // احتياطياً في حال تعذر الاتصال بـ Supabase
     if (!published.length) {
       try {
         const res = await fetch('data/articles.json', { cache: 'no-store' });
@@ -94,10 +100,6 @@ window.TPCommon = (function () {
     }
 
     cache = published;
-    
-    // جلب جميع المشاهدات دفعة واحدة من الجدول المستقل وتخزينها محلياً لضمان سرعة العرض
-    fetchAndUpdateAllViews(published);
-
     return published;
   }
 
@@ -111,44 +113,12 @@ window.TPCommon = (function () {
     return cachedVersion;
   }
 
-  /* ---------- View counts (Supabase - Separate Table) ---------- */
-  let viewCache = {};
-
-  async function fetchAndUpdateAllViews(articles) {
-    try {
-      const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
-      if (window.supabase && articles && articles.length > 0) {
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        const { data, error } = await sb.from('article_views').select('*');
-        if (!error && data) {
-          data.forEach(row => {
-            viewCache[row.article_id] = row.views_count;
-            localStorage.setItem('tp_views_' + row.article_id, String(row.views_count));
-          });
-        }
-      }
-    } catch (e) {
-      console.warn('Could not fetch views table:', e);
-    }
-  }
-
-  function getViews(id) {
-    if (viewCache[id] !== undefined) return viewCache[id];
-    return parseInt(localStorage.getItem('tp_views_' + id) || '0', 10);
-  }
-
-  async function registerView(id) {
-    const seenKey = 'tp_seen_' + id;
-    // منع تكرار احتساب نفس الزائر في نفس الجلسة
-    if (sessionStorage.getItem(seenKey)) return getViews(id);
-    sessionStorage.setItem(seenKey, '1');
-
-    // تحديث محلي سريع للتفاعل الفوري
-    let current = (viewCache[id] !== undefined ? viewCache[id] : getViews(id)) + 1;
-    viewCache[id] = current;
-    localStorage.setItem('tp_views_' + id, String(current));
-
+  /* ---------- Global Site Stats (Supabase) ---------- */
+  async function trackAndGetSiteStats() {
+    const sessionKey = 'tp_site_visited_session';
+    const todayStr = new Date().toISOString().split('T')[0];
+    let siteStats = { total: 0, daily: 0 };
+    
     try {
       const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
       const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
@@ -156,31 +126,46 @@ window.TPCommon = (function () {
       if (window.supabase) {
         const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        // 1. جلب العدد الحالي من جدول المشاهدات المستقل
-        const { data, error } = await sb
-          .from('article_views')
-          .select('views_count')
-          .eq('article_id', id)
+        let { data, error } = await sb
+          .from('site_stats')
+          .select('*')
+          .eq('id', 'global')
           .maybeSingle();
 
-        let newViews = current;
-        if (!error && data) {
-          newViews = (data.views_count || 0) + 1;
+        let total = data ? (data.total_visits || 0) : 0;
+        let daily = data ? (data.daily_visits || 0) : 0;
+        let lastDate = data ? data.last_visit_date : '';
+
+        // تسجيل الزيارة مرة واحدة في الجلسة لكل زائر
+        if (!sessionStorage.getItem(sessionKey)) {
+          sessionStorage.setItem(sessionKey, '1');
+          total += 1;
+
+          if (lastDate !== todayStr) {
+            daily = 1;
+            lastDate = todayStr;
+          } else {
+            daily += 1;
+          }
+
+          await sb
+            .from('site_stats')
+            .upsert({ id: 'global', total_visits: total, daily_visits: daily, last_visit_date: lastDate });
         }
 
-        // 2. تحديث أو إدخال السطر في جدول article_views المستقل
-        await sb
-          .from('article_views')
-          .upsert({ article_id: id, views_count: newViews });
-
-        viewCache[id] = newViews;
-        localStorage.setItem('tp_views_' + id, String(newViews));
+        siteStats = { total, daily };
+        localStorage.setItem('tp_site_total', String(total));
+        localStorage.setItem('tp_site_daily', String(daily));
       }
     } catch (err) {
-      console.warn('Could not update views in separate table:', err);
+      console.warn('Could not update global site stats:', err);
+      siteStats = {
+        total: parseInt(localStorage.getItem('tp_site_total') || '0', 10),
+        daily: parseInt(localStorage.getItem('tp_site_daily') || '0', 10)
+      };
     }
 
-    return getViews(id);
+    return siteStats;
   }
 
   /* ---------- Likes ---------- */
@@ -402,7 +387,7 @@ window.TPCommon = (function () {
     esc, slugify, formatDate, calcReadMinutes,
     pickLocalized, localizeArticle, translateCategory,
     getArticles, getArticlesVersion,
-    getViews, registerView,
+    trackAndGetSiteStats, encryptStatCode,
     getLikeCount, hasLiked, toggleLike,
     getBookmarks, isBookmarked, toggleBookmark,
     showToast, initDarkMode, initAdminGate, initTicker,
