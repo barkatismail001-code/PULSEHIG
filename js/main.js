@@ -321,6 +321,22 @@ function categoriesOf(articles) {
     `;
   }
 
+   document.addEventListener('DOMContentLoaded', async () => {
+  const stats = await TPCommon.trackAndGetSiteStats();
+  const statsContainer = document.getElementById('globalSiteStats');
+  if (statsContainer) {
+    const encTotal = TPCommon.encryptStatCode(stats.total);
+    const encDaily = TPCommon.encryptStatCode(stats.daily);
+
+    statsContainer.innerHTML = `
+      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <span>📊 زيارات اليوم للموقع: <strong>${stats.daily}</strong> <small style="color:#aaa;">(${encDaily})</small></span>
+        <span>🌐 إجمالي زيارات الموقع: <strong>${stats.total}</strong> <small style="color:#aaa;">(${encTotal})</small></span>
+      </div>
+    `;
+  }
+});
+
   function wireCardInteractions(grid) {
     grid.querySelectorAll('[data-like]').forEach(btn => {
       btn.addEventListener('click', () => {
