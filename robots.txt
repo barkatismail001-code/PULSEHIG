@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin.html
-
-Sitemap: https://techpulse.example.com/sitemap.xml
