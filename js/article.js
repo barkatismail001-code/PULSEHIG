@@ -35,6 +35,13 @@
         setMeta('og:description', article.excerpt || '');
         setMeta('og:type', 'article');
 
+        // Per-article URL + image (canonical must include ?id= so each article is its own page)
+        const pageUrl = location.origin + location.pathname + '?id=' + encodeURIComponent(article.id);
+        setMeta('og:url', pageUrl);
+        if (article.image) setMeta('og:image', new URL(article.image, location.origin + '/').href);
+        const canon = document.querySelector('link[rel="canonical"]');
+        if (canon) canon.setAttribute('href', pageUrl);
+
         const crumb = $('#breadcrumbTitle');
         if (crumb) crumb.textContent = article.title.length > 40
             ? article.title.slice(0, 40) + '…'
