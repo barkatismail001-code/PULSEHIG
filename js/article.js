@@ -41,7 +41,7 @@
             : article.title;
 
         const readMin = C.calcReadMinutes(article.content);
-        const views = C.registerView(article.id);
+        const views = C.getViews(article.id); // cached value; updated below once Supabase answers
         const liked = C.hasLiked(article.id);
         const likeCount = C.getLikeCount(article.id);
         const bookmarked = C.isBookmarked(article.id);
@@ -93,7 +93,7 @@
                         <span>👤 ${C.esc(article.author || 'TechPulse Team')}</span>
                         <span>📅 ${C.formatDate(article.date, lang) || C.formatDate(new Date().toISOString(), lang)}</span>
                         <span>⏱ ${readMin} <span data-i18n="read_time">${I.t('read_time')}</span></span>
-                        <span>👁️ ${views} <span data-i18n="views">${I.t('views')}</span></span>
+                        <span>👁️ <span id="articleViewsCount">${views}</span> <span data-i18n="views">${I.t('views')}</span></span>
                     </div>
                 </header>
 
@@ -129,6 +129,12 @@
             </article>
             ${relatedHTML}
         `;
+
+        // Count this view in Supabase (once per session), then show the real number
+        C.registerView(article.id).then(total => {
+            const el = document.getElementById('articleViewsCount');
+            if (el) el.textContent = total;
+        });
 
         C.loadDisqusThread(document.getElementById('commentsContainer'), {
             identifier: article.id,
