@@ -63,6 +63,23 @@ window.TPCommon = (function () {
     return "⚡[" + encoded.substring(0, 6) + "::" + (num * 3 + 7) + "]";
   }
 
+  /* ---------- Supabase client (shared, created once) ---------- */
+  const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+
+  function getClient() {
+    if (window.supabaseClient) return window.supabaseClient;
+    if (window.supabase && window.supabase.createClient) {
+      window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      return window.supabaseClient;
+    }
+    return null;
+  }
+
+  function todayStr() {
+    return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
+  }
+
   /* ---------- Article data from Supabase Database ---------- */
   let cache = null;
   async function getArticles(force) {
@@ -70,19 +87,13 @@ window.TPCommon = (function () {
     let published = [];
 
     try {
-      const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
-
-      if (window.supabase) {
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const sb = getClient();
+      if (sb) {
         const { data, error } = await sb
           .from('articles')
           .select('*')
           .order('id', { ascending: false });
-
-        if (!error && data) {
-          published = data;
-        }
+        if (!error && data) published = data;
       }
     } catch (err) {
       console.warn('Could not load from Supabase database, trying fallback...', err);
@@ -101,7 +112,7 @@ window.TPCommon = (function () {
     }
 
     cache = published;
-    fetchAndUpdateAllViews(published);
+    fetchAndUpdateAllViews();
     return published;
   }
 
@@ -115,97 +126,103 @@ window.TPCommon = (function () {
     return cachedVersion;
   }
 
-  /* ---------- View counts & Daily stats (Supabase) ---------- */
+  /* ---------- Site-wide visit counter (stored in Supabase: site_stats, id='global') ----------
+     Counted once per browser session via the hit_site() SQL function.
+     Later page loads in the same session only read the current values. */
+  async function trackAndGetSiteStats() {
+    const fallback = { total: 0, daily: 0 };
+    const sb = getClient();
+    if (!sb) return fallback;
+    try {
+      if (!sessionStorage.getItem('tp_site_hit')) {
+        const { data, error } = await sb.rpc('hit_site', { p_today: todayStr() });
+        if (!error && data) {
+          sessionStorage.setItem('tp_site_hit', '1');
+          return { total: data.total || 0, daily: data.daily || 0 };
+        }
+        if (error) console.warn('hit_site failed:', error.message);
+      }
+      const { data, error } = await sb
+        .from('site_stats')
+        .select('total_visits, daily_visits, last_visit_date')
+        .eq('id', 'global')
+        .maybeSingle();
+      if (!error && data) {
+        return {
+          total: data.total_visits || 0,
+          daily: data.last_visit_date === todayStr() ? (data.daily_visits || 0) : 0
+        };
+      }
+    } catch (e) {
+      console.warn('Could not load site stats:', e);
+    }
+    return fallback;
+  }
+
+  /* ---------- Per-article views (stored in Supabase: article_views) ---------- */
   let viewCache = {};
   let dailyViewCache = {};
+  const freshIds = new Set(); // ids already updated this page-load (don't overwrite with older data)
 
-  async function fetchAndUpdateAllViews(articles) {
+  async function fetchAndUpdateAllViews() {
     try {
-      const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
-      if (window.supabase && articles && articles.length > 0) {
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        const { data, error } = await sb.from('article_views').select('*');
-        if (!error && data) {
-          data.forEach(row => {
-            viewCache[row.article_id] = row.views_count || 0;
-            dailyViewCache[row.article_id] = row.daily_views || 0;
-            localStorage.setItem('tp_views_' + row.article_id, String(row.views_count || 0));
-            localStorage.setItem('tp_daily_' + row.article_id, String(row.daily_views || 0));
-          });
-        }
-      }
+      const sb = getClient();
+      if (!sb) return;
+      const { data, error } = await sb
+        .from('article_views')
+        .select('article_id, views_count, daily_views, last_visit_date');
+      if (error || !data) return;
+      const today = todayStr();
+      data.forEach(row => {
+        const id = String(row.article_id);
+        if (freshIds.has(id)) return;
+        viewCache[id] = row.views_count || 0;
+        dailyViewCache[id] = row.last_visit_date === today ? (row.daily_views || 0) : 0;
+      });
     } catch (e) {
       console.warn('Could not fetch views table:', e);
     }
   }
 
   function getViews(id) {
-    return viewCache[id] !== undefined ? viewCache[id] : parseInt(localStorage.getItem('tp_views_' + id) || '0', 10);
+    return viewCache[String(id)] || 0;
   }
 
   function getDailyViews(id) {
-    return dailyViewCache[id] !== undefined ? dailyViewCache[id] : parseInt(localStorage.getItem('tp_daily_' + id) || '0', 10);
+    return dailyViewCache[String(id)] || 0;
   }
 
+  // Counts one view per browser session per article, via the hit_article() SQL function.
   async function registerView(id) {
+    id = String(id);
     const seenKey = 'tp_seen_' + id;
-    if (sessionStorage.getItem(seenKey)) return getViews(id);
-    sessionStorage.setItem(seenKey, '1');
-
-    const todayStr = new Date().toISOString().split('T')[0];
-    let currentTotal = getViews(id) + 1;
-    let currentDaily = getDailyViews(id) + 1;
-
-    viewCache[id] = currentTotal;
-    dailyViewCache[id] = currentDaily;
-    localStorage.setItem('tp_views_' + id, String(currentTotal));
-    localStorage.setItem('tp_daily_' + id, String(currentDaily));
-
+    const sb = getClient();
     try {
-      const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
-
-      if (window.supabase) {
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
+      if (sb && !sessionStorage.getItem(seenKey)) {
+        const { data, error } = await sb.rpc('hit_article', { p_id: id, p_today: todayStr() });
+        if (!error && data) {
+          sessionStorage.setItem(seenKey, '1');
+          freshIds.add(id);
+          viewCache[id] = data.views || 0;
+          dailyViewCache[id] = data.daily || 0;
+        } else if (error) {
+          console.warn('hit_article failed:', error.message);
+        }
+      } else if (sb) {
+        // already counted in this session: just read the current number
         const { data } = await sb
           .from('article_views')
           .select('views_count, daily_views, last_visit_date')
           .eq('article_id', id)
           .maybeSingle();
-
-        let total = currentTotal;
-        let daily = currentDaily;
-
         if (data) {
-          total = (data.views_count || 0) + 1;
-          // تصفير الزيارات اليومية إذا كان التاريخ قد تغير إلى يوم جديد
-          if (data.last_visit_date !== todayStr) {
-            daily = 1;
-          } else {
-            daily = (data.daily_views || 0) + 1;
-          }
+          viewCache[id] = data.views_count || 0;
+          dailyViewCache[id] = data.last_visit_date === todayStr() ? (data.daily_views || 0) : 0;
         }
-
-        await sb
-          .from('article_views')
-          .upsert({ 
-            article_id: id, 
-            views_count: total, 
-            daily_views: daily, 
-            last_visit_date: todayStr 
-          });
-
-        viewCache[id] = total;
-        dailyViewCache[id] = daily;
-        localStorage.setItem('tp_views_' + id, String(total));
-        localStorage.setItem('tp_daily_' + id, String(daily));
       }
     } catch (err) {
-      console.warn('Could not update views in separate table:', err);
+      console.warn('Could not update article views:', err);
     }
-
     return getViews(id);
   }
 
@@ -428,7 +445,7 @@ window.TPCommon = (function () {
     esc, slugify, formatDate, calcReadMinutes,
     pickLocalized, localizeArticle, translateCategory,
     getArticles, getArticlesVersion,
-    getViews, getDailyViews, registerView, encryptStatCode,
+    getViews, getDailyViews, registerView, trackAndGetSiteStats, encryptStatCode,
     getLikeCount, hasLiked, toggleLike,
     getBookmarks, isBookmarked, toggleBookmark,
     showToast, initDarkMode, initAdminGate, initTicker,
