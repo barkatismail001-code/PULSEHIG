@@ -7,9 +7,8 @@
   'use strict';
 
   // Supabase Configuration (Placeholder - update with your project credentials if needed)
-  const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-  const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
-
+  const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
   // Simple fetch wrapper for Supabase REST API
   async function supabaseRequest(endpoint, options = {}) {
     if (SUPABASE_URL === 'YOUR_SUPABASE_URL' || !SUPABASE_URL) return null;
