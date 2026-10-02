@@ -359,4 +359,120 @@ window.TPCommon = (function () {
     if (!track) return;
 
     function render() {
-      if (!t
+      if (!tickerData.length) return;
+      const lang = window.TPI18N ? window.TPI18N.getLang() : 'en';
+      track.innerHTML = '';
+      [...tickerData, ...tickerData].forEach(item => {
+        const titleText = (item.title && item.title[lang]) ? item.title[lang] : (item.title.en || item.title);
+        const href = item.url && item.url !== '#' ? item.url : '#';
+        const span = document.createElement('span');
+        span.className = 'ticker-item';
+        span.innerHTML = `<a href="${esc(href)}"${href !== '#' ? ' target="_blank" rel="noopener"' : ''}>${esc(titleText)}</a>`;
+        track.appendChild(span);
+      });
+    }
+    document.addEventListener('tp:langchange', render);
+
+    if (window.TPLiveNews) {
+      window.TPLiveNews.startAutoRefresh(feed => { tickerData = feed; render(); });
+    } else {
+      fetch('data/news.json').then(r => r.json()).then(json => { tickerData = json; render(); }).catch(() => {});
+    }
+  }
+
+  const DISQUS_SHORTNAME = 'techpulse-2';
+
+  function disqusUnavailableHTML() {
+    const msg = window.TPI18N ? window.TPI18N.t('comments_unavailable') : "Comments aren't set up on this preview yet.";
+    return `<p class="comments-unavailable">💬 ${esc(msg)}</p>`;
+  }
+
+  function loadDisqusThread(container, { identifier, url, title }) {
+    if (!DISQUS_SHORTNAME) {
+      container.innerHTML = disqusUnavailableHTML();
+      return;
+    }
+    container.innerHTML = '';
+    const threadDiv = document.createElement('div');
+    threadDiv.id = 'disqus_thread';
+    container.appendChild(threadDiv);
+
+    if (window.DISQUS) {
+      window.DISQUS.reset({
+        reload: true,
+        config: function () {
+          this.page.identifier = identifier;
+          this.page.url = url;
+          this.page.title = title;
+        }
+      });
+      return;
+    }
+
+    window.disqus_config = function () {
+      this.page.identifier = identifier;
+      this.page.url = url;
+      this.page.title = title;
+    };
+    const script = document.createElement('script');
+    script.src = `https://${DISQUS_SHORTNAME}.disqus.com/embed.js`;
+    script.setAttribute('data-timestamp', String(+new Date()));
+    (document.head || document.body).appendChild(script);
+  }
+
+  function hasComments() { return !!DISQUS_SHORTNAME; }
+
+  const CATEGORY_LABELS = {
+    Technology:  { en: 'Technology',  zh: '科技',   es: 'Tecnología',   hi: 'तकनीक',        fr: 'Technologie' },
+    Petroleum:   { en: 'Petroleum',   zh: '石油',   es: 'Petróleo',     hi: 'पेट्रोलियम',    fr: 'Pétrole' },
+    Gas:         { en: 'Natural Gas', zh: '天然气', es: 'Gas Natural',  hi: 'प्राकृतिक गैस', fr: 'Gaz Naturel' },
+    Programming: { en: 'Programming', zh: '编程',   es: 'Programación', hi: 'प्रोग्रामिंग',  fr: 'Programmation' }
+  };
+  function translateCategory(category, lang) {
+    const entry = CATEGORY_LABELS[category];
+    if (!entry) return category || '';
+    return entry[lang] || entry.en;
+  }
+
+  /* ---------- Web Share API ---------- */
+  function shareArticle(title, url) {
+    if (navigator.share) {
+      return navigator.share({ title, url }).catch(() => {});
+    }
+    if (navigator.clipboard) {
+      return navigator.clipboard.writeText(url).then(() => {
+        showToast('✓ Link copied');
+      });
+    }
+    return Promise.resolve();
+  }
+
+  /* ---------- Service Worker registration ---------- */
+  function registerServiceWorker() {
+    if (!('serviceWorker' in navigator)) return;
+    if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('[TechPulse] SW registered'))
+        .catch(err => console.warn('[TechPulse] SW failed', err));
+    });
+  }
+
+  return {
+    articleSlug, articleUrl, esc, slugify, formatDate, calcReadMinutes,
+    pickLocalized, localizeArticle, translateCategory,
+    getArticles, getArticlesVersion,
+    getViews, getDailyViews, registerView, trackAndGetSiteStats, encryptStatCode,
+    getLikeCount, hasLiked, toggleLike,
+    getBookmarks, isBookmarked, toggleBookmark,
+    showToast, initDarkMode, initAdminGate, initTicker,
+    loadDisqusThread, hasComments,
+    shareArticle,
+    registerServiceWorker
+  };
+})();
+
+// Auto-register service worker on every page load
+if (window.TPCommon && window.TPCommon.registerServiceWorker) {
+  window.TPCommon.registerServiceWorker();
+}
