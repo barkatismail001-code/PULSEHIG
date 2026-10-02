@@ -312,6 +312,8 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     position: relative;
     overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: 320px;
 }
 .article-card::before {
     content: "";
@@ -521,13 +523,6 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
     padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
 }
-.article-hero-img {
-    width: 100%;
-    max-height: 420px;
-    object-fit: cover;
-    border-radius: var(--radius);
-    margin: 20px 0;
-}
 .article-excerpt {
     padding: 16px 20px;
     background: var(--primary-soft);
@@ -571,7 +566,11 @@ html.dark-theme .article-excerpt { background: rgba(59, 130, 246, 0.12); }
 
 .back-row { text-align: center; margin-top: 24px; }
 
-.related-section { margin-top: 50px; }
+.related-section {
+    margin-top: 50px;
+    content-visibility: auto;
+    contain-intrinsic-size: 400px;
+}
 .section-heading {
     font-size: 1.3rem;
     letter-spacing: -0.01em;
@@ -824,29 +823,7 @@ html.dark-theme .btn-delete { background: rgba(220, 38, 38, 0.15); color: #f8717
 }
 .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-/* ============ Responsive ============ */
-@media (max-width: 960px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; }
-}
-@media (max-width: 860px) {
-    .admin-container { grid-template-columns: 1fr; }
-}
-@media (max-width: 720px) {
-    .main-header .container { flex-direction: column; align-items: stretch; gap: 8px; }
-    .nav-links { justify-content: flex-start; }
-    .nav-links a { font-size: 0.88rem; padding: 6px 10px; }
-    .hero-section h1 { font-size: 1.5rem; }
-    .main-footer .container { justify-content: center; text-align: center; }
-    .ticker { font-size: 0.82rem; }
-    .ticker-label { font-size: 0.68rem; padding: 6px 10px; }
-    .single-article, .page-content { padding: 24px 20px; }
-    .form-row { grid-template-columns: 1fr; }
-    .article-meta { font-size: 0.82rem; gap: 10px; }
-    .breadcrumbs .current { max-width: 160px; }
-}
-
-/* ============ Language selector (shared across every page) ============ */
+/* ============ Language selector ============ */
 .lang-select {
     background: var(--bg-alt);
     color: var(--text);
@@ -859,7 +836,7 @@ html.dark-theme .btn-delete { background: rgba(220, 38, 38, 0.15); color: #f8717
     outline: none;
 }
 
-/* ============ Reading progress bar (top of viewport) ============ */
+/* ============ Reading progress bar ============ */
 #readingProgressBar {
     position: fixed;
     top: 0; left: 0;
@@ -900,7 +877,7 @@ html.dark-theme .btn-delete { background: rgba(220, 38, 38, 0.15); color: #f8717
 .like-btn.liked { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
 .like-count { font-variant-numeric: tabular-nums; }
 
-/* ============ Admin access modal (injected by common.js on every page) ============ */
+/* ============ Admin access modal ============ */
 .admin-modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -968,16 +945,20 @@ pre { position: relative; }
 /* ============ Article image gallery ============ */
 .article-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
     margin: 24px 0;
 }
-.article-gallery .gallery-img {
+.article-gallery img.gallery-img {
     width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: var(--radius-sm);
+    height: 280px;
+    object-fit: contain;
+    background-color: transparent;
+    border-radius: 8px;
     border: 1px solid var(--border);
+    display: block;
+    content-visibility: auto;
+    contain-intrinsic-size: 280px;
 }
 
 /* ============ Comments section ============ */
@@ -1015,7 +996,7 @@ pre { position: relative; }
 .forum-note { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin: 16px 0; }
 #forumThread { min-height: 200px; margin-top: 20px; }
 
-/* ============ News widget (homepage) ============ */
+/* ============ News widget ============ */
 .news-widget-item {
     display: block;
     padding: 8px 0;
@@ -1038,7 +1019,7 @@ pre { position: relative; }
     margin-inline-end: 6px;
 }
 
-/* ============ News page (news.html) ============ */
+/* ============ News page ============ */
 .news-columns {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1048,7 +1029,7 @@ pre { position: relative; }
 .news-columns .widget { margin: 0; }
 .news-columns .news-widget-item { padding: 10px 0; font-size: 0.92rem; }
 
-/* ============ Featured spotlight (homepage) ============ */
+/* ============ Featured spotlight ============ */
 .featured-spotlight {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -1086,6 +1067,77 @@ pre { position: relative; }
 .forum-cat-desc { font-size: 0.82rem; color: var(--text-muted); margin: -8px 0 16px; text-align: center; display: none; }
 .forum-cat-desc.active { display: block; }
 
+/* ============ Article hero image (single source of truth) ============ */
+.article-hero-img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    background-color: transparent;
+    border-radius: 8px;
+    margin: 20px auto;
+    display: block;
+}
+
+/* ============ FAQ section ============ */
+.faq-section {
+    margin: 40px 0;
+    padding: 24px;
+    background: var(--bg-soft);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+.faq-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    color: var(--primary);
+}
+.faq-item {
+    margin-bottom: 12px;
+    padding: 14px 16px;
+    background: var(--bg-alt);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+}
+.faq-item summary {
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text);
+    padding: 4px 0;
+}
+.faq-item summary:hover { color: var(--primary); }
+.faq-item p {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 960px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+}
+@media (max-width: 860px) {
+    .admin-container { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+    .main-header .container { flex-direction: column; align-items: stretch; gap: 8px; }
+    .nav-links { justify-content: flex-start; }
+    .nav-links a { font-size: 0.88rem; padding: 6px 10px; }
+    .hero-section h1 { font-size: 1.5rem; }
+    .main-footer .container { justify-content: center; text-align: center; }
+    .ticker { font-size: 0.82rem; }
+    .ticker-label { font-size: 0.68rem; padding: 6px 10px; }
+    .single-article, .page-content { padding: 24px 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    .article-meta { font-size: 0.82rem; gap: 10px; }
+    .breadcrumbs .current { max-width: 160px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -1093,44 +1145,4 @@ pre { position: relative; }
         transition-duration: 0.01ms !important;
     }
     .ticker-track { animation: none; padding-left: 20px; overflow-x: auto; }
-}
-/* تنسيق الصورة الرئيسية البارزة (Hero Image) لتظهر كاملة وبأبعاد صحيحة */
-.article-hero-img {
-    width: 100%;
-    max-height: 450px;
-    object-fit: contain; /* لتجنب قص الصورة وعرضها كاملة */
-    background-color: #0f172a; /* خلفية متناسقة في حال كانت أبعاد الصورة مختلفة */
-    border-radius: 8px;
-    margin: 20px 0;
-}
-
-/* تنسيق الصورة الرئيسية البارزة (Hero Image) لتظهر كاملة وبدون ألوان جانبية سوداء */
-.article-hero-img {
-    width: 100%;
-    max-height: 480px;
-    object-fit: contain; /* إظهار الصورة كاملة داخل الإطار دون قص */
-    background-color: transparent; /* إزالة اللون الأسود نهائياً وجعل الخلفية شفافة */
-    border-radius: 8px;
-    margin: 20px 0;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* تنسيق شبكة صور المعرض (Gallery) في أسفل المقال لتوحيد الأبعاد وإظهارها كاملة */
-.article-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-    margin: 24px 0;
-}
-
-.article-gallery img.gallery-img {
-    width: 100%;
-    height: 280px; /* توحيد الارتفاع لجميع صور المعرض */
-    object-fit: contain; /* ضبط محتوى الصورة لتظهر كاملة بداخل الأبعاد المحددة */
-    background-color: transparent; /* إزالة أي خلفية سوداء محتملة */
-    border-radius: 8px;
-    border: 1px solid var(--border-color, #334155);
-    display: block;
 }
