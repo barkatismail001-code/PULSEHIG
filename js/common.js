@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TechPulse — Shared Utilities (common.js) - Professional Edition
+   TechPulse — Shared Utilities (common.js) - Supabase Connected
    ========================================================================== */
 window.TPCommon = (function () {
   'use strict';
@@ -48,64 +48,39 @@ window.TPCommon = (function () {
 
   function localizeArticle(article, lang) {
     return Object.assign({}, article, {
-      _slug: articleSlug(article),
       title: pickLocalized(article.title, lang),
       excerpt: pickLocalized(article.excerpt, lang),
       content: pickLocalized(article.content, lang)
     });
   }
 
-  function encryptStatCode(num) {
-    if (isNaN(num)) num = 0;
-    const salt = "TP-SEC";
-    let encoded = btoa(num + "-" + salt).split('').reverse().join('');
-    return "⚡[" + encoded.substring(0, 6) + "::" + (num * 3 + 7) + "]";
-  }
-
-  function articleSlug(article) {
-    if (article && article._slug) return article._slug;
-    var t = article && article.title;
-    if (t && typeof t === 'string') { try { var o = JSON.parse(t); if (o && typeof o === 'object') t = o; } catch (e) {} }
-    var en = (t && typeof t === 'object') ? (t.en || Object.values(t).find(Boolean) || '') : String(t || '');
-    var slug = String(en).toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70).replace(/-+$/g, '');
-    return slug || ('article-' + encodeURIComponent(String(article && article.id)));
-  }
-  function articleUrl(article) { return '/a/' + articleSlug(article) + '.html'; }
-
-  const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
-
-  function getClient() {
-    if (window.supabaseClient) return window.supabaseClient;
-    if (window.supabase && window.supabase.createClient) {
-      window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      return window.supabaseClient;
-    }
-    return null;
-  }
-
-  function todayStr() {
-    return new Date().toISOString().slice(0, 10);
-  }
-
+  /* ---------- Article data from Supabase Database ---------- */
   let cache = null;
   async function getArticles(force) {
     if (cache && !force) return cache;
     let published = [];
 
+    // الاتصال بقاعدة بيانات Supabase لجلب المقالات الحية
     try {
-      const sb = getClient();
-      if (sb) {
+      const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+
+      if (window.supabase) {
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const { data, error } = await sb
           .from('articles')
           .select('*')
           .order('id', { ascending: false });
-        if (!error && data) published = data;
+
+        if (!error && data) {
+          published = data;
+        }
       }
     } catch (err) {
       console.warn('Could not load from Supabase database, trying fallback...', err);
     }
 
+    // احتياطياً في حال تعذر الاتصال بـ Supabase
     if (!published.length) {
       try {
         const res = await fetch('data/articles.json', { cache: 'no-store' });
@@ -119,7 +94,6 @@ window.TPCommon = (function () {
     }
 
     cache = published;
-    fetchAndUpdateAllViews();
     return published;
   }
 
@@ -133,100 +107,20 @@ window.TPCommon = (function () {
     return cachedVersion;
   }
 
-  async function trackAndGetSiteStats() {
-    const fallback = { total: 0, daily: 0 };
-    const sb = getClient();
-    if (!sb) return fallback;
-    try {
-      if (!sessionStorage.getItem('tp_site_hit')) {
-        const { data, error } = await sb.rpc('hit_site', { p_today: todayStr() });
-        if (!error && data) {
-          sessionStorage.setItem('tp_site_hit', '1');
-          return { total: data.total || 0, daily: data.daily || 0 };
-        }
-        if (error) console.warn('hit_site failed:', error.message);
-      }
-      const { data, error } = await sb
-        .from('site_stats')
-        .select('total_visits, daily_visits, last_visit_date')
-        .eq('id', 'global')
-        .maybeSingle();
-      if (!error && data) {
-        return {
-          total: data.total_visits || 0,
-          daily: data.last_visit_date === todayStr() ? (data.daily_visits || 0) : 0
-        };
-      }
-    } catch (e) {
-      console.warn('Could not load site stats:', e);
-    }
-    return fallback;
-  }
-
-  let viewCache = {};
-  let dailyViewCache = {};
-  const freshIds = new Set();
-
-  async function fetchAndUpdateAllViews() {
-    try {
-      const sb = getClient();
-      if (!sb) return;
-      const { data, error } = await sb
-        .from('article_views')
-        .select('article_id, views_count, daily_views, last_visit_date');
-      if (error || !data) return;
-      const today = todayStr();
-      data.forEach(row => {
-        const id = String(row.article_id);
-        if (freshIds.has(id)) return;
-        viewCache[id] = row.views_count || 0;
-        dailyViewCache[id] = row.last_visit_date === today ? (row.daily_views || 0) : 0;
-      });
-    } catch (e) {
-      console.warn('Could not fetch views table:', e);
-    }
-  }
-
+  /* ---------- View counts ---------- */
   function getViews(id) {
-    return viewCache[String(id)] || 0;
+    return parseInt(localStorage.getItem('tp_views_' + id) || '0', 10);
   }
-
-  function getDailyViews(id) {
-    return dailyViewCache[String(id)] || 0;
-  }
-
-  async function registerView(id) {
-    id = String(id);
+  function registerView(id) {
     const seenKey = 'tp_seen_' + id;
-    const sb = getClient();
-    try {
-      if (sb && !sessionStorage.getItem(seenKey)) {
-        const { data, error } = await sb.rpc('hit_article', { p_id: id, p_today: todayStr() });
-        if (!error && data) {
-          sessionStorage.setItem(seenKey, '1');
-          freshIds.add(id);
-          viewCache[id] = data.views || 0;
-          dailyViewCache[id] = data.daily || 0;
-        } else if (error) {
-          console.warn('hit_article failed:', error.message);
-        }
-      } else if (sb) {
-        const { data } = await sb
-          .from('article_views')
-          .select('views_count, daily_views, last_visit_date')
-          .eq('article_id', id)
-          .maybeSingle();
-        if (data) {
-          viewCache[id] = data.views_count || 0;
-          dailyViewCache[id] = data.last_visit_date === todayStr() ? (data.daily_views || 0) : 0;
-        }
-      }
-    } catch (err) {
-      console.warn('Could not update article views:', err);
-    }
-    return getViews(id);
+    if (sessionStorage.getItem(seenKey)) return getViews(id);
+    sessionStorage.setItem(seenKey, '1');
+    const v = getViews(id) + 1;
+    localStorage.setItem('tp_views_' + id, String(v));
+    return v;
   }
 
+  /* ---------- Likes ---------- */
   function readLikeMap() {
     try { return JSON.parse(localStorage.getItem('tp_likes') || '{}'); } catch { return {}; }
   }
@@ -251,6 +145,7 @@ window.TPCommon = (function () {
     return { liked: !already, count: map[id] };
   }
 
+  /* ---------- Bookmarks ---------- */
   function getBookmarks() {
     try { return JSON.parse(localStorage.getItem('tp_bookmarks') || '[]'); } catch { return []; }
   }
@@ -266,6 +161,7 @@ window.TPCommon = (function () {
     return bookmarks;
   }
 
+  /* ---------- Toast ---------- */
   let toastEl, toastTimer;
   function showToast(msg) {
     if (!toastEl) {
@@ -280,6 +176,7 @@ window.TPCommon = (function () {
   }
   if (!window.showToast) window.showToast = showToast;
 
+  /* ---------- Dark mode ---------- */
   function initDarkMode() {
     const root = document.documentElement;
     const btn = document.getElementById('darkModeToggle');
@@ -303,6 +200,7 @@ window.TPCommon = (function () {
     }
   }
 
+  /* ---------- Admin access gate ---------- */
   const ADMIN_PIN = '123456';
   function ensureAdminModal() {
     if (document.getElementById('adminModal')) return;
@@ -353,6 +251,7 @@ window.TPCommon = (function () {
     });
   }
 
+  /* ---------- News ticker ---------- */
   let tickerData = [];
   function initTicker() {
     const track = document.getElementById('tickerTrack');
@@ -380,6 +279,7 @@ window.TPCommon = (function () {
     }
   }
 
+  /* ---------- Disqus Comments ---------- */
   const DISQUS_SHORTNAME = 'techpulse-2';
 
   function disqusUnavailableHTML() {
@@ -422,6 +322,7 @@ window.TPCommon = (function () {
 
   function hasComments() { return !!DISQUS_SHORTNAME; }
 
+  /* ---------- Category translations ---------- */
   const CATEGORY_LABELS = {
     Technology:  { en: 'Technology',  zh: '科技',   es: 'Tecnología',   hi: 'तकनीक',        fr: 'Technologie' },
     Petroleum:   { en: 'Petroleum',   zh: '石油',   es: 'Petróleo',     hi: 'पेट्रोलियम',    fr: 'Pétrole' },
@@ -434,45 +335,14 @@ window.TPCommon = (function () {
     return entry[lang] || entry.en;
   }
 
-  /* ---------- Web Share API ---------- */
-  function shareArticle(title, url) {
-    if (navigator.share) {
-      return navigator.share({ title, url }).catch(() => {});
-    }
-    if (navigator.clipboard) {
-      return navigator.clipboard.writeText(url).then(() => {
-        showToast('✓ Link copied');
-      });
-    }
-    return Promise.resolve();
-  }
-
-  /* ---------- Service Worker registration ---------- */
-  function registerServiceWorker() {
-    if (!('serviceWorker' in navigator)) return;
-    if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('[TechPulse] SW registered'))
-        .catch(err => console.warn('[TechPulse] SW failed', err));
-    });
-  }
-
   return {
-    articleSlug, articleUrl, esc, slugify, formatDate, calcReadMinutes,
+    esc, slugify, formatDate, calcReadMinutes,
     pickLocalized, localizeArticle, translateCategory,
     getArticles, getArticlesVersion,
-    getViews, getDailyViews, registerView, trackAndGetSiteStats, encryptStatCode,
+    getViews, registerView,
     getLikeCount, hasLiked, toggleLike,
     getBookmarks, isBookmarked, toggleBookmark,
     showToast, initDarkMode, initAdminGate, initTicker,
-    loadDisqusThread, hasComments,
-    shareArticle,
-    registerServiceWorker
+    loadDisqusThread, hasComments
   };
 })();
-
-// Auto-register service worker on every page load
-if (window.TPCommon && window.TPCommon.registerServiceWorker) {
-  window.TPCommon.registerServiceWorker();
-}

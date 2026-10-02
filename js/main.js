@@ -2,7 +2,7 @@
    TechPulse Global Engine (main.js)
    - Ticker, dark mode, admin gate, code copy → js/common.js + js/i18n.js
    - Homepage article engine: filters, tags, search, trending, cards
-   - Reader interaction: bookmarks (sidebar) + likes + global site stats
+   - Reader interaction: bookmarks (sidebar) + likes + real view counts
    Requires js/common.js and js/i18n.js to be loaded first.
    ========================================================================== */
 (function () {
@@ -14,7 +14,7 @@
   let activeCategory = 'all';
   let searchTerm = '';
 
-  document.addEventListener('DOMContentLoaded', async () => {
+  document.addEventListener('DOMContentLoaded', () => {
     C.initDarkMode();
     C.initAdminGate();
     C.initTicker();
@@ -25,19 +25,6 @@
     initNewsletterForm();
     renderBookmarksList();
     initArticlesEngine();
-
-    // تشغيل وجلب إحصائيات الموقع العامة وعرضها في الأسفل مع الرموز المشفرة
-    const stats = await C.trackAndGetSiteStats();
-    const statsContainer = document.getElementById('globalSiteStats');
-    if (statsContainer) {
-
-      statsContainer.innerHTML = `
-        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-          <span>📊 Today: <strong>${stats.daily}</strong></span>
-          <span>🌐 All: <strong>${stats.total}</strong></span>
-        </div>
-      `;
-    }
   });
 
   document.addEventListener('tp:langchange', () => {
@@ -161,13 +148,18 @@
   }
 
   /* ==========================================================================
-     Homepage article engine
+     Homepage article engine — the part of the site that was never wired up:
+     #articles-container, #filters, #tagList and #trendingList existed in the
+     markup but nothing ever populated them. Fixed here.
      ========================================================================== */
   async function initArticlesEngine() {
     const grid = document.getElementById('articles-container');
     if (!grid) return; // not the homepage
 
     allArticles = await C.getArticles();
+    // Register a view for every article the moment its card enters the grid,
+    // matching how a real "articles listing" page is usually counted.
+    allArticles.forEach(a => C.registerView(a.id));
 
     renderSiteStats();
     renderFeatured();
@@ -181,6 +173,7 @@
   function renderSiteStats() {
     const box = document.getElementById('siteStatsBar');
     if (!box) return;
+    const lang = I.getLang();
     const cats = categoriesOf(allArticles).length;
     box.innerHTML = `
       <div class="stat-block"><span class="stat-num">${allArticles.length}</span><span class="stat-label">${C.esc(I.t('stats_articles'))}</span></div>
@@ -201,9 +194,7 @@
   }
 
   function categoriesOf(articles) {
-    return [...new Set(articles.map(a => a.category).filter(Boolean))]
-      .filter(cat => !/[\u0600-\u06FF]/.test(cat))
-      .sort();
+    return [...new Set(articles.map(a => a.category).filter(Boolean))].sort();
   }
 
   function renderFilters() {
@@ -245,13 +236,14 @@
     const list = document.getElementById('trendingList');
     if (!list) return;
     const lang = I.getLang();
-    // ترتيب المقالات الأكثر شهرة اعتماداً على التخزين المحلي أو الـ Views إذا رغبت، أو الاعتماد على الـ views المخزنة
-    const top = [...allArticles].slice(0, 5);
+    const top = [...allArticles]
+      .sort((a, b) => C.getViews(b.id) - C.getViews(a.id))
+      .slice(0, 5);
     if (!top.length) { list.innerHTML = ''; return; }
     list.innerHTML = top.map((a, i) => `
       <li>
         <span class="popular-num">${i + 1}</span>
-        <a href="${C.articleUrl(a)}">${C.esc(C.pickLocalized(a.title, lang))}</a>
+        <a href="article.html?id=${encodeURIComponent(a.id)}">${C.esc(C.pickLocalized(a.title, lang))}</a>
       </li>
     `).join('');
   }
@@ -295,6 +287,7 @@
 
   function renderCard(a, lang) {
     const readMin = C.calcReadMinutes(a.content);
+    const views = C.getViews(a.id);
     const liked = C.hasLiked(a.id);
     const likeCount = C.getLikeCount(a.id);
     const imgHTML = a.image
@@ -304,14 +297,15 @@
       <article class="article-card" data-id="${C.esc(a.id)}">
         ${imgHTML}
         <span class="card-category">${C.esc(C.translateCategory(a.category, lang))}</span>
-        <h3><a href="${C.articleUrl(a)}">${C.esc(a.title)}</a></h3>
+        <h3><a href="article.html?id=${encodeURIComponent(a.id)}">${C.esc(a.title)}</a></h3>
         <p>${C.esc(a.excerpt || '')}</p>
         <div class="card-meta">
           <span>📅 ${C.esc(C.formatDate(a.date, lang))}</span>
           <span>⏱️ ${readMin} ${C.esc(I.t('read_time'))}</span>
+          <span>👁️ ${views} ${C.esc(I.t('views'))}</span>
         </div>
         <div class="card-meta" style="border-top:none;padding-top:0;align-items:center;justify-content:space-between">
-          <a href="${C.articleUrl(a)}" class="read-more">${C.esc(I.t('read_more'))} →</a>
+          <a href="article.html?id=${encodeURIComponent(a.id)}" class="read-more">${C.esc(I.t('read_more'))} →</a>
           <span style="display:flex;gap:10px;align-items:center">
             <button type="button" class="like-btn${liked ? ' liked' : ''}" data-like="${C.esc(a.id)}" aria-label="Like">
               ${liked ? '❤️' : '🤍'} <span class="like-count">${likeCount}</span>
