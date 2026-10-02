@@ -1,0 +1,40 @@
+{
+  "name": "TechPulse — Engineering Platform",
+  "short_name": "TechPulse",
+  "description": "Embedded systems, petroleum, natural gas, and programming tutorials.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1220",
+  "theme_color": "#2563eb",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "news", "productivity"],
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Live News",
+      "url": "/news.html",
+      "description": "Latest tech and oil/gas news"
+    },
+    {
+      "name": "Community Forum",
+      "url": "/forum.html",
+      "description": "Join engineering discussions"
+    }
+  ]
+}
