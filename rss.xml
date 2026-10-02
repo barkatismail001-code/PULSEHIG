@@ -1,16 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TechPulse</title>
-    <link>https://pulsehig.com/</link>
-    <description>Technical tutorials, embedded systems, and hardware reviews.</description>
+    <link>https://www.pulsehig.com/</link>
+    <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>Technical tutorials, embedded systems, programming, oil and gas engineering.</description>
     <language>en-us</language>
+    <lastBuildDate>Fri, 02 Oct 2026 06:27:51 GMT</lastBuildDate>
+    <item>
+      <title>Real-Time Face Recognition with an IP Webcam and Python</title>
+      <link>https://www.pulsehig.com/article.html?id=article-1789501145223</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=article-1789501145223</guid>
+      <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Programming</category>
+      <description>Streaming frames from a phone&apos;s IP Webcam app into a Python pipeline for real-time face recognition with InsightFace.</description>
+    </item>
+    <item>
+      <title>Building a DIY Central Heating Controller</title>
+      <link>https://www.pulsehig.com/article.html?id=article-1789501099001</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=article-1789501099001</guid>
+      <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Technology</category>
+      <description>Designing a safe, ESP32-based central heating controller with a proper safety architecture and Home Assistant integration.</description>
+    </item>
     <item>
       <title>ESP32 &amp; ESP8266 Microcontroller Programming</title>
-      <link>https://pulsehig.com/article.html?id=1</link>
-      <description>Comprehensive guide to sensor interfacing, telemetry, and OTA firmware updates.</description>
-      <pubDate>Mon, 15 Sep 2026 00:00:00 GMT</pubDate>
-      <guid>https://pulsehig.com/article.html?id=1</guid>
+      <link>https://www.pulsehig.com/article.html?id=article-1789501032884</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=article-1789501032884</guid>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Programming</category>
+      <description>A practical guide to sensor interfacing, telemetry, and Over-The-Air (OTA) firmware updates on ESP32 and ESP8266 boards.</description>
+    </item>
+    <item>
+      <title>Introduction to Embedded C for Microcontrollers</title>
+      <link>https://www.pulsehig.com/article.html?id=prog-embedded-c</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-embedded-c</guid>
+      <pubDate>Sun, 13 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Programming</category>
+      <description>Embedded C looks like regular C, but with no operating system underneath, you&apos;re directly responsible for the hardware.</description>
+    </item>
+    <item>
+      <title>Version Control Basics: Git for Beginners</title>
+      <link>https://www.pulsehig.com/article.html?id=prog-git-basics</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-git-basics</guid>
+      <pubDate>Sat, 12 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Programming</category>
+      <description>Git tracks every change to your code so you can experiment fearlessly and always get back to a working version.</description>
+    </item>
+    <item>
+      <title>Understanding APIs: How Apps Talk to Each Other</title>
+      <link>https://www.pulsehig.com/article.html?id=prog-apis-explained</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-apis-explained</guid>
+      <pubDate>Fri, 11 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Programming</category>
+      <description>Every app on your phone talks to a server through an API. Here&apos;s what&apos;s actually happening in that request and response.</description>
+    </item>
+    <item>
+      <title>Python for Automation: Practical Scripts That Save Time</title>
+      <link>https://www.pulsehig.com/article.html?id=prog-python-automation</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-python-automation</guid>
+      <pubDate>Thu, 10 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Programming</category>
+      <description>You don&apos;t need to be a professional developer to automate the repetitive parts of your work with a few dozen lines of Python.</description>
+    </item>
+    <item>
+      <title>Getting Started with Arduino: Your First Project</title>
+      <link>https://www.pulsehig.com/article.html?id=prog-arduino-first-project</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-arduino-first-project</guid>
+      <pubDate>Wed, 09 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Programming</category>
+      <description>Blinking an LED is the classic first step â€” here&apos;s what&apos;s actually happening under the hood, and where to go next.</description>
+    </item>
+    <item>
+      <title>The Role of Natural Gas in the Energy Transition</title>
+      <link>https://www.pulsehig.com/article.html?id=gas-energy-transition</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-energy-transition</guid>
+      <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Gas</category>
+      <description>Natural gas is often called a &apos;bridge fuel&apos; â€” here&apos;s the technical reasoning behind that label, and its limits.</description>
+    </item>
+    <item>
+      <title>Gas Metering and Smart Meters for Homes and Industry</title>
+      <link>https://www.pulsehig.com/article.html?id=gas-smart-metering</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-smart-metering</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Gas</category>
+      <description>Smart gas meters do more than replace a manual reading â€” they enable leak detection and remote shutoff.</description>
+    </item>
+    <item>
+      <title>Shale Gas and Hydraulic Fracturing: A Technical Overview</title>
+      <link>https://www.pulsehig.com/article.html?id=gas-shale-fracking</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-shale-fracking</guid>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Gas</category>
+      <description>Shale gas reshaped global energy markets in the 2010s. Here&apos;s the actual engineering behind horizontal drilling and fracking.</description>
+    </item>
+    <item>
+      <title>Natural Gas Pipelines: How the Global Network Works</title>
+      <link>https://www.pulsehig.com/article.html?id=gas-pipelines</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-pipelines</guid>
+      <pubDate>Tue, 01 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Gas</category>
+      <description>Millions of kilometers of pipe move gas from wellhead to home â€” here&apos;s how pressure, compressor stations, and metering keep it flowing.</description>
+    </item>
+    <item>
+      <title>LNG Explained: How Natural Gas Crosses Oceans</title>
+      <link>https://www.pulsehig.com/article.html?id=gas-lng-explained</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-lng-explained</guid>
+      <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Gas</category>
+      <description>Pipelines can&apos;t cross oceans, so LNG shrinks natural gas 600-fold by cooling it to -162Â°C for shipping.</description>
+    </item>
+    <item>
+      <title>Oil Field Automation: Sensors, SCADA, and Remote Monitoring</title>
+      <link>https://www.pulsehig.com/article.html?id=oil-field-automation</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-field-automation</guid>
+      <pubDate>Fri, 28 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Petroleum</category>
+      <description>Modern oil fields run on the same SCADA and sensor principles as any industrial automation system â€” just built to survive harsher conditions.</description>
+    </item>
+    <item>
+      <title>The Basics of Offshore Drilling Technology</title>
+      <link>https://www.pulsehig.com/article.html?id=oil-offshore-drilling</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-offshore-drilling</guid>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Petroleum</category>
+      <description>From fixed platforms in shallow water to dynamically-positioned drillships in 3,000 meters of water â€” how offshore rigs actually work.</description>
+    </item>
+    <item>
+      <title>What OPEC+ Decisions Mean for Prices at the Pump</title>
+      <link>https://www.pulsehig.com/article.html?id=oil-opec-decisions</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-opec-decisions</guid>
+      <pubDate>Mon, 24 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Petroleum</category>
+      <description>OPEC+ production quotas move global oil prices, but the effect on your local gas station is slower and smaller than headlines suggest.</description>
+    </item>
+    <item>
+      <title>Inside an Oil Refinery: From Crude to Consumer Products</title>
+      <link>https://www.pulsehig.com/article.html?id=oil-refinery-process</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-refinery-process</guid>
+      <pubDate>Sat, 22 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Petroleum</category>
+      <description>A single barrel of crude becomes gasoline, diesel, jet fuel, and dozens of other products â€” here&apos;s the refining process, step by step.</description>
+    </item>
+    <item>
+      <title>How Crude Oil Prices Are Actually Set (Brent vs WTI Explained)</title>
+      <link>https://www.pulsehig.com/article.html?id=oil-brent-wti</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-brent-wti</guid>
+      <pubDate>Thu, 20 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Petroleum</category>
+      <description>News reports quote &apos;oil prices&apos; as one number, but there&apos;s no single global oil price â€” here&apos;s how the two big benchmarks work.</description>
+    </item>
+    <item>
+      <title>Cybersecurity Basics Every Small Business Should Know</title>
+      <link>https://www.pulsehig.com/article.html?id=tech-cybersecurity-basics</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-cybersecurity-basics</guid>
+      <pubDate>Tue, 18 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Technology</category>
+      <description>Most small business breaches come from a handful of preventable mistakes, not sophisticated hackers.</description>
+    </item>
+    <item>
+      <title>Solid State Drives vs Hard Drives: What Actually Changed</title>
+      <link>https://www.pulsehig.com/article.html?id=tech-ssd-vs-hdd</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-ssd-vs-hdd</guid>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Technology</category>
+      <description>SSDs won on speed years ago. The real question in 2026 is which SSD type fits your workload and budget.</description>
+    </item>
+    <item>
+      <title>A Beginner&apos;s Guide to Home Automation with Matter/Thread</title>
+      <link>https://www.pulsehig.com/article.html?id=tech-matter-thread</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-matter-thread</guid>
+      <pubDate>Fri, 14 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Technology</category>
+      <description>Matter promises one standard that works across brands. Here&apos;s what it actually fixes, and where it still falls short.</description>
+    </item>
+    <item>
+      <title>Understanding 5G and What It Means for IoT</title>
+      <link>https://www.pulsehig.com/article.html?id=tech-5g-iot</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-5g-iot</guid>
+      <pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Technology</category>
+      <description>5G isn&apos;t just &apos;faster 4G&apos; â€” the parts that matter most for IoT devices are lower latency and massive device density.</description>
+    </item>
+    <item>
+      <title>The Rise of Edge AI: Running Machine Learning on Small Devices</title>
+      <link>https://www.pulsehig.com/article.html?id=tech-edge-ai</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-edge-ai</guid>
+      <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <category>Technology</category>
+      <description>Why more machine learning inference is moving from the cloud to tiny, cheap chips â€” and what that means for privacy and latency.</description>
     </item>
   </channel>
 </rss>
