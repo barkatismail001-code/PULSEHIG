@@ -48,6 +48,7 @@ window.TPCommon = (function () {
 
   function localizeArticle(article, lang) {
     return Object.assign({}, article, {
+      _slug: articleSlug(article),
       title: pickLocalized(article.title, lang),
       excerpt: pickLocalized(article.excerpt, lang),
       content: pickLocalized(article.content, lang)
@@ -62,6 +63,17 @@ window.TPCommon = (function () {
     let encoded = btoa(num + "-" + salt).split('').reverse().join('');
     return "⚡[" + encoded.substring(0, 6) + "::" + (num * 3 + 7) + "]";
   }
+
+  /* ---------- Static, crawlable article URL (must match scripts/generate-seo.mjs) ---------- */
+  function articleSlug(article) {
+    if (article && article._slug) return article._slug;
+    var t = article && article.title;
+    if (t && typeof t === 'string') { try { var o = JSON.parse(t); if (o && typeof o === 'object') t = o; } catch (e) {} }
+    var en = (t && typeof t === 'object') ? (t.en || Object.values(t).find(Boolean) || '') : String(t || '');
+    var slug = String(en).toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70).replace(/-+$/g, '');
+    return slug || ('article-' + encodeURIComponent(String(article && article.id)));
+  }
+  function articleUrl(article) { return '/a/' + articleSlug(article) + '.html'; }
 
   /* ---------- Supabase client (shared, created once) ---------- */
   const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
@@ -442,7 +454,7 @@ window.TPCommon = (function () {
   }
 
   return {
-    esc, slugify, formatDate, calcReadMinutes,
+    articleSlug, articleUrl, esc, slugify, formatDate, calcReadMinutes,
     pickLocalized, localizeArticle, translateCategory,
     getArticles, getArticlesVersion,
     getViews, getDailyViews, registerView, trackAndGetSiteStats, encryptStatCode,
