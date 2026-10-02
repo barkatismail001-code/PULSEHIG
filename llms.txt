@@ -1,0 +1,34 @@
+# TechPulse
+
+> TechPulse is a dedicated engineering platform for embedded systems, microcontrollers, hardware tutorials, petroleum engineering, natural gas processing, and programming.
+
+TechPulse publishes deep technical articles in 5 languages (English, Chinese, Spanish, Hindi, French) covering:
+- Embedded systems & microcontrollers (ESP32, ESP8266, STM32, Arduino)
+- IoT hardware & firmware development
+- Petroleum engineering (upstream, midstream, downstream)
+- Natural gas processing & LNG technology
+- Programming (Python, C, Embedded C, Git, APIs)
+
+## Essential Pages
+- [Home](https://www.pulsehig.com/index.html): Latest technical articles
+- [Forum](https://www.pulsehig.com/forum.html): Live engineering community discussions
+- [Live News](https://www.pulsehig.com/news.html): Tech & oil/gas headlines refreshed hourly
+- [About](https://www.pulsehig.com/about.html): About TechPulse
+- [Contact](https://www.pulsehig.com/contact.html): Reach the editorial team
+
+## Featured Articles
+- [How Crude Oil Prices Are Actually Set (Brent vs WTI)](https://www.pulsehig.com/a/oil-brent-wti.html)
+- [Inside an Oil Refinery: From Crude to Consumer Products](https://www.pulsehig.com/a/oil-refinery-process.html)
+- [LNG Explained: How Natural Gas Crosses Oceans](https://www.pulsehig.com/a/gas-lng-explained.html)
+- [ESP32 & ESP8266 Microcontroller Programming](https://www.pulsehig.com/a/esp32-esp8266-microcontroller-programming.html)
+- [Real-Time Face Recognition with an IP Webcam and Python](https://www.pulsehig.com/a/real-time-face-recognition-with-an-ip-webcam-and-python.html)
+
+## Technical Standards
+- All articles are original, technically reviewed, and cite real engineering principles.
+- Content is structured with FAQ sections for AI citation.
+- Images are optimized (1200x630 minimum) for Google Discover.
+- Schema.org markup: Article, FAQPage, BreadcrumbList, Organization.
+
+## Contact
+- Website: https://www.pulsehig.com
+- Email: contact@pulsehig.com
