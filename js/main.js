@@ -30,13 +30,11 @@
     const stats = await C.trackAndGetSiteStats();
     const statsContainer = document.getElementById('globalSiteStats');
     if (statsContainer) {
-      const encTotal = C.encryptStatCode(stats.total);
-      const encDaily = C.encryptStatCode(stats.daily);
 
       statsContainer.innerHTML = `
         <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-          <span>📊 Today: <strong>${stats.daily}</strong> <small style="color:#aaa;">(${encDaily})</small></span>
-          <span>🌐 All: <strong>${stats.total}</strong> <small style="color:#aaa;">(${encTotal})</small></span>
+          <span>📊 Today: <strong>${stats.daily}</strong></span>
+          <span>🌐 All: <strong>${stats.total}</strong></span>
         </div>
       `;
     }
@@ -253,7 +251,7 @@
     list.innerHTML = top.map((a, i) => `
       <li>
         <span class="popular-num">${i + 1}</span>
-        <a href="article.html?id=${encodeURIComponent(a.id)}">${C.esc(C.pickLocalized(a.title, lang))}</a>
+        <a href="${C.articleUrl(a)}">${C.esc(C.pickLocalized(a.title, lang))}</a>
       </li>
     `).join('');
   }
@@ -306,14 +304,14 @@
       <article class="article-card" data-id="${C.esc(a.id)}">
         ${imgHTML}
         <span class="card-category">${C.esc(C.translateCategory(a.category, lang))}</span>
-        <h3><a href="article.html?id=${encodeURIComponent(a.id)}">${C.esc(a.title)}</a></h3>
+        <h3><a href="${C.articleUrl(a)}">${C.esc(a.title)}</a></h3>
         <p>${C.esc(a.excerpt || '')}</p>
         <div class="card-meta">
           <span>📅 ${C.esc(C.formatDate(a.date, lang))}</span>
           <span>⏱️ ${readMin} ${C.esc(I.t('read_time'))}</span>
         </div>
         <div class="card-meta" style="border-top:none;padding-top:0;align-items:center;justify-content:space-between">
-          <a href="article.html?id=${encodeURIComponent(a.id)}" class="read-more">${C.esc(I.t('read_more'))} →</a>
+          <a href="${C.articleUrl(a)}" class="read-more">${C.esc(I.t('read_more'))} →</a>
           <span style="display:flex;gap:10px;align-items:center">
             <button type="button" class="like-btn${liked ? ' liked' : ''}" data-like="${C.esc(a.id)}" aria-label="Like">
               ${liked ? '❤️' : '🤍'} <span class="like-count">${likeCount}</span>
