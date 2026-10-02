@@ -1,23 +1,52 @@
-name: Update sitemap and RSS
+name: Daily Article Generator & SEO Update
+
 on:
   schedule:
-    - cron: '0 */6 * * *'   # every 6 hours: picks up new articles from Supabase
-  workflow_dispatch: {}     # manual run from the Actions tab
-  push:
-    paths: ['scripts/generate-seo.mjs', 'data/articles.json', 'assets/**']
+    # Runs at 02:00 UTC every day
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allows manual triggering from the Actions tab
+
 permissions:
-  contents: write
+  contents: write # Required to push changes back to the repo
+
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - run: node scripts/generate-seo.mjs
-      - name: Commit if changed
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install @supabase/supabase-js
+
+      - name: Generate Daily Article
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: node scripts/daily-bot.mjs
+
+      - name: Generate SEO Files (Sitemap, RSS)
+        run: node scripts/generate-seo.mjs
+
+      - name: Commit and Push Changes
         run: |
-          git config user.name "techpulse-bot"
-          git config user.email "bot@users.noreply.github.com"
+          git config --global user.name "techpulse-bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          
+          # Add the generated SEO files and any static article pages
           git add -A a sitemap.xml rss.xml robots.txt
-          git diff --cached --quiet || (git commit -m "chore: update sitemap and rss" && git push)
+          
+          # Check if there are staged changes, commit and push if there are
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: auto-publish daily article and update SEO [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
