@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TechPulse — Shared Utilities (common.js) - Encrypted Stats & Daily Views
+   TechPulse — Shared Utilities (common.js) - Professional Edition
    ========================================================================== */
 window.TPCommon = (function () {
   'use strict';
@@ -55,16 +55,13 @@ window.TPCommon = (function () {
     });
   }
 
-  /* ---------- دالة تشفير الأرقام إلى رموز لا يفهمها الزوار ---------- */
   function encryptStatCode(num) {
     if (isNaN(num)) num = 0;
-    // تحويل الرقم إلى رموز عشوائية تبدو تقنية أو مشفرة
     const salt = "TP-SEC";
     let encoded = btoa(num + "-" + salt).split('').reverse().join('');
     return "⚡[" + encoded.substring(0, 6) + "::" + (num * 3 + 7) + "]";
   }
 
-  /* ---------- Static, crawlable article URL (must match scripts/generate-seo.mjs) ---------- */
   function articleSlug(article) {
     if (article && article._slug) return article._slug;
     var t = article && article.title;
@@ -75,7 +72,6 @@ window.TPCommon = (function () {
   }
   function articleUrl(article) { return '/a/' + articleSlug(article) + '.html'; }
 
-  /* ---------- Supabase client (shared, created once) ---------- */
   const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
 
@@ -89,10 +85,9 @@ window.TPCommon = (function () {
   }
 
   function todayStr() {
-    return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
+    return new Date().toISOString().slice(0, 10);
   }
 
-  /* ---------- Article data from Supabase Database ---------- */
   let cache = null;
   async function getArticles(force) {
     if (cache && !force) return cache;
@@ -138,9 +133,6 @@ window.TPCommon = (function () {
     return cachedVersion;
   }
 
-  /* ---------- Site-wide visit counter (stored in Supabase: site_stats, id='global') ----------
-     Counted once per browser session via the hit_site() SQL function.
-     Later page loads in the same session only read the current values. */
   async function trackAndGetSiteStats() {
     const fallback = { total: 0, daily: 0 };
     const sb = getClient();
@@ -171,10 +163,9 @@ window.TPCommon = (function () {
     return fallback;
   }
 
-  /* ---------- Per-article views (stored in Supabase: article_views) ---------- */
   let viewCache = {};
   let dailyViewCache = {};
-  const freshIds = new Set(); // ids already updated this page-load (don't overwrite with older data)
+  const freshIds = new Set();
 
   async function fetchAndUpdateAllViews() {
     try {
@@ -204,7 +195,6 @@ window.TPCommon = (function () {
     return dailyViewCache[String(id)] || 0;
   }
 
-  // Counts one view per browser session per article, via the hit_article() SQL function.
   async function registerView(id) {
     id = String(id);
     const seenKey = 'tp_seen_' + id;
@@ -221,7 +211,6 @@ window.TPCommon = (function () {
           console.warn('hit_article failed:', error.message);
         }
       } else if (sb) {
-        // already counted in this session: just read the current number
         const { data } = await sb
           .from('article_views')
           .select('views_count, daily_views, last_visit_date')
@@ -238,7 +227,6 @@ window.TPCommon = (function () {
     return getViews(id);
   }
 
-  /* ---------- Likes ---------- */
   function readLikeMap() {
     try { return JSON.parse(localStorage.getItem('tp_likes') || '{}'); } catch { return {}; }
   }
@@ -263,7 +251,6 @@ window.TPCommon = (function () {
     return { liked: !already, count: map[id] };
   }
 
-  /* ---------- Bookmarks ---------- */
   function getBookmarks() {
     try { return JSON.parse(localStorage.getItem('tp_bookmarks') || '[]'); } catch { return []; }
   }
@@ -279,7 +266,6 @@ window.TPCommon = (function () {
     return bookmarks;
   }
 
-  /* ---------- Toast ---------- */
   let toastEl, toastTimer;
   function showToast(msg) {
     if (!toastEl) {
@@ -294,7 +280,6 @@ window.TPCommon = (function () {
   }
   if (!window.showToast) window.showToast = showToast;
 
-  /* ---------- Dark mode ---------- */
   function initDarkMode() {
     const root = document.documentElement;
     const btn = document.getElementById('darkModeToggle');
@@ -318,7 +303,6 @@ window.TPCommon = (function () {
     }
   }
 
-  /* ---------- Admin access gate ---------- */
   const ADMIN_PIN = '123456';
   function ensureAdminModal() {
     if (document.getElementById('adminModal')) return;
@@ -369,98 +353,10 @@ window.TPCommon = (function () {
     });
   }
 
-  /* ---------- News ticker ---------- */
   let tickerData = [];
   function initTicker() {
     const track = document.getElementById('tickerTrack');
     if (!track) return;
 
     function render() {
-      if (!tickerData.length) return;
-      const lang = window.TPI18N ? window.TPI18N.getLang() : 'en';
-      track.innerHTML = '';
-      [...tickerData, ...tickerData].forEach(item => {
-        const titleText = (item.title && item.title[lang]) ? item.title[lang] : (item.title.en || item.title);
-        const href = item.url && item.url !== '#' ? item.url : '#';
-        const span = document.createElement('span');
-        span.className = 'ticker-item';
-        span.innerHTML = `<a href="${esc(href)}"${href !== '#' ? ' target="_blank" rel="noopener"' : ''}>${esc(titleText)}</a>`;
-        track.appendChild(span);
-      });
-    }
-    document.addEventListener('tp:langchange', render);
-
-    if (window.TPLiveNews) {
-      window.TPLiveNews.startAutoRefresh(feed => { tickerData = feed; render(); });
-    } else {
-      fetch('data/news.json').then(r => r.json()).then(json => { tickerData = json; render(); }).catch(() => {});
-    }
-  }
-
-  /* ---------- Disqus Comments ---------- */
-  const DISQUS_SHORTNAME = 'techpulse-2';
-
-  function disqusUnavailableHTML() {
-    const msg = window.TPI18N ? window.TPI18N.t('comments_unavailable') : "Comments aren't set up on this preview yet.";
-    return `<p class="comments-unavailable">💬 ${esc(msg)}</p>`;
-  }
-
-  function loadDisqusThread(container, { identifier, url, title }) {
-    if (!DISQUS_SHORTNAME) {
-      container.innerHTML = disqusUnavailableHTML();
-      return;
-    }
-    container.innerHTML = '';
-    const threadDiv = document.createElement('div');
-    threadDiv.id = 'disqus_thread';
-    container.appendChild(threadDiv);
-
-    if (window.DISQUS) {
-      window.DISQUS.reset({
-        reload: true,
-        config: function () {
-          this.page.identifier = identifier;
-          this.page.url = url;
-          this.page.title = title;
-        }
-      });
-      return;
-    }
-
-    window.disqus_config = function () {
-      this.page.identifier = identifier;
-      this.page.url = url;
-      this.page.title = title;
-    };
-    const script = document.createElement('script');
-    script.src = `https://${DISQUS_SHORTNAME}.disqus.com/embed.js`;
-    script.setAttribute('data-timestamp', String(+new Date()));
-    (document.head || document.body).appendChild(script);
-  }
-
-  function hasComments() { return !!DISQUS_SHORTNAME; }
-
-  /* ---------- Category translations ---------- */
-  const CATEGORY_LABELS = {
-    Technology:  { en: 'Technology',  zh: '科技',   es: 'Tecnología',   hi: 'तकनीक',        fr: 'Technologie' },
-    Petroleum:   { en: 'Petroleum',   zh: '石油',   es: 'Petróleo',     hi: 'पेट्रोलियम',    fr: 'Pétrole' },
-    Gas:         { en: 'Natural Gas', zh: '天然气', es: 'Gas Natural',  hi: 'प्राकृतिक गैस', fr: 'Gaz Naturel' },
-    Programming: { en: 'Programming', zh: '编程',   es: 'Programación', hi: 'प्रोग्रामिंग',  fr: 'Programmation' }
-  };
-  function translateCategory(category, lang) {
-    const entry = CATEGORY_LABELS[category];
-    if (!entry) return category || '';
-    return entry[lang] || entry.en;
-  }
-
-  return {
-    articleSlug, articleUrl, esc, slugify, formatDate, calcReadMinutes,
-    pickLocalized, localizeArticle, translateCategory,
-    getArticles, getArticlesVersion,
-    getViews, getDailyViews, registerView, trackAndGetSiteStats, encryptStatCode,
-    getLikeCount, hasLiked, toggleLike,
-    getBookmarks, isBookmarked, toggleBookmark,
-    showToast, initDarkMode, initAdminGate, initTicker,
-    loadDisqusThread, hasComments
-  };
-})();
+      if (!t
