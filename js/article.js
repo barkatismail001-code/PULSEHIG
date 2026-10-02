@@ -35,20 +35,13 @@
         setMeta('og:description', article.excerpt || '');
         setMeta('og:type', 'article');
 
-        // Per-article URL + image (canonical must include ?id= so each article is its own page)
-        const pageUrl = location.origin + location.pathname + '?id=' + encodeURIComponent(article.id);
-        setMeta('og:url', pageUrl);
-        if (article.image) setMeta('og:image', new URL(article.image, location.origin + '/').href);
-        const canon = document.querySelector('link[rel="canonical"]');
-        if (canon) canon.setAttribute('href', pageUrl);
-
         const crumb = $('#breadcrumbTitle');
         if (crumb) crumb.textContent = article.title.length > 40
             ? article.title.slice(0, 40) + '…'
             : article.title;
 
         const readMin = C.calcReadMinutes(article.content);
-        const views = C.getViews(article.id); // cached value; updated below once Supabase answers
+        const views = C.registerView(article.id);
         const liked = C.hasLiked(article.id);
         const likeCount = C.getLikeCount(article.id);
         const bookmarked = C.isBookmarked(article.id);
@@ -66,9 +59,9 @@
                     ${related.map(r => `
                         <article class="article-card">
                             <span class="card-category">${C.esc(C.translateCategory(r.category, lang))}</span>
-                            <h3><a href="${C.articleUrl(r)}">${C.esc(r.title)}</a></h3>
+                            <h3><a href="article.html?id=${encodeURIComponent(r.id)}">${C.esc(r.title)}</a></h3>
                             <p>${C.esc(r.excerpt)}</p>
-                            <a href="${C.articleUrl(r)}" class="read-more" data-i18n="read_more">${I.t('read_more')}</a>
+                            <a href="article.html?id=${encodeURIComponent(r.id)}" class="read-more" data-i18n="read_more">${I.t('read_more')}</a>
                         </article>
                     `).join('')}
                 </div>
@@ -100,7 +93,7 @@
                         <span>👤 ${C.esc(article.author || 'TechPulse Team')}</span>
                         <span>📅 ${C.formatDate(article.date, lang) || C.formatDate(new Date().toISOString(), lang)}</span>
                         <span>⏱ ${readMin} <span data-i18n="read_time">${I.t('read_time')}</span></span>
-                        <span>👁️ <span id="articleViewsCount">${views}</span> <span data-i18n="views">${I.t('views')}</span></span>
+                        <span>👁️ ${views} <span data-i18n="views">${I.t('views')}</span></span>
                     </div>
                 </header>
 
@@ -136,12 +129,6 @@
             </article>
             ${relatedHTML}
         `;
-
-        // Count this view in Supabase (once per session), then show the real number
-        C.registerView(article.id).then(total => {
-            const el = document.getElementById('articleViewsCount');
-            if (el) el.textContent = total;
-        });
 
         C.loadDisqusThread(document.getElementById('commentsContainer'), {
             identifier: article.id,
