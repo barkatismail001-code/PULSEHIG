@@ -3,115 +3,103 @@
   <channel>
     <title>TechPulse</title>
     <link>https://www.pulsehig.com/</link>
+    <description>Embedded systems, Arduino/ESP32 projects and home &amp; car repair guides.</description>
+    <language>en</language>
+    <lastBuildDate>Fri, 02 Oct 2026 14:12:45 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
-    <description>Technical tutorials, embedded systems, programming, oil and gas engineering.</description>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 02 Oct 2026 12:10:00 GMT</lastBuildDate>
     <item>
       <title>How to Lower Your Electric Bill Using Smart Thermostats and Outlets</title>
-      <link>https://www.pulsehig.com/article.html?id=15</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=15</guid>
+      <link>https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html</guid>
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>A technical analysis of how smart thermostats and energy monitoring interfaces utilize closed-loop control, hysteresis, and real-time telemetry to optimize HVAC efficiency and reduce residential electricity consumption.</description>
     </item>
     <item>
       <title>Fixing I2C Clock Stretching Timeouts in ESP32: Why Your Sensor Data Freezes and How to Resolve It</title>
-      <link>https://www.pulsehig.com/article.html?id=16</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=16</guid>
+      <link>https://www.pulsehig.com/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre.html</guid>
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>This technical deep-dive explores the mechanics of I2C clock stretching and its role in causing communication timeouts on ESP32-based systems. We analyze oscilloscope waveforms and circuit topologies to identify the root causes of bus stalls and provide actionable hardware and firmware strategies fo</description>
     </item>
     <item>
       <title>Solving High Household Energy Bills Using Smart Home Automation</title>
-      <link>https://www.pulsehig.com/article.html?id=11</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=11</guid>
+      <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>This technical analysis explores the architecture of modern smart home automation systems, focusing on the integration of real-time telemetry, automated actuation logic, and advanced data visualization to mitigate household energy expenditure through granular control of HVAC, lighting, and solar ass</description>
     </item>
     <item>
       <title>Smart Energy Audits: How Telemetry Can Slash Your Power Bills</title>
-      <link>https://www.pulsehig.com/article.html?id=12</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=12</guid>
+      <link>https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a</description>
     </item>
     <item>
       <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
-      <link>https://www.pulsehig.com/article.html?id=13</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=13</guid>
+      <link>https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common-household-a.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common-household-a.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>A comprehensive technical manual for diagnosing and repairing common dishwasher malfunctions, focusing on internal mechanical diagnostics, water filtration maintenance, and structural integrity assessment for modern household appliances.</description>
     </item>
     <item>
       <title>How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop</title>
-      <link>https://www.pulsehig.com/article.html?id=14</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=14</guid>
+      <link>https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
-      <description>A comprehensive diagnostic and remedial guide for resolving &apos;black screen but works&apos; anomalies in modern mobile devices. This technical breakdown covers software-induced display failures, hardware-level display connector diagnostics, and the specific scenarios where a functional device presents a no</description>
+      <description>A comprehensive diagnostic and remedial guide for resolving &#39;black screen but works&#39; anomalies in modern mobile devices. This technical breakdown covers software-induced display failures, hardware-level display connector diagnostics, and the specific scenarios where a functional device presents a no</description>
     </item>
     <item>
       <title>Deconstructing the Real Estate Ecosystem: A Multi-Layered Analysis of Market Dynamics, Structural Integrity, and Asset Transfer</title>
-      <link>https://www.pulsehig.com/article.html?id=5</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=5</guid>
+      <link>https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>This technical analysis provides a comprehensive breakdown of the visual systems representing the real estate sector. Through a detailed examination of three distinct graphical layers, we explore the logical flow of property acquisition, the engineering principles of structural assessment, and the o</description>
     </item>
     <item>
       <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
-      <link>https://www.pulsehig.com/article.html?id=6</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=6</guid>
+      <link>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque</description>
     </item>
     <item>
       <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
-      <link>https://www.pulsehig.com/article.html?id=7</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=7</guid>
+      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>تكنولوجيا</category>
       <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
     </item>
     <item>
       <title>The Smart House of Today</title>
-      <link>https://www.pulsehig.com/article.html?id=8</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=8</guid>
+      <link>https://www.pulsehig.com/a/the-smart-house-of-today.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/the-smart-house-of-today.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>تكنولوجيا</category>
       <description>A technical examination of modern residential automation, focusing on integrated hardware, centralized control interfaces, and the architectural integration of IoT ecosystems within contemporary living spaces.</description>
     </item>
     <item>
       <title>**Smart Living: The Next Generation of Home Automation**</title>
-      <link>https://www.pulsehig.com/article.html?id=9</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=9</guid>
+      <link>https://www.pulsehig.com/a/smart-living-the-next-generation-of-home-automation.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/smart-living-the-next-generation-of-home-automation.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>An in-depth engineering analysis of next-generation home automation, focusing on modular physical interfaces, high-fidelity software dashboards, and the integration of IoT into the architectural environment.</description>
     </item>
     <item>
       <title>Topic: How to Fix a Clogged Drain Without Harsh Chemicals</title>
-      <link>https://www.pulsehig.com/article.html?id=10</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=10</guid>
+      <link>https://www.pulsehig.com/a/topic-how-to-fix-a-clogged-drain-without-harsh-chemicals.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/topic-how-to-fix-a-clogged-drain-without-harsh-chemicals.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
       <description>A comprehensive technical analysis of non-chemical hydro-mechanical and chemical-neutralization protocols for residential drain remediation. This article details the application of mechanical extraction, thermal shock, and reactive cleaning agents to restore hydraulic efficiency in plumbing systems.</description>
     </item>
