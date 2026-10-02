@@ -6,213 +6,114 @@
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <description>Technical tutorials, embedded systems, programming, oil and gas engineering.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 02 Oct 2026 06:27:51 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 08:44:01 GMT</lastBuildDate>
     <item>
-      <title>Real-Time Face Recognition with an IP Webcam and Python</title>
-      <link>https://www.pulsehig.com/article.html?id=article-1789501145223</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=article-1789501145223</guid>
-      <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Programming</category>
-      <description>Streaming frames from a phone&apos;s IP Webcam app into a Python pipeline for real-time face recognition with InsightFace.</description>
-    </item>
-    <item>
-      <title>Building a DIY Central Heating Controller</title>
-      <link>https://www.pulsehig.com/article.html?id=article-1789501099001</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=article-1789501099001</guid>
-      <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <title>How to Lower Your Electric Bill Using Smart Thermostats and Outlets</title>
+      <link>https://www.pulsehig.com/article.html?id=15</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=15</guid>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
-      <description>Designing a safe, ESP32-based central heating controller with a proper safety architecture and Home Assistant integration.</description>
+      <description>A technical analysis of how smart thermostats and energy monitoring interfaces utilize closed-loop control, hysteresis, and real-time telemetry to optimize HVAC efficiency and reduce residential electricity consumption.</description>
     </item>
     <item>
-      <title>ESP32 &amp; ESP8266 Microcontroller Programming</title>
-      <link>https://www.pulsehig.com/article.html?id=article-1789501032884</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=article-1789501032884</guid>
-      <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Programming</category>
-      <description>A practical guide to sensor interfacing, telemetry, and Over-The-Air (OTA) firmware updates on ESP32 and ESP8266 boards.</description>
-    </item>
-    <item>
-      <title>Introduction to Embedded C for Microcontrollers</title>
-      <link>https://www.pulsehig.com/article.html?id=prog-embedded-c</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-embedded-c</guid>
-      <pubDate>Sun, 13 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Programming</category>
-      <description>Embedded C looks like regular C, but with no operating system underneath, you&apos;re directly responsible for the hardware.</description>
-    </item>
-    <item>
-      <title>Version Control Basics: Git for Beginners</title>
-      <link>https://www.pulsehig.com/article.html?id=prog-git-basics</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-git-basics</guid>
-      <pubDate>Sat, 12 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Programming</category>
-      <description>Git tracks every change to your code so you can experiment fearlessly and always get back to a working version.</description>
-    </item>
-    <item>
-      <title>Understanding APIs: How Apps Talk to Each Other</title>
-      <link>https://www.pulsehig.com/article.html?id=prog-apis-explained</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-apis-explained</guid>
-      <pubDate>Fri, 11 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Programming</category>
-      <description>Every app on your phone talks to a server through an API. Here&apos;s what&apos;s actually happening in that request and response.</description>
-    </item>
-    <item>
-      <title>Python for Automation: Practical Scripts That Save Time</title>
-      <link>https://www.pulsehig.com/article.html?id=prog-python-automation</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-python-automation</guid>
-      <pubDate>Thu, 10 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Programming</category>
-      <description>You don&apos;t need to be a professional developer to automate the repetitive parts of your work with a few dozen lines of Python.</description>
-    </item>
-    <item>
-      <title>Getting Started with Arduino: Your First Project</title>
-      <link>https://www.pulsehig.com/article.html?id=prog-arduino-first-project</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=prog-arduino-first-project</guid>
-      <pubDate>Wed, 09 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Programming</category>
-      <description>Blinking an LED is the classic first step â€” here&apos;s what&apos;s actually happening under the hood, and where to go next.</description>
-    </item>
-    <item>
-      <title>The Role of Natural Gas in the Energy Transition</title>
-      <link>https://www.pulsehig.com/article.html?id=gas-energy-transition</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-energy-transition</guid>
-      <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Gas</category>
-      <description>Natural gas is often called a &apos;bridge fuel&apos; â€” here&apos;s the technical reasoning behind that label, and its limits.</description>
-    </item>
-    <item>
-      <title>Gas Metering and Smart Meters for Homes and Industry</title>
-      <link>https://www.pulsehig.com/article.html?id=gas-smart-metering</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-smart-metering</guid>
-      <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Gas</category>
-      <description>Smart gas meters do more than replace a manual reading â€” they enable leak detection and remote shutoff.</description>
-    </item>
-    <item>
-      <title>Shale Gas and Hydraulic Fracturing: A Technical Overview</title>
-      <link>https://www.pulsehig.com/article.html?id=gas-shale-fracking</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-shale-fracking</guid>
-      <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Gas</category>
-      <description>Shale gas reshaped global energy markets in the 2010s. Here&apos;s the actual engineering behind horizontal drilling and fracking.</description>
-    </item>
-    <item>
-      <title>Natural Gas Pipelines: How the Global Network Works</title>
-      <link>https://www.pulsehig.com/article.html?id=gas-pipelines</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-pipelines</guid>
-      <pubDate>Tue, 01 Sep 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Gas</category>
-      <description>Millions of kilometers of pipe move gas from wellhead to home â€” here&apos;s how pressure, compressor stations, and metering keep it flowing.</description>
-    </item>
-    <item>
-      <title>LNG Explained: How Natural Gas Crosses Oceans</title>
-      <link>https://www.pulsehig.com/article.html?id=gas-lng-explained</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=gas-lng-explained</guid>
-      <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Gas</category>
-      <description>Pipelines can&apos;t cross oceans, so LNG shrinks natural gas 600-fold by cooling it to -162Â°C for shipping.</description>
-    </item>
-    <item>
-      <title>Oil Field Automation: Sensors, SCADA, and Remote Monitoring</title>
-      <link>https://www.pulsehig.com/article.html?id=oil-field-automation</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-field-automation</guid>
-      <pubDate>Fri, 28 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Petroleum</category>
-      <description>Modern oil fields run on the same SCADA and sensor principles as any industrial automation system â€” just built to survive harsher conditions.</description>
-    </item>
-    <item>
-      <title>The Basics of Offshore Drilling Technology</title>
-      <link>https://www.pulsehig.com/article.html?id=oil-offshore-drilling</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-offshore-drilling</guid>
-      <pubDate>Wed, 26 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Petroleum</category>
-      <description>From fixed platforms in shallow water to dynamically-positioned drillships in 3,000 meters of water â€” how offshore rigs actually work.</description>
-    </item>
-    <item>
-      <title>What OPEC+ Decisions Mean for Prices at the Pump</title>
-      <link>https://www.pulsehig.com/article.html?id=oil-opec-decisions</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-opec-decisions</guid>
-      <pubDate>Mon, 24 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Petroleum</category>
-      <description>OPEC+ production quotas move global oil prices, but the effect on your local gas station is slower and smaller than headlines suggest.</description>
-    </item>
-    <item>
-      <title>Inside an Oil Refinery: From Crude to Consumer Products</title>
-      <link>https://www.pulsehig.com/article.html?id=oil-refinery-process</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-refinery-process</guid>
-      <pubDate>Sat, 22 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Petroleum</category>
-      <description>A single barrel of crude becomes gasoline, diesel, jet fuel, and dozens of other products â€” here&apos;s the refining process, step by step.</description>
-    </item>
-    <item>
-      <title>How Crude Oil Prices Are Actually Set (Brent vs WTI Explained)</title>
-      <link>https://www.pulsehig.com/article.html?id=oil-brent-wti</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=oil-brent-wti</guid>
-      <pubDate>Thu, 20 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
-      <category>Petroleum</category>
-      <description>News reports quote &apos;oil prices&apos; as one number, but there&apos;s no single global oil price â€” here&apos;s how the two big benchmarks work.</description>
-    </item>
-    <item>
-      <title>Cybersecurity Basics Every Small Business Should Know</title>
-      <link>https://www.pulsehig.com/article.html?id=tech-cybersecurity-basics</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-cybersecurity-basics</guid>
-      <pubDate>Tue, 18 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <title>Fixing I2C Clock Stretching Timeouts in ESP32: Why Your Sensor Data Freezes and How to Resolve It</title>
+      <link>https://www.pulsehig.com/article.html?id=16</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=16</guid>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
-      <description>Most small business breaches come from a handful of preventable mistakes, not sophisticated hackers.</description>
+      <description>This technical deep-dive explores the mechanics of I2C clock stretching and its role in causing communication timeouts on ESP32-based systems. We analyze oscilloscope waveforms and circuit topologies to identify the root causes of bus stalls and provide actionable hardware and firmware strategies fo</description>
     </item>
     <item>
-      <title>Solid State Drives vs Hard Drives: What Actually Changed</title>
-      <link>https://www.pulsehig.com/article.html?id=tech-ssd-vs-hdd</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-ssd-vs-hdd</guid>
-      <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <title>Solving High Household Energy Bills Using Smart Home Automation</title>
+      <link>https://www.pulsehig.com/article.html?id=11</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=11</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
-      <description>SSDs won on speed years ago. The real question in 2026 is which SSD type fits your workload and budget.</description>
+      <description>This technical analysis explores the architecture of modern smart home automation systems, focusing on the integration of real-time telemetry, automated actuation logic, and advanced data visualization to mitigate household energy expenditure through granular control of HVAC, lighting, and solar ass</description>
     </item>
     <item>
-      <title>A Beginner&apos;s Guide to Home Automation with Matter/Thread</title>
-      <link>https://www.pulsehig.com/article.html?id=tech-matter-thread</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-matter-thread</guid>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <title>Smart Energy Audits: How Telemetry Can Slash Your Power Bills</title>
+      <link>https://www.pulsehig.com/article.html?id=12</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=12</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
-      <description>Matter promises one standard that works across brands. Here&apos;s what it actually fixes, and where it still falls short.</description>
+      <description>A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a</description>
     </item>
     <item>
-      <title>Understanding 5G and What It Means for IoT</title>
-      <link>https://www.pulsehig.com/article.html?id=tech-5g-iot</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-5g-iot</guid>
-      <pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
+      <link>https://www.pulsehig.com/article.html?id=13</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=13</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
-      <description>5G isn&apos;t just &apos;faster 4G&apos; â€” the parts that matter most for IoT devices are lower latency and massive device density.</description>
+      <description>A comprehensive technical manual for diagnosing and repairing common dishwasher malfunctions, focusing on internal mechanical diagnostics, water filtration maintenance, and structural integrity assessment for modern household appliances.</description>
     </item>
     <item>
-      <title>The Rise of Edge AI: Running Machine Learning on Small Devices</title>
-      <link>https://www.pulsehig.com/article.html?id=tech-edge-ai</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=tech-edge-ai</guid>
-      <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>
-      <author>contact@pulsehig.com (TechPulse Team)</author>
+      <title>How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop</title>
+      <link>https://www.pulsehig.com/article.html?id=14</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=14</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
       <category>Technology</category>
-      <description>Why more machine learning inference is moving from the cloud to tiny, cheap chips â€” and what that means for privacy and latency.</description>
+      <description>A comprehensive diagnostic and remedial guide for resolving &apos;black screen but works&apos; anomalies in modern mobile devices. This technical breakdown covers software-induced display failures, hardware-level display connector diagnostics, and the specific scenarios where a functional device presents a no</description>
+    </item>
+    <item>
+      <title>Deconstructing the Real Estate Ecosystem: A Multi-Layered Analysis of Market Dynamics, Structural Integrity, and Asset Transfer</title>
+      <link>https://www.pulsehig.com/article.html?id=5</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=5</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
+      <category>Technology</category>
+      <description>This technical analysis provides a comprehensive breakdown of the visual systems representing the real estate sector. Through a detailed examination of three distinct graphical layers, we explore the logical flow of property acquisition, the engineering principles of structural assessment, and the o</description>
+    </item>
+    <item>
+      <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
+      <link>https://www.pulsehig.com/article.html?id=6</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=6</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
+      <category>Technology</category>
+      <description>This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque</description>
+    </item>
+    <item>
+      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
+      <link>https://www.pulsehig.com/article.html?id=7</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=7</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
+      <category>تكنولوجيا</category>
+      <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
+    </item>
+    <item>
+      <title>The Smart House of Today</title>
+      <link>https://www.pulsehig.com/article.html?id=8</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=8</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
+      <category>تكنولوجيا</category>
+      <description>A technical examination of modern residential automation, focusing on integrated hardware, centralized control interfaces, and the architectural integration of IoT ecosystems within contemporary living spaces.</description>
+    </item>
+    <item>
+      <title>**Smart Living: The Next Generation of Home Automation**</title>
+      <link>https://www.pulsehig.com/article.html?id=9</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=9</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
+      <category>Technology</category>
+      <description>An in-depth engineering analysis of next-generation home automation, focusing on modular physical interfaces, high-fidelity software dashboards, and the integration of IoT into the architectural environment.</description>
+    </item>
+    <item>
+      <title>Topic: How to Fix a Clogged Drain Without Harsh Chemicals</title>
+      <link>https://www.pulsehig.com/article.html?id=10</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/article.html?id=10</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <author>contact@pulsehig.com (TechPulse Engineering Team)</author>
+      <category>Technology</category>
+      <description>A comprehensive technical analysis of non-chemical hydro-mechanical and chemical-neutralization protocols for residential drain remediation. This article details the application of mechanical extraction, thermal shock, and reactive cleaning agents to restore hydraulic efficiency in plumbing systems.</description>
     </item>
   </channel>
 </rss>

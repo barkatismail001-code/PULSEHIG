@@ -43,140 +43,74 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=article-1789501145223</loc>
-    <lastmod>2026-09-17</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=15</loc>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=article-1789501099001</loc>
-    <lastmod>2026-09-16</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=16</loc>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=article-1789501032884</loc>
-    <lastmod>2026-09-15</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=11</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=prog-embedded-c</loc>
-    <lastmod>2026-09-13</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=12</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=prog-git-basics</loc>
-    <lastmod>2026-09-12</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=13</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=prog-apis-explained</loc>
-    <lastmod>2026-09-11</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=14</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=prog-python-automation</loc>
-    <lastmod>2026-09-10</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=5</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=prog-arduino-first-project</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=6</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=gas-energy-transition</loc>
-    <lastmod>2026-09-07</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=7</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=gas-smart-metering</loc>
-    <lastmod>2026-09-05</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=8</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=gas-shale-fracking</loc>
-    <lastmod>2026-09-03</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=9</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/article.html?id=gas-pipelines</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=gas-lng-explained</loc>
-    <lastmod>2026-08-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=oil-field-automation</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=oil-offshore-drilling</loc>
-    <lastmod>2026-08-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=oil-opec-decisions</loc>
-    <lastmod>2026-08-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=oil-refinery-process</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=oil-brent-wti</loc>
-    <lastmod>2026-08-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=tech-cybersecurity-basics</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=tech-ssd-vs-hdd</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=tech-matter-thread</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=tech-5g-iot</loc>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/article.html?id=tech-edge-ai</loc>
-    <lastmod>2026-08-10</lastmod>
+    <loc>https://www.pulsehig.com/article.html?id=10</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
