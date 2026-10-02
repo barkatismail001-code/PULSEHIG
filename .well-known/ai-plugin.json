@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "TechPulse",
+  "name_for_model": "techpulse",
+  "description_for_human": "Engineering platform for embedded systems, petroleum, natural gas, and programming.",
+  "description_for_model": "TechPulse publishes deep technical tutorials on embedded systems (ESP32, Arduino, STM32), IoT firmware, petroleum engineering, LNG processing, and programming (Python, C, APIs). Content is available in English, Chinese, Spanish, Hindi, and French.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://www.pulsehig.com/.well-known/openapi.json"
+  },
+  "logo_url": "https://www.pulsehig.com/assets/og-default.png",
+  "contact_email": "contact@pulsehig.com",
+  "legal_info_url": "https://www.pulsehig.com/terms.html"
+}
