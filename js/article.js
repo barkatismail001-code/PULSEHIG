@@ -66,9 +66,9 @@
                     ${related.map(r => `
                         <article class="article-card">
                             <span class="card-category">${C.esc(C.translateCategory(r.category, lang))}</span>
-                            <h3><a href="article.html?id=${encodeURIComponent(r.id)}">${C.esc(r.title)}</a></h3>
+                            <h3><a href="${C.articleUrl(r)}">${C.esc(r.title)}</a></h3>
                             <p>${C.esc(r.excerpt)}</p>
-                            <a href="article.html?id=${encodeURIComponent(r.id)}" class="read-more" data-i18n="read_more">${I.t('read_more')}</a>
+                            <a href="${C.articleUrl(r)}" class="read-more" data-i18n="read_more">${I.t('read_more')}</a>
                         </article>
                     `).join('')}
                 </div>
