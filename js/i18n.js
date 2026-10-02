@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TechPulse — i18n (i18n.js)
+   TechPulse — i18n (i18n.js) - Professional Edition
    Single translation dictionary shared by every page. Include this file
    BEFORE main.js / article.js. Elements are translated via [data-i18n]
    (text) and [data-i18n-ph] (placeholder). Call TPI18N.apply() again after
@@ -83,7 +83,12 @@ window.TPI18N = (function () {
 
       news_page_title: "Live News", news_refresh: "Refresh now", news_last_updated: "Last updated",
       view_all_news: "View all news →", stats_articles: "Articles", stats_categories: "Categories",
-      featured_heading: "⭐ Featured", forum_starters_heading: "💡 Discussion starters"
+      featured_heading: "⭐ Featured", forum_starters_heading: "💡 Discussion starters",
+
+      faq_heading: "Frequently Asked Questions",
+      share_copy: "Copy link",
+      share_copied: "✓ Link copied",
+      comments_disabled: "Comments are disabled."
     },
     zh: {
       nav_home: "首页", nav_about: "关于", nav_contact: "联系", nav_privacy: "隐私", nav_terms: "条款",
@@ -158,7 +163,12 @@ window.TPI18N = (function () {
 
       news_page_title: "实时新闻", news_refresh: "立即刷新", news_last_updated: "最后更新",
       view_all_news: "查看所有新闻 →", stats_articles: "文章", stats_categories: "分类",
-      featured_heading: "⭐ 精选", forum_starters_heading: "💡 讨论话题"
+      featured_heading: "⭐ 精选", forum_starters_heading: "💡 讨论话题",
+
+      faq_heading: "常见问题",
+      share_copy: "复制链接",
+      share_copied: "✓ 链接已复制",
+      comments_disabled: "评论已禁用。"
     },
     es: {
       nav_home: "Inicio", nav_about: "Acerca de", nav_contact: "Contacto", nav_privacy: "Privacidad", nav_terms: "Términos",
@@ -233,7 +243,12 @@ window.TPI18N = (function () {
 
       news_page_title: "Noticias en Vivo", news_refresh: "Actualizar ahora", news_last_updated: "Última actualización",
       view_all_news: "Ver todas las noticias →", stats_articles: "Artículos", stats_categories: "Categorías",
-      featured_heading: "⭐ Destacado", forum_starters_heading: "💡 Temas de debate"
+      featured_heading: "⭐ Destacado", forum_starters_heading: "💡 Temas de debate",
+
+      faq_heading: "Preguntas Frecuentes",
+      share_copy: "Copiar enlace",
+      share_copied: "✓ Enlace copiado",
+      comments_disabled: "Los comentarios están desactivados."
     },
     hi: {
       nav_home: "होम", nav_about: "हमारे बारे में", nav_contact: "संपर्क करें", nav_privacy: "गोपनीयता", nav_terms: "शर्तें",
@@ -308,7 +323,12 @@ window.TPI18N = (function () {
 
       news_page_title: "लाइव समाचार", news_refresh: "अभी रीफ़्रेश करें", news_last_updated: "अंतिम अपडेट",
       view_all_news: "सभी समाचार देखें →", stats_articles: "लेख", stats_categories: "श्रेणियाँ",
-      featured_heading: "⭐ विशेष", forum_starters_heading: "💡 चर्चा के विषय"
+      featured_heading: "⭐ विशेष", forum_starters_heading: "💡 चर्चा के विषय",
+
+      faq_heading: "अक्सर पूछे जाने वाले प्रश्न",
+      share_copy: "लिंक कॉपी करें",
+      share_copied: "✓ लिंक कॉपी हो गया",
+      comments_disabled: "टिप्पणियाँ अक्षम हैं।"
     },
     fr: {
       nav_home: "Accueil", nav_about: "À propos", nav_contact: "Contact", nav_privacy: "Confidentialité", nav_terms: "Conditions",
@@ -383,7 +403,12 @@ window.TPI18N = (function () {
 
       news_page_title: "Actualités en Direct", news_refresh: "Actualiser maintenant", news_last_updated: "Dernière mise à jour",
       view_all_news: "Voir toutes les actualités →", stats_articles: "Articles", stats_categories: "Catégories",
-      featured_heading: "⭐ À la une", forum_starters_heading: "💡 Sujets de discussion"
+      featured_heading: "⭐ À la une", forum_starters_heading: "💡 Sujets de discussion",
+
+      faq_heading: "Questions Fréquentes",
+      share_copy: "Copier le lien",
+      share_copied: "✓ Lien copié",
+      comments_disabled: "Les commentaires sont désactivés."
     }
   };
 
