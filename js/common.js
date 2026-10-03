@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TechPulse — Shared Utilities (common.js) - Encrypted Stats & Daily Views
+   TechPulse — Shared Utilities (common.js) - Stats & Daily Views
    ========================================================================== */
 window.TPCommon = (function () {
   'use strict';
@@ -54,15 +54,6 @@ window.TPCommon = (function () {
     });
   }
 
-  /* ---------- دالة تشفير الأرقام إلى رموز لا يفهمها الزوار ---------- */
-  function encryptStatCode(num) {
-    if (isNaN(num)) num = 0;
-    // تحويل الرقم إلى رموز عشوائية تبدو تقنية أو مشفرة
-    const salt = "TP-SEC";
-    let encoded = btoa(num + "-" + salt).split('').reverse().join('');
-    return "⚡[" + encoded.substring(0, 6) + "::" + (num * 3 + 7) + "]";
-  }
-
   /* ---------- Supabase client (shared, created once) ---------- */
   const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
@@ -81,7 +72,7 @@ window.TPCommon = (function () {
   }
 
   /* ---------- Article data from Supabase Database ---------- */
-  const ARTICLES_CACHE_KEY = 'tp_articles_v3';
+  const ARTICLES_CACHE_KEY = 'tp_articles_v4';
   const ARTICLES_CACHE_TTL = 5 * 60 * 1000; // 5 min, per browser session
   let cache = null;
   let inflight = null;
@@ -118,12 +109,17 @@ window.TPCommon = (function () {
       }
     }
 
+    published.forEach(a => { a.category = normalizeCategory(a.category); });
+
     if (!published.length) {
       try {
         const res = await fetch('data/articles.json', { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
-          if (Array.isArray(json)) published = json;
+          if (Array.isArray(json)) {
+            published = json;
+            published.forEach(a => { a.category = normalizeCategory(a.category); });
+          }
         }
       } catch (err) {
         console.warn('Could not load data/articles.json', err);
@@ -477,7 +473,15 @@ window.TPCommon = (function () {
     Gas:         { en: 'Natural Gas', zh: '天然气', es: 'Gas Natural',  hi: 'प्राकृतिक गैस', fr: 'Gaz Naturel' },
     Programming: { en: 'Programming', zh: '编程',   es: 'Programación', hi: 'प्रोग्रामिंग',  fr: 'Programmation' }
   };
+  // The site is English-only: any category stored with non-Latin Arabic letters
+  // (legacy rows in Supabase) is displayed as "Technology".
+  const ARABIC_RE = /[\u0600-\u06FF\u0750-\u077F]/;
+  function normalizeCategory(category) {
+    if (!category) return category;
+    return ARABIC_RE.test(String(category)) ? 'Technology' : category;
+  }
   function translateCategory(category, lang) {
+    category = normalizeCategory(category);
     const entry = CATEGORY_LABELS[category];
     if (!entry) return category || '';
     return entry[lang] || entry.en;
@@ -485,9 +489,9 @@ window.TPCommon = (function () {
 
   return {
     esc, slugify, formatDate, calcReadMinutes,
-    pickLocalized, localizeArticle, translateCategory,
+    pickLocalized, localizeArticle, translateCategory, normalizeCategory,
     getArticles, getArticlesVersion,
-    getViews, getDailyViews, registerView, trackAndGetSiteStats, encryptStatCode,
+    getViews, getDailyViews, registerView, trackAndGetSiteStats,
     getLikeCount, hasLiked, toggleLike,
     getBookmarks, isBookmarked, toggleBookmark,
     showToast, initDarkMode, initAdminGate, initTicker,

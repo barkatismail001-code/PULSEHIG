@@ -32,6 +32,7 @@
     renderNewsWidget();
     if (document.getElementById('articles-container')) {
       renderSiteStats();
+      renderGlobalStats();
       renderFeatured();
       renderFilters();
       renderArticlesUI();
@@ -156,6 +157,9 @@
     const grid = document.getElementById('articles-container');
     if (!grid) return; // not the homepage
 
+    // Count this visit and load daily/total numbers from Supabase (site_stats) in parallel.
+    const statsPromise = C.trackAndGetSiteStats().then(s => { siteStats = s; renderGlobalStats(); });
+
     allArticles = await C.getArticles();
     // Register a view for every article the moment its card enters the grid,
     // matching how a real "articles listing" page is usually counted.
@@ -168,6 +172,27 @@
     renderArticlesUI();
     renderTrending();
     wireSearch();
+    await statsPromise;
+    renderGlobalStats();
+  }
+
+  /* ---------- Footer: daily + total visits (site_stats table in Supabase) ---------- */
+  let siteStats = null;
+  const VISIT_LABELS = {
+    en: ['Visits today', 'Total visits'],
+    zh: ['今日访问', '总访问量'],
+    es: ['Visitas hoy', 'Visitas totales'],
+    hi: ['आज के विज़िट', 'कुल विज़िट'],
+    fr: ["Visites aujourd'hui", 'Visites totales']
+  };
+  function renderGlobalStats() {
+    const box = document.getElementById('globalSiteStats');
+    if (!box || !siteStats) return;
+    const labels = VISIT_LABELS[I.getLang()] || VISIT_LABELS.en;
+    const fmt = n => Number(n || 0).toLocaleString();
+    box.innerHTML = `<span>👁️ ${C.esc(labels[0])}: <strong>${fmt(siteStats.daily)}</strong></span>` +
+      `<span style="margin:0 12px;opacity:.5">|</span>` +
+      `<span>📊 ${C.esc(labels[1])}: <strong>${fmt(siteStats.total)}</strong></span>`;
   }
 
   function renderSiteStats() {

@@ -6,7 +6,7 @@
 
     const $  = (s, c = document) => c.querySelector(s);               const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
     
-    // إعدادات اتصال Supabase
+    // Supabase connection settings
     const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -36,7 +36,7 @@
         window.TPCommon.initDarkMode();
     }
 
-    /* ---------- عناصر الواجهة المحدثة ---------- */
+    /* ---------- UI elements ---------- */
     const form = $('#article-form');
     const articleIdInput = $('#article-id');
     const titleInput = $('#title');
@@ -62,7 +62,7 @@
     let currentImageData = '';
     let currentGalleryImages = [];
 
-    /* ---------- رفع الصورة الرئيسية (Hero Image) الاحترافية ---------- */
+    /* ---------- Hero image upload ---------- */
     if (imagePreview && imageInput) {
         imagePreview.addEventListener('click', () => imageInput.click());
         imageInput.addEventListener('change', () => {
@@ -92,7 +92,7 @@
         });
     }
 
-    /* ---------- معرض الصور (Gallery Strip) الاحترافي ---------- */
+    /* ---------- Gallery strip ---------- */
     function renderGalleryStrip() {
         if (!galleryStrip) return;
         galleryStrip.innerHTML = currentGalleryImages.map((src, i) => `
@@ -133,7 +133,7 @@
         });
     }
 
-    /* ---------- توليد الـ Slug الاحترافي ---------- */
+    /* ---------- Slug generation ---------- */
     let slugEdited = false;
     if (slugInput && titleInput) {
         slugInput.addEventListener('input', () => { slugEdited = true; });
@@ -144,7 +144,7 @@
         });
     }
 
-    /* ---------- عرض قائمة المقالات في لوحة التحكم ---------- */
+    /* ---------- Article list in the dashboard ---------- */
     function renderAdminList() {
         const articles = [...getArticles()].sort((a, b) =>
             (b.date || '').localeCompare(a.date || '')
@@ -183,7 +183,7 @@
         `; }).join('');
     }
 
-    /* ---------- حفظ ونشر المقال بمعايير عالمية الاحترافية ---------- */
+    /* ---------- Save and publish article ---------- */
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -207,7 +207,7 @@
         try {
             let imageUrl = currentImageData;
 
-            // رفع الصورة الرئيسية إلى Supabase Storage بجودة احترافية
+            // Upload hero image to Supabase Storage
             if (imageInput && imageInput.files[0]) {
                 const file = imageInput.files[0];
                 const fileExt = file.name.split('.').pop();
@@ -228,7 +228,7 @@
                 imageUrl = publicUrlData.publicUrl;
             }
 
-            // معالجة ورفع صور المعرض الاحترافية
+            // Process and upload gallery images
             let processedGalleryImages = [...currentGalleryImages];
             if (galleryFileInput && galleryFileInput.files.length > 0) {
                 const galleryFiles = Array.from(galleryFileInput.files);
@@ -297,7 +297,7 @@
         return Math.max(1, Math.round(words / 200)) + ' min read';
     }
 
-    /* ---------- التعديل والحذف الاحترافي ---------- */
+    /* ---------- Edit and delete ---------- */
     listContainer.addEventListener('click', (e) => {
         const editBtn = e.target.closest('[data-edit]');
         const delBtn = e.target.closest('[data-delete]');
