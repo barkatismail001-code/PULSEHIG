@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently) | TechPulse</title>
+  <meta name="description" content="ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.">
+  <meta name="keywords" content="ESP32 wifi disconnect, ESP32 wifi unstable, ESP32 reconnect wifi, ESP32 wifi fix">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Embedded Systems">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Embedded Systems</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Embedded Systems</span>
+        <h1>Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 6 min read</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>An ESP32 that connects once, then drops, reconnects, or loses packets is rarely a faulty chip. In almost every case, the cause is one of five things: weak power, bad antenna placement, wrong Wi-Fi power-save settings, a missing reconnect routine, or interference from your own 2.4 GHz network.</p></div>
+
+      <div class="article-content">
+        <h2>The real reason ESP32 Wi-Fi feels unreliable</h2>
+        <p>The ESP32 shares its 2.4 GHz radio between Wi-Fi and Bluetooth. Every time the radio has to switch tasks, current spikes to hundreds of milliamps. If your power supply cannot absorb those spikes, the chip browns out, the Wi-Fi stack resets, and from the outside it looks like the Wi-Fi "dropped." So before you blame the router, look at the power rail.</p>
+
+        <h2>1. Power supply: the number-one hidden cause</h2>
+        <p>A USB phone charger rated for 1 A is not enough in practice. The ESP32 needs a stable 3.3 V, and the on-board LDO needs headroom. When the radio transmits, the current spike can pull the rail down and trigger the brownout detector.</p>
+        <ul>
+          <li>Use a supply rated for at least <strong>1 A continuous, 2 A peak</strong>.</li>
+          <li>Add a <strong>470 µF to 1000 µF electrolytic capacitor</strong> close to the 3.3 V pin, plus a 100 nF ceramic in parallel.</li>
+          <li>Avoid powering the ESP32 from a laptop USB hub — those ports often limit to 500 mA.</li>
+          <li>If you use a battery, check the regulator's quiescent current and drop-out voltage.</li>
+        </ul>
+
+        <h2>2. Antenna placement inside enclosures</h2>
+        <p>The PCB antenna on most ESP32 dev boards is a small meander at the end of the board. Anything conductive near it — a metal case, a battery, a ribbon cable, or your hand — detunes it and kills range.</p>
+        <ul>
+          <li>Keep at least <strong>15 mm of empty space</strong> in front of the antenna.</li>
+          <li>Never place the antenna against a metal enclosure or a ground plane.</li>
+          <li>Cut a slot in plastic enclosures at the antenna location.</li>
+          <li>For long-range nodes, switch to a board with a U.FL connector and an external 2.4 GHz antenna.</li>
+        </ul>
+
+        <h2>3. Wi-Fi power-save mode</h2>
+        <p>By default the ESP32 Arduino core leaves modem sleep enabled. That is fine for battery nodes but causes dropped packets and high latency on always-on devices. For a mains-powered sensor or controller, disable it:</p>
+        <pre><code>#include &lt;WiFi.h&gt;
+
+void setup() {
+  WiFi.mode(WIFI_STA);
+  WiFi.setSleep(false);          // disable modem sleep
+  WiFi.setAutoReconnect(true);   // reconnect automatically
+  WiFi.persistent(true);
+  WiFi.begin("SSID", "password");
+}</code></pre>
+        <p>On older cores, <code>WiFi.setSleep(false)</code> may need to be called after <code>WiFi.begin()</code>. Test both orders if you still see drops.</p>
+
+        <h2>4. Add a reconnect watchdog</h2>
+        <p>Even with the fixes above, a router reboot will still disconnect you. The ESP32 will not always rejoin on its own if the disconnect happened during a long blocking loop. Add a simple watchdog:</p>
+        <pre><code>unsigned long lastCheck = 0;
+const unsigned long CHECK_INTERVAL = 10000; // 10 s
+
+void loop() {
+  if (millis() - lastCheck &gt; CHECK_INTERVAL) {
+    lastCheck = millis();
+    if (WiFi.status() != WL_CONNECTED) {
+      Serial.println("Wi-Fi lost, reconnecting...");
+      WiFi.disconnect();
+      WiFi.begin("SSID", "password");
+    }
+  }
+  // your normal code here, no long delays
+}</code></pre>
+        <p>Avoid <code>delay(5000)</code> in your main loop — during that time the Wi-Fi stack cannot service the connection.</p>
+
+        <h2>5. Interference from your own network</h2>
+        <p>The 2.4 GHz band is crowded. Microwaves, Zigbee, Bluetooth speakers, baby monitors and neighbouring routers all share it. Two practical steps help:</p>
+        <ul>
+          <li>Set your router to channel <strong>1, 6 or 11</strong> only, and pick the one with the least overlap.</li>
+          <li>If your router is dual-band, move phones, laptops and TVs to 5 GHz and leave 2.4 GHz for IoT devices.</li>
+          <li>Keep the ESP32 at least one metre away from the router — too close can be as bad as too far.</li>
+        </ul>
+
+        <h2>How to prove which cause you have</h2>
+        <p>Log the RSSI and the disconnect reason in code. The ESP32 exposes both:</p>
+        <pre><code>Serial.printf("RSSI: %d dBm\n", WiFi.RSSI());
+Serial.printf("Disconnect reason: %d\n", WiFi.getDisconnectReason());</code></pre>
+        <p>Common reason codes:</p>
+        <ul>
+          <li><strong>2</strong> — auth expired (wrong password or router reboot).</li>
+          <li><strong>4</strong> — association timeout (weak signal or interference).</li>
+          <li><strong>200</strong> — beacon timeout (router dropped you or power issue).</li>
+          <li><strong>201</strong> — no AP found (antenna or range problem).</li>
+        </ul>
+        <p>Aim for RSSI better than <strong>−70 dBm</strong>. Below −80 dBm, expect drops even with perfect code.</p>
+
+        <h2>What about a mesh or repeater?</h2>
+        <p>If the ESP32 sits in a garage or garden shed, do not try to fix it with code. Add a proper access point or mesh node nearby. A cheap travel router in AP mode, wired back to the main network with Ethernet, will outperform any Wi-Fi extender and cost less than a wasted weekend of debugging.</p>
+
+        <h2>Summary</h2>
+        <p>ESP32 Wi-Fi drops are almost always one of: weak power, bad antenna placement, modem sleep, no reconnect logic, or 2.4 GHz congestion. Fix the power rail first, keep the antenna clear, disable sleep, add a watchdog, and pick a clean channel. Do those five things and your node will stay online for months.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+</body>
+</html>
