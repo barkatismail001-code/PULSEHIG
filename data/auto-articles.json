@@ -16,5 +16,21 @@
   ],
   "author": "TechPulse Team",
   "minutes": 4
+ },
+ {
+  "slug": "esp32-wifi-dropping-fix",
+  "title": "Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)",
+  "excerpt": "ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.",
+  "category": "Embedded Systems",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "ESP32 wifi disconnect",
+   "ESP32 wifi unstable",
+   "ESP32 reconnect wifi",
+   "ESP32 wifi fix"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 4
  }
 ]
