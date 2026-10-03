@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 Won't Wake from Deep Sleep: Causes and Fixes | TechPulse</title>
+  <meta name="description" content="ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.">
+  <meta name="keywords" content="ESP32 deep sleep problem, ESP32 wake up, battery ESP32 sensor, ESP32 sleep current">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Embedded Systems">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="ESP32 Won't Wake from Deep Sleep: Causes and Fixes">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Embedded Systems</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Embedded Systems</span>
+        <h1>ESP32 Won't Wake from Deep Sleep: Causes and Fixes</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 5 min read</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>Deep sleep is the single most useful feature of a battery ESP32 — and the one that trips up the most people. If your board never wakes, wakes instantly, or drains a 18650 in three days, one of the six causes below is almost certainly the reason.</p></div>
+
+      <div class="article-content">
+        <h2>Only RTC GPIOs can wake the chip</h2>
+        <p>Not every ESP32 pin is connected to the RTC domain. If you use a wake source on a non-RTC pin, the chip goes to sleep and simply never wakes. The pins you can use are:</p>
+        <ul>
+          <li>ADC1 / RTC pins: <strong>GPIO 36, 37, 38, 39, 34, 35, 32, 33, 25, 26, 27, 14, 12, 13, 4, 0, 2, 15</strong>.</li>
+          <li>Output-capable RTC pins: <strong>0, 2, 4, 12–15, 25–27, 32, 33</strong>.</li>
+        </ul>
+        <p>Pins 34–39 are input-only, so they can wake the chip but cannot drive anything. Pins 6–11 are used by the flash chip and must never be used.</p>
+
+        <h2>Floating pins wake the chip instantly</h2>
+        <p>If the wake pin is left floating and configured for a low-level wake, noise on the pin will trigger an immediate wake. Always enable the internal pull-up or pull-down, or add an external 10 kΩ resistor:</p>
+        <pre><code>rtc_gpio_pullup_en(GPIO_NUM_33);
+rtc_gpio_pulldown_dis(GPIO_NUM_33);
+esp_sleep_enable_ext0_wakeup(GPIO_NUM_33, 0); // wake on low</code></pre>
+        <p>Without the pull-up, the pin floats and the chip wakes as soon as it sleeps — often within milliseconds. From the outside it looks like deep sleep "does not work."</p>
+
+        <h2>Timer wake and GPIO wake together</h2>
+        <p>You can enable both at once. The chip wakes on whichever fires first:</p>
+        <pre><code>esp_sleep_enable_timer_wakeup(60ULL * 1000000ULL); // 60 s
+esp_sleep_enable_ext0_wakeup(GPIO_NUM_33, 0);       // or button
+esp_deep_sleep_start();</code></pre>
+        <p>After waking, check the wake cause so your code can behave differently:</p>
+        <pre><code>esp_sleep_wakeup_cause_t cause = esp_sleep_get_wakeup_cause();
+if (cause == ESP_SLEEP_WAKEUP_TIMER) { /* periodic reading */ }
+if (cause == ESP_SLEEP_WAKEUP_EXT0)  { /* button pressed */ }</code></pre>
+
+        <h2>The USB-serial chip ruins your sleep current</h2>
+        <p>A "10 µA deep sleep" figure in the datasheet assumes the ESP32 is alone on the board. On a typical dev board, the CP2102 or CH340 USB chip, the power LED and the onboard LDO all keep drawing current. Real measured sleep current on a NodeMCU-style board is often <strong>2–10 mA</strong> — three orders of magnitude higher.</p>
+        <p>To reach true low power:</p>
+        <ul>
+          <li>Use a bare ESP32 module (WROOM or WROVER), not a dev board.</li>
+          <li>Remove or power-gate the power LED.</li>
+          <li>Choose an LDO with low quiescent current: <strong>HT7333, MCP1700, TPS7A02</strong>. Avoid AMS1117 (5 mA quiescent by itself).</li>
+          <li>Disconnect the USB-serial adapter after flashing.</li>
+        </ul>
+
+        <h2>Measure the real current</h2>
+        <p>You cannot optimise what you cannot measure. Put a multimeter in µA mode in series with the battery, or better, use a USB power meter with a µA range (e.g. Nordic PPK2, Joulescope, or a cheap INA219 breakout). Measure:</p>
+        <ul>
+          <li>Current during boot.</li>
+          <li>Current during Wi-Fi transmission (can be 250 mA peaks).</li>
+          <li>Current during deep sleep.</li>
+        </ul>
+        <p>If deep sleep is above 100 µA on a bare module, something is still powered that should not be. Check the LDO, the flash chip (already inside the module), and any external sensor.</p>
+
+        <h2>Peripherals that keep the chip awake</h2>
+        <ul>
+          <li><strong>Wi-Fi and Bluetooth</strong> must be stopped with <code>WiFi.disconnect(true)</code> and <code>WiFi.mode(WIFI_OFF)</code> before sleeping, or the radio stays powered.</li>
+          <li><strong>Brownout detector</strong> can prevent wake if the supply is marginal. Disable it only as a last resort: <code>WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0)</code>.</li>
+          <li><strong>External sensors</strong> powered from a GPIO: turn that GPIO low before sleeping, and power the sensor from a MOSFET high-side switch.</li>
+        </ul>
+
+        <h2>Putting it all together</h2>
+        <pre><code>void loop() {
+  // 1. do the work
+  readSensor();
+  sendToServer();
+
+  // 2. shut down the radio
+  WiFi.disconnect(true);
+  WiFi.mode(WIFI_OFF);
+
+  // 3. arm the wake source
+  esp_sleep_enable_timer_wakeup(300ULL * 1000000ULL); // 5 min
+  esp_sleep_enable_ext0_wakeup(GPIO_NUM_33, 0);
+
+  // 4. sleep
+  esp_deep_sleep_start();
+}</code></pre>
+        <p>With a bare module, a low-quiescent LDO and a 5-minute interval, a single 18650 will last for months.</p>
+
+        <h2>Summary</h2>
+        <p>Deep sleep failures come from six places: wrong pin, floating pin, radio left on, USB chip leakage, wrong LDO, and no measurement. Fix those and your battery node will do exactly what the datasheet promised.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+</body>
+</html>
