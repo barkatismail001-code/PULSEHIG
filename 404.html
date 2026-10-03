@@ -4,9 +4,12 @@
 <meta name="robots" content="noindex">
 <title>TechPulse</title>
 <script>
+  // New articles that have no static /a/ page yet are opened in the live reader (Supabase).
   var m = location.pathname.match(/^\/a\/([^\/]+?)(?:\.html)?\/?$/);
-  if (m) location.replace('/article.html?slug=' + encodeURIComponent(m[1]));
-</script></head>
+  if (m) { document.documentElement.setAttribute('data-redirect', '1'); location.replace('/article.html?slug=' + encodeURIComponent(m[1])); }
+</script>
+<style>html[data-redirect] .nf{display:none}</style>
+</head>
 <body style="font-family:sans-serif;text-align:center;padding:60px">
-  <h1>404</h1><p>Page not found.</p><a href="/index.html">Home</a>
+  <div class="nf"><h1>404</h1><p>Page not found.</p><a href="/index.html">Home</a></div>
 </body></html>
