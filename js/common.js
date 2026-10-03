@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TechPulse — Shared Utilities (common.js) - Supabase Connected
+   TechPulse — Shared Utilities (common.js) - Encrypted Stats & Daily Views
    ========================================================================== */
 window.TPCommon = (function () {
   'use strict';
@@ -54,61 +54,108 @@ window.TPCommon = (function () {
     });
   }
 
-  /* ---------- Article data from Supabase Database (direct, no SDK) ---------- */
+  /* ---------- دالة تشفير الأرقام إلى رموز لا يفهمها الزوار ---------- */
+  function encryptStatCode(num) {
+    if (isNaN(num)) num = 0;
+    // تحويل الرقم إلى رموز عشوائية تبدو تقنية أو مشفرة
+    const salt = "TP-SEC";
+    let encoded = btoa(num + "-" + salt).split('').reverse().join('');
+    return "⚡[" + encoded.substring(0, 6) + "::" + (num * 3 + 7) + "]";
+  }
+
+  /* ---------- Supabase client (shared, created once) ---------- */
   const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
-  const LIST_CACHE_KEY = 'tp_articles_v2';
-  const LIST_CACHE_TTL = 5 * 60 * 1000; // 5 minutes inside one browser session
 
-  async function fetchFromSupabase() {
+  function getClient() {
+    if (window.supabaseClient) return window.supabaseClient;
+    if (window.supabase && window.supabase.createClient) {
+      window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      return window.supabaseClient;
+    }
+    return null;
+  }
+
+  function todayStr() {
+    return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
+  }
+
+  /* ---------- Article data from Supabase Database ---------- */
+  const ARTICLES_CACHE_KEY = 'tp_articles_v3';
+  const ARTICLES_CACHE_TTL = 5 * 60 * 1000; // 5 min, per browser session
+  let cache = null;
+  let inflight = null;
+
+  // Plain REST call: works even if the Supabase SDK has not finished loading.
+  async function fetchArticlesREST() {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 8000);
     try {
-      const res = await fetch(
-        SUPABASE_URL + '/rest/v1/articles?select=*&order=id.desc&limit=500',
-        { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY }, signal: ctrl.signal }
-      );
-      if (!res.ok) throw new Error('Supabase HTTP ' + res.status);
+      const res = await fetch(SUPABASE_URL + '/rest/v1/articles?select=*&order=id.desc&limit=500', {
+        headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY },
+        signal: ctrl.signal
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       return Array.isArray(data) ? data : [];
     } finally { clearTimeout(timer); }
   }
 
-  let cachePromise = null;
+  async function loadArticles() {
+    let published = [];
+    try {
+      published = await fetchArticlesREST();
+    } catch (err) {
+      console.warn('REST load failed, trying SDK...', err);
+      try {
+        const sb = getClient();
+        if (sb) {
+          const { data, error } = await sb.from('articles').select('*').order('id', { ascending: false });
+          if (!error && data) published = data;
+        }
+      } catch (err2) {
+        console.warn('Could not load from Supabase database, trying fallback...', err2);
+      }
+    }
+
+    if (!published.length) {
+      try {
+        const res = await fetch('data/articles.json', { cache: 'no-store' });
+        if (res.ok) {
+          const json = await res.json();
+          if (Array.isArray(json)) published = json;
+        }
+      } catch (err) {
+        console.warn('Could not load data/articles.json', err);
+      }
+    } else {
+      try { sessionStorage.setItem(ARTICLES_CACHE_KEY, JSON.stringify({ t: Date.now(), d: published })); } catch (e) {}
+    }
+    return published;
+  }
+
   async function getArticles(force) {
+    if (cache && !force) return cache;
+
     if (!force) {
       try {
-        const raw = sessionStorage.getItem(LIST_CACHE_KEY);
+        const raw = sessionStorage.getItem(ARTICLES_CACHE_KEY);
         if (raw) {
           const c = JSON.parse(raw);
-          if (c && Date.now() - c.t < LIST_CACHE_TTL && Array.isArray(c.d) && c.d.length) return c.d;
+          if (c && Array.isArray(c.d) && c.d.length && Date.now() - c.t < ARTICLES_CACHE_TTL) {
+            cache = c.d;
+            fetchAndUpdateAllViews();
+            return cache;
+          }
         }
       } catch (e) {}
-      if (cachePromise) return cachePromise;
     }
-    cachePromise = (async () => {
-      let published = [];
-      try {
-        published = await fetchFromSupabase();
-      } catch (err) {
-        console.warn('Could not load from Supabase database, trying fallback...', err);
-      }
-      if (!published.length) {
-        try {
-          const res = await fetch('data/articles.json', { cache: 'no-store' });
-          if (res.ok) {
-            const json = await res.json();
-            if (Array.isArray(json)) published = json;
-          }
-        } catch (err) { console.warn('Could not load data/articles.json', err); }
-      } else {
-        try { sessionStorage.setItem(LIST_CACHE_KEY, JSON.stringify({ t: Date.now(), d: published })); } catch (e) {}
-      }
-      return published;
-    })();
-    const out = await cachePromise;
-    cachePromise = null;
-    return out;
+
+    if (!inflight) inflight = loadArticles().finally(() => { inflight = null; });
+    const published = await inflight;
+    cache = published;
+    fetchAndUpdateAllViews();
+    return published;
   }
 
   let cachedVersion = null;
@@ -121,17 +168,104 @@ window.TPCommon = (function () {
     return cachedVersion;
   }
 
-  /* ---------- View counts ---------- */
-  function getViews(id) {
-    return parseInt(localStorage.getItem('tp_views_' + id) || '0', 10);
+  /* ---------- Site-wide visit counter (stored in Supabase: site_stats, id='global') ----------
+     Counted once per browser session via the hit_site() SQL function.
+     Later page loads in the same session only read the current values. */
+  async function trackAndGetSiteStats() {
+    const fallback = { total: 0, daily: 0 };
+    const sb = getClient();
+    if (!sb) return fallback;
+    try {
+      if (!sessionStorage.getItem('tp_site_hit')) {
+        const { data, error } = await sb.rpc('hit_site', { p_today: todayStr() });
+        if (!error && data) {
+          sessionStorage.setItem('tp_site_hit', '1');
+          return { total: data.total || 0, daily: data.daily || 0 };
+        }
+        if (error) console.warn('hit_site failed:', error.message);
+      }
+      const { data, error } = await sb
+        .from('site_stats')
+        .select('total_visits, daily_visits, last_visit_date')
+        .eq('id', 'global')
+        .maybeSingle();
+      if (!error && data) {
+        return {
+          total: data.total_visits || 0,
+          daily: data.last_visit_date === todayStr() ? (data.daily_visits || 0) : 0
+        };
+      }
+    } catch (e) {
+      console.warn('Could not load site stats:', e);
+    }
+    return fallback;
   }
-  function registerView(id) {
+
+  /* ---------- Per-article views (stored in Supabase: article_views) ---------- */
+  let viewCache = {};
+  let dailyViewCache = {};
+  const freshIds = new Set(); // ids already updated this page-load (don't overwrite with older data)
+
+  async function fetchAndUpdateAllViews() {
+    try {
+      const sb = getClient();
+      if (!sb) return;
+      const { data, error } = await sb
+        .from('article_views')
+        .select('article_id, views_count, daily_views, last_visit_date');
+      if (error || !data) return;
+      const today = todayStr();
+      data.forEach(row => {
+        const id = String(row.article_id);
+        if (freshIds.has(id)) return;
+        viewCache[id] = row.views_count || 0;
+        dailyViewCache[id] = row.last_visit_date === today ? (row.daily_views || 0) : 0;
+      });
+    } catch (e) {
+      console.warn('Could not fetch views table:', e);
+    }
+  }
+
+  function getViews(id) {
+    return viewCache[String(id)] || 0;
+  }
+
+  function getDailyViews(id) {
+    return dailyViewCache[String(id)] || 0;
+  }
+
+  // Counts one view per browser session per article, via the hit_article() SQL function.
+  async function registerView(id) {
+    id = String(id);
     const seenKey = 'tp_seen_' + id;
-    if (sessionStorage.getItem(seenKey)) return getViews(id);
-    sessionStorage.setItem(seenKey, '1');
-    const v = getViews(id) + 1;
-    localStorage.setItem('tp_views_' + id, String(v));
-    return v;
+    const sb = getClient();
+    try {
+      if (sb && !sessionStorage.getItem(seenKey)) {
+        const { data, error } = await sb.rpc('hit_article', { p_id: id, p_today: todayStr() });
+        if (!error && data) {
+          sessionStorage.setItem(seenKey, '1');
+          freshIds.add(id);
+          viewCache[id] = data.views || 0;
+          dailyViewCache[id] = data.daily || 0;
+        } else if (error) {
+          console.warn('hit_article failed:', error.message);
+        }
+      } else if (sb) {
+        // already counted in this session: just read the current number
+        const { data } = await sb
+          .from('article_views')
+          .select('views_count, daily_views, last_visit_date')
+          .eq('article_id', id)
+          .maybeSingle();
+        if (data) {
+          viewCache[id] = data.views_count || 0;
+          dailyViewCache[id] = data.last_visit_date === todayStr() ? (data.daily_views || 0) : 0;
+        }
+      }
+    } catch (err) {
+      console.warn('Could not update article views:', err);
+    }
+    return getViews(id);
   }
 
   /* ---------- Likes ---------- */
@@ -353,7 +487,7 @@ window.TPCommon = (function () {
     esc, slugify, formatDate, calcReadMinutes,
     pickLocalized, localizeArticle, translateCategory,
     getArticles, getArticlesVersion,
-    getViews, registerView,
+    getViews, getDailyViews, registerView, trackAndGetSiteStats, encryptStatCode,
     getLikeCount, hasLiked, toggleLike,
     getBookmarks, isBookmarked, toggleBookmark,
     showToast, initDarkMode, initAdminGate, initTicker,
