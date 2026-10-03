@@ -1,0 +1,46 @@
+name: Discover static articles
+
+# Runs automatically when you add or change a file inside the a/ folder.
+# It reads the new page, adds it to the site (index, sitemap, RSS) and makes it interactive.
+on:
+  push:
+    paths:
+      - 'a/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-build
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Detect articles and rebuild SEO files
+        run: node scripts/generate-seo.mjs
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "techpulse-bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          git add -A a sitemap.xml rss.xml robots.txt llms.txt data/static-slugs.json data/auto-articles.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: detect static articles [skip ci]"
+            git pull --rebase
+            git push
+          else
+            echo "No changes to commit."
+          fi

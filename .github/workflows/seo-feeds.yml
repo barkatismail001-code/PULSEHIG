@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write # Required to push changes back to the repo
 
+concurrency:
+  group: seo-build
+  cancel-in-progress: false
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -16,6 +20,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history: used to date hand-made articles
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -41,11 +47,12 @@ jobs:
           git config --global user.email "bot@users.noreply.github.com"
           
           # Add the generated SEO files and any static article pages
-          git add -A a sitemap.xml rss.xml robots.txt
+          git add -A a sitemap.xml rss.xml robots.txt llms.txt data/static-slugs.json data/auto-articles.json
           
           # Check if there are staged changes, commit and push if there are
           if ! git diff --cached --quiet; then
             git commit -m "chore: auto-publish daily article and update SEO [skip ci]"
+            git pull --rebase
             git push
           else
             echo "No changes to commit."
