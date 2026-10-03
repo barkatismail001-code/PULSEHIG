@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained | TechPulse</title>
+  <meta name="description" content="LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.">
+  <meta name="keywords" content="LED strip flicker fix, WS2812 flicker, PWM LED flicker, LED strip power injection">
+  <meta name="author" content="TechPulse Team">
+  <meta name="article:section" content="Embedded Systems">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Why Your LED Strip Flickers: PWM, Power and Ground Explained">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Embedded Systems</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Embedded Systems</span>
+        <h1>Why Your LED Strip Flickers: PWM, Power and Ground Explained</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 6 min read</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.</p></div>
+
+      <div class="article-content">
+        <h2>First: is it flickering or dimming unevenly?</h2>
+        <ul>
+          <li><strong>Flickering</strong> — rapid on/off, often at low brightness. Almost always PWM or power related.</li>
+          <li><strong>Dimming at the far end</strong> — the classic voltage-drop problem on long strips.</li>
+          <li><strong>Random colours on WS2812/SK6812</strong> — a data signal or ground problem.</li>
+          <li><strong>Whole strip pulses with music or bass</strong> — the power supply is sagging under transient load.</li>
+        </ul>
+        <p>Identify which one you have, because the fixes overlap but are not identical.</p>
+
+        <h2>1. Power budget: do the maths before buying</h2>
+        <p>An addressable LED (WS2812B) draws up to <strong>60 mA per pixel at full white</strong>. A 1-metre strip of 60 LEDs can pull 3.6 A. A 5-metre strip of 300 LEDs can pull 18 A. That is far more than any USB port and more than many bench supplies.</p>
+        <p>Rule of thumb:</p>
+        <ul>
+          <li>Count LEDs × 60 mA = worst-case amps at full white.</li>
+          <li>Add 20% headroom for the supply.</li>
+          <li>Choose a 5 V supply that can deliver that continuously, not peak.</li>
+        </ul>
+        <p>A 5 m strip of 300 WS2812B needs a <strong>5 V 20 A</strong> supply — not a 5 V 2 A phone charger.</p>
+
+        <h2>2. Voltage drop and power injection</h2>
+        <p>Copper traces inside a strip have resistance. Over 5 metres, the voltage at the far end can drop below 4 V even with a perfect supply. LEDs near the end dim, and WS2812 data becomes unreliable because the logic threshold is referenced to the local 5 V.</p>
+        <p>Fix it with <strong>power injection</strong>:</p>
+        <ul>
+          <li>Run a pair of thick wires (18 AWG or thicker) alongside the strip.</li>
+          <li>Inject 5 V and GND every 1–2 metres, and always at both ends.</li>
+          <li>Keep the injection wires the same length to avoid ground loops.</li>
+          <li>Never inject through the strip's thin traces — always to the copper pads.</li>
+        </ul>
+        <p>A 5 m strip with injections at 0 m, 2.5 m and 5 m will look uniform from end to end.</p>
+
+        <h2>3. Level shifting the data line</h2>
+        <p>WS2812B expects a data high of at least <strong>0.7 × VDD = 3.5 V</strong>. An ESP32 outputs 3.3 V. In most short runs this works, but with a long data wire or a strip powered slightly above 5 V, the margin disappears and you get flickering or random colours.</p>
+        <p>Fix it with one of:</p>
+        <ul>
+          <li>A 74HCT245 or 74AHCT125 level shifter powered from 5 V.</li>
+          <li>A single NPN transistor with a 10 kΩ pull-up to 5 V (works but slower).</li>
+          <li>A dedicated "level shifter" breakout designed for WS2812.</li>
+        </ul>
+        <p>Do not use a simple resistor divider — it will slow the edges too much for the 800 kHz data rate.</p>
+
+        <h2>4. Series resistor and capacitor on the data line</h2>
+        <p>Even with a level shifter, ringing on the data line can cause the first pixel to misread. Two passive parts fix it:</p>
+        <ul>
+          <li><strong>330 Ω resistor</strong> in series with the data line, as close to the first LED as possible.</li>
+          <li><strong>1000 µF electrolytic capacitor</strong> across 5 V and GND at the strip input, to absorb inrush and smooth transients.</li>
+        </ul>
+        <p>These two parts cost less than a euro and solve a surprising number of "random flicker" reports.</p>
+
+        <h2>5. PWM for analog strips</h2>
+        <p>Analog RGB strips (with 4 wires) are dimmed with PWM. If the PWM frequency is too low, you see flicker with a phone camera or with fast eye movement. If it is too high, the MOSFET driver may not switch cleanly.</p>
+        <ul>
+          <li>Use <strong>1–2 kHz PWM</strong> for visible-light applications. Above 2 kHz most people cannot see flicker, and the MOSFET driver can still keep up.</li>
+          <li>Use a logic-level MOSFET (same advice as the DC motor article) — one per colour channel.</li>
+          <li>Never drive a strip directly from an ESP32 pin. Even 1 A per channel will destroy the pin.</li>
+        </ul>
+
+        <h2>6. Ground: the most common silent killer</h2>
+        <p>If the LED strip and the ESP32 have separate power supplies and only the data line is connected, the data signal has no reference. The strip will flicker or show random colours. Always connect the grounds of every supply together, and use thick wire for the ground path — it carries the same current as the +5 V line.</p>
+        <pre><code>ESP32 GND ──── Strip GND ──── 5V PSU GND
+ESP32 GPIO ── 330Ω ── Level shifter ── Strip DIN
+5V PSU +5V ─────────── Strip +5V
+                    └── 1000µF to GND</code></pre>
+
+        <h2>Diagnosing in five minutes</h2>
+        <ol>
+          <li>Measure the voltage at the strip's input and output with a multimeter under load. A drop of more than 0.3 V means you need power injection.</li>
+          <li>Set the strip to full white. If the supply voltage sags below 4.8 V, the supply is undersized.</li>
+          <li>Touch the data line wire. If it is longer than 20 cm and unshielded, add the 330 Ω resistor and shorten it.</li>
+          <li>Measure between ESP32 GND and strip GND. If it is not 0 V, connect them with a thick wire.</li>
+        </ol>
+
+        <h2>Summary</h2>
+        <p>LED strip flicker is a power and signal integrity problem, not a firmware problem. Size the supply for worst-case current, inject power along long strips, level-shift the data, add the 330 Ω + 1000 µF at the strip input, and always share grounds. Do those five things and your installation will look as good as a commercial product.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+</body>
+</html>
