@@ -232,6 +232,14 @@
         if (currentArticle) renderArticle(currentArticle, currentAllArticles);
     });
 
+    function slugOf(a) {
+        let t = a.title;
+        if (typeof t === 'string' && t.trim()[0] === '{') { try { t = JSON.parse(t); } catch (e) {} }
+        const en = String(C.pickLocalized(t, 'en')).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+        return en.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '').slice(0, 70).replace(/-+$/g, '');
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
         C.initDarkMode();
         C.initAdminGate();
@@ -241,15 +249,17 @@
         if (!id) { renderNotFound(); return; }
 
         const articles = await C.getArticles();
-        
-        // استخدام مطابقة مرنة (String comparison) لتفادي خطأ اختلاف النوع بين المعرف النصي والرقمي
-        const article = articles.find(a => String(a.id) === String(id) || String(a.slug) === String(id));
-        
+        const article = articles.find(a =>
+            String(a.id) === String(id) || String(a.slug) === String(id) || slugOf(a) === id);
+
         if (!article) { renderNotFound(); return; }
 
         currentArticle = article;
         currentAllArticles = articles;
         renderArticle(article, articles);
         injectStructuredData(article);
+
+        const canon = document.querySelector('link[rel="canonical"]');
+        if (canon) canon.href = 'https://www.pulsehig.com/article.html?id=' + encodeURIComponent(article.id);
     });
 })();
