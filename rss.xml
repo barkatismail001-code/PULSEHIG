@@ -5,8 +5,72 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 02 Oct 2026 18:10:19 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 18:25:48 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
+      <link>https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control (1).html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control (1).html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description>A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.</description>
+    </item>
+    <item>
+      <title>Why Is My Phone Battery Draining So Fast? 12 Hidden Settings to Check</title>
+      <link>https://www.pulsehig.com/a/why-is-my-phone-battery-draining-so-fast-12-hidden-settings-to-check.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/why-is-my-phone-battery-draining-so-fast-12-hidden-settings-to-check.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive technical analysis of modern mobile power management, investigating the hidden firmware and OS-level configurations that lead to rapid battery depletion and identifying the twelve most critical settings for optimization.</description>
+    </item>
+    <item>
+      <title>How to Spot Energy Vampires Draining Your Bill Silently</title>
+      <link>https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A technical deep-dive into the architecture of smart metering and the identification of parasitic power loads. This analysis explores the integration of AMI (Advanced Metering Infrastructure) systems, the diagnostic capabilities of portable digital power meters, and the interpretation of multi-modal</description>
+    </item>
+    <item>
+      <title>How to Speed Up a Slow Computer in 10 Minutes (No New Hardware)</title>
+      <link>https://www.pulsehig.com/a/how-to-speed-up-a-slow-computer-in-10-minutes-no-new-hardware.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-speed-up-a-slow-computer-in-10-minutes-no-new-hardware.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A technical guide to diagnosing and resolving system performance bottlenecks using real-time monitoring tools like Windows Task Manager and FireTask. Learn how to identify high-load processes, optimize memory management, and improve system responsiveness without hardware upgrades.</description>
+    </item>
+    <item>
+      <title>Why Your Laptop Is Overheating and How to Fix It</title>
+      <link>https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive engineering analysis of mobile thermal management, detailing the physical mechanisms of heat dissipation and the procedural steps for resolving thermal throttling through cleaning and thermal interface replacement.</description>
+    </item>
+    <item>
+      <title>LNG Shipping Economics Explained: How Spot Prices Are Actually Determined</title>
+      <link>https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A technical dissection of the determinants of spot LNG shipping rates, correlating vessel structural engineering, terminal offloading logistics, and cryogenic containment systems with the global market&#39;s price discovery mechanisms.</description>
+    </item>
+    <item>
+      <title>Offshore Drilling in 3,000 Meters of Water: How Dynamically Positioned Rigs Work</title>
+      <link>https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>An in-depth technical analysis of the engineering principles governing dynamically positioned (DP) offshore drilling rigs in deepwater environments, focusing on the integration of the subsea BOP, the mathematical modeling of 6-DOF environmental loads, and the high-precision thrust vectoring required</description>
+    </item>
+    <item>
+      <title>SCADA vs IoT for Oil Fields: What&#39;s the Real Difference in 2026?</title>
+      <link>https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive engineering analysis of the architectural divergence between legacy SCADA systems and modern Industrial IoT (IIoT) deployments in upstream oil and gas operations, focusing on edge intelligence, protocol heterogeneity, and predictive maintenance.</description>
+    </item>
     <item>
       <title>How to Lower Your Electric Bill Using Smart Thermostats and Outlets</title>
       <link>https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html</link>
@@ -22,6 +86,14 @@
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>This technical deep-dive explores the mechanics of I2C clock stretching and its role in causing communication timeouts on ESP32-based systems. We analyze oscilloscope waveforms and circuit topologies to identify the root causes of bus stalls and provide actionable hardware and firmware strategies fo</description>
+    </item>
+    <item>
+      <title>How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive diagnostic and remedial guide for resolving &#39;black screen but works&#39; anomalies in modern mobile devices. This technical breakdown covers software-induced display failures, hardware-level display connector diagnostics, and the specific scenarios where a functional device presents a no</description>
     </item>
     <item>
       <title>Solving High Household Energy Bills Using Smart Home Automation</title>
@@ -48,20 +120,12 @@
       <description>A comprehensive technical manual for diagnosing and repairing common dishwasher malfunctions, focusing on internal mechanical diagnostics, water filtration maintenance, and structural integrity assessment for modern household appliances.</description>
     </item>
     <item>
-      <title>How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</guid>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A comprehensive diagnostic and remedial guide for resolving &#39;black screen but works&#39; anomalies in modern mobile devices. This technical breakdown covers software-induced display failures, hardware-level display connector diagnostics, and the specific scenarios where a functional device presents a no</description>
-    </item>
-    <item>
-      <title>Deconstructing the Real Estate Ecosystem: A Multi-Layered Analysis of Market Dynamics, Structural Integrity, and Asset Transfer</title>
-      <link>https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</guid>
+      <title>The Smart House of Today</title>
+      <link>https://www.pulsehig.com/a/the-smart-house-of-today.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/the-smart-house-of-today.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>This technical analysis provides a comprehensive breakdown of the visual systems representing the real estate sector. Through a detailed examination of three distinct graphical layers, we explore the logical flow of property acquisition, the engineering principles of structural assessment, and the o</description>
+      <description>A technical examination of modern residential automation, focusing on integrated hardware, centralized control interfaces, and the architectural integration of IoT ecosystems within contemporary living spaces.</description>
     </item>
     <item>
       <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
@@ -70,22 +134,6 @@
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque</description>
-    </item>
-    <item>
-      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
-      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
-    </item>
-    <item>
-      <title>The Smart House of Today</title>
-      <link>https://www.pulsehig.com/a/the-smart-house-of-today.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/the-smart-house-of-today.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A technical examination of modern residential automation, focusing on integrated hardware, centralized control interfaces, and the architectural integration of IoT ecosystems within contemporary living spaces.</description>
     </item>
     <item>
       <title>**Smart Living: The Next Generation of Home Automation**</title>
@@ -102,6 +150,22 @@
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>A comprehensive technical analysis of non-chemical hydro-mechanical and chemical-neutralization protocols for residential drain remediation. This article details the application of mechanical extraction, thermal shock, and reactive cleaning agents to restore hydraulic efficiency in plumbing systems.</description>
+    </item>
+    <item>
+      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
+      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
+    </item>
+    <item>
+      <title>Deconstructing the Real Estate Ecosystem: A Multi-Layered Analysis of Market Dynamics, Structural Integrity, and Asset Transfer</title>
+      <link>https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>This technical analysis provides a comprehensive breakdown of the visual systems representing the real estate sector. Through a detailed examination of three distinct graphical layers, we explore the logical flow of property acquisition, the engineering principles of structural assessment, and the o</description>
     </item>
   </channel>
 </rss>

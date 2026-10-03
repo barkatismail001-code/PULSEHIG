@@ -1,1 +1,20 @@
-[]
+[
+ {
+  "slug": "esp32-mosfet-dc-motor-control (1)",
+  "title": "Driving a DC Motor from an ESP32 with a Low-Side MOSFET",
+  "excerpt": "A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.",
+  "category": "Embedded Systems",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "ESP32",
+   "MOSFET",
+   "DC motor",
+   "PWM",
+   "flyback diode",
+   "embedded systems"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 4
+ }
+]
