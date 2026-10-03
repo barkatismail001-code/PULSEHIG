@@ -54,47 +54,61 @@ window.TPCommon = (function () {
     });
   }
 
-  /* ---------- Article data from Supabase Database ---------- */
-  let cache = null;
-  async function getArticles(force) {
-    if (cache && !force) return cache;
-    let published = [];
+  /* ---------- Article data from Supabase Database (direct, no SDK) ---------- */
+  const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+  const LIST_CACHE_KEY = 'tp_articles_v2';
+  const LIST_CACHE_TTL = 5 * 60 * 1000; // 5 minutes inside one browser session
 
-    // الاتصال بقاعدة بيانات Supabase لجلب المقالات الحية
+  async function fetchFromSupabase() {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
     try {
-      const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+      const res = await fetch(
+        SUPABASE_URL + '/rest/v1/articles?select=*&order=id.desc&limit=500',
+        { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY }, signal: ctrl.signal }
+      );
+      if (!res.ok) throw new Error('Supabase HTTP ' + res.status);
+      const data = await res.json();
+      return Array.isArray(data) ? data : [];
+    } finally { clearTimeout(timer); }
+  }
 
-      if (window.supabase) {
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        const { data, error } = await sb
-          .from('articles')
-          .select('*')
-          .order('id', { ascending: false });
-
-        if (!error && data) {
-          published = data;
-        }
-      }
-    } catch (err) {
-      console.warn('Could not load from Supabase database, trying fallback...', err);
-    }
-
-    // احتياطياً في حال تعذر الاتصال بـ Supabase
-    if (!published.length) {
+  let cachePromise = null;
+  async function getArticles(force) {
+    if (!force) {
       try {
-        const res = await fetch('data/articles.json', { cache: 'no-store' });
-        if (res.ok) {
-          const json = await res.json();
-          if (Array.isArray(json)) published = json;
+        const raw = sessionStorage.getItem(LIST_CACHE_KEY);
+        if (raw) {
+          const c = JSON.parse(raw);
+          if (c && Date.now() - c.t < LIST_CACHE_TTL && Array.isArray(c.d) && c.d.length) return c.d;
         }
-      } catch (err) {
-        console.warn('Could not load data/articles.json', err);
-      }
+      } catch (e) {}
+      if (cachePromise) return cachePromise;
     }
-
-    cache = published;
-    return published;
+    cachePromise = (async () => {
+      let published = [];
+      try {
+        published = await fetchFromSupabase();
+      } catch (err) {
+        console.warn('Could not load from Supabase database, trying fallback...', err);
+      }
+      if (!published.length) {
+        try {
+          const res = await fetch('data/articles.json', { cache: 'no-store' });
+          if (res.ok) {
+            const json = await res.json();
+            if (Array.isArray(json)) published = json;
+          }
+        } catch (err) { console.warn('Could not load data/articles.json', err); }
+      } else {
+        try { sessionStorage.setItem(LIST_CACHE_KEY, JSON.stringify({ t: Date.now(), d: published })); } catch (e) {}
+      }
+      return published;
+    })();
+    const out = await cachePromise;
+    cachePromise = null;
+    return out;
   }
 
   let cachedVersion = null;
