@@ -71,6 +71,13 @@
     <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)</image:caption></image:image>
   </url>
   <url>
+    <loc>https://www.pulsehig.com/a/led-strip-flicker-fix.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Why Your LED Strip Flickers: PWM, Power and Ground Explained</image:caption></image:image>
+  </url>
+  <url>
     <loc>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>

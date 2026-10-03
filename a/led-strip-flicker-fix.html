@@ -15,6 +15,8 @@
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/style.css">
   <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+  <link rel="canonical" href="https://www.pulsehig.com/a/led-strip-flicker-fix.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Why Your LED Strip Flickers: PWM, Power and Ground Explained","description":"LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.","datePublished":"2026-10-03","dateModified":"2026-10-03","mainEntityOfPage":"https://www.pulsehig.com/a/led-strip-flicker-fix.html","author":{"@type":"Person","name":"TechPulse Team"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}},"image":["https://www.pulsehig.com/assets/og-default.png"]}</script>
 </head>
 <body>
   <header class="main-header">
@@ -119,7 +121,23 @@ ESP32 GPIO ── 330Ω ── Level shifter ── Strip DIN
         <h2>Summary</h2>
         <p>LED strip flicker is a power and signal integrity problem, not a firmware problem. Size the supply for worst-case current, inject power along long strips, level-shift the data, add the 330 Ω + 1000 µF at the strip input, and always share grounds. Do those five things and your installation will look as good as a commercial product.</p>
       </div>
-    </article>
+    
+<!-- tp-auto:actions -->
+<div class="share-buttons" id="tpActions">
+  <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+  <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+  <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+  <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+  <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+  <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+  <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+</div>
+<section class="comments-section" id="tpComments">
+  <h2 class="section-heading">Comments</h2>
+  <div id="commentsContainer"></div>
+</section>
+<!-- /tp-auto:actions -->
+</article>
   </main>
 
   <footer class="main-footer"><div class="container">
@@ -131,5 +149,7 @@ ESP32 GPIO ── 330Ω ── Level shifter ── Strip DIN
       <a href="/sitemap.xml">Sitemap</a>
     </div>
   </div></footer>
+  <script src="/js/common.js?v=20261004a" defer></script>
+  <script src="/js/static-article.js?v=20261004a" defer></script>
 </body>
 </html>

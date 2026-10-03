@@ -66,6 +66,22 @@
   "minutes": 4
  },
  {
+  "slug": "led-strip-flicker-fix",
+  "title": "Why Your LED Strip Flickers: PWM, Power and Ground Explained",
+  "excerpt": "LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.",
+  "category": "Embedded Systems",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "LED strip flicker fix",
+   "WS2812 flicker",
+   "PWM LED flicker",
+   "LED strip power injection"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 5
+ },
+ {
   "slug": "raspberry-pi-overheating-fix",
   "title": "Stop Your Raspberry Pi from Overheating in a Closed Case",
   "excerpt": "Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.",
