@@ -1,5 +1,53 @@
 [
  {
+  "slug": "android-battery-drain-fix",
+  "title": "Android Battery Draining Fast? Find the Real Culprit",
+  "excerpt": "Your Android phone dies by noon? Use Battery Historian, check wakelocks, disable rogue background apps and stop the top 6 hidden battery killers.",
+  "category": "Mobile",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "android battery drain",
+   "phone battery dying fast",
+   "wakelock fix",
+   "android battery saving"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "bluetooth-audio-lag-windows-fix",
+  "title": "Bluetooth Audio Lag on Windows? Fix the 200 ms Delay",
+  "excerpt": "Bluetooth headphones lag behind video on Windows 11? Disable Hands-Free Telephony, switch to AAC/LDAC, update the adapter driver and reduce the buffer.",
+  "category": "Audio",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "bluetooth audio lag",
+   "bluetooth delay windows",
+   "hands free telephony",
+   "aac codec windows"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
+  "slug": "chrome-high-ram-fix",
+  "title": "Chrome Using All Your RAM? Fix It Without Switching Browsers",
+  "excerpt": "Chrome eating 8 GB of RAM with 20 tabs? Use chrome://memory-internals, enable Memory Saver, kill background extensions and cap the renderer process count.",
+  "category": "Software",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "chrome high ram",
+   "chrome memory leak",
+   "chrome memory saver",
+   "reduce chrome ram"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
   "slug": "esp32-deep-sleep-fix",
   "title": "ESP32 Won",
   "excerpt": "ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.",
@@ -66,6 +114,54 @@
   "minutes": 4
  },
  {
+  "slug": "external-hard-drive-not-detected-fix",
+  "title": "External Hard Drive Not Detected? Fix It Before You Panic",
+  "excerpt": "External drive shows in Disk Management but not in Explorer? Learn to assign a drive letter, fix RAW partitions, check USB power and recover data safely.",
+  "category": "Storage",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "external hard drive not detected",
+   "usb drive not showing",
+   "raw partition fix",
+   "drive letter missing"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "keyboard-keys-not-working-fix",
+  "title": "Keyboard Keys Not Working? Fix Hardware and Software Causes",
+  "excerpt": "Some keys stopped working? Test with a keyboard tester, check Filter Keys, reinstall the HID driver, clean the membrane and diagnose a failing controller.",
+  "category": "Peripherals",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "keyboard keys not working",
+   "keyboard not typing",
+   "filter keys",
+   "keyboard tester"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
+  "slug": "laptop-overheating-throttling-fix",
+  "title": "Laptop Overheating and Throttling? Clean It, Undervolt It",
+  "excerpt": "Laptop CPU hits 95°C and drops to base clock? Learn how to read HWiNFO, clean the fan, replace thermal paste, undervolt with ThrottleStop and limit turbo boost.",
+  "category": "Hardware",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "laptop overheating",
+   "cpu throttling fix",
+   "undervolt laptop",
+   "thermal paste replacement"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
   "slug": "led-strip-flicker-fix",
   "title": "Why Your LED Strip Flickers: PWM, Power and Ground Explained",
   "excerpt": "LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.",
@@ -82,6 +178,120 @@
   "minutes": 5
  },
  {
+  "slug": "linux-wifi-drops-fix",
+  "title": "Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes",
+  "excerpt": "Random Wi-Fi disconnects on Linux are almost never the router. Learn to read dmesg, disable power saving, fix the regulatory domain and pick a stable channel.",
+  "category": "Networking",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "linux wifi drops",
+   "wifi keeps disconnecting linux",
+   "iwlwifi fix",
+   "networkmanager power save"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
+  "slug": "microphone-not-working-fix",
+  "title": "Microphone Not Working? Fix Mute, Levels and Privacy Settings",
+  "excerpt": "Mic not picking up voice in Zoom, Discord or OBS? Check the hardware mute, Windows mic privacy, boost level, exclusive mode and default format in 8 steps.",
+  "category": "Audio",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "microphone not working",
+   "mic not working windows",
+   "microphone mute",
+   "discord mic not working"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
+  "slug": "monitor-flickering-fix",
+  "title": "Monitor Flickering? Fix the Cable, Refresh Rate and PWM",
+  "excerpt": "Screen flickers at 60 Hz or dims randomly? Test the cable, disable adaptive sync, set the correct refresh rate, and avoid PWM-flicker panels.",
+  "category": "Displays",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "monitor flickering",
+   "screen flicker fix",
+   "displayport cable",
+   "adaptive sync flicker",
+   "pwm flicker"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "old-laptop-ssd-upgrade-guide",
+  "title": "Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide",
+  "excerpt": "An old laptop with an HDD feels unusable. For €60 you can clone the drive to an SSD, add 8 GB RAM and get 10× faster boot times. Full step-by-step guide.",
+  "category": "Upgrades",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "old laptop ssd upgrade",
+   "laptop ram upgrade",
+   "clone hdd to ssd",
+   "speed up old laptop"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "pc-wont-boot-fix",
+  "title": "PC Won",
+  "excerpt": "PC powers on but no display? Work through the no-POST checklist: RAM reseat, CMOS clear, minimum config, beep codes, PSU paperclip test and BIOS recovery.",
+  "category": "Hardware",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "pc wont boot",
+   "no post",
+   "computer turns on no display",
+   "cmos clear",
+   "psu test"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "phone-storage-full-fix",
+  "title": "Phone Storage Full? 10 GB You Can Free in 10 Minutes",
+  "excerpt": "Android storage full and no space to update apps? Clear WhatsApp media, Google Photos cache, Telegram downloads and hidden system logs with these commands.",
+  "category": "Mobile",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "phone storage full",
+   "android storage full",
+   "free up android space",
+   "whatsapp storage"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
+  "slug": "printer-offline-windows-fix",
+  "title": "Printer Offline on Windows? Fix It in 10 Minutes",
+  "excerpt": "Windows says your printer is offline even though it is on? Clear the print spooler, disable SNMP status, set a static IP and re-add the printer properly.",
+  "category": "Windows",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "printer offline windows",
+   "printer not responding",
+   "print spooler fix",
+   "snmp printer offline"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
   "slug": "raspberry-pi-overheating-fix",
   "title": "Stop Your Raspberry Pi from Overheating in a Closed Case",
   "excerpt": "Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.",
@@ -96,5 +306,119 @@
   ],
   "author": "TechPulse Team",
   "minutes": 4
+ },
+ {
+  "slug": "router-keeps-rebooting-fix",
+  "title": "Router Keeps Rebooting? 6 Causes You Can Fix Today",
+  "excerpt": "Router restarts every few hours? Check the power adapter, heat, firmware, DHCP lease table, IP conflict and the ISP line. Diagnose in 20 minutes.",
+  "category": "Networking",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "router keeps rebooting",
+   "router restarting",
+   "router power adapter",
+   "router overheating"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "slow-internet-speed-test-fine-fix",
+  "title": "Internet Slow but Speed Test Is Fine? Here Is Why",
+  "excerpt": "Speed test says 500 Mbps but pages load slowly? Fix DNS latency, bufferbloat, MTU, IPv6 and Wi-Fi interference instead of blaming your ISP.",
+  "category": "Networking",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "internet slow speed test fine",
+   "bufferbloat",
+   "dns slow",
+   "mtu issue",
+   "wifi interference"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "smart-tv-slow-fix",
+  "title": "Smart TV Slow and Laggy? Speed It Up Without Buying a New One",
+  "excerpt": "Smart TV menus lag, apps take 30 seconds to open? Free storage, disable auto-start apps, turn off motion smoothing and use an external streaming stick.",
+  "category": "Home Entertainment",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "smart tv slow",
+   "smart tv lag",
+   "speed up smart tv",
+   "fire tv stick vs smart tv"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
+  "slug": "ssd-slow-performance-fix",
+  "title": "SSD Getting Slower? Check TRIM, Over-Provisioning and Firmware",
+  "excerpt": "An SSD that used to boot in 8 seconds now takes 40. Learn to verify TRIM, check SATA vs NVMe mode, update firmware and reserve over-provisioning space.",
+  "category": "Storage",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "ssd slow",
+   "ssd trim",
+   "ssd over provisioning",
+   "nvme slow",
+   "ssd performance fix"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "usb-port-not-working-fix",
+  "title": "USB Port Not Working? Diagnose It Before You RMA the Board",
+  "excerpt": "A dead USB port is rarely dead. Reset the USB hub, disable USB selective suspend, check power delivery and test with a multimeter before replacing hardware.",
+  "category": "Hardware",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "usb port not working",
+   "usb port dead",
+   "usb selective suspend",
+   "usb hub reset"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
+ },
+ {
+  "slug": "webcam-not-working-fix",
+  "title": "Webcam Not Working? Fix Black Screen, Privacy Shutter and Drivers",
+  "excerpt": "Webcam shows black screen in Zoom or Teams? Check the physical privacy shutter, camera permissions, USB bandwidth and antivirus blocking in 8 steps.",
+  "category": "Peripherals",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "webcam not working",
+   "camera black screen",
+   "zoom camera not working",
+   "webcam privacy shutter"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 1
+ },
+ {
+  "slug": "windows-11-slow-after-update-fix",
+  "title": "Windows 11 Slow After an Update? 8 Fixes That Actually Work",
+  "excerpt": "Windows 11 feels sluggish after a recent update? Learn how to disable startup bloat, rebuild the search index, clear the update cache and restore speed.",
+  "category": "Windows",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "windows 11 slow",
+   "windows update slow",
+   "speed up windows 11",
+   "windows 11 performance fix"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 2
  }
 ]
