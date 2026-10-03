@@ -15,6 +15,8 @@
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/style.css">
   <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+  <link rel="canonical" href="https://www.pulsehig.com/a/esp32-deep-sleep-fix.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ESP32 Won","description":"ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.","datePublished":"2026-10-03","dateModified":"2026-10-03","mainEntityOfPage":"https://www.pulsehig.com/a/esp32-deep-sleep-fix.html","author":{"@type":"Person","name":"TechPulse Team"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}},"image":["https://www.pulsehig.com/assets/og-default.png"]}</script>
 </head>
 <body>
   <header class="main-header">
@@ -118,7 +120,23 @@ if (cause == ESP_SLEEP_WAKEUP_EXT0)  { /* button pressed */ }</code></pre>
         <h2>Summary</h2>
         <p>Deep sleep failures come from six places: wrong pin, floating pin, radio left on, USB chip leakage, wrong LDO, and no measurement. Fix those and your battery node will do exactly what the datasheet promised.</p>
       </div>
-    </article>
+    
+<!-- tp-auto:actions -->
+<div class="share-buttons" id="tpActions">
+  <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+  <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+  <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+  <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+  <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+  <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+  <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+</div>
+<section class="comments-section" id="tpComments">
+  <h2 class="section-heading">Comments</h2>
+  <div id="commentsContainer"></div>
+</section>
+<!-- /tp-auto:actions -->
+</article>
   </main>
 
   <footer class="main-footer"><div class="container">
@@ -130,5 +148,7 @@ if (cause == ESP_SLEEP_WAKEUP_EXT0)  { /* button pressed */ }</code></pre>
       <a href="/sitemap.xml">Sitemap</a>
     </div>
   </div></footer>
+  <script src="/js/common.js?v=20261004a" defer></script>
+  <script src="/js/static-article.js?v=20261004a" defer></script>
 </body>
 </html>

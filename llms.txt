@@ -17,6 +17,7 @@ TechPulse publishes deep technical articles in 5 languages (English, Chinese, Sp
 - [Contact](https://www.pulsehig.com/contact.html): Reach the editorial team
 
 ## Featured Articles
+- [ESP32 Won](https://www.pulsehig.com/a/esp32-deep-sleep-fix.html)
 - [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control (1).html)
 - [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/esp32-relay-chatter-fix.html)
 - [Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)](https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html)
@@ -31,7 +32,6 @@ TechPulse publishes deep technical articles in 5 languages (English, Chinese, Sp
 - [How to Lower Your Electric Bill Using Smart Thermostats and Outlets](https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html)
 - [Fixing I2C Clock Stretching Timeouts in ESP32: Why Your Sensor Data Freezes and How to Resolve It](https://www.pulsehig.com/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre.html)
 - [How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop](https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html)
-- [Solving High Household Energy Bills Using Smart Home Automation](https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html)
 
 ## Technical Standards
 - All articles are original, technically reviewed, and cite real engineering principles.

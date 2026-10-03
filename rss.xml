@@ -5,8 +5,16 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Oct 2026 21:38:25 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 21:39:54 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>ESP32 Won</title>
+      <link>https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description>ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.</description>
+    </item>
     <item>
       <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
       <link>https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control (1).html</link>
