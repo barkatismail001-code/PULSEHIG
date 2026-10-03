@@ -16,6 +16,7 @@ const SITE_NAME = 'TechPulse';
 const SITE_DESC = 'Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.';
 const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+const ASSET_V = '20261004a';
 const DEFAULT_IMG = `${SITE}/assets/og-default.png`;
 
 const STATIC_PAGES = [
@@ -65,6 +66,8 @@ function tagsOf(v) {
 async function exists(p) { try { await access(p); return true; } catch { return false; } }
 
 async function loadArticles() {
+  // Safety: this script deletes and rebuilds /a/. It only runs from live Supabase data;
+  // if Supabase is unreachable it stops and leaves the existing pages untouched.
   try {
     const url = `${SUPABASE_URL}/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,tags&order=date.desc&limit=1000`;
     const res = await fetch(url, { headers: { apikey: SUPABASE_KEY } });
@@ -76,9 +79,8 @@ async function loadArticles() {
       }
     } else console.warn('Supabase HTTP', res.status);
   } catch (e) { console.warn('Supabase unreachable:', e.message); }
-  const json = JSON.parse(await readFile(join(ROOT, 'data/articles.json'), 'utf8'));
-  console.log(`Fallback data/articles.json: ${json.length} articles`);
-  return json;
+  console.error('Supabase returned no articles. Aborting so existing static pages are not deleted.');
+  process.exit(1);
 }
 
 async function resolveImage(img) {
@@ -116,7 +118,7 @@ for (const a of raw) {
     title: plain(pick(a.title)),
     excerpt: plain(pick(a.excerpt)).slice(0, 300),
     content,
-    category: a.category || 'Tech',
+    category: /[\u0600-\u06FF\u0750-\u077F]/.test(String(a.category || '')) ? 'Technology' : (a.category || 'Technology'),
     author: a.author || SITE_NAME,
     tags: tagsOf(a.tags),
     date: toDate(a.date),
@@ -126,7 +128,7 @@ for (const a of raw) {
 articles.sort((x, y) => y.date - x.date);
 const urlOf = (a) => `${SITE}/a/${a.slug}.html`;
 
-const NAV = `<a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>`;
+const NAV = `<a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>`;
 
 function page(a) {
   const url = urlOf(a);
@@ -218,7 +220,7 @@ function page(a) {
   <meta name="theme-color" content="#2563eb">
   <link rel="llms" href="/llms.txt">
   <link rel="alternate" type="application/rss+xml" title="${SITE_NAME}" href="/rss.xml">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=${ASSET_V}">
   <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
@@ -233,7 +235,7 @@ function page(a) {
     <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
       <a href="/index.html">Home</a> &gt; <span>${esc(a.category)}</span>
     </nav>
-    <article class="single-article">
+    <article class="single-article" data-id="${esc(a.id)}">
       <header class="article-header">
         <span class="article-category">${esc(a.category)}</span>
         <h1>${esc(a.title)}</h1>
@@ -241,6 +243,7 @@ function page(a) {
           <span>👤 ${esc(a.author)}</span>
           <span>📅 ${iso(a.date)}</span>
           <span>⏱ ${mins} min read</span>
+          <span id="tpViewsWrap" hidden>👁️ <span id="tpViews">0</span> views</span>
         </div>
       </header>
       ${a.image ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" class="article-hero-img" width="1200" height="630" loading="eager">` : ''}
@@ -250,8 +253,20 @@ function page(a) {
       </div>
       ${faqHTML}
       ${a.tags.length ? `<p class="tags">${a.tags.map((t) => `<span class="tag">#${esc(t)}</span>`).join(' ')}</p>` : ''}
+      <div class="share-buttons" id="tpActions">
+        <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+        <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+        <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+        <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+        <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+        <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+        <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+      </div>
+      <section class="comments-section" id="tpComments">
+        <h2 class="section-heading">Comments</h2>
+        <div id="commentsContainer"></div>
+      </section>
       <div class="back-row">
-        <a class="btn-secondary" href="/article.html?id=${encodeURIComponent(a.id)}">❤️ Like, save &amp; comment</a>
         <a class="btn-secondary" href="/index.html">← All articles</a>
       </div>
     </article>
@@ -276,6 +291,8 @@ function page(a) {
       <a href="/sitemap.xml">Sitemap</a>
     </div>
   </div></footer>
+  <script src="/js/common.js?v=${ASSET_V}" defer></script>
+  <script src="/js/static-article.js?v=${ASSET_V}" defer></script>
 </body>
 </html>
 `;
@@ -284,6 +301,9 @@ function page(a) {
 await rm(join(ROOT, 'a'), { recursive: true, force: true });
 await mkdir(join(ROOT, 'a'), { recursive: true });
 for (const a of articles) await writeFile(join(ROOT, 'a', `${a.slug}.html`), page(a));
+
+await writeFile(join(ROOT, 'data', 'static-slugs.json'),
+  JSON.stringify(Object.fromEntries(articles.map((a) => [a.id, a.slug])), null, 1) + '\n');
 
 const urls = [
   ...STATIC_PAGES.map(([p, f, pr]) =>
@@ -387,4 +407,4 @@ ${articles.slice(0, 15).map(a => `- [${a.title}](${urlOf(a)})`).join('\n')}
 
 await writeFile(join(ROOT, 'llms.txt'), llmsContent);
 
-console.log(`✅ Done: ${articles.length} article pages, sitemap.xml, rss.xml, robots.txt, llms.txt`);
+console.log(`✅ Done: ${articles.length} article pages, static-slugs.json, sitemap.xml, rss.xml, robots.txt, llms.txt`);
