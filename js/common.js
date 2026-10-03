@@ -72,7 +72,7 @@ window.TPCommon = (function () {
   }
 
   /* ---------- Article data from Supabase Database ---------- */
-  const ARTICLES_CACHE_KEY = 'tp_articles_v5';
+  const ARTICLES_CACHE_KEY = 'tp_articles_v7';
   const ARTICLES_CACHE_TTL = 5 * 60 * 1000; // 5 min, per browser session
   let cache = null;
   let inflight = null;
@@ -90,6 +90,33 @@ window.TPCommon = (function () {
       const data = await res.json();
       return Array.isArray(data) ? data : [];
     } finally { clearTimeout(timer); }
+  }
+
+  // data/manual-articles.json (optional) + data/auto-articles.json (generated): [{ slug, title, excerpt, category, date, image, tags, author, minutes, content }]
+  // Each entry has a page at /a/<slug>.html (hand-written, or generated from "content").
+  async function loadManualArticles() {
+    try {
+      // manual-articles.json = optional hand-written entries; auto-articles.json = files discovered in a/.
+      const load = async f => { try { const r = await fetch('/data/' + f); const j = r.ok ? await r.json() : []; return Array.isArray(j) ? j : []; } catch (e) { return []; } };
+      const [explicit, auto] = await Promise.all([load('manual-articles.json'), load('auto-articles.json')]);
+      const seenSlugs = new Set(explicit.map(m => m && m.slug));
+      const list = explicit.concat(auto.filter(m => m && !seenSlugs.has(m.slug)));
+      return list.filter(m => m && m.slug && m.title).map(m => ({
+        id: 'm-' + m.slug,
+        slug: m.slug,
+        title: String(m.title),
+        excerpt: String(m.excerpt || ''),
+        content: String(m.content || ''),
+        category: normalizeCategory(m.category) || 'Technology',
+        author: m.author || 'TechPulse Team',
+        date: m.date || '',
+        image: m.image || '',
+        tags: Array.isArray(m.tags) ? m.tags : [],
+        minutes: Number(m.minutes) || 0,
+        featured: !!m.featured,
+        manual: true
+      }));
+    } catch (e) { return []; }
   }
 
   async function loadArticles() {
@@ -111,6 +138,9 @@ window.TPCommon = (function () {
 
     published.forEach(a => { a.category = normalizeCategory(a.category); });
 
+    // Hand-made static articles (data/manual-articles.json) are shown next to the Supabase ones.
+    const manual = await loadManualArticles();
+
     if (!published.length) {
       try {
         const res = await fetch('data/articles.json', { cache: 'no-store' });
@@ -125,9 +155,9 @@ window.TPCommon = (function () {
         console.warn('Could not load data/articles.json', err);
       }
     } else {
-      try { sessionStorage.setItem(ARTICLES_CACHE_KEY, JSON.stringify({ t: Date.now(), d: published })); } catch (e) {}
+      try { sessionStorage.setItem(ARTICLES_CACHE_KEY, JSON.stringify({ t: Date.now(), d: published.concat(manual) })); } catch (e) {}
     }
-    return published;
+    return published.concat(manual);
   }
 
   async function getArticles(force) {
@@ -281,12 +311,13 @@ window.TPCommon = (function () {
   function staticSlugFor(id) { return (staticSlugs && staticSlugs[String(id)]) || ''; }
   // English visitors (and Google) get the static page; other languages keep the localized reader.
   function articleUrl(a, lang) {
+    if (a.manual && a.slug) return '/a/' + a.slug + '.html'; // hand-made pages exist in every language
     const s = staticSlugFor(a.id);
     if (s && (!lang || lang === 'en')) return '/a/' + s + '.html';
     return '/article.html?id=' + encodeURIComponent(a.id);
   }
   function canonicalUrl(a) {
-    const s = staticSlugFor(a.id);
+    const s = (a.manual && a.slug) || staticSlugFor(a.id);
     return 'https://www.pulsehig.com' + (s ? '/a/' + s + '.html' : '/article.html?id=' + encodeURIComponent(a.id));
   }
 

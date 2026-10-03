@@ -7,11 +7,14 @@
 (function () {
   'use strict';
   var C = window.TPCommon;
-  var art = document.querySelector('article.single-article[data-id]');
+  var art = document.querySelector('article.single-article') || document.querySelector('article') || document.querySelector('main') || document.body;
   if (!C || !art) return;
 
-  var id = art.getAttribute('data-id');
-  var h1 = art.querySelector('h1');
+  // Generated pages carry data-id. A hand-written page without it gets "m-<slug>" from its URL.
+  var pm = location.pathname.match(/\/a\/([^\/]+?)(?:\.html)?\/?$/);
+  var id = art.getAttribute('data-id') || (pm ? 'm-' + decodeURIComponent(pm[1]) : '');
+  if (!id) return;
+  var h1 = art.querySelector('h1') || document.querySelector('h1');
   var title = h1 ? h1.textContent : document.title;
   var canonEl = document.querySelector('link[rel="canonical"]');
   var pageUrl = canonEl ? canonEl.href : location.origin + location.pathname;
