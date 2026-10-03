@@ -30,14 +30,14 @@
   <header class="main-header">
     <div class="container">
       <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
-      <nav class="nav-links" aria-label="Main navigation"><a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a></nav>
+      <nav class="nav-links" aria-label="Main navigation"><a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button></nav>
     </div>
   </header>
   <main class="container">
     <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
       <a href="/index.html">Home</a> &gt; <span>Technology</span>
     </nav>
-    <article class="single-article">
+    <article class="single-article" data-id="11">
       <header class="article-header">
         <span class="article-category">Technology</span>
         <h1>Solving High Household Energy Bills Using Smart Home Automation</h1>
@@ -45,6 +45,7 @@
           <span>👤 TechPulse Engineering Team</span>
           <span>📅 2026-09-25</span>
           <span>⏱ 4 min read</span>
+          <span id="tpViewsWrap" hidden>👁️ <span id="tpViews">0</span> views</span>
         </div>
       </header>
       
@@ -59,8 +60,20 @@
       </div>
       
       <p class="tags"><span class="tag">#smart-home</span> <span class="tag">#IoT</span> <span class="tag">#energy-optimization</span> <span class="tag">#automation</span> <span class="tag">#telemetry</span> <span class="tag">#HVAC</span> <span class="tag">#solar-management</span> <span class="tag">#dashboard-design</span></p>
+      <div class="share-buttons" id="tpActions">
+        <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+        <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+        <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+        <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+        <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+        <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+        <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+      </div>
+      <section class="comments-section" id="tpComments">
+        <h2 class="section-heading">Comments</h2>
+        <div id="commentsContainer"></div>
+      </section>
       <div class="back-row">
-        <a class="btn-secondary" href="/article.html?id=11">❤️ Like, save &amp; comment</a>
         <a class="btn-secondary" href="/index.html">← All articles</a>
       </div>
     </article>
@@ -97,5 +110,7 @@
       <a href="/sitemap.xml">Sitemap</a>
     </div>
   </div></footer>
+<script src="/js/common.js?v=20261004a" defer></script>
+  <script src="/js/static-article.js?v=20261004a" defer></script>
 </body>
 </html>
