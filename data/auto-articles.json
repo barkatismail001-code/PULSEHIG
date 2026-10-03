@@ -32,5 +32,21 @@
   ],
   "author": "TechPulse Team",
   "minutes": 4
+ },
+ {
+  "slug": "raspberry-pi-overheating-fix",
+  "title": "Stop Your Raspberry Pi from Overheating in a Closed Case",
+  "excerpt": "Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.",
+  "category": "Embedded Systems",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "Raspberry Pi overheating",
+   "Pi throttling fix",
+   "passive cooling Raspberry Pi",
+   "Pi fan control"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 4
  }
 ]

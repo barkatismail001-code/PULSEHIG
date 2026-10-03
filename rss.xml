@@ -5,7 +5,7 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Oct 2026 21:36:24 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 21:37:26 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
@@ -22,6 +22,14 @@
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description>ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.</description>
+    </item>
+    <item>
+      <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
+      <link>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description>Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.</description>
     </item>
     <item>
       <title>Why Is My Phone Battery Draining So Fast? 12 Hidden Settings to Check</title>
