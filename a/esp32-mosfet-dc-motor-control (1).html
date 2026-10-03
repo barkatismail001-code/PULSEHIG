@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET | TechPulse</title>
+  <meta name="description" content="A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.">
+  <meta name="keywords" content="ESP32, MOSFET, DC motor, PWM, flyback diode, embedded systems">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Embedded Systems">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Driving a DC Motor from an ESP32 with a Low-Side MOSFET">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Embedded Systems</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Embedded Systems</span>
+        <h1>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 4 min read</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>An ESP32 pin can only supply a few milliamps, so it can never power a motor directly. A logic-level MOSFET turns the pin into a safe, fast electronic switch and lets you control speed with PWM.</p></div>
+
+      <div class="article-content">
+        <h2>Why you cannot connect a motor to a GPIO pin</h2>
+        <p>A GPIO pin on the ESP32 is rated for roughly 20 mA in practice, while even a small hobby motor draws 200 mA to over 1 A, and much more at start-up. Connecting it directly can damage the pin or reset the board. The pin should only carry the tiny control signal. The motor current has to flow through a separate power path that the pin switches on and off.</p>
+
+        <h2>Parts you need</h2>
+        <ul>
+          <li>An N-channel <strong>logic-level</strong> MOSFET, meaning one whose on-resistance is specified at a gate voltage of 3.3 V or lower. Small parts such as the AO3400 or IRLML6344 suit loads of a few amps. Always confirm Rds(on) at 3.3 V in the datasheet.</li>
+          <li>A gate resistor of 100 to 220 &Omega;.</li>
+          <li>A pull-down resistor of 10 k&Omega; from gate to ground.</li>
+          <li>A flyback diode across the motor, such as a 1N5819 Schottky or a 1N4007.</li>
+          <li>A motor supply that matches the motor voltage (for example 5 V or 12 V), separate from the ESP32 USB supply when the motor is larger.</li>
+        </ul>
+
+        <h2>Wiring</h2>
+        <p>This is a low-side switch: the MOSFET sits between the motor and ground.</p>
+        <ul>
+          <li>Motor supply positive goes to one motor terminal.</li>
+          <li>The other motor terminal goes to the MOSFET drain.</li>
+          <li>The MOSFET source goes to ground.</li>
+          <li>The ESP32 pin goes through the gate resistor to the gate. The 10 k&Omega; pull-down connects gate to ground.</li>
+          <li>The flyback diode connects across the motor terminals with its cathode (the striped end) on the positive side.</li>
+          <li><strong>The ESP32 ground and the motor supply ground must be connected together.</strong> Without a common ground the gate signal has no reference and the circuit will not work.</li>
+        </ul>
+
+        <h2>Why the pull-down and the diode matter</h2>
+        <p>During boot, an ESP32 pin can float for a moment. Without the pull-down, the gate may pick up noise and the motor could twitch or run at start-up. The diode protects the MOSFET: when the switch turns off, the motor coil tries to keep current flowing and produces a voltage spike far above the supply. The flyback diode gives that current a safe path to circulate and die out.</p>
+
+        <h2>Example code with PWM</h2>
+        <p>The sketch below uses the ESP32 Arduino core 3.x API and ramps the motor speed up and down. A frequency of 20 kHz keeps the switching sound out of the audible range.</p>
+        <pre><code>const int MOTOR_PIN = 25;      // avoid strapping pins 0, 2, 12, 15
+const int PWM_FREQ  = 20000;   // 20 kHz
+const int PWM_RES   = 8;       // 8 bit: duty 0..255
+
+void setup() {
+  ledcAttach(MOTOR_PIN, PWM_FREQ, PWM_RES);
+  ledcWrite(MOTOR_PIN, 0);     // motor off at start
+}
+
+void loop() {
+  for (int duty = 0; duty &lt;= 255; duty += 5) {
+    ledcWrite(MOTOR_PIN, duty);
+    delay(40);
+  }
+  for (int duty = 255; duty &gt;= 0; duty -= 5) {
+    ledcWrite(MOTOR_PIN, duty);
+    delay(40);
+  }
+}</code></pre>
+        <p>On the older core 2.x you use <code>ledcSetup()</code> and <code>ledcAttachPin()</code> instead of <code>ledcAttach()</code>.</p>
+
+        <h2>How do you test it safely?</h2>
+        <p>First run the circuit with the motor disconnected and measure the drain voltage with a multimeter: it should read the supply voltage when the pin is low and drop close to zero when the pin is high. Then connect the motor at a low duty value and increase it gradually. After a minute under load, touch the MOSFET lightly. If it is too hot to hold, the gate voltage is probably too low for that part or the current is above its limit.</p>
+
+        <h2>Why does the motor run weakly or the MOSFET get hot?</h2>
+        <p>The most common cause is a MOSFET that is not truly logic-level, so 3.3 V does not turn it fully on and its resistance stays high. Choose a part with a low Rds(on) specified at 2.5 V or 3.3 V. The second cause is a missing common ground. The third is a gate resistor that is too large for a high PWM frequency, which slows the switching.</p>
+
+        <h2>Summary</h2>
+        <p>A logic-level MOSFET, a small gate resistor, a pull-down and a flyback diode are all you need to control a motor from an ESP32 safely. Share the grounds, check Rds(on) at 3.3 V, and start testing at low duty.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+</body>
+</html>
