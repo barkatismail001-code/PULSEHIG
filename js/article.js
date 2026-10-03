@@ -41,7 +41,6 @@
             : article.title;
 
         const readMin = C.calcReadMinutes(article.content);
-        const views = C.registerView(article.id);
         const liked = C.hasLiked(article.id);
         const likeCount = C.getLikeCount(article.id);
         const bookmarked = C.isBookmarked(article.id);
@@ -59,9 +58,9 @@
                     ${related.map(r => `
                         <article class="article-card">
                             <span class="card-category">${C.esc(C.translateCategory(r.category, lang))}</span>
-                            <h3><a href="article.html?id=${encodeURIComponent(r.id)}">${C.esc(r.title)}</a></h3>
+                            <h3><a href="${C.esc(C.articleUrl(r, lang))}">${C.esc(r.title)}</a></h3>
                             <p>${C.esc(r.excerpt)}</p>
-                            <a href="article.html?id=${encodeURIComponent(r.id)}" class="read-more" data-i18n="read_more">${I.t('read_more')}</a>
+                            <a href="${C.esc(C.articleUrl(r, lang))}" class="read-more" data-i18n="read_more">${I.t('read_more')}</a>
                         </article>
                     `).join('')}
                 </div>
@@ -93,7 +92,7 @@
                         <span>👤 ${C.esc(article.author || 'TechPulse Team')}</span>
                         <span>📅 ${C.formatDate(article.date, lang) || C.formatDate(new Date().toISOString(), lang)}</span>
                         <span>⏱ ${readMin} <span data-i18n="read_time">${I.t('read_time')}</span></span>
-                        <span>👁️ ${views} <span data-i18n="views">${I.t('views')}</span></span>
+                        <span>👁️ <span id="articleViews">${C.getViews(article.id)}</span> <span data-i18n="views">${I.t('views')}</span></span>
                     </div>
                 </header>
 
@@ -248,7 +247,8 @@
         const id = getParam('id') || getParam('slug');
         if (!id) { renderNotFound(); return; }
 
-        const articles = await C.getArticles();
+        C.trackAndGetSiteStats(); // count this visit once per session, even when landing straight on an article
+        const [articles] = await Promise.all([C.getArticles(), C.loadStaticSlugs()]);
         const article = articles.find(a =>
             String(a.id) === String(id) || String(a.slug) === String(id) || slugOf(a) === id);
 
@@ -259,7 +259,16 @@
         renderArticle(article, articles);
         injectStructuredData(article);
 
+        // One canonical URL per article: the static /a/<slug>.html page when it exists.
+        const canonHref = C.canonicalUrl(article);
         const canon = document.querySelector('link[rel="canonical"]');
-        if (canon) canon.href = 'https://www.pulsehig.com/article.html?id=' + encodeURIComponent(article.id);
+        if (canon) canon.href = canonHref;
+        setMeta('og:url', canonHref);
+
+        // Count the view once per session and update the number shown.
+        C.registerView(article.id).then(v => {
+            const el = document.getElementById('articleViews');
+            if (el) el.textContent = v;
+        });
     });
 })();

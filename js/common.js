@@ -72,7 +72,7 @@ window.TPCommon = (function () {
   }
 
   /* ---------- Article data from Supabase Database ---------- */
-  const ARTICLES_CACHE_KEY = 'tp_articles_v4';
+  const ARTICLES_CACHE_KEY = 'tp_articles_v5';
   const ARTICLES_CACHE_TTL = 5 * 60 * 1000; // 5 min, per browser session
   let cache = null;
   let inflight = null;
@@ -140,7 +140,6 @@ window.TPCommon = (function () {
           const c = JSON.parse(raw);
           if (c && Array.isArray(c.d) && c.d.length && Date.now() - c.t < ARTICLES_CACHE_TTL) {
             cache = c.d;
-            fetchAndUpdateAllViews();
             return cache;
           }
         }
@@ -150,7 +149,6 @@ window.TPCommon = (function () {
     if (!inflight) inflight = loadArticles().finally(() => { inflight = null; });
     const published = await inflight;
     cache = published;
-    fetchAndUpdateAllViews();
     return published;
   }
 
@@ -164,31 +162,48 @@ window.TPCommon = (function () {
     return cachedVersion;
   }
 
-  /* ---------- Site-wide visit counter (stored in Supabase: site_stats, id='global') ----------
-     Counted once per browser session via the hit_site() SQL function.
-     Later page loads in the same session only read the current values. */
+  /* ---------- Supabase over plain REST (no SDK needed: faster pages, fewer failure points) ---------- */
+  function sbHeaders(extra) {
+    return Object.assign({ apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY }, extra || {});
+  }
+  async function sbRpc(name, args) {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/' + name, {
+      method: 'POST',
+      headers: sbHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(args || {})
+    });
+    if (!res.ok) throw new Error(name + ' HTTP ' + res.status);
+    return res.json();
+  }
+  async function sbSelect(query) {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/' + query, { headers: sbHeaders() });
+    if (!res.ok) throw new Error('select HTTP ' + res.status);
+    return res.json();
+  }
+  function ssGet(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+  function ssSet(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+
+  /* ---------- Site-wide visit counter (Supabase: site_stats, id='global') ----------
+     Counted once per browser session (any page: home, article, static /a/ page)
+     through the hit_site() SQL function. Later loads only read the values. */
   async function trackAndGetSiteStats() {
     const fallback = { total: 0, daily: 0 };
-    const sb = getClient();
-    if (!sb) return fallback;
     try {
-      if (!sessionStorage.getItem('tp_site_hit')) {
-        const { data, error } = await sb.rpc('hit_site', { p_today: todayStr() });
-        if (!error && data) {
-          sessionStorage.setItem('tp_site_hit', '1');
-          return { total: data.total || 0, daily: data.daily || 0 };
-        }
-        if (error) console.warn('hit_site failed:', error.message);
+      if (!ssGet('tp_site_hit')) {
+        try {
+          const d = await sbRpc('hit_site', { p_today: todayStr() });
+          if (d && typeof d === 'object') {
+            ssSet('tp_site_hit', '1');
+            return { total: d.total || 0, daily: d.daily || 0 };
+          }
+        } catch (e) { console.warn('hit_site failed:', e.message); }
       }
-      const { data, error } = await sb
-        .from('site_stats')
-        .select('total_visits, daily_visits, last_visit_date')
-        .eq('id', 'global')
-        .maybeSingle();
-      if (!error && data) {
+      const rows = await sbSelect('site_stats?select=total_visits,daily_visits,last_visit_date&id=eq.global');
+      const d = rows && rows[0];
+      if (d) {
         return {
-          total: data.total_visits || 0,
-          daily: data.last_visit_date === todayStr() ? (data.daily_visits || 0) : 0
+          total: d.total_visits || 0,
+          daily: d.last_visit_date === todayStr() ? (d.daily_visits || 0) : 0
         };
       }
     } catch (e) {
@@ -197,21 +212,17 @@ window.TPCommon = (function () {
     return fallback;
   }
 
-  /* ---------- Per-article views (stored in Supabase: article_views) ---------- */
+  /* ---------- Per-article views (Supabase: article_views) ---------- */
   let viewCache = {};
   let dailyViewCache = {};
-  const freshIds = new Set(); // ids already updated this page-load (don't overwrite with older data)
+  const freshIds = new Set(); // ids updated during this page-load (never overwrite with older data)
 
-  async function fetchAndUpdateAllViews() {
+  // Reads every article's counters in ONE request. Does not count a view.
+  async function refreshViews() {
     try {
-      const sb = getClient();
-      if (!sb) return;
-      const { data, error } = await sb
-        .from('article_views')
-        .select('article_id, views_count, daily_views, last_visit_date');
-      if (error || !data) return;
+      const data = await sbSelect('article_views?select=article_id,views_count,daily_views,last_visit_date');
       const today = todayStr();
-      data.forEach(row => {
+      (data || []).forEach(row => {
         const id = String(row.article_id);
         if (freshIds.has(id)) return;
         viewCache[id] = row.views_count || 0;
@@ -222,46 +233,61 @@ window.TPCommon = (function () {
     }
   }
 
-  function getViews(id) {
-    return viewCache[String(id)] || 0;
-  }
+  function getViews(id) { return viewCache[String(id)] || 0; }
+  function getDailyViews(id) { return dailyViewCache[String(id)] || 0; }
 
-  function getDailyViews(id) {
-    return dailyViewCache[String(id)] || 0;
-  }
-
-  // Counts one view per browser session per article, via the hit_article() SQL function.
+  // Counts ONE view per browser session per article (hit_article() SQL function).
+  // Only call this where the article is actually opened.
   async function registerView(id) {
     id = String(id);
     const seenKey = 'tp_seen_' + id;
-    const sb = getClient();
     try {
-      if (sb && !sessionStorage.getItem(seenKey)) {
-        const { data, error } = await sb.rpc('hit_article', { p_id: id, p_today: todayStr() });
-        if (!error && data) {
-          sessionStorage.setItem(seenKey, '1');
+      if (!ssGet(seenKey)) {
+        const d = await sbRpc('hit_article', { p_id: id, p_today: todayStr() });
+        if (d && typeof d === 'object') {
+          ssSet(seenKey, '1');
           freshIds.add(id);
-          viewCache[id] = data.views || 0;
-          dailyViewCache[id] = data.daily || 0;
-        } else if (error) {
-          console.warn('hit_article failed:', error.message);
+          viewCache[id] = d.views || 0;
+          dailyViewCache[id] = d.daily || 0;
+          return getViews(id);
         }
-      } else if (sb) {
-        // already counted in this session: just read the current number
-        const { data } = await sb
-          .from('article_views')
-          .select('views_count, daily_views, last_visit_date')
-          .eq('article_id', id)
-          .maybeSingle();
-        if (data) {
-          viewCache[id] = data.views_count || 0;
-          dailyViewCache[id] = data.last_visit_date === todayStr() ? (data.daily_views || 0) : 0;
-        }
+      }
+      const rows = await sbSelect('article_views?select=views_count,daily_views,last_visit_date&article_id=eq.' + encodeURIComponent(id));
+      const d = rows && rows[0];
+      if (d) {
+        viewCache[id] = d.views_count || 0;
+        dailyViewCache[id] = d.last_visit_date === todayStr() ? (d.daily_views || 0) : 0;
       }
     } catch (err) {
       console.warn('Could not update article views:', err);
     }
     return getViews(id);
+  }
+
+  /* ---------- Static SEO pages (/a/<slug>.html) ----------
+     data/static-slugs.json maps article id -> slug of an existing static page.
+     Links use the static URL when it really exists (real HTTP 200 for Google),
+     and fall back to article.html?id=... for newer articles. */
+  let staticSlugs = null;
+  async function loadStaticSlugs() {
+    if (staticSlugs) return staticSlugs;
+    try {
+      const res = await fetch('/data/static-slugs.json');
+      staticSlugs = res.ok ? await res.json() : {};
+    } catch (e) { staticSlugs = {}; }
+    if (!staticSlugs || typeof staticSlugs !== 'object') staticSlugs = {};
+    return staticSlugs;
+  }
+  function staticSlugFor(id) { return (staticSlugs && staticSlugs[String(id)]) || ''; }
+  // English visitors (and Google) get the static page; other languages keep the localized reader.
+  function articleUrl(a, lang) {
+    const s = staticSlugFor(a.id);
+    if (s && (!lang || lang === 'en')) return '/a/' + s + '.html';
+    return '/article.html?id=' + encodeURIComponent(a.id);
+  }
+  function canonicalUrl(a) {
+    const s = staticSlugFor(a.id);
+    return 'https://www.pulsehig.com' + (s ? '/a/' + s + '.html' : '/article.html?id=' + encodeURIComponent(a.id));
   }
 
   /* ---------- Likes ---------- */
@@ -491,7 +517,8 @@ window.TPCommon = (function () {
     esc, slugify, formatDate, calcReadMinutes,
     pickLocalized, localizeArticle, translateCategory, normalizeCategory,
     getArticles, getArticlesVersion,
-    getViews, getDailyViews, registerView, trackAndGetSiteStats,
+    getViews, getDailyViews, registerView, refreshViews, trackAndGetSiteStats,
+    loadStaticSlugs, articleUrl, canonicalUrl,
     getLikeCount, hasLiked, toggleLike,
     getBookmarks, isBookmarked, toggleBookmark,
     showToast, initDarkMode, initAdminGate, initTicker,

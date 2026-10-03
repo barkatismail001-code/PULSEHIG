@@ -160,10 +160,7 @@
     // Count this visit and load daily/total numbers from Supabase (site_stats) in parallel.
     const statsPromise = C.trackAndGetSiteStats().then(s => { siteStats = s; renderGlobalStats(); });
 
-    allArticles = await C.getArticles();
-    // Register a view for every article the moment its card enters the grid,
-    // matching how a real "articles listing" page is usually counted.
-    allArticles.forEach(a => C.registerView(a.id));
+    [allArticles] = await Promise.all([C.getArticles(), C.loadStaticSlugs()]);
 
     renderSiteStats();
     renderFeatured();
@@ -172,6 +169,10 @@
     renderArticlesUI();
     renderTrending();
     wireSearch();
+
+    // Real view counters: read them in one request and refresh the cards (no fake counting here).
+    C.refreshViews().then(() => { renderFeatured(); renderArticlesUI(); renderTrending(); });
+
     await statsPromise;
     renderGlobalStats();
   }
@@ -268,7 +269,7 @@
     list.innerHTML = top.map((a, i) => `
       <li>
         <span class="popular-num">${i + 1}</span>
-        <a href="article.html?id=${encodeURIComponent(a.id)}">${C.esc(C.pickLocalized(a.title, lang))}</a>
+        <a href="${C.esc(C.articleUrl(a, lang))}">${C.esc(C.pickLocalized(a.title, lang))}</a>
       </li>
     `).join('');
   }
@@ -312,6 +313,7 @@
 
   function renderCard(a, lang) {
     const readMin = C.calcReadMinutes(a.content);
+    const url = C.articleUrl(a, lang);
     const views = C.getViews(a.id);
     const liked = C.hasLiked(a.id);
     const likeCount = C.getLikeCount(a.id);
@@ -322,7 +324,7 @@
       <article class="article-card" data-id="${C.esc(a.id)}">
         ${imgHTML}
         <span class="card-category">${C.esc(C.translateCategory(a.category, lang))}</span>
-        <h3><a href="article.html?id=${encodeURIComponent(a.id)}">${C.esc(a.title)}</a></h3>
+        <h3><a href="${C.esc(url)}">${C.esc(a.title)}</a></h3>
         <p>${C.esc(a.excerpt || '')}</p>
         <div class="card-meta">
           <span>📅 ${C.esc(C.formatDate(a.date, lang))}</span>
@@ -330,7 +332,7 @@
           <span>👁️ ${views} ${C.esc(I.t('views'))}</span>
         </div>
         <div class="card-meta" style="border-top:none;padding-top:0;align-items:center;justify-content:space-between">
-          <a href="article.html?id=${encodeURIComponent(a.id)}" class="read-more">${C.esc(I.t('read_more'))} →</a>
+          <a href="${C.esc(url)}" class="read-more">${C.esc(I.t('read_more'))} →</a>
           <span style="display:flex;gap:10px;align-items:center">
             <button type="button" class="like-btn${liked ? ' liked' : ''}" data-like="${C.esc(a.id)}" aria-label="Like">
               ${liked ? '❤️' : '🤍'} <span class="like-count">${likeCount}</span>
