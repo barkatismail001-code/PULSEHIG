@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSD Getting Slower? Check TRIM, Over-Provisioning and Firmware | TechPulse</title>
+  <meta name="description" content="An SSD that used to boot in 8 seconds now takes 40. Learn to verify TRIM, check SATA vs NVMe mode, update firmware and reserve over-provisioning space.">
+  <meta name="keywords" content="ssd slow, ssd trim, ssd over provisioning, nvme slow, ssd performance fix">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Storage">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="SSD Getting Slower? Check TRIM, Over-Provisioning and Firmware">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+  <link rel="canonical" href="https://www.pulsehig.com/a/ssd-slow-performance-fix.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"SSD Getting Slower? Check TRIM, Over-Provisioning and Firmware","description":"An SSD that used to boot in 8 seconds now takes 40. Learn to verify TRIM, check SATA vs NVMe mode, update firmware and reserve over-provisioning space.","datePublished":"2026-10-03","dateModified":"2026-10-03","mainEntityOfPage":"https://www.pulsehig.com/a/ssd-slow-performance-fix.html","author":{"@type":"Person","name":"TechPulse Team"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}},"image":["https://www.pulsehig.com/assets/og-default.png"]}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Storage</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Storage</span>
+        <h1>SSD Getting Slower? Check TRIM, Over-Provisioning and Firmware</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 6 min read</span>
+        </div>
+        <div class="article-meta" style="margin-top:8px">
+          <span>🎯 Difficulty: Intermediate</span>
+          <span>⏱ Fix time: 25 min</span>
+          <span>💰 Cost: Free</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>SSDs do not slow down because they are old — they slow down because the controller runs out of clean NAND blocks. TRIM, over-provisioning and firmware are the three levers that keep an SSD fast for years.</p></div>
+
+      <div class="article-content">
+        <h2>1. Benchmark first</h2>
+        <p>Use <strong>CrystalDiskMark</strong> or on Linux:</p>
+        <pre><code>sudo hdparm -tT /dev/nvme0n1
+sudo fio --name=randwrite --ioengine=libaio --rw=randwrite --bs=4k --size=1G --runtime=60</code></pre>
+        <p>Compare against the drive's rated specs. A modern NVMe should do 3000+ MB/s sequential and 200k+ IOPS random.</p>
+
+        <h2>2. Verify TRIM is enabled</h2>
+        <p><strong>Windows:</strong></p>
+        <pre><code>fsutil behavior query DisableDeleteNotify
+# 0 = TRIM enabled, 1 = disabled
+fsutil behavior set DisableDeleteNotify 0</code></pre>
+        <p><strong>Linux:</strong></p>
+        <pre><code>sudo systemctl status fstrim.timer
+sudo fstrim -av</code></pre>
+
+        <h2>3. Check the SATA/NVMe link speed</h2>
+        <pre><code># Windows
+Get-PhysicalDisk | Select FriendlyName, MediaType, BusType
+
+# Linux
+sudo lspci -vv | grep -i "LnkSta"</code></pre>
+        <p>If a SATA III SSD negotiates SATA II (3 Gb/s), replace the cable — a damaged cable forces the fallback.</p>
+
+        <h2>4. Reserve over-provisioning space</h2>
+        <p>Leave 10% of the drive unallocated in Disk Management. The controller uses it for garbage collection. On a 1 TB drive, that is 100 GB that buys you years of consistent performance.</p>
+
+        <h2>5. Update the firmware</h2>
+        <p>Samsung Magician, Crucial Storage Executive, and WD Dashboard all offer firmware updates. Several models had firmware bugs that caused write speeds to collapse after 50% fill.</p>
+
+        <h2>6. Keep at least 15% free</h2>
+        <p>An SSD above 90% full loses 50%+ of its write performance. If you cannot free space, add a second drive.</p>
+
+        <h2>7. Check for DRAM-less drives</h2>
+        <p>Cheap SSDs without DRAM cache slow down dramatically once the SLC cache is exhausted. If you see a drive drop from 2000 MB/s to 80 MB/s after writing 30 GB, that is the cause — no fix, only replacement.</p>
+
+        <h2>Summary</h2>
+        <p>Enable TRIM, verify the link speed, update firmware, keep 15% free and reserve 10% over-provisioning. Those five steps keep an SSD fast for its entire life.</p>
+      </div>
+
+<!-- tp-auto:actions -->
+<div class="share-buttons" id="tpActions">
+  <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+  <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+  <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+  <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+  <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+  <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+  <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+</div>
+<section class="comments-section" id="tpComments">
+  <h2 class="section-heading">Comments</h2>
+  <div id="commentsContainer"></div>
+</section>
+<!-- /tp-auto:actions -->
+</article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+  <script src="/js/common.js?v=20261004a" defer></script>
+  <script src="/js/static-article.js?v=20261004a" defer></script>
+</body>
+</html>

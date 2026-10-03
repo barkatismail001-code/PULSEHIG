@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide | TechPulse</title>
+  <meta name="description" content="An old laptop with an HDD feels unusable. For €60 you can clone the drive to an SSD, add 8 GB RAM and get 10× faster boot times. Full step-by-step guide.">
+  <meta name="keywords" content="old laptop ssd upgrade, laptop ram upgrade, clone hdd to ssd, speed up old laptop">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Upgrades">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+  <link rel="canonical" href="https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide","description":"An old laptop with an HDD feels unusable. For €60 you can clone the drive to an SSD, add 8 GB RAM and get 10× faster boot times. Full step-by-step guide.","datePublished":"2026-10-03","dateModified":"2026-10-03","mainEntityOfPage":"https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html","author":{"@type":"Person","name":"TechPulse Team"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}},"image":["https://www.pulsehig.com/assets/og-default.png"]}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Upgrades</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Upgrades</span>
+        <h1>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 9 min read</span>
+        </div>
+        <div class="article-meta" style="margin-top:8px">
+          <span>🎯 Difficulty: Beginner</span>
+          <span>⏱ Fix time: 60 min</span>
+          <span>💰 Cost: €50–80</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>A laptop with an i5-5200U and 4 GB RAM is not slow because the CPU is old — it is slow because it is waiting for a 5400 rpm hard drive and swapping to disk. Replacing those two parts costs less than a new laptop and gives 10× the responsiveness.</p></div>
+
+      <div class="article-content">
+        <h2>1. Check what is inside</h2>
+        <pre><code># Windows
+wmic diskdrive get model,size,interfacetype
+wmic memorychip get capacity,speed,devicelocator
+
+# Linux
+sudo lshw -class disk -class memory | less</code></pre>
+        <p>Note whether you have a 2.5" SATA bay, an M.2 slot, or both. Most 2015 laptops have a 2.5" bay and sometimes an M.2 SATA (not NVMe) slot.</p>
+
+        <h2>2. Buy the right parts</h2>
+        <ul>
+          <li><strong>SSD:</strong> 500 GB SATA III (Crucial MX500 or Samsung 870 EVO). €45–55.</li>
+          <li><strong>RAM:</strong> check the type. 2015 laptops use DDR3L-1600 SO-DIMM. 8 GB is €20–25.</li>
+          <li><strong>External USB enclosure:</strong> €8. Needed for cloning.</li>
+        </ul>
+
+        <h2>3. Clone the old drive</h2>
+        <p>Put the new SSD in the USB enclosure, then use <strong>Macrium Reflect Free</strong> or <strong>Clonezilla</strong>:</p>
+        <pre><code>sudo clonezilla
+# device-device mode → source: /dev/sda → target: /dev/sdb</code></pre>
+        <p>Cloning preserves Windows activation and all your files. Takes 30–90 minutes.</p>
+
+        <h2>4. Swap the drives</h2>
+        <p>Open the laptop, remove the old HDD, install the SSD in its place. Put the old HDD in the USB enclosure — you now have an external backup drive.</p>
+
+        <h2>5. Add RAM</h2>
+        <p>Open the RAM slot, insert the SO-DIMM at 30°, press down until it clicks. If you have 4 GB + 4 GB, that is 8 GB total. If the laptop supports dual channel, matching pairs are faster.</p>
+
+        <h2>6. First boot checks</h2>
+        <pre><code># Confirm SSD is detected and TRIM is on
+fsutil behavior query DisableDeleteNotify   # should be 0
+# Check RAM
+wmic memorychip get capacity,speed</code></pre>
+
+        <h2>7. Optional: clean install</h2>
+        <p>If the old Windows install is 5 years old, a clean install on the SSD is even faster. Back up your data first, then use the Windows Media Creation Tool.</p>
+
+        <h2>8. What to expect</h2>
+        <ul>
+          <li>Boot time: 45 s → 8 s</li>
+          <li>App launch: 6 s → 1 s</li>
+          <li>Windows updates: 40 min → 5 min</li>
+          <li>General feel: unusable → snappy</li>
+        </ul>
+
+        <h2>Summary</h2>
+        <p>Clone the HDD to a SATA SSD, drop in 8 GB of RAM, and a 2015 laptop becomes perfectly usable for browsing, Office and light development. Total cost: under €80.</p>
+      </div>
+
+<!-- tp-auto:actions -->
+<div class="share-buttons" id="tpActions">
+  <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+  <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+  <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+  <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+  <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+  <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+  <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+</div>
+<section class="comments-section" id="tpComments">
+  <h2 class="section-heading">Comments</h2>
+  <div id="commentsContainer"></div>
+</section>
+<!-- /tp-auto:actions -->
+</article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+  <script src="/js/common.js?v=20261004a" defer></script>
+  <script src="/js/static-article.js?v=20261004a" defer></script>
+</body>
+</html>

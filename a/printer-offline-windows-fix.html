@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Printer Offline on Windows? Fix It in 10 Minutes | TechPulse</title>
+  <meta name="description" content="Windows says your printer is offline even though it is on? Clear the print spooler, disable SNMP status, set a static IP and re-add the printer properly.">
+  <meta name="keywords" content="printer offline windows, printer not responding, print spooler fix, snmp printer offline">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Windows">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Printer Offline on Windows? Fix It in 10 Minutes">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+  <link rel="canonical" href="https://www.pulsehig.com/a/printer-offline-windows-fix.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Printer Offline on Windows? Fix It in 10 Minutes","description":"Windows says your printer is offline even though it is on? Clear the print spooler, disable SNMP status, set a static IP and re-add the printer properly.","datePublished":"2026-10-03","dateModified":"2026-10-03","mainEntityOfPage":"https://www.pulsehig.com/a/printer-offline-windows-fix.html","author":{"@type":"Person","name":"TechPulse Team"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}},"image":["https://www.pulsehig.com/assets/og-default.png"]}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Windows</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Windows</span>
+        <h1>Printer Offline on Windows? Fix It in 10 Minutes</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 5 min read</span>
+        </div>
+        <div class="article-meta" style="margin-top:8px">
+          <span>🎯 Difficulty: Beginner</span>
+          <span>⏱ Fix time: 10 min</span>
+          <span>💰 Cost: Free</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>The printer is on, connected to Wi-Fi, and still Windows shows "Offline". In 90% of cases the printer changed IP address, or Windows is using a stale SNMP status check. Both are fixable in minutes.</p></div>
+
+      <div class="article-content">
+        <h2>1. Restart the print spooler</h2>
+        <pre><code>net stop spooler
+del /Q %SystemRoot%\System32\spool\PRINTERS\*
+net start spooler</code></pre>
+        <p>Run as Administrator. This clears stuck jobs that make Windows mark the printer offline.</p>
+
+        <h2>2. Disable SNMP status</h2>
+        <pre><code>Control Panel → Devices and Printers → [printer] → Printer properties → Ports → Configure Port → uncheck "SNMP Status Enabled"</code></pre>
+        <p>This is the single most effective fix for network printers that randomly show offline.</p>
+
+        <h2>3. Give the printer a static IP</h2>
+        <p>Log into the printer's web interface and set a static IP outside your DHCP pool. Then re-add the printer using that IP.</p>
+
+        <h2>4. Remove and re-add the printer</h2>
+        <pre><code>Settings → Bluetooth & devices → Printers & scanners → Remove device
+Then: Add device → The printer that I want isn't listed → Add using TCP/IP → 192.168.1.50</code></pre>
+
+        <h2>5. Check the print queue on the printer itself</h2>
+        <p>Some printers get stuck with a corrupted job and refuse all new connections. Power-cycle the printer for 30 seconds.</p>
+
+        <h2>6. Use the manufacturer driver, not the generic one</h2>
+        <p>Microsoft's IPP class driver is convenient but often causes "offline" status. Install the full driver from HP, Canon or Brother.</p>
+
+        <h2>Summary</h2>
+        <p>Restart the spooler, disable SNMP status, assign a static IP, and re-add via TCP/IP. That fixes the vast majority of "offline" printers on Windows.</p>
+      </div>
+
+<!-- tp-auto:actions -->
+<div class="share-buttons" id="tpActions">
+  <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+  <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+  <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+  <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+  <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+  <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+  <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+</div>
+<section class="comments-section" id="tpComments">
+  <h2 class="section-heading">Comments</h2>
+  <div id="commentsContainer"></div>
+</section>
+<!-- /tp-auto:actions -->
+</article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+  <script src="/js/common.js?v=20261004a" defer></script>
+  <script src="/js/static-article.js?v=20261004a" defer></script>
+</body>
+</html>

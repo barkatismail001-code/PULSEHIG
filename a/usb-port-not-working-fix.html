@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USB Port Not Working? Diagnose It Before You RMA the Board | TechPulse</title>
+  <meta name="description" content="A dead USB port is rarely dead. Reset the USB hub, disable USB selective suspend, check power delivery and test with a multimeter before replacing hardware.">
+  <meta name="keywords" content="usb port not working, usb port dead, usb selective suspend, usb hub reset">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Hardware">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="USB Port Not Working? Diagnose It Before You RMA the Board">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+  <link rel="canonical" href="https://www.pulsehig.com/a/usb-port-not-working-fix.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"USB Port Not Working? Diagnose It Before You RMA the Board","description":"A dead USB port is rarely dead. Reset the USB hub, disable USB selective suspend, check power delivery and test with a multimeter before replacing hardware.","datePublished":"2026-10-03","dateModified":"2026-10-03","mainEntityOfPage":"https://www.pulsehig.com/a/usb-port-not-working-fix.html","author":{"@type":"Person","name":"TechPulse Team"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}},"image":["https://www.pulsehig.com/assets/og-default.png"]}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Hardware</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Hardware</span>
+        <h1>USB Port Not Working? Diagnose It Before You RMA the Board</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 6 min read</span>
+        </div>
+        <div class="article-meta" style="margin-top:8px">
+          <span>🎯 Difficulty: Intermediate</span>
+          <span>⏱ Fix time: 20 min</span>
+          <span>💰 Cost: Free–€15</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>One USB port stopped working and you assume the motherboard is damaged. In reality it is usually a corrupted USB hub state, a power delivery issue, or a bent pin you can see with a flashlight.</p></div>
+
+      <div class="article-content">
+        <h2>1. Look inside the port</h2>
+        <p>Use a phone flashlight. Check for bent pins, lint, or a broken plastic tongue. Lint is the most common cause on laptops kept in bags.</p>
+
+        <h2>2. Test with a known-good device</h2>
+        <p>A USB flash drive and a mouse use different data lines. If the mouse works but the drive does not, the port's data pins are damaged.</p>
+
+        <h2>3. Reset the USB hub (Windows)</h2>
+        <pre><code>Device Manager → Universal Serial Bus controllers → right-click each "USB Root Hub" → Uninstall
+Reboot</code></pre>
+        <p>Windows reinstalls the hubs on boot, which clears many "dead port" states.</p>
+
+        <h2>4. Disable USB selective suspend</h2>
+        <pre><code>Power Options → Change plan settings → Advanced → USB settings → USB selective suspend → Disabled</code></pre>
+        <p>This stops Windows from cutting power to ports it thinks are unused.</p>
+
+        <h2>5. Check power delivery</h2>
+        <p>A port that works with a mouse but not an external SSD is under-powering. Front-panel ports on desktops are notorious. Move the device to a rear port connected directly to the board.</p>
+
+        <h2>6. Linux: reset the USB controller</h2>
+        <pre><code>lsusb
+sudo usb_modeswitch -v 1234 -p 5678 -R
+# or unbind/rebind:
+echo -n "0000:00:14.0" | sudo tee /sys/bus/pci/drivers/xhci_hcd/unbind
+echo -n "0000:00:14.0" | sudo tee /sys/bus/pci/drivers/xhci_hcd/bind</code></pre>
+
+        <h2>7. When it is truly dead</h2>
+        <p>If the port never enumerates in BIOS either, the controller or the physical connector is damaged. A powered USB hub is the cheapest workaround; a laptop USB-C dock is the cleanest.</p>
+
+        <h2>Summary</h2>
+        <p>Inspect the port, reset the hubs, disable selective suspend, test power delivery, and check BIOS. Only if the port is dead in BIOS is it a hardware failure.</p>
+      </div>
+
+<!-- tp-auto:actions -->
+<div class="share-buttons" id="tpActions">
+  <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+  <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+  <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+  <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+  <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+  <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+  <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+</div>
+<section class="comments-section" id="tpComments">
+  <h2 class="section-heading">Comments</h2>
+  <div id="commentsContainer"></div>
+</section>
+<!-- /tp-auto:actions -->
+</article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+  <script src="/js/common.js?v=20261004a" defer></script>
+  <script src="/js/static-article.js?v=20261004a" defer></script>
+</body>
+</html>

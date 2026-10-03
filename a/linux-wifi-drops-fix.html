@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes | TechPulse</title>
+  <meta name="description" content="Random Wi-Fi disconnects on Linux are almost never the router. Learn to read dmesg, disable power saving, fix the regulatory domain and pick a stable channel.">
+  <meta name="keywords" content="linux wifi drops, wifi keeps disconnecting linux, iwlwifi fix, networkmanager power save">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Networking">
+  <meta name="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+  <link rel="canonical" href="https://www.pulsehig.com/a/linux-wifi-drops-fix.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes","description":"Random Wi-Fi disconnects on Linux are almost never the router. Learn to read dmesg, disable power saving, fix the regulatory domain and pick a stable channel.","datePublished":"2026-10-03","dateModified":"2026-10-03","mainEntityOfPage":"https://www.pulsehig.com/a/linux-wifi-drops-fix.html","author":{"@type":"Person","name":"TechPulse Team"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}},"image":["https://www.pulsehig.com/assets/og-default.png"]}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Networking</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Networking</span>
+        <h1>Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 6 min read</span>
+        </div>
+        <div class="article-meta" style="margin-top:8px">
+          <span>🎯 Difficulty: Beginner</span>
+          <span>⏱ Fix time: 15 min</span>
+          <span>💰 Cost: Free</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>Your laptop drops Wi-Fi every few minutes, the router is fine, Windows works — and you blame the driver. In reality, 80% of Linux Wi-Fi drops come from three settings: aggressive power saving, a wrong regulatory domain, and channel overlap.</p></div>
+
+      <div class="article-content">
+        <h2>Step 1 — Read the kernel log, not the GUI</h2>
+        <pre><code>sudo dmesg -w | grep -i -E "wlan|iwlwifi|ath|rtw|disconnect"</code></pre>
+        <p>Watch this while the disconnect happens. Typical messages and their meaning:</p>
+        <ul>
+          <li><strong>"deauthenticating ... reason 4"</strong> — the AP kicked you. Interference or a full client table.</li>
+          <li><strong>"firmware crash"</strong> — driver/firmware bug. Update the kernel or firmware package.</li>
+          <li><strong>"beacon loss"</strong> — signal too weak. Reposition or change channel.</li>
+        </ul>
+
+        <h2>Step 2 — Disable Wi-Fi power saving</h2>
+        <pre><code>iw dev wlan0 get power_save
+sudo iw dev wlan0 set power_save off</code></pre>
+        <p>Make it permanent with NetworkManager:</p>
+        <pre><code>sudo tee /etc/NetworkManager/conf.d/wifi-powersave-off.conf &lt;&lt;'EOF'
+[connection]
+wifi.powersave = 2
+EOF
+sudo systemctl restart NetworkManager</code></pre>
+
+        <h2>Step 3 — Set the correct regulatory domain</h2>
+        <pre><code>iw reg get
+sudo iw reg set DE
+echo 'REGDOMAIN=DE' | sudo tee /etc/default/crda</code></pre>
+
+        <h2>Step 4 — Stop the card from roaming to a worse AP</h2>
+        <pre><code>sudo tee /etc/NetworkManager/conf.d/wifi-roaming.conf &lt;&lt;'EOF'
+[connection]
+wifi.scan-rand-mac-address=no
+
+[device]
+wifi.backend=wpa_supplicant
+EOF</code></pre>
+
+        <h2>Step 5 — Pick a clean channel</h2>
+        <pre><code>sudo iw dev wlan0 scan | grep -E "SSID|freq|signal" | head -40</code></pre>
+        <p>On 2.4 GHz only channels <strong>1, 6 and 11</strong> do not overlap. On 5 GHz prefer UNII-3 (149–165).</p>
+
+        <h2>Step 6 — If it is still unstable</h2>
+        <ul>
+          <li>Disable <strong>802.11n/ac aggregation</strong> on the router for that client.</li>
+          <li>Turn off <strong>WPA3 transition mode</strong> — it breaks many older Linux drivers.</li>
+          <li>Try the <code>iwlwifi</code> option <code>11n_disable=8</code> for Intel cards.</li>
+          <li>Replace the module with a <strong>MediaTek MT7921</strong> or an <strong>Atheros AR9271</strong>.</li>
+        </ul>
+
+        <h2>Summary</h2>
+        <p>Read <code>dmesg</code> first. Turn off power saving. Set the country code. Pick a non-overlapping channel. Those four steps fix the vast majority of Linux Wi-Fi disconnects.</p>
+      </div>
+
+<!-- tp-auto:actions -->
+<div class="share-buttons" id="tpActions">
+  <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+  <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+  <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+  <button class="share-btn" data-share="facebook" type="button">Facebook</button>
+  <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+  <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+  <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+</div>
+<section class="comments-section" id="tpComments">
+  <h2 class="section-heading">Comments</h2>
+  <div id="commentsContainer"></div>
+</section>
+<!-- /tp-auto:actions -->
+</article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+  <script src="/js/common.js?v=20261004a" defer></script>
+  <script src="/js/static-article.js?v=20261004a" defer></script>
+</body>
+</html>
