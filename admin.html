@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css?v=20260922_v6">
   
-  <!-- مكتبة Supabase للاتصال بقاعدة البيانات -->
+  <!-- Supabase client library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -127,7 +127,7 @@
   <main class="container">
     <div id="adminStats" class="admin-stats" style="margin-top:24px"></div>
 
-    <!-- AI Auto Generator Card — Groq (محدث مع حقل عنوان مباشر) -->
+    <!-- AI Auto Generator Card — Groq (with direct title field) -->
     <section class="ai-generator-card">
       <h3>✨ AI Auto-Article Generator from Images (Groq)</h3>
       <p style="font-size:0.88rem; color:#94a3b8; margin-bottom:16px;">
@@ -139,7 +139,7 @@
         <input type="text" id="ai-api-key" placeholder="gsk_..." />
       </div>
 
-      <!-- حقل العنوان المخصص الجديد بجانب قسم الرفع -->
+      <!-- Custom title field next to the upload section -->
       <div class="ai-input-group">
         <label for="ai-custom-title">Custom Article Title (Optional):</label>
         <input type="text" id="ai-custom-title" placeholder="Enter your title here, or leave empty for AI auto-title" />
@@ -269,8 +269,8 @@
       const imagesInput = document.getElementById("ai-images-input");
       const generateBtn = document.getElementById("ai-generate-btn");
       const statusDiv = document.getElementById("ai-status");
-      const customTitleInput = document.getElementById("ai-custom-title"); // الحقل الجديد المخصص للعنوان
-      const formTitleInput = document.getElementById("title"); // حقل العنوان الفعلي في النموذج
+      const customTitleInput = document.getElementById("ai-custom-title"); // custom title field
+      const formTitleInput = document.getElementById("title"); // actual title field in the form
 
       const savedKey = localStorage.getItem("tp_groq_key");
       if (savedKey) apiKeyInput.value = savedKey;

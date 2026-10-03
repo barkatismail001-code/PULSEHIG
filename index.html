@@ -17,9 +17,9 @@
 
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="alternate" type="application/rss+xml" title="TechPulse RSS" href="rss.xml">
-  <link rel="stylesheet" href="css/style.css?v=20260920c">
+  <link rel="stylesheet" href="css/style.css?v=20261003a">
 
-  <!-- Ù…ÙƒØªØ¨Ø© Supabase Ù„Ù„Ø§ØªØµØ§Ù„ Ø¨Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù„Ø¹Ø±Ø¶ Ø§Ù„Ù…Ù‚Ø§Ù„Ø§Øª -->
+  <!-- Supabase client library (articles, views, site stats) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
@@ -64,14 +64,14 @@
         <!-- Global Language Selector -->
         <select id="languageSelector" class="lang-select" aria-label="Select Language">
           <option value="en">English</option>
-          <option value="zh">ä¸­æ–‡ (Chinese)</option>
-          <option value="es">EspaÃ±ol</option>
-          <option value="hi">à¤¹à¤¿à¤¨à¥à¤¦à¥€ (Hindi)</option>
-          <option value="fr">FranÃ§ais</option>
+          <option value="zh">中文 (Chinese)</option>
+          <option value="es">Español</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="fr">Français</option>
         </select>
 
         <!-- Admin link: hidden for every visitor by default (see js/common.js) -->
-        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">ðŸŒ™</button>
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
       </nav>
     </div>
   </header>
@@ -84,7 +84,7 @@
     </section>
 
     <section id="featuredSection" style="display:none">
-      <h2 class="section-heading" data-i18n="featured_heading">â­ Featured</h2>
+      <h2 class="section-heading" data-i18n="featured_heading">⭐ Featured</h2>
       <div class="featured-spotlight" id="featuredSpotlight"></div>
     </section>
 
@@ -106,31 +106,31 @@
       <aside class="sidebar" aria-label="Sidebar">
         <!-- Live News Widget -->
         <div class="widget" id="newsWidget">
-          <h3 data-i18n="widget_news">ðŸ“¡ Latest News</h3>
+          <h3 data-i18n="widget_news">📡 Latest News</h3>
           <div id="newsWidgetList">
             <p class="loading-state" data-i18n="loading">Loading...</p>
           </div>
           <p style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;" data-i18n="news_updated">Updated hourly</p>
-          <a href="news.html" style="font-size:0.8rem;font-weight:600" data-i18n="view_all_news">View all news â†’</a>
+          <a href="news.html" style="font-size:0.8rem;font-weight:600" data-i18n="view_all_news">View all news →</a>
         </div>
 
         <!-- Bookmarked Articles Widget -->
         <div class="widget">
-          <h3 data-i18n="widget_bookmarks">ðŸ”– Saved Articles</h3>
+          <h3 data-i18n="widget_bookmarks">🔖 Saved Articles</h3>
           <ul id="bookmarksList" style="list-style:none; padding:0; font-size:0.88rem; color:var(--text-muted);">
             <li data-i18n="no_bookmarks">No saved articles yet.</li>
           </ul>
         </div>
 
         <div class="widget">
-          <h3 data-i18n="widget_trending">ðŸ”¥ Trending</h3>
+          <h3 data-i18n="widget_trending">🔥 Trending</h3>
           <ol class="popular-list" id="trendingList">
             <li style="color:var(--text-muted);font-size:0.9rem" data-i18n="loading">Loading...</li>
           </ol>
         </div>
 
         <div class="widget">
-          <h3 data-i18n="widget_newsletter">ðŸ“¬ Newsletter</h3>
+          <h3 data-i18n="widget_newsletter">📬 Newsletter</h3>
           <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:12px;" data-i18n="newsletter_desc">
             Weekly digest of the best tech articles. No spam.
           </p>
@@ -143,7 +143,7 @@
         </div>
 
         <div class="widget">
-          <h3 data-i18n="widget_topics">ðŸ· Topics</h3>
+          <h3 data-i18n="widget_topics">🏷 Topics</h3>
           <div class="tags" id="tagList"></div>
         </div>
       </aside>
@@ -161,14 +161,14 @@
       </div>
     </div>
   </footer>
-  <div id="globalSiteStats" style="text-align: center; padding: 20px; font-size: 0.85rem; color: var(--text-muted, #666); border-top: 1px solid var(--border-color, #eee); margin-top: 40px;"></div>
+  <div id="globalSiteStats" class="global-site-stats" aria-live="polite" style="text-align: center; padding: 20px; font-size: 0.9rem; color: var(--text-muted, #666); border-top: 1px solid var(--border-color, #eee); margin-top: 40px;"></div>
 
 
-  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">â†‘</button>
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
 
-  <script src="js/live-news.js?v=20260920c"></script>
-  <script src="js/common.js?v=20260920c"></script>
-  <script src="js/i18n.js?v=20260920c"></script>
-  <script src="js/main.js?v=20260920c"></script>
+  <script src="js/live-news.js?v=20261003a"></script>
+  <script src="js/common.js?v=20261003a"></script>
+  <script src="js/i18n.js?v=20261003a"></script>
+  <script src="js/main.js?v=20261003a"></script>
 </body>
 </html>
