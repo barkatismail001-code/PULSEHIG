@@ -1,13 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-// 1. إعدادات الاتصال
+// 1. Connection settings
 const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k'; // استخدم Service Role Key هنا للأمان
-const GROQ_API_KEY = process.env.GROQ_API_KEY; // يتم تخزينه في GitHub Secrets
+const SUPABASE_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k'; // use a Service Role Key here for security
+const GROQ_API_KEY = process.env.GROQ_API_KEY; // stored in GitHub Secrets
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// 2. قائمة المواضيع المقترحة
+// 2. Suggested topics
 const topics = [
   "ESP32 power management techniques",
   "STM32 interrupt handling best practices",
@@ -17,12 +17,12 @@ const topics = [
 ];
 
 async function generateDailyArticle() {
-  // اختيار موضوع عشوائي
+  // Pick a random topic
   const topic = topics[Math.floor(Math.random() * topics.length)];
   
   console.log(`🤖 Generating article about: ${topic}`);
 
-  // 3. طلب التوليد من Groq (نص فقط هذه المرة)
+  // 3. Request generation from Groq (text only)
   const prompt = `Write a deep, technical, and useful article about "${topic}". 
   Return ONLY a raw JSON object with this exact structure:
   {
@@ -41,7 +41,7 @@ async function generateDailyArticle() {
       "Authorization": `Bearer ${GROQ_API_KEY}`
     },
     body: JSON.stringify({
-      model: "llama3-70b-8192", // أو أي موديل نصي متاح
+      model: "llama3-70b-8192", // or any available text model
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7
     })
@@ -50,11 +50,11 @@ async function generateDailyArticle() {
   const data = await response.json();
   const articleData = JSON.parse(data.choices[0].message.content.replace(/```json|```/g, '').trim());
 
-  // 4. جلب صورة تلقائية (اختياري - يمكن استخدام Unsplash API)
-  // هنا نضع صورة افتراضية أو نجلبها من API خارجي
+  // 4. Fetch an automatic image (optional - Unsplash API can be used)
+  // Use a default image here or fetch one from an external API
   const imageUrl = "https://www.pulsehig.com/assets/og-default.png"; 
 
-  // 5. الحفظ في Supabase
+  // 5. Save to Supabase
   const { error } = await supabase.from('articles').insert([{
     title: articleData.title,
     excerpt: articleData.excerpt,
