@@ -18,6 +18,22 @@
   "minutes": 4
  },
  {
+  "slug": "esp32-relay-chatter-fix",
+  "title": "Fixing Relay Chatter When Switching AC Loads from an ESP32",
+  "excerpt": "ESP32 relay clicking repeatedly, buzzing or rebooting? Fix relay chatter with an RC snubber, a separate 5V coil supply, and a proper opto-isolated module.",
+  "category": "Embedded Systems",
+  "date": "2026-10-03",
+  "image": "https://www.pulsehig.com/assets/og-default.png",
+  "tags": [
+   "ESP32 relay module problem",
+   "relay chatter fix",
+   "optocoupler relay ESP32",
+   "RC snubber relay"
+  ],
+  "author": "TechPulse Team",
+  "minutes": 4
+ },
+ {
   "slug": "esp32-wifi-dropping-fix",
   "title": "Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)",
   "excerpt": "ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.",

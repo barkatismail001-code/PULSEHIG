@@ -50,6 +50,13 @@
     <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</image:caption></image:image>
   </url>
   <url>
+    <loc>https://www.pulsehig.com/a/esp32-relay-chatter-fix.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Fixing Relay Chatter When Switching AC Loads from an ESP32</image:caption></image:image>
+  </url>
+  <url>
     <loc>https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
