@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stop Your Raspberry Pi from Overheating in a Closed Case | TechPulse</title>
+  <meta name="description" content="Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.">
+  <meta name="keywords" content="Raspberry Pi overheating, Pi throttling fix, passive cooling Raspberry Pi, Pi fan control">
+  <meta name="author" content="TechPulse Team">
+  <meta property="article:section" content="Embedded Systems">
+  <meta property="article:published_time" content="2026-10-03">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Stop Your Raspberry Pi from Overheating in a Closed Case">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a> &gt; <span>Embedded Systems</span>
+    </nav>
+
+    <article class="single-article">
+      <header class="article-header">
+        <span class="article-category">Embedded Systems</span>
+        <h1>Stop Your Raspberry Pi from Overheating in a Closed Case</h1>
+        <div class="article-meta">
+          <span>👤 TechPulse Team</span>
+          <span>📅 2026-10-03</span>
+          <span>⏱ 5 min read</span>
+        </div>
+      </header>
+
+      <div class="article-excerpt"><p>A Raspberry Pi inside a sealed 3D-printed box will happily hit 85 °C under load, throttle itself to 600 MHz, and feel "slow" without ever crashing. The fix is not a bigger heatsink — it is understanding airflow, thermal mass and the throttle flags the Pi already reports.</p></div>
+
+      <div class="article-content">
+        <h2>How to know you are throttling</h2>
+        <p>Before touching the hardware, read the two values every Pi exposes:</p>
+        <pre><code>vcgencmd measure_temp
+vcgencmd get_throttled</code></pre>
+        <p>The temperature is in °C. The throttle value is a bitmask:</p>
+        <ul>
+          <li><strong>0x0</strong> — no throttling, no undervoltage.</li>
+          <li><strong>0x1</strong> — currently undervolted.</li>
+          <li><strong>0x2</strong> — currently ARM frequency capped.</li>
+          <li><strong>0x4</strong> — currently throttled.</li>
+          <li><strong>0x10000</strong> — undervoltage has occurred since boot.</li>
+          <li><strong>0x40000</strong> — throttling has occurred since boot.</li>
+        </ul>
+        <p>If you see <code>0x50005</code> or similar, the Pi is being limited by both heat and power. Fix the power supply first, then the cooling.</p>
+
+        <h2>Why sealed cases fail</h2>
+        <p>Air inside a closed box heats up within minutes and then has nowhere to go. The heatsink inside is surrounded by hot air, so it cannot shed heat. The result is a thermal equilibrium that is 15–25 °C above ambient. A plastic case with no vents will always lose to a bare board on a desk.</p>
+
+        <h2>Passive cooling that actually works</h2>
+        <p>If you cannot or do not want a fan, use these three rules:</p>
+        <ul>
+          <li><strong>Vent low and high.</strong> Hot air rises. Put intake slots at the bottom edge and exhaust slots at the top edge so convection can move air through the case.</li>
+          <li><strong>Metal case, not plastic.</strong> An aluminium case acts as a large heatsink. A plastic case acts as an insulator.</li>
+          <li><strong>Thermal pad on the SoC, RAM and (on Pi 5) the PMIC.</strong> A single pad over one chip leaves the neighbours hot.</li>
+        </ul>
+        <p>A well-vented aluminium case with a thermal pad will hold a Pi 4 under 70 °C at idle and around 78 °C under sustained CPU load — good enough for most home servers.</p>
+
+        <h2>Adding a fan with a proper curve</h2>
+        <p>A 5 V fan wired straight to the GPIO header runs at full speed all the time and is noisy. Wire it through a transistor or use a PWM fan, then control it from a small script:</p>
+        <pre><code>#!/usr/bin/env python3
+import subprocess, time, re
+
+FAN_PIN = 14  # BCM
+TEMP_ON  = 55
+TEMP_OFF = 45
+
+def temp():
+    out = subprocess.check_output(["vcgencmd", "measure_temp"]).decode()
+    return float(re.search(r"(\d+\.\d+)", out).group(1))
+
+# configure PWM once (using pigpio or sysfs)
+import os
+os.system("sudo pigpiod")
+import pigpio
+pi = pigpio.pi()
+
+state = False
+while True:
+    t = temp()
+    if t &gt;= TEMP_ON and not state:
+        pi.set_PWM_dutycycle(FAN_PIN, 255)  # full speed
+        state = True
+    elif t &lt;= TEMP_OFF and state:
+        pi.set_PWM_dutycycle(FAN_PIN, 0)
+        state = False
+    time.sleep(5)</code></pre>
+        <p>This keeps the fan off below 45 °C and running below 55 °C, so it is silent most of the time. A 40 mm fan at 30% PWM is inaudible from one metre.</p>
+
+        <h2>Undervoltage looks like overheating</h2>
+        <p>Many users replace the heatsink when the real problem is the power supply. A phone charger rated 5 V / 2 A may sag to 4.6 V under load, and the Pi will throttle to protect itself. Check with:</p>
+        <pre><code>vcgencmd get_throttled</code></pre>
+        <p>If the undervoltage bit is set, switch to the <strong>official 5.1 V 3 A (Pi 4) or 5.1 V 5 A (Pi 5) supply</strong>, or use a good quality USB-C PD supply with a 5 V profile. Cheap cables with thin wires are also a common cause — look for 20 AWG or thicker.</p>
+
+        <h2>Where to place the case</h2>
+        <ul>
+          <li>Never on top of a router, NAS or amplifier — those radiate heat.</li>
+          <li>Never inside a closed cabinet with other electronics.</li>
+          <li>Keep at least 5 cm of free space on all sides for airflow.</li>
+          <li>Vertical orientation helps convection if the vents are on the top and bottom.</li>
+        </ul>
+
+        <h2>Real temperature comparison</h2>
+        <ul>
+          <li><strong>Bare board, 25 °C room</strong>: 62 °C under load.</li>
+          <li><strong>Sealed plastic case</strong>: 84 °C, throttling.</li>
+          <li><strong>Vented plastic case</strong>: 76 °C.</li>
+          <li><strong>Aluminium case with pad</strong>: 70 °C.</li>
+          <li><strong>Aluminium case + 40 mm fan at 30%</strong>: 52 °C.</li>
+        </ul>
+        <p>That last configuration costs less than €15 and turns a throttling Pi into a silent, cool one.</p>
+
+        <h2>Summary</h2>
+        <p>Read <code>get_throttled</code> before you buy anything. Vent the case low and high, use an aluminium body and a proper thermal pad, and add a PWM fan with a 45–55 °C curve if you need sustained performance. Fix undervoltage before chasing temperatures — they often share the same root cause.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="main-footer"><div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div></footer>
+</body>
+</html>
