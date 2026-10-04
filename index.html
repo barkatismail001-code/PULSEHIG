@@ -242,7 +242,7 @@
           <li><a href="/a/how-to-speed-up-a-slow-computer-in-10-minutes-no-new-hardware.html">How to Speed Up a Slow Computer in 10 Minutes (No New Hardware)</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html">How to Lower Your Electric Bill Using Smart Thermostats and Outlets</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre.html">Fixing I2C Clock Stretching Timeouts in ESP32: Why Your Sensor Data Freezes and How to Resolve It</a> <span class="all-articles-cat">Technology</span></li>
-          <li><a href="/a/solving-high-household-energy-bills-using-smart-home-automation.html">Solving High Household Energy Bills Using Smart Home Automation</a> <span class="all-articles-cat">Technology</span></li>
+          <li><a href="/a/solving-high-household-energy-bills-using-smart-home-automation.html">Solving High Household Energybills Using Smart Home Automation</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html">Smart Energy Audits: How Telemetry Can Slash Your Power Bills</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html">How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common-household-a.html">DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</a> <span class="all-articles-cat">Technology</span></li>
@@ -278,5 +278,37 @@
   <script src="js/common.js?v=20261004a"></script>
   <script src="js/i18n.js?v=20261004a"></script>
   <script src="js/main.js?v=20261004a"></script>
+
+  <!-- Script to connect dropdown select with article filtering -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const dropdown = document.getElementById("categoryDropdown");
+      if (!dropdown) return;
+
+      dropdown.addEventListener("change", (e) => {
+        const val = e.target.value.toLowerCase();
+        const articles = document.querySelectorAll("#articles-container article, .article-card");
+        
+        articles.forEach(article => {
+          const categoryEl = article.querySelector(".category, .article-cat, [data-category], .badge");
+          const categoryText = categoryEl ? categoryEl.textContent.trim().toLowerCase() : "";
+          
+          if (val === "all" || categoryText === val) {
+            article.style.display = "";
+          } else {
+            article.style.display = "none";
+          }
+        });
+
+        // Fallback: trigger original JS filters if available
+        const originalButtons = document.querySelectorAll("#filters button, .filter-btn");
+        originalButtons.forEach(btn => {
+          if (btn.textContent.trim().toLowerCase() === val || (val === "all" && btn.classList.contains("active"))) {
+            btn.click();
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
