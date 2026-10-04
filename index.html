@@ -30,6 +30,30 @@
     .all-articles-list{list-style:none;padding:0;margin:0;columns:2 320px;column-gap:32px;font-size:.92rem}
     .all-articles-list li{break-inside:avoid;margin-bottom:8px}
     .all-articles-cat{color:var(--text-muted,#64748b);font-size:.78rem;margin-left:4px}
+    
+    /* Category Dropdown Styling */
+    .category-select {
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color, #cbd5e1);
+      background-color: var(--bg-card, #ffffff);
+      color: var(--text-main, #1e293b);
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .category-select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .toolbar {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://www.pulsehig.com/#website", "url": "https://www.pulsehig.com/", "name": "TechPulse", "description": "Step-by-step ESP32, Arduino and home repair tutorials.", "inLanguage": "en", "publisher": {"@id": "https://www.pulsehig.com/#org"}}, {"@type": "Organization", "@id": "https://www.pulsehig.com/#org", "name": "TechPulse", "url": "https://www.pulsehig.com/", "logo": {"@type": "ImageObject", "url": "https://www.pulsehig.com/assets/og-default.png"}}]}</script>
   <!-- Google tag (gtag.js) -->
@@ -100,12 +124,32 @@
     </section>
 
     <div class="toolbar">
-      <div class="search-box">
+      <div class="search-box" style="flex: 1;">
         <input type="search" id="searchInput" placeholder="Search articles..." aria-label="Search articles" data-i18n-ph="search_ph">
+      </div>
+      <!-- Category Dropdown Filter -->
+      <div class="category-filter-box">
+        <select id="categoryDropdown" class="category-select" aria-label="Filter by category">
+          <option value="All">All Categories</option>
+          <option value="Audio">Audio</option>
+          <option value="Displays">Displays</option>
+          <option value="Embedded Systems">Embedded Systems</option>
+          <option value="Hardware">Hardware</option>
+          <option value="Home Entertainment">Home Entertainment</option>
+          <option value="Mobile">Mobile</option>
+          <option value="Networking">Networking</option>
+          <option value="Peripherals">Peripherals</option>
+          <option value="Software">Software</option>
+          <option value="Storage">Storage</option>
+          <option value="Technology">Technology</option>
+          <option value="Upgrades">Upgrades</option>
+          <option value="Windows">Windows</option>
+        </select>
       </div>
     </div>
 
-    <div class="filters" id="filters" aria-label="Filter by category"></div>
+    <!-- Hidden original filters container to maintain JS compatibility if referenced -->
+    <div class="filters" id="filters" aria-label="Filter by category" style="display:none;"></div>
 
     <div class="layout">
       <div>
@@ -205,7 +249,7 @@
           <li><a href="/a/topic-how-to-fix-a-clogged-drain-without-harsh-chemicals.html">Topic: How to Fix a Clogged Drain Without Harsh Chemicals</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/the-smart-house-of-today.html">The Smart House of Today</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/smart-living-the-next-generation-of-home-automation.html">**Smart Living: The Next Generation of Home Automation**</a> <span class="all-articles-cat">Technology</span></li>
-          <li><a href="/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html">Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</a> <span class="all-articles-cat">Technology</span></li>
+          <li><a href="/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analysis-of-trap-and-fitting-assembly.html">Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html">ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html">Deconstructing the Real Estate Ecosystem: A Multi-Layered Analysis of Market Dynamics, Structural Integrity, and Asset Transfer</a> <span class="all-articles-cat">Technology</span></li>
           <li><a href="/a/linux-wifi-drops-fix.html">Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes</a> <span class="all-articles-cat">Networking</span></li>
