@@ -68,10 +68,10 @@
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>ESP32 Won</image:caption></image:image>
+    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</image:caption></image:image>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control (1).html</loc>
+    <loc>https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -152,7 +152,7 @@
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>PC Won</image:caption></image:image>
+    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>PC Won&#39;t Boot? The 7-Step No-POST Checklist</image:caption></image:image>
   </url>
   <url>
     <loc>https://www.pulsehig.com/a/phone-storage-full-fix.html</loc>

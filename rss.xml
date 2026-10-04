@@ -32,7 +32,7 @@
       <description>Chrome eating 8 GB of RAM with 20 tabs? Use chrome://memory-internals, enable Memory Saver, kill background extensions and cap the renderer process count.</description>
     </item>
     <item>
-      <title>ESP32 Won</title>
+      <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
       <link>https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
@@ -41,8 +41,8 @@
     </item>
     <item>
       <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
-      <link>https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control (1).html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control (1).html</guid>
+      <link>https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description>A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.</description>
@@ -128,7 +128,7 @@
       <description>An old laptop with an HDD feels unusable. For €60 you can clone the drive to an SSD, add 8 GB RAM and get 10× faster boot times. Full step-by-step guide.</description>
     </item>
     <item>
-      <title>PC Won</title>
+      <title>PC Won&#39;t Boot? The 7-Step No-POST Checklist</title>
       <link>https://www.pulsehig.com/a/pc-wont-boot-fix.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/pc-wont-boot-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
