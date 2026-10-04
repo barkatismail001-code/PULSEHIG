@@ -3,8 +3,9 @@
 import fs from 'fs';
 import path from 'path';
 
-const SUPABASE_URL = process.env.SUPABASE_URL;          // https://xxxx.supabase.co
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;  // service_role key (local only, never publish it)
+const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+
 const DRY_RUN = process.argv.includes('--dry');          // test without inserting
 
 const dir = './a';
