@@ -19,6 +19,7 @@ const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
 const ASSET_V = '20261004a';
 const DEFAULT_IMG = `${SITE}/assets/og-default.png`;
+const OFFLINE = process.env.SEO_OFFLINE === '1'; // tests only: skip Supabase, handle hand-made pages only
 
 const STATIC_PAGES = [
   ['/', 'daily', '1.0'],
@@ -50,8 +51,14 @@ const iso = (d) => d.toISOString().slice(0, 10);
 
 function slugOf(a) {
   const en = plain(pick(a.title));
-  const slug = en.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '').slice(0, 70).replace(/-+$/g, '');
+  let slug = en.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '').replace(/^topic-/, '');
+  if (slug.length > 60) {                       // cut at a whole word, not in the middle of one
+    slug = slug.slice(0, 60);
+    const i = slug.lastIndexOf('-');
+    if (i > 30) slug = slug.slice(0, i);
+  }
+  slug = slug.replace(/-+$/g, '');
   return slug || `article-${encodeURIComponent(String(a.id))}`;
 }
 
@@ -67,6 +74,7 @@ function tagsOf(v) {
 async function exists(p) { try { await access(p); return true; } catch { return false; } }
 
 async function loadArticles() {
+  if (OFFLINE) { console.warn('SEO_OFFLINE=1: Supabase skipped'); return []; }
   // Safety: this script deletes and rebuilds /a/. It only runs from live Supabase data;
   // if Supabase is unreachable it stops and leaves the existing pages untouched.
   try {
@@ -120,10 +128,14 @@ const manualList = await loadManual();
 const unent = (s) => String(s || '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
   .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&nbsp;/g, ' ');
 const metaOf = (html, attr, name) => {
-  const re1 = new RegExp(`<meta[^>]+${attr}=["']${name}["'][^>]*content=["']([^"']*)["']`, 'i');
-  const re2 = new RegExp(`<meta[^>]+content=["']([^"']*)["'][^>]*${attr}=["']${name}["']`, 'i');
-  const m = html.match(re1) || html.match(re2);
-  return m ? unent(m[1]).trim() : '';
+  // Reads <meta ... attr="name" ... content="..."> in any attribute order. Quotes may be " or ',
+  // and an apostrophe inside a double-quoted value (Won't) no longer cuts the text short.
+  for (const tag of html.match(/<meta\b[^>]*>/gi) || []) {
+    if (!new RegExp(`\\b${attr}\\s*=\\s*(?:"${name}"|'${name}')`, 'i').test(tag)) continue;
+    const c = tag.match(/\bcontent\s*=\s*(?:"([^"]*)"|'([^']*)')/i);
+    if (c) return unent(c[1] ?? c[2] ?? '').trim();
+  }
+  return '';
 };
 const ARABIC = /[\u0600-\u06FF\u0750-\u077F]/;
 
@@ -175,7 +187,8 @@ async function discoverManualPages(taken) {
     const title = plain(unent(metaOf(html, 'property', 'og:title') || h1 || (titleTag || '').replace(/\s*[|\-–]\s*TechPulse\s*$/i, '')));
     if (!title) { console.warn(`a/${f}: no title found, skipped.`); continue; }
 
-    const bodyHtml = (html.match(/<article[\s\S]*?<\/article>/i) || html.match(/<main[\s\S]*?<\/main>/i) || html.match(/<body[\s\S]*<\/body>/i) || [html])[0]
+    const htmlView = html.replace(/<!-- tp-auto:related -->[\s\S]*?<!-- \/tp-auto:related -->/g, '');
+    const bodyHtml = (htmlView.match(/<article[\s\S]*?<\/article>/i) || htmlView.match(/<main[\s\S]*?<\/main>/i) || htmlView.match(/<body[\s\S]*<\/body>/i) || [htmlView])[0]
       .replace(/<(script|style|nav|header|footer)[\s\S]*?<\/\1>/gi, ' ');
     const firstP = (bodyHtml.match(/<p[^>]*>([\s\S]*?)<\/p>/i) || [])[1];
     const excerpt = plain(unent(metaOf(html, 'name', 'description') || metaOf(html, 'property', 'og:description') || firstP || '')).slice(0, 300);
@@ -222,11 +235,13 @@ async function discoverManualPages(taken) {
   return found;
 }
 
+let prevSlugs = {};
+try { prevSlugs = JSON.parse(await readFile(join(ROOT, 'data/static-slugs.json'), 'utf8')); } catch {}
 const raw = (await loadArticles()).filter((a) => a && a.id);
 const articles = [];
 const seen = new Set(manualList.map((m) => m.slug)); // manual slugs are reserved
 for (const a of raw) {
-  let slug = slugOf(a);
+  let slug = prevSlugs[String(a.id)] || slugOf(a); // published URLs never change
   if (seen.has(slug)) {
     console.warn('Duplicate slug, renaming:', slug);
     slug += '-' + String(a.id).replace(/[^a-z0-9]/gi, '').slice(-4);
@@ -280,19 +295,87 @@ const urlOf = (a) => `${SITE}/a/${a.slug}.html`;
 
 const NAV = `<a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>`;
 
+// ---------- Content rendering (articles written by the Groq bot use light markdown) ----------
+function inlineMd(s) {
+  return esc(s)
+    .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`\n]+)`/g, '<code>$1</code>');
+}
+function renderContent(text) {
+  const src = String(text || '').replace(/\r\n/g, '\n');
+  const chunks = src.split(/```[a-zA-Z0-9+#-]*\n([\s\S]*?)```/); // even = prose, odd = code
+  const out = [];
+  chunks.forEach((chunk, i) => {
+    if (i % 2) { out.push(`<pre><code>${esc(chunk.replace(/\n$/, ''))}</code></pre>`); return; }
+    const blocks = chunk.replace(/^(#{1,3} .+)$/gm, '\n$1\n').split(/\n\n+/).map((b) => b.trim()).filter(Boolean);
+    for (const b of blocks) {
+      let m;
+      if ((m = b.match(/^###\s+(.+)$/))) out.push(`<h3>${inlineMd(m[1])}</h3>`);
+      else if ((m = b.match(/^#{1,2}\s+(.+)$/))) out.push(`<h2>${inlineMd(m[1])}</h2>`);
+      else if (b.split('\n').every((l) => /^\s*[-*•]\s+/.test(l)))
+        out.push(`<ul>${b.split('\n').map((l) => `<li>${inlineMd(l.replace(/^\s*[-*•]\s+/, ''))}</li>`).join('')}</ul>`);
+      else if (b.split('\n').every((l) => /^\s*\d+[.)]\s+/.test(l)))
+        out.push(`<ol>${b.split('\n').map((l) => `<li>${inlineMd(l.replace(/^\s*\d+[.)]\s+/, ''))}</li>`).join('')}</ol>`);
+      else out.push(`<p>${inlineMd(b).replace(/\n/g, '<br>')}</p>`);
+    }
+  });
+  return out.join('\n      ');
+}
+
+// "## Frequently Asked Questions" followed by "### question" + answer paragraphs.
+function parseFaq(content) {
+  const text = String(content || '');
+  const m = text.match(/(^|\n)##\s+Frequently Asked Questions\s*\n([\s\S]*?)(?=\n##\s|$)/i);
+  if (!m) return null;
+  const items = [];
+  const re = /###\s+(.+?)\s*\n+([\s\S]*?)(?=\n###\s|$)/g;
+  let x;
+  while ((x = re.exec(m[2]))) {
+    const q = plain(x[1]); const ans = plain(x[2]);
+    if (q && ans) items.push({ q, a: ans.slice(0, 800) });
+  }
+  return items.length ? { items, rest: text.replace(m[0], '\n') } : null;
+}
+
+// Most related articles first: same category, shared tags, shared title words.
+function relatedFor(a, n = 3) {
+  const tagSet = new Set(a.tags.map((t) => t.toLowerCase()));
+  const words = (t) => plain(t).toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3);
+  const titleWords = new Set(words(a.title));
+  return articles.filter((x) => x.id !== a.id).map((x) => {
+    let score = x.category === a.category ? 3 : 0;
+    for (const t of x.tags) if (tagSet.has(t.toLowerCase())) score += 2;
+    for (const w of words(x.title)) if (titleWords.has(w)) score += 1;
+    return { x, score };
+  }).sort((p, q) => q.score - p.score || q.x.date - p.x.date).slice(0, n).map((p) => p.x);
+}
+
+const relatedBlock = (list) => `<!-- tp-auto:related -->
+<section class="related-section">
+  <h2 class="section-heading">📚 Related Articles</h2>
+  <div class="articles-grid">
+    ${list.map((r) => `<article class="article-card">
+      <span class="card-category">${esc(r.category)}</span>
+      <h3><a href="/a/${r.slug}.html">${esc(r.title)}</a></h3>
+      <p>${esc(r.excerpt)}</p>
+      <a href="/a/${r.slug}.html" class="read-more">Read More →</a>
+    </article>`).join('\n    ')}
+  </div>
+</section>
+<!-- /tp-auto:related -->`;
+
 function page(a) {
   const url = urlOf(a);
   const img = a.image || DEFAULT_IMG;
-  const desc = a.excerpt || plain(a.content).slice(0, 155);
+  const desc = a.excerpt || plain(a.content.replace(/[#*`]/g, '')).slice(0, 155);
   const words = plain(a.content).split(/\s+/).filter(Boolean).length;
   const mins = Math.max(1, Math.round(words / 200));
-  const body = a.content.split(/\n\n+/).filter((p) => p.trim())
-    .map((p) => `<p>${esc(p.trim()).replace(/\n/g, '<br>')}</p>`).join('\n      ');
+  const faqParsed = parseFaq(a.content);
+  const faqs = faqParsed ? faqParsed.items : extractFAQs(a.content);
+  const body = renderContent(faqParsed ? faqParsed.rest : a.content);
 
-  const related = [...articles.filter((x) => x.id !== a.id && x.category === a.category),
-                   ...articles.filter((x) => x.id !== a.id && x.category !== a.category)].slice(0, 3);
+  const related = relatedFor(a, 3);
 
-  const faqs = extractFAQs(a.content);
   const faqLd = faqs.length ? {
     '@type': 'FAQPage',
     'mainEntity': faqs.map(f => ({
@@ -320,7 +403,7 @@ function page(a) {
       keywords: a.tags.join(', '),
       articleSection: a.category,
       wordCount: words,
-      inLanguage: ['en', 'zh', 'es', 'hi', 'fr']
+      inLanguage: 'en'
     },
     {
       '@type': 'BreadcrumbList',
@@ -371,6 +454,7 @@ function page(a) {
   <link rel="llms" href="/llms.txt">
   <link rel="alternate" type="application/rss+xml" title="${SITE_NAME}" href="/rss.xml">
   <link rel="stylesheet" href="/css/style.css?v=${ASSET_V}">
+  <style>.article-content h2{margin:34px 0 12px;font-size:1.45rem;line-height:1.3}.article-content h3{margin:22px 0 8px;font-size:1.15rem}.article-content ul,.article-content ol{margin:0 0 18px 24px}.article-content li{margin-bottom:6px}.article-content pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow-x:auto;margin:0 0 18px;font-size:.9rem;line-height:1.5}.article-content code{font-family:ui-monospace,Menlo,Consolas,monospace}.article-content p code,.article-content li code{background:rgba(100,116,139,.15);padding:1px 5px;border-radius:4px}</style>
   <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
@@ -467,6 +551,45 @@ for (const a of articles) {
   await writeFile(join(ROOT, 'a', `${a.slug}.html`), page(a));
 }
 
+// Hand-made pages (a/*.html written by you) get an auto-updated "Related Articles" block,
+// so every article links to others (internal links help Google discover and rank pages).
+for (const a of articles) {
+  if (!(a.manual && !a.hasContent)) continue;
+  const file = join(ROOT, 'a', `${a.slug}.html`);
+  if (!(await exists(file))) continue;
+  const list = relatedFor(a, 3);
+  if (!list.length) continue;
+  let html = await readFile(file, 'utf8');
+  const block = relatedBlock(list);
+  const re = /<!-- tp-auto:related -->[\s\S]*?<!-- \/tp-auto:related -->/;
+  let next;
+  if (re.test(html)) next = html.replace(re, () => block);
+  else if (/<\/main>/i.test(html)) next = html.replace(/<\/main>/i, () => `${block}\n  </main>`);
+  else next = html.replace(/<\/body>/i, () => `${block}\n</body>`);
+  if (next !== html) await writeFile(file, next);
+}
+
+// index.html: plain HTML list of articles between <!-- tp-auto:latest --> markers (crawlable without JavaScript).
+try {
+  const idxFile = join(ROOT, 'index.html');
+  const idx = await readFile(idxFile, 'utf8');
+  const re = /<!-- tp-auto:latest -->[\s\S]*?<!-- \/tp-auto:latest -->/;
+  if (re.test(idx)) {
+    const items = articles.slice(0, 80).map((a) =>
+      `<li><a href="/a/${a.slug}.html">${esc(a.title)}</a> <span class="all-articles-cat">${esc(a.category)}</span></li>`).join('\n      ');
+    const block = `<!-- tp-auto:latest -->
+<section class="all-articles" aria-labelledby="allArticlesHeading">
+  <h2 id="allArticlesHeading" class="section-heading">All articles</h2>
+  <ul class="all-articles-list">
+      ${items}
+  </ul>
+</section>
+<!-- /tp-auto:latest -->`;
+    const next = idx.replace(re, () => block);
+    if (next !== idx) await writeFile(idxFile, next);
+  } else console.warn('index.html has no tp-auto:latest markers: article list not updated.');
+} catch (e) { console.warn('index.html list skipped:', e.message); }
+
 await writeFile(join(ROOT, 'data', 'static-slugs.json'),
   JSON.stringify(Object.fromEntries(articles.map((a) => [a.id, a.slug])), null, 1) + '\n');
 
@@ -542,7 +665,7 @@ const llmsContent = `# ${SITE_NAME}
 
 > ${SITE_DESC}
 
-TechPulse publishes deep technical articles in 5 languages (English, Chinese, Spanish, Hindi, French) covering:
+TechPulse publishes practical technical articles in English (the site interface is also available in Chinese, Spanish, Hindi and French) covering:
 - Embedded systems & microcontrollers (ESP32, ESP8266, STM32, Arduino)
 - IoT hardware & firmware development
 - Petroleum engineering (upstream, midstream, downstream)
