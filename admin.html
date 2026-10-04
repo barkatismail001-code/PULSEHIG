@@ -328,6 +328,30 @@
         return article;
       }
 
+      const TP_MIN_WORDS = 1500, TP_MAX_WORDS = 2500;
+      const TP_GROQ_MODEL = "qwen/qwen3.8-27b";
+      const tpWords = (t) => String(t || '').split(/\s+/).filter(Boolean).length;
+
+      async function tpGroqText(apiKey, messages, maxTokens) {
+        const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
+          body: JSON.stringify({ model: TP_GROQ_MODEL, messages, max_tokens: maxTokens, temperature: 0.5, stream: false })
+        });
+        const d = await r.json();
+        if (d.error) throw new Error(d.error.message || JSON.stringify(d.error));
+        const t = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+        if (!t) throw new Error("Empty response from Groq while expanding the article.");
+        return String(t).replace(/<think>[\s\S]*?<\/think>/gi, '').replace(/```[a-z]*\n?|```/gi, '').trim();
+      }
+
+      // New sections go before the FAQ / Conclusion so the article keeps a natural ending.
+      function tpInsertSections(content, extra) {
+        const m = content.match(/\n##\s+(Frequently Asked Questions|Conclusion)\b/i);
+        if (!m) return content + "\n\n" + extra;
+        return content.slice(0, m.index) + "\n\n" + extra + content.slice(m.index);
+      }
+
       generateBtn.addEventListener("click", async function () {
         const apiKey = apiKeyInput.value.trim();
         const files = Array.from(imagesInput.files);
@@ -358,6 +382,8 @@
           const promptText = `${promptInstruction}
 Ensure absolute linguistic precision, high professional technical vocabulary, and zero redundancy.
 
+LENGTH AND STRUCTURE (mandatory): the article body must be between 1500 and 2500 words. Structure of the "content" field: an introduction of 120-180 words (no heading), then 6 sections each starting with a line "## Heading" and containing 220-300 words, then "## Frequently Asked Questions" with 4 entries (each a line "### Question?" followed by a 50-80 word answer), then "## Conclusion" of 100-140 words. Separate blocks with a blank line (\n\n). Use "- " bullets or "1. " steps where useful. Avoid fenced code blocks unless essential. Be concrete: values, units, steps, how to verify. Never invent statistics or quotes.
+
 Return ONLY a raw JSON object matching this exact structure (no markdown fences, no \`\`\`json):
 {
   "title": "${customTitle ? customTitle : "A precise and professional technical title"}",
@@ -365,7 +391,7 @@ Return ONLY a raw JSON object matching this exact structure (no markdown fences,
   "excerpt": "A concise, value-driven technical abstract.",
   "tags": "embedded-systems, hardware, IoT, engineering",
   "readTime": "8 min read",
-  "content": "Provide an extensive, deep, step-by-step engineering breakdown based on the images. Use distinct paragraphs separated by double newlines."
+  "content": "The full 1500-2500 word article in the structure above, based on what is visible in the images. Use \\n\\n between blocks."
 }
 Allowed values for category are strictly: "Technology", "Petroleum", "Gas", or "Programming".`;
 
@@ -384,7 +410,7 @@ Allowed values for category are strictly: "Technology", "Petroleum", "Gas", or "
             body: JSON.stringify({
               model: "qwen/qwen3.8-27b",
               messages: [{ role: "user", content: contentParts }],
-              max_tokens: 6000,
+              max_tokens: 9000,
               temperature: 0.5,
               stream: false
             })
@@ -395,10 +421,22 @@ Allowed values for category are strictly: "Technology", "Petroleum", "Gas", or "
           if (!data.choices || !data.choices[0]) throw new Error("No response from Groq.");
 
           const rawText = data.choices[0].message.content;
-          const cleanJson = rawText.replace(/```json|```/g, '').trim();
+          const noThink = String(rawText).replace(/<think>[\s\S]*?<\/think>/gi, '').replace(/```json|```/g, '').trim();
+          const cleanJson = noThink.slice(noThink.indexOf('{'), noThink.lastIndexOf('}') + 1);
           let parsedArticle = JSON.parse(cleanJson);
 
           parsedArticle = validateAndCleanArticle(parsedArticle);
+
+          // Length control: add sections until the article reaches 1500+ words (max 3 extra calls).
+          let wc = tpWords(parsedArticle.content);
+          for (let i = 0; i < 3 && wc < TP_MIN_WORDS; i++) {
+            statusDiv.innerText = `⏳ Article has ${wc} words — adding sections to reach ${TP_MIN_WORDS}+ ...`;
+            const need = TP_MIN_WORDS - wc + 120;
+            const extra = await tpGroqText(apiKey, [{ role: "user", content:
+              `Technical article titled "${parsedArticle.title}":\n\n${parsedArticle.content}\n\nWrite ${need} to ${need + 150} words of NEW material as 1-2 new sections. Each section starts with a line "## Heading" followed by paragraphs (practical steps, exact values, troubleshooting cases, common mistakes, how to verify). Do not repeat anything already written. Output ONLY the new sections as plain text, no JSON.` }], 5000);
+            parsedArticle.content = tpInsertSections(parsedArticle.content, extra);
+            wc = tpWords(parsedArticle.content);
+          }
 
           if (customTitle) {
             parsedArticle.title = customTitle;
@@ -408,7 +446,7 @@ Allowed values for category are strictly: "Technology", "Petroleum", "Gas", or "
           document.getElementById('excerpt').value = parsedArticle.excerpt || '';
           document.getElementById('content').value = parsedArticle.content || '';
           document.getElementById('tags').value = parsedArticle.tags || '';
-          document.getElementById('readTime').value = parsedArticle.readTime || '8 min read';
+          document.getElementById('readTime').value = Math.max(1, Math.round(tpWords(parsedArticle.content) / 200)) + ' min read';
           document.getElementById('author').value = 'TechPulse Engineering Team';
 
           if (!document.getElementById('date').value) {
@@ -425,7 +463,8 @@ Allowed values for category are strictly: "Technology", "Petroleum", "Gas", or "
           formTitleInput.dispatchEvent(new Event('input'));
 
           statusDiv.style.color = "#4ade80";
-          statusDiv.innerText = `✅ Article successfully generated & validated using ${customTitle ? 'your custom title' : 'AI-detected title'}!`;
+          const finalWords = tpWords(parsedArticle.content);
+          statusDiv.innerText = `✅ Article generated (${finalWords} words${finalWords > TP_MAX_WORDS ? ' — a bit above 2500, trim if you want' : ''}) using ${customTitle ? 'your custom title' : 'AI-detected title'}!`;
 
         } catch (err) {
           console.error(err);
