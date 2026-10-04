@@ -66,10 +66,31 @@
                 </div>
             </section>` : '';
 
-        const contentHTML = String(article.content || '')
-            .split(/\n\n+/)
-            .map(p => `<p>${C.esc(p).replace(/\n/g, '<br>')}</p>`)
+        // Light markdown (## headings, - lists, 1. steps, ``` code, **bold**) used by the AI-generated articles.
+        const md = s => C.esc(s)
+            .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+            .replace(/`([^`\n]+)`/g, '<code>$1</code>');
+        const contentHTML = String(article.content || '').replace(/\r\n/g, '\n')
+            .split(/```[a-zA-Z0-9+#-]*\n([\s\S]*?)```/)
+            .map((chunk, i) => {
+                if (i % 2) return `<pre><code>${C.esc(chunk.replace(/\n$/, ''))}</code></pre>`;
+                return chunk.replace(/^(#{1,3} .+)$/gm, '\n$1\n').split(/\n\n+/).map(b => b.trim()).filter(Boolean).map(b => {
+                    let m;
+                    if ((m = b.match(/^###\s+(.+)$/))) return `<h3>${md(m[1])}</h3>`;
+                    if ((m = b.match(/^#{1,2}\s+(.+)$/))) return `<h2>${md(m[1])}</h2>`;
+                    const lines = b.split('\n');
+                    if (lines.every(l => /^\s*[-*\u2022]\s+/.test(l))) return `<ul>${lines.map(l => `<li>${md(l.replace(/^\s*[-*\u2022]\s+/, ''))}</li>`).join('')}</ul>`;
+                    if (lines.every(l => /^\s*\d+[.)]\s+/.test(l))) return `<ol>${lines.map(l => `<li>${md(l.replace(/^\s*\d+[.)]\s+/, ''))}</li>`).join('')}</ol>`;
+                    return `<p>${md(b).replace(/\n/g, '<br>')}</p>`;
+                }).join('');
+            })
             .join('');
+        if (!document.getElementById('tpRichStyle')) {
+            const st = document.createElement('style');
+            st.id = 'tpRichStyle';
+            st.textContent = '.article-content h2{margin:34px 0 12px;font-size:1.45rem;line-height:1.3}.article-content h3{margin:22px 0 8px;font-size:1.15rem}.article-content ul,.article-content ol{margin:0 0 18px 24px}.article-content li{margin-bottom:6px}.article-content pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow-x:auto;margin:0 0 18px;font-size:.9rem;line-height:1.5}.article-content code{font-family:ui-monospace,Menlo,Consolas,monospace}';
+            document.head.appendChild(st);
+        }
 
         const imgHTML = article.image
             ? `<img src="${C.esc(article.image)}" alt="${C.esc(article.title)}" class="article-hero-img" loading="eager">`
