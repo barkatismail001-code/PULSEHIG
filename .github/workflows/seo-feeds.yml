@@ -4,7 +4,16 @@ on:
   schedule:
     # Runs at 02:00 UTC every day
     - cron: '0 2 * * *'
-  workflow_dispatch: # Allows manual triggering from the Actions tab
+  workflow_dispatch: # Run manually from the Actions tab (optionally with your own topic)
+    inputs:
+      topic:
+        description: 'Optional: write an article about this topic instead of the automatic one'
+        required: false
+        default: ''
+      category:
+        description: 'Category used with the topic above (e.g. Embedded Systems, Home Repair, Programming)'
+        required: false
+        default: 'Technology'
 
 permissions:
   contents: write # Required to push changes back to the repo
@@ -16,6 +25,7 @@ concurrency:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repository
@@ -31,24 +41,28 @@ jobs:
       - name: Install dependencies
         run: npm install @supabase/supabase-js
 
-      - name: Generate Daily Article
+      - name: Generate Daily Article (1500-2500 words)
+        # If Groq/Supabase fails, the run is marked with a warning but the SEO files below are still rebuilt.
+        continue-on-error: true
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          TOPIC: ${{ github.event.inputs.topic }}
+          TOPIC_CATEGORY: ${{ github.event.inputs.category }}
         run: node scripts/daily-bot.mjs
 
-      - name: Generate SEO Files (Sitemap, RSS)
+      - name: Generate SEO Files (Sitemap, RSS, article pages)
         run: node scripts/generate-seo.mjs
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "techpulse-bot"
           git config --global user.email "bot@users.noreply.github.com"
-          
-          # Add the generated SEO files and any static article pages
-          git add -A a sitemap.xml rss.xml robots.txt llms.txt data/static-slugs.json data/auto-articles.json
-          
+
+          # Add the generated SEO files, static article pages, homepage article list and the used-topics memory
+          git add -A a index.html sitemap.xml rss.xml robots.txt llms.txt data/static-slugs.json data/auto-articles.json data/used-topics.json
+
           # Check if there are staged changes, commit and push if there are
           if ! git diff --cached --quiet; then
             git commit -m "chore: auto-publish daily article and update SEO [skip ci]"
