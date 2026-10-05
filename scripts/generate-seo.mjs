@@ -1,7 +1,7 @@
-// TechPulse — SEO build step (Professional Edition)
+// TechPulse — SEO build step (Professional Edition with i18n support)
 // Generates:
-//   1. Static crawlable HTML per article in /a/<slug>.html (with FAQ schema)
-//   2. sitemap.xml (with image tags)
+//   1. Static crawlable HTML per article in /a/<slug>.html (with FAQ schema + hreflang)
+//   2. sitemap.xml (with image tags + hreflang alternates)
 //   3. rss.xml
 //   4. robots.txt (with AI bots)
 //   5. llms.txt (for AI agents)
@@ -20,6 +20,15 @@ const SUPABASE_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
 const ASSET_V = '20261004a';
 const DEFAULT_IMG = `${SITE}/assets/og-default.png`;
 const OFFLINE = process.env.SEO_OFFLINE === '1'; // tests only: skip Supabase, handle hand-made pages only
+
+// Supported languages (site UI languages)
+const LANGS = {
+  en: { name: 'English', flag: '🇬🇧', htmlLang: 'en' },
+  zh: { name: '中文',    flag: '🇨🇳', htmlLang: 'zh-CN' },
+  es: { name: 'Español', flag: '🇪🇸', htmlLang: 'es' },
+  hi: { name: 'हिन्दी',  flag: '🇮🇳', htmlLang: 'hi' },
+  fr: { name: 'Français', flag: '🇫🇷', htmlLang: 'fr' },
+};
 
 const STATIC_PAGES = [
   ['/', 'daily', '1.0'],
@@ -45,9 +54,21 @@ const pick = (f) => {
   return String(f);
 };
 
+const pickLang = (field, lang) => {
+  if (field == null) return '';
+  let obj = field;
+  if (typeof field === 'string') {
+    try { obj = JSON.parse(field); } catch { return field; }
+  }
+  if (obj && typeof obj === 'object') {
+    return obj[lang] || obj.en || Object.values(obj).find(Boolean) || '';
+  }
+  return String(field);
+};
+
 const plain = (s) => String(s || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 
-// --- Search-result friendly <title> / meta description (never changes the article's own H1) ---
+// --- Search-result friendly <title> / meta description ---
 const TITLE_MAX = 60;
 const DESC_MAX = 155;
 function cutWords(str, max) {
@@ -56,7 +77,6 @@ function cutWords(str, max) {
   t = t.slice(0, max + 1);
   const i = t.lastIndexOf(' ');
   t = i > max * 0.6 ? t.slice(0, i) : t.slice(0, max);
-  // never leave an unclosed bracket or a dangling connector word
   const open = t.lastIndexOf('(');
   if (open > -1 && t.indexOf(')', open) === -1) t = t.slice(0, open);
   let prev;
@@ -86,7 +106,7 @@ function slugOf(a) {
   const en = plain(pick(a.title));
   let slug = en.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '').replace(/^topic-/, '');
-  if (slug.length > 60) {                       // cut at a whole word, not in the middle of one
+  if (slug.length > 60) {
     slug = slug.slice(0, 60);
     const i = slug.lastIndexOf('-');
     if (i > 30) slug = slug.slice(0, i);
@@ -108,10 +128,8 @@ async function exists(p) { try { await access(p); return true; } catch { return 
 
 async function loadArticles() {
   if (OFFLINE) { console.warn('SEO_OFFLINE=1: Supabase skipped'); return []; }
-  // Safety: this script deletes and rebuilds /a/. It only runs from live Supabase data;
-  // if Supabase is unreachable it stops and leaves the existing pages untouched.
   try {
-    const url = `${SUPABASE_URL}/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,tags&order=date.desc&limit=1000`;
+    const url = `${SUPABASE_URL}/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,tags,title_i18n,excerpt_i18n,content_i18n&order=date.desc&limit=1000`;
     const res = await fetch(url, { headers: { apikey: SUPABASE_KEY } });
     if (res.ok) {
       const data = await res.json();
@@ -144,7 +162,6 @@ function extractFAQs(content) {
   }).filter(item => item.a);
 }
 
-// Hand-made static articles: data/manual-articles.json (see README). Never deleted by this script.
 async function loadManual() {
   try {
     const list = JSON.parse(await readFile(join(ROOT, 'data/manual-articles.json'), 'utf8'));
@@ -153,16 +170,10 @@ async function loadManual() {
 }
 const manualList = await loadManual();
 
-/* ---------- Automatic discovery of hand-made pages ----------
-   Any a/<name>.html that is not a Supabase-generated page and not in manual-articles.json
-   is treated as an article: its title, description, image, category and date are read from
-   the HTML itself. The page is also made interactive (views, like, save, share, comments)
-   and gets canonical/description/JSON-LD when it has none. Safe to run repeatedly. */
+/* ---------- Automatic discovery of hand-made pages ---------- */
 const unent = (s) => String(s || '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
   .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&nbsp;/g, ' ');
 const metaOf = (html, attr, name) => {
-  // Reads <meta ... attr="name" ... content="..."> in any attribute order. Quotes may be " or ',
-  // and an apostrophe inside a double-quoted value (Won't) no longer cuts the text short.
   for (const tag of html.match(/<meta\b[^>]*>/gi) || []) {
     if (!new RegExp(`\\b${attr}\\s*=\\s*(?:"${name}"|'${name}')`, 'i').test(tag)) continue;
     const c = tag.match(/\bcontent\s*=\s*(?:"([^"]*)"|'([^']*)')/i);
@@ -208,9 +219,8 @@ async function discoverManualPages(taken) {
     const path = join(ROOT, 'a', f);
     let html = await readFile(path, 'utf8');
 
-    // A page generated for a Supabase article that no longer exists: not an article of ours.
     if (/data-id="(?!m-)[^"]+"/.test(html)) {
-      console.warn(`a/${f} belongs to a Supabase article that no longer exists: ignored (delete it if obsolete).`);
+      console.warn(`a/${f} belongs to a Supabase article that no longer exists: ignored.`);
       continue;
     }
 
@@ -253,7 +263,6 @@ async function discoverManualPages(taken) {
       || iso(new Date((await stat(path)).mtime));
     const date = toDate(dateStr);
 
-    // --- make the page complete (idempotent) ---
     const before = html;
     if (!/<link[^>]+rel=["']canonical["']/i.test(html))
       html = html.replace(/<\/head>/i, `  <link rel="canonical" href="${url}">\n</head>`);
@@ -284,9 +293,9 @@ let prevSlugs = {};
 try { prevSlugs = JSON.parse(await readFile(join(ROOT, 'data/static-slugs.json'), 'utf8')); } catch {}
 const raw = (await loadArticles()).filter((a) => a && a.id);
 const articles = [];
-const seen = new Set(manualList.map((m) => m.slug)); // manual slugs are reserved
+const seen = new Set(manualList.map((m) => m.slug));
 for (const a of raw) {
-  let slug = prevSlugs[String(a.id)] || slugOf(a); // published URLs never change
+  let slug = prevSlugs[String(a.id)] || slugOf(a);
   if (seen.has(slug)) {
     console.warn('Duplicate slug, renaming:', slug);
     slug += '-' + String(a.id).replace(/[^a-z0-9]/gi, '').slice(-4);
@@ -298,6 +307,10 @@ for (const a of raw) {
     title: plain(pick(a.title)),
     excerpt: plain(pick(a.excerpt)).slice(0, 300),
     content,
+    // i18n fields (from Supabase jsonb columns)
+    title_i18n:   a.title_i18n   && typeof a.title_i18n   === 'object' ? a.title_i18n   : {},
+    excerpt_i18n: a.excerpt_i18n && typeof a.excerpt_i18n === 'object' ? a.excerpt_i18n : {},
+    content_i18n: a.content_i18n && typeof a.content_i18n === 'object' ? a.content_i18n : {},
     category: /[\u0600-\u06FF\u0750-\u077F]/.test(String(a.category || '')) ? 'Technology' : (a.category || 'Technology'),
     author: a.author || SITE_NAME,
     tags: tagsOf(a.tags),
@@ -317,6 +330,7 @@ for (const m of manualList) {
     title: plain(m.title),
     excerpt: plain(m.excerpt || '').slice(0, 300),
     content: String(m.content || ''),
+    title_i18n: m.title_i18n || {}, excerpt_i18n: m.excerpt_i18n || {}, content_i18n: m.content_i18n || {},
     category: m.category || 'Technology',
     author: m.author || SITE_NAME,
     tags: tagsOf(m.tags),
@@ -324,23 +338,23 @@ for (const m of manualList) {
     image: await resolveImage(m.image),
   });
 }
-// Supabase slugs are known only after the loop above; reserve them before discovery.
 const discovered = await discoverManualPages(new Set(seen));
 for (const d of discovered) {
   articles.push({
     id: `m-${d.slug}`, slug: d.slug, manual: true, hasContent: false,
     title: d.title, excerpt: d.excerpt, content: '', category: d.category, author: d.author,
     tags: d.tags, date: toDate(d.date), image: await resolveImage(d.image),
+    title_i18n: {}, excerpt_i18n: {}, content_i18n: {},
   });
 }
 await writeFile(join(ROOT, 'data', 'auto-articles.json'), JSON.stringify(discovered, null, 1) + '\n');
 
 articles.sort((x, y) => y.date - x.date);
 const urlOf = (a) => `${SITE}/a/${a.slug}.html`;
+const urlOfLang = (a, lang) => lang === 'en' ? urlOf(a) : `${SITE}/a/${a.slug}.html?lang=${lang}`;
 
 const NAV = `<a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>`;
 
-// ---------- Content rendering (articles written by the Groq bot use light markdown) ----------
 function inlineMd(s) {
   return esc(s)
     .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
@@ -348,7 +362,7 @@ function inlineMd(s) {
 }
 function renderContent(text) {
   const src = String(text || '').replace(/\r\n/g, '\n');
-  const chunks = src.split(/```[a-zA-Z0-9+#-]*\n([\s\S]*?)```/); // even = prose, odd = code
+  const chunks = src.split(/```[a-zA-Z0-9+#-]*\n([\s\S]*?)```/);
   const out = [];
   chunks.forEach((chunk, i) => {
     if (i % 2) { out.push(`<pre><code>${esc(chunk.replace(/\n$/, ''))}</code></pre>`); return; }
@@ -367,7 +381,6 @@ function renderContent(text) {
   return out.join('\n      ');
 }
 
-// "## Frequently Asked Questions" followed by "### question" + answer paragraphs.
 function parseFaq(content) {
   const text = String(content || '');
   const m = text.match(/(^|\n)##\s+Frequently Asked Questions\s*\n([\s\S]*?)(?=\n##\s|$)/i);
@@ -382,7 +395,6 @@ function parseFaq(content) {
   return items.length ? { items, rest: text.replace(m[0], '\n') } : null;
 }
 
-// Most related articles first: same category, shared tags, shared title words.
 function relatedFor(a, n = 3) {
   const tagSet = new Set(a.tags.map((t) => t.toLowerCase()));
   const words = (t) => plain(t).toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3);
@@ -421,6 +433,15 @@ function page(a) {
 
   const related = relatedFor(a, 3);
 
+  // --- Hreflang alternates for translation coverage ---
+  const availableLangs = ['en', ...Object.keys(LANGS).filter(l => l !== 'en' && a.title_i18n?.[l])];
+  const hreflangTags = availableLangs.map(lang => {
+    const href = lang === 'en' ? url : `${url}?lang=${lang}`;
+    return `  <link rel="alternate" hreflang="${LANGS[lang]?.htmlLang || lang}" href="${href}">`;
+  }).join('\n');
+  const xDefault = `  <link rel="alternate" hreflang="x-default" href="${url}">`;
+
+  // --- Multi-language JSON-LD (about + inLanguage) ---
   const faqLd = faqs.length ? {
     '@type': 'FAQPage',
     'mainEntity': faqs.map(f => ({
@@ -448,7 +469,14 @@ function page(a) {
       keywords: a.tags.join(', '),
       articleSection: a.category,
       wordCount: words,
-      inLanguage: 'en'
+      inLanguage: 'en',
+      ...(availableLangs.length > 1 ? {
+        'workTranslation': availableLangs.filter(l => l !== 'en').map(l => ({
+          '@type': 'Article',
+          'inLanguage': LANGS[l]?.htmlLang || l,
+          'url': `${url}?lang=${l}`
+        }))
+      } : {})
     },
     {
       '@type': 'BreadcrumbList',
@@ -482,6 +510,8 @@ function page(a) {
   <title>${esc(seoTitle(a.title))}</title>
   <meta name="description" content="${esc(desc)}">
   <link rel="canonical" href="${url}">
+${hreflangTags}
+${xDefault}
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="${SITE_NAME}">
@@ -491,6 +521,8 @@ function page(a) {
   <meta property="og:image" content="${esc(img)}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+${availableLangs.filter(l => l !== 'en').map(l => `  <meta property="og:locale:alternate" content="${LANGS[l]?.htmlLang?.replace('-', '_') || l}">`).join('\n')}
   <meta property="article:published_time" content="${iso(a.date)}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
@@ -524,6 +556,13 @@ function page(a) {
           <span>⏱ ${mins} min read</span>
           <span id="tpViewsWrap" hidden>👁️ <span id="tpViews">0</span> views</span>
         </div>
+        ${availableLangs.length > 1 ? `
+        <div class="lang-switcher" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:.85rem;color:var(--text-muted)">🌍 Read in:</span>
+          ${availableLangs.map(l => `
+            <a href="${l === 'en' ? '' : '?lang=' + l}" style="padding:4px 10px;border-radius:999px;background:var(--bg-soft);font-size:.82rem;text-decoration:none;color:var(--text)">${LANGS[l]?.flag || ''} ${LANGS[l]?.name || l}</a>
+          `).join('')}
+        </div>` : ''}
       </header>
       ${a.image ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" class="article-hero-img" width="1200" height="630" loading="eager">` : ''}
       <div class="article-excerpt"><p>${esc(a.excerpt)}</p></div>
@@ -579,25 +618,19 @@ function page(a) {
 
 await mkdir(join(ROOT, 'a'), { recursive: true });
 
-// Pages are never deleted automatically (a hand-made file in a/ is never put at risk).
-// If an article was removed from Supabase its old page is only reported here.
 let previous = {};
 try { previous = JSON.parse(await readFile(join(ROOT, 'data/static-slugs.json'), 'utf8')); } catch {}
 const currentSlugs = new Set(articles.map((a) => a.slug));
 for (const [pid, pslug] of Object.entries(previous)) {
   if (!currentSlugs.has(pslug) && await exists(join(ROOT, 'a', `${pslug}.html`)))
-    console.warn(`a/${pslug}.html is not in Supabase or manual-articles.json: left in place, not in sitemap/index. Delete the file if it is obsolete.`);
+    console.warn(`a/${pslug}.html is not in Supabase or manual-articles.json: left in place.`);
 }
 
-// Supabase articles + manual articles that have text in the JSON are (re)generated.
-// A manual article without "content" keeps its hand-written file untouched.
 for (const a of articles) {
   if (a.manual && !a.hasContent) continue;
   await writeFile(join(ROOT, 'a', `${a.slug}.html`), page(a));
 }
 
-// Hand-made pages (a/*.html written by you) get an auto-updated "Related Articles" block,
-// so every article links to others (internal links help Google discover and rank pages).
 for (const a of articles) {
   if (!(a.manual && !a.hasContent)) continue;
   const file = join(ROOT, 'a', `${a.slug}.html`);
@@ -614,7 +647,6 @@ for (const a of articles) {
   if (next !== html) await writeFile(file, next);
 }
 
-// index.html: plain HTML list of articles between <!-- tp-auto:latest --> markers (crawlable without JavaScript).
 try {
   const idxFile = join(ROOT, 'index.html');
   const idx = await readFile(idxFile, 'utf8');
@@ -641,13 +673,19 @@ await writeFile(join(ROOT, 'data', 'static-slugs.json'),
 const urls = [
   ...STATIC_PAGES.map(([p, f, pr]) =>
     `  <url>\n    <loc>${SITE}${p}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${f}</changefreq>\n    <priority>${pr}</priority>\n  </url>`),
-  ...articles.map((a) =>
-    `  <url>\n    <loc>${esc(urlOf(a))}</loc>\n    <lastmod>${iso(a.date)}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>${
-      a.image ? `\n    <image:image><image:loc>${esc(a.image)}</image:loc><image:caption>${esc(a.title)}</image:caption></image:image>` : ''}\n  </url>`),
+  ...articles.map((a) => {
+    const langAlternates = Object.keys(LANGS).filter(l => l !== 'en' && a.title_i18n?.[l])
+      .map(l => `    <xhtml:link rel="alternate" hreflang="${LANGS[l]?.htmlLang || l}" href="${urlOfLang(a, l)}"/>`).join('\n');
+    return `  <url>\n    <loc>${esc(urlOf(a))}</loc>\n    <lastmod>${iso(a.date)}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>${
+      a.image ? `\n    <image:image><image:loc>${esc(a.image)}</image:loc><image:caption>${esc(a.title)}</image:caption></image:image>` : ''}${
+      langAlternates ? '\n' + langAlternates + `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${esc(urlOf(a))}"/>` : ''}\n  </url>`;
+  }),
 ];
 await writeFile(join(ROOT, 'sitemap.xml'),
 `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls.join('\n')}
 </urlset>
 `);
@@ -710,7 +748,7 @@ const llmsContent = `# ${SITE_NAME}
 
 > ${SITE_DESC}
 
-TechPulse publishes practical technical articles in English (the site interface is also available in Chinese, Spanish, Hindi and French) covering:
+TechPulse publishes practical technical articles in English, Chinese (中文), Spanish (Español), Hindi (हिन्दी) and French (Français) covering:
 - Embedded systems & microcontrollers (ESP32, ESP8266, STM32, Arduino)
 - IoT hardware & firmware development
 - Petroleum engineering (upstream, midstream, downstream)
@@ -732,6 +770,7 @@ ${articles.slice(0, 15).map(a => `- [${a.title}](${urlOf(a)})`).join('\n')}
 - Content is structured with FAQ sections for AI citation.
 - Images are optimized (1200x630 minimum) for Google Discover.
 - Schema.org markup: Article, FAQPage, BreadcrumbList, Organization.
+- Multi-language support: hreflang alternates for zh, es, hi, fr.
 
 ## Contact
 - Website: ${SITE}
