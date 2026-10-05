@@ -5,7 +5,7 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 08:47:03 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 08:49:34 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
@@ -38,14 +38,6 @@
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>This technical guide explores the architectural and linguistic principles required to create high-maintainability codebases. By analyzing the cognitive load of software development, we examine how to leverage naming conventions, modular design, and self-documenting patterns to ensure that complex sy</description>
-    </item>
-    <item>
-      <title>Why Is My Wi-Fi Connected But No Internet? (Quick Fixes)</title>
-      <link>https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html</guid>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A comprehensive technical analysis of the &#39;Connected but No Internet&#39; state, detailing the architectural divergence between Layer 2 association and Layer 3 reachability. This guide provides systematic troubleshooting protocols for DHCP, DNS, and ISP-side failures.</description>
     </item>
     <item>
       <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
@@ -128,22 +120,6 @@
       <description>A technical deep-dive into the architecture of smart metering and the identification of parasitic power loads. This analysis explores the integration of AMI (Advanced Metering Infrastructure) systems, the diagnostic capabilities of portable digital power meters, and the interpretation of multi-modal</description>
     </item>
     <item>
-      <title>Why Is My Phone Battery Draining So Fast? 12 Hidden Settings to Check</title>
-      <link>https://www.pulsehig.com/a/why-is-my-phone-battery-draining-so-fast-12-hidden-settings-to-check.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/why-is-my-phone-battery-draining-so-fast-12-hidden-settings-to-check.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A comprehensive technical analysis of modern mobile power management, investigating the hidden firmware and OS-level configurations that lead to rapid battery depletion and identifying the twelve most critical settings for optimization.</description>
-    </item>
-    <item>
-      <title>How to Speed Up a Slow Computer in 10 Minutes (No New Hardware)</title>
-      <link>https://www.pulsehig.com/a/how-to-speed-up-a-slow-computer-in-10-minutes-no-new-hardware.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-speed-up-a-slow-computer-in-10-minutes-no-new-hardware.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A technical guide to diagnosing and resolving system performance bottlenecks using real-time monitoring tools like Windows Task Manager and FireTask. Learn how to identify high-load processes, optimize memory management, and improve system responsiveness without hardware upgrades.</description>
-    </item>
-    <item>
       <title>Why Your Laptop Is Overheating and How to Fix It</title>
       <link>https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</guid>
@@ -158,22 +134,6 @@
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>This technical deep-dive explores the mechanics of I2C clock stretching and its role in causing communication timeouts on ESP32-based systems. We analyze oscilloscope waveforms and circuit topologies to identify the root causes of bus stalls and provide actionable hardware and firmware strategies fo</description>
-    </item>
-    <item>
-      <title>Solving High Household Energy Bills Using Smart Home Automation</title>
-      <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</guid>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>This technical analysis explores the architecture of modern smart home automation systems, focusing on the integration of real-time telemetry, automated actuation logic, and advanced data visualization to mitigate household energy expenditure through granular control of HVAC, lighting, and solar ass</description>
-    </item>
-    <item>
-      <title>How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</guid>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A comprehensive diagnostic and remedial guide for resolving &#39;black screen but works&#39; anomalies in modern mobile devices. This technical breakdown covers software-induced display failures, hardware-level display connector diagnostics, and the specific scenarios where a functional device presents a no</description>
     </item>
     <item>
       <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
@@ -192,12 +152,12 @@
       <description>A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a</description>
     </item>
     <item>
-      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
-      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <title>Solving High Household Energy Bills Using Smart Home Automation</title>
+      <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
+      <description>This technical analysis explores the architecture of modern smart home automation systems, focusing on the integration of real-time telemetry, automated actuation logic, and advanced data visualization to mitigate household energy expenditure through granular control of HVAC, lighting, and solar ass</description>
     </item>
     <item>
       <title>Topic: How to Fix a Clogged Drain Without Harsh Chemicals</title>
@@ -206,6 +166,14 @@
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>A comprehensive technical analysis of non-chemical hydro-mechanical and chemical-neutralization protocols for residential drain remediation. This article details the application of mechanical extraction, thermal shock, and reactive cleaning agents to restore hydraulic efficiency in plumbing systems.</description>
+    </item>
+    <item>
+      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
+      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
     </item>
     <item>
       <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>

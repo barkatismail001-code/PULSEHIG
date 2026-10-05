@@ -67,12 +67,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -142,18 +136,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/why-is-my-phone-battery-draining-so-fast-12-hidden-settings-to-check.html</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/how-to-speed-up-a-slow-computer-in-10-minutes-no-new-hardware.html</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
@@ -162,18 +144,6 @@
   <url>
     <loc>https://www.pulsehig.com/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre.html</loc>
     <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</loc>
-    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -190,13 +160,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.pulsehig.com/a/topic-how-to-fix-a-clogged-drain-without-harsh-chemicals.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
