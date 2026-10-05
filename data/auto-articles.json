@@ -131,22 +131,6 @@
   "minutes": 2
  },
  {
-  "slug": "phone-storage-full-fix",
-  "title": "Phone Storage Full? 10 GB You Can Free in 10 Minutes",
-  "excerpt": "Android storage full and no space to update apps? Clear WhatsApp media, Google Photos cache, Telegram downloads and hidden system logs with these commands.",
-  "category": "Mobile",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "phone storage full",
-   "android storage full",
-   "free up android space",
-   "whatsapp storage"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
   "slug": "raspberry-pi-overheating-fix",
   "title": "Stop Your Raspberry Pi from Overheating in a Closed Case",
   "excerpt": "Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.",
