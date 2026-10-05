@@ -46,6 +46,39 @@ const pick = (f) => {
 };
 
 const plain = (s) => String(s || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+
+// --- Search-result friendly <title> / meta description (never changes the article's own H1) ---
+const TITLE_MAX = 60;
+const DESC_MAX = 155;
+function cutWords(str, max) {
+  let t = String(str).trim();
+  if (t.length <= max) return t;
+  t = t.slice(0, max + 1);
+  const i = t.lastIndexOf(' ');
+  t = i > max * 0.6 ? t.slice(0, i) : t.slice(0, max);
+  // never leave an unclosed bracket or a dangling connector word
+  const open = t.lastIndexOf('(');
+  if (open > -1 && t.indexOf(')', open) === -1) t = t.slice(0, open);
+  let prev;
+  do { prev = t; t = t.replace(/\s+(and|or|to|the|a|an|of|in|for|with|your|how|is|are|new|without|before|after|buying)$/i, ''); } while (t !== prev);
+  return t.replace(/[\s,;:\-–—(\[]+$/, '');
+}
+function seoTitle(title) {
+  const t = plain(title);
+  const full = `${t} | ${SITE_NAME}`;
+  if (full.length <= TITLE_MAX) return full;
+  if (t.length <= TITLE_MAX) return t;
+  return cutWords(t, TITLE_MAX);
+}
+function seoDesc(desc) {
+  const d = plain(desc);
+  if (d.length <= DESC_MAX) return d;
+  const head = d.slice(0, DESC_MAX);
+  let end = -1;
+  for (const m of head.matchAll(/[.!?](?=\s|$)/g)) end = m.index;
+  if (end >= 70) return head.slice(0, end + 1);
+  return cutWords(d, DESC_MAX - 1) + '…';
+}
 const toDate = (d) => { const t = new Date(d); return isNaN(t) ? new Date(today) : t; };
 const iso = (d) => d.toISOString().slice(0, 10);
 
@@ -181,6 +214,18 @@ async function discoverManualPages(taken) {
       continue;
     }
 
+    const original = html;
+    {
+      const tt = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+      if (tt && plain(unent(tt[1])).length > TITLE_MAX) {
+        const bare = plain(unent(tt[1])).replace(/\s*[|\-–]\s*TechPulse\s*$/i, '');
+        html = html.replace(tt[0], () => `<title>${esc(seoTitle(bare))}</title>`);
+      }
+      const dm = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i);
+      if (dm && unent(dm[1]).length > DESC_MAX + 5) {
+        html = html.replace(dm[0], () => dm[0].replace(dm[1], () => esc(seoDesc(unent(dm[1])))));
+      }
+    }
     const url = `${SITE}/a/${slug}.html`;
     const h1 = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1];
     const titleTag = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1];
@@ -228,7 +273,7 @@ async function discoverManualPages(taken) {
     }
     if (!html.includes('/js/static-article.js'))
       html = html.replace(/<\/body>/i, `  <script src="/js/common.js?v=${ASSET_V}" defer></script>\n  <script src="/js/static-article.js?v=${ASSET_V}" defer></script>\n</body>`);
-    if (html !== before) { await writeFile(path, html); console.log(`Enhanced hand-made page: a/${f}`); }
+    if (html !== original) { await writeFile(path, html); console.log(`Enhanced hand-made page: a/${f}`); }
 
     found.push({ slug, title, excerpt, category, date: iso(date), image, tags, author, minutes: Math.max(1, Math.round(words / 200)) });
   }
@@ -367,7 +412,7 @@ const relatedBlock = (list) => `<!-- tp-auto:related -->
 function page(a) {
   const url = urlOf(a);
   const img = a.image || DEFAULT_IMG;
-  const desc = a.excerpt || plain(a.content.replace(/[#*`]/g, '')).slice(0, 155);
+  const desc = seoDesc(a.excerpt || plain(a.content.replace(/[#*`]/g, '')));
   const words = plain(a.content).split(/\s+/).filter(Boolean).length;
   const mins = Math.max(1, Math.round(words / 200));
   const faqParsed = parseFaq(a.content);
@@ -434,7 +479,7 @@ function page(a) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(a.title)} | ${SITE_NAME}</title>
+  <title>${esc(seoTitle(a.title))}</title>
   <meta name="description" content="${esc(desc)}">
   <link rel="canonical" href="${url}">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
