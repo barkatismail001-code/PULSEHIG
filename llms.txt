@@ -22,7 +22,6 @@ TechPulse publishes practical technical articles in English (the site interface 
 - [How to Fix an Overheating Dryer Before It Becomes a Fire Hazard](https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html)
 - [How to Write Code That Anyone Can Read and Maintain](https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html)
 - [Why Is My Wi-Fi Connected But No Internet? (Quick Fixes)](https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html)
-- [Bluetooth Audio Lag on Windows? Fix the 200 ms Delay](https://www.pulsehig.com/a/bluetooth-audio-lag-windows-fix.html)
 - [Chrome Using All Your RAM? Fix It Without Switching Browsers](https://www.pulsehig.com/a/chrome-high-ram-fix.html)
 - [ESP32 Won't Wake from Deep Sleep: Causes and Fixes](https://www.pulsehig.com/a/esp32-deep-sleep-fix.html)
 - [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html)
@@ -32,6 +31,7 @@ TechPulse publishes practical technical articles in English (the site interface 
 - [Keyboard Keys Not Working? Fix Hardware and Software Causes](https://www.pulsehig.com/a/keyboard-keys-not-working-fix.html)
 - [Why Your LED Strip Flickers: PWM, Power and Ground Explained](https://www.pulsehig.com/a/led-strip-flicker-fix.html)
 - [Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes](https://www.pulsehig.com/a/linux-wifi-drops-fix.html)
+- [Microphone Not Working? Fix Mute, Levels and Privacy Settings](https://www.pulsehig.com/a/microphone-not-working-fix.html)
 
 ## Technical Standards
 - All articles are original, technically reviewed, and cite real engineering principles.

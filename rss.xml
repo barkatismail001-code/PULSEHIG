@@ -5,7 +5,7 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 08:15:24 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 08:20:30 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
@@ -46,14 +46,6 @@
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>A comprehensive technical analysis of the &#39;Connected but No Internet&#39; state, detailing the architectural divergence between Layer 2 association and Layer 3 reachability. This guide provides systematic troubleshooting protocols for DHCP, DNS, and ISP-side failures.</description>
-    </item>
-    <item>
-      <title>Bluetooth Audio Lag on Windows? Fix the 200 ms Delay</title>
-      <link>https://www.pulsehig.com/a/bluetooth-audio-lag-windows-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/bluetooth-audio-lag-windows-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Audio</category>
-      <description>Bluetooth headphones lag behind video on Windows 11? Disable Hands-Free Telephony, switch to AAC/LDAC, update the adapter driver and reduce the buffer.</description>
     </item>
     <item>
       <title>Chrome Using All Your RAM? Fix It Without Switching Browsers</title>

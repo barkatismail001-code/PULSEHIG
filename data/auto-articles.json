@@ -1,21 +1,5 @@
 [
  {
-  "slug": "bluetooth-audio-lag-windows-fix",
-  "title": "Bluetooth Audio Lag on Windows? Fix the 200 ms Delay",
-  "excerpt": "Bluetooth headphones lag behind video on Windows 11? Disable Hands-Free Telephony, switch to AAC/LDAC, update the adapter driver and reduce the buffer.",
-  "category": "Audio",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "bluetooth audio lag",
-   "bluetooth delay windows",
-   "hands free telephony",
-   "aac codec windows"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
   "slug": "chrome-high-ram-fix",
   "title": "Chrome Using All Your RAM? Fix It Without Switching Browsers",
   "excerpt": "Chrome eating 8 GB of RAM with 20 tabs? Use chrome://memory-internals, enable Memory Saver, kill background extensions and cap the renderer process count.",
