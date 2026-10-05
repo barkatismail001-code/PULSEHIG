@@ -163,22 +163,6 @@
   "minutes": 2
  },
  {
-  "slug": "usb-port-not-working-fix",
-  "title": "USB Port Not Working? Diagnose It Before You RMA the Board",
-  "excerpt": "A dead USB port is rarely dead. Reset the USB hub, disable USB selective suspend, check power delivery and test with a multimeter before replacing hardware.",
-  "category": "Hardware",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "usb port not working",
-   "usb port dead",
-   "usb selective suspend",
-   "usb hub reset"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 2
- },
- {
   "slug": "windows-11-slow-after-update-fix",
   "title": "Windows 11 Slow After an Update? 8 Fixes That Actually Work",
   "excerpt": "Windows 11 feels sluggish after a recent update? Learn how to disable startup bloat, rebuild the search index, clear the update cache and restore speed.",
