@@ -20,18 +20,18 @@
   <meta name="twitter:description" content="Step-by-step ESP32, Arduino and home repair tutorials with wiring, code and fixes that work. New in-depth guides every day.">
   <meta name="twitter:image" content="https://www.pulsehig.com/assets/og-default.png">
 
+  <link rel="preconnect" href="https://ijgvrjkpiofamwcmkmgi.supabase.co" crossorigin>
+  <link rel="dns-prefetch" href="https://ijgvrjkpiofamwcmkmgi.supabase.co">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="alternate" type="application/rss+xml" title="TechPulse RSS" href="rss.xml">
   <link rel="stylesheet" href="css/style.css?v=20261004a">
 
-  <link rel="preconnect" href="https://ijgvrjkpiofamwcmkmgi.supabase.co" crossorigin>
   <style>
     .all-articles{margin:48px 0 8px;padding-top:24px;border-top:1px solid var(--border-color,#e5e7eb)}
     .all-articles-list{list-style:none;padding:0;margin:0;columns:2 320px;column-gap:32px;font-size:.92rem}
     .all-articles-list li{break-inside:avoid;margin-bottom:8px}
     .all-articles-cat{color:var(--text-muted,#64748b);font-size:.78rem;margin-left:4px}
-    
-    /* Category Dropdown Styling */
+
     .category-select {
       padding: 10px 16px;
       font-size: 0.95rem;
@@ -54,6 +54,30 @@
       flex-wrap: wrap;
       margin-bottom: 24px;
     }
+
+    /* --- Language coverage widget --- */
+    .lang-coverage {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 10px 0;
+      margin: 12px 0 4px;
+      font-size: 0.85rem;
+    }
+    .lang-coverage span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: var(--bg-soft);
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .lang-coverage span strong { color: var(--primary); }
+    .lang-coverage .lang-flag { font-size: 1.05rem; line-height: 1; }
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://www.pulsehig.com/#website", "url": "https://www.pulsehig.com/", "name": "TechPulse", "description": "Step-by-step ESP32, Arduino and home repair tutorials.", "inLanguage": "en", "publisher": {"@id": "https://www.pulsehig.com/#org"}}, {"@type": "Organization", "@id": "https://www.pulsehig.com/#org", "name": "TechPulse", "url": "https://www.pulsehig.com/", "logo": {"@type": "ImageObject", "url": "https://www.pulsehig.com/assets/og-default.png"}}]}</script>
   <!-- Google tag (gtag.js) -->
@@ -116,6 +140,7 @@
       <h1 data-i18n="hero_title">Advanced Embedded Systems &amp; Technical Guides</h1>
       <p data-i18n="hero_desc">Explore exclusive hardware tutorials and practical engineering projects.</p>
       <div class="site-stats-bar" id="siteStatsBar"></div>
+      <div id="langCoverage" class="lang-coverage" aria-live="polite"></div>
     </section>
 
     <section id="featuredSection" style="display:none">
@@ -209,27 +234,6 @@
   <h2 id="allArticlesHeading" class="section-heading">All articles</h2>
   <ul class="all-articles-list">
       <li><a href="/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html">How to Fix ESP32 Upload Failures in Under 5 Minutes</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html">How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html">How to Fix an Overheating Dryer Before It Becomes a Fire Hazard</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/how-to-write-code-that-anyone-can-read-and-maintain.html">How to Write Code That Anyone Can Read and Maintain</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/esp32-deep-sleep-fix.html">ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</a> <span class="all-articles-cat">Embedded Systems</span></li>
-      <li><a href="/a/esp32-mosfet-dc-motor-control.html">Driving a DC Motor from an ESP32 with a Low-Side MOSFET</a> <span class="all-articles-cat">Embedded Systems</span></li>
-      <li><a href="/a/esp32-relay-chatter-fix.html">Fixing Relay Chatter When Switching AC Loads from an ESP32</a> <span class="all-articles-cat">Embedded Systems</span></li>
-      <li><a href="/a/esp32-wifi-dropping-fix.html">Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)</a> <span class="all-articles-cat">Embedded Systems</span></li>
-      <li><a href="/a/led-strip-flicker-fix.html">Why Your LED Strip Flickers: PWM, Power and Ground Explained</a> <span class="all-articles-cat">Embedded Systems</span></li>
-      <li><a href="/a/old-laptop-ssd-upgrade-guide.html">Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</a> <span class="all-articles-cat">Upgrades</span></li>
-      <li><a href="/a/pc-wont-boot-fix.html">PC Won&#39;t Boot? The 7-Step No-POST Checklist</a> <span class="all-articles-cat">Hardware</span></li>
-      <li><a href="/a/raspberry-pi-overheating-fix.html">Stop Your Raspberry Pi from Overheating in a Closed Case</a> <span class="all-articles-cat">Embedded Systems</span></li>
-      <li><a href="/a/router-keeps-rebooting-fix.html">Router Keeps Rebooting? 6 Causes You Can Fix Today</a> <span class="all-articles-cat">Networking</span></li>
-      <li><a href="/a/how-to-spot-energy-vampires-draining-your-bill-silently.html">How to Spot Energy Vampires Draining Your Bill Silently</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/why-your-laptop-is-overheating-and-how-to-fix-it.html">Why Your Laptop Is Overheating and How to Fix It</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre.html">Fixing I2C Clock Stretching Timeouts in ESP32: Why Your Sensor Data Freezes and How to Resolve It</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common-household-a.html">DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html">Smart Energy Audits: How Telemetry Can Slash Your Power Bills</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/solving-high-household-energy-bills-using-smart-home-automation.html">Solving High Household Energy Bills Using Smart Home Automation</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/topic-how-to-fix-a-clogged-drain-without-harsh-chemicals.html">Topic: How to Fix a Clogged Drain Without Harsh Chemicals</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html">ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</a> <span class="all-articles-cat">Technology</span></li>
-      <li><a href="/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html">Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</a> <span class="all-articles-cat">Technology</span></li>
   </ul>
 </section>
 <!-- /tp-auto:latest -->
@@ -265,11 +269,11 @@
       dropdown.addEventListener("change", (e) => {
         const val = e.target.value.toLowerCase();
         const articles = document.querySelectorAll("#articles-container article, .article-card");
-        
+
         articles.forEach(article => {
-          const categoryEl = article.querySelector(".category, .article-cat, [data-category], .badge");
+          const categoryEl = article.querySelector(".category, .article-cat, [data-category], .badge, .card-category");
           const categoryText = categoryEl ? categoryEl.textContent.trim().toLowerCase() : "";
-          
+
           if (val === "all" || categoryText === val) {
             article.style.display = "";
           } else {
