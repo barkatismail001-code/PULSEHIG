@@ -82,22 +82,6 @@
   "minutes": 4
  },
  {
-  "slug": "external-hard-drive-not-detected-fix",
-  "title": "External Hard Drive Not Detected? Fix It Before You Panic",
-  "excerpt": "External drive shows in Disk Management but not in Explorer? Learn to assign a drive letter, fix RAW partitions, check USB power and recover data safely.",
-  "category": "Storage",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "external hard drive not detected",
-   "usb drive not showing",
-   "raw partition fix",
-   "drive letter missing"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 2
- },
- {
   "slug": "keyboard-keys-not-working-fix",
   "title": "Keyboard Keys Not Working? Fix Hardware and Software Causes",
   "excerpt": "Some keys stopped working? Test with a keyboard tester, check Filter Keys, reinstall the HID driver, clean the membrane and diagnose a failing controller.",
@@ -130,22 +114,6 @@
   "minutes": 5
  },
  {
-  "slug": "linux-wifi-drops-fix",
-  "title": "Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes",
-  "excerpt": "Random Wi-Fi disconnects on Linux are almost never the router. Learn to read dmesg, disable power saving, fix the regulatory domain and pick a stable channel.",
-  "category": "Networking",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "linux wifi drops",
-   "wifi keeps disconnecting linux",
-   "iwlwifi fix",
-   "networkmanager power save"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
   "slug": "microphone-not-working-fix",
   "title": "Microphone Not Working? Fix Mute, Levels and Privacy Settings",
   "excerpt": "Mic not picking up voice in Zoom, Discord or OBS? Check the hardware mute, Windows mic privacy, boost level, exclusive mode and default format in 8 steps.",
@@ -160,23 +128,6 @@
   ],
   "author": "TechPulse Team",
   "minutes": 1
- },
- {
-  "slug": "monitor-flickering-fix",
-  "title": "Monitor Flickering? Fix the Cable, Refresh Rate and PWM",
-  "excerpt": "Screen flickers at 60 Hz or dims randomly? Test the cable, disable adaptive sync, set the correct refresh rate, and avoid PWM-flicker panels.",
-  "category": "Displays",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "monitor flickering",
-   "screen flicker fix",
-   "displayport cable",
-   "adaptive sync flicker",
-   "pwm flicker"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 2
  },
  {
   "slug": "old-laptop-ssd-upgrade-guide",
@@ -228,22 +179,6 @@
   "minutes": 1
  },
  {
-  "slug": "printer-offline-windows-fix",
-  "title": "Printer Offline on Windows? Fix It in 10 Minutes",
-  "excerpt": "Windows says your printer is offline even though it is on? Clear the print spooler, disable SNMP status, set a static IP and re-add the printer properly.",
-  "category": "Windows",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "printer offline windows",
-   "printer not responding",
-   "print spooler fix",
-   "snmp printer offline"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
   "slug": "raspberry-pi-overheating-fix",
   "title": "Stop Your Raspberry Pi from Overheating in a Closed Case",
   "excerpt": "Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.",
@@ -271,56 +206,6 @@
    "router restarting",
    "router power adapter",
    "router overheating"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 2
- },
- {
-  "slug": "slow-internet-speed-test-fine-fix",
-  "title": "Internet Slow but Speed Test Is Fine? Here Is Why",
-  "excerpt": "Speed test says 500 Mbps but pages load slowly? Fix DNS latency, bufferbloat, MTU, IPv6 and Wi-Fi interference instead of blaming your ISP.",
-  "category": "Networking",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "internet slow speed test fine",
-   "bufferbloat",
-   "dns slow",
-   "mtu issue",
-   "wifi interference"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 2
- },
- {
-  "slug": "smart-tv-slow-fix",
-  "title": "Smart TV Slow and Laggy? Speed It Up Without Buying a New One",
-  "excerpt": "Smart TV menus lag, apps take 30 seconds to open? Free storage, disable auto-start apps, turn off motion smoothing and use an external streaming stick.",
-  "category": "Home Entertainment",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "smart tv slow",
-   "smart tv lag",
-   "speed up smart tv",
-   "fire tv stick vs smart tv"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
-  "slug": "ssd-slow-performance-fix",
-  "title": "SSD Getting Slower? Check TRIM, Over-Provisioning and Firmware",
-  "excerpt": "An SSD that used to boot in 8 seconds now takes 40. Learn to verify TRIM, check SATA vs NVMe mode, update firmware and reserve over-provisioning space.",
-  "category": "Storage",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "ssd slow",
-   "ssd trim",
-   "ssd over provisioning",
-   "nvme slow",
-   "ssd performance fix"
   ],
   "author": "TechPulse Team",
   "minutes": 2

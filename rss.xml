@@ -5,7 +5,7 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 08:20:30 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 08:23:14 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
@@ -88,14 +88,6 @@
       <description>ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.</description>
     </item>
     <item>
-      <title>External Hard Drive Not Detected? Fix It Before You Panic</title>
-      <link>https://www.pulsehig.com/a/external-hard-drive-not-detected-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/external-hard-drive-not-detected-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Storage</category>
-      <description>External drive shows in Disk Management but not in Explorer? Learn to assign a drive letter, fix RAW partitions, check USB power and recover data safely.</description>
-    </item>
-    <item>
       <title>Keyboard Keys Not Working? Fix Hardware and Software Causes</title>
       <link>https://www.pulsehig.com/a/keyboard-keys-not-working-fix.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/keyboard-keys-not-working-fix.html</guid>
@@ -112,28 +104,12 @@
       <description>LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.</description>
     </item>
     <item>
-      <title>Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes</title>
-      <link>https://www.pulsehig.com/a/linux-wifi-drops-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/linux-wifi-drops-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Networking</category>
-      <description>Random Wi-Fi disconnects on Linux are almost never the router. Learn to read dmesg, disable power saving, fix the regulatory domain and pick a stable channel.</description>
-    </item>
-    <item>
       <title>Microphone Not Working? Fix Mute, Levels and Privacy Settings</title>
       <link>https://www.pulsehig.com/a/microphone-not-working-fix.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/microphone-not-working-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Audio</category>
       <description>Mic not picking up voice in Zoom, Discord or OBS? Check the hardware mute, Windows mic privacy, boost level, exclusive mode and default format in 8 steps.</description>
-    </item>
-    <item>
-      <title>Monitor Flickering? Fix the Cable, Refresh Rate and PWM</title>
-      <link>https://www.pulsehig.com/a/monitor-flickering-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/monitor-flickering-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Displays</category>
-      <description>Screen flickers at 60 Hz or dims randomly? Test the cable, disable adaptive sync, set the correct refresh rate, and avoid PWM-flicker panels.</description>
     </item>
     <item>
       <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</title>
@@ -160,14 +136,6 @@
       <description>Android storage full and no space to update apps? Clear WhatsApp media, Google Photos cache, Telegram downloads and hidden system logs with these commands.</description>
     </item>
     <item>
-      <title>Printer Offline on Windows? Fix It in 10 Minutes</title>
-      <link>https://www.pulsehig.com/a/printer-offline-windows-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/printer-offline-windows-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Windows</category>
-      <description>Windows says your printer is offline even though it is on? Clear the print spooler, disable SNMP status, set a static IP and re-add the printer properly.</description>
-    </item>
-    <item>
       <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
       <link>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</guid>
@@ -182,30 +150,6 @@
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Networking</category>
       <description>Router restarts every few hours? Check the power adapter, heat, firmware, DHCP lease table, IP conflict and the ISP line. Diagnose in 20 minutes.</description>
-    </item>
-    <item>
-      <title>Internet Slow but Speed Test Is Fine? Here Is Why</title>
-      <link>https://www.pulsehig.com/a/slow-internet-speed-test-fine-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/slow-internet-speed-test-fine-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Networking</category>
-      <description>Speed test says 500 Mbps but pages load slowly? Fix DNS latency, bufferbloat, MTU, IPv6 and Wi-Fi interference instead of blaming your ISP.</description>
-    </item>
-    <item>
-      <title>Smart TV Slow and Laggy? Speed It Up Without Buying a New One</title>
-      <link>https://www.pulsehig.com/a/smart-tv-slow-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/smart-tv-slow-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Home Entertainment</category>
-      <description>Smart TV menus lag, apps take 30 seconds to open? Free storage, disable auto-start apps, turn off motion smoothing and use an external streaming stick.</description>
-    </item>
-    <item>
-      <title>SSD Getting Slower? Check TRIM, Over-Provisioning and Firmware</title>
-      <link>https://www.pulsehig.com/a/ssd-slow-performance-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/ssd-slow-performance-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Storage</category>
-      <description>An SSD that used to boot in 8 seconds now takes 40. Learn to verify TRIM, check SATA vs NVMe mode, update firmware and reserve over-provisioning space.</description>
     </item>
     <item>
       <title>USB Port Not Working? Diagnose It Before You RMA the Board</title>

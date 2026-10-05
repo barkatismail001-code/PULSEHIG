@@ -108,13 +108,6 @@
     <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)</image:caption></image:image>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/external-hard-drive-not-detected-fix.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>External Hard Drive Not Detected? Fix It Before You Panic</image:caption></image:image>
-  </url>
-  <url>
     <loc>https://www.pulsehig.com/a/keyboard-keys-not-working-fix.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -129,25 +122,11 @@
     <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Why Your LED Strip Flickers: PWM, Power and Ground Explained</image:caption></image:image>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/linux-wifi-drops-fix.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes</image:caption></image:image>
-  </url>
-  <url>
     <loc>https://www.pulsehig.com/a/microphone-not-working-fix.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Microphone Not Working? Fix Mute, Levels and Privacy Settings</image:caption></image:image>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/monitor-flickering-fix.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Monitor Flickering? Fix the Cable, Refresh Rate and PWM</image:caption></image:image>
   </url>
   <url>
     <loc>https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html</loc>
@@ -171,13 +150,6 @@
     <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Phone Storage Full? 10 GB You Can Free in 10 Minutes</image:caption></image:image>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/printer-offline-windows-fix.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Printer Offline on Windows? Fix It in 10 Minutes</image:caption></image:image>
-  </url>
-  <url>
     <loc>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -190,27 +162,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Router Keeps Rebooting? 6 Causes You Can Fix Today</image:caption></image:image>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/slow-internet-speed-test-fine-fix.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Internet Slow but Speed Test Is Fine? Here Is Why</image:caption></image:image>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/smart-tv-slow-fix.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Smart TV Slow and Laggy? Speed It Up Without Buying a New One</image:caption></image:image>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/ssd-slow-performance-fix.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>SSD Getting Slower? Check TRIM, Over-Provisioning and Firmware</image:caption></image:image>
   </url>
   <url>
     <loc>https://www.pulsehig.com/a/usb-port-not-working-fix.html</loc>
