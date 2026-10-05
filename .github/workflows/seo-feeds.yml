@@ -1,9 +1,7 @@
 name: Daily Article Generator & SEO Update
 
 on:
-  schedule:
-    # Runs at 02:00 UTC every day
-    - cron: '0 2 * * *'
+  
   workflow_dispatch: # Run manually from the Actions tab (optionally with your own topic)
     inputs:
       topic:
