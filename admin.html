@@ -6,8 +6,8 @@
   <title>TechPulse | Article Manager</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/style.css?v=20260922_v6">
-  
+  <link rel="stylesheet" href="css/style.css?v=20261004a">
+
   <!-- Supabase client library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -28,9 +28,7 @@
       align-items: center;
       gap: 8px;
     }
-    .ai-input-group {
-      margin-bottom: 12px;
-    }
+    .ai-input-group { margin-bottom: 12px; }
     .ai-input-group label {
       display: block;
       margin-bottom: 6px;
@@ -60,13 +58,8 @@
       align-items: center;
       gap: 8px;
     }
-    .btn-ai:hover {
-      background: linear-gradient(135deg, #0369a1, #1d4ed8);
-    }
-    .btn-ai:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+    .btn-ai:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+    .btn-ai:disabled { opacity: 0.6; cursor: not-allowed; }
     #ai-status {
       margin-top: 10px;
       font-weight: 500;
@@ -155,6 +148,7 @@
 
   <main class="container">
     <div id="adminStats" class="admin-stats" style="margin-top:24px"></div>
+    <div id="adminTranslationStats" class="admin-stats" style="margin-top:16px"></div>
 
     <!-- AI Auto Generator Card — Groq (with direct title field) -->
     <section class="ai-generator-card">
@@ -168,7 +162,6 @@
         <input type="text" id="ai-api-key" placeholder="gsk_..." />
       </div>
 
-      <!-- Custom title field next to the upload section -->
       <div class="ai-input-group">
         <label for="ai-custom-title">Custom Article Title (Optional):</label>
         <input type="text" id="ai-custom-title" placeholder="Enter your title here, or leave empty for AI auto-title" />
@@ -288,8 +281,9 @@
     </div>
   </footer>
 
-  <script src="js/common.js?v=20260922_v6"></script>
-  <script src="js/admin.js?v=20260922_v6"></script>
+  <script src="js/i18n.js?v=20261004a"></script>
+  <script src="js/common.js?v=20261004a"></script>
+  <script src="js/admin.js?v=20261004a"></script>
 
   <!-- Script for AI Generation with Custom Title Input & Validator -->
   <script>
@@ -298,8 +292,8 @@
       const imagesInput = document.getElementById("ai-images-input");
       const generateBtn = document.getElementById("ai-generate-btn");
       const statusDiv = document.getElementById("ai-status");
-      const customTitleInput = document.getElementById("ai-custom-title"); // custom title field
-      const formTitleInput = document.getElementById("title"); // actual title field in the form
+      const customTitleInput = document.getElementById("ai-custom-title");
+      const formTitleInput = document.getElementById("title");
 
       const savedKey = localStorage.getItem("tp_groq_key");
       if (savedKey) apiKeyInput.value = savedKey;
@@ -332,7 +326,6 @@
         if (!article || typeof article !== 'object') {
           throw new Error("Invalid response format received from AI.");
         }
-
         let content = String(article.content || "").trim();
         if (content.length < 150) throw new Error("Generated technical content is too brief.");
 
@@ -374,7 +367,6 @@
         return String(t).replace(/<think>[\s\S]*?<\/think>/gi, '').replace(/```[a-z]*\n?|```/gi, '').trim();
       }
 
-      // New sections go before the FAQ / Conclusion so the article keeps a natural ending.
       function tpInsertSections(content, extra) {
         const m = content.match(/\n##\s+(Frequently Asked Questions|Conclusion)\b/i);
         if (!m) return content + "\n\n" + extra;
@@ -456,7 +448,6 @@ Allowed values for category are strictly: "Technology", "Petroleum", "Gas", or "
 
           parsedArticle = validateAndCleanArticle(parsedArticle);
 
-          // Length control: add sections until the article reaches 1500+ words (max 3 extra calls).
           let wc = tpWords(parsedArticle.content);
           for (let i = 0; i < 3 && wc < TP_MIN_WORDS; i++) {
             statusDiv.innerText = `⏳ Article has ${wc} words — adding sections to reach ${TP_MIN_WORDS}+ ...`;
