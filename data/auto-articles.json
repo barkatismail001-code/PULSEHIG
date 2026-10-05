@@ -179,22 +179,6 @@
   "minutes": 2
  },
  {
-  "slug": "webcam-not-working-fix",
-  "title": "Webcam Not Working? Fix Black Screen, Privacy Shutter and Drivers",
-  "excerpt": "Webcam shows black screen in Zoom or Teams? Check the physical privacy shutter, camera permissions, USB bandwidth and antivirus blocking in 8 steps.",
-  "category": "Peripherals",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "webcam not working",
-   "camera black screen",
-   "zoom camera not working",
-   "webcam privacy shutter"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
   "slug": "windows-11-slow-after-update-fix",
   "title": "Windows 11 Slow After an Update? 8 Fixes That Actually Work",
   "excerpt": "Windows 11 feels sluggish after a recent update? Learn how to disable startup bloat, rebuild the search index, clear the update cache and restore speed.",
