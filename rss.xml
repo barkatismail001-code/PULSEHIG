@@ -5,7 +5,7 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 08:23:14 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 08:23:39 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
@@ -86,14 +86,6 @@
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description>ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.</description>
-    </item>
-    <item>
-      <title>Keyboard Keys Not Working? Fix Hardware and Software Causes</title>
-      <link>https://www.pulsehig.com/a/keyboard-keys-not-working-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/keyboard-keys-not-working-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Peripherals</category>
-      <description>Some keys stopped working? Test with a keyboard tester, check Filter Keys, reinstall the HID driver, clean the membrane and diagnose a failing controller.</description>
     </item>
     <item>
       <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>

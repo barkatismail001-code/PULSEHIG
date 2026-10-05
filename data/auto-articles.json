@@ -82,22 +82,6 @@
   "minutes": 4
  },
  {
-  "slug": "keyboard-keys-not-working-fix",
-  "title": "Keyboard Keys Not Working? Fix Hardware and Software Causes",
-  "excerpt": "Some keys stopped working? Test with a keyboard tester, check Filter Keys, reinstall the HID driver, clean the membrane and diagnose a failing controller.",
-  "category": "Peripherals",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "keyboard keys not working",
-   "keyboard not typing",
-   "filter keys",
-   "keyboard tester"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
   "slug": "led-strip-flicker-fix",
   "title": "Why Your LED Strip Flickers: PWM, Power and Ground Explained",
   "excerpt": "LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.",
