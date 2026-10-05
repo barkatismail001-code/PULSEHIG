@@ -5,15 +5,15 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 07:39:11 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 08:15:24 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>How to Fix ESP32 WiFi Connection Drops Permanently</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-esp32-wifi-connection-drops-permanently.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-esp32-wifi-connection-drops-permanently.html</guid>
+      <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</guid>
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive engineering guide to resolving ESP32 Wi-Fi connection drops, focusing on the integration of the ElegantOTA v3 library, the Wi-Fi Manager library, and robust reconnection logic. This technical breakdown explores how to implement Over-The-Air (OTA) firmware updates and dynamic network </description>
+      <description>A comprehensive diagnostic protocol for resolving ESP32 firmware upload failures, focusing on USB-to-serial bridging, hardware reset sequences, and IDE configuration optimization for rapid deployment.</description>
     </item>
     <item>
       <title>How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32</title>
@@ -46,14 +46,6 @@
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>A comprehensive technical analysis of the &#39;Connected but No Internet&#39; state, detailing the architectural divergence between Layer 2 association and Layer 3 reachability. This guide provides systematic troubleshooting protocols for DHCP, DNS, and ISP-side failures.</description>
-    </item>
-    <item>
-      <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</guid>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A comprehensive diagnostic protocol for resolving ESP32 firmware upload failures, focusing on USB-to-serial bridging, hardware reset sequences, and IDE configuration optimization for rapid deployment.</description>
     </item>
     <item>
       <title>Bluetooth Audio Lag on Windows? Fix the 200 ms Delay</title>
@@ -248,28 +240,12 @@
       <description>Windows 11 feels sluggish after a recent update? Learn how to disable startup bloat, rebuild the search index, clear the update cache and restore speed.</description>
     </item>
     <item>
-      <title>SCADA vs IoT for Oil Fields: What&#39;s the Real Difference in 2026?</title>
-      <link>https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</guid>
+      <title>How to Spot Energy Vampires Draining Your Bill Silently</title>
+      <link>https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</guid>
       <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive engineering analysis of the architectural divergence between legacy SCADA systems and modern Industrial IoT (IIoT) deployments in upstream oil and gas operations, focusing on edge intelligence, protocol heterogeneity, and predictive maintenance.</description>
-    </item>
-    <item>
-      <title>LNG Shipping Economics Explained: How Spot Prices Are Actually Determined</title>
-      <link>https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A technical dissection of the determinants of spot LNG shipping rates, correlating vessel structural engineering, terminal offloading logistics, and cryogenic containment systems with the global market&#39;s price discovery mechanisms.</description>
-    </item>
-    <item>
-      <title>Offshore Drilling in 3,000 Meters of Water: How Dynamically Positioned Rigs Work</title>
-      <link>https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>An in-depth technical analysis of the engineering principles governing dynamically positioned (DP) offshore drilling rigs in deepwater environments, focusing on the integration of the subsea BOP, the mathematical modeling of 6-DOF environmental loads, and the high-precision thrust vectoring required</description>
+      <description>A technical deep-dive into the architecture of smart metering and the identification of parasitic power loads. This analysis explores the integration of AMI (Advanced Metering Infrastructure) systems, the diagnostic capabilities of portable digital power meters, and the interpretation of multi-modal</description>
     </item>
     <item>
       <title>Why Is My Phone Battery Draining So Fast? 12 Hidden Settings to Check</title>
@@ -278,14 +254,6 @@
       <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>A comprehensive technical analysis of modern mobile power management, investigating the hidden firmware and OS-level configurations that lead to rapid battery depletion and identifying the twelve most critical settings for optimization.</description>
-    </item>
-    <item>
-      <title>How to Spot Energy Vampires Draining Your Bill Silently</title>
-      <link>https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A technical deep-dive into the architecture of smart metering and the identification of parasitic power loads. This analysis explores the integration of AMI (Advanced Metering Infrastructure) systems, the diagnostic capabilities of portable digital power meters, and the interpretation of multi-modal</description>
     </item>
     <item>
       <title>How to Speed Up a Slow Computer in 10 Minutes (No New Hardware)</title>
@@ -302,14 +270,6 @@
       <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>A comprehensive engineering analysis of mobile thermal management, detailing the physical mechanisms of heat dissipation and the procedural steps for resolving thermal throttling through cleaning and thermal interface replacement.</description>
-    </item>
-    <item>
-      <title>How to Lower Your Electric Bill Using Smart Thermostats and Outlets</title>
-      <link>https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html</guid>
-      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A technical analysis of how smart thermostats and energy monitoring interfaces utilize closed-loop control, hysteresis, and real-time telemetry to optimize HVAC efficiency and reduce residential electricity consumption.</description>
     </item>
     <item>
       <title>Fixing I2C Clock Stretching Timeouts in ESP32: Why Your Sensor Data Freezes and How to Resolve It</title>
@@ -352,20 +312,12 @@
       <description>A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a</description>
     </item>
     <item>
-      <title>Deconstructing the Real Estate Ecosystem: A Multi-Layered Analysis of Market Dynamics, Structural Integrity, and Asset Transfer</title>
-      <link>https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</guid>
+      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
+      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>This technical analysis provides a comprehensive breakdown of the visual systems representing the real estate sector. Through a detailed examination of three distinct graphical layers, we explore the logical flow of property acquisition, the engineering principles of structural assessment, and the o</description>
-    </item>
-    <item>
-      <title>**Smart Living: The Next Generation of Home Automation**</title>
-      <link>https://www.pulsehig.com/a/smart-living-the-next-generation-of-home-automation.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/smart-living-the-next-generation-of-home-automation.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>An in-depth engineering analysis of next-generation home automation, focusing on modular physical interfaces, high-fidelity software dashboards, and the integration of IoT into the architectural environment.</description>
+      <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
     </item>
     <item>
       <title>Topic: How to Fix a Clogged Drain Without Harsh Chemicals</title>
@@ -382,22 +334,6 @@
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque</description>
-    </item>
-    <item>
-      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
-      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
-    </item>
-    <item>
-      <title>The Smart House of Today</title>
-      <link>https://www.pulsehig.com/a/the-smart-house-of-today.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/the-smart-house-of-today.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A technical examination of modern residential automation, focusing on integrated hardware, centralized control interfaces, and the architectural integration of IoT ecosystems within contemporary living spaces.</description>
     </item>
   </channel>
 </rss>

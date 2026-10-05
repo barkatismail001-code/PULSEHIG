@@ -43,7 +43,7 @@
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/how-to-fix-esp32-wifi-connection-drops-permanently.html</loc>
+    <loc>https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -68,12 +68,6 @@
   </url>
   <url>
     <loc>https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -247,31 +241,13 @@
     <image:image><image:loc>https://www.pulsehig.com/assets/og-default.png</image:loc><image:caption>Windows 11 Slow After an Update? 8 Fixes That Actually Work</image:caption></image:image>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</loc>
+    <loc>https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.pulsehig.com/a/why-is-my-phone-battery-draining-so-fast-12-hidden-settings-to-check.html</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -285,12 +261,6 @@
   <url>
     <loc>https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</loc>
     <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html</loc>
-    <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -325,13 +295,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/smart-living-the-next-generation-of-home-automation.html</loc>
+    <loc>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -344,18 +308,6 @@
   </url>
   <url>
     <loc>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsehig.com/a/the-smart-house-of-today.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
