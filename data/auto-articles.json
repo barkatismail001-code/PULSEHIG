@@ -1,21 +1,5 @@
 [
  {
-  "slug": "android-battery-drain-fix",
-  "title": "Android Battery Draining Fast? Find the Real Culprit",
-  "excerpt": "Your Android phone dies by noon? Use Battery Historian, check wakelocks, disable rogue background apps and stop the top 6 hidden battery killers.",
-  "category": "Mobile",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "android battery drain",
-   "phone battery dying fast",
-   "wakelock fix",
-   "android battery saving"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 2
- },
- {
   "slug": "bluetooth-audio-lag-windows-fix",
   "title": "Bluetooth Audio Lag on Windows? Fix the 200 ms Delay",
   "excerpt": "Bluetooth headphones lag behind video on Windows 11? Disable Hands-Free Telephony, switch to AAC/LDAC, update the adapter driver and reduce the buffer.",
