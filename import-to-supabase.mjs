@@ -3,19 +3,26 @@
 import fs from 'fs';
 import path from 'path';
 
-const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+// استخدام مفتاح service_role من البيئة (لأن الكتابة تحتاج صلاحيات أعلى من anon)
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY;
 const SUPABASE_ANON_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
 
 const DRY_RUN = process.argv.includes('--dry');          // test without inserting
 
+if (!DRY_RUN && !SUPABASE_KEY) {
+  console.error('❌ SUPABASE_SERVICE_KEY is required for real inserts.');
+  process.exit(1);
+}
+
 const dir = './a';
 const pick = (re, s) => (s.match(re) || [])[1]?.trim() || '';
-const decode = s => s.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
+const decode = s => s.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 
 function parse(file) {
   const html = fs.readFileSync(path.join(dir, file), 'utf8');
   const slug = file.replace(/\.html$/, '');
-  const title = decode(pick(/<h1[^>]*>([\s\S]*?)<\/h1>/i, html).replace(/<[^>]+>/g,''));
+  const title = decode(pick(/<h1[^>]*>([\s\S]*?)<\/h1>/i, html).replace(/<[^>]+>/g, ''));
   const excerpt = decode(pick(/<meta name="description" content="([^"]*)"/i, html));
   const category = decode(pick(/<meta property="article:section" content="([^"]*)"/i, html));
   const published_at = pick(/<meta property="article:published_time" content="([^"]*)"/i, html);
@@ -31,11 +38,15 @@ function parse(file) {
   }
   // cover image: images/<slug>.(webp|jpg|png) if it exists
   let cover_image = null;
-  for (const ext of ['webp','jpg','png']) {
+  for (const ext of ['webp', 'jpg', 'png']) {
     if (fs.existsSync(`./images/${slug}.${ext}`)) { cover_image = `/images/${slug}.${ext}`; break; }
   }
-  return { slug, title, excerpt, category, author, published_at: published_at || null,
-           read_time: read ? Number(read) : null, content, cover_image };
+  return {
+    slug, title, excerpt, category, author,
+    published_at: published_at || null,
+    read_time: read ? Number(read) : null,
+    content, cover_image
+  };
 }
 
 const files = fs.readdirSync(dir).filter(f => f.endsWith('.html') && f !== 'index.html');
