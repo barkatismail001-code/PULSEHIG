@@ -98,22 +98,6 @@
   "minutes": 5
  },
  {
-  "slug": "microphone-not-working-fix",
-  "title": "Microphone Not Working? Fix Mute, Levels and Privacy Settings",
-  "excerpt": "Mic not picking up voice in Zoom, Discord or OBS? Check the hardware mute, Windows mic privacy, boost level, exclusive mode and default format in 8 steps.",
-  "category": "Audio",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "microphone not working",
-   "mic not working windows",
-   "microphone mute",
-   "discord mic not working"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
   "slug": "old-laptop-ssd-upgrade-guide",
   "title": "Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide",
   "excerpt": "An old laptop with an HDD feels unusable. For €60 you can clone the drive to an SSD, add 8 GB RAM and get 10× faster boot times. Full step-by-step guide.",

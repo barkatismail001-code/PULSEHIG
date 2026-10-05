@@ -5,7 +5,7 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 08:23:39 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 08:24:11 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
@@ -94,14 +94,6 @@
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description>LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.</description>
-    </item>
-    <item>
-      <title>Microphone Not Working? Fix Mute, Levels and Privacy Settings</title>
-      <link>https://www.pulsehig.com/a/microphone-not-working-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/microphone-not-working-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Audio</category>
-      <description>Mic not picking up voice in Zoom, Discord or OBS? Check the hardware mute, Windows mic privacy, boost level, exclusive mode and default format in 8 steps.</description>
     </item>
     <item>
       <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</title>

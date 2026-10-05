@@ -28,10 +28,10 @@ TechPulse publishes practical technical articles in English (the site interface 
 - [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/esp32-relay-chatter-fix.html)
 - [Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)](https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html)
 - [Why Your LED Strip Flickers: PWM, Power and Ground Explained](https://www.pulsehig.com/a/led-strip-flicker-fix.html)
-- [Microphone Not Working? Fix Mute, Levels and Privacy Settings](https://www.pulsehig.com/a/microphone-not-working-fix.html)
 - [Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide](https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html)
 - [PC Won't Boot? The 7-Step No-POST Checklist](https://www.pulsehig.com/a/pc-wont-boot-fix.html)
 - [Phone Storage Full? 10 GB You Can Free in 10 Minutes](https://www.pulsehig.com/a/phone-storage-full-fix.html)
+- [Stop Your Raspberry Pi from Overheating in a Closed Case](https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html)
 
 ## Technical Standards
 - All articles are original, technically reviewed, and cite real engineering principles.
