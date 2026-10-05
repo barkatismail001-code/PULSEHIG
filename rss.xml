@@ -5,7 +5,7 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 07:35:50 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 07:36:30 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>How to Fix ESP32 WiFi Connection Drops Permanently</title>
@@ -126,14 +126,6 @@
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Peripherals</category>
       <description>Some keys stopped working? Test with a keyboard tester, check Filter Keys, reinstall the HID driver, clean the membrane and diagnose a failing controller.</description>
-    </item>
-    <item>
-      <title>Laptop Overheating and Throttling? Clean It, Undervolt It</title>
-      <link>https://www.pulsehig.com/a/laptop-overheating-throttling-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/laptop-overheating-throttling-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Hardware</category>
-      <description>Laptop CPU hits 95°C and drops to base clock? Learn how to read HWiNFO, clean the fan, replace thermal paste, undervolt with ThrottleStop and limit turbo boost.</description>
     </item>
     <item>
       <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
@@ -406,6 +398,14 @@
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
+    </item>
+    <item>
+      <title>The Smart House of Today</title>
+      <link>https://www.pulsehig.com/a/the-smart-house-of-today.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/the-smart-house-of-today.html</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A technical examination of modern residential automation, focusing on integrated hardware, centralized control interfaces, and the architectural integration of IoT ecosystems within contemporary living spaces.</description>
     </item>
   </channel>
 </rss>

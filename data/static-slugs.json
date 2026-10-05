@@ -33,7 +33,6 @@
  "m-esp32-wifi-dropping-fix": "esp32-wifi-dropping-fix",
  "m-external-hard-drive-not-detected-fix": "external-hard-drive-not-detected-fix",
  "m-keyboard-keys-not-working-fix": "keyboard-keys-not-working-fix",
- "m-laptop-overheating-throttling-fix": "laptop-overheating-throttling-fix",
  "m-led-strip-flicker-fix": "led-strip-flicker-fix",
  "m-linux-wifi-drops-fix": "linux-wifi-drops-fix",
  "m-microphone-not-working-fix": "microphone-not-working-fix",
