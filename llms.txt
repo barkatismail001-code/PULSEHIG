@@ -22,7 +22,6 @@ TechPulse publishes practical technical articles in English (the site interface 
 - [How to Fix an Overheating Dryer Before It Becomes a Fire Hazard](https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html)
 - [How to Write Code That Anyone Can Read and Maintain](https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html)
 - [Why Is My Wi-Fi Connected But No Internet? (Quick Fixes)](https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html)
-- [Chrome Using All Your RAM? Fix It Without Switching Browsers](https://www.pulsehig.com/a/chrome-high-ram-fix.html)
 - [ESP32 Won't Wake from Deep Sleep: Causes and Fixes](https://www.pulsehig.com/a/esp32-deep-sleep-fix.html)
 - [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html)
 - [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/esp32-relay-chatter-fix.html)
@@ -32,6 +31,7 @@ TechPulse publishes practical technical articles in English (the site interface 
 - [PC Won't Boot? The 7-Step No-POST Checklist](https://www.pulsehig.com/a/pc-wont-boot-fix.html)
 - [Stop Your Raspberry Pi from Overheating in a Closed Case](https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html)
 - [Router Keeps Rebooting? 6 Causes You Can Fix Today](https://www.pulsehig.com/a/router-keeps-rebooting-fix.html)
+- [How to Spot Energy Vampires Draining Your Bill Silently](https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html)
 
 ## Technical Standards
 - All articles are original, technically reviewed, and cite real engineering principles.

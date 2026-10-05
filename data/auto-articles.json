@@ -1,21 +1,5 @@
 [
  {
-  "slug": "chrome-high-ram-fix",
-  "title": "Chrome Using All Your RAM? Fix It Without Switching Browsers",
-  "excerpt": "Chrome eating 8 GB of RAM with 20 tabs? Use chrome://memory-internals, enable Memory Saver, kill background extensions and cap the renderer process count.",
-  "category": "Software",
-  "date": "2026-10-03",
-  "image": "https://www.pulsehig.com/assets/og-default.png",
-  "tags": [
-   "chrome high ram",
-   "chrome memory leak",
-   "chrome memory saver",
-   "reduce chrome ram"
-  ],
-  "author": "TechPulse Team",
-  "minutes": 1
- },
- {
   "slug": "esp32-deep-sleep-fix",
   "title": "ESP32 Won't Wake from Deep Sleep: Causes and Fixes",
   "excerpt": "ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.",
