@@ -5,8 +5,56 @@
     <link>https://www.pulsehig.com/</link>
     <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Oct 2026 22:19:59 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 02:04:12 GMT</lastBuildDate>
     <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>How to Fix ESP32 WiFi Connection Drops Permanently</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-esp32-wifi-connection-drops-permanently.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-esp32-wifi-connection-drops-permanently.html</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive engineering guide to resolving ESP32 Wi-Fi connection drops, focusing on the integration of the ElegantOTA v3 library, the Wi-Fi Manager library, and robust reconnection logic. This technical breakdown explores how to implement Over-The-Air (OTA) firmware updates and dynamic network </description>
+    </item>
+    <item>
+      <title>How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive technical guide to resolving common connectivity and signal integrity issues between the HC-SR04 ultrasonic sensor and ESP32 microcontrollers, focusing on hardware wiring, level shifting, and signal timing.</description>
+    </item>
+    <item>
+      <title>How to Fix an Overheating Dryer Before It Becomes a Fire Hazard</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive technical analysis of the thermal failure modes in residential drying systems, focusing on the transition from mechanical friction and lint accumulation to active pyrolysis and structural combustion.</description>
+    </item>
+    <item>
+      <title>How to Write Code That Anyone Can Read and Maintain</title>
+      <link>https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>This technical guide explores the architectural and linguistic principles required to create high-maintainability codebases. By analyzing the cognitive load of software development, we examine how to leverage naming conventions, modular design, and self-documenting patterns to ensure that complex sy</description>
+    </item>
+    <item>
+      <title>Why Is My Wi-Fi Connected But No Internet? (Quick Fixes)</title>
+      <link>https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive technical analysis of the &#39;Connected but No Internet&#39; state, detailing the architectural divergence between Layer 2 association and Layer 3 reachability. This guide provides systematic troubleshooting protocols for DHCP, DNS, and ISP-side failures.</description>
+    </item>
+    <item>
+      <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive diagnostic protocol for resolving ESP32 firmware upload failures, focusing on USB-to-serial bridging, hardware reset sequences, and IDE configuration optimization for rapid deployment.</description>
+    </item>
     <item>
       <title>Android Battery Draining Fast? Find the Real Culprit</title>
       <link>https://www.pulsehig.com/a/android-battery-drain-fix.html</link>
@@ -216,6 +264,30 @@
       <description>Windows 11 feels sluggish after a recent update? Learn how to disable startup bloat, rebuild the search index, clear the update cache and restore speed.</description>
     </item>
     <item>
+      <title>SCADA vs IoT for Oil Fields: What&#39;s the Real Difference in 2026?</title>
+      <link>https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A comprehensive engineering analysis of the architectural divergence between legacy SCADA systems and modern Industrial IoT (IIoT) deployments in upstream oil and gas operations, focusing on edge intelligence, protocol heterogeneity, and predictive maintenance.</description>
+    </item>
+    <item>
+      <title>LNG Shipping Economics Explained: How Spot Prices Are Actually Determined</title>
+      <link>https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>A technical dissection of the determinants of spot LNG shipping rates, correlating vessel structural engineering, terminal offloading logistics, and cryogenic containment systems with the global market&#39;s price discovery mechanisms.</description>
+    </item>
+    <item>
+      <title>Offshore Drilling in 3,000 Meters of Water: How Dynamically Positioned Rigs Work</title>
+      <link>https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>An in-depth technical analysis of the engineering principles governing dynamically positioned (DP) offshore drilling rigs in deepwater environments, focusing on the integration of the subsea BOP, the mathematical modeling of 6-DOF environmental loads, and the high-precision thrust vectoring required</description>
+    </item>
+    <item>
       <title>Why Is My Phone Battery Draining So Fast? 12 Hidden Settings to Check</title>
       <link>https://www.pulsehig.com/a/why-is-my-phone-battery-draining-so-fast-12-hidden-settings-to-check.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/why-is-my-phone-battery-draining-so-fast-12-hidden-settings-to-check.html</guid>
@@ -248,30 +320,6 @@
       <description>A comprehensive engineering analysis of mobile thermal management, detailing the physical mechanisms of heat dissipation and the procedural steps for resolving thermal throttling through cleaning and thermal interface replacement.</description>
     </item>
     <item>
-      <title>LNG Shipping Economics Explained: How Spot Prices Are Actually Determined</title>
-      <link>https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/lng-shipping-economics-explained-how-spot-prices-are-actually-determin.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A technical dissection of the determinants of spot LNG shipping rates, correlating vessel structural engineering, terminal offloading logistics, and cryogenic containment systems with the global market&#39;s price discovery mechanisms.</description>
-    </item>
-    <item>
-      <title>Offshore Drilling in 3,000 Meters of Water: How Dynamically Positioned Rigs Work</title>
-      <link>https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/offshore-drilling-in-3-000-meters-of-water-how-dynamically-positioned.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>An in-depth technical analysis of the engineering principles governing dynamically positioned (DP) offshore drilling rigs in deepwater environments, focusing on the integration of the subsea BOP, the mathematical modeling of 6-DOF environmental loads, and the high-precision thrust vectoring required</description>
-    </item>
-    <item>
-      <title>SCADA vs IoT for Oil Fields: What&#39;s the Real Difference in 2026?</title>
-      <link>https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/scada-vs-iot-for-oil-fields-what-s-the-real-difference-in-2026.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A comprehensive engineering analysis of the architectural divergence between legacy SCADA systems and modern Industrial IoT (IIoT) deployments in upstream oil and gas operations, focusing on edge intelligence, protocol heterogeneity, and predictive maintenance.</description>
-    </item>
-    <item>
       <title>How to Lower Your Electric Bill Using Smart Thermostats and Outlets</title>
       <link>https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-lower-your-electric-bill-using-smart-thermostats-and-outlets.html</guid>
@@ -288,14 +336,6 @@
       <description>This technical deep-dive explores the mechanics of I2C clock stretching and its role in causing communication timeouts on ESP32-based systems. We analyze oscilloscope waveforms and circuit topologies to identify the root causes of bus stalls and provide actionable hardware and firmware strategies fo</description>
     </item>
     <item>
-      <title>How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</guid>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A comprehensive diagnostic and remedial guide for resolving &#39;black screen but works&#39; anomalies in modern mobile devices. This technical breakdown covers software-induced display failures, hardware-level display connector diagnostics, and the specific scenarios where a functional device presents a no</description>
-    </item>
-    <item>
       <title>Solving High Household Energy Bills Using Smart Home Automation</title>
       <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</guid>
@@ -304,12 +344,12 @@
       <description>This technical analysis explores the architecture of modern smart home automation systems, focusing on the integration of real-time telemetry, automated actuation logic, and advanced data visualization to mitigate household energy expenditure through granular control of HVAC, lighting, and solar ass</description>
     </item>
     <item>
-      <title>Smart Energy Audits: How Telemetry Can Slash Your Power Bills</title>
-      <link>https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</guid>
+      <title>How to Fix a Smartphone Black Screen at Home Before Visiting the Repair Shop</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-smartphone-black-screen-at-home-before-visiting-the-repai.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a</description>
+      <description>A comprehensive diagnostic and remedial guide for resolving &#39;black screen but works&#39; anomalies in modern mobile devices. This technical breakdown covers software-induced display failures, hardware-level display connector diagnostics, and the specific scenarios where a functional device presents a no</description>
     </item>
     <item>
       <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
@@ -320,20 +360,20 @@
       <description>A comprehensive technical manual for diagnosing and repairing common dishwasher malfunctions, focusing on internal mechanical diagnostics, water filtration maintenance, and structural integrity assessment for modern household appliances.</description>
     </item>
     <item>
-      <title>The Smart House of Today</title>
-      <link>https://www.pulsehig.com/a/the-smart-house-of-today.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/the-smart-house-of-today.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <title>Smart Energy Audits: How Telemetry Can Slash Your Power Bills</title>
+      <link>https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A technical examination of modern residential automation, focusing on integrated hardware, centralized control interfaces, and the architectural integration of IoT ecosystems within contemporary living spaces.</description>
+      <description>A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a</description>
     </item>
     <item>
-      <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
-      <link>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</guid>
+      <title>Deconstructing the Real Estate Ecosystem: A Multi-Layered Analysis of Market Dynamics, Structural Integrity, and Asset Transfer</title>
+      <link>https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque</description>
+      <description>This technical analysis provides a comprehensive breakdown of the visual systems representing the real estate sector. Through a detailed examination of three distinct graphical layers, we explore the logical flow of property acquisition, the engineering principles of structural assessment, and the o</description>
     </item>
     <item>
       <title>**Smart Living: The Next Generation of Home Automation**</title>
@@ -352,20 +392,20 @@
       <description>A comprehensive technical analysis of non-chemical hydro-mechanical and chemical-neutralization protocols for residential drain remediation. This article details the application of mechanical extraction, thermal shock, and reactive cleaning agents to restore hydraulic efficiency in plumbing systems.</description>
     </item>
     <item>
+      <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
+      <link>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description>This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque</description>
+    </item>
+    <item>
       <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
       <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
-    </item>
-    <item>
-      <title>Deconstructing the Real Estate Ecosystem: A Multi-Layered Analysis of Market Dynamics, Structural Integrity, and Asset Transfer</title>
-      <link>https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/deconstructing-the-real-estate-ecosystem-a-multi-layered-analysis-of-m.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>This technical analysis provides a comprehensive breakdown of the visual systems representing the real estate sector. Through a detailed examination of three distinct graphical layers, we explore the logical flow of property acquisition, the engineering principles of structural assessment, and the o</description>
     </item>
   </channel>
 </rss>

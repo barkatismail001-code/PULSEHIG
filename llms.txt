@@ -2,7 +2,7 @@
 
 > Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.
 
-TechPulse publishes deep technical articles in 5 languages (English, Chinese, Spanish, Hindi, French) covering:
+TechPulse publishes practical technical articles in English (the site interface is also available in Chinese, Spanish, Hindi and French) covering:
 - Embedded systems & microcontrollers (ESP32, ESP8266, STM32, Arduino)
 - IoT hardware & firmware development
 - Petroleum engineering (upstream, midstream, downstream)
@@ -17,6 +17,12 @@ TechPulse publishes deep technical articles in 5 languages (English, Chinese, Sp
 - [Contact](https://www.pulsehig.com/contact.html): Reach the editorial team
 
 ## Featured Articles
+- [How to Fix ESP32 WiFi Connection Drops Permanently](https://www.pulsehig.com/a/how-to-fix-esp32-wifi-connection-drops-permanently.html)
+- [How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32](https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html)
+- [How to Fix an Overheating Dryer Before It Becomes a Fire Hazard](https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html)
+- [How to Write Code That Anyone Can Read and Maintain](https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html)
+- [Why Is My Wi-Fi Connected But No Internet? (Quick Fixes)](https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html)
+- [How to Fix ESP32 Upload Failures in Under 5 Minutes](https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html)
 - [Android Battery Draining Fast? Find the Real Culprit](https://www.pulsehig.com/a/android-battery-drain-fix.html)
 - [Bluetooth Audio Lag on Windows? Fix the 200 ms Delay](https://www.pulsehig.com/a/bluetooth-audio-lag-windows-fix.html)
 - [Chrome Using All Your RAM? Fix It Without Switching Browsers](https://www.pulsehig.com/a/chrome-high-ram-fix.html)
@@ -26,12 +32,6 @@ TechPulse publishes deep technical articles in 5 languages (English, Chinese, Sp
 - [Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)](https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html)
 - [External Hard Drive Not Detected? Fix It Before You Panic](https://www.pulsehig.com/a/external-hard-drive-not-detected-fix.html)
 - [Keyboard Keys Not Working? Fix Hardware and Software Causes](https://www.pulsehig.com/a/keyboard-keys-not-working-fix.html)
-- [Laptop Overheating and Throttling? Clean It, Undervolt It](https://www.pulsehig.com/a/laptop-overheating-throttling-fix.html)
-- [Why Your LED Strip Flickers: PWM, Power and Ground Explained](https://www.pulsehig.com/a/led-strip-flicker-fix.html)
-- [Wi-Fi Keeps Dropping on Linux? Fix It in 15 Minutes](https://www.pulsehig.com/a/linux-wifi-drops-fix.html)
-- [Microphone Not Working? Fix Mute, Levels and Privacy Settings](https://www.pulsehig.com/a/microphone-not-working-fix.html)
-- [Monitor Flickering? Fix the Cable, Refresh Rate and PWM](https://www.pulsehig.com/a/monitor-flickering-fix.html)
-- [Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide](https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html)
 
 ## Technical Standards
 - All articles are original, technically reviewed, and cite real engineering principles.
