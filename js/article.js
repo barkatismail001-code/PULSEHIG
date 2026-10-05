@@ -1,5 +1,7 @@
 /* ============================================
-   TechPulse — Single Article (article.js) - Fixed Supabase Sync
+   TechPulse — Single Article (article.js)
+   Handles: fetching article from Supabase, rendering, TOC, likes, bookmarks,
+   comments, structured data, and skeleton loading.
    ============================================ */
 (function () {
     'use strict';
@@ -10,6 +12,31 @@
 
     function getParam(name) {
         return new URLSearchParams(location.search).get(name);
+    }
+
+    function renderSkeleton() {
+        $('#articleContainer').innerHTML = `
+            <article class="single-article skeleton-article" aria-busy="true" aria-label="Loading article">
+                <header class="article-header">
+                    <div class="skeleton skeleton-category"></div>
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-title short"></div>
+                    <div class="article-meta">
+                        <div class="skeleton skeleton-meta"></div>
+                        <div class="skeleton skeleton-meta"></div>
+                        <div class="skeleton skeleton-meta"></div>
+                    </div>
+                </header>
+                <div class="skeleton skeleton-image"></div>
+                <div class="skeleton skeleton-excerpt"></div>
+                <div class="skeleton skeleton-line"></div>
+                <div class="skeleton skeleton-line"></div>
+                <div class="skeleton skeleton-line short"></div>
+                <div class="skeleton skeleton-line"></div>
+                <div class="skeleton skeleton-line medium"></div>
+                <div class="skeleton skeleton-line"></div>
+                <div class="skeleton skeleton-line short"></div>
+            </article>`;
     }
 
     function renderNotFound() {
@@ -66,7 +93,6 @@
                 </div>
             </section>` : '';
 
-        // Light markdown (## headings, - lists, 1. steps, ``` code, **bold**) used by the AI-generated articles.
         const md = s => C.esc(s)
             .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
             .replace(/`([^`\n]+)`/g, '<code>$1</code>');
@@ -93,7 +119,7 @@
         }
 
         const imgHTML = article.image
-            ? `<img src="${C.esc(article.image)}" alt="${C.esc(article.title)}" class="article-hero-img" loading="eager">`
+            ? `<img src="${C.esc(article.image)}" alt="${C.esc(article.title)}" class="article-hero-img" loading="eager" fetchpriority="high" width="1200" height="630">`
             : '';
 
         const galleryImages = Array.isArray(article.images) ? article.images.filter(Boolean) : [];
@@ -105,7 +131,7 @@
             </div>` : '';
 
         $('#articleContainer').innerHTML = `
-            <article class="single-article">
+            <article class="single-article" data-id="${C.esc(article.id)}">
                 <header class="article-header">
                     <span class="article-category">${C.esc(C.translateCategory(article.category, lang))}</span>
                     <h1>${C.esc(article.title)}</h1>
@@ -120,6 +146,8 @@
                 ${imgHTML}
 
                 <div class="article-excerpt"><p>${C.esc(article.excerpt)}</p></div>
+
+                <div id="articleToc" class="article-toc-slot"></div>
 
                 <div class="article-content">${contentHTML}</div>
 
@@ -149,6 +177,18 @@
             </article>
             ${relatedHTML}
         `;
+
+        // Build TOC after rendering
+        if (window.TPToc) {
+            const contentEl = document.querySelector('.article-content');
+            if (contentEl) {
+                window.TPToc.build(contentEl, {
+                    minHeadings: 3,
+                    containerSelector: '#articleToc',
+                    scrollOffset: 90,
+                });
+            }
+        }
 
         C.loadDisqusThread(document.getElementById('commentsContainer'), {
             identifier: article.id,
@@ -268,7 +308,10 @@
         const id = getParam('id') || getParam('slug');
         if (!id) { renderNotFound(); return; }
 
-        C.trackAndGetSiteStats(); // count this visit once per session, even when landing straight on an article
+        // Show skeleton immediately while we fetch
+        renderSkeleton();
+
+        C.trackAndGetSiteStats();
         const [articles] = await Promise.all([C.getArticles(), C.loadStaticSlugs()]);
         const article = articles.find(a =>
             String(a.id) === String(id) || String(a.slug) === String(id) || slugOf(a) === id);
@@ -280,13 +323,11 @@
         renderArticle(article, articles);
         injectStructuredData(article);
 
-        // One canonical URL per article: the static /a/<slug>.html page when it exists.
         const canonHref = C.canonicalUrl(article);
         const canon = document.querySelector('link[rel="canonical"]');
         if (canon) canon.href = canonHref;
         setMeta('og:url', canonHref);
 
-        // Count the view once per session and update the number shown.
         C.registerView(article.id).then(v => {
             const el = document.getElementById('articleViews');
             if (el) el.textContent = v;
