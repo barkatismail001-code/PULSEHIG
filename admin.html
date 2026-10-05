@@ -75,25 +75,54 @@
   </style>
 
   <script>
-    /* SHA-256 password gate. Default password: admin123 */
-    const ADMIN_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9';
-    (async function () {
-      if (sessionStorage.getItem('tp_admin_token') === 'active_session') return;
-      const pass = prompt('Enter Administration Password:');
-      if (!pass) { window.location.replace('index.html'); return; }
-      try {
-        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pass));
-        const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-        if (hash === ADMIN_HASH) {
-          sessionStorage.setItem('tp_admin_token', 'active_session');
-        } else {
-          alert('Incorrect Password!');
-          window.location.replace('index.html');
+    /* Real login through Supabase Auth. The page stays hidden until a session exists.
+       Security does not depend on this screen: database writes are blocked by RLS (see security.sql). */
+    (function () {
+      var SB_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+      var SB_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+      var ADMIN_EMAIL = 'jonsrockytech@gmail.com';
+      document.documentElement.style.visibility = 'hidden';
+
+      window.addEventListener('DOMContentLoaded', async function () {
+        var sb = window.supabase.createClient(SB_URL, SB_KEY);
+        var res = await sb.auth.getSession();
+        var session = res.data && res.data.session;
+
+        if (session && session.user.email && session.user.email.toLowerCase() === ADMIN_EMAIL) {
+          document.documentElement.style.visibility = '';
+          var out = document.createElement('button');
+          out.textContent = 'Sign out';
+          out.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:9999;padding:8px 14px;border-radius:8px;border:0;background:#dc2626;color:#fff;cursor:pointer';
+          out.onclick = async function () { await sb.auth.signOut(); location.href = 'index.html'; };
+          document.body.appendChild(out);
+          return;
         }
-      } catch (err) {
-        alert('Secure context required. Serve the site over http(s), not file://');
-        window.location.replace('index.html');
-      }
+        if (session) { await sb.auth.signOut(); }
+
+        var box = document.createElement('div');
+        box.style.cssText = 'visibility:visible;position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0f172a;font-family:sans-serif';
+        box.innerHTML =
+          '<div style="background:#fff;padding:28px;border-radius:12px;width:min(92vw,340px)">' +
+          '<h3 style="margin:0 0 14px">Admin sign in</h3>' +
+          '<input id="adm-email" type="email" placeholder="Email" autocomplete="username" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box">' +
+          '<input id="adm-pass" type="password" placeholder="Password" autocomplete="current-password" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box">' +
+          '<button id="adm-go" style="width:100%;padding:10px;border:0;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer">Sign in</button>' +
+          '<p id="adm-msg" style="color:#dc2626;font-size:.85rem;min-height:1.2em;margin:10px 0 0"></p></div>';
+        document.body.appendChild(box);
+
+        async function go() {
+          var msg = document.getElementById('adm-msg');
+          msg.textContent = '';
+          var r = await sb.auth.signInWithPassword({
+            email: document.getElementById('adm-email').value.trim(),
+            password: document.getElementById('adm-pass').value
+          });
+          if (r.error) { msg.textContent = 'Wrong email or password.'; return; }
+          location.reload();
+        }
+        document.getElementById('adm-go').onclick = go;
+        document.getElementById('adm-pass').addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+      });
     })();
   </script>
 </head>
