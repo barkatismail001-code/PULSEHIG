@@ -25,3 +25,6 @@ _archive/
 *.tmp
 *.old
 *.bak*
+
+# Local backups
+_backup*/
