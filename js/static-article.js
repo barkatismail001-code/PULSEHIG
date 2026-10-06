@@ -60,23 +60,140 @@
       var eI18n = article.excerpt_i18n || {};
       var cI18n = article.content_i18n || {};
 
+      // ================================
+      // 1) TITLE
+      // ================================
       var newTitle = tI18n[lang];
       if (newTitle && h1) {
         h1.textContent = newTitle;
         document.title = newTitle + ' | TechPulse';
       }
 
+      // ================================
+      // 2) EXCERPT
+      // ================================
       var newExcerpt = eI18n[lang];
       var excerptEl = art.querySelector('.article-excerpt p');
       if (newExcerpt && excerptEl) excerptEl.textContent = newExcerpt;
 
+      // ================================
+      // 3) CONTENT + FAQ
+      // ================================
       var newContent = cI18n[lang];
       var contentEl = art.querySelector('.article-content');
       if (newContent && contentEl) {
-        contentEl.innerHTML = renderMarkdown(newContent);
+        var faqRegex = /(?:^|\n)##\s+Frequently Asked Questions\s*\n([\s\S]*?)(?=\n##\s+|$)/i;
+        var faqMatch = newContent.match(faqRegex);
+
+        var mainContent = newContent;
+        var translatedFaqItems = [];
+
+        if (faqMatch) {
+          var faqBody = faqMatch[1];
+          var qRe = /###\s+(.+?)\s*\n+([\s\S]*?)(?=\n###\s|$)/g;
+          var m;
+          while ((m = qRe.exec(faqBody))) {
+            var q = m[1].trim();
+            var a = m[2].trim();
+            if (q && a) translatedFaqItems.push({ q: q, a: a });
+          }
+          mainContent = newContent.replace(faqRegex, '');
+        }
+
+        contentEl.innerHTML = renderMarkdown(mainContent);
         rebuildToc();
+
+        if (translatedFaqItems.length) {
+          var faqSection = art.querySelector('.faq-section');
+          var faqHeading = (window.TPI18N && window.TPI18N.t) ? window.TPI18N.t('faq_heading') : 'FAQ';
+          var faqHTML = '<h2>' + C.esc(faqHeading) + '</h2>' +
+            translatedFaqItems.map(function (f) {
+              return '<details class="faq-item"><summary><strong>' + C.esc(f.q) + '</strong></summary><p>' + C.esc(f.a) + '</p></details>';
+            }).join('');
+          if (faqSection) {
+            faqSection.innerHTML = faqHTML;
+          } else {
+            var newSection = document.createElement('section');
+            newSection.className = 'faq-section';
+            newSection.innerHTML = faqHTML;
+            contentEl.parentNode.insertBefore(newSection, contentEl.nextSibling);
+          }
+        }
       }
 
+      // ================================
+      // 4) RELATED ARTICLES (translate titles, excerpts, categories)
+      // ================================
+      var relatedCards = art.parentNode.querySelectorAll('.related-section .article-card');
+      relatedCards.forEach(function (card) {
+        var link = card.querySelector('h3 a');
+        if (!link) return;
+        var href = link.getAttribute('href') || '';
+        var match = href.match(/\/a\/([^\/]+?)\.html/);
+        if (!match) return;
+        var relatedSlug = match[1];
+        var relatedArticle = all.find(function (x) { return x.slug === relatedSlug; });
+        if (!relatedArticle) return;
+
+        // Translate category
+        var catEl = card.querySelector('.card-category');
+        if (catEl && relatedArticle.category) {
+          catEl.textContent = C.translateCategory(relatedArticle.category, lang);
+        }
+
+        // Translate title
+        if (relatedArticle.title_i18n && relatedArticle.title_i18n[lang]) {
+          link.textContent = relatedArticle.title_i18n[lang];
+        }
+
+        // Translate excerpt
+        var pEl = card.querySelector('p');
+        if (pEl && relatedArticle.excerpt_i18n && relatedArticle.excerpt_i18n[lang]) {
+          pEl.textContent = relatedArticle.excerpt_i18n[lang];
+        }
+
+        // Translate "Read More" link
+        var readMore = card.querySelector('.read-more');
+        if (readMore && window.TPI18N && window.TPI18N.t) {
+          var t = window.TPI18N.t('read_more') || 'Read More';
+          readMore.textContent = t + ' →';
+        }
+      });
+
+      // Translate "Related Articles" heading
+      var relatedHeading = art.parentNode.querySelector('.related-section .section-heading');
+      if (relatedHeading && window.TPI18N && window.TPI18N.t) {
+        relatedHeading.textContent = window.TPI18N.t('related_heading') || '📚 Related Articles';
+      }
+
+      // ================================
+      // 5) SECTION HEADINGS (Comments, Share, Tags)
+      // ================================
+      if (window.TPI18N && window.TPI18N.t) {
+        // Comments heading
+        var commentsHeading = art.querySelector('.comments-section .section-heading');
+        if (commentsHeading) commentsHeading.textContent = window.TPI18N.t('comments_title') || '💬 Comments';
+
+        // Share buttons
+        var shareLabel = art.querySelector('.share-label');
+        if (shareLabel) shareLabel.textContent = window.TPI18N.t('share_label') || 'Share:';
+
+        var saveBtn = document.getElementById('tpSave');
+        if (saveBtn) {
+          var saveIcon = saveBtn.textContent.indexOf('📌') !== -1 ? '📌' : '🔖';
+          saveBtn.textContent = saveIcon + ' ' + (lang === 'zh' ? '保存' : lang === 'es' ? 'Guardar' : lang === 'hi' ? 'सहेजें' : lang === 'fr' ? 'Sauvegarder' : lang === 'pt' ? 'Salvar' : 'Save');
+        }
+
+        var copyBtn = art.querySelector('.share-btn[data-share="copy"]');
+        if (copyBtn) {
+          var copyIcon = '🔗';
+          copyBtn.textContent = copyIcon + ' ' + (window.TPI18N.t('share_copy') || 'Copy Link');
+        }
+      }
+
+      // ================================
+      // 6) META TAGS
+      // ================================
       var ogT = document.querySelector('meta[property="og:title"]');
       var ogD = document.querySelector('meta[property="og:description"]');
       var desc = document.querySelector('meta[name="description"]');
@@ -84,13 +201,15 @@
       if (ogD && newExcerpt) ogD.setAttribute('content', newExcerpt);
       if (desc && newExcerpt) desc.setAttribute('content', newExcerpt);
 
+      // ================================
+      // 7) LANGUAGE BANNER
+      // ================================
       showLangBanner(lang);
     }).catch(function (e) {
       console.warn('[TP] translation load failed', e);
     });
   }
-
-  function renderMarkdown(text) {
+function renderMarkdown(text) {
     var esc = C.esc;
     var inline = function (s) {
       return esc(s)

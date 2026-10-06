@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Signal Processing — MIT | TechPulse Academy</title>
+<meta name="description" content="Discrete-time signals, DFT/FFT, digital filters (FIR/IIR), sampling, quantization, and applications.">
+<link rel="canonical" href="https://www.pulsehig.com/course/dsp.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/dsp.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/dsp.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/dsp.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/dsp.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/dsp.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/dsp.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/dsp.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Digital Signal Processing">
+<meta property="og:description" content="Discrete-time signals, DFT/FFT, digital filters (FIR/IIR), sampling, quantization, and applications.">
+<meta property="og:url" content="https://www.pulsehig.com/course/dsp.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Digital Signal Processing","description":"Discrete-time signals, DFT/FFT, digital filters (FIR/IIR), sampling, quantization, and applications.","provider":{"@type":"Organization","name":"MIT"},"url":"https://www.pulsehig.com/course/dsp.html","courseCode":"MIT 6.341","hasCourseInstance":[{"@type":"CourseInstance","name":"Discrete-Time Signals and Systems","courseMode":"online"},{"@type":"CourseInstance","name":"The Z-Transform and Transfer Functions","courseMode":"online"},{"@type":"CourseInstance","name":"The Discrete Fourier Transform and FFT","courseMode":"online"},{"@type":"CourseInstance","name":"FIR Filter Design","courseMode":"online"},{"@type":"CourseInstance","name":"Adaptive Filters and Applications","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Digital Signal Processing</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">MIT 6.341 · MIT</span>
+      <h1>Digital Signal Processing</h1>
+      <p>Discrete-time signals, DFT/FFT, digital filters (FIR/IIR), sampling, quantization, and applications.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">40h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Discrete-Time Signals and Systems</h4>
+          <p>
+## The Digital Signal Processing Revolution
+
+DSP changed everything. Before DSP, filters were analog circuits: op-amps, resistors, capacitors. Now they&#39;re algorithms: multiply, add, store. Why does this matter?
+
+- ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Digital Signal Processing Revolution<br><br>DSP changed everything. Before DSP, filters were analog circuits: op-amps, resistors, capacitors. Now they're algorithms: multiply, add, store. Why does this matter?<br><br>- <strong>Reproducibility:</strong> a digital filter gives the same result every time<br>- <strong>Flexibility:</strong> change the coefficients, change the filter<br>- <strong>Complexity:</strong> implement filters that are impossible in analog<br>- <strong>Storage:</strong> record and replay exact signals<br>- <strong>Compression:</strong> reduce data before transmission<br><br>DSP powers your phone, your music player, your Wi-Fi router, your camera, medical imaging, radar.<br><br>## Discrete-Time Signals<br><br>A discrete-time signal x[n] is defined for integer n only. Between samples, nothing exists (mathematically). In practice, we reconstruct continuous signals via interpolation.<br><br>Common signals:<br>- <strong>Unit impulse δ[n]:</strong> 1 at n=0, 0 elsewhere<br>- <strong>Unit step u[n]:</strong> 1 for n≥0, 0 for n&lt;0<br>- <strong>Exponential:</strong> x[n] = a^n<br>- <strong>Sinusoid:</strong> x[n] = A cos(Ωn + φ)<br>- <strong>Complex exponential:</strong> x[n] = e^(jΩn)<br><br>## The Key Difference: Frequency is Periodic<br><br>For continuous sinusoids, cos(ωt) has a unique frequency ω ∈ [0, ∞). For discrete sinusoids, cos(Ωn) is periodic in Ω with period 2π:<br><br>    cos((Ω + 2π)n) = cos(Ωn + 2πn) = cos(Ωn)<br><br>So Ω and Ω+2πk describe the same signal. Only Ω ∈ [0, π] is unique. The range [π, 2π] is symmetric with [0, π].<br><br>This is a fundamental difference. It leads to aliasing and the Nyquist limit.<br><br>## Basic Operations<br><br><strong>Time shift:</strong> y[n] = x[n - n0]. Delays the signal.<br><br><strong>Time reversal:</strong> y[n] = x[-n].<br><br><strong>Scaling:</strong> y[n] = A × x[n].<br><br><strong>Addition:</strong> y[n] = x1[n] + x2[n].<br><br><strong>Multiplication:</strong> y[n] = x1[n] × x2[n]. This is important in modulation.<br><br>## LTI Systems and Convolution<br><br>A system is Linear and Time-Invariant (LTI) if:<br>- Superposition holds<br>- Behavior doesn't change with time<br><br>LTI systems are fully described by their <strong>impulse response</strong> h[n].<br><br>Output for any input x[n]:<br><br>    y[n] = x[n] * h[n] = Σ_{k=-∞}^{∞} x[k] h[n-k]<br><br>Convolution. This is the fundamental operation of DSP.<br><br>## Stability and Causality<br><br><strong>Causal:</strong> h[n] = 0 for n &lt; 0. Cannot respond to future inputs.<br><br><strong>BIBO stable:</strong> Bounded input → Bounded output. Condition: Σ|h[n]| &lt; ∞.<br><br>Causal + BIBO stable is the standard for real-time DSP.<br><br>## Difference Equations<br><br>LTI systems are described by difference equations:<br><br>    y[n] = -a1 y[n-1] - a2 y[n-2] + b0 x[n] + b1 x[n-1] + b2 x[n-2]<br><br>This is the general IIR (Infinite Impulse Response) form. If all a's are zero, it's FIR (Finite Impulse Response).<br><br>## FIR vs IIR<br><br><strong>FIR:</strong> h[n] has finite length. Always stable. Can have exact linear phase. More computation.<br><br><strong>IIR:</strong> h[n] infinite (feedback). Can be unstable. Nonlinear phase usually. Less computation for sharp filters.<br><br>FIR for audio, IIR for control.<br><br>## Example: Moving Average<br><br>    y[n] = (x[n] + x[n-1] + x[n-2] + x[n-3]) / 4<br><br>FIR filter with h = [0.25, 0.25, 0.25, 0.25]. Low-pass, simple smoothing.<br><br>Length L moving average: cutoff at approximately fs/L.<br><br>## Example: One-Pole IIR<br><br>    y[n] = α × x[n] + (1 - α) × y[n-1]<br><br>Alpha close to 1: slow smoothing. Alpha close to 0: fast smoothing.<br><br>This is an exponential moving average. Simple, efficient low-pass filter.<br><br>## Key Takeaways<br><br>- Discrete signals defined for integer n only<br>- Frequency is periodic with period 2π<br>- LTI systems described by impulse response<br>- Convolution: y = x * h<br>- Difference equations describe LTI systems<br>- FIR (finite) vs IIR (feedback)<br>- DSP gives reproducibility, flexibility, complexity<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>The Z-Transform and Transfer Functions</h4>
+          <p>
+## Why the Z-Transform?
+
+Just as the Laplace transform handles continuous-time systems, the Z-transform handles discrete-time systems. It converts difference equations into algebraic equations, making analysis and de...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why the Z-Transform?<br><br>Just as the Laplace transform handles continuous-time systems, the Z-transform handles discrete-time systems. It converts difference equations into algebraic equations, making analysis and design much easier.<br><br>## Definition<br><br>For a discrete-time signal x[n]:<br><br>    X(z) = Σ_{n=-∞}^{∞} x[n] z^(-n)<br><br>where z is a complex variable. The set of z values for which the sum converges is the Region of Convergence (ROC).<br><br>## Common Transforms<br><br>| x[n] | X(z) |<br>|------|------|<br>| δ[n] | 1 |<br>| u[n] | z/(z-1) |<br>| a^n u[n] | z/(z-a) |<br>| n a^n u[n] | az/(z-a)² |<br>| cos(Ω0 n) u[n] | (z² - z cos Ω0) / (z² - 2z cos Ω0 + 1) |<br><br>## Properties<br><br><strong>Linearity:</strong> a x1[n] + b x2[n] ↔ a X1(z) + b X2(z)<br><br><strong>Time shift:</strong> x[n - n0] ↔ z^(-n0) X(z)<br><br><strong>Scaling in z:</strong> a^n x[n] ↔ X(z/a)<br><br><strong>Time reversal:</strong> x[-n] ↔ X(1/z)<br><br><strong>Convolution:</strong> x[n] * h[n] ↔ X(z) × H(z)<br><br><strong>Initial value:</strong> x[0] = lim(z→∞) X(z)<br><br>The convolution property is the most important. It turns convolution into multiplication.<br><br>## Transfer Function<br><br>For an LTI system with input x[n] and output y[n]:<br><br>    H(z) = Y(z) / X(z)<br><br>For a difference equation:<br><br>    y[n] = Σ b_k x[n-k] - Σ a_k y[n-k]<br><br>The transfer function is:<br><br>    H(z) = (Σ b_k z^(-k)) / (1 + Σ a_k z^(-k))<br><br>The numerator gives the zeros, the denominator gives the poles.<br><br>## Poles and Stability<br><br>For a causal system, it's BIBO stable if all poles are <strong>inside the unit circle</strong> (|z| &lt; 1).<br><br>This is the discrete-time analog of "poles in the left half-plane" for continuous systems.<br><br>Poles on the unit circle: marginally stable (oscillates forever).<br>Poles outside the unit circle: unstable (exponential growth).<br><br>## Example: One-Pole System<br><br>    y[n] = α x[n] + (1-α) y[n-1]<br><br>Taking Z-transform:<br><br>    Y(z) = α X(z) + (1-α) z^(-1) Y(z)<br><br>    H(z) = α / (1 - (1-α) z^(-1))<br><br>Pole at z = 1 - α. For 0 &lt; α &lt; 1, pole is inside unit circle → stable.<br><br>For α = 0.1, pole at 0.9. Slow decay.<br>For α = 0.9, pole at 0.1. Fast decay.<br><br>## Frequency Response<br><br>Evaluate H(z) on the unit circle (z = e^(jΩ)):<br><br>    H(e^(jΩ)) = H(z) |_{z = e^(jΩ)}<br><br>This gives the frequency response — the gain and phase for each digital frequency Ω.<br><br>|H(e^(jΩ))| is the magnitude response.<br>∠H(e^(jΩ)) is the phase response.<br><br>Plot vs Ω from 0 to π (higher frequencies are symmetric).<br><br>## Geometric Interpretation<br><br>The frequency response is the product of distances from e^(jΩ) to each zero, divided by distances to each pole.<br><br>Zeros near the unit circle → dips in magnitude response.<br>Poles near the unit circle → peaks in magnitude response.<br><br>## Stability Condition Revisited<br><br>For an IIR filter, stability requires all poles inside the unit circle. If even one pole is outside, the filter is unstable and useless.<br><br>In practice, design with margins — poles 0.99 or less.<br><br>## Key Takeaways<br><br>- Z-transform converts difference equations to algebra<br>- Transfer function H(z) = Y(z)/X(z)<br>- Poles and zeros determine frequency response<br>- Stable iff all poles inside unit circle<br>- Frequency response: H(e^(jΩ))<br>- Geometric interpretation: distances from poles and zeros<br>- Design with pole margins for robustness<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>The Discrete Fourier Transform and FFT</h4>
+          <p>
+## From Continuous to Discrete Frequency
+
+We&#39;ve seen the Fourier series for periodic signals, the Fourier transform for aperiodic, and the DTFT for discrete signals. Now: the DFT, which is what computers actually com...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## From Continuous to Discrete Frequency<br><br>We've seen the Fourier series for periodic signals, the Fourier transform for aperiodic, and the DTFT for discrete signals. Now: the DFT, which is what computers actually compute.<br><br>## The Discrete Fourier Transform<br><br>For a length-N sequence x[0..N-1]:<br><br>    X[k] = Σ_{n=0}^{N-1} x[n] e^(-j 2π k n / N),  k = 0, 1, ..., N-1<br><br>The inverse:<br><br>    x[n] = (1/N) Σ_{k=0}^{N-1} X[k] e^(j 2π k n / N)<br><br>The DFT transforms N time samples into N frequency samples.<br><br>## Why N Samples?<br><br>The DFT assumes x[n] is periodic with period N. The frequency resolution is fs/N Hz. The maximum frequency represented is fs(N-1)/N ≈ fs/2 (Nyquist).<br><br>For a 1024-point DFT at 44.1 kHz:<br>- Frequency resolution: 43 Hz<br>- Frequency range: 0 to ~22 kHz<br><br>## DFT as Matrix Multiplication<br><br>    X = W × x<br><br>where W is the N×N DFT matrix with entries W[k][n] = e^(-j 2π k n / N).<br><br>Computing this naively takes O(N²) operations.<br><br>## The FFT<br><br>The Fast Fourier Transform (Cooley-Tukey, 1965) computes the DFT in O(N log N).<br><br>For N = 1,048,576:<br>- Naive DFT: 10¹² operations<br>- FFT: 2 × 10⁷ operations<br><br>A 50,000x speedup. This is why FFT made DSP practical.<br><br>## The FFT Algorithm (Radix-2)<br><br>Split length-N sequence into even and odd indices:<br><br>    X[k] = Σ x[2m] e^(-j 2π k (2m) / N) + Σ x[2m+1] e^(-j 2π k (2m+1) / N)<br>         = E[k] + e^(-j 2π k / N) O[k]<br><br>where E is the DFT of the even-indexed subsequence and O of the odd.<br><br>Recursively split until length-1. Combine results. Total complexity O(N log N).<br><br>Requires N to be a power of 2 (or a product of small primes).<br><br>## Properties<br><br><strong>Linearity:</strong> DFT of ax + by is aX + bY.<br><br><strong>Parseval:</strong> Σ|x[n]|² = (1/N) Σ|X[k]|². Energy preserved.<br><br><strong>Convolution:</strong> Circular convolution in time = multiplication in frequency.<br><br>This is used for fast convolution (multiply in frequency, IFFT back).<br><br>## Circular vs Linear Convolution<br><br>DFT computes <strong>circular</strong> convolution, not linear. For linear convolution via FFT, zero-pad to at least length(x) + length(h) - 1.<br><br>This is the standard technique for fast FIR filtering.<br><br>## Windowing<br><br>The DFT assumes the signal is periodic. If you chop a longer signal into blocks, discontinuities at block edges cause spectral leakage.<br><br>Apply a window (Hamming, Hann, Blackman) before the DFT to reduce leakage. Trade-off: narrower main lobe vs lower side lobes.<br><br>## Applications<br><br>- <strong>Spectrum analysis:</strong> identify frequencies in a signal<br>- <strong>Fast convolution:</strong> for FIR filters<br>- <strong>OFDM:</strong> modulation for Wi-Fi, 4G/5G<br>- <strong>Audio processing:</strong> pitch shifting, time stretching<br>- <strong>Image processing:</strong> JPEG uses 2D DCT (related to DFT)<br>- <strong>Radar:</strong> matched filtering<br>- <strong>Astronomy:</strong> pulsar detection<br>- <strong>Medical:</strong> CT reconstruction<br><br>## The FFT in Practice<br><br>Libraries: FFTW, KissFFT, CMSIS-DSP (ARM), Intel MKL.<br><br>On an MCU (Cortex-M4 with FPU): 1024-point FFT in ~1 ms.<br><br>For real-time audio: 1024-point FFT at 44.1 kHz, block rate ~43 Hz.<br><br>## Key Takeaways<br><br>- DFT: N samples → N frequency samples<br>- O(N²) naive, O(N log N) with FFT<br>- FFT is what makes DSP practical<br>- Circular convolution via DFT; zero-pad for linear<br>- Windowing reduces spectral leakage<br>- FFT is universal: audio, image, radar, communications<br>- Libraries handle the implementation; you focus on the application<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>FIR Filter Design</h4>
+          <p>
+## What is an FIR Filter?
+
+Finite Impulse Response: h[n] is nonzero only for a finite range.
+
+    y[n] = Σ_{k=0}^{M-1} h[k] × x[n-k]
+
+M is the filter length. Output is a weighted sum of the last M inputs.
+
+FIR ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is an FIR Filter?<br><br>Finite Impulse Response: h[n] is nonzero only for a finite range.<br><br>    y[n] = Σ_{k=0}^{M-1} h[k] × x[n-k]<br><br>M is the filter length. Output is a weighted sum of the last M inputs.<br><br>FIR filters are always stable (no feedback) and can have exactly linear phase.<br><br>## The Ideal Low-Pass Filter<br><br>In frequency domain, ideal low-pass:<br><br>    H(e^(jΩ)) = 1 for |Ω| &lt; Ωc<br>                 0 for Ωc &lt; |Ω| &lt; π<br><br>Taking the inverse DTFT gives an infinite sinc impulse response:<br><br>    h[n] = sin(Ωc n) / (π n)<br><br>Truncate to length M for a real FIR filter. Truncation causes ripples (Gibbs phenomenon).<br><br>## Windowing Method<br><br>Multiply the ideal impulse response by a window w[n]:<br><br>    h_windowed[n] = h_ideal[n] × w[n]<br><br>Common windows:<br>- <strong>Rectangular:</strong> sharp cutoff, big ripples<br>- <strong>Hamming:</strong> good compromise, 43 dB side lobe<br>- <strong>Hann:</strong> smoother, 31 dB side lobe<br>- <strong>Blackman:</strong> best side lobes, widest main lobe<br><br>Trade-off: narrower main lobe (sharper transition) means higher side lobes (worse stopband).<br><br>## Example Design<br><br>Design a low-pass FIR with:<br>- Cutoff: 1 kHz<br>- Sample rate: 8 kHz<br>- Length: 65 taps<br>- Window: Hamming<br><br>Normalized cutoff: Ωc = 2π × 1000/8000 = π/4.<br><br>Ideal: h_ideal[n] = sin(π n/4) / (π n), truncated to 65 taps (centered at n = 32).<br><br>Apply Hamming window. Result: sharp transition at 1 kHz, stopband attenuation ~53 dB.<br><br>## Parks-McClellan Algorithm<br><br>Optimal equiripple FIR design. Gives the best possible filter for a given length and tolerance.<br><br>Instead of settling for window side lobes, distribute the error uniformly across the band.<br><br>Requires an iterative optimization (Remez exchange).<br><br>Available in MATLAB (<code>firpm</code>), Python (<code>scipy.signal.remez</code>), and other tools.<br><br>## Linear Phase FIR<br><br>If h[n] is symmetric (h[n] = h[M-1-n]) or antisymmetric, the filter has exactly linear phase.<br><br>Linear phase = constant group delay = no phase distortion.<br><br>Critical for audio, image processing, communications.<br><br>Linear phase requires FIR (IIR cannot have exactly linear phase).<br><br>## Types of Linear Phase FIR<br><br>Four types based on symmetry and length:<br>- <strong>Type I:</strong> even length, symmetric — good for lowpass<br>- <strong>Type II:</strong> even length, antisymmetric — good for highpass<br>- <strong>Type III:</strong> odd length, symmetric — good for bandpass<br>- <strong>Type IV:</strong> odd length, antisymmetric — good for differentiators<br><br>## Moving Average Filter<br><br>Simplest FIR: h[n] = 1/M for n = 0..M-1.<br><br>Low-pass with cutoff ~fs/M. Poor transition but simple and efficient.<br><br>Useful for smoothing noisy sensors.<br><br>## Bandpass and Highpass<br><br>Design a lowpass prototype, then frequency-shift:<br><br>    h_bp[n] = 2 h_lp[n] cos(Ω0 n)<br><br>For highpass:<br><br>    h_hp[n] = δ[n] - h_lp[n]<br><br>Modular design — build from lowpass prototype.<br><br>## Implementation<br><br>Direct form:<br><br>    y[n] = h[0] x[n] + h[1] x[n-1] + ... + h[M-1] x[n-M+1]<br><br>Use a circular buffer for x[]:<br><br>    x[head] = new_input;<br>    head = (head + 1) % M;<br>    sum = 0;<br>    for (int i = 0; i &lt; M; i++) {<br>        sum += h[i] * x[(head - i + M) % M];<br>    }<br><br>For high-performance, use SIMD or a DSP with dedicated MAC units.<br><br>## Fixed-Point vs Floating-Point<br><br>DSPs often use fixed-point for speed and cost.<br>- Q15: 1 sign bit + 15 fractional bits, range [-1, 1)<br>- Q31: 32-bit fixed-point<br><br>Careful with scaling to avoid overflow. Coefficient quantization affects the response slightly.<br><br>## Key Takeaways<br><br>- FIR: finite, always stable, can be linear phase<br>- Design by windowing or Parks-McClellan<br>- Linear phase requires symmetric h[n]<br>- Moving average: simplest FIR<br>- Build bandpass/highpass from lowpass prototype<br>- Circular buffer for streaming<br>- Fixed-point for embedded, float for desktop<br>- Linear phase essential for audio and images<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Adaptive Filters and Applications</h4>
+          <p>
+## What Are Adaptive Filters?
+
+A filter whose coefficients change over time to optimize some performance criterion. Used when the signal statistics are unknown or time-varying.
+
+Examples:
+- Echo cancellation in ph...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What Are Adaptive Filters?<br><br>A filter whose coefficients change over time to optimize some performance criterion. Used when the signal statistics are unknown or time-varying.<br><br>Examples:<br>- Echo cancellation in phones<br>- Channel equalization in modems<br>- Noise cancellation in headphones<br>- System identification<br>- Beamforming in radar<br>- Active vibration control<br><br>## The General Structure<br><br>Input x[n], desired signal d[n]. Filter produces y[n] = w^T x[n]. Error e[n] = d[n] - y[n]. Update weights to minimize E[e²[n]].<br><br>## The LMS Algorithm<br><br>Least Mean Squares: simplest adaptive filter.<br><br>For each sample:<br><br>    y[n] = w^T x[n]<br>    e[n] = d[n] - y[n]<br>    w[n+1] = w[n] + μ e[n] x[n]<br><br>μ is the step size. Small μ: slow but stable. Large μ: fast but may diverge.<br><br>Stability: μ &lt; 2 / (M × P_x), where P_x is the input power.<br><br>## Example: Noise Cancellation<br><br>Reference microphone captures noise. Main microphone captures signal + noise. Adaptive filter estimates noise from reference and subtracts.<br><br>Classic application: Bose noise-canceling headphones.<br><br>## Echo Cancellation<br><br>In a phone call, the far-end signal echoes back through the local speaker-microphone path. An adaptive filter estimates the echo path and subtracts it.<br><br>Long echo paths (100+ ms) require 1000+ taps. Uses NLMS (normalized LMS) for faster convergence.<br><br>## Channel Equalization<br><br>In a communication channel, the received signal is distorted. Adaptive filter inverts the channel to recover the transmitted data.<br><br>Used in modems, DSL, wireless.<br><br>Training phase: send known sequence, adapt filter to match. Data phase: use adapted filter to equalize.<br><br>## Recursive Least Squares (RLS)<br><br>Converges faster than LMS. Uses the inverse of the autocorrelation matrix.<br><br>    w[n+1] = w[n] + k[n] e[n]<br><br>where k[n] = R^(-1)[n] x[n].<br><br>Complexity: O(M²) per sample vs O(M) for LMS. Faster convergence but more computation.<br><br>## Applications<br><br><strong>Active Noise Cancellation (ANC):</strong><br>- Feedforward: reference mic + error mic<br>- Feedback: only error mic<br>- Hybrid: both<br><br>Used in headphones, cars, HVAC ducts.<br><br><strong>Adaptive Beamforming:</strong><br>- Multiple antennas<br>- Adaptive weights to steer null toward interference<br>- Used in radar, sonar, 5G massive MIMO<br><br><strong>Adaptive Predistortion:</strong><br>- Compensate for nonlinear power amplifier<br>- Used in 5G base stations<br><br><strong>Adaptive Control:</strong><br>- Self-tuning regulators<br>- Model Reference Adaptive Control (MRAC)<br><br>## Convergence and Misadjustment<br><br>LMS converges when input is stationary. The final error has two parts:<br>- Minimum mean-square error (unavoidable)<br>- Misadjustment (from gradient noise)<br><br>Trade-off: larger μ → faster convergence, higher misadjustment.<br><br>Rule of thumb: μ ≈ 0.01 / (M × P_x) for reasonable balance.<br><br>## Modern Extensions<br><br>- <strong>NLMS:</strong> normalized step size, more robust<br>- <strong>AP (Affine Projection):</strong> between LMS and RLS<br>- <strong>Kalman filter:</strong> optimal for linear Gaussian systems<br>- <strong>Deep learning:</strong> replace adaptive filters with neural networks for very complex problems<br><br>## DSP in Practice<br><br>Real-time DSP requires:<br>- Efficient algorithms (LMS, FFT, convolution)<br>- Fixed-point or SIMD optimized code<br>- Interrupt-driven I/O (ADC, DAC, DMA)<br>- Ring buffers for streaming<br>- Careful attention to latency<br><br>An ESP32 can run 48 kHz stereo audio filters. A dedicated DSP (TI C6000) runs GHz-rate processing. GPU tensors handle AI.<br><br>## Key Takeaways<br><br>- Adaptive filters optimize coefficients online<br>- LMS: simple, O(M) per sample, μ controls trade-off<br>- RLS: fast convergence, O(M²) per sample<br>- Applications: noise cancel, echo cancel, equalization<br>- ANC uses adaptive filters for anti-noise<br>- Beamforming steers nulls toward interference<br>- Modern deep learning complements classic DSP<br>- Real-time DSP needs efficient implementation<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Discrete-Time Signals, Z-Transform, DFT</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Compute the Z-transform of x[n] = (0.5)^n u[n]. Find poles and ROC.</p>
+            <details><summary>Show Solution</summary><p>X(z) = Σ (0.5)^n z^-n = 1/(1 - 0.5z^-1) = z/(z-0.5), |z| &gt; 0.5. Pole at z = 0.5. ROC: |z| &gt; 0.5.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Design a 5-tap moving average FIR filter. Find its frequency response and -3dB cutoff.</p>
+            <details><summary>Show Solution</summary><p>H(ω) = (1/5)(1 + e^-jω + e^-2jω + e^-3jω + e^-4jω). |H(0)| = 1, |H(π)| = 0. Using Dirichlet kernel: |H(ω)| = |sin(5ω/2)/(5sin(ω/2))|. -3dB at ω ≈ 0.72 rad/sample (f ≈ 0.115 fs).</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Compute the 4-point DFT of x = [1, 2, 3, 4].</p>
+            <details><summary>Show Solution</summary><p>X[0] = 1+2+3+4 = 10. X[1] = 1 + 2(-j) + 3(-1) + 4(j) = -2 + 2j. X[2] = 1 - 2 + 3 - 4 = -2. X[3] = 1 + 2(j) + 3(-1) + 4(-j) = -2 - 2j.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Signals, Z-Transform, DFT</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Is the system y[n] = x[n] - x[n-1] linear? Causal? Stable?</p>
+            <details><summary>Show Solution</summary><p>Linear: y = (ax1+bx2)[n] - (ax1+bx2)[n-1] = a(x1[n]-x1[n-1]) + b(x2[n]-x2[n-1]) ✓. Causal ✓. Impulse response h[n] = {1,-1} — finite length, so BIBO stable ✓.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Design a first-order IIR low-pass filter with cutoff at 0.1·fs. Find the difference equation.</p>
+            <details><summary>Show Solution</summary><p>Use y[n] = α·x[n] + (1-α)·y[n-1]. For -3dB at f_c: α = 1 - exp(-2π·f_c/fs) ≈ 2π·f_c/fs for f_c &lt;&lt; fs. With f_c/fs = 0.1: α ≈ 0.47. y[n] = 0.47x[n] + 0.53y[n-1].</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> An 8-point FFT requires how many complex multiplications? Compare with direct DFT.</p>
+            <details><summary>Show Solution</summary><p>Direct DFT: N² = 64 multiplications. FFT (radix-2): (N/2)·log₂N = 4 × 3 = 12 multiplications. Speedup: 5.3×. For large N, speedup grows as N/log₂N.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

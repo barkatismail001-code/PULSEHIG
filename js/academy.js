@@ -1,24 +1,14 @@
-/* ==========================================================================
-   TechPulse — Academy Engine (academy.js) v20261005
-   Loads courses from Supabase, renders grid, handles path and category filters,
-   renders Did You Know section.
-   Requires js/common.js and js/i18n.js
-   ========================================================================== */
+/* TechPulse — Academy Engine v20261007
+   Loads courses from Supabase with REAL counts from lectures/assignments/exams tables. */
 (function () {
   'use strict';
-
   var C = window.TPCommon;
   var I = window.TPI18N;
-
-  if (!C || !I) {
-    console.warn('[TP] academy.js requires common.js and i18n.js');
-    return;
-  }
+  if (!C || !I) return;
 
   var allCourses = [];
   var activeFilter = 'all';
 
-  /* ---------- Bootstrap ---------- */
   document.addEventListener('DOMContentLoaded', function () {
     C.initDarkMode();
     C.initTicker();
@@ -36,7 +26,6 @@
     renderDyk();
   });
 
-  /* ---------- Scroll progress ---------- */
   function initScrollProgress() {
     var bar = document.getElementById('readingProgressBar');
     if (!bar) return;
@@ -58,16 +47,12 @@
     });
   }
 
-  /* ---------- URL params (path=electrical) ---------- */
   function initUrlParams() {
     var params = new URLSearchParams(location.search);
     var path = params.get('path');
-    if (path) {
-      activeFilter = path;
-    }
+    if (path) activeFilter = path;
   }
 
-  /* ---------- Filters ---------- */
   function initFilters() {
     var filters = document.getElementById('coursesFilters');
     if (!filters) return;
@@ -86,35 +71,66 @@
     });
   }
 
-  /* ---------- Load courses from Supabase ---------- */
+  function sbHeaders() {
+    return { apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + C.SUPABASE_ANON_KEY };
+  }
+
   async function loadCourses() {
     var grid = document.getElementById('coursesGrid');
     if (!grid) return;
-
-    grid.innerHTML = '<p class="loading-state">' + C.esc(I.t('loading')) + '</p>';
+    grid.innerHTML = '<p class="loading-state">Loading courses...</p>';
 
     try {
-      var url = C.SUPABASE_URL + '/rest/v1/courses?select=*&order=university.asc,code.asc&limit=200';
-      var res = await fetch(url, {
-        headers: {
-          apikey: C.SUPABASE_ANON_KEY,
-          Authorization: 'Bearer ' + C.SUPABASE_ANON_KEY
-        }
+      // Fetch all data in parallel
+      var [coursesRes, lecturesRes, assignmentsRes, examsRes] = await Promise.all([
+        fetch(C.SUPABASE_URL + '/rest/v1/courses?select=*&order=university.asc,code.asc&limit=200', { headers: sbHeaders() }),
+        fetch(C.SUPABASE_URL + '/rest/v1/lectures?select=course_slug', { headers: sbHeaders() }),
+        fetch(C.SUPABASE_URL + '/rest/v1/assignments?select=course_slug', { headers: sbHeaders() }),
+        fetch(C.SUPABASE_URL + '/rest/v1/exams?select=course_slug', { headers: sbHeaders() })
+      ]);
+
+      allCourses = await coursesRes.json();
+      var lectures = await lecturesRes.json();
+      var assignments = await assignmentsRes.json();
+      var exams = await examsRes.json();
+
+      if (!Array.isArray(allCourses)) allCourses = [];
+      if (!Array.isArray(lectures)) lectures = [];
+      if (!Array.isArray(assignments)) assignments = [];
+      if (!Array.isArray(exams)) exams = [];
+
+      // Count real per-course totals
+      var lectureCounts = {};
+      var assignmentCounts = {};
+      var examCounts = {};
+
+      lectures.forEach(function (l) {
+        if (l.course_slug) lectureCounts[l.course_slug] = (lectureCounts[l.course_slug] || 0) + 1;
+      });
+      assignments.forEach(function (a) {
+        if (a.course_slug) assignmentCounts[a.course_slug] = (assignmentCounts[a.course_slug] || 0) + 1;
+      });
+      exams.forEach(function (e) {
+        if (e.course_slug) examCounts[e.course_slug] = (examCounts[e.course_slug] || 0) + 1;
       });
 
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      allCourses = await res.json();
-      if (!Array.isArray(allCourses)) allCourses = [];
+      // Override course counts with REAL numbers
+      allCourses.forEach(function (c) {
+        c.lectures_count = lectureCounts[c.slug] || 0;
+        c.assignments_count = assignmentCounts[c.slug] || 0;
+        c.exams_count = examCounts[c.slug] || 0;
+        // Duration = lectures * 50 min, rounded up to hours
+        c.duration_hours = Math.max(0, Math.round((c.lectures_count * 50) / 60));
+      });
 
       updateStats();
       renderCourses();
     } catch (err) {
       console.warn('[TP] courses load failed', err);
-      grid.innerHTML = '<p class="loading-state">Unable to load courses. Please refresh the page.</p>';
+      grid.innerHTML = '<p class="loading-state">Unable to load courses.</p>';
     }
   }
 
-  /* ---------- Update stats bar ---------- */
   function updateStats() {
     var totalCoursesEl = document.getElementById('statTotalCourses');
     var totalLecturesEl = document.getElementById('statTotalLectures');
@@ -122,24 +138,20 @@
     var totalSolutionsEl = document.getElementById('statTotalSolutions');
 
     var totalCourses = allCourses.length;
-    var totalLectures = allCourses.reduce(function (sum, c) { return sum + (Number(c.lectures_count) || 0); }, 0);
-    var totalAssignments = allCourses.reduce(function (sum, c) { return sum + (Number(c.assignments_count) || 0); }, 0);
-    var totalExams = allCourses.reduce(function (sum, c) { return sum + (Number(c.exams_count) || 0); }, 0);
+    var totalLectures = allCourses.reduce(function (s, c) { return s + (Number(c.lectures_count) || 0); }, 0);
+    var totalAssignments = allCourses.reduce(function (s, c) { return s + (Number(c.assignments_count) || 0); }, 0);
+    var totalExams = allCourses.reduce(function (s, c) { return s + (Number(c.exams_count) || 0); }, 0);
     var totalProblems = totalAssignments + totalExams;
 
     if (totalCoursesEl) totalCoursesEl.textContent = String(totalCourses);
     if (totalLecturesEl) totalLecturesEl.textContent = String(totalLectures);
     if (totalProblemsEl) totalProblemsEl.textContent = String(totalProblems);
-    if (totalSolutionsEl) {
-      totalSolutionsEl.textContent = totalProblems > 0 ? String(totalProblems) : '0';
-    }
+    if (totalSolutionsEl) totalSolutionsEl.textContent = String(totalProblems);
   }
 
-  /* ---------- Render courses grid ---------- */
   function renderCourses() {
     var grid = document.getElementById('coursesGrid');
     if (!grid) return;
-
     var lang = I.getLang();
     var courses = allCourses.filter(function (c) {
       return activeFilter === 'all' || c.path === activeFilter;
@@ -155,8 +167,9 @@
       var description = (c.description_i18n && c.description_i18n[lang]) || c.description || '';
       var codeClass = getCodeClass(c.university);
       var href = 'course.html?slug=' + encodeURIComponent(c.slug);
+      var hasContent = c.lectures_count > 0;
 
-      return '<a href="' + C.esc(href) + '" class="course-card">' +
+      return '<a href="' + C.esc(href) + '" class="course-card' + (hasContent ? '' : ' empty') + '">' +
         '<div class="course-card-header">' +
           '<span class="course-code ' + codeClass + '">' + C.esc(c.code || '') + '</span>' +
           '<span class="course-icon">' + C.esc(c.icon || '📘') + '</span>' +
@@ -164,10 +177,10 @@
         '<h3>' + C.esc(title) + '</h3>' +
         '<p class="course-desc">' + C.esc(description) + '</p>' +
         '<div class="course-meta">' +
-          '<span>📹 ' + (c.lectures_count || 0) + '</span>' +
-          '<span>📝 ' + (c.assignments_count || 0) + '</span>' +
-          '<span>🎯 ' + (c.exams_count || 0) + '</span>' +
-          '<span>⏱ ' + (c.duration_hours || 0) + 'h</span>' +
+          '<span title="Lectures">📹 ' + c.lectures_count + '</span>' +
+          '<span title="Assignments">📝 ' + c.assignments_count + '</span>' +
+          '<span title="Exams">🎯 ' + c.exams_count + '</span>' +
+          '<span title="Duration">⏱ ' + c.duration_hours + 'h</span>' +
         '</div>' +
       '</a>';
     }).join('');
@@ -184,12 +197,7 @@
     return 'course-code';
   }
 
-  /* ---------- Did You Know ---------- */
-  function initDyk() {
-    if (C.getDidYouKnow) {
-      renderDyk();
-    }
-  }
+  function initDyk() { if (C.getDidYouKnow) renderDyk(); }
 
   function renderDyk() {
     var contentEl = document.getElementById('dykContent');

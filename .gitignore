@@ -1,4 +1,4 @@
-# Dependencies
+﻿# Dependencies
 node_modules/
 package-lock.json
 
@@ -24,3 +24,4 @@ _archive/
 # Temp
 *.tmp
 *.old
+*.bak*

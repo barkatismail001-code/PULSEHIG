@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electromagnetics — MIT | TechPulse Academy</title>
+<meta name="description" content="Maxwell equations, wave propagation, transmission lines, plane waves, waveguides, and antennas.">
+<link rel="canonical" href="https://www.pulsehig.com/course/electromagnetics.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/electromagnetics.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/electromagnetics.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/electromagnetics.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/electromagnetics.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/electromagnetics.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/electromagnetics.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/electromagnetics.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Electromagnetics">
+<meta property="og:description" content="Maxwell equations, wave propagation, transmission lines, plane waves, waveguides, and antennas.">
+<meta property="og:url" content="https://www.pulsehig.com/course/electromagnetics.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Electromagnetics","description":"Maxwell equations, wave propagation, transmission lines, plane waves, waveguides, and antennas.","provider":{"@type":"Organization","name":"MIT"},"url":"https://www.pulsehig.com/course/electromagnetics.html","courseCode":"MIT 6.013","hasCourseInstance":[{"@type":"CourseInstance","name":"Maxwell Equations and Electromagnetic Waves","courseMode":"online"},{"@type":"CourseInstance","name":"Transmission Lines","courseMode":"online"},{"@type":"CourseInstance","name":"Antennas and Radiation","courseMode":"online"},{"@type":"CourseInstance","name":"Waveguides and Microwave Engineering","courseMode":"online"},{"@type":"CourseInstance","name":"Electromagnetic Compatibility (EMC)","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Electromagnetics</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">MIT 6.013 · MIT</span>
+      <h1>Electromagnetics</h1>
+      <p>Maxwell equations, wave propagation, transmission lines, plane waves, waveguides, and antennas.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">40h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Maxwell Equations and Electromagnetic Waves</h4>
+          <p>
+## The Four Maxwell Equations
+
+James Clerk Maxwell (1865) unified electricity, magnetism, and light in four equations:
+
+**Gauss&#39;s law (electric):**
+
+    div D = rho
+
+Electric flux diverges from electric charge....</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Four Maxwell Equations<br><br>James Clerk Maxwell (1865) unified electricity, magnetism, and light in four equations:<br><br><strong>Gauss's law (electric):</strong><br><br>    div D = rho<br><br>Electric flux diverges from electric charge.<br><br><strong>Gauss's law (magnetic):</strong><br><br>    div B = 0<br><br>Magnetic monopoles don't exist. Magnetic field lines are closed loops.<br><br><strong>Faraday's law:</strong><br><br>    curl E = -dB/dt<br><br>A changing magnetic field induces an electric field.<br><br><strong>Ampere-Maxwell law:</strong><br><br>    curl H = J + dD/dt<br><br>Current and changing electric field produce magnetic field.<br><br>## Differential vs Integral Form<br><br>Each law has both forms. Integral form uses integrals over surfaces or loops; differential form uses diverges and curls.<br><br>Both are equivalent via the divergence theorem and Stokes' theorem.<br><br>## Constitutive Relations<br><br>For linear media:<br><br>    D = epsilon × E<br>    B = mu × H<br>    J = sigma × E<br><br>Where epsilon is permittivity, mu is permeability, sigma is conductivity.<br><br>In vacuum:<br>- epsilon_0 = 8.854e-12 F/m<br>- mu_0 = 4pi e-7 H/m<br>- c = 1/sqrt(epsilon_0 mu_0) = 2.998e8 m/s<br><br>## The Wave Equation<br><br>Combining Faraday and Ampere laws gives the wave equation:<br><br>    d2E/dz2 = mu epsilon × d2E/dt2<br><br>Solutions are waves traveling at:<br><br>    v = 1/sqrt(mu epsilon)<br><br>In vacuum, v = c = speed of light.<br><br>Maxwell's discovery: light IS an electromagnetic wave.<br><br>## Plane Waves<br><br>A plane wave has E and B perpendicular to each other and to the direction of propagation.<br><br>    E × B points in the direction of propagation<br><br>In vacuum, |E|/|B| = c.<br><br>Wave impedance:<br><br>    eta_0 = sqrt(mu_0/epsilon_0) = 377 ohm<br><br>## Frequency and Wavelength<br><br>    lambda = c / f<br><br>At 1 MHz: lambda = 300 m<br>At 100 MHz: lambda = 3 m<br>At 1 GHz: lambda = 30 cm<br>At 10 GHz: lambda = 3 cm<br><br>Antennas are comparable to wavelength. That's why RF circuits are so different from low-frequency ones.<br><br>## Applications<br><br>- Wireless communication (radio, Wi-Fi, cellular)<br>- Radar and lidar<br>- Microwave ovens (2.45 GHz)<br>- MRI (magnetic resonance imaging)<br>- Optical fibers (guided light)<br>- Antennas and transmission lines<br><br>## Key Takeaways<br><br>- Four Maxwell equations unify EM<br>- Constitutive relations describe medium behavior<br>- Wave equation: signals propagate at v = 1/sqrt(mu epsilon)<br>- In vacuum, v = c<br>- Plane waves: E perpendicular to B perpendicular to propagation<br>- Wave impedance = 377 ohm in vacuum<br>- Frequency determines wavelength, which determines circuit behavior<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Transmission Lines</h4>
+          <p>
+## Why Transmission Lines?
+
+At low frequencies, wires are just wires. At high frequencies (or long distances), they become transmission lines with characteristic impedance, delay, and reflection.
+
+Rule of thumb: co...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Transmission Lines?<br><br>At low frequencies, wires are just wires. At high frequencies (or long distances), they become transmission lines with characteristic impedance, delay, and reflection.<br><br>Rule of thumb: consider transmission line effects when:<br><br>    length &gt; lambda/10<br><br>Or when the rise time is comparable to the round-trip delay.<br><br>## The Telegrapher's Equations<br><br>For a line with series inductance L and shunt capacitance C per unit length:<br><br>    dV/dz = -L dI/dt<br>    dI/dz = -C dV/dt<br><br>Wave solutions propagate at:<br><br>    v = 1/sqrt(LC)<br><br>Characteristic impedance:<br><br>    Z_0 = sqrt(L/C)<br><br>Typical values:<br>- Coax (RG-58): 50 ohm<br>- Twisted pair (Cat5): 100 ohm<br>- TV coax: 75 ohm<br><br>## Reflections<br><br>When a wave encounters a change in impedance, part reflects back:<br><br>    Gamma = (Z_L - Z_0) / (Z_L + Z_0)<br><br>Where Gamma is the reflection coefficient.<br><br>- Z_L = Z_0: Gamma = 0, no reflection (matched)<br>- Z_L = infinity: Gamma = 1, full reflection (open circuit)<br>- Z_L = 0: Gamma = -1, full reflection inverted (short)<br><br>Voltage standing wave ratio (VSWR):<br><br>    VSWR = (1 + |Gamma|) / (1 - |Gamma|)<br><br>VSWR = 1 is perfect match. VSWR &gt; 2 indicates a problem.<br><br>## Termination<br><br>To prevent reflections, terminate the line at its characteristic impedance:<br><br>- <strong>Series termination:</strong> resistor at source, Z_s = Z_0<br>- <strong>Parallel termination:</strong> resistor at load, Z_L = Z_0<br>- <strong>Thevenin termination:</strong> two resistors form a Thevenin equivalent of Z_0<br><br>Termination is essential for high-speed digital signals (DDR memory, PCIe, Ethernet).<br><br>## Impedance Matching Networks<br><br>For RF circuits, transformers or LC networks transform impedances:<br><br>- L-match: L-network for narrowband<br>- Pi-match: pi-network<br>- T-match: T-network<br><br>Common in amplifiers, antennas, filters.<br><br>## Standing Waves<br><br>When a wave reflects back and forth, it forms standing waves. Nodes (V=0) and antinodes (V=max) appear at specific positions.<br><br>    Node spacing = lambda/2<br><br>Standing waves waste power and cause signal degradation. Matching eliminates them.<br><br>## Time Domain Reflectometry (TDR)<br><br>Send a pulse down a line and observe the reflection. This reveals where impedance changes are (opens, shorts, connector mismatches). Used to diagnose cables and PCB traces.<br><br>## Microstrip and Stripline<br><br>On PCBs, transmission lines are:<br>- <strong>Microstrip:</strong> trace on top layer, ground plane below<br>- <strong>Stripline:</strong> trace between two ground planes<br><br>Characteristic impedance depends on width, height, dielectric constant.<br><br>For 50 ohm microstrip on FR4: typical width ~ 3 mm for 1.6 mm thick board.<br><br>## Key Takeaways<br><br>- Transmission line effects at high frequency/long length<br>- Telegrapher's equations describe V and I along the line<br>- Z_0 characteristic impedance<br>- Reflections from impedance mismatch<br>- Terminate to prevent reflections<br>- Matching networks for RF<br>- TDR for diagnosing cable faults<br>- Microstrip and stripline on PCBs<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Antennas and Radiation</h4>
+          <p>
+## What is an Antenna?
+
+An antenna converts guided waves (on a transmission line) to free-space waves (in air), or vice versa.
+
+Antenna parameters:
+- Gain: how much power is focused in a direction (vs isotropic)
+...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is an Antenna?<br><br>An antenna converts guided waves (on a transmission line) to free-space waves (in air), or vice versa.<br><br>Antenna parameters:<br>- Gain: how much power is focused in a direction (vs isotropic)<br>- Directivity: same, but ignoring efficiency<br>- Efficiency: radiated power / input power<br>- Polarization: orientation of E field<br>- Bandwidth: range of frequencies<br><br>## The Hertzian Dipole<br><br>The simplest antenna: a short dipole. Radiation pattern is like a donut (null along the dipole axis).<br><br>Field strength in the far field:<br><br>    E = j (eta_0 I L / (2 lambda r)) sin(theta) e^(-jkr)<br><br>Where L is the dipole length and r is distance from antenna.<br><br>## Half-Wave Dipole<br><br>A dipole of length lambda/2 is resonant — the current forms a standing wave, maximizing radiation.<br><br>Input impedance: ~73 + j42 ohm.<br><br>The classic "rabbit ears" TV antenna is a half-wave dipole.<br><br>## Quarter-Wave Monopole<br><br>A lambda/4 vertical above a ground plane. Input impedance ~36 ohm.<br><br>Pattern: omnidirectional in azimuth. Used for cars, walkie-talkies, Wi-Fi.<br><br>## Radiation Resistance<br><br>The antenna presents a resistance to the driving circuit that represents radiated power.<br><br>For a half-wave dipole: R_rad = 73 ohm.<br><br>The radiation resistance is what the transmitter "sees" as load.<br><br>## Antenna Gain<br><br>Gain = directivity × efficiency. Measured in dBi (relative to isotropic).<br><br>Typical gains:<br>- Half-wave dipole: 2.15 dBi<br>- Quarter-wave monopole: 5 dBi (with ground plane)<br>- Yagi (directional): 10-15 dBi<br>- Parabolic dish: 30+ dBi<br>- Cell tower sector: 15-18 dBi<br><br>## Radiation Patterns<br><br>Patterns plotted in polar coordinates showing field or power vs angle.<br><br>- Isotropic: uniform sphere (theoretical)<br>- Dipole: donut<br>- Yagi: forward lobe with back lobes<br>- Horn: single beam<br>- Dish: narrow pencil beam<br><br>## Antenna Arrays<br><br>Multiple antennas combined to steer the beam electronically. This is how phased arrays work — radar, 5G, satellite dishes.<br><br>Steering angle:<br><br>    sin(theta) = delta_phi × lambda / (2 pi d)<br><br>Where delta_phi is the phase difference between elements and d is their spacing.<br><br>## Friis Equation<br><br>Power received vs distance:<br><br>    P_rx = P_tx × G_tx × G_rx × (lambda / (4 pi R))^2<br><br>The 1/R^2 dependence is why wireless range is limited. Doubling distance quarter the received power.<br><br>Also called the path loss.<br><br>## Antenna Types<br><br>- <strong>Wire:</strong> dipole, monopole, loop<br>- <strong>Aperture:</strong> horn, waveguide slot<br>- <strong>Reflector:</strong> parabolic, corner<br>- <strong>Array:</strong> phased array, Yagi<br>- <strong>Planar:</strong> patch, PIFA (in phones)<br>- <strong>Chip:</strong> tiny ceramic antennas for IoT<br><br>## Applications<br><br>- Cellular base stations (sector antennas)<br>- Wi-Fi routers (dipoles)<br>- GPS receivers (patch)<br>- Radar (phased arrays)<br>- Radio telescopes (huge parabolic dishes)<br>- Satellites (horn, reflector)<br>- RFID tags (small loops)<br><br>## Key Takeaways<br><br>- Antennas convert guided to free-space waves<br>- Gain, directivity, efficiency, polarization describe antennas<br>- Half-wave dipole: R_rad = 73 ohm, gain 2.15 dBi<br>- Arrays steer beams electronically<br>- Friis equation: P_rx ~ 1/R^2<br>- Many types: wire, aperture, array, planar<br>- Antenna size scales with wavelength<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Waveguides and Microwave Engineering</h4>
+          <p>
+## Waveguides
+
+At microwave frequencies (GHz and above), transmission lines become lossy. Waveguides — hollow metal tubes — guide EM waves with much lower loss.
+
+Standard: rectangular waveguide with cross-section a...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Waveguides<br><br>At microwave frequencies (GHz and above), transmission lines become lossy. Waveguides — hollow metal tubes — guide EM waves with much lower loss.<br><br>Standard: rectangular waveguide with cross-section a × b.<br><br>## Waveguide Modes<br><br>Waves propagate in specific patterns called modes:<br>- <strong>TE (transverse electric):</strong> no E in the direction of propagation<br>- <strong>TM (transverse magnetic):</strong> no H in the direction of propagation<br>- <strong>TEM:</strong> both E and H transverse (only in coax, not hollow waveguide)<br><br>TE10 is the dominant mode in rectangular waveguide (lowest cutoff).<br><br>## Cutoff Frequency<br><br>Each mode has a cutoff frequency below which it doesn't propagate:<br><br>    fc = c / (2a)  (for TE10)<br><br>Above cutoff, the wave propagates. Below, it decays exponentially (evanescent).<br><br>Waveguide size determines the frequency band. X-band (8-12 GHz) uses ~22 mm × 10 mm guide.<br><br>## Phase and Group Velocity<br><br>In a waveguide:<br><br>    v_phase × v_group = c^2<br><br>Phase velocity is faster than c (no information transferred).<br><br>Group velocity (energy propagation) is slower than c.<br><br>## Impedance<br><br>Waveguide impedance for TE10 mode:<br><br>    Z_TE = eta_0 / sqrt(1 - (fc/f)^2)<br><br>At cutoff, impedance goes to infinity. Far above, it approaches eta_0.<br><br>## Waveguide Components<br><br>- <strong>Flanges:</strong> mechanical connectors<br>- <strong>Bends and twists:</strong> change direction of propagation<br>- <strong>Tees:</strong> split power<br>- <strong>Couplers:</strong> sample a fraction of the power<br>- <strong>Isolators:</strong> pass one direction only<br>- <strong>Circulators:</strong> 3-port nonreciprocal device<br>- <strong>Filters:</strong> resonant cavities<br>- <strong>Loads:</strong> dummy terminations<br><br>## Microwave Circuit Design<br><br>At microwave frequencies, circuits are distributed. Transmission line sections replace lumped elements:<br><br>- Inductor: high-impedance line<br>- Capacitor: low-impedance line<br>- Resonator: lambda/2 or lambda/4 section<br><br>The Smith chart is the graphical tool for matching and analysis.<br><br>## Smith Chart<br><br>A polar plot of reflection coefficient Gamma. Transformations:<br>- Adding series line: rotate clockwise<br>- Adding series reactance: move along constant-R circle<br>- Adding shunt susceptance: move along constant-G circle<br><br>Still used today for RF design.<br><br>## Microwave Applications<br><br>- <strong>Radar:</strong> weather, air traffic, automotive (77 GHz)<br>- <strong>Satellite communications:</strong> Ku, Ka band<br>- <strong>5G:</strong> sub-6 GHz and mmWave (24-40 GHz)<br>- <strong>Microwave ovens:</strong> 2.45 GHz heating<br>- <strong>Medical:</strong> hyperthermia, ablation<br>- <strong>Material processing:</strong> sintering, drying<br><br>## Key Takeaways<br><br>- Waveguides for low-loss microwave transmission<br>- Modes: TE, TM, TEM<br>- Cutoff frequency depends on dimensions<br>- Phase velocity &gt; c, group velocity &lt; c<br>- Many components: bends, tees, isolators, filters<br>- Smith chart for matching<br>- Applications in radar, comms, heating, medical<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Electromagnetic Compatibility (EMC)</h4>
+          <p>
+## Why EMC?
+
+Electronic devices must work in the presence of electromagnetic interference (EMI) without causing interference themselves. This is regulated (FCC in US, CE in EU).
+
+Two aspects:
+- **Emission:** devic...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why EMC?<br><br>Electronic devices must work in the presence of electromagnetic interference (EMI) without causing interference themselves. This is regulated (FCC in US, CE in EU).<br><br>Two aspects:<br>- <strong>Emission:</strong> device doesn't emit too much EMI<br>- <strong>Immunity:</strong> device tolerates external EMI<br><br>## Sources of EMI<br><br>- Switching power supplies (SMPS)<br>- Digital clocks and high-speed data lines<br>- Motors and relays (arcing)<br>- Wireless transmitters (Wi-Fi, cellular)<br>- ESD (electrostatic discharge)<br>- Lightning<br><br>## Coupling Mechanisms<br><br><strong>Conducted:</strong> noise travels along wires (power lines, signal cables).<br><br><strong>Radiated:</strong> noise travels through the air as EM waves.<br><br><strong>Capacitive (electric field):</strong> between nearby conductors.<br><br><strong>Inductive (magnetic field):</strong> between nearby current loops.<br><br>## Grounding<br><br>A good ground is the foundation of EMC.<br><br><strong>Single-point ground:</strong> all returns meet at one point. Good for low-frequency, sensitive analog.<br><br><strong>Multi-point ground:</strong> ground plane. Good for high-frequency, digital.<br><br><strong>Hybrid:</strong> combine both, with capacitors or ferrites between.<br><br>Ground loops cause noise. Star grounding or transformer isolation breaks loops.<br><br>## Shielding<br><br>Metal enclosures block EM fields. Effectiveness depends on:<br>- Conductivity of the shield<br>- Thickness (skin depth)<br>- Frequency (higher frequency easier to block, but slots become antennas)<br><br>Skin depth:<br><br>    delta = sqrt(2 / (omega mu sigma))<br><br>At 1 MHz in copper: ~66 µm. At 1 GHz: ~2 µm.<br><br>Slots and holes in shields leak. Keep slots &lt; lambda/20 for good attenuation.<br><br>## Filtering<br><br>Common-mode chokes, ferrite beads, and EMI filters remove noise on cables.<br><br>Common-mode choke: two windings on a common core. Differential signal passes; common-mode noise is attenuated.<br><br>Ferrite bead: absorbs high-frequency energy as heat. Used on power and signal lines.<br><br>## PCB Layout for EMC<br><br>- Keep high-speed signals short<br>- Ground planes under high-speed traces<br>- Terminate transmission lines<br>- Avoid split ground planes<br>- Route noisy traces away from sensitive ones<br>- Use differential signaling for critical signals (USB, Ethernet, HDMI)<br>- Bypass capacitors at every IC<br><br>## ESD Protection<br><br>ESD can be 30 kV. It destroys ICs or causes soft failures.<br><br>Protection:<br>- TVS diodes (transient voltage suppressors)<br>- ESD diodes on I/O pins<br>- Series resistors to limit current<br>- Ground planes and proper layout<br><br>IEC 61000-4-2 defines ESD test standards: contact discharge 8 kV, air 15 kV.<br><br>## Regulatory Standards<br><br>- <strong>FCC Part 15:</strong> US, limits on radiated and conducted emissions<br>- <strong>CISPR 22/32:</strong> international emissions<br>- <strong>IEC 61000-4-x:</strong> immunity tests<br>- <strong>CE:</strong> EU marking, requires EMC compliance<br>- <strong>Automotive:</strong> CISPR 25, ISO 11452<br><br>Testing is done in anechoic chambers with calibrated antennas.<br><br>## Key Takeaways<br><br>- EMC: emission + immunity, regulated by law<br>- EMI sources: SMPS, digital, motors, wireless<br>- Coupling: conducted, radiated, capacitive, inductive<br>- Grounding: single-point for low freq, plane for high freq<br>- Shielding: works if slots &lt; lambda/20<br>- Filtering: common-mode chokes, ferrites<br>- PCB layout is critical for EMC<br>- ESD protection with TVS diodes<br>- Regulatory testing is mandatory<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Maxwell Equations, Plane Waves</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Starting from Maxwell equations in vacuum, derive the wave equation for E.</p>
+            <details><summary>Show Solution</summary><p>∇×E = -∂B/∂t. Take curl: ∇×(∇×E) = -∂(∇×B)/∂t. Use identity: ∇(∇·E) - ∇²E = -μ₀ε₀ ∂²E/∂t². In vacuum ∇·E = 0, so ∇²E = μ₀ε₀ ∂²E/∂t². Wave speed c = 1/√(μ₀ε₀).</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A uniform plane wave in vacuum has E = 10cos(6π×10⁸t - 2πz) âx V/m. Find frequency, wavelength, direction of propagation, and H field.</p>
+            <details><summary>Show Solution</summary><p>ω = 6π×10⁸ → f = 3×10⁸ Hz = 300 MHz. λ = c/f = 1 m. Direction: +z. η₀ = 377 Ω. H = (10/377)cos(ωt-2πz) ây = 26.5cos(...) ây mA/m.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Calculate the skin depth in copper at 60 Hz and at 1 GHz. (σ_Cu = 5.8×10⁷ S/m)</p>
+            <details><summary>Show Solution</summary><p>δ = √(2/(2πf × 4π×10⁻⁷ × 5.8×10⁷)). At 60 Hz: δ = √(2/(2π×60×4π×10⁻⁷×5.8×10⁷)) = 8.5 mm. At 1 GHz: δ = 2.1 µm. This is why RF currents flow on the surface.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Maxwell, Plane Waves, Transmission Lines</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> A 50Ω coaxial line is terminated with a 75Ω load. What is the reflection coefficient and VSWR?</p>
+            <details><summary>Show Solution</summary><p>Γ = (75-50)/(75+50) = 25/125 = 0.2. VSWR = (1+0.2)/(1-0.2) = 1.5.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Calculate the critical angle for total internal reflection at a glass-air interface (n_glass = 1.5).</p>
+            <details><summary>Show Solution</summary><p>sin(θ_c) = n₂/n₁ = 1/1.5 = 0.667. θ_c = 41.8°.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A quarter-wave dipole antenna operates at 100 MHz. Find its physical length and input impedance.</p>
+            <details><summary>Show Solution</summary><p>λ = c/f = 3m. Half-wave dipole length = λ/2 = 1.5 m. Input impedance ≈ 73Ω. A quarter-wave monopole would be 0.75 m with ~36Ω impedance.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

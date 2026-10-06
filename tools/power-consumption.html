@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power Consumption Calculator | Free Online Calculator | TechPulse</title>
+  <meta name="description" content="Estimate electricity cost for any appliance given wattage and hours per day.">
+  <meta name="keywords" content="power, cost, electricity, kwh, appliance">
+  <link rel="canonical" href="https://www.pulsehig.com/tools/power-consumption.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/tools/power-consumption.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://www.pulsehig.com/tools/power-consumption.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/tools/power-consumption.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/tools/power-consumption.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/tools/power-consumption.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/tools/power-consumption.html?lang=pt">
+  <link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/tools/power-consumption.html">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TechPulse">
+  <meta property="og:title" content="Power Consumption Calculator">
+  <meta property="og:description" content="Estimate electricity cost for any appliance given wattage and hours per day.">
+  <meta property="og:url" content="https://www.pulsehig.com/tools/power-consumption.html">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="stylesheet" href="/css/style.css?v=20261007">
+  <script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Power Consumption Calculator","description":"Estimate electricity cost for any appliance given wattage and hours per day.","url":"https://www.pulsehig.com/tools/power-consumption.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Web Browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.pulsehig.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://www.pulsehig.com/tools.html"},{"@type":"ListItem","position":3,"name":"Power Consumption Calculator","item":"https://www.pulsehig.com/tools/power-consumption.html"}]}]}</script>
+</head>
+<body>
+  <div class="ticker" aria-label="Tools ticker">
+    <span class="ticker-label">🛠️ Tool</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="/index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation"><a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-page-wrap" style="max-width:780px;margin:24px auto 60px">
+      <nav class="breadcrumb" style="margin-bottom:16px" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a> &gt; <a href="/tools.html">Tools</a> &gt; <span>Power Consumption Calculator</span>
+      </nav>
+
+      <div class="tool-hero" style="background:var(--bg-alt);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:24px">
+        <div style="font-size:3rem;line-height:1;margin-bottom:8px">💡</div>
+        <span class="tool-cat-badge" style="display:inline-block;background:var(--primary-soft);color:var(--primary);font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:999px;text-transform:uppercase">Power</span>
+        <h1 style="font-size:clamp(1.4rem,3vw,1.9rem);margin:10px 0">Power Consumption Calculator</h1>
+        <p style="color:var(--text-muted);line-height:1.6">Estimate electricity cost for any appliance given wattage and hours per day.</p>
+      </div>
+
+      <div class="tool-card" id="toolContainer" style="background:var(--bg-alt);border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <p class="loading-state">Loading calculator...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <script src="/js/live-news.js?v=20261007"></script>
+  <script src="/js/common.js?v=20261007"></script>
+  <script src="/js/i18n.js?v=20261007"></script>
+  <script src="/js/tool-engine.js?v=20261007" defer></script>
+  <script>
+    // Auto-render the calculator for this tool
+    (function () {
+      var SLUG = "power-consumption";
+      document.addEventListener('DOMContentLoaded', function () {
+        // Prefill the tool loader with this slug
+        if (window.location.search.indexOf('slug=') === -1) {
+          history.replaceState(null, '', '/tool.html?slug=' + encodeURIComponent(SLUG));
+        }
+      });
+    })();
+  </script>
+  <script src="/tool.html?v=20261007" type="text/html" id="redirect-note"></script>
+  <script>
+    // Redirect to the working dynamic page while keeping URL clean for SEO
+    // The static page provides SEO; users land on the interactive version.
+    (function () {
+      var SLUG = "power-consumption";
+      var target = '/tool.html?slug=' + encodeURIComponent(SLUG);
+      // We keep this static page for Google, but if JS is enabled, redirect on click
+      document.querySelectorAll('a[href="/tool.html"]').forEach(function (a) { a.href = target; });
+    })();
+  </script>
+</body>
+</html>

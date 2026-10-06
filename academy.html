@@ -41,6 +41,94 @@
     }
   }
   </script>
+  <style id="tp-courses-grid-fix">
+    /* Force multi-column grid for courses */
+    .academy-courses { margin: 40px 0; }
+    .courses-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .courses-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .courses-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+      gap: 20px !important;
+    }
+    .course-card {
+      background: var(--bg-alt) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      padding: 22px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      text-decoration: none !important;
+      color: var(--text) !important;
+      transition: all 0.25s ease !important;
+      box-shadow: 0 1px 2px rgba(15,23,42,0.06);
+    }
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.12) !important;
+      border-color: var(--primary) !important;
+    }
+    .course-card-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+    }
+    .course-card h3 {
+      font-size: 1.1rem !important;
+      margin: 0 !important;
+      line-height: 1.35 !important;
+      color: var(--text) !important;
+    }
+    .course-card .course-desc {
+      font-size: 0.9rem !important;
+      color: var(--text-muted) !important;
+      margin: 0 !important;
+      line-height: 1.5 !important;
+      flex: 1;
+    }
+    .course-card .course-meta {
+      display: flex !important;
+      gap: 12px !important;
+      flex-wrap: wrap !important;
+      font-size: 0.8rem !important;
+      color: var(--text-muted) !important;
+      padding-top: 12px !important;
+      border-top: 1px solid var(--border) !important;
+    }
+    .course-card .course-meta span {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+    }
+    .course-code {
+      display: inline-block !important;
+      padding: 4px 10px !important;
+      background: var(--primary-soft, #dbeafe) !important;
+      color: var(--primary, #2563eb) !important;
+      border-radius: 6px !important;
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.03em;
+    }
+    .course-icon {
+      font-size: 1.8rem !important;
+      line-height: 1 !important;
+      flex-shrink: 0;
+    }
+    @media (max-width: 720px) {
+      .courses-header { flex-direction: column; align-items: flex-start; }
+      .courses-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -120,42 +208,6 @@
       <span class="trust-item">✅ 6 languages supported</span>
     </div>
 
-    <section class="academy-paths" aria-labelledby="pathsTitle">
-      <h2 class="section-heading" id="pathsTitle" data-i18n="academy_learning_paths">📚 Learning Paths</h2>
-      <div class="paths-grid">
-        <a href="academy.html?path=electrical" class="path-card path-ee">
-          <div class="path-icon">⚡</div>
-          <h3 data-i18n="academy_path_electrical">Electrical Engineering</h3>
-          <p>Circuits, Signals, Control, Electromagnetics</p>
-          <span class="path-count">6 courses →</span>
-        </a>
-        <a href="academy.html?path=cs" class="path-card path-cs">
-          <div class="path-icon">💻</div>
-          <h3 data-i18n="academy_path_cs">Computer Science</h3>
-          <p>Programming, Algorithms, OS, Compilers</p>
-          <span class="path-count">6 courses →</span>
-        </a>
-        <a href="academy.html?path=embedded" class="path-card path-embedded">
-          <div class="path-icon">🔌</div>
-          <h3 data-i18n="academy_path_embedded">Embedded Systems</h3>
-          <p>Digital Design, Microprocessors, Real-Time</p>
-          <span class="path-count">4 courses →</span>
-        </a>
-        <a href="academy.html?path=ai" class="path-card path-ai">
-          <div class="path-icon">🤖</div>
-          <h3 data-i18n="academy_path_ai">AI &amp; Machine Learning</h3>
-          <p>ML, Deep Learning, NLP, Robotics</p>
-          <span class="path-count">4 courses →</span>
-        </a>
-        <a href="academy.html?path=mechanical" class="path-card path-me">
-          <div class="path-icon">⚙️</div>
-          <h3 data-i18n="academy_path_mechanical">Mechanical Engineering</h3>
-          <p>Thermodynamics, Fluids, Heat Transfer</p>
-          <span class="path-count">4 courses →</span>
-        </a>
-      </div>
-    </section>
-
     <section class="academy-courses" aria-labelledby="coursesTitle">
       <div class="courses-header">
         <h2 class="section-heading" id="coursesTitle" data-i18n="academy_all_courses">🎯 All Courses</h2>
@@ -177,45 +229,6 @@
       <h3 id="dykTitle">💡 Did You Know?</h3>
       <p id="dykContent">Loading...</p>
       <span class="dyk-source" id="dykSource"></span>
-    </section>
-
-    <section class="academy-testimonials" aria-labelledby="testimonialsTitle">
-      <h2 class="section-heading" id="testimonialsTitle" data-i18n="academy_students_say">🎤 What Students Say</h2>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <p>I passed my Circuits final thanks to the step-by-step solutions. Better than my textbook.</p>
-          <div class="testimonial-author">
-            <div class="lb-avatar">A</div>
-            <div><strong>Ahmed R.</strong><small>EE Student, Cairo University</small></div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <p>The algorithms section covered everything from my Berkeley CS61B course, with clearer explanations.</p>
-          <div class="testimonial-author">
-            <div class="lb-avatar">S</div>
-            <div><strong>Sarah L.</strong><small>CS Student, UC Berkeley</small></div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <p>Finally, engineering content that's free and actually rigorous. Bookmarked forever.</p>
-          <div class="testimonial-author">
-            <div class="lb-avatar">Y</div>
-            <div><strong>Yuki T.</strong><small>MechE Student, Tokyo Tech</small></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="academy-universities" aria-labelledby="universitiesTitle">
-      <h2 class="section-heading" id="universitiesTitle" data-i18n="academy_universities">🏛 Curricula We Follow</h2>
-      <div class="universities-grid">
-        <div class="uni-card"><div class="uni-logo">MIT</div><div>Massachusetts Institute of Technology</div></div>
-        <div class="uni-card"><div class="uni-logo">SU</div><div>Stanford University</div></div>
-        <div class="uni-card"><div class="uni-logo">UCB</div><div>UC Berkeley</div></div>
-        <div class="uni-card"><div class="uni-logo">CMU</div><div>Carnegie Mellon University</div></div>
-        <div class="uni-card"><div class="uni-logo">PU</div><div>Princeton University</div></div>
-        <div class="uni-card"><div class="uni-logo">CT</div><div>Caltech</div></div>
-      </div>
     </section>
 
   </main>
@@ -280,31 +293,6 @@
       border-radius: var(--radius); margin: 16px 0 32px; font-size: 0.85rem;
     }
     .trust-item { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; color: var(--text); }
-    .academy-paths { margin: 40px 0; }
-    .paths-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 20px; }
-    .path-card {
-      background: var(--bg-alt); border: 2px solid var(--border); border-radius: var(--radius-lg);
-      padding: 28px 24px; text-decoration: none; color: var(--text); display: flex;
-      flex-direction: column; gap: 10px; transition: all var(--transition);
-      position: relative; overflow: hidden;
-    }
-    .path-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); border-color: var(--primary); }
-    .path-icon { font-size: 2.6rem; line-height: 1; margin-bottom: 4px; }
-    .path-card h3 { font-size: 1.1rem; margin: 0; }
-    .path-card p { color: var(--text-muted); font-size: 0.88rem; margin: 0; flex: 1; }
-    .path-count { color: var(--primary); font-weight: 600; font-size: 0.88rem; }
-    .academy-courses { margin: 40px 0; }
-    .courses-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
-    .courses-filters { display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter-chip { background: var(--bg-soft); color: var(--text-muted); padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 500; border: 1px solid transparent; cursor: pointer; font-family: inherit; transition: all var(--transition); }
-    .filter-chip:hover { background: var(--primary-soft); color: var(--primary); }
-    .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-    .course-card {
-      background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 22px; display: flex; flex-direction: column; gap: 12px; transition: all var(--transition);
-      text-decoration: none; color: var(--text);
-    }
     .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
     .course-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
     .course-code { display: inline-block; background: var(--primary-soft); color: var(--primary); font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.03em; }
@@ -312,22 +300,6 @@
     .course-card h3 { font-size: 1.05rem; margin: 0; line-height: 1.35; }
     .course-card .course-desc { font-size: 0.88rem; color: var(--text-muted); margin: 0; flex: 1; line-height: 1.5; }
     .course-card .course-meta { display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-muted); padding-top: 10px; border-top: 1px solid var(--border); }
-    .academy-testimonials { margin: 40px 0; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-    .testimonial-card { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-sm); }
-    .testimonial-card > p { font-size: 0.95rem; line-height: 1.6; color: var(--text); font-style: italic; margin: 0; flex: 1; }
-    .testimonial-author { display: flex; align-items: center; gap: 12px; }
-    .testimonial-author small { display: block; color: var(--text-muted); font-size: 0.78rem; }
-    .lb-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #7c3aed); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-    .academy-universities { margin: 40px 0; }
-    .universities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 20px; }
-    .uni-card { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; transition: all var(--transition); display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; }
-    .uni-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-    .uni-logo { font-weight: 900; font-size: 1.4rem; color: var(--primary); background: var(--primary-soft); width: 60px; height: 60px; margin: 0 auto 4px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    @media (max-width: 720px) {
-      .academy-hero { padding: 32px 20px; }
-      .courses-header { flex-direction: column; align-items: flex-start; }
-    }
   </style>
 
   <script src="js/live-news.js?v=20261005"></script>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microcomputer Project Lab — MIT | TechPulse Academy</title>
+<meta name="description" content="Hands-on microcontroller design, A/D conversion, interfacing sensors, motors, and LCD displays.">
+<link rel="canonical" href="https://www.pulsehig.com/course/microcontrollers.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/microcontrollers.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/microcontrollers.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/microcontrollers.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/microcontrollers.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/microcontrollers.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/microcontrollers.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/microcontrollers.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Microcomputer Project Lab">
+<meta property="og:description" content="Hands-on microcontroller design, A/D conversion, interfacing sensors, motors, and LCD displays.">
+<meta property="og:url" content="https://www.pulsehig.com/course/microcontrollers.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Microcomputer Project Lab","description":"Hands-on microcontroller design, A/D conversion, interfacing sensors, motors, and LCD displays.","provider":{"@type":"Organization","name":"MIT"},"url":"https://www.pulsehig.com/course/microcontrollers.html","courseCode":"MIT 6.115","hasCourseInstance":[{"@type":"CourseInstance","name":"Microcontroller Architecture and Programming","courseMode":"online"},{"@type":"CourseInstance","name":"Interfacing Sensors and Actuators","courseMode":"online"},{"@type":"CourseInstance","name":"Real-Time Programming Techniques","courseMode":"online"},{"@type":"CourseInstance","name":"Communication Protocols in Embedded Systems","courseMode":"online"},{"@type":"CourseInstance","name":"Embedded Systems Project Design","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Microcomputer Project Lab</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">MIT 6.115 · MIT</span>
+      <h1>Microcomputer Project Lab</h1>
+      <p>Hands-on microcontroller design, A/D conversion, interfacing sensors, motors, and LCD displays.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">30h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Microcontroller Architecture and Programming</h4>
+          <p>
+## What is a Microcontroller?
+
+A microcontroller (MCU) is a complete computer on a chip:
+- CPU core
+- Flash memory (program)
+- RAM (data)
+- Peripherals (GPIO, timers, ADC, UART, SPI, I2C)
+- Clock and power manag...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is a Microcontroller?<br><br>A microcontroller (MCU) is a complete computer on a chip:<br>- CPU core<br>- Flash memory (program)<br>- RAM (data)<br>- Peripherals (GPIO, timers, ADC, UART, SPI, I2C)<br>- Clock and power management<br><br>Unlike a microprocessor (which needs external RAM, ROM, and I/O), an MCU is self-contained. Perfect for embedded control.<br><br>## Popular MCU Families<br><br>- <strong>8-bit:</strong> ATmega (Arduino), PIC, 8051<br>- <strong>16-bit:</strong> MSP430 (ultra-low power)<br>- <strong>32-bit:</strong> ARM Cortex-M (STM32, nRF), ESP32, RISC-V<br>- <strong>DSP:</strong> TI C2000, ADI SHARC<br><br>ARM Cortex-M dominates the 32-bit space.<br><br>## Memory Map<br><br>Typical MCU layout (ARM Cortex-M):<br>- 0x00000000: Flash (program)<br>- 0x20000000: SRAM (data)<br>- 0x40000000: Peripherals (GPIO, timers, UART)<br>- 0xE0000000: System control (NVIC, SysTick)<br><br>Memory-mapped I/O: peripherals are accessed like memory. Reading/writing a register controls the hardware.<br><br>## GPIO<br><br>General-Purpose Input/Output pins. Each pin can be:<br>- Input (read external state)<br>- Output (drive high or low)<br>- Alternate function (UART, SPI, etc.)<br>- Analog (ADC input)<br><br>Configured via registers:<br><br>    // Set pin 5 as output (AVR)<br>    DDRB |= (1 &lt;&lt; 5);<br>    PORTB |= (1 &lt;&lt; 5);  // high<br><br>Or via HAL:<br><br>    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);<br><br>## Bit Manipulation<br><br>Embedded C uses bit operations extensively:<br><br>    x |= (1 &lt;&lt; n);    // set bit n<br>    x &amp;= ~(1 &lt;&lt; n);   // clear bit n<br>    x ^= (1 &lt;&lt; n);    // toggle bit n<br>    y = (x &gt;&gt; n) &amp; 1; // read bit n<br><br>Bit fields and macros make this cleaner:<br><br>    #define BIT(n) (1 &lt;&lt; (n))<br>    #define SET_BIT(reg, bit) ((reg) |= BIT(bit))<br><br>## Interrupts<br><br>External events trigger interrupts. The CPU:<br>1. Saves context<br>2. Jumps to ISR (interrupt service routine)<br>3. Executes ISR<br>4. Restores context<br>5. Returns to main<br><br>Keep ISRs short. Do heavy work in the main loop.<br><br>## Timers and Counters<br><br>Hardware timers count clock edges:<br>- Generate delays without blocking<br>- Measure pulse widths<br>- Generate PWM<br>- Count external events<br><br>16-bit timer at 16 MHz: max period = 65535/16e6 = 4 ms. Prescaler extends range.<br><br>## ADC (Analog to Digital Converter)<br><br>Converts analog voltage to digital number:<br>- Resolution: 8, 10, 12, 16 bits<br>- Sample rate: up to MSps<br>- Input range: typically 0 to V_ref<br><br>Example: 12-bit ADC with V_ref = 3.3 V gives 3.3/4096 = 0.8 mV resolution.<br><br>## Serial Protocols<br><br>- <strong>UART:</strong> asynchronous, 2 wires (TX/RX)<br>- <strong>SPI:</strong> synchronous, 4 wires, high speed<br>- <strong>I2C:</strong> synchronous, 2 wires, multiple devices<br><br>Each has trade-offs. UART simplest, SPI fastest, I2C most devices.<br><br>## Programming Workflow<br><br>1. Write C code<br>2. Compile with cross-compiler (gcc-arm-none-eabi)<br>3. Link with startup and libraries<br>4. Program flash via JTAG/SWD/bootloader<br>5. Debug via GDB + hardware debugger<br><br>Tools: Arduino IDE, PlatformIO, STM32CubeIDE, ESP-IDF.<br><br>## Key Takeaways<br><br>- MCU = CPU + memory + peripherals on one chip<br>- Memory-mapped I/O for peripherals<br>- GPIO for digital I/O, configured by registers<br>- Interrupts for responsive event handling<br>- Timers for delays, PWM, measurement<br>- ADC for analog input<br>- UART/SPI/I2C for serial communication<br>- Cross-compile and flash via debugger<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Interfacing Sensors and Actuators</h4>
+          <p>
+## Sensors Overview
+
+Sensors convert physical quantities to electrical signals:
+
+- **Temperature:** thermistor, RTD, thermocouple, digital (DS18B20, DHT22)
+- **Pressure:** strain gauge, piezo, capacitive
+- **Ligh...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Sensors Overview<br><br>Sensors convert physical quantities to electrical signals:<br><br>- <strong>Temperature:</strong> thermistor, RTD, thermocouple, digital (DS18B20, DHT22)<br>- <strong>Pressure:</strong> strain gauge, piezo, capacitive<br>- <strong>Light:</strong> photoresistor (LDR), photodiode, digital (BH1750)<br>- <strong>Motion:</strong> PIR, accelerometer, gyroscope, IMU<br>- <strong>Distance:</strong> ultrasonic (HC-SR04), IR, laser (VL53L0X)<br>- <strong>Humidity:</strong> capacitive, resistive<br><br>Each has specific interface requirements.<br><br>## Analog Sensors<br><br>Output voltage or current proportional to the physical quantity.<br><br><strong>Thermistor:</strong> resistance varies with temperature. Need voltage divider + ADC.<br><br><strong>Strain gauge:</strong> tiny resistance change under strain. Need instrumentation amplifier (INA) + ADC.<br><br><strong>Photodiode:</strong> tiny current. Need transimpedance amplifier (TIA) + ADC.<br><br>Analog sensors need signal conditioning: amplification, filtering, level shifting.<br><br>## Digital Sensors<br><br>On-chip ADC and digital interface (I2C or SPI).<br><br><strong>DS18B20:</strong> 1-Wire digital temperature. Range -55 to +125°C, ±0.5°C accuracy.<br><br><strong>BME280:</strong> I2C/SPI. Temperature, humidity, pressure.<br><br><strong>MPU6050:</strong> I2C. 3-axis accelerometer + 3-axis gyroscope.<br><br>Advantages: no external ADC, calibrated, digital noise immunity.<br><br>## I2C Communication<br><br>Two wires: SDA (data) and SCL (clock). Multiple devices share the bus.<br><br>    Wire.beginTransmission(0x68);   // MPU6050 address<br>    Wire.write(0x75);               // WHO_AM_I register<br>    Wire.endTransmission(false);<br>    Wire.requestFrom(0x68, 1);<br>    byte id = Wire.read();<br><br>Pull-up resistors on both lines (2.2k-10k). Speeds: 100 kHz, 400 kHz, 1 MHz.<br><br>## SPI Communication<br><br>Four wires: MOSI, MISO, SCK, CS.<br><br>    digitalWrite(CS, LOW);<br>    SPI.transfer(0x80 | reg);<br>    byte value = SPI.transfer(0x00);<br>    digitalWrite(CS, HIGH);<br><br>Faster than I2C (up to 50 MHz), but needs one CS per device.<br><br>## Actuators<br><br>Output devices:<br>- <strong>LEDs:</strong> direct (with resistor), or via transistor for high power<br>- <strong>Relays:</strong> switch AC/DC loads, need driver + flyback diode<br>- <strong>Motors:</strong> DC, stepper, servo — need H-bridge or driver IC<br>- <strong>Solenoids:</strong> like relays, inductive load<br>- <strong>Piezo buzzers:</strong> direct or via transistor<br>- <strong>Displays:</strong> LCD, OLED, e-ink, TFT<br><br>## Driving Loads<br><br>GPIO can source/sink ~20 mA. For more, use:<br>- <strong>BJT:</strong> current-controlled, need base resistor<br>- <strong>MOSFET:</strong> voltage-controlled, logic-level needed<br>- <strong>Relay:</strong> opto-isolated module recommended<br><br>Example MOSFET circuit:<br><br>    GPIO ── 220Ω ── Gate<br>                    │<br>                   10kΩ to GND<br>                   <br>    Drain ── Load ── +12V<br>    Source ── GND<br><br>## PWM for Actuator Control<br><br>Pulse-width modulation controls average power:<br><br>- LED dimming: 1-2 kHz<br>- Motor speed: 10-25 kHz<br>- Servo position: 50 Hz, 1-2 ms pulses<br>- Heater: 1 Hz<br><br>AnalogWrite() on Arduino, LEDC on ESP32.<br><br>## Motor Drivers<br><br><strong>H-bridge:</strong> controls direction + speed of DC motor. L293D, L298N, DRV8833.<br><br><strong>Stepper driver:</strong> A4988, DRV8825. Takes step + direction signals.<br><br><strong>Servo:</strong> built-in control, just send pulses.<br><br>## Sensor Fusion<br><br>Combining multiple sensors for better accuracy:<br><br>- IMU: accelerometer + gyroscope + magnetometer<br>- Kalman filter or complementary filter<br>- E.g., Bosch BNO055 does fusion in hardware<br><br>## Signal Conditioning<br><br>- <strong>Amplification:</strong> op-amp for small signals<br>- <strong>Filtering:</strong> RC low-pass to remove noise<br>- <strong>Isolation:</strong> opto-couplers for high voltage<br>- <strong>Level shifting:</strong> 3.3V ↔ 5V with MOSFETs or dedicated ICs<br><br>## Key Takeaways<br><br>- Many sensor types: analog, digital, MEMS<br>- I2C/SPI for digital sensors<br>- GPIO drives small loads; MOSFETs/BJTs for larger<br>- PWM controls power to actuators<br>- Motor drivers for DC, stepper, servo<br>- Sensor fusion improves accuracy<br>- Signal conditioning is often required<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Real-Time Programming Techniques</h4>
+          <p>
+## The Superloop
+
+Simple structure:
+
+    while (1) {
+        read_sensors();
+        update_state();
+        drive_outputs();
+    }
+
+Works for simple tasks. Fails when timing is critical or tasks compete.
+
+...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Superloop<br><br>Simple structure:<br><br>    while (1) {<br>        read_sensors();<br>        update_state();<br>        drive_outputs();<br>    }<br><br>Works for simple tasks. Fails when timing is critical or tasks compete.<br><br>## Cooperative Scheduling<br><br>Each task runs when it's ready:<br><br>    while (1) {<br>        if (time_for_task_a()) task_a();<br>        if (time_for_task_b()) task_b();<br>        // never blocks<br>    }<br><br>Each task must return quickly. No long delays.<br><br>## Non-Blocking Delays<br><br>Never use delay() in a loop with multiple tasks. Instead:<br><br>    unsigned long last = 0;<br>    const unsigned long INTERVAL = 100;<br>    <br>    void loop() {<br>        if (millis() - last &gt;= INTERVAL) {<br>            last = millis();<br>            do_periodic_work();<br>        }<br>        do_other_work();<br>    }<br><br>millis() rolls over every ~49 days. The subtraction is rollover-safe.<br><br>## State Machines<br><br>Replace nested if/else with explicit states:<br><br>    enum State { IDLE, HEATING, COOLING };<br>    State current = IDLE;<br>    <br>    void loop() {<br>        switch (current) {<br>            case IDLE:<br>                if (temp &lt; setpoint - 1) current = HEATING;<br>                break;<br>            case HEATING:<br>                heater_on();<br>                if (temp &gt;= setpoint) current = IDLE;<br>                break;<br>            case COOLING:<br>                fan_on();<br>                if (temp &lt;= setpoint) current = IDLE;<br>                break;<br>        }<br>    }<br><br>Clearer, easier to modify, less buggy.<br><br>## Interrupt-Driven Design<br><br>Main loop handles logic; ISRs handle timing-critical events:<br><br>    volatile bool button_pressed = false;<br>    <br>    void button_isr() {<br>        button_pressed = true;<br>    }<br>    <br>    void loop() {<br>        if (button_pressed) {<br>            button_pressed = false;<br>            handle_button();<br>        }<br>    }<br><br>Use volatile for variables shared between ISR and main.<br><br>## Watchdog Timer<br><br>Reset the CPU if it hangs:<br><br>    wdt_enable(WDTO_2S);   // 2 second timeout<br>    <br>    void loop() {<br>        wdt_reset();  // feed the watchdog<br>        do_work();<br>    }<br><br>If do_work() hangs for 2s, the CPU resets. Recovers from lockups.<br><br>## Watchdog for Reliability<br><br>For deployed devices:<br>- Enable watchdog<br>- Log reset reason on startup<br>- Retry failed operations<br>- Use brown-out detection<br><br>An ESP32 in the field may run for years. The watchdog is essential.<br><br>## Real-Time Constraints<br><br>Some operations must complete within a deadline:<br><br>- Motor commutation: microseconds<br>- Control loops: milliseconds<br>- User interface: ~100 ms<br>- Data logging: seconds<br><br>Match technique to constraint:<br>- Microseconds: hardware peripherals, DMA<br>- Milliseconds: interrupt-driven, RTOS<br>- Seconds: cooperative scheduling<br><br>## Power Management<br><br>For battery-powered devices:<br>- Sleep modes (idle, standby, deep sleep)<br>- Wake on interrupt or timer<br>- Turn off unused peripherals<br>- Lower clock frequency<br>- Use DMA to avoid CPU wake-ups<br><br>ESP32 deep sleep: 10 µA. Wake every 5 min for 3s: average current ~80 µA.<br><br>## Debugging Techniques<br><br>- <strong>printf debugging:</strong> simple, effective, but slow<br>- <strong>Logic analyzer:</strong> capture digital signals<br>- <strong>Oscilloscope:</strong> view analog waveforms<br>- <strong>JTAG/SWD:</strong> step through code<br>- <strong>LED toggling:</strong> poor man's trace<br>- <strong>Serial logging:</strong> extensive, structured<br><br>## Common Bugs<br><br>- <strong>Buffer overflow:</strong> reading beyond array bounds<br>- <strong>Race condition:</strong> ISR and main accessing shared data<br>- <strong>Non-volatile variable:</strong> compiler optimizes away<br>- <strong>Stack overflow:</strong> recursion or large local variables<br>- <strong>Watchdog reset loop:</strong> main loop starves watchdog<br>- <strong>Priority inversion:</strong> with RTOS<br><br>## Key Takeaways<br><br>- Superloop for simple tasks<br>- Cooperative scheduling with non-blocking delays<br>- State machines for complex logic<br>- Interrupts for timing-critical events<br>- Watchdog for reliability<br>- Power management for battery life<br>- Match technique to timing constraint<br>- Debug with scope, logic analyzer, JTAG<br>- Watch for classic embedded bugs<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Communication Protocols in Embedded Systems</h4>
+          <p>
+## UART — Universal Asynchronous Receiver/Transmitter
+
+Two wires (TX, RX). No clock. Baud rate agreed in advance.
+
+Frame: start bit, 7-8 data bits, optional parity, stop bit(s).
+
+Common baud: 9600, 115200, 921600...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## UART — Universal Asynchronous Receiver/Transmitter<br><br>Two wires (TX, RX). No clock. Baud rate agreed in advance.<br><br>Frame: start bit, 7-8 data bits, optional parity, stop bit(s).<br><br>Common baud: 9600, 115200, 921600.<br><br>    Serial.begin(115200);<br>    Serial.println("Hello");<br>    if (Serial.available()) {<br>        char c = Serial.read();<br>    }<br><br>Pros: simple, universal. Cons: point-to-point, modest speed.<br><br>## I2C — Inter-Integrated Circuit<br><br>Two wires (SDA, SCL). Multi-drop: up to 127 devices, each with unique address.<br><br>7-bit addressing. Standard speeds: 100 kHz, 400 kHz, 1 MHz.<br><br>Needs pull-up resistors: typically 4.7kΩ.<br><br>    Wire.begin();<br>    Wire.beginTransmission(0x48);<br>    Wire.write(0x00);<br>    Wire.endTransmission();<br>    Wire.requestFrom(0x48, 2);<br><br>Pros: only 2 pins for many devices. Cons: slower, sensitive to bus capacitance.<br><br>## SPI — Serial Peripheral Interface<br><br>Four wires (SCLK, MOSI, MISO, CS). Full duplex. High speed (10-50 MHz).<br><br>Each device needs its own CS pin.<br><br>    SPI.begin();<br>    digitalWrite(CS, LOW);<br>    SPI.transfer(0x80);<br>    uint8_t high = SPI.transfer(0x00);<br>    uint8_t low = SPI.transfer(0x00);<br>    digitalWrite(CS, HIGH);<br><br>Pros: fast, full duplex. Cons: more pins, no standard addressing.<br><br>## CAN — Controller Area Network<br><br>Automotive standard. Two wires (CANH, CANL), differential.<br><br>Multi-master. Priority via message ID. Automatic retransmission. CRC.<br><br>Speed: up to 1 Mbps (classic), 8 Mbps (CAN FD).<br><br>Used in every modern car for engine, brakes, dashboard.<br><br>    // With MCP2515 controller<br>    CAN.sendMsgBuf(0x100, 0, 8, data);<br><br>## RS-485<br><br>Differential serial for industrial environments. Up to 1200 m cable, 10 Mbps.<br><br>Multi-drop: up to 32 devices (or 256 with repeaters).<br><br>Used with Modbus protocol in factory automation.<br><br>## Modbus<br><br>Industrial protocol. Master-slave. Runs over RS-485 or TCP.<br><br>Data model: coils (bits), discrete inputs, holding registers, input registers.<br><br>    // Read holding register 100 on slave 1<br>    uint16_t value = modbus.readHoldingRegister(1, 100);<br><br>## 1-Wire<br><br>Single wire + ground. Dallas Semiconductor (now Maxim).<br><br>Used for DS18B20 temperature sensors, iButton.<br><br>Addressing: 64-bit unique ID per device.<br><br>    sensors.requestTemperatures();<br>    float temp = sensors.getTempCByIndex(0);<br><br>## MQTT<br><br>High-level protocol over TCP. Publish-subscribe.<br><br>Broker (Mosquitto, EMQX) routes messages. Clients publish to topics and subscribe.<br><br>Topics hierarchical: home/livingroom/temperature.<br><br>QoS levels: 0 (at most once), 1 (at least once), 2 (exactly once).<br><br>    client.publish("home/temp", "22.5");<br>    client.subscribe("home/+/setpoint");<br><br>Used in IoT, smart home, industrial.<br><br>## LoRa / LoRaWAN<br><br>Long-range, low-power wireless. 10-15 km range in rural areas.<br><br>Data rate: 0.3-50 kbps. Very low power.<br><br>Used for remote sensors, smart agriculture, city infrastructure.<br><br>## BLE — Bluetooth Low Energy<br><br>Wireless, low-power. Pairs with phones.<br><br>GATT profile: services and characteristics.<br><br>Used in wearables, beacons, medical devices.<br><br>## Choosing the Right Protocol<br><br>| Need | Protocol |<br>|------|----------|<br>| Simple serial | UART |<br>| Many sensors, few pins | I2C |<br>| High speed, chip-to-chip | SPI |<br>| Automotive | CAN |<br>| Industrial, long cable | RS-485 |<br>| IoT, WiFi/internet | MQTT |<br>| Long range, low power | LoRa |<br>| Phone pairing | BLE |<br><br>## Key Takeaways<br><br>- UART: simple, point-to-point<br>- I2C: many devices, 2 pins, moderate speed<br>- SPI: fast, full-duplex, more pins<br>- CAN: automotive, robust, prioritized<br>- RS-485/Modbus: industrial, long cable<br>- MQTT: IoT, publish-subscribe, over TCP<br>- LoRa: long-range, low-power wireless<br>- BLE: phone pairing, wearables<br>- Choose based on speed, range, power, cost<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Embedded Systems Project Design</h4>
+          <p>
+## From Idea to Product
+
+Embedded development is not just coding. It&#39;s:
+
+1. Requirements (what does it need to do?)
+2. Architecture (how is it organized?)
+3. Hardware design (schematic, PCB)
+4. Firmware design (...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## From Idea to Product<br><br>Embedded development is not just coding. It's:<br><br>1. Requirements (what does it need to do?)<br>2. Architecture (how is it organized?)<br>3. Hardware design (schematic, PCB)<br>4. Firmware design (modules, interfaces)<br>5. Testing (unit, integration, HIL)<br>6. Deployment (programming, calibration)<br>7. Maintenance (updates, bug fixes)<br><br>## Requirements<br><br><strong>Functional:</strong> what the device does.<br><br><strong>Non-functional:</strong><br>- Timing (response time, sample rate)<br>- Power (battery life, quiescent current)<br>- Cost (BOM, assembly)<br>- Size, weight<br>- Environmental (temperature, humidity, shock)<br>- Regulatory (FCC, CE, UL)<br>- Reliability (MTBF, mission lifetime)<br><br>Write requirements before designing.<br><br>## Architecture<br><br>Block diagram showing:<br>- MCU and its peripherals<br>- Sensors and actuators<br>- Communication interfaces<br>- Power supply<br>- External interfaces (USB, display, buttons)<br><br>Decide early: what runs on MCU, what runs in hardware, what runs on the cloud.<br><br>## Hardware Design<br><br>Schematic capture → PCB layout → fabrication → assembly → test.<br><br>Key considerations:<br>- Power supply (LDO vs buck, efficiency)<br>- Decoupling capacitors on every IC<br>- Ground planes<br>- Trace width for current<br>- Connectors and mounting holes<br>- Test points for debugging<br><br>## Firmware Architecture<br><br>Layered:<br>- <strong>HAL (Hardware Abstraction Layer):</strong> register-level drivers<br>- <strong>Drivers:</strong> GPIO, UART, SPI, I2C, timers<br>- <strong>Middleware:</strong> RTOS, filesystems, network stacks<br>- <strong>Application:</strong> business logic<br><br>Each layer tested separately.<br><br>## Modular Design<br><br>Each module has:<br>- A clear interface (header file)<br>- A single responsibility<br>- Unit tests<br><br>Example modules for a data logger:<br>- <code>sensor.c</code> — reads temperature<br>- <code>storage.c</code> — writes to SD card<br>- <code>comms.c</code> — sends over Wi-Fi<br>- <code>main.c</code> — orchestrates<br><br>## Version Control<br><br>Use git for firmware:<br>- Commit often<br>- Tag releases<br>- Branch for features<br>- .gitignore for build artifacts<br><br>For collaborative work: code review, CI.<br><br>## Testing<br><br><strong>Unit tests:</strong> each module in isolation, on host.<br><br><strong>Integration tests:</strong> modules together, on target.<br><br><strong>Hardware-in-the-loop (HIL):</strong> real hardware, automated test.<br><br><strong>Field testing:</strong> actual deployment conditions.<br><br>Automated testing catches regressions early.<br><br>## Debugging Tools<br><br>- <strong>printf:</strong> simple, but slows code<br>- <strong>SWD/JTAG:</strong> step through code, inspect variables<br>- <strong>Logic analyzer:</strong> view SPI/I2C/UART traffic<br>- <strong>Oscilloscope:</strong> analog signals, timing<br>- <strong>Power profiler:</strong> measure current draw over time<br>- <strong>Segger RTT:</strong> fast printf alternative<br><br>## Power Budget<br><br>Sum the current draw of every component in every state:<br><br>- Active: MCU + sensors + radio<br>- Idle: MCU low-power + sensors off<br>- Sleep: only RTC + wake source<br><br>Weight by duty cycle to get average current.<br><br>Example:<br>- 10 mA for 3s every 5 min: 10 × 3 / 300 = 0.1 mA average<br>- 10 µA in deep sleep: 0.01 mA<br>- Total: 0.11 mA<br>- Battery 2000 mAh: 18,000 hours = 2 years<br><br>## Cost Optimization<br><br>- Choose parts with multiple sources<br>- Reduce BOM count (integrate functions)<br>- Use MCU with all needed peripherals<br>- Consider assembly cost (SMT vs THT)<br>- Volume pricing<br><br>A $1 difference in BOM = $10,000 per 10k units.<br><br>## Deployment<br><br>- Production programming (bulk flash)<br>- Calibration (per unit)<br>- Testing (functional test)<br>- Packaging and shipping<br><br>## Field Updates<br><br>- OTA firmware update (Wi-Fi, cellular, BLE)<br>- Bootloader with rollback<br>- Signed firmware for security<br>- Staged rollout (small % first)<br><br>## Maintenance<br><br>- Remote diagnostics (logs to cloud)<br>- Bug reports from users<br>- Crash dump analysis<br>- Metrics (uptime, error rates)<br><br>## Key Takeaways<br><br>- Requirements first, then design<br>- Layered firmware architecture<br>- Modular, testable modules<br>- Version control everything<br>- Multiple testing levels (unit, integration, HIL, field)<br>- Power budget drives battery life<br>- Cost optimization at scale<br>- Deployment needs production programming<br>- OTA updates are essential for IoT<br>- Maintenance is ongoing<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: GPIO, Interrupts, Communication</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Write C code to blink an LED on GPIO 5 every 500 ms using non-blocking millis().</p>
+            <details><summary>Show Solution</summary><p>unsigned long last = 0; void loop() { if (millis() - last &gt;= 500) { last = millis(); digitalWrite(5, !digitalRead(5)); } }</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Design an I2C temperature sensor interface. Why are pull-up resistors needed, and what value?</p>
+            <details><summary>Show Solution</summary><p>I2C lines are open-drain: the bus can only be pulled LOW. Pull-ups (2.2kΩ-10kΩ) restore HIGH when no device is pulling. Lower values → faster rise, more current. Higher values → slower rise, less current. Use 4.7kΩ for 100 kHz, 2.2kΩ for 400 kHz with typical bus capacitance.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Write pseudocode to read an HC-SR04 ultrasonic sensor and convert the echo time to distance.</p>
+            <details><summary>Show Solution</summary><p>digitalWrite(TRIG, LOW); delayMicroseconds(2); digitalWrite(TRIG, HIGH); delayMicroseconds(10); digitalWrite(TRIG, LOW); duration = pulseIn(ECHO, HIGH); distance_cm = duration × 0.034 / 2;</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Architecture, Peripherals, Protocols</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Choose between UART, I2C, SPI, and CAN for: (a) SD card, (b) temperature sensor, (c) automotive ECU, (d) USB-serial debug. Justify.</p>
+            <details><summary>Show Solution</summary><p>(a) SD card: SPI (fast, 25 MHz, simple). (b) Temperature sensor: I2C (2 wires, multiple devices). (c) Automotive ECU: CAN (differential, robust, priority). (d) USB-serial: UART (direct PC communication).</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Explain how an ISR and the main loop should cooperate to handle a button press without losing events.</p>
+            <details><summary>Show Solution</summary><p>ISR: sets a volatile flag or pushes event into a queue. ISR must be short — no heavy processing. Main loop polls flag/queue and does the real work. Use volatile for shared variables, and a mutex or critical section if data is complex. Alternatively use FreeRTOS notification.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A 12-bit ADC with Vref = 3.3V reads 2048. What is the input voltage? What is the resolution in mV/LSB?</p>
+            <details><summary>Show Solution</summary><p>Resolution = 3.3 / 4096 = 0.806 mV/LSB. Reading 2048 → V = 2048 × 0.806mV = 1.65 V (mid-scale).</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

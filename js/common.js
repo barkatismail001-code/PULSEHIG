@@ -675,7 +675,18 @@ window.TPCommon = (function () {
   registerServiceWorker();
 
   // ===== Public API =====
-  return {
+  
+  /* ---------- Extract slug from URL path OR query string ----------
+     Supports:
+       /tools/led-resistor.html       → "led-resistor"
+       /guides/smart-lamp.html         → "smart-lamp"
+       /course/circuits-i.html         → "circuits-i"
+       /tool.html?slug=led-resistor    → "led-resistor"  */
+  function getSlugFromUrl() {
+    var pathMatch = location.pathname.match(/\/(tools|guides|course)\/([^\/]+?)\.html$/);
+    if (pathMatch) return decodeURIComponent(pathMatch[2]);
+    return new URLSearchParams(location.search).get('slug');
+  }return {
     esc: esc,
     slugify: slugify,
     formatDate: formatDate,
@@ -688,6 +699,7 @@ window.TPCommon = (function () {
     loadStaticSlugs: loadStaticSlugs,
     articleUrl: articleUrl,
     canonicalUrl: canonicalUrl,
+    getSlugFromUrl: getSlugFromUrl,
     getViews: getViews,
     getDailyViews: getDailyViews,
     registerView: registerView,

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Architecture — Berkeley | TechPulse Academy</title>
+<meta name="description" content="RISC-V assembly, datapath, pipelining, caches, virtual memory, and parallelism.">
+<link rel="canonical" href="https://www.pulsehig.com/course/computer-architecture.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/computer-architecture.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/computer-architecture.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/computer-architecture.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/computer-architecture.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/computer-architecture.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/computer-architecture.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/computer-architecture.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Computer Architecture">
+<meta property="og:description" content="RISC-V assembly, datapath, pipelining, caches, virtual memory, and parallelism.">
+<meta property="og:url" content="https://www.pulsehig.com/course/computer-architecture.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Computer Architecture","description":"RISC-V assembly, datapath, pipelining, caches, virtual memory, and parallelism.","provider":{"@type":"Organization","name":"Berkeley"},"url":"https://www.pulsehig.com/course/computer-architecture.html","courseCode":"Berkeley CS61C","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Computer Architecture","courseMode":"online"},{"@type":"CourseInstance","name":"RISC-V Assembly Basics","courseMode":"online"},{"@type":"CourseInstance","name":"Datapath and Control","courseMode":"online"},{"@type":"CourseInstance","name":"Pipelining","courseMode":"online"},{"@type":"CourseInstance","name":"Caches and the Memory Hierarchy","courseMode":"online"},{"@type":"CourseInstance","name":"Virtual Memory","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Computer Architecture</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">Berkeley CS61C · Berkeley</span>
+      <h1>Computer Architecture</h1>
+      <p>RISC-V assembly, datapath, pipelining, caches, virtual memory, and parallelism.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">6</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">40h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (6)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to Computer Architecture</h4>
+          <p>
+## What is Computer Architecture?
+
+Computer architecture is the study of how to design the interface between software and hardware. It answers the question: what set of instructions should a processor execute, and ho...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is Computer Architecture?<br><br>Computer architecture is the study of how to design the interface between software and hardware. It answers the question: what set of instructions should a processor execute, and how should those instructions be implemented in silicon?<br><br>## The Abstraction Layers<br><br>Modern computers are built in layers:<br><br>- Application programs (Python, JavaScript)<br>- High-level languages compiled to assembly<br>- Assembly translated to machine code<br>- Microarchitecture executes machine code<br>- Logic gates implement the microarchitecture<br>- Transistors implement logic gates<br>- Physics enables transistors<br><br>Each layer hides complexity from the one above. Computer architecture focuses on the boundary between the ISA (Instruction Set Architecture) and the microarchitecture.<br><br>## Instruction Set Architecture<br><br>The ISA defines:<br>- What instructions exist (add, load, branch)<br>- What registers exist (32 general-purpose on RISC-V)<br>- How memory is addressed<br>- How exceptions and interrupts work<br><br>The ISA is a contract: software written for an ISA will run on any processor implementing that ISA, regardless of the underlying microarchitecture.<br><br>Examples of ISAs:<br>- x86-64 (Intel, AMD) â€” the dominant desktop/server ISA<br>- ARMv8 (Apple M-series, mobile, servers) â€” dominant in mobile and growing in servers<br>- RISC-V â€” open-source, growing fast<br>- MIPS â€” historically popular in education<br><br>## RISC vs CISC<br><br>Two philosophies:<br><br>RISC (Reduced Instruction Set Computer):<br>- Simple, fixed-length instructions<br>- Load/store architecture (only load/store access memory)<br>- Many registers<br>- Compiler does the hard work<br><br>CISC (Complex Instruction Set Computer):<br>- Variable-length instructions<br>- Many instructions can access memory directly<br>- Fewer registers<br>- Hardware does more work<br><br>RISC-V is RISC. x86 is CISC. ARM is technically RISC.<br><br>Modern x86 CPUs decode CISC instructions into RISC-like micro-ops internally, so the boundary is blurry.<br><br>## Why Study Computer Architecture?<br><br>Because performance matters, and performance comes from the architecture:<br><br>- A well-designed cache can speed up a program 10x<br>- Pipelining improves throughput by up to 5x<br>- SIMD (vector instructions) can give 8-16x speedup<br>- Understanding the memory hierarchy explains why linked lists are slow and arrays are fast<br><br>You cannot write fast code without understanding the machine underneath.<br><br>## Key Takeaways<br><br>- Architecture = interface between software and hardware<br>- ISA is a stable contract; microarchitecture changes<br>- RISC vs CISC is a design philosophy, not a religion<br>- Performance depends on the architecture you target<br>- Memory hierarchy is the single most important topic<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>RISC-V Assembly Basics</h4>
+          <p>
+## Why Learn Assembly?
+
+Modern programmers rarely write assembly. But reading assembly teaches you:
+
+- What the compiler actually does with your code
+- Why some C code is fast and other C code is slow
+- How to de...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Learn Assembly?<br><br>Modern programmers rarely write assembly. But reading assembly teaches you:<br><br>- What the compiler actually does with your code<br>- Why some C code is fast and other C code is slow<br>- How to debug at the lowest level<br>- Why certain optimizations work<br><br>RISC-V is ideal for learning because it has a small, clean instruction set.<br><br>## Registers<br><br>RISC-V has 32 general-purpose registers, each 32 or 64 bits wide. By convention:<br><br>- x0 / zero â€” always contains 0<br>- x1 / ra â€” return address<br>- x2 / sp â€” stack pointer<br>- x5-7 / t0-2 â€” temporaries<br>- x8 / s0 / fp â€” saved register / frame pointer<br>- x10-11 / a0-1 â€” function arguments and return value<br>- x12-17 / a2-7 â€” more function arguments<br>- x18-27 / s1-11 â€” saved registers<br>- x28-31 / t3-6 â€” more temporaries<br><br>## Basic Instructions<br><br>Arithmetic:<br>    add rd, rs1, rs2    # rd = rs1 + rs2<br>    sub rd, rs1, rs2    # rd = rs1 - rs2<br>    addi rd, rs1, imm   # rd = rs1 + imm<br><br>Load/store (the ONLY memory access instructions):<br>    lw rd, offset(rs1)  # load 32-bit word<br>    sw rs2, offset(rs1) # store 32-bit word<br>    lb, lh, sb, sh      # byte and halfword variants<br><br>Control flow:<br>    beq rs1, rs2, label # branch if equal<br>    bne rs1, rs2, label # branch if not equal<br>    blt rs1, rs2, label # branch if less than<br>    j label             # unconditional jump<br>    jal rd, label       # jump and link (function call)<br>    jalr rd, rs1, imm   # jump and link register<br><br>## A Complete Example<br><br>Translate this C function to assembly:<br><br>    int sum_array(int *arr, int n) {<br>        int sum = 0;<br>        for (int i = 0; i &lt; n; i++) {<br>            sum += arr[i];<br>        }<br>        return sum;<br>    }<br><br>Assembly:<br><br>    sum_array:<br>        # a0 = arr, a1 = n, return in a0<br>        li t0, 0            # sum = 0<br>        li t1, 0            # i = 0<br>        beq a1, zero, done  # if n == 0, return 0<br>    loop:<br>        slli t2, t1, 2      # t2 = i * 4 (byte offset)<br>        add t3, a0, t2      # t3 = &amp;arr[i]<br>        lw t4, 0(t3)        # t4 = arr[i]<br>        add t0, t0, t4      # sum += arr[i]<br>        addi t1, t1, 1      # i++<br>        blt t1, a1, loop    # if i &lt; n, continue<br>    done:<br>        mv a0, t0           # return sum<br>        ret<br><br>## The Stack and Calling Convention<br><br>When calling a function:<br><br>1. Caller places arguments in a0-a7<br>2. Caller executes jal to jump to function<br>3. Function saves return address (already in ra)<br>4. Function allocates stack frame: addi sp, sp, -N<br>5. Function runs, saves s-registers if used<br>6. Function places return value in a0<br>7. Function restores stack: addi sp, sp, N<br>8. Function returns: ret (jalr zero, ra, 0)<br><br>## Key Takeaways<br><br>- RISC-V has a small, orthogonal instruction set<br>- Only load/store access memory<br>- Branches and jumps are the only control flow<br>- The calling convention is a social contract<br>- Reading assembly reveals what your C compiler really does<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Datapath and Control</h4>
+          <p>
+## From ISA to Hardware
+
+The datapath is the collection of hardware components that execute instructions: registers, ALU, memory. The control unit tells the datapath what to do based on the current instruction.
+
+##...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## From ISA to Hardware<br><br>The datapath is the collection of hardware components that execute instructions: registers, ALU, memory. The control unit tells the datapath what to do based on the current instruction.<br><br>## Single-Cycle Datapath<br><br>The simplest design executes each instruction in one clock cycle.<br><br>Components:<br>- Program Counter (PC) â€” holds address of next instruction<br>- Instruction Memory â€” stores the program<br>- Register File â€” 32 registers, 2 read ports, 1 write port<br>- ALU â€” arithmetic and logic<br>- Data Memory â€” for loads/stores<br>- Control Unit â€” decodes opcode, sets control signals<br><br>For each instruction, the datapath:<br>1. Fetches instruction at PC<br>2. Reads source registers<br>3. Executes ALU operation<br>4. Accesses memory (if needed)<br>5. Writes result back<br>6. Updates PC<br><br>## Example: add x1, x2, x3<br><br>1. PC = address of add instruction<br>2. Read x2 and x3 from register file<br>3. ALU computes x2 + x3<br>4. Write result to x1<br>5. PC += 4<br><br>## Example: lw x1, 0(x2)<br><br>1. PC = address of lw instruction<br>2. Read x2 from register file<br>3. ALU computes x2 + 0 (address)<br>4. Read data memory at that address<br>5. Write value to x1<br>6. PC += 4<br><br>## Control Unit<br><br>The control unit is a state machine that, given the instruction opcode, produces control signals:<br><br>- RegWrite â€” enable writing to register file<br>- MemRead â€” enable memory read<br>- MemWrite â€” enable memory write<br>- ALUSrc â€” choose between register and immediate for second ALU input<br>- PCSrc â€” choose between PC+4 and branch target<br>- ALUOp â€” determines ALU operation<br><br>For RISC-V, the opcode determines everything. A ROM or PLA implements the mapping.<br><br>## Clock Period<br><br>In a single-cycle design, the clock period must be long enough for the longest instruction. For RISC-V:<br><br>- Load instruction: PC â†’ IMem â†’ RegFile â†’ ALU â†’ DMem â†’ RegFile (write)<br><br>That's the critical path, maybe 800 ps.<br><br>But most instructions are much faster. So a single-cycle design wastes time on simple instructions.<br><br>## Multi-Cycle Datapath<br><br>Split each instruction into 3-5 cycles:<br><br>1. Instruction Fetch (IF)<br>2. Instruction Decode (ID)<br>3. Execute (EX)<br>4. Memory Access (MEM)<br>5. Write Back (WB)<br><br>Each cycle does less work, so the clock is faster. Instructions that don't need a stage skip it (e.g., add doesn't use MEM).<br><br>But now the control unit is a bigger state machine, and we need latches between stages to hold intermediate values.<br><br>## The Real Win: Pipelining<br><br>Multi-cycle is a stepping stone. The real performance comes from pipelining â€” overlapping instructions so multiple are in flight at once.<br><br>That's next lecture.<br><br>## Key Takeaways<br><br>- Datapath = hardware that executes instructions<br>- Control = state machine that sets control signals<br>- Single-cycle: simple but slow (clock = slowest instruction)<br>- Multi-cycle: complex control but faster clock<br>- All designs implement the same ISA<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Pipelining</h4>
+          <p>
+## The Assembly Line Analogy
+
+A car factory doesn&#39;t build one car at a time. It has stations: chassis, engine, paint, wheels. Each station works on a different car. When car A moves from paint to wheels, car B moves ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Assembly Line Analogy<br><br>A car factory doesn't build one car at a time. It has stations: chassis, engine, paint, wheels. Each station works on a different car. When car A moves from paint to wheels, car B moves from engine to paint.<br><br>Pipelining applies the same idea to instruction execution.<br><br>## The 5-Stage RISC Pipeline<br><br>Split instruction execution into 5 stages:<br><br>1. <strong>IF</strong> â€” Instruction Fetch: read instruction at PC<br>2. <strong>ID</strong> â€” Instruction Decode: read registers, decode opcode<br>3. <strong>EX</strong> â€” Execute: ALU operation<br>4. <strong>MEM</strong> â€” Memory: load/store access<br>5. <strong>WB</strong> â€” Write Back: write result to register<br><br>Each stage takes one clock cycle. With pipelining, 5 instructions can be in different stages at once.<br><br>## Throughput vs Latency<br><br>Without pipelining:<br>- Latency = 5 cycles per instruction<br>- Throughput = 1/5 instructions per cycle<br><br>With pipelining:<br>- Latency = 5 cycles per instruction (unchanged)<br>- Throughput = 1 instruction per cycle (5x better)<br><br>Pipelining improves throughput, not latency. In practice, it's a huge win.<br><br>## Hazards<br><br>Pipelining isn't free. Three types of hazards can stall the pipeline:<br><br>## 1. Structural Hazards<br><br>Two instructions want the same hardware at the same time. Example: one instruction is fetching from memory while another is loading data from memory. Solution: separate instruction and data memories (Harvard architecture) or add more ports.<br><br>## 2. Data Hazards<br><br>An instruction needs a value that a previous instruction hasn't written yet.<br><br>    add x1, x2, x3    # writes x1<br>    sub x4, x1, x5    # reads x1 (needs the value from add)<br><br>The sub can't run until add finishes. Solutions:<br><br><strong>Forwarding (bypassing):</strong> The ALU result from add's EX stage can be forwarded directly to sub's EX stage without waiting for WB. This eliminates most stalls.<br><br><strong>Stalling:</strong> If forwarding isn't possible (e.g., a load followed immediately by a use of the loaded value), insert NOPs.<br><br><strong>Code reordering:</strong> The compiler can insert independent instructions between the dependent ones.<br><br>## 3. Control Hazards<br><br>Branches create uncertainty. We don't know the next PC until we evaluate the branch.<br><br>    beq x1, x2, target<br>    add x3, x4, x5   # should this execute?<br>    ...<br><br>Solutions:<br><br><strong>Stall:</strong> wait until branch resolves. Simple but slow.<br><br><strong>Predict not taken:</strong> assume branch is not taken, fetch the next instruction. If wrong, flush and restart. Works well when branches are rarely taken.<br><br><strong>Predict taken:</strong> assume branch is taken. Works well for loops.<br><br><strong>Delayed branch:</strong> RISC's original solution â€” the instruction after the branch always executes. Compiler fills the slot with something useful. Rarely used today.<br><br><strong>Branch prediction:</strong> Modern CPUs use sophisticated predictors (2-bit, gshare, tournament, TAGE) that achieve &gt;95% accuracy. Wrong predictions cost ~15 cycles to flush.<br><br>## Superscalar and Out-of-Order<br><br>Modern CPUs go beyond simple pipelining:<br><br>- <strong>Superscalar:</strong> multiple pipelines, issue 2-6 instructions per cycle<br>- <strong>Out-of-order execution:</strong> instructions can complete in any order as long as dependencies are respected<br>- <strong>Register renaming:</strong> removes false dependencies<br>- <strong>Speculative execution:</strong> run instructions before knowing if they should run<br><br>These techniques give another 2-4x speedup.<br><br>## Key Takeaways<br><br>- Pipelining overlaps instruction execution for higher throughput<br>- 5-stage RISC pipeline: IF, ID, EX, MEM, WB<br>- Hazards: structural, data, control<br>- Forwarding eliminates most data stalls<br>- Branch prediction is critical for performance<br>- Modern CPUs add superscalar and out-of-order on top<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Caches and the Memory Hierarchy</h4>
+          <p>
+## The Memory Wall
+
+Since 1980:
+- CPU speed has grown 10,000x
+- DRAM latency has improved only 10x
+
+The gap means that fetching from DRAM can take 200+ cycles. If every instruction had to wait that long, CPUs wou...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Memory Wall<br><br>Since 1980:<br>- CPU speed has grown 10,000x<br>- DRAM latency has improved only 10x<br><br>The gap means that fetching from DRAM can take 200+ cycles. If every instruction had to wait that long, CPUs would be useless.<br><br>The solution: a hierarchy of caches. Small, fast, expensive memory close to the CPU; large, slow, cheap memory far away.<br><br>## The Hierarchy<br><br>    Registers       1 KB     0.3 ns<br>    L1 Cache        32 KB    1 ns<br>    L2 Cache        256 KB   4 ns<br>    L3 Cache        8 MB     15 ns<br>    DRAM            16 GB    80 ns<br>    SSD             1 TB     100 us<br>    HDD             4 TB     10 ms<br><br>Each level is ~10x larger and ~10x slower than the one above. Data moves up on demand.<br><br>## Locality<br><br>Caches work because programs exhibit locality:<br><br><strong>Temporal locality:</strong> recently accessed data is likely to be accessed again soon (loop counters, hot variables).<br><br><strong>Spatial locality:</strong> data near recently accessed data is likely to be accessed soon (array traversal, struct fields).<br><br>If a program has good locality, it hits in the cache most of the time.<br><br>## Cache Organization<br><br>A cache is divided into lines (blocks), typically 64 bytes. Each line stores a chunk of memory plus metadata:<br><br>- <strong>Valid bit</strong> â€” is this line real?<br>- <strong>Tag</strong> â€” which memory address does this line hold?<br>- <strong>Data</strong> â€” the actual bytes<br><br>On access, the cache:<br>1. Splits the address into tag, index, offset<br>2. Looks up the set at that index<br>3. Compares tags<br>4. If hit: return data. If miss: fetch from next level.<br><br>## Three Types of Cache<br><br><strong>Direct-mapped:</strong> each address maps to exactly one line.<br><br>    Index = (address / line_size) mod num_lines<br><br>Simple, fast, but collisions cause misses.<br><br><strong>Fully associative:</strong> any address can go anywhere. Needs a comparator per line. Expensive.<br><br><strong>Set-associative:</strong> compromise. Each address maps to a set of N lines; the address can go in any of the N. Typical: 4-way or 8-way.<br><br>    Index = (address / line_size) mod num_sets<br><br>## Replacement Policies<br><br>When a set is full, which line to evict?<br><br>- <strong>LRU</strong> (Least Recently Used) â€” evict the line not used longest<br>- <strong>Random</strong> â€” sometimes as good as LRU<br>- <strong>FIFO</strong> â€” first in first out<br>- <strong>Pseudo-LRU</strong> â€” approximation, cheaper to implement<br><br>## Writing to Cache<br><br><strong>Write-through:</strong> write to cache AND to memory. Simple, but slow.<br><br><strong>Write-back:</strong> write only to cache. Mark line dirty. Write to memory when evicted. Fast, but complex.<br><br>Most modern caches are write-back.<br><br>## Real Numbers<br><br>Consider a loop over 1 MB of data. L1 = 32 KB, L2 = 256 KB, L3 = 8 MB.<br><br>First pass:<br>- L1 misses: nearly 100%<br>- L2 misses: ~90%<br>- L3 misses: 0% (data fits in L3)<br>- DRAM accesses: 1 MB / 64 B = 16,384<br><br>Second pass:<br>- L1 misses: 100% (data evicted)<br>- L2 misses: 0% (data still in L2? no, L2 too small)<br>- L3 misses: 0% (data fits)<br>- DRAM: 0<br><br>Third and later passes: same as second.<br><br>Total time dominated by first-pass DRAM latency.<br><br>## Cache-Aware Programming<br><br>To write fast code:<br><br>- Access arrays sequentially, not randomly<br>- Use contiguous data structures (arrays &gt; linked lists)<br>- Block algorithms to fit in cache (matrix multiply blocking)<br>- Avoid pointer chasing<br>- Align hot data to cache lines<br><br>The famous example: iterating a linked list is 10-30x slower than iterating an array of the same size, because of cache misses.<br><br>## Key Takeaways<br><br>- Caches hide the CPU-memory latency gap<br>- Locality makes caches work<br>- 3 organizations: direct, fully associative, set-associative<br>- Write-back is faster than write-through<br>- 10x speedup for cache-friendly code is common<br>- Cache awareness is essential for high-performance programming<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Virtual Memory</h4>
+          <p>
+## The Problem
+
+Multiple programs run on a single machine. Each wants its own address space. Memory is finite and shared.
+
+Solution: virtual memory. Each process sees a large, private, contiguous address space. The...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Problem<br><br>Multiple programs run on a single machine. Each wants its own address space. Memory is finite and shared.<br><br>Solution: virtual memory. Each process sees a large, private, contiguous address space. The hardware translates virtual addresses to physical addresses.<br><br>## Benefits<br><br>- <strong>Isolation:</strong> process A can't read process B's memory<br>- <strong>Protection:</strong> can't write to read-only pages<br>- <strong>Flexibility:</strong> programs don't need to know physical layout<br>- <strong>Overcommit:</strong> more virtual memory than physical RAM<br>- <strong>Sharing:</strong> libraries shared across processes<br><br>## Pages and Frames<br><br>Virtual memory is divided into fixed-size pages (typically 4 KB). Physical memory is divided into frames of the same size.<br><br>A page table maps virtual page numbers to physical frame numbers. The MMU (Memory Management Unit) does the translation in hardware.<br><br>    Virtual address:  | VPN | offset |<br>    Physical address: | PFN | offset |<br><br>The offset is preserved. Only the page number is translated.<br><br>## Page Tables<br><br>The simplest page table is a flat array with one entry per virtual page. For a 48-bit address space with 4 KB pages:<br><br>- 2^36 virtual pages أ— 8 bytes per entry = 512 GB page table<br><br>That's too big. So we use multi-level page tables.<br><br>## Multi-Level Page Tables<br><br>Split the VPN into pieces. Each level indexes a smaller table.<br><br>For 48-bit addresses with 4-level page tables:<br><br>    | L4 | L3 | L2 | L1 | offset |<br>     9    9    9    9    12<br><br>Each level's table has 512 entries أ— 8 bytes = 4 KB (one page).<br><br>Most VPN ranges are unused, so most L4 entries are null. Total memory cost: a few MB per process, not 512 GB.<br><br>## The TLB<br><br>Every memory access needs a page table walk: 4 memory reads. That's 4x slower.<br><br>Solution: the TLB (Translation Lookaside Buffer). A small, fast cache of recent translations.<br><br>Typical TLB: 64-2048 entries, fully associative, ~1 cycle access.<br><br>Hit rate is usually &gt;99% because of locality.<br><br>With a TLB hit, the translation is free. With a miss, we walk the page table (~20 cycles).<br><br>## Page Faults<br><br>If a virtual page has no valid mapping:<br><br>1. CPU raises a page fault exception<br>2. OS handles it<br>3. If page is in swap: load it into a free frame, update page table, resume<br>4. If page is illegal: kill process with SIGSEGV<br><br>Page faults are expensive (~10,000 cycles), but rare.<br><br>## Demand Paging<br><br>Programs don't need all their memory resident. The OS loads pages lazily, on first access. This lets processes use more virtual memory than physical RAM.<br><br>Physical memory holds the working set â€” the pages actually in use. The rest sit in swap on disk.<br><br>## Page Replacement<br><br>When physical memory is full and a new page is needed, evict a page.<br><br>Algorithms:<br>- <strong>OPT</strong> (optimal) â€” evict the page used furthest in the future. Impossible to implement, but useful as a benchmark.<br>- <strong>LRU</strong> â€” evict least recently used. Good, but expensive.<br>- <strong>Clock</strong> â€” approximation of LRU with a reference bit.<br>- <strong>FIFO</strong> â€” can be pathological (Belady's anomaly).<br><br>Linux uses a variant of LRU with active/inactive lists.<br><br>## Memory-Mapped Files<br><br>A file can be mapped into memory. Reads and writes become memory accesses. The OS handles paging from disk.<br><br>Advantages:<br>- Simple I/O: no read/write calls<br>- Shared between processes<br>- Lazy loading: only pages actually accessed are loaded<br><br>Disadvantages:<br>- Page faults on access are slower than buffered I/O for random access<br>- Can't handle files larger than virtual address space<br><br>## Key Takeaways<br><br>- Virtual memory gives each process a private, contiguous address space<br>- Page tables map virtual pages to physical frames<br>- Multi-level page tables save memory<br>- TLBs make translation free in the common case<br>- Page faults handle missing pages<br>- Demand paging allows overcommit<br>- LRU is the standard replacement algorithm<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: RISC-V, Pipelining, Caches</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Translate this C to RISC-V assembly: `int sum = 0; for(int i=0;i&lt;n;i++) sum += a[i];`</p>
+            <details><summary>Show Solution</summary><p>li t0, 0; li t1, 0; loop: beq t1, a1, done; slli t2, t1, 2; add t3, a0, t2; lw t4, 0(t3); add t0, t0, t4; addi t1, t1, 1; j loop; done: mv a0, t0; ret</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A 5-stage pipeline has stage delays 200, 150, 250, 200, 150 ps. What is the maximum clock frequency? Ignore pipeline register overhead.</p>
+            <details><summary>Show Solution</summary><p>Clock period = 250 ps (slowest stage). Max frequency = 1/250ps = 4 GHz.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A direct-mapped cache has 64 lines of 32 bytes each. Given a 32-bit address, how many bits for tag, index, offset?</p>
+            <details><summary>Show Solution</summary><p>Offset = log2(32) = 5 bits. Index = log2(64) = 6 bits. Tag = 32 - 5 - 6 = 21 bits.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: ISA, Pipelining, Memory</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Given a program with 30% branches, 95% prediction accuracy, and a 3-cycle mispredict penalty, what is the average CPI for a single-cycle-execution pipeline?</p>
+            <details><summary>Show Solution</summary><p>Mispredict rate = 5%. CPI = 1 + 0.3 × 0.05 × 3 = 1 + 0.045 = 1.045.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Design a 4-way set-associative cache with 64 sets, 32-byte lines. How many sets? Total cache size?</p>
+            <details><summary>Show Solution</summary><p>Sets = 64. Line size = 32 B. Ways = 4. Total size = 64 × 4 × 32 = 8192 B = 8 KB. Index bits = log2(64) = 6. Offset = 5. Tag = 32 - 6 - 5 = 21.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Compare a single-cycle, multi-cycle, and pipelined processor for a program with 100 instructions. Assume 5-stage pipeline, 3-cycle memory, other stages 1 cycle.</p>
+            <details><summary>Show Solution</summary><p>Single-cycle: clock = 8 cycles (slowest instr). Total = 800 cycles. Multi-cycle: 100 × 4 = 400 cycles (avg). Pipelined: 5 + 99 = 104 cycles. Pipelining wins massively.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

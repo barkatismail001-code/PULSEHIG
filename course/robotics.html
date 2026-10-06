@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Robotics — Stanford | TechPulse Academy</title>
+<meta name="description" content="Kinematics, dynamics, control, motion planning, and robot manipulation.">
+<link rel="canonical" href="https://www.pulsehig.com/course/robotics.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/robotics.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/robotics.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/robotics.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/robotics.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/robotics.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/robotics.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/robotics.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Introduction to Robotics">
+<meta property="og:description" content="Kinematics, dynamics, control, motion planning, and robot manipulation.">
+<meta property="og:url" content="https://www.pulsehig.com/course/robotics.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Introduction to Robotics","description":"Kinematics, dynamics, control, motion planning, and robot manipulation.","provider":{"@type":"Organization","name":"Stanford"},"url":"https://www.pulsehig.com/course/robotics.html","courseCode":"Stanford CS223a","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Robotics and Kinematics","courseMode":"online"},{"@type":"CourseInstance","name":"Dynamics and Equations of Motion","courseMode":"online"},{"@type":"CourseInstance","name":"Trajectory Planning and Motion Control","courseMode":"online"},{"@type":"CourseInstance","name":"Perception: Sensors and State Estimation","courseMode":"online"},{"@type":"CourseInstance","name":"Manipulation and Grasping","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Introduction to Robotics</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">Stanford CS223a · Stanford</span>
+      <h1>Introduction to Robotics</h1>
+      <p>Kinematics, dynamics, control, motion planning, and robot manipulation.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">42h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to Robotics and Kinematics</h4>
+          <p>
+## What is Robotics?
+
+Robotics is the study of machines that sense, plan, and act in the physical world. Robots combine:
+- **Mechanical systems:** joints, links, actuators
+- **Sensors:** cameras, IMUs, force/torque...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is Robotics?<br><br>Robotics is the study of machines that sense, plan, and act in the physical world. Robots combine:<br>- <strong>Mechanical systems:</strong> joints, links, actuators<br>- <strong>Sensors:</strong> cameras, IMUs, force/torque, tactile<br>- <strong>Computation:</strong> perception, planning, control<br><br>Robotics integrates mechanical engineering, electrical engineering, computer science, and AI.<br><br>## Types of Robots<br><br>- <strong>Manipulators:</strong> industrial arms (6-DOF typical)<br>- <strong>Mobile robots:</strong> wheeled, legged, aerial, aquatic<br>- <strong>Humanoids:</strong> bipedal, complex dynamics<br>- <strong>Swarm robots:</strong> many simple units<br>- <strong>Soft robots:</strong> compliant, safe for humans<br>- <strong>Medical robots:</strong> surgery, rehabilitation<br><br>Each has unique challenges.<br><br>## Degrees of Freedom (DOF)<br><br>The number of independent parameters describing the configuration.<br><br>- 2D planar arm with 2 joints: 2 DOF<br>- 3D arm with 6 joints: 6 DOF (enough to reach any pose)<br>- 6-DOF + gripper: 7 DOF<br><br>More DOF = more flexibility, but also more complexity.<br><br>## Kinematics<br><br><strong>Forward kinematics (FK):</strong> given joint angles, compute end-effector pose.<br><br><strong>Inverse kinematics (IK):</strong> given desired pose, compute joint angles.<br><br>FK is straightforward (matrix multiplication). IK is hard (may have 0, 1, or many solutions).<br><br>## Rigid Body Transformations<br><br>A pose in 3D has 6 DOF: position (x, y, z) + orientation (roll, pitch, yaw).<br><br><strong>Rotation matrix R (3×3):</strong> orthogonal, det = +1.<br><br><strong>Homogeneous transform T (4×4):</strong><br><br>    T = [ R  p ]<br>        [ 0  1 ]<br><br>Where p is position and R is orientation.<br><br>Composing transforms: T_total = T1 × T2 × T3 for a serial chain.<br><br>## Forward Kinematics Example<br><br>For a planar 2-link arm with lengths L1, L2 and angles θ1, θ2:<br><br>    x = L1 cos(θ1) + L2 cos(θ1 + θ2)<br>    y = L1 sin(θ1) + L2 sin(θ1 + θ2)<br><br>Simple trig. For longer chains, matrix multiplication.<br><br>## Denavit-Hartenberg (DH) Parameters<br><br>A standard convention for assigning frames to robot links.<br><br>Four parameters per link:<br>- θ (joint angle, revolute)<br>- d (link offset, prismatic)<br>- a (link length)<br>- α (link twist)<br><br>With a DH table, FK is a product of 4×4 matrices.<br><br>## Workspace and Reachability<br><br>The workspace is the set of poses the end-effector can reach.<br><br>- <strong>Reachable workspace:</strong> at least one IK solution<br>- <strong>Dexterous workspace:</strong> end-effector can achieve any orientation<br><br>For a 2-link arm, reachable workspace is an annulus (ring) with inner radius |L1 - L2| and outer radius L1 + L2.<br><br>## Jacobian<br><br>The Jacobian matrix J relates joint velocities to end-effector velocity:<br><br>    ẋ = J(q) × q̇<br><br>Where ẋ is end-effector velocity (6D), q̇ is joint velocity (n), and J is 6×n.<br><br>For a redundant robot (n &gt; 6), J is rectangular. Uses:<br><br>- <strong>Velocity control:</strong> given desired ẋ, solve for q̇ = J⁻¹ ẋ (if square and invertible)<br>- <strong>Singularities:</strong> det(J) = 0 → loss of DOF, infinite joint velocities<br>- <strong>Statics:</strong> τ = J^T F, joint torques for end-effector force<br><br>## Singularities<br><br>Configuration where Jacobian loses rank. Common types:<br>- <strong>Boundary singularity:</strong> arm fully extended<br>- <strong>Interior singularity:</strong> axes align<br><br>Behavior near singularity: infinite joint velocities for finite end-effector motion. Controllers must handle (damping, avoid).<br><br>## Redundancy<br><br>When n &gt; 6, robot is redundant. Infinite IK solutions. Use extra DOF for:<br>- Obstacle avoidance<br>- Joint limit avoidance<br>- Optimal pose (minimize energy)<br>- Singularity avoidance<br><br>Resolved via null-space projection: q̇ = J⁺ ẋ + (I - J⁺J) z, where z is a secondary objective.<br><br>## Key Takeaways<br><br>- Robotics integrates mechanical, electrical, CS, AI<br>- DOF = number of independent joints<br>- FK: joint angles → pose (easy)<br>- IK: pose → joint angles (hard, multiple solutions)<br>- Homogeneous transforms compose kinematics<br>- DH parameters standardize link frames<br>- Jacobian relates velocities<br>- Singularities lose DOF<br>- Redundancy enables secondary goals<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Dynamics and Equations of Motion</h4>
+          <p>
+## Why Dynamics?
+
+Kinematics describes motion. Dynamics describes the forces and torques that cause motion. For control, we need dynamics.
+
+Newton&#39;s second law in robot form: τ = M(q) q̈ + C(q, q̇) q̇ + g(q) + fric...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Dynamics?<br><br>Kinematics describes motion. Dynamics describes the forces and torques that cause motion. For control, we need dynamics.<br><br>Newton's second law in robot form: τ = M(q) q̈ + C(q, q̇) q̇ + g(q) + friction<br><br>Where:<br>- M(q): mass matrix (positive definite, symmetric)<br>- C(q, q̇): Coriolis and centrifugal terms<br>- g(q): gravity vector<br>- friction: joint friction (viscous + Coulomb)<br><br>This is the equation of motion for a robot manipulator.<br><br>## Lagrangian Formulation<br><br>Derive equations from energy:<br><br>    L = T - V (kinetic - potential)<br><br>    d/dt (∂L/∂q̇) - ∂L/∂q = τ<br><br>This yields the equations of motion systematically. Works for any mechanical system.<br><br>## Newton-Euler Formulation<br><br>Recursive algorithm using Newton's laws on each link. Two passes:<br><br>1. <strong>Forward pass:</strong> velocities and accelerations from base to tip<br>2. <strong>Backward pass:</strong> forces and torques from tip to base<br><br>Efficient for real-time control (O(n) instead of O(n³) for Lagrangian).<br><br>## The Mass Matrix<br><br>M(q) is symmetric, positive definite. It generalizes "mass" to multiple joints.<br><br>For a 2-link planar arm, M is 2×2 with entries involving link masses, inertias, and cos(θ2).<br><br>Off-diagonal terms mean joint 1's acceleration depends on joint 2's motion.<br><br>## Coriolis and Centrifugal<br><br>C(q, q̇) q̇ captures:<br>- <strong>Centrifugal:</strong> velocity-squared terms<br>- <strong>Coriolis:</strong> cross-velocity terms<br><br>For fast robots, these dominate. Slow robots can ignore them.<br><br>## Gravity<br><br>g(q) is the torque required to hold the robot against gravity. For each joint, depends on configuration.<br><br>For a revolute joint holding a link of mass m at distance r: τ_gravity = m g r cos(θ).<br><br>Important for gravity compensation in controllers.<br><br>## Computing Dynamics<br><br>Three main algorithms:<br><br>1. <strong>Lagrangian (symbolic):</strong> derive equations, implement directly. Inefficient for n &gt; 4.<br>2. <strong>Newton-Euler (recursive):</strong> O(n) algorithm. Standard for real-time.<br>3. <strong>Composite Rigid Body:</strong> O(n²) for mass matrix, used in advanced control.<br><br>Libraries: RBDL, Pinocchio, Drake implement these efficiently.<br><br>## Forward Dynamics<br><br>Given joint torques τ, compute accelerations q̈:<br><br>    q̈ = M⁻¹(q) (τ - C(q, q̇) q̇ - g(q) - friction)<br><br>This is used in simulation: integrate q̈ to get velocities and positions.<br><br>Cost: inverting M is O(n³) per timestep. Newton-Euler solves it in O(n).<br><br>## Inverse Dynamics<br><br>Given desired accelerations q̈, compute required torques:<br><br>    τ = M(q) q̈ + C(q, q̇) q̇ + g(q)<br><br>Used in feedforward control: compute torques to achieve a trajectory.<br><br>## Control with Dynamics<br><br><strong>PD control:</strong> τ = Kp (q_d - q) + Kd (q̇_d - q̇). Simple, but gravity sags.<br><br><strong>Computed torque (inverse dynamics):</strong> τ = M (q̈_d + Kd ė + Kp e) + C q̇ + g. Perfect tracking if model is exact.<br><br><strong>Adaptive control:</strong> estimate parameters online.<br><br><strong>Robust control:</strong> handle model uncertainty.<br><br>## Impedance and Admittance Control<br><br><strong>Impedance:</strong> robot behaves like a spring-damper. τ = K (x_d - x) + D (ẋ_d - ẋ).<br><br><strong>Admittance:</strong> robot responds to external force as if it had mass. Used in collaborative robots (cobots).<br><br>Important for safe human-robot interaction.<br><br>## Simulation<br><br>Physics engines solve forward dynamics:<br>- <strong>Gazebo:</strong> ROS standard, general robotics<br>- <strong>MuJoCo:</strong> fast, contact-rich, reinforcement learning<br>- <strong>PyBullet:</strong> Python, easy to use<br>- <strong>Drake:</strong> MIT, optimization-focused<br>- <strong>Isaac Sim:</strong> NVIDIA, GPU-accelerated, photorealistic<br><br>Simulation is essential for testing before real-world deployment.<br><br>## Contact Dynamics<br><br>When robot touches the environment:<br>- <strong>Rigid contact:</strong> hard constraint, impulsive forces<br>- <strong>Compliant contact:</strong> springs between surfaces<br>- <strong>Friction:</strong> Coulomb model, stick-slip<br><br>Contact is hard to simulate accurately. Modern engines use convex optimization (Drake) or impulse-based methods.<br><br>## Learning Dynamics<br><br>Neural networks can learn dynamics from data:<br>- Feedforward NN: predict next state from current state + action<br>- Long Short-Term Memory: handle history<br>- Physics-informed NN: incorporate known physics<br><br>Used in model-based RL and adaptive control.<br><br>## Key Takeaways<br><br>- Dynamics: forces cause motion (τ = M q̈ + C q̇ + g)<br>- Lagrangian: energy-based derivation<br>- Newton-Euler: recursive, O(n)<br>- Mass matrix, Coriolis, gravity<br>- Forward dynamics: torques → accelerations<br>- Inverse dynamics: accelerations → torques<br>- Control: PD, computed torque, impedance<br>- Simulation essential for testing<br>- Contact dynamics is hard<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Trajectory Planning and Motion Control</h4>
+          <p>
+## Why Trajectory Planning?
+
+A robot must move from point A to point B smoothly. Joint trajectories must be:
+- Continuous (no jumps)
+- Smooth (continuous velocity, ideally acceleration)
+- Within joint limits
+- Av...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Trajectory Planning?<br><br>A robot must move from point A to point B smoothly. Joint trajectories must be:<br>- Continuous (no jumps)<br>- Smooth (continuous velocity, ideally acceleration)<br>- Within joint limits<br>- Avoiding obstacles<br><br>## Joint Space vs Task Space<br><br><strong>Joint space:</strong> plan in joint angles. Simple, but end-effector path is unpredictable.<br><br><strong>Task space:</strong> plan end-effector path, then IK to joints. More intuitive, but IK can have issues.<br><br><strong>Hybrid:</strong> plan in joint space with waypoints in task space.<br><br>## Point-to-Point Motion<br><br>Simple case: move from q_start to q_goal.<br><br><strong>Linear interpolation:</strong> q(t) = q_start + (q_goal - q_start) × (t/T).<br><br>Problem: discontinuity in velocity at start and end → infinite acceleration.<br><br>## Polynomial Trajectories<br><br><strong>Cubic polynomial:</strong> q(t) = a0 + a1 t + a2 t² + a3 t³.<br><br>Boundary conditions: q(0) = q_start, q(T) = q_goal, q̇(0) = q̇(T) = 0.<br><br>Four constraints → four coefficients.<br><br><strong>Quintic polynomial:</strong> adds q̈ boundary conditions for smooth acceleration. Used in high-precision applications.<br><br>## Trapezoidal Velocity Profile<br><br>Constant acceleration, then constant velocity, then constant deceleration.<br><br>Velocity: rises linearly, holds, falls linearly.<br>Position: S-curve.<br><br>Popular for industrial robots. Ensures smooth motion with bounded acceleration.<br><br>## S-Curve Profile<br><br>Further smooths the jerk (derivative of acceleration):<br><br>Acceleration is trapezoidal, jerk is bounded. Smoothest but slowest.<br><br>Used in CNC machines, pick-and-place.<br><br>## Multi-Waypoint Trajectories<br><br>Spline through waypoints. B-splines are popular: local control, smooth, stay near control points.<br><br>For a sequence of waypoints q0, q1, ..., qn, fit a B-spline. Each segment connects adjacent waypoints with C² continuity.<br><br>## Obstacle Avoidance<br><br>If there are obstacles, plan a collision-free path.<br><br><strong>Potential fields:</strong> attract to goal, repel from obstacles. Simple but can get stuck in local minima.<br><br><strong>RRT (Rapidly-exploring Random Tree):</strong> random sampling, tree growth. Probabilistically complete.<br><br>**RRT*:<strong> asymptotically optimal version.<br><br></strong>PRM (Probabilistic Roadmap):<strong> build graph in free space, search it.<br><br></strong>A*:<strong> grid-based search, optimal if heuristic is admissible.<br><br></strong>Trajectory optimization:<strong> minimize cost (time, energy) subject to constraints. Direct collocation, direct shooting.<br><br>## Trajectory Optimization<br><br>Formulate as optimization:<br><br>    minimize ∫ L(q, q̇, q̈) dt<br>    subject to: dynamics, joint limits, obstacle constraints<br><br>Methods:<br>- </strong>Direct collocation:<strong> discretize time, solve NLP<br>- </strong>Direct shooting:<strong> parameterize controls, simulate<br>- </strong>CHOMP, STOMP:<strong> gradient-based smoothing<br><br>Tools: TrajOpt, Drake, CasADi.<br><br>## Feedback Control<br><br>Open-loop trajectories fail with disturbances. Feedback corrects in real time.<br><br></strong>PID per joint:<strong> simple, effective for stiff robots.<br><br></strong>Computed torque:<strong> uses full dynamics for high performance.<br><br></strong>Model Predictive Control (MPC):<strong> solve optimization at each timestep, apply first control. Handles constraints.<br><br></strong>Learning-based:<strong> neural network policies trained via RL or imitation.<br><br>## Impedance Control<br><br>Instead of tracking a trajectory, control the robot's interaction dynamics:<br><br>    F = M_d (ẍ_d - ẍ) + B_d (ẋ_d - ẋ) + K_d (x_d - x)<br><br>Robot behaves like a mass-spring-damper. Useful for:<br>- Assembly (peg-in-hole)<br>- Polishing, grinding<br>- Human collaboration<br><br>## Force Control<br><br>When the robot interacts with the environment, position control fails. Use force control:<br><br></strong>Direct force control:<strong> measure force, control to desired.<br></strong>Hybrid:<strong> position in some directions, force in others.<br></strong>Admittance:<strong> measure force, respond with motion.<br><br>Used in:<br>- Deburring, grinding<br>- Surgery<br>- Human-robot collaboration<br>- Legged robots (foot contact)<br><br>## Real-Time Constraints<br><br>Control loops must run at fixed rates:<br>- Position: 1 kHz typical<br>- Force: 1-10 kHz<br>- Impedance: 1 kHz<br><br>Missed deadlines cause instability. Use real-time OS or dedicated hardware.<br><br>## ROS and Motion Planning<br><br>ROS (Robot Operating System) is the standard framework:<br>- </strong>MoveIt:<strong> motion planning library<br>- </strong>ROS Control:<strong> controller management<br>- </strong>TF:<strong> coordinate transforms<br>- </strong>RViz:** visualization<br><br>Nodes communicate via topics, services, actions.<br><br>## Key Takeaways<br><br>- Trajectory: smooth, feasible joint paths<br>- Polynomials for point-to-point<br>- Trapezoidal and S-curve profiles<br>- Splines for multi-waypoint<br>- Obstacle avoidance: RRT, PRM, optimization<br>- Feedback control: PID, computed torque, MPC<br>- Impedance/force control for interaction<br>- Real-time: fixed loop rates<br>- ROS + MoveIt for practical planning<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Perception: Sensors and State Estimation</h4>
+          <p>
+## Why Perception?
+
+A robot must know its state (position, velocity) and environment (obstacles, objects). Sensors provide measurements; estimation fuses them into a coherent picture.
+
+## Common Sensors
+
+**Encode...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Perception?<br><br>A robot must know its state (position, velocity) and environment (obstacles, objects). Sensors provide measurements; estimation fuses them into a coherent picture.<br><br>## Common Sensors<br><br><strong>Encoders:</strong> measure joint angles. High precision, direct.<br><br><strong>IMU (Inertial Measurement Unit):</strong> accelerometer + gyroscope (+ magnetometer). Measures orientation and acceleration. Drifts over time.<br><br><strong>Cameras:</strong> RGB, depth (stereo, structured light, ToF), event. Rich data, computationally heavy.<br><br><strong>LiDAR:</strong> 2D or 3D scanning. Accurate range, expensive. Used in autonomous vehicles.<br><br><strong>GPS:</strong> global position, ~1 m accuracy (worse in urban canyons).<br><br><strong>Force/torque sensors:</strong> measure interaction forces. Essential for manipulation.<br><br><strong>Tactile sensors:</strong> contact, pressure. Growing area.<br><br><strong>Ultrasonic:</strong> cheap range sensing, low resolution.<br><br>## Sensor Characteristics<br><br>- <strong>Accuracy:</strong> how close to truth<br>- <strong>Precision:</strong> repeatability<br>- <strong>Range:</strong> min/max measurable<br>- <strong>Resolution:</strong> smallest change detected<br>- <strong>Bandwidth:</strong> how often updated<br>- <strong>Noise:</strong> random error<br>- <strong>Bias:</strong> systematic error<br><br>Every sensor has trade-offs. Fusion combines complementary strengths.<br><br>## State Estimation<br><br>Estimate the robot's state (pose, velocity) from noisy measurements.<br><br><strong>Bayes filter:</strong> probabilistic framework. Maintain belief over state.<br><br><strong>Kalman filter:</strong> optimal for linear Gaussian systems.<br><br>    Predict: x̂ = F x̂ + B u; P = F P F^T + Q<br>    Update:  K = P H^T (H P H^T + R)^-1<br>             x̂ = x̂ + K (z - H x̂)<br>             P = (I - K H) P<br><br>Where F is dynamics, H is measurement, Q and R are noise covariances.<br><br>## Extended Kalman Filter (EKF)<br><br>For nonlinear systems, linearize around current estimate.<br><br>    F = ∂f/∂x |_{x̂}<br>    H = ∂h/∂x |_{x̂}<br><br>Standard in robotics for years.<br><br>## Unscented Kalman Filter (UKF)<br><br>Better for strongly nonlinear systems. Uses sigma points (deterministic samples) propagated through the nonlinear function.<br><br>More accurate than EKF at similar cost.<br><br>## Particle Filter<br><br>Represent belief as a set of weighted samples (particles).<br><br>1. <strong>Predict:</strong> sample each particle through dynamics<br>2. <strong>Update:</strong> weight by measurement likelihood<br>3. <strong>Resample:</strong> pick particles proportional to weight<br><br>Handles multimodal distributions. Used in SLAM (Monte Carlo Localization).<br><br>## SLAM (Simultaneous Localization and Mapping)<br><br>Chicken-and-egg problem: to localize, need a map; to build a map, need to know location.<br><br>Solutions:<br>- <strong>EKF-SLAM:</strong> joint estimation of robot and landmarks.<br>- <strong>FastSLAM:</strong> particle filter for robot, EKF for landmarks.<br>- <strong>GraphSLAM:</strong> poses and landmarks as nodes in a graph; solve optimization.<br>- <strong>Visual SLAM:</strong> ORB-SLAM, LSD-SLAM use cameras.<br><br>Modern SLAM is mature — used in robots, drones, AR/VR.<br><br>## Sensor Fusion Examples<br><br><strong>Drone pose:</strong> IMU (fast, drifts) + GPS (slow, no drift) + barometer + magnetometer → EKF.<br><br><strong>Self-driving car:</strong> LiDAR + cameras + radar + GPS + IMU → Kalman / particle.<br><br><strong>Mobile robot:</strong> wheel encoders + IMU + LiDAR → EKF SLAM.<br><br>Fusion benefits: better accuracy, robustness to sensor failure, higher rate.<br><br>## Deep Learning for Perception<br><br>Classical methods struggle with complex scenes. Neural networks excel:<br>- <strong>Object detection:</strong> YOLO, Faster R-CNN<br>- <strong>Semantic segmentation:</strong> U-Net, DeepLab<br>- <strong>Depth estimation:</strong> stereo matching, monocular depth<br>- <strong>Pose estimation:</strong> OpenPose, MediaPipe<br>- <strong>SLAM features:</strong> SuperPoint, DROID-SLAM<br><br>Training data: real (expensive), synthetic (free from simulators), self-supervised.<br><br>## Sensor Calibration<br><br>Sensors have intrinsics (internal) and extrinsics (relative poses).<br><br><strong>Camera intrinsics:</strong> focal length, principal point, distortion. Calibrate with a checkerboard (Zhang's method).<br><br><strong>Extrinsics:</strong> camera to IMU, camera to LiDAR. Calibrate by observing known patterns.<br><br>Poor calibration ruins fusion. Invest in this.<br><br>## Key Takeaways<br><br>- Robots need to know their state and environment<br>- Many sensors, each with trade-offs<br>- Bayes filter for probabilistic estimation<br>- Kalman filter: linear Gaussian optimal<br>- EKF, UKF for nonlinear<br>- Particle filter for multimodal<br>- SLAM: joint localization and mapping<br>- Sensor fusion combines complementary sensors<br>- Deep learning for complex perception<br>- Calibration is critical<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Manipulation and Grasping</h4>
+          <p>
+## Why Manipulation?
+
+Moving objects is fundamental to robots in manufacturing, logistics, surgery, home assistance. It&#39;s hard: contact, friction, uncertainty.
+
+## Grasp Types
+
+- **Power grasp:** entire hand wrap...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Manipulation?<br><br>Moving objects is fundamental to robots in manufacturing, logistics, surgery, home assistance. It's hard: contact, friction, uncertainty.<br><br>## Grasp Types<br><br>- <strong>Power grasp:</strong> entire hand wraps object. Stable, no fine control.<br>- <strong>Precision grasp:</strong> fingertips pinch. Fine control, less stable.<br>- <strong>Pinch, tripod, spherical:</strong> various taxonomies.<br><br>Choice depends on task and object.<br><br>## Grasp Quality<br><br>Metrics:<br>- <strong>Force closure:</strong> can resist arbitrary external forces via contact forces<br>- <strong>Form closure:</strong> geometric constraint, no friction needed<br>- <strong>Grasp isotropy:</strong> uniform manipulation in all directions<br>- <strong>Stability margin:</strong> how far from slipping<br><br>Optimize grasps for robustness.<br><br>## Contact Modeling<br><br>Rigid body contact with Coulomb friction:<br><br>    |F_t| ≤ μ |F_n|<br><br>Tangential force bounded by normal force times friction coefficient.<br><br>Contact state: sticking (no slip), sliding (tangential force at limit).<br><br>Compliant contact (soft finger): elastic model, force proportional to deformation.<br><br>## Grasp Planning<br><br><strong>Analytical:</strong> given object model and gripper, compute force-closure grasps. Requires exact geometry.<br><br><strong>Data-driven:</strong> learn from simulation or demonstrations. Handles uncertainty.<br><br><strong>Sampling-based:</strong> generate random contacts, evaluate, keep good ones.<br><br><strong>Deep learning:</strong> DexNet, GraspNet predict grasp quality from vision.<br><br>## Underactuated Hands<br><br>More DOF than actuators. Examples: tendon-driven, adaptive grippers.<br><br>Benefits: compliance, simplicity, robustness to uncertainty.<br><br>Cost: less control, complex dynamics.<br><br>## Dexterous Manipulation<br><br>Multi-finger hands (like human) can manipulate within the hand.<br><br>Challenges:<br>- High DOF (20+)<br>- Contact state changes<br>- Tactile sensing required<br>- Complex dynamics<br><br>Applications: tool use, in-hand reorientation, assembly.<br><br>## Task and Motion Planning (TAMP)<br><br>Combines symbolic task planning (what to do) with motion planning (how to move).<br><br>Example: "put the cup on the shelf" →<br>1. Move arm near cup<br>2. Grasp cup<br>3. Lift<br>4. Move to shelf<br>5. Place<br>6. Release<br><br>Each step has motion constraints. TAMP integrates them.<br><br>## Learning Manipulation<br><br><strong>Imitation learning:</strong> record human demonstrations, learn policy. DAgger, behavior cloning.<br><br><strong>Reinforcement learning:</strong> reward-based trial and error. Sample inefficient, but powerful.<br><br><strong>Sim-to-real:</strong> train in simulation, transfer to real robot. Domain randomization handles the gap.<br><br><strong>Self-supervised:</strong> robot generates its own data. Grasping, pushing, opening.<br><br>## Real-World Manipulation Systems<br><br>- <strong>Amazon Picking Challenge:</strong> pick items from shelves.<br>- <strong>Dexterity:</strong> OpenAI's Rubik's cube, in-hand manipulation.<br>- <strong>Cooking:</strong> PR2, Mobile ALOHA cook meals.<br>- <strong>Surgery:</strong> da Vinci, autonomous suturing.<br>- <strong>Warehouse:</strong> Kiva, Fetch robots.<br><br>Each has unique constraints.<br><br>## Force Control in Manipulation<br><br>When contact is critical, use force control:<br><br><strong>Impedance:</strong> robot behaves like spring-damper, compliant to environment.<br><br><strong>Admittance:</strong> sense force, command motion.<br><br><strong>Hybrid:</strong> position in free directions, force in contact directions.<br><br>Used for peg-in-hole, polishing, assembly.<br><br>## Assembly Tasks<br><br><strong>Peg-in-hole:</strong> classic. Challenges: tight tolerances, chamfers, jamming.<br><br>Solutions:<br>- Compliance (RCC, remote center compliance)<br>- Force feedback + search<br>- Learning from demonstration<br>- Reinforcement learning<br><br><strong>Snap-fit:</strong> plastic parts with interlocking features. Requires force profile.<br><br><strong>Screwing:</strong> rotation + force control.<br><br>## Grippers<br><br>- <strong>Parallel jaw:</strong> simple, versatile, most common<br>- <strong>Vacuum:</strong> flat surfaces, no residual marks<br>- <strong>Magnetic:</strong> ferrous objects<br>- <strong>Soft grippers:</strong> delicate objects (fruit, glass)<br>- <strong>Universal gripper:</strong> granular jamming, adapts to shape<br><br>Choose based on object variety and cycle time.<br><br>## Key Takeaways<br><br>- Manipulation: moving objects with contact<br>- Grasp quality: force closure, stability<br>- Contact modeling with friction<br>- Grasp planning: analytical or learned<br>- Dexterous manipulation challenges<br>- TAMP combines task and motion planning<br>- Learning: imitation, RL, sim-to-real<br>- Force control for contact-rich tasks<br>- Assembly, screwing, snap-fit<br>- Gripper choice depends on task<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Kinematics, Jacobian, Dynamics</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> For a 2-link planar arm with L1 = L2 = 1, θ1 = 30°, θ2 = 60°, compute the end-effector position.</p>
+            <details><summary>Show Solution</summary><p>x = 1×cos(30°) + 1×cos(90°) = 0.866 + 0 = 0.866. y = sin(30°) + sin(90°) = 0.5 + 1 = 1.5. Position: (0.866, 1.5).</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Compute the Jacobian of the 2-link arm at θ1 = θ2 = 0.</p>
+            <details><summary>Show Solution</summary><p>At θ1=θ2=0: J = [[0, 0], [L1+L2, L2]] = [[0, 0], [2, 1]]. Rank = 1 (not 2) → singularity! Arm fully extended.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A mobile robot has a differential drive with wheel radius r = 0.1 m, wheelbase L = 0.5 m. If left wheel speed = 1 m/s and right = 1.5 m/s, find linear and angular velocity of the robot.</p>
+            <details><summary>Show Solution</summary><p>v = (1 + 1.5)/2 = 1.25 m/s. ω = (1.5 - 1)/0.5 = 1 rad/s. Turning left.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Kinematics, Dynamics, Control</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> For a 2-link arm with masses m1=m2=1kg, lengths L1=L2=1m, in horizontal plane (no gravity), compute the mass matrix at θ = (0, 0).</p>
+            <details><summary>Show Solution</summary><p>M11 = m1 L1²/3 + m2 (L1² + L1 L2 cos θ2 + L2²/3) = 0.333 + (1 + 1 + 0.333) = 2.667. M12 = m2 (L2²/3 + L1 L2 cos θ2 / 2) = 0.333 + 0.5 = 0.833. M22 = m2 L2²/3 = 0.333. M = [[2.667, 0.833], [0.833, 0.333]].</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Design a PD controller for a joint with inertia J = 0.1 kg·m², target natural frequency ω_n = 10 rad/s, damping ratio ζ = 0.7. Compute Kp and Kd.</p>
+            <details><summary>Show Solution</summary><p>For J·θ&#39;&#39; + Kd·θ&#39; + Kp·θ = 0: ω_n = √(Kp/J) = 10 → Kp = 100 × 0.1 = 10. 2ζω_n = Kd/J → Kd = 2 × 0.7 × 10 × 0.1 = 1.4.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Explain the difference between computed torque control and PD control. When is each appropriate?</p>
+            <details><summary>Show Solution</summary><p>PD: τ = Kp e + Kd ė. Simple, doesn&#39;t use dynamics. Works for stiff robots, slow motions. Computed torque: τ = M(q)(q̈_d + Kd ė + Kp e) + C q̇ + g. Uses full dynamics — cancels nonlinearities. Better for fast, accurate motions or light robots. Requires accurate dynamic model.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

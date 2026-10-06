@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Learning for Vision — Stanford | TechPulse Academy</title>
+<meta name="description" content="CNNs, RNNs, attention, transformers, and modern computer vision techniques.">
+<link rel="canonical" href="https://www.pulsehig.com/course/deep-learning.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/deep-learning.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/deep-learning.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/deep-learning.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/deep-learning.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/deep-learning.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/deep-learning.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/deep-learning.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Deep Learning for Vision">
+<meta property="og:description" content="CNNs, RNNs, attention, transformers, and modern computer vision techniques.">
+<meta property="og:url" content="https://www.pulsehig.com/course/deep-learning.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Deep Learning for Vision","description":"CNNs, RNNs, attention, transformers, and modern computer vision techniques.","provider":{"@type":"Organization","name":"Stanford"},"url":"https://www.pulsehig.com/course/deep-learning.html","courseCode":"Stanford CS231n","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Computer Vision and CNNs","courseMode":"online"},{"@type":"CourseInstance","name":"Training Neural Networks","courseMode":"online"},{"@type":"CourseInstance","name":"Object Detection and Segmentation","courseMode":"online"},{"@type":"CourseInstance","name":"Generative Models: GANs, VAEs, Diffusion","courseMode":"online"},{"@type":"CourseInstance","name":"Advanced Topics and Deployment","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Deep Learning for Vision</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">Stanford CS231n · Stanford</span>
+      <h1>Deep Learning for Vision</h1>
+      <p>CNNs, RNNs, attention, transformers, and modern computer vision techniques.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">42h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to Computer Vision and CNNs</h4>
+          <p>
+## What is Computer Vision?
+
+Making computers understand images and video. Tasks:
+- **Classification:** &quot;this is a cat&quot;
+- **Detection:** &quot;there&#39;s a cat here&quot; (bounding box)
+- **Segmentation:** pixel-level labels
+...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is Computer Vision?<br><br>Making computers understand images and video. Tasks:<br>- <strong>Classification:</strong> "this is a cat"<br>- <strong>Detection:</strong> "there's a cat here" (bounding box)<br>- <strong>Segmentation:</strong> pixel-level labels<br>- <strong>Pose estimation:</strong> skeleton of a person<br>- <strong>Depth estimation:</strong> 3D structure<br>- <strong>Optical flow:</strong> motion between frames<br><br>CV has exploded with deep learning since 2012.<br><br>## Why Vision is Hard<br><br>An image is a 3D array (H × W × 3). For a 224×224 RGB image: 150,528 numbers.<br><br>Naive fully-connected layers would have ~150,000 inputs × thousands of hidden units = billions of parameters.<br><br>Images have structure:<br>- <strong>Locality:</strong> nearby pixels are related<br>- <strong>Translation invariance:</strong> a cat is a cat regardless of position<br>- <strong>Hierarchical features:</strong> edges → textures → parts → objects<br><br>CNNs exploit this structure.<br><br>## Convolutional Neural Networks<br><br>A CNN uses <strong>convolutional layers</strong> that slide small filters across the input.<br><br>For a 3×3 filter on a H × W × C input:<br>- Filter has 3×3×C weights<br>- Slides across all positions<br>- Produces a H' × W' × 1 feature map (one per filter)<br><br>Each filter detects a specific pattern (edge, corner, texture). Multiple filters → multiple feature maps.<br><br>## Properties of Convolution<br><br><strong>Local connectivity:</strong> each output depends on a small input region.<br><br><strong>Weight sharing:</strong> same filter across all positions.<br><br><strong>Translation equivariance:</strong> shift input → shift output.<br><br>Parameter count: 3×3×C per filter. Much smaller than dense.<br><br>## Pooling<br><br>Downsample feature maps to reduce spatial size and add translation invariance.<br><br><strong>Max pooling:</strong> take max in each 2×2 region.<br><strong>Average pooling:</strong> take average.<br><br>Pooling has no learnable parameters. Reduces H and W by factor 2 (for 2×2).<br><br>## CNN Architecture<br><br>Typical pattern:<br><br>    [Conv → ReLU] × N → Pool → [Conv → ReLU] × M → Pool → ... → Flatten → FC → Softmax<br><br>Features get smaller spatially, deeper in channels. Final layers are fully connected.<br><br>## LeNet (1998)<br><br>Yann LeCun's classic for handwritten digit recognition.<br><br>- 2 conv layers<br>- 2 pooling layers<br>- 3 fully connected<br>- ~60,000 parameters<br><br>Trained on MNIST. Used in ATMs for check reading.<br><br>## AlexNet (2012)<br><br>The breakthrough. Won ImageNet 2012 by a huge margin.<br><br>- 5 conv layers, 3 FC layers<br>- 60M parameters<br>- ReLU instead of sigmoid<br>- Dropout for regularization<br>- Data augmentation<br>- Trained on 2 GPUs (GTX 580, 3GB each)<br><br>Started the deep learning revolution.<br><br>## VGG (2014)<br><br>Very deep networks using only 3×3 convolutions. VGG-16 has 16 layers.<br><br>Simple, uniform architecture. Popular for transfer learning.<br><br>Downside: 138M parameters, slow.<br><br>## ResNet (2015)<br><br>Deep residual networks. Introduced <strong>skip connections</strong>:<br><br>    y = F(x) + x<br><br>Where F is a few conv layers. The +x is the identity shortcut.<br><br>Benefits:<br>- Trains very deep networks (100-1000 layers)<br>- Solves vanishing gradient<br>- Won ImageNet 2015<br><br>ResNet-50 is a workhorse for vision tasks.<br><br>## Modern Architectures<br><br>- <strong>Inception (GoogLeNet):</strong> multi-scale filters<br>- <strong>DenseNet:</strong> dense connections between layers<br>- <strong>EfficientNet:</strong> scaled depth, width, resolution<br>- <strong>MobileNet:</strong> for mobile, depthwise separable convs<br>- <strong>ViT:</strong> vision transformer, patches as tokens<br>- <strong>ConvNeXt:</strong> modernized CNN, competitive with ViT<br><br>## Training CNNs<br><br>- <strong>Loss:</strong> cross-entropy for classification<br>- <strong>Optimizer:</strong> SGD with momentum, Adam, AdamW<br>- <strong>Regularization:</strong> dropout, weight decay, data augmentation<br>- <strong>Learning rate:</strong> step decay, cosine, warmup<br>- <strong>Batch norm:</strong> normalize activations per batch, speeds training<br><br>## Transfer Learning<br><br>Pretrain on ImageNet, fine-tune on your task.<br><br>- Freeze early layers (generic features)<br>- Fine-tune later layers (task-specific)<br>- Works with small datasets (100s of examples)<br><br>Standard practice for most CV tasks.<br><br>## Key Takeaways<br><br>- Images are 3D arrays; CNNs exploit locality<br>- Convolution: local, weight-shared, translation-equivariant<br>- Pooling: downsample, add invariance<br>- AlexNet (2012) started the revolution<br>- VGG, ResNet, Inception, EfficientNet, ViT<br>- Transfer learning standard<br>- Modern: transformers competing with CNNs<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Training Neural Networks</h4>
+          <p>
+## The Training Loop
+
+For each batch:
+1. Forward pass: compute predictions
+2. Compute loss
+3. Backward pass: compute gradients
+4. Update weights
+
+Repeat until convergence.
+
+## Loss Functions
+
+**Classificati...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Training Loop<br><br>For each batch:<br>1. Forward pass: compute predictions<br>2. Compute loss<br>3. Backward pass: compute gradients<br>4. Update weights<br><br>Repeat until convergence.<br><br>## Loss Functions<br><br><strong>Classification:</strong> cross-entropy.<br><br>    L = -Σ y_i log(p_i)<br><br><strong>Regression:</strong> MSE.<br><br>    L = (1/N) Σ (y_i - ŷ_i)²<br><br><strong>Object detection:</strong> combined classification + localization.<br><strong>Segmentation:</strong> per-pixel cross-entropy or Dice.<br><br>## Gradient Descent Variants<br><br><strong>Batch GD:</strong> use all data per step. Accurate but slow.<br><br><strong>Stochastic GD (SGD):</strong> one example per step. Noisy but fast.<br><br><strong>Mini-batch GD:</strong> 32-256 examples per step. Standard.<br><br><strong>Momentum:</strong> add velocity term.<br><br>    v = β v + ∇L<br>    θ = θ - α v<br><br>Helps escape local minima, faster convergence.<br><br><strong>Adam:</strong> adaptive per-parameter learning rates. Combines momentum + RMSprop.<br><br>    m = β₁ m + (1-β₁) ∇L<br>    v = β₂ v + (1-β₂) (∇L)²<br>    θ = θ - α m / (√v + ε)<br><br>AdamW decouples weight decay from gradient update. Standard for transformers.<br><br>## Backpropagation<br><br>The chain rule applied to computational graphs. For each layer, compute gradient w.r.t. inputs and weights.<br><br>For a linear layer y = Wx:<br>- dL/dW = dL/dy × x^T<br>- dL/dx = W^T × dL/dy<br><br>Automatic differentiation (autograd) handles this in PyTorch, JAX, TensorFlow.<br><br>## Vanishing and Exploding Gradients<br><br>Deep networks suffer from unstable gradients:<br>- <strong>Vanishing:</strong> gradients shrink through layers, early layers barely update.<br>- <strong>Exploding:</strong> gradients blow up, training diverges.<br><br>Solutions:<br>- <strong>ReLU activation:</strong> no saturation in positive range.<br>- <strong>Batch normalization:</strong> normalizes each layer's inputs.<br>- <strong>Residual connections:</strong> skip connections provide gradient highway.<br>- <strong>Careful initialization:</strong> He, Xavier.<br><br>## Activation Functions<br><br>- <strong>Sigmoid:</strong> σ(x) = 1/(1+e^-x). Saturates; rarely used in hidden layers.<br>- <strong>Tanh:</strong> range [-1, 1]. Still saturates.<br>- <strong>ReLU:</strong> max(0, x). Simple, fast, standard.<br>- <strong>Leaky ReLU:</strong> small slope for x&lt;0.<br>- <strong>ELU, SELU:</strong> smooth variants.<br>- <strong>GELU:</strong> used in BERT, GPT.<br>- <strong>SiLU/Swish:</strong> used in EfficientNet, modern nets.<br><br>ReLU is default unless there's a reason.<br><br>## Weight Initialization<br><br>Bad initialization → dead networks.<br><br><strong>Xavier/Glorot:</strong> for tanh/sigmoid. Var = 2/(fan_in + fan_out).<br><br><strong>He:</strong> for ReLU. Var = 2/fan_in.<br><br>Too small → activations vanish. Too large → explode.<br><br>## Batch Normalization<br><br>Normalize each mini-batch:<br><br>    x̂ = (x - mean) / √(var + ε)<br>    y = γ x̂ + β<br><br>γ, β are learned. Standard in CNNs.<br><br>Benefits: faster training, allows higher LR, less sensitive to init.<br><br><strong>Layer norm:</strong> normalize across features. Used in transformers.<br><br><strong>Group norm, instance norm:</strong> alternatives for small batch sizes.<br><br>## Regularization<br><br><strong>Dropout:</strong> randomly zero activations during training. Forces redundancy.<br><br><strong>Weight decay (L2):</strong> penalize large weights.<br><br><strong>Data augmentation:</strong> random crops, flips, color jitter. Cheap and effective.<br><br><strong>Early stopping:</strong> stop when validation loss increases.<br><br><strong>Label smoothing:</strong> soft targets prevent overconfidence.<br><br>## Learning Rate Schedules<br><br>- <strong>Step decay:</strong> divide LR by 10 every N epochs.<br>- <strong>Cosine annealing:</strong> LR follows cosine curve.<br>- <strong>Warmup:</strong> start small, increase for a few epochs, then decay.<br>- <strong>One-cycle:</strong> fast increase then decrease.<br><br>Critical for good convergence.<br><br>## Hyperparameter Tuning<br><br>Key hyperparameters:<br>- Learning rate (most important)<br>- Batch size<br>- Weight decay<br>- Dropout rate<br>- Number of layers, hidden size<br>- Optimizer choice<br><br>Approach: random search &gt; grid search. Bayesian optimization for expensive models.<br><br>## Debugging Training<br><br><strong>Loss not decreasing:</strong> LR too low, wrong loss, bug in forward.<br><strong>Loss NaN:</strong> LR too high, numerical instability.<br><strong>Overfitting:</strong> regularization, more data, smaller model.<br><strong>Underfitting:</strong> bigger model, train longer.<br><br>Sanity checks: overfit a small batch. Verify loss on trivial data.<br><br>## Key Takeaways<br><br>- Training loop: forward, loss, backward, update<br>- Many optimizers; Adam/AdamW standard<br>- Backprop via chain rule<br>- Vanishing/exploding gradients solved by ReLU, batchnorm, residuals<br>- ReLU standard activation<br>- He init for ReLU<br>- Batch norm speeds training<br>- Regularization: dropout, weight decay, augmentation<br>- Learning rate schedule matters<br>- Random search for hyperparameters<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Object Detection and Segmentation</h4>
+          <p>
+## From Classification to Detection
+
+Classification: &quot;this image contains a cat.&quot;
+Detection: &quot;there&#39;s a cat at (x, y, w, h).&quot;
+
+Detection is harder: multiple objects, varying sizes, occlusions.
+
+## Two-Stage Dete...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## From Classification to Detection<br><br>Classification: "this image contains a cat."<br>Detection: "there's a cat at (x, y, w, h)."<br><br>Detection is harder: multiple objects, varying sizes, occlusions.<br><br>## Two-Stage Detectors<br><br><strong>R-CNN (2014):</strong> region proposals → CNN per region → classify. Slow.<br><br><strong>Fast R-CNN (2015):</strong> single CNN pass, ROI pooling. Faster.<br><br><strong>Faster R-CNN (2015):</strong> add Region Proposal Network (RPN). End-to-end.<br><br>Still two-stage, still relatively slow (~5-10 FPS).<br><br>Used when accuracy matters more than speed.<br><br>## One-Stage Detectors<br><br><strong>YOLO (2016):</strong> divide image into grid, predict boxes + classes per cell. Fast.<br><br><strong>SSD (2016):</strong> multi-scale feature maps for different object sizes.<br><br><strong>RetinaNet (2017):</strong> focal loss to handle class imbalance.<br><br><strong>YOLOv5/v7/v8:</strong> modern versions, fast and accurate.<br><br><strong>EfficientDet:</strong> scaled, efficient.<br><br>One-stage is now standard for real-time detection.<br><br>## Anchor Boxes<br><br>Pre-defined boxes of various sizes and aspect ratios at each position.<br><br>Each detection predicts:<br>- Offset from nearest anchor<br>- Class probabilities<br>- Objectness score<br><br>Recent models (FCOS, CenterNet) are anchor-free.<br><br>## Non-Maximum Suppression (NMS)<br><br>Many overlapping boxes for the same object. NMS:<br>1. Sort boxes by score<br>2. Keep highest<br>3. Remove boxes with IoU &gt; threshold<br>4. Repeat<br><br>IoU (Intersection over Union) measures overlap.<br><br>## Evaluation Metrics<br><br><strong>IoU:</strong> overlap between predicted and ground truth boxes.<br><br><strong>mAP (mean Average Precision):</strong> average precision across classes and IoU thresholds.<br><br><strong>COCO mAP:</strong> averages over IoU 0.5 to 0.95, small/medium/large objects.<br><br><strong>FPS:</strong> frames per second (speed).<br><br>Trade-off: accuracy vs speed.<br><br>## Semantic Segmentation<br><br>Classify every pixel.<br><br><strong>FCN (2014):</strong> replace FC layers with conv layers. Output is a heatmap.<br><br><strong>U-Net (2015):</strong> encoder-decoder with skip connections. Standard for medical imaging.<br><br><strong>DeepLab:</strong> atrous convolutions for multi-scale context.<br><br><strong>SegFormer, Mask2Former:</strong> transformer-based, state-of-the-art.<br><br>Loss: per-pixel cross-entropy, Dice, or focal.<br><br>## Instance Segmentation<br><br>Separate objects of the same class.<br><br><strong>Mask R-CNN (2017):</strong> Faster R-CNN + mask branch. Standard.<br><br><strong>YOLACT:</strong> real-time instance segmentation.<br><br><strong>SOLOv2, CondInst:</strong> alternatives.<br><br>Used in robotics, autonomous driving.<br><br>## Panoptic Segmentation<br><br>Combine semantic (all pixels) + instance (individual objects).<br><br>Each pixel is labeled with a class AND an instance ID (for countable things).<br><br>Used in autonomous driving scene understanding.<br><br>## Keypoint Detection<br><br>Find specific points on objects (joints, facial landmarks).<br><br><strong>OpenPose:</strong> bottom-up, detects all keypoints, groups into people.<br><br><strong>HRNet:</strong> high-resolution network, accurate.<br><br><strong>MediaPipe:</strong> Google's, real-time on mobile.<br><br>## 3D Vision<br><br>Beyond 2D images:<br>- <strong>Depth estimation:</strong> monocular or stereo<br>- <strong>3D object detection:</strong> LiDAR + camera<br>- <strong>NeRF:</strong> neural radiance fields for view synthesis<br>- <strong>Gaussian Splatting:</strong> fast 3D scene rendering<br>- <strong>SLAM:</strong> simultaneous localization and mapping<br><br>## Video Understanding<br><br>Beyond single images:<br>- <strong>Action recognition:</strong> classify actions in video<br>- <strong>Temporal detection:</strong> when does action happen<br>- <strong>Video captioning:</strong> describe video<br>- <strong>Tracking:</strong> follow objects across frames<br><br>Models: 3D CNNs, two-stream networks, transformers (TimeSformer, VideoMAE).<br><br>## Key Takeaways<br><br>- Detection: locate + classify objects<br>- Two-stage (Faster R-CNN) vs one-stage (YOLO)<br>- Anchors, NMS, IoU<br>- mAP is the standard metric<br>- Segmentation: semantic, instance, panoptic<br>- U-Net for medical, Mask R-CNN for general<br>- Keypoint detection: OpenPose, MediaPipe<br>- 3D vision: depth, NeRF, Gaussian Splatting<br>- Video: 3D CNNs, transformers<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Generative Models: GANs, VAEs, Diffusion</h4>
+          <p>
+## What are Generative Models?
+
+Models that learn the distribution of data and generate new samples.
+
+Tasks:
+- Image generation (DALL-E, Stable Diffusion, Midjourney)
+- Image editing (inpainting, style transfer)...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What are Generative Models?<br><br>Models that learn the distribution of data and generate new samples.<br><br>Tasks:<br>- Image generation (DALL-E, Stable Diffusion, Midjourney)<br>- Image editing (inpainting, style transfer)<br>- Super-resolution<br>- Data augmentation<br>- Anomaly detection<br><br>## Taxonomy<br><br>- <strong>Explicit density:</strong> model P(x) directly (VAE, autoregressive)<br>- <strong>Implicit density:</strong> learn to sample without P(x) (GAN)<br>- <strong>Score-based / diffusion:</strong> learn the gradient of log P(x)<br><br>Each has strengths.<br><br>## Autoencoders<br><br>Compress input to a latent code, reconstruct:<br><br>    x → Encoder → z → Decoder → x̂<br><br>Trained to minimize ||x - x̂||. Bottleneck forces compact representation.<br><br>Used for dimensionality reduction, denoising, feature learning.<br><br>But autoencoders are not generative — no way to sample new data.<br><br>## Variational Autoencoders (VAEs)<br><br>Encoder outputs a distribution (μ, σ), not a point. Sample z from it, decode.<br><br>Loss = reconstruction loss + KL divergence to prior.<br><br>    L = ||x - x̂||² + KL(q(z|x) || p(z))<br><br>Benefits:<br>- Smooth latent space<br>- Can sample new data<br>- Principled probabilistic framework<br><br>Downside: blurry samples (from MSE loss).<br><br>## GANs (Generative Adversarial Networks)<br><br>Goodfellow et al. (2014). Two networks:<br>- <strong>Generator:</strong> produces fake images from noise<br>- <strong>Discriminator:</strong> distinguishes real from fake<br><br>Trained adversarially:<br><br>    min_G max_D E[log D(x)] + E[log(1 - D(G(z)))]<br><br>Generator tries to fool discriminator; discriminator tries not to be fooled.<br><br>Result: generator produces realistic images.<br><br>## GAN Variants<br><br>- <strong>DCGAN:</strong> convolutional GAN, stable architecture<br>- <strong>CycleGAN:</strong> unpaired image translation (horse ↔ zebra)<br>- <strong>StyleGAN:</strong> high-quality faces, controllable style<br>- <strong>Pix2Pix:</strong> paired image translation (edges → photos)<br>- <strong>BigGAN:</strong> class-conditional, high fidelity<br>- <strong>Progressive GAN:</strong> grow resolution during training<br><br>## GAN Challenges<br><br>- <strong>Mode collapse:</strong> generator produces limited variety<br>- <strong>Training instability:</strong> hard to balance G and D<br>- <strong>Evaluation:</strong> hard to measure quality (FID, IS)<br><br>## Diffusion Models<br><br>Sohl-Dickstein et al. (2015), popularized by Ho et al. (2020).<br><br>Forward process: gradually add noise to image.<br><br>    x_t = √(1-β_t) x_{t-1} + √β_t ε<br><br>After T steps, x_T is pure noise.<br><br>Reverse process: learn to denoise step by step.<br><br>    x_{t-1} = (1/√α_t) (x_t - (1-α_t)/√(1-ᾱ_t) ε_θ(x_t, t))<br><br>Train network to predict noise ε at each step.<br><br>## Why Diffusion Works<br><br>- Stable training (simple MSE loss)<br>- High-quality samples<br>- Covers the data distribution (no mode collapse)<br>- Controllable generation<br><br>Downside: slow sampling (many steps). Solved by DDIM, DPM-Solver.<br><br>## Stable Diffusion<br><br>Latent diffusion: apply diffusion in a compressed latent space (VAE encoded).<br><br>Benefits: much faster, lower compute.<br><br>Text conditioning via CLIP text encoder → cross-attention.<br><br>Powers DALL-E 2, Stable Diffusion, Midjourney, Imagen.<br><br>## Classifier-Free Guidance<br><br>Improve sample quality by combining conditional and unconditional predictions:<br><br>    ε = ε_uncond + w (ε_cond - ε_uncond)<br><br>w is the guidance scale. Higher w → more fidelity to prompt, less diversity.<br><br>## ControlNet<br><br>Add spatial conditioning (pose, edges, depth) to diffusion models.<br><br>Enables precise control over generation.<br><br>## Evaluation Metrics<br><br>- <strong>FID (Fréchet Inception Distance):</strong> distance between real and generated distributions in feature space. Lower is better.<br>- <strong>IS (Inception Score):</strong> quality + diversity. Higher is better.<br>- <strong>CLIP Score:</strong> text-image alignment.<br><br>No metric is perfect; human eval still matters.<br><br>## Applications<br><br>- Text-to-image (DALL-E 3, SDXL, Midjourney)<br>- Text-to-video (Sora, Runway)<br>- Image editing (inpainting, outpainting)<br>- 3D generation (DreamFusion)<br>- Drug discovery (molecule generation)<br>- Audio generation (MusicGen, AudioLM)<br><br>## Key Takeaways<br><br>- Generative models learn P(x)<br>- Autoencoders compress; VAEs sample<br>- GANs: adversarial, sharp but unstable<br>- Diffusion: iterative denoising, high quality, stable<br>- Stable Diffusion: latent diffusion + text conditioning<br>- Guidance, ControlNet for control<br>- FID is standard metric<br>- Diffusions dominate image generation<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Advanced Topics and Deployment</h4>
+          <p>
+## Self-Supervised Learning
+
+Learn representations without labels. Use pretext tasks:
+- **Contrastive:** pull similar pairs together, push dissimilar apart
+- **Masked prediction:** predict masked parts
+- **Rotatio...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Self-Supervised Learning<br><br>Learn representations without labels. Use pretext tasks:<br>- <strong>Contrastive:</strong> pull similar pairs together, push dissimilar apart<br>- <strong>Masked prediction:</strong> predict masked parts<br>- <strong>Rotation:</strong> predict how image was rotated<br><br>Methods: SimCLR, MoCo, BYOL, DINO, MAE.<br><br>Why it matters: unlabeled data is abundant; labels are expensive.<br><br>Foundation models (CLIP, DINOv2) trained self-supervised.<br><br>## Vision Transformers (ViT)<br><br>Apply transformer to images: split into patches, treat as tokens.<br><br>    Image (224×224) → 16×16 patches → 196 tokens → Transformer<br><br>Requires more data than CNNs. On ImageNet alone, ViT underperforms ResNet. On larger datasets (JFT-300M), it surpasses.<br><br>Modern: Swin, DeiT, BEiT, DINOv2.<br><br>## Multimodal Models<br><br>Combine vision + language:<br>- <strong>CLIP:</strong> contrastive image-text pretraining<br>- <strong>BLIP:</strong> captioning, VQA<br>- <strong>Flamingo:</strong> few-shot visual understanding<br>- <strong>GPT-4V, Gemini:</strong> native multimodal LLMs<br>- <strong>LLaVA:</strong> open-source vision-language<br><br>Enables image captioning, VQA, image-grounded dialogue.<br><br>## Neural Architecture Search (NAS)<br><br>Automate architecture design.<br><br>- <strong>Reinforcement learning:</strong> controller proposes architectures<br>- <strong>Evolutionary:</strong> mutate and select<br>- <strong>Differentiable (DARTS):</strong> relax discrete choices<br><br>Found architectures: NASNet, AmoebaNet, EfficientNet.<br><br>Expensive to run but produces efficient models.<br><br>## Model Compression<br><br>Deploy large models on small devices.<br><br><strong>Pruning:</strong> remove weights/neurons. Sparse models run faster.<br><br><strong>Quantization:</strong> reduce precision.<br>- Post-training: quantize trained model (INT8)<br>- Quantization-aware training: simulate quantization during training<br>- 4-bit, 2-bit for LLMs<br><br><strong>Knowledge distillation:</strong> train small student to mimic large teacher.<br><br><strong>Low-rank factorization:</strong> replace layers with smaller matrices.<br><br>Combined: 10-100x smaller models with minor quality loss.<br><br>## Efficient Architectures<br><br>- <strong>MobileNet:</strong> depthwise separable convolutions<br>- <strong>ShuffleNet:</strong> channel shuffle for efficiency<br>- <strong>EfficientNet:</strong> compound scaling<br>- <strong>MobileViT:</strong> hybrid CNN + transformer<br><br>Used in mobile, embedded, edge.<br><br>## Hardware for Deep Learning<br><br>- <strong>GPUs:</strong> NVIDIA dominates (A100, H100, RTX 4090)<br>- <strong>TPUs:</strong> Google's tensor processing units<br>- <strong>NPUs:</strong> dedicated neural network accelerators (Apple Neural Engine, Qualcomm Hexagon)<br>- <strong>FPGAs:</strong> reconfigurable, flexible<br>- <strong>ASICs:</strong> custom silicon (Google TPU, Tesla FSD)<br>- <strong>Neuromorphic:</strong> brain-inspired (Intel Loihi)<br><br>Each has trade-offs in speed, power, cost, flexibility.<br><br>## Frameworks<br><br>- <strong>PyTorch:</strong> research standard, dynamic graphs<br>- <strong>TensorFlow:</strong> production, Keras API<br>- <strong>JAX:</strong> functional, autograd, XLA<br>- <strong>MXNet:</strong> Amazon, legacy<br>- <strong>ONNX:</strong> interchange format<br>- <strong>TVM:</strong> compiler for deployment<br><br>PyTorch dominates research; TF/JAX in production.<br><br>## Deployment<br><br>From trained model to production:<br>1. Export to ONNX or TorchScript<br>2. Optimize (quantization, pruning)<br>3. Convert to target (TensorRT, CoreML, TFLite)<br>4. Serve (REST API, gRPC)<br>5. Monitor (latency, accuracy, drift)<br><br>Tools: TorchServe, Triton, KServe, BentoML.<br><br>## Ethics and Fairness<br><br>Models can be biased, unfair, or harmful.<br><br>Issues:<br>- <strong>Bias:</strong> racial, gender, age in predictions<br>- <strong>Privacy:</strong> models memorize training data<br>- <strong>Deepfakes:</strong> realistic fake media<br>- <strong>Misuse:</strong> surveillance, manipulation<br>- <strong>Environmental:</strong> energy cost of training<br><br>Mitigation:<br>- Bias testing and correction<br>- Differential privacy<br>- Watermarking generated content<br>- Regulation (EU AI Act)<br><br>## Interpretability<br><br>Understanding why models predict what they do.<br><br>- <strong>Saliency maps:</strong> which pixels matter<br>- <strong>Grad-CAM:</strong> class activation maps<br>- <strong>Attention visualization:</strong> what the model attends to<br>- <strong>LIME, SHAP:</strong> local explanations<br><br>Important for high-stakes applications (medical, legal, autonomous).<br><br>## Future Directions<br><br>- <strong>Foundation models:</strong> one model for many tasks<br>- <strong>Multimodal:</strong> text, image, audio, video<br>- <strong>Efficient:</strong> smaller, faster, cheaper<br>- <strong>Robust:</strong> handle distribution shift, adversarial attacks<br>- <strong>Aligned:</strong> safe, honest, helpful<br>- <strong>Reasoning:</strong> chain-of-thought, planning<br>- <strong>Agents:</strong> LLMs that take actions<br><br>The field moves fast. Stay curious.<br><br>## Key Takeaways<br><br>- Self-supervised learning uses unlabeled data<br>- ViT brings transformers to vision<br>- Multimodal models combine vision + language<br>- NAS automates architecture design<br>- Compression: pruning, quantization, distillation<br>- Efficient architectures for edge<br>- GPUs/TPUs/NPUs/FPGAs for training and inference<br>- PyTorch, TF, JAX frameworks<br>- Deployment: export, optimize, serve, monitor<br>- Ethics, interpretability, and safety are critical<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: CNNs, Training, Backprop</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> A conv layer has input 32×32×3, 64 filters of size 3×3, stride 1, no padding. What is the output size and parameter count?</p>
+            <details><summary>Show Solution</summary><p>Output: (32 - 3 + 0)/1 + 1 = 30, so 30×30×64. Params per filter: 3×3×3 + 1 = 28. Total: 64 × 28 = 1792.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Compute the output of a 2×2 max-pool on the matrix [[1,3,2,4],[5,6,7,8],[9,1,2,3],[4,5,6,7]] with stride 2.</p>
+            <details><summary>Show Solution</summary><p>Top-left 2×2: max(1,3,5,6)=6. Top-right: max(2,4,7,8)=8. Bottom-left: max(9,1,4,5)=9. Bottom-right: max(2,3,6,7)=7. Output: [[6,8],[9,7]].</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Explain why batch normalization helps training and where the learned parameters γ and β come in.</p>
+            <details><summary>Show Solution</summary><p>BatchNorm normalizes activations to zero mean and unit variance per mini-batch, then scales by γ and shifts by β (both learned). This stabilizes activations, allows higher LR, reduces sensitivity to init, and acts as mild regularization. γ/β let the network undo normalization if needed.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: CNNs, Training, Detection</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Compute gradients for a 2-layer network: h = ReLU(W1 x), y = softmax(W2 h), loss = -log(y_true). Show dL/dW2 and dL/dW1.</p>
+            <details><summary>Show Solution</summary><p>dL/dz2 = y - y_true (softmax + CE gradient). dL/dW2 = (y - y_true) h^T. dL/dh = W2^T (y - y_true). dL/dz1 = dL/dh ⊙ (z1 &gt; 0). dL/dW1 = dL/dz1 × x^T.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Explain the difference between semantic, instance, and panoptic segmentation. Give a use case for each.</p>
+            <details><summary>Show Solution</summary><p>Semantic: each pixel classified by class (road, car, person) — no distinction between instances. Used in scene understanding. Instance: each object instance separate (car 1, car 2). Used in counting, robotics. Panoptic: combines both — every pixel labeled with class + instance. Used in autonomous driving.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A YOLO model outputs 3 boxes at a location: [(0.1, 0.4), (0.2, 0.3), (0.15, 0.35)] with confidences (0.9, 0.8, 0.7). Apply NMS with IoU threshold 0.5.</p>
+            <details><summary>Show Solution</summary><p>Sort by confidence: (0.1,0.4)@0.9, (0.2,0.3)@0.8, (0.15,0.35)@0.7. Box 1 kept. Compute IoU with box 2: high overlap → suppress. IoU with box 3: high overlap → suppress. Final: only box 1 remains.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

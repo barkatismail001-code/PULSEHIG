@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control Systems — Caltech | TechPulse Academy</title>
+<meta name="description" content="Feedback control, transfer functions, stability, root locus, Bode plots, PID controllers, and state-space methods.">
+<link rel="canonical" href="https://www.pulsehig.com/course/control-systems.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/control-systems.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/control-systems.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/control-systems.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/control-systems.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/control-systems.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/control-systems.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/control-systems.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Control Systems">
+<meta property="og:description" content="Feedback control, transfer functions, stability, root locus, Bode plots, PID controllers, and state-space methods.">
+<meta property="og:url" content="https://www.pulsehig.com/course/control-systems.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Control Systems","description":"Feedback control, transfer functions, stability, root locus, Bode plots, PID controllers, and state-space methods.","provider":{"@type":"Organization","name":"Caltech"},"url":"https://www.pulsehig.com/course/control-systems.html","courseCode":"Caltech CDS 101","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Feedback Control","courseMode":"online"},{"@type":"CourseInstance","name":"System Modeling and Laplace Transforms","courseMode":"online"},{"@type":"CourseInstance","name":"PID Controller Design","courseMode":"online"},{"@type":"CourseInstance","name":"Stability Analysis: Bode and Nyquist","courseMode":"online"},{"@type":"CourseInstance","name":"State-Space Control","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Control Systems</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">Caltech CDS 101 · Caltech</span>
+      <h1>Control Systems</h1>
+      <p>Feedback control, transfer functions, stability, root locus, Bode plots, PID controllers, and state-space methods.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">42h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to Feedback Control</h4>
+          <p>
+## What is a Control System?
+
+A control system is a system that regulates another system. Examples:
+
+- Cruise control keeps a car at a set speed
+- Thermostat keeps a room at a set temperature
+- Autopilot keeps a ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is a Control System?<br><br>A control system is a system that regulates another system. Examples:<br><br>- Cruise control keeps a car at a set speed<br>- Thermostat keeps a room at a set temperature<br>- Autopilot keeps a plane on course<br>- Camera autofocus keeps a subject sharp<br><br>The core idea: measure the output, compare to the desired output, and adjust the input.<br><br>## Open-Loop vs Closed-Loop<br><br><strong>Open-loop:</strong> apply a preset input, hope the output is right. No feedback. Simple, but sensitive to disturbances and model errors.<br><br>Example: a toaster has a timer. If the bread is thicker, it burns.<br><br><strong>Closed-loop:</strong> measure the output, feed it back, correct the error. Robust to disturbances.<br><br>Example: a thermostat with a temperature sensor. When the room is cold, it heats. When warm, it stops.<br><br>## The Feedback Loop<br><br>    ┌─────────┐    ┌─────────┐    ┌────────┐<br>    │ Setpoint├───▶│ Error   ├───▶│Controller├──▶ u(t) ──▶ Plant ──▶ y(t)<br>    └─────────┘    └─────────┘    └────────┘                                 │<br>                          ▲                                                 │<br>                          │                                                 │<br>                          └──── r(t) ◀────── Sensor ◀─────────────────────┘<br><br>Where:<br>- r(t) = setpoint (what we want)<br>- y(t) = output (what we have)<br>- e(t) = r(t) - y(t) = error<br>- u(t) = control input<br><br>## The Controller<br><br>Three classical controllers (PID):<br><br><strong>Proportional (P):</strong> u = Kp × e. Simple, but leaves steady-state error.<br><br><strong>Integral (I):</strong> u = Ki × ∫e dt. Removes steady-state error, but can cause oscillation.<br><br><strong>Derivative (D):</strong> u = Kd × de/dt. Predicts the future, damps oscillation, but amplifies noise.<br><br>Combined:<br><br>    u(t) = Kp×e + Ki×∫e + Kd×de/dt<br><br>This is the PID controller — the workhorse of industrial control.<br><br>## Why Feedback Works<br><br>Feedback rejects disturbances:<br><br>    If Plant = P, Controller = C, then:<br>    y/r = PC / (1 + PC)<br><br>As long as PC &gt;&gt; 1 at the relevant frequencies, the closed-loop transfer function ≈ 1.<br><br>Feedback also reduces sensitivity to plant variations:<br><br>    d(y/r)/(y/r) = (1/(1+PC)) × dP/P<br><br>So a 20% variation in plant becomes a 20%/(1+PC) variation in output.<br><br>## Stability<br><br>Not all feedback is good. Too much gain causes oscillation. The closed-loop poles must be in the left half-plane.<br><br>Classical tests:<br>- <strong>Nyquist criterion:</strong> plot PC in the complex plane, check encirclements of -1<br>- <strong>Bode plots:</strong> gain margin (how much more gain before oscillation) and phase margin (how much more phase lag before oscillation)<br>- <strong>Root locus:</strong> where closed-loop poles go as gain increases<br><br>Rule of thumb: phase margin &gt; 45° for good damping, &gt; 60° for excellent.<br><br>## Applications<br><br>- <strong>Robotics:</strong> joint control, trajectory tracking<br>- <strong>Aerospace:</strong> autopilot, missile guidance, satellite attitude<br>- <strong>Process control:</strong> temperature, pressure, flow<br>- <strong>Automotive:</strong> cruise control, ABS, engine management<br>- <strong>Power systems:</strong> grid frequency, voltage regulation<br><br>## Key Takeaways<br><br>- Feedback compares output to setpoint, adjusts input<br>- Closed-loop is robust; open-loop is not<br>- PID is the universal controller<br>- Feedback reduces sensitivity and rejects disturbances<br>- Stability is essential; tune for phase margin<br>- Control is everywhere in engineering<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>System Modeling and Laplace Transforms</h4>
+          <p>
+## Why Model Systems?
+
+To design a controller, we need a mathematical model of the plant. The model doesn&#39;t have to be perfect — it just needs to capture the essential dynamics.
+
+## Differential Equations
+
+Most p...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Model Systems?<br><br>To design a controller, we need a mathematical model of the plant. The model doesn't have to be perfect — it just needs to capture the essential dynamics.<br><br>## Differential Equations<br><br>Most physical systems are described by ODEs:<br><br><strong>RC circuit:</strong><br>    RC × dVout/dt + Vout = Vin<br><br><strong>Mass-spring-damper:</strong><br>    m × x'' + c × x' + k × x = F(t)<br><br><strong>DC motor:</strong><br>    J × ω' + b × ω = Kt × I<br>    L × I' + R × I = V - Ke × ω<br><br>These couple the physical world (R, m, k) to the dynamics.<br><br>## The Laplace Transform<br><br>The Laplace transform converts ODEs to algebraic equations:<br><br>    L{f(t)} = F(s) = ∫₀^∞ f(t) × e^(-st) dt<br><br>Key properties:<br><br>- <strong>Linearity:</strong> L{af + bg} = aF + bG<br>- <strong>Derivative:</strong> L{f'} = sF(s) - f(0)<br>- <strong>Integral:</strong> L{∫f dt} = F(s)/s<br>- <strong>Time shift:</strong> L{f(t-T)} = e^(-sT) × F(s)<br>- <strong>Final value theorem:</strong> lim(t→∞) f(t) = lim(s→0) sF(s)<br><br>## Common Transforms<br><br>| f(t) | F(s) |<br>|------|------|<br>| δ(t) (impulse) | 1 |<br>| u(t) (step) | 1/s |<br>| t | 1/s² |<br>| e^(-at) | 1/(s+a) |<br>| sin(ωt) | ω/(s²+ω²) |<br>| 1 - e^(-t/τ) | 1/(s(sτ+1)) |<br><br>## Transfer Functions<br><br>For a linear time-invariant (LTI) system with zero initial conditions:<br><br>    H(s) = Y(s) / U(s)<br><br>This is the transfer function. It fully characterizes the system's input-output behavior.<br><br>For the RC circuit:<br><br>    H(s) = 1 / (RCs + 1)<br><br>The pole at s = -1/(RC) determines the time constant τ = RC.<br><br>## Poles and Zeros<br><br>The transfer function is a ratio of polynomials:<br><br>    H(s) = N(s) / D(s)<br><br><strong>Zeros:</strong> roots of N(s). Cause the output to be zero at certain frequencies.<br><br><strong>Poles:</strong> roots of D(s). Determine the natural response.<br><br>For a first-order system with pole at s = -a:<br><br>    h(t) = e^(-at)<br><br>Time constant τ = 1/a.<br><br>For a second-order system with poles at s = -σ ± jωd:<br><br>    h(t) = e^(-σt) × sin(ωd × t + φ)<br><br>Damping ratio ζ = σ / √(σ² + ωd²).<br><br>- ζ &gt; 1: overdamped (no oscillation)<br>- ζ = 1: critically damped (fastest without overshoot)<br>- 0 &lt; ζ &lt; 1: underdamped (oscillates)<br>- ζ = 0: undamped (pure oscillation)<br><br>## Block Diagrams<br><br>Complex systems are built from simple blocks:<br><br>- <strong>Series:</strong> H = H1 × H2<br>- <strong>Parallel:</strong> H = H1 + H2<br>- <strong>Feedback:</strong> H = H1 / (1 + H1 × H2)<br><br>Feedback is the key block that changes system behavior dramatically.<br><br>## Example: DC Motor Position Control<br><br>    θ(s) / V(s) = Kt / (s × (Js + b) × (Ls + R) + Kt × Ke)<br><br>For a small motor, L is negligible, so:<br><br>    θ(s) / V(s) ≈ Kt / (s × (Js + b) × R + Kt × Ke)<br><br>This is a second-order system with one pole at origin (integrator) and one real pole.<br><br>## Key Takeaways<br><br>- Physical systems → ODEs → Laplace → transfer functions<br>- Poles and zeros characterize system behavior<br>- Second-order: ζ and ωn fully determine response<br>- Block diagrams compose simple systems<br>- Feedback changes the effective dynamics<br>- Modeling is the first step of any control design<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>PID Controller Design</h4>
+          <p>
+## The PID Controller
+
+The most widely used controller in industry. Over 90% of control loops use PID.
+
+    u(t) = Kp×e(t) + Ki×∫₀^t e(τ)dτ + Kd×de/dt
+
+In Laplace form:
+
+    C(s) = Kp + Ki/s + Kd×s
+
+Or equiva...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The PID Controller<br><br>The most widely used controller in industry. Over 90% of control loops use PID.<br><br>    u(t) = Kp×e(t) + Ki×∫₀^t e(τ)dτ + Kd×de/dt<br><br>In Laplace form:<br><br>    C(s) = Kp + Ki/s + Kd×s<br><br>Or equivalently:<br><br>    C(s) = Kp × (1 + 1/(Ti×s) + Td×s)<br><br>where Ti = Kp/Ki is the integral time and Td = Kd/Kp is the derivative time.<br><br>## Proportional Term<br><br>u = Kp × e<br><br>Pros:<br>- Fast response<br>- Simple<br><br>Cons:<br>- Steady-state error for step input to type-0 plant<br>- Higher Kp = faster but more oscillatory<br><br>## Integral Term<br><br>u = Ki × ∫e dt<br><br>Pros:<br>- Eliminates steady-state error<br>- Handles constant disturbances<br><br>Cons:<br>- Adds phase lag → reduces stability<br>- Can cause "integral windup" during saturation<br><br>## Derivative Term<br><br>u = Kd × de/dt<br><br>Pros:<br>- Adds phase lead → improves stability<br>- Predicts future error → damps response<br><br>Cons:<br>- Amplifies high-frequency noise<br>- Difficult to implement in practice<br><br>## Tuning Methods<br><br>### Ziegler-Nichols (Closed-Loop)<br><br>1. Set Ki = Kd = 0<br>2. Increase Kp until system oscillates at constant amplitude. Call this Ku (ultimate gain), and the period Tu.<br>3. Set:<br>   - Kp = 0.6 × Ku<br>   - Ki = 2 × Kp / Tu<br>   - Kd = Kp × Tu / 8<br><br>This gives a "quarter-wave decay" response — moderately aggressive.<br><br>### Ziegler-Nichols (Open-Loop)<br><br>From the step response, find the inflection point. Draw a tangent. Read off the delay L and time constant T.<br><br>Then:<br>- Kp = 1.2 × T / (K × L)<br>- Ki = Kp / (2L)<br>- Kd = Kp × 0.5 × L<br><br>where K is the plant DC gain.<br><br>### Manual Tuning<br><br>1. Start with Ki = Kd = 0<br>2. Increase Kp until response is fast but stable (no sustained oscillation)<br>3. Add Ki to eliminate steady-state error — small at first<br>4. Add Kd to reduce overshoot and speed up response<br>5. Iterate<br><br>## Typical Issues<br><br><strong>Integral windup:</strong> during saturation (e.g., actuator limit), the integrator keeps accumulating. When the error reverses, the integrator takes time to unwind → overshoot.<br><br>Solution: anti-windup — clamp the integrator or freeze it during saturation.<br><br><strong>Noise amplification:</strong> the derivative term amplifies sensor noise. Solution: use a low-pass filter on the derivative, or use a "dirty derivative" (filtered derivative).<br><br><strong>Setpoint kick:</strong> differentiating the setpoint causes a spike when the reference changes. Solution: differentiate only the measurement, not the error.<br><br>## PID in Discrete Time<br><br>Real controllers run on microcontrollers with a fixed sample period Ts.<br><br>    u[n] = u[n-1] + Kp×(e[n]-e[n-1]) + Ki×Ts×e[n] + (Kd/Ts)×(e[n]-2e[n-1]+e[n-2])<br><br>The sampling rate should be at least 10x the fastest dynamics.<br><br>## Example: Temperature Control<br><br>A 3D printer hot end has a thermal time constant of ~30 seconds. Sample at 1 Hz.<br><br>Typical PID gains: Kp = 20, Ki = 0.5, Kd = 100.<br><br>At startup, the heater runs full power until the temperature nears the setpoint. Then PID takes over.<br><br>## Key Takeaways<br><br>- PID is the universal industrial controller<br>- P = speed, I = eliminate steady-state error, D = damping<br>- Ziegler-Nichols gives starting gains<br>- Anti-windup is essential in practice<br>- Filter the derivative to reduce noise<br>- Discrete-time implementation is standard<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Stability Analysis: Bode and Nyquist</h4>
+          <p>
+## Stability
+
+A system is stable if its output returns to equilibrium after a disturbance. Formally, all poles of the closed-loop transfer function must be in the left half of the complex plane.
+
+Feedback can make ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Stability<br><br>A system is stable if its output returns to equilibrium after a disturbance. Formally, all poles of the closed-loop transfer function must be in the left half of the complex plane.<br><br>Feedback can make a stable plant unstable if the gain is too high. Understanding stability margins is essential.<br><br>## Gain and Phase Margin<br><br>Consider the loop transfer function L(s) = C(s) × P(s).<br><br>The <strong>crossover frequency</strong> ωc is where |L(jωc)| = 1 (0 dB).<br><br>The <strong>phase margin</strong> (PM) is the difference between the phase of L at crossover and -180°:<br><br>    PM = 180° + ∠L(jωc)<br><br>Rule of thumb:<br>- PM &gt; 0: stable<br>- PM = 45°: good, moderate overshoot<br>- PM = 60°: excellent, minimal overshoot<br>- PM = 90°: very conservative, slow<br><br>The <strong>gain margin</strong> (GM) is how much the gain can increase before instability:<br><br>    GM = 1 / |L(jωpc)|<br><br>where ωpc is the phase crossover frequency (where ∠L = -180°).<br><br>## Bode Plots<br><br>Two plots:<br>1. Magnitude |L(jω)| in dB vs frequency (log scale)<br>2. Phase ∠L(jω) in degrees vs frequency (log scale)<br><br>Read off:<br>- Crossover frequency (where magnitude = 0 dB)<br>- Phase margin (180 + phase at crossover)<br>- Phase crossover (where phase = -180°)<br>- Gain margin (negative of magnitude at phase crossover)<br><br>## Rules of Thumb<br><br>Each pole contributes -20 dB/decade and -90° of phase.<br><br>Each zero contributes +20 dB/decade and +90° of phase.<br><br>For a typical system, if the slope at crossover is -20 dB/decade, phase margin is roughly 90°. If -40 dB/decade, phase margin is roughly 0°.<br><br>Rule: keep the slope at crossover at -20 dB/decade for good phase margin.<br><br>## Nyquist Criterion<br><br>Plot L(jω) for ω from 0 to ∞ in the complex plane. This is the Nyquist plot.<br><br>The number of encirclements of the point -1 equals the number of unstable closed-loop poles minus the number of unstable open-loop poles.<br><br>For a stable open-loop system:<br>- No encirclement of -1 → stable closed-loop<br>- Encirclement → unstable closed-loop<br><br>Nyquist is more powerful than Bode for two reasons:<br>1. It handles right-half-plane poles correctly<br>2. It captures the behavior at all frequencies<br><br>## Frequency Response Intuition<br><br>At low frequency, integrators give high gain — good for tracking.<br><br>At high frequency, the plant rolls off — good for noise rejection.<br><br>A well-designed controller has:<br>- High gain at low frequency (tracking)<br>- Crossover at a frequency where phase margin &gt; 45°<br>- Low gain at high frequency (noise rejection)<br><br>This is the "loop shaping" approach to control design.<br><br>## Example: PI Control of First-Order Plant<br><br>Plant: P(s) = K / (τs + 1)<br><br>Controller: C(s) = Kp + Ki/s<br><br>Loop: L(s) = (Kp + Ki/s) × K / (τs + 1)<br><br>At low frequency, the integrator gives high gain. At high frequency, the plant rolls off.<br><br>Design Kp and Ki so crossover is at ωc with 60° phase margin.<br><br>## Key Takeaways<br><br>- Stability requires all closed-loop poles in the left half-plane<br>- Phase margin &gt; 45° for good response<br>- Gain margin &gt; 6 dB for robustness<br>- Bode plots are the standard visualization<br>- Nyquist is more rigorous<br>- Loop shaping: high gain low freq, crossover with margin, low gain high freq<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>State-Space Control</h4>
+          <p>
+## Beyond Transfer Functions
+
+Transfer functions work for SISO systems with zero initial conditions. For MIMO systems, or systems with nonzero initial conditions, we use state-space.
+
+## State-Space Representation...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Beyond Transfer Functions<br><br>Transfer functions work for SISO systems with zero initial conditions. For MIMO systems, or systems with nonzero initial conditions, we use state-space.<br><br>## State-Space Representation<br><br>Any linear system can be written as:<br><br>    ẋ = A x + B u<br>    y = C x + D u<br><br>where:<br>- x ∈ R^n is the state vector<br>- u ∈ R^m is the input<br>- y ∈ R^p is the output<br>- A, B, C, D are constant matrices<br><br>## Example: Mass-Spring-Damper<br><br>    m x'' + c x' + k x = F<br><br>Define state: x1 = x, x2 = x'<br><br>    x1' = x2<br>    x2' = -k/m × x1 - c/m × x2 + 1/m × F<br><br>So:<br>    A = [0, 1; -k/m, -c/m]<br>    B = [0; 1/m]<br>    C = [1, 0]<br>    D = [0]<br><br>## Controllability<br><br>The system is controllable if we can drive the state from any initial value to any final value in finite time.<br><br>Controllability matrix:<br><br>    C = [B  AB  A²B  ...  A^(n-1)B]<br><br>The system is controllable iff C has full rank (rank n).<br><br>## Observability<br><br>The system is observable if the initial state can be determined from the output over time.<br><br>Observability matrix:<br><br>    O = [C; CA; CA²; ...; CA^(n-1)]<br><br>Full rank (n) → observable.<br><br>## Pole Placement<br><br>If the system is controllable, we can place the closed-loop poles anywhere via state feedback:<br><br>    u = -K x<br><br>The closed-loop system becomes:<br><br>    ẋ = (A - BK) x<br><br>Choose K so that the eigenvalues of (A - BK) are the desired poles.<br><br>This is like PID tuning but more powerful: we can shape the entire closed-loop response.<br><br>## Linear Quadratic Regulator (LQR)<br><br>Instead of picking poles directly, we minimize a cost function:<br><br>    J = ∫₀^∞ (x'Qx + u'Ru) dt<br><br>where Q and R are weighting matrices chosen by the designer.<br><br>The solution is:<br><br>    K = R^(-1) B' P<br><br>where P solves the algebraic Riccati equation:<br><br>    A'P + PA - PBR^(-1)B'P + Q = 0<br><br>LQR gives optimal trade-off between state regulation and control effort.<br><br>## Observer Design<br><br>If we can't measure all states, we build an observer:<br><br>    x̂' = A x̂ + B u + L(y - C x̂)<br><br>The observer error (x - x̂) evolves as:<br><br>    (x - x̂)' = (A - LC)(x - x̂)<br><br>Choose L so that A - LC is stable (eigenvalues in left half-plane).<br><br>The combined controller-observer is called a "compensator" and has the same input-output behavior as a state-feedback controller on the true state (separation principle).<br><br>## Applications<br><br>- Aerospace: rocket guidance, satellite attitude<br>- Robotics: multi-joint control, trajectory tracking<br>- Power systems: wide-area control<br>- Process control: distillation columns<br><br>## Key Takeaways<br><br>- State-space handles MIMO and nonzero ICs<br>- Controllability: can we steer the state anywhere?<br>- Observability: can we determine the state?<br>- Pole placement: put closed-loop poles where we want<br>- LQR: optimal state feedback via cost minimization<br>- Observer: reconstruct unmeasured states<br>- State-space is the modern approach to control<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Transfer Functions, PID, Bode</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> For a plant P(s) = 10/(s+2), design a P controller to achieve a steady-state error &lt; 5% for a unit step, and calculate the closed-loop pole.</p>
+            <details><summary>Show Solution</summary><p>P(0) = 10/2 = 5. Need 1/(1+5Kp) &lt; 0.05 → Kp &gt; 3.8. Choose Kp = 4. Closed loop: T(s) = 40/(s+42). Pole at s=-42. Fast, well-damped.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Find the phase margin of L(s) = 10/(s(s+1)(s+5)) at crossover frequency ω_c ≈ 1.4 rad/s.</p>
+            <details><summary>Show Solution</summary><p>At ω=1.4: |L| = 10/(1.4 × √(1+1.96) × √(1+49)) = 10/(1.4×1.72×7.07) ≈ 0.59. Not unity. ω_c is at ~1.0: |L| = 10/(1×1.41×5.1) ≈ 1.39. ω_c ≈ 1.15. ∠L(j1.15) = -90° - atan(1.15) - atan(1.15/5) = -90 - 49 - 13 = -152°. PM = 28°. Marginal — increase gain margin or add lead compensator.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A PID controller has Kp=2, Ki=1, Kd=0.5. Write its transfer function and explain the effect of each term on the closed-loop response.</p>
+            <details><summary>Show Solution</summary><p>C(s) = 2 + 1/s + 0.5s = (0.5s² + 2s + 1)/s. P term (Kp=2): speed. I term (Ki=1): eliminates steady-state error. D term (Kd=0.5): damps oscillations, predicts future error.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: System Modeling, Stability, PID</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Determine stability of a system with characteristic equation s³ + 4s² + 5s + 2 = 0 using Routh-Hurwitz.</p>
+            <details><summary>Show Solution</summary><p>Routh array: s³: 1, 5; s²: 4, 2; s¹: (20-2)/4 = 4.5, 0; s⁰: 2. All elements in first column are positive: 1, 4, 4.5, 2. System is stable.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Sketch the Bode magnitude plot of G(s) = 100/(s(s+10)). Find crossover frequency and phase margin.</p>
+            <details><summary>Show Solution</summary><p>L(s) = 100/(s(s+10)) = 10/(s(0.1s+1)). Magnitude: at low ω, -20 dB/dec; after ω=10, -40 dB/dec. Crossover at ω ≈ 9.5 rad/s. Phase: -90° - atan(0.1ω). At ω=9.5, phase = -90 - 43 = -133°. PM = 47°. Reasonably stable.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Design a PI controller for plant P(s) = 1/(s+1)(s+2) to eliminate steady-state error and achieve PM &gt; 45°.</p>
+            <details><summary>Show Solution</summary><p>PI: C(s) = Kp(1 + 1/(Ti·s)). Choose Ti = 1 (integrator zero at s=-1 cancels plant pole at s=-1). Plant becomes 1/(s+2). Choose Kp so crossover is at ω_c = 1: |Kp/s × 1/(s+2)| = 1 at ω=1. Kp = |jω(jω+2)| = √(1)(2.24) = 2.24. PM = 180 - 90 - atan(1/2) = 63°. Good.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

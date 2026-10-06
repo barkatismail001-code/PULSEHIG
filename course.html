@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Course | TechPulse Academy</title>
-  <meta name="description" content="Free university-level engineering course from TechPulse Academy — lectures, assignments, exams, and step-by-step solutions.">
+  <meta name="description" content="Free university-level engineering course — lectures, assignments, exams, and step-by-step solutions.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://www.pulsehig.com/course.html">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://ijgvrjkpiofamwcmkmgi.supabase.co" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=20261005">
+  <link rel="stylesheet" href="css/style.css?v=20261006">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -128,30 +128,36 @@
       border-bottom-color: var(--primary);
     }
 
-    .course-panel {
-      display: none;
-    }
+    .course-panel { display: none; }
     .course-panel.active { display: block; }
 
     .course-section {
       background: var(--bg-alt);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 26px;
+      padding: 0;
       box-shadow: var(--shadow-sm);
+      overflow: hidden;
     }
 
+    /* ============ LECTURES (Expandable) ============ */
     .lecture-item {
-      display: flex;
-      gap: 16px;
-      padding: 16px 0;
       border-bottom: 1px solid var(--border);
-      text-decoration: none;
-      color: var(--text);
-      transition: all var(--transition);
+      transition: background 0.2s;
+      overflow: hidden;
     }
     .lecture-item:last-child { border-bottom: none; }
-    .lecture-item:hover { background: var(--bg-soft); margin: 0 -12px; padding: 16px 12px; border-radius: 8px; }
+    .lecture-item:hover { background: var(--bg-soft); }
+    .lecture-item.open { background: var(--bg-soft); }
+
+    .lecture-header {
+      display: flex;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      align-items: flex-start;
+    }
     .lecture-num {
       flex-shrink: 0;
       width: 44px;
@@ -163,47 +169,79 @@
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .lecture-item.open .lecture-num {
+      background: var(--primary);
+      color: #fff;
     }
     .lecture-content { flex: 1; min-width: 0; }
     .lecture-content h4 {
-      font-size: 1rem;
+      font-size: 1.05rem;
       margin: 0 0 6px;
       color: var(--text);
       line-height: 1.35;
     }
     .lecture-content p {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
-      margin: 0;
+      margin: 0 0 8px;
       line-height: 1.55;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
     .lecture-meta {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 8px;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
+      align-items: center;
     }
     .lecture-meta span { display: inline-flex; align-items: center; gap: 4px; }
+    .lecture-toggle-hint {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .lecture-item.open .lecture-toggle-hint {
+      color: var(--text-muted);
+    }
 
+    .lecture-full {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .lecture-item.open .lecture-full {
+      max-height: 10000px;
+    }
+    .lecture-full-content {
+      padding: 0 24px 24px 84px;
+      color: var(--text);
+      font-size: 0.98rem;
+      line-height: 1.75;
+      border-top: 1px dashed var(--border);
+      padding-top: 20px;
+      margin-top: 4px;
+    }
+    .lecture-full-content p { margin: 0 0 14px; }
+    .lecture-full-content strong { color: var(--primary); }
+
+    @media (max-width: 720px) {
+      .lecture-full-content { padding-left: 24px; }
+    }
+
+    /* ============ ASSIGNMENTS & EXAMS ============ */
     .assignment-item, .exam-item {
       background: var(--bg-soft);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 14px;
+      padding: 20px;
+      margin: 16px;
       transition: all var(--transition);
     }
-    .assignment-item:hover, .exam-item:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-md);
-    }
+    .assignment-item:first-child, .exam-item:first-child { margin-top: 24px; }
+    .assignment-item:last-child, .exam-item:last-child { margin-bottom: 24px; }
+
     .assignment-header, .exam-header {
       display: flex;
       justify-content: space-between;
@@ -234,24 +272,20 @@
       padding-top: 12px;
     }
     .problem-item {
-      padding: 12px 0;
+      padding: 14px 0;
       border-bottom: 1px dashed var(--border);
     }
     .problem-item:last-child { border-bottom: none; }
     .problem-question {
-      font-size: 0.93rem;
+      font-size: 0.95rem;
       color: var(--text);
       line-height: 1.6;
       margin-bottom: 10px;
     }
-    .problem-question strong { color: var(--primary); }
-    .problem-details {
-      margin-top: 8px;
-    }
     .problem-toggle {
       background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
+      border: 1px solid var(--primary);
+      color: var(--primary);
       padding: 6px 14px;
       border-radius: 6px;
       font-size: 0.82rem;
@@ -259,10 +293,9 @@
       cursor: pointer;
       font-family: inherit;
       transition: all var(--transition);
-      margin-right: 8px;
     }
-    .problem-toggle:hover { border-color: var(--primary); color: var(--primary); }
-    .problem-toggle.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .problem-toggle:hover { background: var(--primary); color: #fff; }
+    .problem-toggle.active { background: var(--primary); color: #fff; }
     .problem-answer {
       display: none;
       margin-top: 12px;
@@ -270,12 +303,11 @@
       background: var(--bg-alt);
       border-left: 3px solid var(--success);
       border-radius: 0 6px 6px 0;
-      font-size: 0.9rem;
-      line-height: 1.65;
+      font-size: 0.92rem;
+      line-height: 1.7;
       color: var(--text);
     }
     .problem-answer.show { display: block; }
-    .problem-answer strong { color: var(--success); }
     .problem-hints {
       margin-top: 10px;
       padding: 10px 14px;
@@ -288,11 +320,12 @@
     .problem-hints ul { margin: 6px 0 0 18px; padding: 0; }
     .problem-hints li { margin-bottom: 4px; }
 
+    /* ============ SYLLABUS ============ */
     .syllabus-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 16px;
-      margin-top: 16px;
+      padding: 24px;
     }
     .syllabus-unit {
       background: var(--bg-soft);
@@ -316,7 +349,7 @@
       color: var(--text-muted);
     }
     .syllabus-unit li {
-      padding: 4px 0;
+      padding: 6px 0;
       border-bottom: 1px dashed var(--border);
     }
     .syllabus-unit li:last-child { border-bottom: none; }
@@ -390,15 +423,12 @@
 
   <main class="container">
     <div class="course-page-wrap">
-
       <nav class="breadcrumb" style="margin-bottom:16px" aria-label="Breadcrumb">
         <a href="index.html">Home</a> &gt; <a href="academy.html">Academy</a> &gt; <span id="courseCrumb">Course</span>
       </nav>
-
       <div id="courseContainer">
         <p class="loading-state">Loading course...</p>
       </div>
-
     </div>
   </main>
 
@@ -418,23 +448,18 @@
 
   <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
 
-  <script src="js/live-news.js?v=20261005"></script>
-  <script src="js/common.js?v=20261005"></script>
-  <script src="js/i18n.js?v=20261005"></script>
+  <script src="js/live-news.js?v=20261006"></script>
+  <script src="js/common.js?v=20261006"></script>
+  <script src="js/i18n.js?v=20261006"></script>
   <script>
   (function () {
     'use strict';
 
     var C = window.TPCommon;
     var I = window.TPI18N;
-
-    if (!C || !I) {
-      console.warn('[TP] course.js requires common.js and i18n.js');
-      return;
-    }
+    if (!C || !I) { console.warn('[TP] requires common.js and i18n.js'); return; }
 
     var sb = null;
-    var allCourses = [];
     var currentCourse = null;
 
     document.addEventListener('DOMContentLoaded', async function () {
@@ -466,22 +491,20 @@
     async function loadCourse() {
       var slug = new URLSearchParams(location.search).get('slug');
       var container = document.getElementById('courseContainer');
-      if (!slug) { renderNotFound(container); return; }
-
-      if (!sb) { renderNotFound(container); return; }
+      if (!slug || !sb) { renderNotFound(container); return; }
 
       try {
         var courseRes = await sb.from('courses').select('*').eq('slug', slug).limit(1).single();
         if (courseRes.error) throw courseRes.error;
         currentCourse = courseRes.data;
 
-        var lecturesRes = await sb.from('lectures').select('*').eq('course_slug', slug).order('number', { ascending: true });
-        var assignmentsRes = await sb.from('assignments').select('*').eq('course_slug', slug).order('number', { ascending: true });
-        var examsRes = await sb.from('exams').select('*').eq('course_slug', slug).order('id', { ascending: true });
+        var lecRes = await sb.from('lectures').select('*').eq('course_slug', slug).order('number', { ascending: true });
+        var asgRes = await sb.from('assignments').select('*').eq('course_slug', slug).order('number', { ascending: true });
+        var exmRes = await sb.from('exams').select('*').eq('course_slug', slug).order('id', { ascending: true });
 
-        currentCourse._lectures = lecturesRes.data || [];
-        currentCourse._assignments = assignmentsRes.data || [];
-        currentCourse._exams = examsRes.data || [];
+        currentCourse._lectures = lecRes.data || [];
+        currentCourse._assignments = asgRes.data || [];
+        currentCourse._exams = exmRes.data || [];
 
         document.title = currentCourse.title + ' — ' + (currentCourse.university || '') + ' | TechPulse Academy';
         var metaDesc = document.querySelector('meta[name="description"]');
@@ -503,9 +526,42 @@
         '<div class="not-found" style="text-align:center;padding:60px 20px">' +
           '<div style="font-size:4rem;margin-bottom:16px">🎓</div>' +
           '<h1 style="margin-bottom:8px">Course Not Found</h1>' +
-          '<p style="color:var(--text-muted);margin-bottom:24px">This course doesn\'t exist or has been removed.</p>' +
+          '<p style="color:var(--text-muted);margin-bottom:24px">This course doesn\'t exist.</p>' +
           '<a href="academy.html" class="btn-primary">← Back to Academy</a>' +
         '</div>';
+    }
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function renderMarkdown(text) {
+      var src = String(text || '').replace(/\r\n/g, '\n');
+      var out = [];
+      var chunks = src.split(/```[a-zA-Z0-9+#-]*\n([\s\S]*?)```/);
+      chunks.forEach(function (chunk, i) {
+        if (i % 2) {
+          out.push('<pre style="background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow-x:auto;margin:14px 0;font-size:0.88rem"><code>' + escapeHtml(chunk.replace(/\n$/, '')) + '</code></pre>');
+          return;
+        }
+        var blocks = chunk.replace(/^(#{1,3} .+)$/gm, '\n$1\n').split(/\n\n+/).map(function (b) { return b.trim(); }).filter(Boolean);
+        blocks.forEach(function (b) {
+          var m;
+          if ((m = b.match(/^###\s+(.+)$/))) out.push('<h3 style="margin:18px 0 8px;color:var(--text)">' + escapeHtml(m[1]) + '</h3>');
+          else if ((m = b.match(/^##\s+(.+)$/))) out.push('<h2 style="margin:22px 0 10px;color:var(--text)">' + escapeHtml(m[1]) + '</h2>');
+          else if (b.split('\n').every(function (l) { return /^\s*[-*•]\s+/.test(l); }))
+            out.push('<ul style="margin:8px 0 14px 22px">' + b.split('\n').map(function (l) { return '<li>' + escapeHtml(l.replace(/^\s*[-*•]\s+/, '')) + '</li>'; }).join('') + '</ul>');
+          else if (b.split('\n').every(function (l) { return /^\s*\d+[.)]\s+/.test(l); }))
+            out.push('<ol style="margin:8px 0 14px 22px">' + b.split('\n').map(function (l) { return '<li>' + escapeHtml(l.replace(/^\s*\d+[.)]\s+/, '')) + '</li>'; }).join('') + '</ol>');
+          else {
+            var safe = escapeHtml(b).replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>').replace(/`([^`\n]+)`/g, '<code style="background:rgba(100,116,139,0.15);padding:1px 5px;border-radius:4px">$1</code>');
+            out.push('<p>' + safe.replace(/\n/g, '<br>') + '</p>');
+          }
+        });
+      });
+      return out.join('');
     }
 
     function renderCourse(container, c) {
@@ -513,25 +569,37 @@
       var title = (c.title_i18n && c.title_i18n[lang]) || c.title || '';
       var desc = (c.description_i18n && c.description_i18n[lang]) || c.description || '';
 
+      // ========== LECTURES ==========
       var lecturesHTML = c._lectures.length
         ? c._lectures.map(function (lec) {
             var lecTitle = (lec.title_i18n && lec.title_i18n[lang]) || lec.title || '';
             var lecContent = (lec.content_i18n && lec.content_i18n[lang]) || lec.content || '';
-            var excerpt = lecContent.slice(0, 180) + (lecContent.length > 180 ? '…' : '');
-            return '<div class="lecture-item">' +
-              '<div class="lecture-num">' + (lec.number || '') + '</div>' +
-              '<div class="lecture-content">' +
-                '<h4>' + C.esc(lecTitle) + '</h4>' +
-                '<p>' + C.esc(excerpt) + '</p>' +
-                '<div class="lecture-meta">' +
-                  '<span>⏱ ' + (lec.duration_minutes || 30) + ' min</span>' +
-                  (lec.video_url ? '<span>📹 Video</span>' : '') +
+            var fullRendered = renderMarkdown(lecContent);
+            var plainContent = lecContent.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+            var excerpt = plainContent.slice(0, 200) + (plainContent.length > 200 ? '…' : '');
+            var duration = Number(lec.duration_minutes) || 50;
+
+            return '<div class="lecture-item" data-lecture="' + (lec.number || '') + '">' +
+              '<div class="lecture-header" onclick="window.toggleLecture(this)">' +
+                '<div class="lecture-num">' + (lec.number || '') + '</div>' +
+                '<div class="lecture-content">' +
+                  '<h4>' + escapeHtml(lecTitle) + '</h4>' +
+                  '<p>' + escapeHtml(excerpt) + '</p>' +
+                  '<div class="lecture-meta">' +
+                    '<span>⏱ ' + duration + ' min read</span>' +
+                    (lec.video_url ? '<span>📹 Video available</span>' : '') +
+                    '<span class="lecture-toggle-hint">Click to read full lecture ▾</span>' +
+                  '</div>' +
                 '</div>' +
+              '</div>' +
+              '<div class="lecture-full">' +
+                '<div class="lecture-full-content">' + fullRendered + '</div>' +
               '</div>' +
             '</div>';
           }).join('')
-        : '<p style="color:var(--text-muted);text-align:center;padding:30px">Lectures coming soon.</p>';
+        : '<p style="color:var(--text-muted);text-align:center;padding:40px">Lectures coming soon.</p>';
 
+      // ========== ASSIGNMENTS ==========
       var assignmentsHTML = c._assignments.length
         ? c._assignments.map(function (a) {
             var problems = Array.isArray(a.problems) ? a.problems : [];
@@ -539,17 +607,16 @@
               ? '<div class="problem-list">' + problems.map(function (p, idx) {
                   var hints = Array.isArray(p.hints) && p.hints.length
                     ? '<div class="problem-hints"><strong>💡 Hints:</strong><ul>' +
-                        p.hints.map(function (h) { return '<li>' + C.esc(h) + '</li>'; }).join('') +
+                        p.hints.map(function (h) { return '<li>' + escapeHtml(h) + '</li>'; }).join('') +
                       '</ul></div>'
                     : '';
                   return '<div class="problem-item">' +
-                    '<div class="problem-question"><strong>Q' + (idx + 1) + '.</strong> ' + C.esc(p.question || '') + ' <em style="color:var(--text-muted);font-size:0.82em">(' + (p.points || 0) + ' pts · ' + (p.difficulty || 'Medium') + ')</em></div>' +
+                    '<div class="problem-question"><strong>Q' + (idx + 1) + '.</strong> ' + escapeHtml(p.question || '') +
+                    ' <em style="color:var(--text-muted);font-size:0.85em">(' + (p.points || 0) + ' pts · ' + (p.difficulty || 'Medium') + ')</em></div>' +
                     hints +
-                    '<div class="problem-details">' +
-                      '<button type="button" class="problem-toggle" data-solution="' + C.esc(a.id) + '-' + idx + '">🔓 Show Solution</button>' +
-                    '</div>' +
-                    '<div class="problem-answer" id="solution-' + C.esc(a.id) + '-' + idx + '">' +
-                      '<strong>✓ Solution:</strong><br>' + C.esc(p.solution || '') +
+                    '<button type="button" class="problem-toggle" data-solution="asg-' + escapeHtml(a.id) + '-' + idx + '">🔓 Show Solution</button>' +
+                    '<div class="problem-answer" id="solution-asg-' + escapeHtml(a.id) + '-' + idx + '">' +
+                      '<strong>✓ Solution:</strong><br>' + escapeHtml(p.solution || '') +
                     '</div>' +
                   '</div>';
                 }).join('') + '</div>'
@@ -557,26 +624,26 @@
 
             return '<div class="assignment-item">' +
               '<div class="assignment-header">' +
-                '<h4>📝 Problem Set ' + (a.number || '') + ': ' + C.esc(a.title || '') + '</h4>' +
+                '<h4>📝 Problem Set ' + (a.number || '') + ': ' + escapeHtml(a.title || '') + '</h4>' +
                 '<span class="assignment-points">' + (a.total_points || 0) + ' pts</span>' +
               '</div>' +
               problemsHTML +
             '</div>';
           }).join('')
-        : '<p style="color:var(--text-muted);text-align:center;padding:30px">Assignments coming soon.</p>';
+        : '<p style="color:var(--text-muted);text-align:center;padding:40px">Assignments coming soon.</p>';
 
+      // ========== EXAMS ==========
       var examsHTML = c._exams.length
         ? c._exams.map(function (e) {
             var problems = Array.isArray(e.problems) ? e.problems : [];
             var problemsHTML = problems.length
               ? '<div class="problem-list">' + problems.map(function (p, idx) {
                   return '<div class="problem-item">' +
-                    '<div class="problem-question"><strong>Q' + (idx + 1) + '.</strong> ' + C.esc(p.question || '') + ' <em style="color:var(--text-muted);font-size:0.82em">(' + (p.points || 0) + ' pts)</em></div>' +
-                    '<div class="problem-details">' +
-                      '<button type="button" class="problem-toggle" data-solution="exam-' + C.esc(e.id) + '-' + idx + '">🔓 Show Solution</button>' +
-                    '</div>' +
-                    '<div class="problem-answer" id="solution-exam-' + C.esc(e.id) + '-' + idx + '">' +
-                      '<strong>✓ Solution:</strong><br>' + C.esc(p.solution || '') +
+                    '<div class="problem-question"><strong>Q' + (idx + 1) + '.</strong> ' + escapeHtml(p.question || '') +
+                    ' <em style="color:var(--text-muted);font-size:0.85em">(' + (p.points || 0) + ' pts)</em></div>' +
+                    '<button type="button" class="problem-toggle" data-solution="exam-' + escapeHtml(e.id) + '-' + idx + '">🔓 Show Solution</button>' +
+                    '<div class="problem-answer" id="solution-exam-' + escapeHtml(e.id) + '-' + idx + '">' +
+                      '<strong>✓ Solution:</strong><br>' + escapeHtml(p.solution || '') +
                     '</div>' +
                   '</div>';
                 }).join('') + '</div>'
@@ -584,92 +651,62 @@
 
             return '<div class="exam-item">' +
               '<div class="exam-header">' +
-                '<h4>🎯 ' + C.esc(e.title || 'Exam') + '</h4>' +
+                '<h4>🎯 ' + escapeHtml(e.title || 'Exam') + '</h4>' +
                 '<span class="exam-points">' + (e.total_points || 0) + ' pts · ' + (e.duration_minutes || 120) + ' min</span>' +
               '</div>' +
               problemsHTML +
             '</div>';
           }).join('')
-        : '<p style="color:var(--text-muted);text-align:center;padding:30px">Exams coming soon.</p>';
+        : '<p style="color:var(--text-muted);text-align:center;padding:40px">Exams coming soon.</p>';
 
+      // ========== SYLLABUS ==========
       var syllabusUnits = [
         { name: 'Unit 1: Foundations', items: ['Core concepts', 'Basic methods', 'Worked examples'] },
         { name: 'Unit 2: Intermediate Topics', items: ['Advanced techniques', 'Real-world applications', 'Case studies'] },
         { name: 'Unit 3: Advanced Topics', items: ['Deep dive', 'Edge cases', 'Performance'] },
         { name: 'Unit 4: Exam Preparation', items: ['Practice problems', 'Past exams', 'Solutions'] }
       ];
-
       var syllabusHTML = '<div class="syllabus-grid">' +
         syllabusUnits.map(function (u) {
-          return '<div class="syllabus-unit">' +
-            '<h4>📖 ' + C.esc(u.name) + '</h4>' +
-            '<ul>' + u.items.map(function (it) { return '<li>' + C.esc(it) + '</li>'; }).join('') + '</ul>' +
-          '</div>';
+          return '<div class="syllabus-unit"><h4>📖 ' + escapeHtml(u.name) + '</h4><ul>' +
+            u.items.map(function (it) { return '<li>' + escapeHtml(it) + '</li>'; }).join('') +
+          '</ul></div>';
         }).join('') +
       '</div>';
 
       container.innerHTML =
-        '<div class="course-hero">' +
-          '<div class="course-hero-content">' +
-            '<div class="course-hero-top">' +
-              '<div class="course-hero-icon">' + C.esc(c.icon || '📘') + '</div>' +
-              '<div class="course-hero-info">' +
-                '<span class="course-code-badge">' + C.esc(c.code || '') + ' · ' + C.esc(c.university || '') + '</span>' +
-                '<h1>' + C.esc(title) + '</h1>' +
-                '<p>' + C.esc(desc) + '</p>' +
-              '</div>' +
-            '</div>' +
-            '<div class="course-hero-stats">' +
-              '<div class="course-stat"><span class="course-stat-num">' + (c.lectures_count || 0) + '</span><span class="course-stat-label">Lectures</span></div>' +
-              '<div class="course-stat"><span class="course-stat-num">' + (c.assignments_count || 0) + '</span><span class="course-stat-label">Assignments</span></div>' +
-              '<div class="course-stat"><span class="course-stat-num">' + (c.exams_count || 0) + '</span><span class="course-stat-label">Exams</span></div>' +
-              '<div class="course-stat"><span class="course-stat-num">' + (c.duration_hours || 0) + 'h</span><span class="course-stat-label">Duration</span></div>' +
-              '<div class="course-stat"><span class="course-stat-num">' + C.esc(c.difficulty || 'Intermediate') + '</span><span class="course-stat-label">Level</span></div>' +
+        '<div class="course-hero"><div class="course-hero-content">' +
+          '<div class="course-hero-top">' +
+            '<div class="course-hero-icon">' + escapeHtml(c.icon || '📘') + '</div>' +
+            '<div class="course-hero-info">' +
+              '<span class="course-code-badge">' + escapeHtml(c.code || '') + ' · ' + escapeHtml(c.university || '') + '</span>' +
+              '<h1>' + escapeHtml(title) + '</h1>' +
+              '<p>' + escapeHtml(desc) + '</p>' +
             '</div>' +
           '</div>' +
-        '</div>' +
+          '<div class="course-hero-stats">' +
+            '<div class="course-stat"><span class="course-stat-num">' + (c._lectures.length || 0) + '</span><span class="course-stat-label">Lectures</span></div>' +
+            '<div class="course-stat"><span class="course-stat-num">' + (c._assignments.length || 0) + '</span><span class="course-stat-label">Assignments</span></div>' +
+            '<div class="course-stat"><span class="course-stat-num">' + (c._exams.length || 0) + '</span><span class="course-stat-label">Exams</span></div>' +
+            '<div class="course-stat"><span class="course-stat-num">' + (c.duration_hours || 0) + 'h</span><span class="course-stat-label">Duration</span></div>' +
+            '<div class="course-stat"><span class="course-stat-num">' + escapeHtml(c.difficulty || 'Intermediate') + '</span><span class="course-stat-label">Level</span></div>' +
+          '</div>' +
+        '</div></div>' +
 
         '<div class="course-tabs">' +
-          '<button type="button" class="course-tab active" data-tab="lectures">🎬 Lectures</button>' +
-          '<button type="button" class="course-tab" data-tab="assignments">📝 Assignments</button>' +
-          '<button type="button" class="course-tab" data-tab="exams">🎯 Exams</button>' +
+          '<button type="button" class="course-tab active" data-tab="lectures">🎬 Lectures (' + c._lectures.length + ')</button>' +
+          '<button type="button" class="course-tab" data-tab="assignments">📝 Assignments (' + c._assignments.length + ')</button>' +
+          '<button type="button" class="course-tab" data-tab="exams">🎯 Exams (' + c._exams.length + ')</button>' +
           '<button type="button" class="course-tab" data-tab="syllabus">📖 Syllabus</button>' +
         '</div>' +
 
-        '<div class="course-panel active" data-panel="lectures">' +
-          '<div class="course-section">' + lecturesHTML + '</div>' +
-        '</div>' +
-        '<div class="course-panel" data-panel="assignments">' +
-          '<div class="course-section">' + assignmentsHTML + '</div>' +
-        '</div>' +
-        '<div class="course-panel" data-panel="exams">' +
-          '<div class="course-section">' + examsHTML + '</div>' +
-        '</div>' +
-        '<div class="course-panel" data-panel="syllabus">' +
-          '<div class="course-section">' + syllabusHTML + '</div>' +
-        '</div>';
+        '<div class="course-panel active" data-panel="lectures"><div class="course-section">' + lecturesHTML + '</div></div>' +
+        '<div class="course-panel" data-panel="assignments"><div class="course-section">' + assignmentsHTML + '</div></div>' +
+        '<div class="course-panel" data-panel="exams"><div class="course-section">' + examsHTML + '</div></div>' +
+        '<div class="course-panel" data-panel="syllabus"><div class="course-section">' + syllabusHTML + '</div></div>';
 
       wireTabs();
       wireSolutions();
-
-      if (sb) {
-        sb.from('courses').select('id,slug,title,code,university,icon').eq('path', c.path).neq('slug', c.slug).limit(4).then(function (res) {
-          var related = (res.data || []).filter(function (x) { return x.slug !== c.slug; }).slice(0, 3);
-          if (related.length) {
-            var div = document.createElement('div');
-            div.style.marginTop = '40px';
-            div.innerHTML = '<h2 class="section-heading" style="font-size:1.15rem">📚 Related Courses</h2>' +
-              '<div class="related-courses">' +
-              related.map(function (r) {
-                return '<a href="course.html?slug=' + C.esc(r.slug) + '">' +
-                  '<span style="font-size:1.3rem">' + C.esc(r.icon || '📘') + '</span>' +
-                  '<span>' + C.esc(r.code || '') + ' — ' + C.esc(r.title || '') + '</span>' +
-                '</a>';
-              }).join('') + '</div>';
-            container.appendChild(div);
-          }
-        });
-      }
     }
 
     function wireTabs() {
@@ -696,6 +733,17 @@
         });
       });
     }
+
+    // Global toggle function for lectures
+    window.toggleLecture = function (headerEl) {
+      var item = headerEl.closest('.lecture-item');
+      if (!item) return;
+      var isOpen = item.classList.toggle('open');
+      var hint = item.querySelector('.lecture-toggle-hint');
+      if (hint) {
+        hint.textContent = isOpen ? 'Click to collapse ▴' : 'Click to read full lecture ▾';
+      }
+    };
   })();
   </script>
 </body>

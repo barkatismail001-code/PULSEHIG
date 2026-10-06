@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuits I — MIT | TechPulse Academy</title>
+<meta name="description" content="DC and AC circuit analysis: Ohm law, KVL/KCL, node/mesh analysis, Thevenin and Norton equivalents, op-amps, and transient response (RC/RL/RLC).">
+<link rel="canonical" href="https://www.pulsehig.com/course/circuits-i.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/circuits-i.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/circuits-i.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/circuits-i.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/circuits-i.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/circuits-i.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/circuits-i.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/circuits-i.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Circuits I">
+<meta property="og:description" content="DC and AC circuit analysis: Ohm law, KVL/KCL, node/mesh analysis, Thevenin and Norton equivalents, op-amps, and transient response (RC/RL/RLC).">
+<meta property="og:url" content="https://www.pulsehig.com/course/circuits-i.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Circuits I","description":"DC and AC circuit analysis: Ohm law, KVL/KCL, node/mesh analysis, Thevenin and Norton equivalents, op-amps, and transient response (RC/RL/RLC).","provider":{"@type":"Organization","name":"MIT"},"url":"https://www.pulsehig.com/course/circuits-i.html","courseCode":"MIT 6.002","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction; Lumped Element Abstraction","courseMode":"online"},{"@type":"CourseInstance","name":"Basic Circuit Analysis Method","courseMode":"online"},{"@type":"CourseInstance","name":"Superposition, Thevenin, and Norton","courseMode":"online"},{"@type":"CourseInstance","name":"The Digital Abstraction","courseMode":"online"},{"@type":"CourseInstance","name":"Inside the Digital Gate","courseMode":"online"},{"@type":"CourseInstance","name":"Nonlinear Elements: Diodes and MOSFETs","courseMode":"online"},{"@type":"CourseInstance","name":"Amplifiers and the Small-Signal Model","courseMode":"online"},{"@type":"CourseInstance","name":"Capacitors and Inductors: Energy Storage","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Circuits I</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">MIT 6.002 · MIT</span>
+      <h1>Circuits I</h1>
+      <p>DC and AC circuit analysis: Ohm law, KVL/KCL, node/mesh analysis, Thevenin and Norton equivalents, op-amps, and transient response (RC/RL/RLC).</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">8</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">3</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">3</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">40h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (8)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (3)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (3)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction; Lumped Element Abstraction</h4>
+          <p>
+## The Lumped Element Abstraction
+
+In real circuits, signals propagate at the speed of light. Every wire is an antenna, every component has parasitic capacitance, and Maxwell&#39;s equations describe reality precisely - ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Lumped Element Abstraction<br><br>In real circuits, signals propagate at the speed of light. Every wire is an antenna, every component has parasitic capacitance, and Maxwell's equations describe reality precisely - but they are incredibly hard to solve.<br><br>The lumped element abstraction lets us ignore most of this. We model a circuit as a network of ideal components (R, L, C, V-source, I-source) connected by ideal wires. The abstraction is valid when the circuit's physical size is much smaller than the wavelength of the signals.<br><br>## When Does the Abstraction Break Down?<br><br>Rule of thumb: the lumped model is valid when the propagation delay through the circuit is much smaller than the signal's rise time:<br><br>    t_propagation &lt;&lt; t_rise<br><br>Where:<br>- t_propagation = L / v (L = length, v ~ 2x10^8 m/s for PCB traces)<br>- t_rise = rise time of the fastest signal<br><br>Example: A 10 cm PCB trace with a 1 ns rise time:<br>- t_prop = 0.1 / (2x10^8) = 0.5 ns<br>- 0.5 ns vs 1 ns: the abstraction is marginal<br>- Rule of thumb: need t_prop &lt; t_rise / 10, so 0.5 ns &lt; 0.1 ns fails<br><br>At 100 MHz+ or with fast digital signals, you must think about transmission lines.<br><br>## Ideal Circuit Elements<br><br>Resistor (R): V = I * R (Ohm's law). Unit: ohm.<br>- Power: P = V*I = I^2*R = V^2/R<br>- Dissipates energy as heat<br><br>Capacitor (C): I = C * dV/dt. Unit: farad.<br>- Stores energy in electric field: E = 0.5 * C * V^2<br>- Blocks DC, passes AC<br><br>Inductor (L): V = L * dI/dt. Unit: henry.<br>- Stores energy in magnetic field: E = 0.5 * L * I^2<br>- Passes DC, blocks AC<br><br>Voltage source: provides V regardless of current drawn.<br>Current source: provides I regardless of voltage across it.<br><br>## Kirchhoff's Laws<br><br>Kirchhoff's Current Law (KCL): The sum of currents entering any node equals the sum leaving.<br><br>    Sum I_in = Sum I_out<br><br>Kirchhoff's Voltage Law (KVL): The sum of voltage drops around any closed loop is zero.<br><br>    Sum V_loop = 0<br><br>## Series and Parallel Resistors<br><br>Series: R_eq = R1 + R2 + ... + Rn<br><br>    --[R1]--[R2]--[R3]--    equivalent to    --[R_eq]--<br><br>Parallel: 1/R_eq = 1/R1 + 1/R2 + ... + 1/Rn<br><br>For two: R_eq = (R1 * R2) / (R1 + R2)<br><br>        +--[R1]--+<br>    ----+         +----    equivalent to    --[R_eq]--<br>        +--[R2]--+<br><br>## Voltage Divider<br><br>          R1<br>    Vin --/\/\/\--+-- Vout<br>                  |<br>                  R2<br>                  |<br>                 GND<br><br>    Vout = Vin * R2 / (R1 + R2)<br><br>This is the most common circuit in all of electronics. Use it to:<br>- Scale a sensor output to a safe ADC range<br>- Set a reference voltage<br>- Bias a transistor<br><br>Current draw: I = Vin / (R1 + R2). Make R1+R2 large enough to avoid wasting power, but small enough to avoid loading effects.<br><br>## Example Problem<br><br>Question: Design a voltage divider to produce 3.3 V from a 5 V source, with total current draw under 1 mA.<br><br>Solution:<br>- Need R2 / (R1 + R2) = 3.3 / 5 = 0.66<br>- Total R &gt;= 5 V / 1 mA = 5 kohm<br>- Pick R1 = 1.7 kohm, R2 = 3.3 kohm<br>- Verify: 5 * 3.3 / (1.7 + 3.3) = 5 * 3.3 / 5 = 3.3 V correct<br>- Current: 5 V / 5 kohm = 1 mA correct<br><br>## Power in Circuits<br><br>Every element has a power rating. Exceed it and it smokes.<br><br>- Resistor: typical 0.25 W, 0.5 W<br>- Small LED: 20 mA, V_f ~ 2 V, P = 40 mW<br>- ESP32 GPIO pin: 20 mA max, 3.3 V, P = 66 mW<br><br>Use P = I^2*R or P = V^2/R to check before connecting.<br><br>## Why This Matters<br><br>The lumped model is the foundation of all circuit analysis. Every SPICE simulator uses it. Every schematic capture tool assumes it. Without it, we'd have to solve Maxwell's equations for every LED blinker - which would take hours instead of milliseconds.<br><br>The abstraction lets us reason about circuits using algebra, not calculus. It's one of the most successful engineering abstractions ever devised.<br><br>## Key Takeaways<br><br>- Lumped model valid when t_prop &lt;&lt; t_rise<br>- KCL: currents in = currents out at every node<br>- KVL: voltages around any loop sum to zero<br>- Series: R adds; Parallel: 1/R adds<br>- Voltage divider: Vout = Vin * R2/(R1+R2)<br>- Check power ratings BEFORE connecting<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Basic Circuit Analysis Method</h4>
+          <p>We introduce the node method for solving linear circuits. Instead of writing KVL and KCL repeatedly, the node method uses KCL at every node with unknown node voltages as the variables. We derive the method formally and a...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p>We introduce the node method for solving linear circuits. Instead of writing KVL and KCL repeatedly, the node method uses KCL at every node with unknown node voltages as the variables. We derive the method formally and apply it to several examples including a voltage divider, a current source with parallel resistances, and a bridge network.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Superposition, Thevenin, and Norton</h4>
+          <p>Superposition: in a linear circuit with multiple independent sources, the total response is the sum of responses to each source acting alone. Thevenin theorem: any linear two-terminal network can be replaced by a single ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p>Superposition: in a linear circuit with multiple independent sources, the total response is the sum of responses to each source acting alone. Thevenin theorem: any linear two-terminal network can be replaced by a single voltage source V_th in series with a resistance R_th. Norton theorem: dual — a current source I_n in parallel with R_n. We show how to compute these values and when to use each.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>The Digital Abstraction</h4>
+          <p>Digital circuits are built on a specific discipline: voltages below V_IL are treated as 0, voltages above V_IH as 1, and we guarantee that outputs stay within valid ranges. This lecture covers noise margins, static disci...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p>Digital circuits are built on a specific discipline: voltages below V_IL are treated as 0, voltages above V_IH as 1, and we guarantee that outputs stay within valid ranges. This lecture covers noise margins, static discipline, and the relationship between analog reality and digital abstraction.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Inside the Digital Gate</h4>
+          <p>We open the black box: the MOSFET as a switch, the resistor pull-up and pull-down networks, and how CMOS logic gates actually work. This lecture explains why CMOS dominates modern digital design: low static power, high n...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p>We open the black box: the MOSFET as a switch, the resistor pull-up and pull-down networks, and how CMOS logic gates actually work. This lecture explains why CMOS dominates modern digital design: low static power, high noise margin, and scalable geometry.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Nonlinear Elements: Diodes and MOSFETs</h4>
+          <p>Real diodes follow the Shockley equation; real MOSFETs have a quadratic I-V characteristic. We introduce nonlinear elements and demonstrate how to solve circuits containing them using graphical and iterative methods....</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p>Real diodes follow the Shockley equation; real MOSFETs have a quadratic I-V characteristic. We introduce nonlinear elements and demonstrate how to solve circuits containing them using graphical and iterative methods.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">7</div>
+        <div class="lecture-content">
+          <h4>Amplifiers and the Small-Signal Model</h4>
+          <p>An amplifier takes a small input signal and produces a larger output. We introduce the linear amplifier abstraction and the small-signal model, then apply it to analyze the MOSFET common-source amplifier....</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p>An amplifier takes a small input signal and produces a larger output. We introduce the linear amplifier abstraction and the small-signal model, then apply it to analyze the MOSFET common-source amplifier.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">8</div>
+        <div class="lecture-content">
+          <h4>Capacitors and Inductors: Energy Storage</h4>
+          <p>Capacitors store energy in electric fields; inductors store energy in magnetic fields. We define their I-V relationships, show how they behave under DC steady-state, and introduce the concept of state variables....</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p>Capacitors store energy in electric fields; inductors store energy in magnetic fields. We define their I-V relationships, show how they behave under DC steady-state, and introduce the concept of state variables.</p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Lumped Abstraction &amp; KVL/KCL</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> For a signal with rise time of 1 ns and a circuit board trace length of 10 cm (signal speed ~2x10^8 m/s), is the lumped-element abstraction valid? Explain.</p>
+            <details><summary>Show Solution</summary><p>Propagation delay = 0.1 m / (2x10^8 m/s) = 0.5 ns. Rise time = 1 ns. Since 0.5 ns is comparable to 1 ns (not much smaller), the lumped abstraction is MARGINAL — distributed effects may matter. Typically we require propagation delay &lt; rise time / 10, so 0.5 ns &lt; 0.1 ns fails.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A circuit has three resistors in parallel: R1=100 ohm, R2=200 ohm, R3=400 ohm. What is the equivalent resistance?</p>
+            <details><summary>Show Solution</summary><p>1/R_eq = 1/100 + 1/200 + 1/400 = 4/400 + 2/400 + 1/400 = 7/400. Therefore R_eq = 400/7 ≈ 57.14 ohm.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> In a circuit with a 12V source, R1=1k ohm in series with a parallel combination of R2=2k ohm and R3=3k ohm, find the current through R1, the voltage across R2, and the power dissipated in R3.</p>
+            <details><summary>Show Solution</summary><p>R_parallel = (2k x 3k) / (2k + 3k) = 6k/5k = 1.2k ohm. R_total = 1k + 1.2k = 2.2k ohm. I_R1 = 12V / 2.2k ohm ≈ 5.45 mA. V_parallel = 5.45mA x 1.2k ohm ≈ 6.55V. So V_R2 = V_R3 = 6.55V. Power in R3 = V^2/R = (6.55)^2 / 3000 ≈ 14.3 mW.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="assignment-item">
+        <h3>📝 Problem Set 2: Thevenin and Norton Equivalents</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Find the Thevenin equivalent of a circuit consisting of a 12V source in series with 4k ohm, followed by a parallel branch of 6k ohm.</p>
+            <details><summary>Show Solution</summary><p>V_th (open circuit): voltage divider = 12V x 6k/(4k+6k) = 7.2V. R_th: with 12V source shorted, R seen = 4k || 6k = 2.4k ohm. So Thevenin = 7.2V source + 2.4k ohm series resistor.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Convert the Thevenin circuit from Q1 to its Norton equivalent.</p>
+            <details><summary>Show Solution</summary><p>I_n = 7.2V / 2.4k ohm = 3 mA. R_n = 2.4k ohm. Norton = 3 mA current source in parallel with 2.4k ohm.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="assignment-item">
+        <h3>📝 Problem Set 3: Op-Amps and Transients</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Design a non-inverting op-amp amplifier with a gain of 11 and an input impedance of at least 100 kΩ. Choose standard resistor values and verify.</p>
+            <details><summary>Show Solution</summary><p>Gain = 1 + R2/R1 = 11, so R2/R1 = 10. Choose R1 = 10 kΩ, R2 = 100 kΩ. Non-inverting input impedance is set by the op-amp&#39;s input stage, typically 10^12 Ω (CMOS) or 10^6 Ω (BJT), so &gt;100 kΩ is easily satisfied. Verify: gain = 1 + 100/10 = 11. ✓</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> For an RC circuit with R=2 kΩ, C=100 nF, and V_in stepping from 0V to 10V at t=0, find the time constant, the voltage at t=τ, and the time to reach 99% of final value.</p>
+            <details><summary>Show Solution</summary><p>τ = RC = 2000 × 100e-9 = 200 µs. At t=τ, V_C = 10 × (1 - e^-1) = 10 × 0.632 = 6.32 V. 99% is reached at t = 5τ = 1000 µs = 1 ms.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Calculate the RMS value of a sine wave with amplitude 5V, and compute the average power it delivers to a 50Ω resistor.</p>
+            <details><summary>Show Solution</summary><p>V_RMS = 5 / √2 = 3.54 V. P = 3.54² / 50 = 12.5 / 50 = 0.25 W.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Node, Mesh, Superposition, Thevenin</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> For the circuit shown (10V source, 5 ohm in series with 10 ohm, then 20 ohm parallel), find the voltage across the 20 ohm resistor.</p>
+            <details><summary>Show Solution</summary><p>R_parallel = 10 || 20 = 6.67 ohm. R_total = 5 + 6.67 = 11.67 ohm. I_total = 10/11.67 = 0.857A. V_parallel = 0.857 x 6.67 = 5.71V. So V_20 = 5.71V.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Find the Thevenin equivalent of a balanced bridge with R1=R2=R3=R4=1k ohm and a 12V source across the bridge.</p>
+            <details><summary>Show Solution</summary><p>For a balanced bridge, V_th = 0 (the two output nodes are at the same potential). R_th = R1||R3 + R2||R4 = 500 + 500 = 1k ohm.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Design a voltage divider to produce 3.3V from a 5V source, with total current draw under 1mA.</p>
+            <details><summary>Show Solution</summary><p>V_out = V_in x R2/(R1+R2) = 3.3 means R2/(R1+R2) = 0.66. Total R &gt;= 5V/1mA = 5k ohm. Choose R1 = 1.7k ohm, R2 = 3.3k ohm. Verify: 5 x 3.3/(1.7+3.3) = 5 x 3.3/5 = 3.3V. Current = 5V/5k ohm = 1mA.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q4.</strong> Analyze the transient response of an RC circuit with R=1k ohm, C=1 uF, V_source stepping from 0 to 5V at t=0.</p>
+            <details><summary>Show Solution</summary><p>tau = RC = 1ms. V_C(t) = 5(1 - e^(-t/tau)). At t=1ms, V_C = 5 x 0.632 = 3.16V. Current I(t) = (V_source/R) x e^(-t/tau).</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="exam-item">
+        <h3>🎯 Final Exam: All Topics</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Design an op-amp circuit to amplify a 100mV signal to 2V with an input impedance of at least 100k ohm.</p>
+            <details><summary>Show Solution</summary><p>Gain = 20. Use non-inverting configuration: 1 + R2/R1 = 20 means R2/R1 = 19. For input impedance &gt; 100k ohm, use JFET-input op-amp (e.g., TL071). Choose R1 = 10k ohm, R2 = 190k ohm.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> For an RLC series circuit with R=10 ohm, L=1mH, C=1 uF, find the resonant frequency and Q factor.</p>
+            <details><summary>Show Solution</summary><p>omega_0 = 1/sqrt(LC) = 1/sqrt(10^-3 x 10^-6) = 1/sqrt(10^-9) = 31623 rad/s. f_0 = 5.03 kHz. Q = omega_0 L / R = 31623 x 10^-3 / 10 = 3.16. Bandwidth = f_0/Q = 1.59 kHz.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A CMOS inverter has V_DD = 3.3V. If V_IL = 1.0V and V_IH = 2.3V, calculate the noise margins NM_H and NM_L.</p>
+            <details><summary>Show Solution</summary><p>NM_H = V_DD - V_IH = 3.3 - 2.3 = 1.0V. NM_L = V_IL - 0 = 1.0V. Both are 1.0V — a well-designed inverter.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="exam-item">
+        <h3>🎯 Midterm 2: Transients, Op-Amps, Frequency Response</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Design an inverting amplifier with gain -10 using an op-amp with an input resistance of 1 kΩ. What is the bandwidth if the op-amp GBW is 1 MHz?</p>
+            <details><summary>Show Solution</summary><p>Gain = -R2/R1 = -10, so R2/R1 = 10. Choose R1 = 1kΩ, R2 = 10kΩ. Bandwidth = GBW / |Gain| = 1 MHz / 10 = 100 kHz.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A parallel RLC circuit has R=1kΩ, L=1mH, C=1µF. Find the resonant frequency and the Q factor.</p>
+            <details><summary>Show Solution</summary><p>f_0 = 1/(2π√(LC)) = 1/(2π√(1e-3 × 1e-6)) = 1/(2π × 3.16e-5) = 5.03 kHz. Q = R√(C/L) = 1000 × √(1e-6/1e-3) = 1000 × 0.0316 = 31.6.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Given the circuit with Vin=12V, R1=4.7kΩ (to node A), R2=2.2kΩ (node A to ground), R3=3.3kΩ (node A to node B), R4=1kΩ (node B to ground), find V_A and V_B using nodal analysis.</p>
+            <details><summary>Show Solution</summary><p>Node A: (V_A-12)/4.7k + V_A/2.2k + (V_A-V_B)/3.3k = 0. Node B: (V_B-V_A)/3.3k + V_B/1k = 0. Solve: V_A(1/4.7 + 1/2.2 + 1/3.3) - V_B/3.3 = 12/4.7. From B: V_A/3.3 = V_B(1/3.3 + 1/1) = V_B × 1.303, V_A = 4.3 V_B. Substitute: 4.3V_B × 0.637 - V_B/3.3 = 2.553. 2.739V_B - 0.303V_B = 2.553. 2.436V_B = 2.553. V_B = 1.048 V. V_A = 4.3 × 1.048 = 4.5 V.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

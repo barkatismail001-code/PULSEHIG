@@ -5,8 +5,24 @@
 <link>https://www.pulsehig.com/</link>
 <description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
 <language>en</language>
-<lastBuildDate>Mon, 05 Oct 2026 23:41:52 GMT</lastBuildDate>
+<lastBuildDate>Tue, 06 Oct 2026 21:01:01 GMT</lastBuildDate>
 <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>How to Write Code That Anyone Can Read and Maintain</title>
+      <link>https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[This technical guide explores the architectural and linguistic principles required to create high-maintainability codebases. By analyzing the cognitive load of software development, we examine how to leverage naming conventions, modular design, and self-documenting patterns to ensure that complex sy]]></description>
+    </item>
+    <item>
+      <title>How to Fix an Overheating Dryer Before It Becomes a Fire Hazard</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[A comprehensive technical analysis of the thermal failure modes in residential drying systems, focusing on the transition from mechanical friction and lint accumulation to active pyrolysis and structural combustion.]]></description>
+    </item>
     <item>
       <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
       <link>https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</link>
@@ -22,22 +38,6 @@
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description><![CDATA[A comprehensive technical guide to resolving common connectivity and signal integrity issues between the HC-SR04 ultrasonic sensor and ESP32 microcontrollers, focusing on hardware wiring, level shifting, and signal timing.]]></description>
-    </item>
-    <item>
-      <title>How to Fix an Overheating Dryer Before It Becomes a Fire Hazard</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html</guid>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description><![CDATA[A comprehensive technical analysis of the thermal failure modes in residential drying systems, focusing on the transition from mechanical friction and lint accumulation to active pyrolysis and structural combustion.]]></description>
-    </item>
-    <item>
-      <title>How to Write Code That Anyone Can Read and Maintain</title>
-      <link>https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html</guid>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description><![CDATA[This technical guide explores the architectural and linguistic principles required to create high-maintainability codebases. By analyzing the cognitive load of software development, we examine how to leverage naming conventions, modular design, and self-documenting patterns to ensure that complex sy]]></description>
     </item>
     <item>
       <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
@@ -120,6 +120,22 @@
       <description><![CDATA[A technical deep-dive into the architecture of smart metering and the identification of parasitic power loads. This analysis explores the integration of AMI (Advanced Metering Infrastructure) systems, the diagnostic capabilities of portable digital power meters, and the interpretation of multi-modal]]></description>
     </item>
     <item>
+      <title>Why Your Laptop Is Overheating and How to Fix It</title>
+      <link>https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[A comprehensive engineering analysis of mobile thermal management, detailing the physical mechanisms of heat dissipation and the procedural steps for resolving thermal throttling through cleaning and thermal interface replacement.]]></description>
+    </item>
+    <item>
+      <title>Fixing I2C Clock Stretching Timeouts in ESP32: Why Your Sensor Data Freezes and How to Resolve It</title>
+      <link>https://www.pulsehig.com/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your.html</guid>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[This technical deep-dive explores the mechanics of I2C clock stretching and its role in causing communication timeouts on ESP32-based systems. We analyze oscilloscope waveforms and circuit topologies to identify the root causes of bus stalls and provide actionable hardware and firmware strategies fo]]></description>
+    </item>
+    <item>
       <title>I2C Timeouts: When Your ESP32 Freezes in Real Life</title>
       <link>https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</guid>
@@ -144,6 +160,14 @@
       <description><![CDATA[A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a]]></description>
     </item>
     <item>
+      <title>Solving High Household Energy Bills Using Smart Home Automation</title>
+      <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home.html</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[This technical analysis explores the architecture of modern smart home automation systems, focusing on the integration of real-time telemetry, automated actuation logic, and advanced data visualization to mitigate household energy expenditure through granular control of HVAC, lighting, and solar ass]]></description>
+    </item>
+    <item>
       <title>Topic: How to Fix a Clogged Drain Without Harsh Chemicals</title>
       <link>https://www.pulsehig.com/a/how-to-fix-a-clogged-drain-without-harsh-chemicals.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-clogged-drain-without-harsh-chemicals.html</guid>
@@ -152,20 +176,20 @@
       <description><![CDATA[A comprehensive technical analysis of non-chemical hydro-mechanical and chemical-neutralization protocols for residential drain remediation. This article details the application of mechanical extraction, thermal shock, and reactive cleaning agents to restore hydraulic efficiency in plumbing systems.]]></description>
     </item>
     <item>
-      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
-      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and.html</guid>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description><![CDATA[A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.]]></description>
-    </item>
-    <item>
       <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
       <link>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description><![CDATA[This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque]]></description>
+    </item>
+    <item>
+      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
+      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and.html</guid>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.]]></description>
     </item>
 </channel>
 </rss>

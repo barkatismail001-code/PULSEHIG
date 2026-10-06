@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Structures — Berkeley | TechPulse Academy</title>
+<meta name="description" content="Lists, trees, graphs, hash tables, heaps, tries, sorting algorithms, and algorithm analysis in Java.">
+<link rel="canonical" href="https://www.pulsehig.com/course/data-structures.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/data-structures.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/data-structures.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/data-structures.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/data-structures.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/data-structures.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/data-structures.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/data-structures.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Data Structures">
+<meta property="og:description" content="Lists, trees, graphs, hash tables, heaps, tries, sorting algorithms, and algorithm analysis in Java.">
+<meta property="og:url" content="https://www.pulsehig.com/course/data-structures.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Data Structures","description":"Lists, trees, graphs, hash tables, heaps, tries, sorting algorithms, and algorithm analysis in Java.","provider":{"@type":"Organization","name":"Berkeley"},"url":"https://www.pulsehig.com/course/data-structures.html","courseCode":"Berkeley CS61B","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Data Structures","courseMode":"online"},{"@type":"CourseInstance","name":"Arrays and Linked Lists","courseMode":"online"},{"@type":"CourseInstance","name":"Stacks and Queues","courseMode":"online"},{"@type":"CourseInstance","name":"Binary Search Trees","courseMode":"online"},{"@type":"CourseInstance","name":"Balanced Trees: AVL and Red-Black","courseMode":"online"},{"@type":"CourseInstance","name":"Hash Tables","courseMode":"online"},{"@type":"CourseInstance","name":"Heaps and Priority Queues","courseMode":"online"},{"@type":"CourseInstance","name":"Graphs: Representations and Traversals","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Data Structures</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">Berkeley CS61B · Berkeley</span>
+      <h1>Data Structures</h1>
+      <p>Lists, trees, graphs, hash tables, heaps, tries, sorting algorithms, and algorithm analysis in Java.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">8</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">45h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (8)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to Data Structures</h4>
+          <p>
+## What is a Data Structure?
+
+A data structure is a way of organizing data in memory so that it can be used efficiently. It is NOT just an implementation detail - it is a design decision that determines what operatio...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is a Data Structure?<br><br>A data structure is a way of organizing data in memory so that it can be used efficiently. It is NOT just an implementation detail - it is a design decision that determines what operations are fast, what operations are slow, and how much memory you need.<br><br>Every program performs operations on data:<br>- Insert: add a new element<br>- Delete: remove an element<br>- Search: find an element<br>- Iterate: visit all elements in order<br>- Sort: arrange elements in some order<br><br>Different data structures make different operations fast or slow.<br><br>## The Central Trade-off: Time vs Space<br><br>There is no perfect data structure. Every choice is a trade-off:<br><br>- Arrays are compact (no extra memory) and allow O(1) access by index, but inserting in the middle is O(n).<br>- Linked lists allow O(1) insert at the head, but accessing the k-th element requires O(k) traversal.<br>- Hash tables give O(1) average lookup, but use extra memory for the hash table itself.<br>- Trees give O(log n) insert/search in balanced form, but require pointers.<br><br>## Asymptotic Analysis Preview<br><br>The standard way to compare data structures is Big-O notation:<br><br>- O(1): constant time (same regardless of n)<br>- O(log n): logarithmic (very fast even for huge n)<br>- O(n): linear (proportional to n)<br>- O(n log n): typical for good sorting<br>- O(n^2): quadratic (slow for large n)<br><br>## A Concrete Example<br><br>Suppose you need to store 1,000,000 customer records:<br><br>Array:<br>- Memory: 1,000,000 x 100 bytes = ~100 MB<br>- Look up by ID: O(n) if unsorted, O(log n) if sorted<br>- Insert new customer: O(n) (must shift later elements)<br><br>Hash table:<br>- Memory: 1,000,000 x 100 bytes + 30% overhead = ~130 MB<br>- Look up by ID: O(1) average<br>- Insert new customer: O(1) average<br><br>The hash table is 30% bigger but ~1,000,000x faster on lookups. For most applications, this is the right trade-off.<br><br>## Key Takeaways<br><br>- Data structures are about trade-offs, not universal solutions<br>- The choice can change O(n^2) into O(n log n)<br>- Always ask: what operations do I need to be FAST?<br>- Big-O is the language we use to compare them<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Arrays and Linked Lists</h4>
+          <p>
+## Arrays
+
+An array is a contiguous block of memory holding elements of the same type:
+
+    int[] a = new int[10];  // allocates 10 integers
+    a[0] = 42;               // O(1) access
+
+Indexing is O(1) - the JV...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Arrays<br><br>An array is a contiguous block of memory holding elements of the same type:<br><br>    int[] a = new int[10];  // allocates 10 integers<br>    a[0] = 42;               // O(1) access<br><br>Indexing is O(1) - the JVM computes base + index * element_size.<br><br>Advantages:<br>- Extremely fast random access<br>- Compact memory layout (no pointers)<br>- Cache-friendly (contiguous memory)<br><br>Disadvantages:<br>- Fixed size (Java arrays cannot grow)<br>- Insertion/deletion in the middle is O(n)<br><br>## Implementing a Dynamic Array (ArrayList)<br><br>To grow, we allocate a bigger array and copy. The trick is doubling:<br><br>    public class ArrayList {<br>        private int[] data;<br>        private int size;<br>        <br>        public ArrayList() {<br>            data = new int[10];<br>            size = 0;<br>        }<br>        <br>        public void add(int value) {<br>            if (size == data.length) grow();<br>            data[size++] = value;<br>        }<br>        <br>        private void grow() {<br>            int[] bigger = new int[data.length * 2];<br>            System.arraycopy(data, 0, bigger, 0, size);<br>            data = bigger;<br>        }<br>        <br>        public int get(int index) {<br>            if (index &lt; 0 || index &gt;= size) throw new IndexOutOfBoundsException();<br>            return data[index];<br>        }<br>    }<br><br>## Linked Lists<br><br>A linked list stores each element in a node with a reference to the next node:<br><br>    class Node {<br>        int value;<br>        Node next;<br>        Node(int value, Node next) { this.value = value; this.next = next; }<br>    }<br>    <br>    public class LinkedList {<br>        private Node head;<br>        private int size;<br>        <br>        public void addFirst(int value) {<br>            head = new Node(value, head);<br>            size++;<br>        }<br>        <br>        public int get(int index) {<br>            Node cur = head;<br>            for (int i = 0; i &lt; index; i++) cur = cur.next;<br>            return cur.value;<br>        }<br>    }<br><br>## The Trade-off in Practice<br><br>Operation        | ArrayList      | LinkedList<br>-----------------|----------------|----------------<br>get(i)           | O(1)           | O(n)<br>add at end       | O(1) amortized | O(1) with tail<br>add at front     | O(n)           | O(1)<br>remove at front  | O(n)           | O(1)<br>Memory per item  | 4 bytes        | 4 + 8 bytes<br><br>## When to Use Which<br><br>Use ArrayList when:<br>- You mostly read/access by index<br>- You add/remove at the end<br>- Memory matters<br><br>Use LinkedList when:<br>- You add/remove frequently at the front<br>- You need a queue or stack (both O(1) at head)<br>- Random access is rare<br><br>## Key Takeaways<br><br>- ArrayList = fast random access, slow middle insert<br>- LinkedList = fast front insert, slow random access<br>- Doubling strategy gives O(1) amortized add<br>- Always measure before optimizing<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Stacks and Queues</h4>
+          <p>
+## Abstract Data Types: Stack and Queue
+
+A Stack is Last-In-First-Out (LIFO). A Queue is First-In-First-Out (FIFO). These are abstract data types - they define behavior, not implementation.
+
+Stack operations:
+- pu...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Abstract Data Types: Stack and Queue<br><br>A Stack is Last-In-First-Out (LIFO). A Queue is First-In-First-Out (FIFO). These are abstract data types - they define behavior, not implementation.<br><br>Stack operations:<br>- push(x) - add x on top<br>- pop() - remove and return top<br>- peek() - return top without removing<br>- isEmpty() - true if empty<br><br>Queue operations:<br>- enqueue(x) - add x to back<br>- dequeue() - remove and return front<br>- peek() - return front<br>- isEmpty() - true if empty<br><br>## Array-Backed Stack<br><br>    public class ArrayStack {<br>        private int[] data;<br>        private int top;<br>        <br>        public ArrayStack() { data = new int[10]; top = 0; }<br>        <br>        public void push(int value) {<br>            if (top == data.length) grow();<br>            data[top++] = value;<br>        }<br>        <br>        public int pop() {<br>            if (top == 0) throw new RuntimeException("Empty stack");<br>            return data[--top];<br>        }<br>        <br>        public int peek() { return data[top - 1]; }<br>        public boolean isEmpty() { return top == 0; }<br>        <br>        private void grow() {<br>            int[] bigger = new int[data.length * 2];<br>            System.arraycopy(data, 0, bigger, 0, top);<br>            data = bigger;<br>        }<br>    }<br><br>All operations are O(1) amortized.<br><br>## Linked-List Stack<br><br>    public class LinkedStack {<br>        private Node top;<br>        <br>        public void push(int value) { top = new Node(value, top); }<br>        <br>        public int pop() {<br>            int v = top.value;<br>            top = top.next;<br>            return v;<br>        }<br>    }<br><br>## Linked-List Queue<br><br>Keep pointers to BOTH head and tail:<br><br>    public class LinkedQueue {<br>        private Node head, tail;<br>        <br>        public void enqueue(int value) {<br>            Node n = new Node(value, null);<br>            if (head == null) {<br>                head = tail = n;<br>            } else {<br>                tail.next = n;<br>                tail = n;<br>            }<br>        }<br>        <br>        public int dequeue() {<br>            int v = head.value;<br>            head = head.next;<br>            if (head == null) tail = null;<br>            return v;<br>        }<br>    }<br><br>All operations O(1).<br><br>## Real-World Applications<br><br>Stacks:<br>- Function call stack (recursion)<br>- Undo/redo in editors<br>- Balanced parentheses checking<br>- Depth-First Search (DFS)<br>- Expression evaluation<br><br>Queues:<br>- Print spooler<br>- Task schedulers<br>- Breadth-First Search (BFS)<br>- Message queues (RabbitMQ, Kafka)<br>- Request buffering in web servers<br><br>## Balanced Parentheses - Classic Stack Problem<br><br>    public boolean isBalanced(String s) {<br>        ArrayStack stack = new ArrayStack();<br>        for (char c : s.toCharArray()) {<br>            if (c == '(' || c == '[' || c == '{') {<br>                stack.push(c);<br>            } else {<br>                if (stack.isEmpty()) return false;<br>                char open = stack.pop();<br>                if (c == ')' &amp;&amp; open != '(') return false;<br>                if (c == ']' &amp;&amp; open != '[') return false;<br>                if (c == '}' &amp;&amp; open != '{') return false;<br>            }<br>        }<br>        return stack.isEmpty();<br>    }<br><br>## Key Takeaways<br><br>- Stack = LIFO, Queue = FIFO<br>- Both can be array-backed or list-backed<br>- O(1) for all core operations<br>- Queue needs both head AND tail pointers<br>- Circular arrays give better cache locality<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Binary Search Trees</h4>
+          <p>
+## The BST Invariant
+
+A Binary Search Tree is a binary tree where for every node:
+- All values in the left subtree are LESS than the node
+- All values in the right subtree are GREATER than the node
+
+This gives a ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The BST Invariant<br><br>A Binary Search Tree is a binary tree where for every node:<br>- All values in the left subtree are LESS than the node<br>- All values in the right subtree are GREATER than the node<br><br>This gives a powerful guarantee: in-order traversal visits nodes in sorted order.<br><br>## Node Structure<br><br>    class BSTNode {<br>        int value;<br>        BSTNode left, right;<br>        BSTNode(int value) { this.value = value; }<br>    }<br>    <br>    public class BST {<br>        private BSTNode root;<br>        private int size;<br>    }<br><br>## Insert<br><br>    public void insert(int value) {<br>        root = insert(root, value);<br>    }<br>    <br>    private BSTNode insert(BSTNode node, int value) {<br>        if (node == null) {<br>            size++;<br>            return new BSTNode(value);<br>        }<br>        if (value &lt; node.value) {<br>            node.left = insert(node.left, value);<br>        } else if (value &gt; node.value) {<br>            node.right = insert(node.right, value);<br>        }<br>        return node;<br>    }<br><br>Time complexity: O(h) where h is the height.<br><br>## Search<br><br>    public boolean contains(int value) {<br>        BSTNode cur = root;<br>        while (cur != null) {<br>            if (value == cur.value) return true;<br>            cur = value &lt; cur.value ? cur.left : cur.right;<br>        }<br>        return false;<br>    }<br><br>Also O(h).<br><br>## Delete - The Hard Case<br><br>Three cases:<br><br>Case 1: Leaf node - just remove it.<br><br>Case 2: One child - replace node with its child.<br><br>Case 3: Two children - find the in-order successor (smallest value in right subtree), copy its value into this node, then delete the successor.<br><br>    private BSTNode delete(BSTNode node, int value) {<br>        if (node == null) return null;<br>        <br>        if (value &lt; node.value) {<br>            node.left = delete(node.left, value);<br>        } else if (value &gt; node.value) {<br>            node.right = delete(node.right, value);<br>        } else {<br>            if (node.left == null) return node.right;<br>            if (node.right == null) return node.left;<br>            <br>            BSTNode successor = findMin(node.right);<br>            node.value = successor.value;<br>            node.right = delete(node.right, successor.value);<br>        }<br>        return node;<br>    }<br>    <br>    private BSTNode findMin(BSTNode node) {<br>        while (node.left != null) node = node.left;<br>        return node;<br>    }<br><br>## In-Order Traversal<br><br>    public void inOrder(BSTNode node) {<br>        if (node == null) return;<br>        inOrder(node.left);<br>        System.out.println(node.value);<br>        inOrder(node.right);<br>    }<br><br>Visits nodes in sorted order. Time: O(n).<br><br>## The Imbalance Problem<br><br>Insert values in sorted order: 1, 2, 3, 4, 5, 6, 7.<br><br>    1<br>     \<br>      2<br>       \<br>        3<br>         \<br>          4<br><br>This tree has height n, not log n! Every operation is O(n) instead of O(log n). The tree has degenerated into a linked list.<br><br>Real-world data is often nearly sorted:<br>- Time series data<br>- User IDs<br>- Auto-incrementing keys<br>- Sorted file names<br><br>## BST vs Hash Table<br><br>Operation           | BST (balanced) | Hash Table<br>--------------------|----------------|------------<br>Insert              | O(log n)       | O(1) avg<br>Search              | O(log n)       | O(1) avg<br>Delete              | O(log n)       | O(1) avg<br>In-order traversal  | O(n)           | not possible<br>Min/Max             | O(log n)       | O(n)<br>Range query         | O(log n + k)   | O(n)<br><br>Use BSTs when you need ORDERED operations.<br>Use hash tables when you only need lookup.<br><br>## Key Takeaways<br><br>- BST gives O(log n) operations when balanced<br>- Delete has three cases; two-children is tricky<br>- In-order traversal produces sorted output<br>- Sorted insertion degenerates to O(n)<br>- Self-balancing variants fix this<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Balanced Trees: AVL and Red-Black</h4>
+          <p>
+## Why Balance Matters
+
+In the previous lecture, we saw that an unbalanced BST can degenerate to O(n). AVL trees were the first self-balancing BST, invented in 1962 by Adelson-Velsky and Landis.
+
+The AVL invariant:...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Balance Matters<br><br>In the previous lecture, we saw that an unbalanced BST can degenerate to O(n). AVL trees were the first self-balancing BST, invented in 1962 by Adelson-Velsky and Landis.<br><br>The AVL invariant: for every node, the heights of the left and right subtrees differ by at most 1.<br><br>The balance factor: height(left) - height(right) is in {-1, 0, 1}.<br><br>## AVL Tree Height<br><br>Claim: an AVL tree with n nodes has height &lt;= 1.44 log2(n).<br><br>Proof sketch: the minimum number of nodes in an AVL tree of height h follows the Fibonacci recurrence N(h) = N(h-1) + N(h-2) + 1. Solving gives N(h) ~ phi^h where phi = 1.618. So h ~ 1.44 log2(n).<br><br>## Rotations<br><br>To restore the AVL property after insert/delete, we use rotations - local restructuring operations that preserve the BST invariant.<br><br>Right Rotation:<br><br>          y                x<br>         / \              / \<br>        x   T3    -&gt;     T1   y<br>       / \                  / \<br>      T1  T2              T2  T3<br><br>x becomes the parent, y becomes x's right child, and x's old right subtree T2 becomes y's new left subtree.<br><br>Left Rotation (mirror):<br><br>        x                  y<br>       / \                / \<br>      T1  y      -&gt;       x   T3<br>         / \            / \<br>        T2  T3         T1  T2<br><br>## Insertion Algorithm<br><br>1. Insert as in a normal BST.<br>2. Walk back up the path, updating heights.<br>3. At each node, compute the balance factor.<br>4. If |balance| &gt; 1, apply one of four rotation cases:<br><br>LL case (Left-Left): single right rotation<br>RR case (Right-Right): single left rotation<br>LR case (Left-Right): left rotation on left child, then right rotation<br>RL case (Right-Left): right rotation on right child, then left rotation<br><br>## Insert Example<br><br>Insert 30, 20, 10 in order:<br><br>Step 1:  30<br>Step 2:  30         (no rotation)<br>        /<br>       20<br><br>Step 3:  30         (balance factor at 30 is +2)<br>        /           -&gt; Right rotate at 30<br>       20<br>       /<br>      10<br><br>Result:<br>       20<br>       / \<br>      10  30<br><br>## Delete Algorithm<br><br>Delete is trickier: after deleting a node, we may need to rebalance multiple levels up the tree. In the worst case, O(log n) rotations.<br><br>## AVL vs Red-Black<br><br>Both guarantee O(log n) height, but with different trade-offs:<br><br>Aspect              | AVL            | Red-Black<br>--------------------|----------------|------------<br>Height (worst)      | 1.44 log n     | 2 log n<br>Faster for...       | Lookups        | Inserts/Deletes<br>Implementation      | Simpler        | More complex<br>Rotation frequency  | More           | Fewer<br><br>AVL is better when reads dominate.<br>Red-Black is better when writes dominate.<br><br>Java's TreeMap and TreeSet use Red-Black trees.<br>C++'s std::map typically uses Red-Black.<br><br>## Real-World Uses<br><br>- Database indexes - B-trees (generalization)<br>- File systems - NTFS, ext4, HFS+ use B-trees<br>- Language standard libraries - std::map, TreeMap<br>- In-memory sorted sets - Redis sorted sets<br><br>## Key Takeaways<br><br>- AVL invariant: |height(L) - height(R)| &lt;= 1<br>- Height is bounded by 1.44 log2(n)<br>- Rotations are O(1) and preserve the BST property<br>- Four rotation cases: LL, RR, LR, RL<br>- Insert/delete/search are all O(log n)<br>- Choose Red-Black over AVL when writes dominate<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Hash Tables</h4>
+          <p>
+## The Hashing Idea
+
+A hash table stores key-value pairs and provides O(1) average-case insert, search, and delete. The idea: use a hash function to map keys to array indices.
+
+    hash(&quot;apple&quot;)  -&gt; 42
+    hash(&quot;b...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Hashing Idea<br><br>A hash table stores key-value pairs and provides O(1) average-case insert, search, and delete. The idea: use a hash function to map keys to array indices.<br><br>    hash("apple")  -&gt; 42<br>    hash("banana") -&gt; 17<br>    hash("cherry") -&gt; 42   // collision with apple!<br><br>## Hash Functions<br><br>A good hash function should:<br>1. Be deterministic (same key -&gt; same hash)<br>2. Be fast to compute<br>3. Distribute keys uniformly<br>4. Minimize collisions<br><br>Java's hashCode():<br><br>    Integer.hashCode(42)             // 42<br>    "hello".hashCode()               // 99162322<br>    Arrays.hashCode(new int[]{1,2})  // 994<br><br>For custom classes:<br><br>    @Override<br>    public int hashCode() {<br>        int result = 17;<br>        result = 31 * result + name.hashCode();<br>        result = 31 * result + age;<br>        return result;<br>    }<br><br>Why 31? It's a prime, and 31 * x can be optimized to (x &lt;&lt; 5) - x.<br><br>## Collision Resolution Strategy 1: Chaining<br><br>Each array slot holds a linked list of entries with the same hash.<br><br>    class ChainHashTable {<br>        private Node[] buckets;<br>        private int size;<br>        private int capacity;<br>        <br>        private static class Node {<br>            Object key, value;<br>            Node next;<br>        }<br>        <br>        public void put(Object key, Object value) {<br>            int idx = Math.floorMod(key.hashCode(), capacity);<br>            for (Node n = buckets[idx]; n != null; n = n.next) {<br>                if (n.key.equals(key)) {<br>                    n.value = value;<br>                    return;<br>                }<br>            }<br>            Node newNode = new Node();<br>            newNode.key = key;<br>            newNode.value = value;<br>            newNode.next = buckets[idx];<br>            buckets[idx] = newNode;<br>            size++;<br>            <br>            if ((double) size / capacity &gt; 0.75) resize();<br>        }<br>        <br>        public Object get(Object key) {<br>            int idx = Math.floorMod(key.hashCode(), capacity);<br>            for (Node n = buckets[idx]; n != null; n = n.next) {<br>                if (n.key.equals(key)) return n.value;<br>            }<br>            return null;<br>        }<br>        <br>        private void resize() {<br>            Node[] old = buckets;<br>            capacity *= 2;<br>            buckets = new Node[capacity];<br>            size = 0;<br>            for (Node head : old) {<br>                for (Node n = head; n != null; n = n.next) {<br>                    put(n.key, n.value);<br>                }<br>            }<br>        }<br>    }<br><br>## Strategy 2: Open Addressing<br><br>No linked lists. On collision, probe for the next empty slot.<br><br>Linear probing: try idx+1, idx+2, idx+3...<br>Quadratic probing: try idx+1^2, idx+2^2, idx+3^2...<br>Double hashing: use a second hash function<br><br>Linear probing is fastest due to cache locality but suffers from clustering (runs of occupied slots).<br><br>## Load Factor<br><br>The load factor is size / capacity. Java's HashMap resizes when it exceeds 0.75.<br><br>- Too low (&lt; 0.5): wastes memory<br>- Too high (&gt; 0.9): many collisions, slow<br>- Sweet spot: 0.7 - 0.75<br><br>## Why O(1) Average?<br><br>Assume simple uniform hashing (each key equally likely to hash to any slot). The expected length of a chain is n/m = load factor alpha.<br><br>With alpha = 0.75, expected search time is O(1 + alpha) = O(1).<br><br>## Worst-Case O(n)<br><br>If all keys hash to the same bucket, the table becomes a linked list: O(n). Adversaries can craft keys that all collide (hash flooding attack).<br><br>Java 8+ mitigates this by converting long chains into red-black trees, giving O(log n) worst case.<br><br>## Real-World Applications<br><br>- Databases: hash indexes for equality queries<br>- Compilers: symbol tables<br>- Caches: memcached, Redis<br>- Deduplication: finding duplicate files<br>- Set membership: Bloom filters<br>- Cryptographic hashing: SHA-256, bcrypt<br><br>## Hash Tables in Java<br><br>    Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();<br>    map.put("apple", 42);<br>    map.put("banana", 17);<br>    int x = map.get("apple");     // 42<br>    <br>    Set&lt;String&gt; set = new HashSet&lt;&gt;();<br>    set.add("hello");<br>    boolean has = set.contains("hello");  // true<br><br>## Key Takeaways<br><br>- Hash tables give O(1) average performance<br>- Hash functions must be deterministic and uniform<br>- Collisions handled by chaining or open addressing<br>- Load factor around 0.75 is optimal<br>- Worst case is O(n) but rarely hit<br>- Java 8+ uses Red-Black trees for long chains<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">7</div>
+        <div class="lecture-content">
+          <h4>Heaps and Priority Queues</h4>
+          <p>
+## What is a Heap?
+
+A binary heap is a complete binary tree that satisfies the heap property:
+- Min-heap: every parent is &lt;= its children
+- Max-heap: every parent is &gt;= its children
+
+A complete binary tree has al...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is a Heap?<br><br>A binary heap is a complete binary tree that satisfies the heap property:<br>- Min-heap: every parent is &lt;= its children<br>- Max-heap: every parent is &gt;= its children<br><br>A complete binary tree has all levels full except possibly the last, which is filled left-to-right.<br><br>Because it's complete, we can store it in an array without pointers:<br><br>            10<br>           /  \<br>          20   30<br>         / \   /<br>        40 50 60<br><br>    Array: [10, 20, 30, 40, 50, 60]<br><br>For a node at index i:<br>- Left child: 2i + 1<br>- Right child: 2i + 2<br>- Parent: (i - 1) / 2<br><br>## Insert (bubble up)<br><br>1. Add the new element at the end<br>2. While it's smaller than its parent, swap<br>3. Continue until the heap property is restored<br><br>    public void insert(int value) {<br>        data[size] = value;<br>        int i = size++;<br>        while (i &gt; 0) {<br>            int parent = (i - 1) / 2;<br>            if (data[parent] &lt;= data[i]) break;<br>            swap(i, parent);<br>            i = parent;<br>        }<br>    }<br><br>Time: O(log n).<br><br>## Extract Min (bubble down)<br><br>1. Save the root value<br>2. Move the last element to the root<br>3. Bubble it down until it's smaller than both children<br>4. Decrease size<br><br>    public int extractMin() {<br>        int min = data[0];<br>        data[0] = data[--size];<br>        int i = 0;<br>        while (true) {<br>            int left = 2 * i + 1;<br>            int right = 2 * i + 2;<br>            int smallest = i;<br>            if (left &lt; size &amp;&amp; data[left] &lt; data[smallest]) smallest = left;<br>            if (right &lt; size &amp;&amp; data[right] &lt; data[smallest]) smallest = right;<br>            if (smallest == i) break;<br>            swap(i, smallest);<br>            i = smallest;<br>        }<br>        return min;<br>    }<br><br>Time: O(log n).<br><br>## Peek Min<br><br>    public int peekMin() { return data[0]; }<br><br>Time: O(1).<br><br>## Heapify (build from array in O(n))<br><br>Given an arbitrary array, we can build a heap in O(n) by bubbling down from the middle to the start:<br><br>    public static void heapify(int[] arr) {<br>        for (int i = arr.length / 2 - 1; i &gt;= 0; i--) {<br>            bubbleDown(arr, i);<br>        }<br>    }<br><br>Why O(n) and not O(n log n)? Because most nodes are leaves and don't need to sink.<br><br>## Heapsort<br><br>1. Build a max-heap from the array (O(n))<br>2. Repeatedly swap root with last, shrink, bubble down (O(n log n))<br><br>    public static void heapSort(int[] arr) {<br>        int n = arr.length;<br>        for (int i = n / 2 - 1; i &gt;= 0; i--) bubbleDown(arr, i, n);<br>        for (int i = n - 1; i &gt; 0; i--) {<br>            int temp = arr[0];<br>            arr[0] = arr[i];<br>            arr[i] = temp;<br>            bubbleDown(arr, 0, i);<br>        }<br>    }<br><br>O(n log n) worst case, O(1) extra space.<br><br>## Priority Queue<br><br>Task scheduling, Dijkstra's algorithm, A* search, Huffman coding.<br><br>    PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;();<br>    pq.add(5); pq.add(1); pq.add(3);<br>    pq.poll();  // returns 1<br>    pq.peek();  // returns 3<br><br>## Dijkstra's Algorithm Using a Heap<br><br>    int[] dijkstra(Graph g, int start) {<br>        int[] dist = new int[g.n];<br>        Arrays.fill(dist, Integer.MAX_VALUE);<br>        dist[start] = 0;<br>        <br>        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);<br>        pq.add(new int[]{start, 0});<br>        <br>        while (!pq.isEmpty()) {<br>            int[] cur = pq.poll();<br>            if (cur[1] &gt; dist[cur[0]]) continue;<br>            <br>            for (Edge e : g.edges[cur[0]]) {<br>                int nd = cur[1] + e.weight;<br>                if (nd &lt; dist[e.to]) {<br>                    dist[e.to] = nd;<br>                    pq.add(new int[]{e.to, nd});<br>                }<br>            }<br>        }<br>        return dist;<br>    }<br><br>## Heap vs Sorted Array<br><br>Operation    | Heap       | Sorted Array<br>-------------|------------|--------------<br>Insert       | O(log n)   | O(n)<br>Extract min  | O(log n)   | O(1)<br>Peek min     | O(1)       | O(1)<br>Build        | O(n)       | O(n log n)<br><br>Heaps win when you have a mix of insert and extract.<br><br>## Key Takeaways<br><br>- Heap = complete binary tree with heap property<br>- Stored as array - no pointers needed<br>- Insert/extract = O(log n)<br>- Peek = O(1)<br>- Heapify in O(n)<br>- Powers priority queues, heapsort, Dijkstra<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">8</div>
+        <div class="lecture-content">
+          <h4>Graphs: Representations and Traversals</h4>
+          <p>
+## Graph Representations
+
+A graph G = (V, E) consists of vertices V and edges E. Two standard representations:
+
+## Adjacency Matrix
+
+A 2D array adj[i][j] = weight if there&#39;s an edge from i to j.
+
+          0  1...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Graph Representations<br><br>A graph G = (V, E) consists of vertices V and edges E. Two standard representations:<br><br>## Adjacency Matrix<br><br>A 2D array adj[i][j] = weight if there's an edge from i to j.<br><br>          0  1  2  3<br>    0 [   0  1  1  0 ]<br>    1 [   1  0  0  1 ]<br>    2 [   1  0  0  1 ]<br>    3 [   0  1  1  0 ]<br><br>Pros: O(1) edge lookup, simple<br>Cons: O(V^2) space (bad for sparse graphs)<br><br>## Adjacency List<br><br>Array of lists: adj[i] = list of neighbors of i.<br><br>    List&lt;Integer&gt;[] adj = new List[n];<br>    for (int i = 0; i &lt; n; i++) adj[i] = new ArrayList&lt;&gt;();<br>    adj[0].add(1); adj[0].add(2);<br>    adj[1].add(0); adj[1].add(3);<br><br>Pros: O(V + E) space<br>Cons: Edge lookup is O(degree)<br><br>For most applications, use adjacency lists.<br><br>## Breadth-First Search (BFS)<br><br>BFS explores level by level - all neighbors of start, then all neighbors of those, etc.<br><br>    void bfs(Graph g, int start) {<br>        boolean[] visited = new boolean[g.n];<br>        Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();<br>        <br>        q.add(start);<br>        visited[start] = true;<br>        <br>        while (!q.isEmpty()) {<br>            int u = q.poll();<br>            System.out.println(u);<br>            <br>            for (int v : g.adj[u]) {<br>                if (!visited[v]) {<br>                    visited[v] = true;<br>                    q.add(v);<br>                }<br>            }<br>        }<br>    }<br><br>Time: O(V + E), Space: O(V)<br><br>## BFS Finds Shortest Paths in Unweighted Graphs<br><br>Track parents during BFS:<br><br>    int[] bfs(int start, int goal) {<br>        int[] parent = new int[g.n];<br>        Arrays.fill(parent, -1);<br>        parent[start] = start;<br>        <br>        Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();<br>        q.add(start);<br>        <br>        while (!q.isEmpty()) {<br>            int u = q.poll();<br>            if (u == goal) break;<br>            for (int v : g.adj[u]) {<br>                if (parent[v] == -1) {<br>                    parent[v] = u;<br>                    q.add(v);<br>                }<br>            }<br>        }<br>        <br>        if (parent[goal] == -1) return null;<br>        List&lt;Integer&gt; path = new ArrayList&lt;&gt;();<br>        for (int cur = goal; cur != start; cur = parent[cur]) {<br>            path.add(cur);<br>        }<br>        path.add(start);<br>        Collections.reverse(path);<br>        return path.stream().mapToInt(i -&gt; i).toArray();<br>    }<br><br>## Depth-First Search (DFS)<br><br>DFS goes as deep as possible before backtracking.<br><br>Recursive:<br><br>    void dfs(Graph g, int u, boolean[] visited) {<br>        visited[u] = true;<br>        System.out.println(u);<br>        for (int v : g.adj[u]) {<br>            if (!visited[v]) dfs(g, v, visited);<br>        }<br>    }<br><br>Iterative (with explicit stack):<br><br>    void dfsIter(Graph g, int start) {<br>        boolean[] visited = new boolean[g.n];<br>        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();<br>        stack.push(start);<br>        <br>        while (!stack.isEmpty()) {<br>            int u = stack.pop();<br>            if (visited[u]) continue;<br>            visited[u] = true;<br>            System.out.println(u);<br>            for (int v : g.adj[u]) {<br>                if (!visited[v]) stack.push(v);<br>            }<br>        }<br>    }<br><br>Time: O(V + E)<br><br>## Connected Components<br><br>    int countComponents(Graph g) {<br>        boolean[] visited = new boolean[g.n];<br>        int count = 0;<br>        for (int u = 0; u &lt; g.n; u++) {<br>            if (!visited[u]) {<br>                dfs(g, u, visited);<br>                count++;<br>            }<br>        }<br>        return count;<br>    }<br><br>## Cycle Detection<br><br>Undirected: DFS with parent tracking<br><br>    boolean hasCycle(Graph g, int u, int parent, boolean[] visited) {<br>        visited[u] = true;<br>        for (int v : g.adj[u]) {<br>            if (!visited[v]) {<br>                if (hasCycle(g, v, u, visited)) return true;<br>            } else if (v != parent) {<br>                return true;<br>            }<br>        }<br>        return false;<br>    }<br><br>Directed: DFS with three colors (white/gray/black). Cycle exists if we see a gray node.<br><br>## Topological Sort<br><br>For a DAG (directed acyclic graph), produce a linear ordering where every edge goes from earlier to later.<br><br>Kahn's algorithm (BFS-based):<br><br>    List&lt;Integer&gt; topologicalSort(Graph g) {<br>        int[] inDegree = new int[g.n];<br>        for (int u = 0; u &lt; g.n; u++) {<br>            for (int v : g.adj[u]) inDegree[v]++;<br>        }<br>        <br>        Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();<br>        for (int i = 0; i &lt; g.n; i++) if (inDegree[i] == 0) q.add(i);<br>        <br>        List&lt;Integer&gt; order = new ArrayList&lt;&gt;();<br>        while (!q.isEmpty()) {<br>            int u = q.poll();<br>            order.add(u);<br>            for (int v : g.adj[u]) {<br>                if (--inDegree[v] == 0) q.add(v);<br>            }<br>        }<br>        <br>        if (order.size() != g.n) throw new RuntimeException("Cycle detected");<br>        return order;<br>    }<br><br>Applications: build systems (Make), course prerequisites, package managers (npm, pip).<br><br>## Key Takeaways<br><br>- Adjacency list: O(V+E) space, most common<br>- BFS uses a queue - finds shortest paths in unweighted graphs<br>- DFS uses a stack - natural for cycles, topological sort<br>- Both O(V+E) time<br>- Topological sort orders DAGs; fails if cycle exists<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Arrays and Linked Lists</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Implement an `ArrayList` in Java with methods `add(int)`, `get(int)`, `size()`. Explain the amortized cost of `add` when doubling capacity.</p>
+            <details><summary>Show Solution</summary><p>Amortized O(1): each doubling costs O(n), but happens only every n inserts. Sum over n inserts = n + n/2 + n/4 + ... = 2n operations = O(n) total = O(1) amortized per insert.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Compare ArrayList vs LinkedList for the operations: get(i), add at end, add at beginning, remove at beginning. Give Big-O for each.</p>
+            <details><summary>Show Solution</summary><p>ArrayList: get O(1), add end O(1) amortized, add begin O(n), remove begin O(n). LinkedList: get O(n), add end O(1) (with tail pointer), add begin O(1), remove begin O(1).</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Arrays, Lists, Trees</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Given a binary search tree with values 5, 3, 7, 1, 4, 6, 8, draw the tree and give its in-order, pre-order, and post-order traversals.</p>
+            <details><summary>Show Solution</summary><p>Tree: 5 is root, 3 left, 7 right, 1 left of 3, 4 right of 3, 6 left of 7, 8 right of 7. In-order: 1 3 4 5 6 7 8. Pre-order: 5 3 1 4 7 6 8. Post-order: 1 4 3 6 8 7 5.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> What is the worst-case time complexity for insert in an unbalanced BST? Why?</p>
+            <details><summary>Show Solution</summary><p>O(n). If the BST becomes a linked list (e.g., insert 1, 2, 3, 4, 5 in that order), each insert traverses from root to leaf.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Implement a hash table with chaining in pseudocode. What is the average-case lookup time?</p>
+            <details><summary>Show Solution</summary><p>Array of buckets (linked lists). hash(key) gives bucket index; search scans that bucket. Average O(1 + load_factor), typically O(1) if load_factor &lt; 1. Worst-case O(n) if all keys hash to same bucket.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q4.</strong> Explain the difference between a heap and a BST. Give one use case for each.</p>
+            <details><summary>Show Solution</summary><p>Heap: parent is always smaller (or larger) than children. Structure is complete binary tree. O(log n) insert, O(1) peek-min. No ordering between siblings. Use case: priority queue. BST: left &lt; node &lt; right. O(log n) insert/search (if balanced). In-order traversal gives sorted sequence. Use case: ordered dictionary.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

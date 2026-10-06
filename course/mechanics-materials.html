@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mechanics of Materials — MIT | TechPulse Academy</title>
+<meta name="description" content="Stress, strain, torsion, bending, buckling, and failure criteria.">
+<link rel="canonical" href="https://www.pulsehig.com/course/mechanics-materials.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/mechanics-materials.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/mechanics-materials.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/mechanics-materials.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/mechanics-materials.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/mechanics-materials.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/mechanics-materials.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/mechanics-materials.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mechanics of Materials">
+<meta property="og:description" content="Stress, strain, torsion, bending, buckling, and failure criteria.">
+<meta property="og:url" content="https://www.pulsehig.com/course/mechanics-materials.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Mechanics of Materials","description":"Stress, strain, torsion, bending, buckling, and failure criteria.","provider":{"@type":"Organization","name":"MIT"},"url":"https://www.pulsehig.com/course/mechanics-materials.html","courseCode":"MIT 2.001","hasCourseInstance":[{"@type":"CourseInstance","name":"Stress, Strain, and Material Behavior","courseMode":"online"},{"@type":"CourseInstance","name":"Axial Loading and Torsion","courseMode":"online"},{"@type":"CourseInstance","name":"Bending of Beams","courseMode":"online"},{"@type":"CourseInstance","name":"Column Buckling and Stability","courseMode":"online"},{"@type":"CourseInstance","name":"Failure Theories and Fatigue","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Mechanics of Materials</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">MIT 2.001 · MIT</span>
+      <h1>Mechanics of Materials</h1>
+      <p>Stress, strain, torsion, bending, buckling, and failure criteria.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">40h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Stress, Strain, and Material Behavior</h4>
+          <p>
+## Why Study Mechanics of Materials?
+
+Every structure — bridges, buildings, aircraft, chips, bones — must carry loads without failing. Mechanics of materials gives engineers the tools to predict when a structure will...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why Study Mechanics of Materials?<br><br>Every structure — bridges, buildings, aircraft, chips, bones — must carry loads without failing. Mechanics of materials gives engineers the tools to predict when a structure will bend, break, or buckle. It bridges the gap between statics (forces in equilibrium) and real material behavior (deformation, yielding, fracture).<br><br>## Normal Stress and Strain<br><br><strong>Stress</strong> σ is force per unit area:<br><br>    σ = F / A<br><br>Units: pascals (Pa), or MPa (10⁶ Pa), or psi (pounds per square inch).<br><br><strong>Strain</strong> ε is the fractional change in length:<br><br>    ε = ΔL / L₀<br><br>Strain is dimensionless. Typical elastic strains in metals are 0.001 to 0.005 (0.1% to 0.5%).<br><br>## Hooke's Law<br><br>For linear elastic materials, stress and strain are proportional:<br><br>    σ = E × ε<br><br>E is <strong>Young's modulus</strong> — a material property.<br><br>| Material | E (GPa) |<br>|----------|---------|<br>| Rubber | 0.01-0.1 |<br>| Wood | 10 |<br>| Aluminum | 70 |<br>| Steel | 200 |<br>| Diamond | 1000 |<br><br>For a bar under axial load:<br><br>    δ = F × L / (A × E)<br><br>This is the fundamental deformation formula.<br><br>## Poisson's Ratio<br><br>When stretched in one direction, materials usually contract in the perpendicular directions:<br><br>    ν = -ε_lateral / ε_axial<br><br>Typical values: 0.3 (steel), 0.33 (aluminum), 0.5 (rubber, incompressible).<br><br>## Shear Stress and Strain<br><br>Shear stress τ acts parallel to a surface:<br><br>    τ = V / A<br><br>Shear strain γ is the change in angle (radians):<br><br>    τ = G × γ<br><br>where G = E / (2(1+ν)) is the shear modulus.<br><br>## Stress-Strain Curve<br><br>For a typical ductile metal:<br><br>1. <strong>Elastic region:</strong> linear, reversible, slope = E<br>2. <strong>Yield point:</strong> σ_y, where plastic deformation begins<br>3. <strong>Strain hardening:</strong> stress rises as the material deforms plastically<br>4. <strong>Ultimate strength:</strong> σ_u, maximum stress<br>5. <strong>Necking and fracture:</strong> material locally narrows and breaks<br><br>Ductile materials (steel) have large plastic strain. Brittle materials (cast iron, ceramics) fracture with little deformation.<br><br>## Allowable Stress and Safety Factor<br><br>Design stress must be below yield:<br><br>    σ_allow = σ_y / SF<br><br>Safety factors: 1.5-2 for well-understood loads, 3-4 for uncertain, 5+ for critical (pressure vessels, aircraft).<br><br>## Thermal Stress<br><br>Temperature changes cause thermal strain:<br><br>    ε_thermal = α × ΔT<br><br>If the material is constrained, thermal strain becomes thermal stress:<br><br>    σ = -E × α × ΔT<br><br>where α is the coefficient of thermal expansion (CTE). Typical: 12 × 10⁻⁶ /°C for steel.<br><br>This is why bridges have expansion joints and railroad tracks can buckle on hot days.<br><br>## Key Takeaways<br><br>- Stress = force / area; strain = ΔL / L<br>- Hooke's law: σ = Eε in the elastic region<br>- Poisson's ratio: lateral contraction under axial load<br>- Yield strength is the design limit for ductile materials<br>- Thermal expansion causes stress in constrained structures<br>- Safety factor accounts for uncertainty<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Axial Loading and Torsion</h4>
+          <p>
+## Axial Loading of Bars
+
+A bar under axial load has uniform stress (away from load application points):
+
+    σ = F / A
+    δ = FL / (AE)
+
+For a bar with varying cross-section or load, integrate:
+
+    δ = ∫₀^L...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Axial Loading of Bars<br><br>A bar under axial load has uniform stress (away from load application points):<br><br>    σ = F / A<br>    δ = FL / (AE)<br><br>For a bar with varying cross-section or load, integrate:<br><br>    δ = ∫₀^L F(x) / (A(x) E) dx<br><br>## Statically Indeterminate Problems<br><br>When equilibrium equations are not enough to find the reactions (too many supports), the problem is statically indeterminate. Add compatibility equations (deformations must be consistent).<br><br><strong>Example:</strong> A bar fixed at both ends, loaded in the middle.<br><br>1. Equilibrium: R_A + R_B = F<br>2. Compatibility: total elongation = 0<br>3. Compatibility equation: R_A L₁ / (AE) = R_B L₂ / (AE)<br>4. Solve: R_A = F × L₂ / (L₁ + L₂)<br><br>## Stress Concentrations<br><br>Holes, notches, and sudden changes in cross-section concentrate stress. The stress at the concentration is:<br><br>    σ_max = K × σ_nominal<br><br>where K is the stress concentration factor (from tables).<br><br>Typical K values:<br>- Circular hole in a wide plate: K = 3<br>- Sharp notch: K = 5-10<br>- Sharp crack: K → ∞ (fracture mechanics needed)<br><br>Design rule: avoid sharp corners. Use fillets with radius ≥ 0.1 × the section width.<br><br>## Torsion of Circular Shafts<br><br>A torque T applied to a circular shaft produces shear stress:<br><br>    τ = T × r / J<br><br>where r is the radial distance and J is the polar moment of inertia:<br><br>    J = π × d⁴ / 32 (solid)<br>    J = π × (d_o⁴ - d_i⁴) / 32 (hollow)<br><br>Maximum shear stress at the outer surface:<br><br>    τ_max = T × c / J<br><br>where c is the outer radius.<br><br>## Angle of Twist<br><br>The shaft twists by:<br><br>    φ = T × L / (J × G)<br><br>where G is the shear modulus. This is the torsion analog of axial deformation.<br><br>## Power Transmission<br><br>Torsion is how shafts transmit power:<br><br>    P = T × ω<br><br>where ω is angular velocity (rad/s). For a shaft running at N rpm:<br><br>    ω = 2π × N / 60<br><br>Given a power P and speed N, find the required shaft diameter:<br><br>    T = P / ω<br>    d³ = 16 T / (π × τ_allow)<br><br>This is the basic shaft sizing equation.<br><br>## Combined Loading<br><br>Real components often experience axial, bending, and torsion simultaneously. Use <strong>principal stresses</strong> to combine them.<br><br>For a point under σ_x and τ_xy, the principal stresses are:<br><br>    σ₁,₂ = σ_x/2 ± √((σ_x/2)² + τ_xy²)<br><br>Maximum shear stress:<br><br>    τ_max = √((σ_x/2)² + τ_xy²)<br><br>Use the <strong>von Mises</strong> or <strong>Tresca</strong> criterion to predict yielding:<br>- Tresca: yield when τ_max = σ_y / 2<br>- von Mises: yield when √(σ₁² - σ₁σ₂ + σ₂²) = σ_y<br><br>## Key Takeaways<br><br>- Axial: δ = FL/(AE)<br>- Statically indeterminate problems need compatibility equations<br>- Stress concentrations multiply stress (K factor)<br>- Torsion: τ = Tr/J, φ = TL/(JG)<br>- Power: P = Tω, d³ = 16T/(πτ)<br>- Combined loads: use principal stresses<br>- Tresca and von Mises predict yielding<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Bending of Beams</h4>
+          <p>
+## Beam Basics
+
+A beam is a slender member loaded perpendicular to its axis. It carries:
+- **Shear force V(x):** internal force perpendicular to the axis
+- **Bending moment M(x):** internal moment that bends the be...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Beam Basics<br><br>A beam is a slender member loaded perpendicular to its axis. It carries:<br>- <strong>Shear force V(x):</strong> internal force perpendicular to the axis<br>- <strong>Bending moment M(x):</strong> internal moment that bends the beam<br><br>## Sign Conventions<br><br>Standard convention:<br>- Positive V: forces the left section up<br>- Positive M: causes the beam to sag (concave up)<br><br>## Relation Between Load, Shear, and Moment<br><br>    dV/dx = -w(x)     (w is distributed load, positive down)<br>    dM/dx = V(x)<br><br>These differential relations are extremely useful:<br><br>- Slope of V diagram = -w<br>- Slope of M diagram = V<br>- M is maximum where V = 0<br>- Area under w diagram = change in V<br>- Area under V diagram = change in M<br><br>## Bending Stress<br><br>For a beam in pure bending:<br><br>    σ = -M × y / I<br><br>where:<br>- M = bending moment<br>- y = distance from the neutral axis<br>- I = moment of inertia of the cross-section<br><br>Maximum stress occurs at the outermost fibers (y = c):<br><br>    σ_max = M × c / I<br><br>Define section modulus S = I / c. Then:<br><br>    σ_max = M / S<br><br>## Moments of Inertia<br><br>For a rectangular cross-section b × h:<br><br>    I = b × h³ / 12<br><br>For a circular section of diameter d:<br><br>    I = π × d⁴ / 64<br><br>For a hollow circle:<br><br>    I = π × (d_o⁴ - d_i⁴) / 64<br><br>The I-beam shape concentrates material far from the neutral axis, maximizing I for a given mass.<br><br>## Deflection of Beams<br><br>The beam equation:<br><br>    EI × d²y/dx² = M(x)<br><br>Integrating twice gives deflection y(x). Boundary conditions fix the constants.<br><br>For a simply supported beam with a point load P at the center:<br><br>    δ_max = P × L³ / (48 × E × I)<br><br>For a cantilever with point load P at the tip:<br><br>    δ_max = P × L³ / (3 × E × I)<br><br>For a uniformly loaded simple beam (total load W):<br><br>    δ_max = 5 × W × L³ / (384 × E × I)<br><br>These formulas are in every engineering handbook.<br><br>## Beam Design<br><br>The goal: choose a cross-section that satisfies both strength and stiffness.<br><br><strong>Strength:</strong> σ_max ≤ σ_allow → S ≥ M / σ_allow<br><br><strong>Stiffness:</strong> δ_max ≤ δ_allow → I ≥ f(M, L, δ_allow)<br><br>Usually stiffness governs for long spans. That's why large deflection limits (L/360 for floors, L/500 for precision) drive beam sizes.<br><br>## Shear Stress in Beams<br><br>    τ = V × Q / (I × t)<br><br>where Q is the first moment of area above the point, and t is the thickness at that point.<br><br>For a rectangular section, τ is parabolic, peaking at the neutral axis:<br><br>    τ_max = 3V / (2A)<br><br>For an I-beam, τ_max is at the neutral axis, in the web.<br><br>## Composite Beams<br><br>When a beam is made of two materials (e.g., steel and concrete), transform one material into an equivalent section of the other using the modular ratio n = E₂/E₁.<br><br>## Key Takeaways<br><br>- dV/dx = -w, dM/dx = V<br>- Bending stress: σ = Mc/I, max at outer fibers<br>- Deflection formulas are ready-made for common cases<br>- I-beam shape maximizes I for mass<br>- Shear stress: τ = VQ/(It)<br>- Composite beams need the modular ratio<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Column Buckling and Stability</h4>
+          <p>
+## Buckling — The Sudden Failure
+
+A slender column under compression can fail suddenly by buckling — sideways deflection — at a load far below the material&#39;s yield strength. This is why a plastic ruler can carry tens...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Buckling — The Sudden Failure<br><br>A slender column under compression can fail suddenly by buckling — sideways deflection — at a load far below the material's yield strength. This is why a plastic ruler can carry tension but buckles easily in compression.<br><br>## Euler's Buckling Formula<br><br>For a pin-ended column of length L, the critical buckling load is:<br><br>    P_cr = π² × E × I / L²<br><br>where:<br>- E = Young's modulus<br>- I = minimum moment of inertia<br>- L = effective length (see below)<br><br>This is the <strong>Euler buckling load</strong>. Above P_cr, the column is unstable; below it, it's stable.<br><br>## Effective Length<br><br>Real columns have different end conditions. The effective length L_e accounts for this:<br><br>| End condition | L_e |<br>|---------------|-----|<br>| Pinned-pinned | L |<br>| Fixed-fixed | 0.5L |<br>| Fixed-pinned | 0.7L |<br>| Fixed-free (cantilever) | 2L |<br><br>So P_cr for a cantilever is only 1/4 of the pin-ended value. Fixing the base helps a lot.<br><br>## Critical Stress<br><br>    σ_cr = P_cr / A = π² × E / (L_e/r)²<br><br>where r = √(I/A) is the radius of gyration. The ratio L_e/r is the <strong>slenderness ratio</strong>.<br><br>For steel with E = 200 GPa:<br>- L/r = 100 → σ_cr = 200 MPa (near yield)<br>- L/r = 200 → σ_cr = 50 MPa (well below yield)<br><br>Buckling governs for slender columns (L/r &gt; ~100 for steel).<br><br>## When Buckling Doesn't Apply<br><br>If σ_cr &gt; σ_y, the column yields before buckling. Then the column fails by yielding, not buckling. Use yield criteria.<br><br>The transition slenderness ratio:<br><br>    (L/r)_transition = π × √(E / σ_y)<br><br>For steel (E = 200 GPa, σ_y = 250 MPa):<br><br>    (L/r)_transition = π × √(200,000/250) = π × 28.3 = 89<br><br>So for L/r &lt; 89, yielding governs. For L/r &gt; 89, buckling governs.<br><br>## Real Columns: Initial Imperfections<br><br>Real columns are never perfectly straight. Initial crookedness and eccentric loads reduce the buckling load.<br><br>The Johnson parabola and other empirical formulas account for this. Real design codes (AISC, Eurocode) use semi-empirical curves calibrated to test data.<br><br>## Rankine-Gordon Formula<br><br>A useful interpolation between yielding and Euler:<br><br>    P_cr = P_yield × P_euler / (P_yield + P_euler)<br><br>This smoothly transitions between the two regimes.<br><br>## Other Buckling Modes<br><br>- <strong>Local buckling:</strong> thin-walled sections buckle locally (e.g., the flange of an I-beam)<br>- <strong>Torsional buckling:</strong> columns with asymmetric cross-sections can twist<br>- <strong>Lateral-torsional buckling:</strong> beams loaded in bending can buckle sideways<br><br>Each has its own critical load formula.<br><br>## Design Implications<br><br>For a column:<br>1. Compute L/r and P_cr<br>2. Check P_cr &gt; applied load with safety factor<br>3. If slender, increase I (use a hollow or I-shaped section)<br>4. If short, check yielding<br><br>For very slender structures (towers, drill strings, space frames), buckling is often the governing failure mode.<br><br>## Key Takeaways<br><br>- Buckling is sudden instability under compression<br>- Euler formula: P_cr = π²EI/L²<br>- Effective length depends on end conditions<br>- Slenderness ratio L/r determines if buckling or yielding governs<br>- Real columns have reduced capacity due to imperfections<br>- Hollow and I-sections are efficient against buckling<br>- Buckling governs for slender structures<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Failure Theories and Fatigue</h4>
+          <p>
+## Failure — What Does It Mean?
+
+Failure can be:
+- **Yielding:** permanent deformation
+- **Fracture:** sudden breaking
+- **Buckling:** instability
+- **Fatigue:** failure after many cycles
+
+Different materials f...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Failure — What Does It Mean?<br><br>Failure can be:<br>- <strong>Yielding:</strong> permanent deformation<br>- <strong>Fracture:</strong> sudden breaking<br>- <strong>Buckling:</strong> instability<br>- <strong>Fatigue:</strong> failure after many cycles<br><br>Different materials fail differently. Ductile materials (steel, aluminum) yield and then fracture. Brittle materials (cast iron, ceramics, glass) fracture without warning.<br><br>## Ductile vs Brittle<br><br>Ductile:<br>- Large plastic deformation before fracture<br>- Warning signs (yielding, necking)<br>- Examples: mild steel, aluminum, copper<br><br>Brittle:<br>- Little to no plastic deformation<br>- Sudden fracture<br>- Examples: cast iron, glass, ceramics, high-strength steel at low temperature<br><br>Fracture mechanics handles brittle failure; mechanics of materials handles ductile failure.<br><br>## Yield Criteria for Ductile Materials<br><br>Under multiaxial stress, when does yielding occur?<br><br><strong>Tresca (Maximum Shear Stress):</strong> yielding when maximum shear stress equals half the yield strength:<br><br>    τ_max = σ_y / 2<br><br>Conservative; matches experiments for many ductile metals.<br><br><strong>von Mises (Maximum Distortion Energy):</strong> yielding when the distortion energy equals the yield strength in uniaxial tension:<br><br>    σ_vm = √(σ₁² - σ₁σ₂ + σ₂² - σ₂σ₃ + σ₃σ₁) = σ_y<br><br>More accurate for most ductile metals. Standard in FEA software.<br><br>For a simple uniaxial tension test, both criteria reduce to σ = σ_y.<br><br>## Fracture Criteria for Brittle Materials<br><br><strong>Maximum Normal Stress:</strong> fracture when the largest principal stress reaches the ultimate tensile strength.<br><br>Used for cast iron, ceramics, and other brittle materials. Does not depend on shear.<br><br>## Fatigue — The Silent Killer<br><br>Fatigue is failure under repeated cyclic loading at stress levels far below yield. A paperclip bent back and forth 20 times breaks — not because of a single high load, but because of accumulated microcracks.<br><br>Fatigue causes ~90% of all service failures in metals. Bridges, aircraft, machine parts, medical implants.<br><br>## S-N Curve<br><br>Fatigue testing produces an S-N curve: stress amplitude S vs number of cycles to failure N.<br><br>For steel, the curve has a <strong>fatigue limit</strong> (endurance limit) — below this stress, the material survives indefinitely. Typical: 0.4-0.5 × ultimate tensile strength.<br><br>For aluminum and most other metals, no fatigue limit — the S-N curve keeps decreasing. Design is based on a specified life (e.g., 10⁷ cycles).<br><br>## Fatigue Life Prediction<br><br>Basquin's equation:<br><br>    σ_a = σ_f' × (2N_f)^b<br><br>where σ_f' is the fatigue strength coefficient and b is the fatigue strength exponent (typically -0.05 to -0.12).<br><br>Miner's rule for variable amplitude:<br><br>    Σ (n_i / N_i) = 1<br><br>Accumulate damage until the sum reaches 1 (failure).<br><br>## Stress Concentrations and Fatigue<br><br>Notches and holes concentrate stress, dramatically reducing fatigue life. The fatigue notch factor K_f:<br><br>    K_f = 1 + q × (K_t - 1)<br><br>where q is the notch sensitivity (0 to 1) and K_t is the elastic stress concentration factor.<br><br>Design: round all corners, avoid sharp changes in section, polish surfaces in high-stress regions.<br><br>## Surface Effects<br><br>Fatigue cracks start at the surface. Surface treatments improve fatigue life:<br><br>- <strong>Shot peening:</strong> compresses the surface, adds residual compressive stress<br>- <strong>Carburizing:</strong> hardens the surface<br>- <strong>Polishing:</strong> removes stress-raisers<br>- <strong>Coating:</strong> protects from corrosion<br><br>Surface finish can change fatigue life by 2-3×.<br><br>## Design for Fatigue<br><br>1. Keep stress amplitudes below the fatigue limit (if applicable)<br>2. Avoid sharp changes in section<br>3. Use smooth surface finishes<br>4. Apply compressive residual stress (shot peening)<br>5. Account for stress concentrations<br>6. Test prototypes<br><br>## Key Takeaways<br><br>- Ductile materials yield; brittle materials fracture<br>- von Mises is the standard yield criterion<br>- Fatigue is failure under cyclic loading, below yield<br>- Steel has an endurance limit; aluminum does not<br>- Notches and surface finish strongly affect fatigue<br>- Miner's rule for variable-amplitude loading<br>- Design for fatigue is critical for safety<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Stress, Strain, Bending</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> A steel rod 2m long with cross-section 100 mm² carries 20 kN. If E = 200 GPa, find stress and elongation.</p>
+            <details><summary>Show Solution</summary><p>σ = 20000/100e-6 = 200 MPa. δ = 20000 × 2 / (100e-6 × 200e9) = 40000 / (2e7) = 2 mm.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A simply supported beam of length 4 m carries a 10 kN point load at midspan. Max moment? Max deflection? (E = 200 GPa, I = 50×10⁶ mm⁴)</p>
+            <details><summary>Show Solution</summary><p>M_max = 10,000 × 4 / 4 = 10 kN·m. δ = 10,000 × 4³ / (48 × 200e9 × 50e-6) = 640,000 / (480e6) = 1.33 mm.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A solid shaft of diameter 50 mm transmits 100 kW at 1500 rpm. Find the maximum shear stress.</p>
+            <details><summary>Show Solution</summary><p>ω = 2π × 1500/60 = 157 rad/s. T = 100000/157 = 637 N·m. τ = 16 × 637 / (π × 0.05³) = 10192 / 0.0003927 = 25.9 MPa.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Stress, Bending, Torsion, Buckling</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> For a cantilever beam 3 m long with distributed load w = 5 kN/m, find the maximum bending moment and deflection (E = 200 GPa, I = 100×10⁶ mm⁴).</p>
+            <details><summary>Show Solution</summary><p>M_max = wL²/2 = 5000 × 9 / 2 = 22.5 kN·m. δ = wL⁴/(8EI) = 5000 × 81 / (8 × 200e9 × 100e-6) = 405,000 / (160e6) = 2.53 mm.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A hollow shaft has outer diameter 100 mm, inner 70 mm. What is the polar moment of inertia?</p>
+            <details><summary>Show Solution</summary><p>J = π(d_o⁴ - d_i⁴)/32 = π(0.1⁴ - 0.07⁴)/32 = π(0.0001 - 0.00002401)/32 = π × 0.00007599/32 = 7.46e-6 m⁴.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A 3 m steel column is pinned at both ends with square cross-section 50×50 mm. Find the buckling load (E = 200 GPa).</p>
+            <details><summary>Show Solution</summary><p>I = b⁴/12 = 0.05⁴/12 = 5.2e-7 m⁴. P_cr = π²EI/L² = π² × 200e9 × 5.2e-7 / 3² = 1.03e6/9 = 114 kN. Now check: σ_cr = P_cr/A = 114000/0.0025 = 45.6 MPa &lt; yield (250 MPa) → buckling governs.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

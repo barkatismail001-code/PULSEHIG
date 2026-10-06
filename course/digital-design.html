@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computation Structures — MIT | TechPulse Academy</title>
+<meta name="description" content="Digital logic, combinational/sequential circuits, FSM, pipelining, and processor design.">
+<link rel="canonical" href="https://www.pulsehig.com/course/digital-design.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/digital-design.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/digital-design.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/digital-design.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/digital-design.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/digital-design.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/digital-design.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/digital-design.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Computation Structures">
+<meta property="og:description" content="Digital logic, combinational/sequential circuits, FSM, pipelining, and processor design.">
+<meta property="og:url" content="https://www.pulsehig.com/course/digital-design.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Computation Structures","description":"Digital logic, combinational/sequential circuits, FSM, pipelining, and processor design.","provider":{"@type":"Organization","name":"MIT"},"url":"https://www.pulsehig.com/course/digital-design.html","courseCode":"MIT 6.004","hasCourseInstance":[{"@type":"CourseInstance","name":"Digital Abstraction and Boolean Logic","courseMode":"online"},{"@type":"CourseInstance","name":"Combinational Logic Design","courseMode":"online"},{"@type":"CourseInstance","name":"Sequential Logic and Flip-Flops","courseMode":"online"},{"@type":"CourseInstance","name":"Memory and Pipelining","courseMode":"online"},{"@type":"CourseInstance","name":"Instruction Set Architecture","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Computation Structures</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">MIT 6.004 · MIT</span>
+      <h1>Computation Structures</h1>
+      <p>Digital logic, combinational/sequential circuits, FSM, pipelining, and processor design.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">40h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Digital Abstraction and Boolean Logic</h4>
+          <p>
+## The Digital Abstraction
+
+Digital circuits don&#39;t exist. Every wire carries an analog voltage that could, in principle, take any value. The digital abstraction is a discipline we impose on top of that:
+
+- Any volt...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Digital Abstraction<br><br>Digital circuits don't exist. Every wire carries an analog voltage that could, in principle, take any value. The digital abstraction is a discipline we impose on top of that:<br><br>- Any voltage below V_IL is interpreted as logical 0<br>- Any voltage above V_IH is interpreted as logical 1<br>- The circuit must produce outputs below V_OL or above V_OH<br><br>The gaps V_IL - V_OL and V_OH - V_IH are the noise margins NM_L and NM_H. They let us ignore noise, crosstalk, and process variation as long as the noise stays below the margins.<br><br>## Why Digital?<br><br>Analog circuits amplify, filter, and process continuous signals. Digital circuits are robust, scalable, and programmable. Moore's law exists because digital circuits can shrink to nanometer dimensions while retaining their function. Analog circuits cannot.<br><br>Digital is a contract: as long as we honor the voltage thresholds, the circuit works.<br><br>## Boolean Algebra<br><br>Proposed by George Boole (1854). Variables take values in {0, 1}. Operations:<br><br>- AND: A AND B (1 if both are 1)<br>- OR: A OR B (1 if either is 1)<br>- NOT: inverts<br><br>Derived:<br>- NAND: NOT (A AND B)<br>- NOR: NOT (A OR B)<br>- XOR: A XOR B (1 if A != B)<br><br>## Truth Tables<br><br>Every boolean function of n variables is defined by a table with 2^n rows. Example, XOR:<br><br>    A | B | A XOR B<br>    0 | 0 | 0<br>    0 | 1 | 1<br>    1 | 0 | 1<br>    1 | 1 | 0<br><br>## Boolean Identities<br><br>- Commutative: A+B = B+A, A·B = B·A<br>- Associative: (A+B)+C = A+(B+C)<br>- Distributive: A(B+C) = AB + AC<br>- Identity: A + 0 = A, A · 1 = A<br>- Complement: A + NOT A = 1, A · NOT A = 0<br>- Idempotent: A + A = A, A · A = A<br>- Absorption: A + AB = A<br>- De Morgan: NOT(A+B) = NOT A · NOT B, NOT(A·B) = NOT A + NOT B<br><br>De Morgan is the most useful for circuit simplification.<br><br>## Sum of Products (SOP)<br><br>Any boolean function can be written as an OR of AND terms, one per row of the truth table where the output is 1. This is the canonical SOP form.<br><br>Example: XOR = (NOT A)·B + A·(NOT B)<br><br>## Karnaugh Maps<br><br>A graphical tool for minimizing boolean expressions. Arrange the truth table in a 2D grid with Gray-coded rows and columns (adjacent cells differ by one bit). Find the largest power-of-2 groups of 1s. Each group becomes one product term.<br><br>Example: minimize F(A,B,C) = sum of minterms 1, 3, 5, 7:<br>- Group all four cells: F = C<br>- Massive simplification.<br><br>## Logic Gates<br><br>Physical implementations of boolean operations:<br>- CMOS: complementary pull-up (PMOS) and pull-down (NMOS) networks<br>- TTL: bipolar transistors (legacy)<br>- Static CMOS is the dominant technology<br><br>NAND and NOR are the universal gates - any boolean function can be built from NAND alone (or NOR alone).<br><br>## Key Takeaways<br><br>- Digital abstraction imposes thresholds for robustness<br>- Noise margins enable reliable operation<br>- Boolean algebra is the mathematical foundation<br>- De Morgan's law is the workhorse for simplification<br>- SOP form is canonical but not minimal<br>- Karnaugh maps minimize small functions<br>- NAND/NOR are universal gates<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Combinational Logic Design</h4>
+          <p>
+## From Truth Table to Circuit
+
+The design flow:
+1. Specify the function (truth table or boolean equation)
+2. Minimize (algebraic or K-map)
+3. Implement with available gates
+4. Verify (simulation, timing analysis...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## From Truth Table to Circuit<br><br>The design flow:<br>1. Specify the function (truth table or boolean equation)<br>2. Minimize (algebraic or K-map)<br>3. Implement with available gates<br>4. Verify (simulation, timing analysis)<br><br>## Adders<br><br>The half adder: sum = A XOR B, carry = A AND B.<br><br>The full adder: takes A, B, Cin, produces Sum and Cout:<br><br>    Sum = A XOR B XOR Cin<br>    Cout = (A AND B) OR (Cin AND (A XOR B))<br><br>Cascading N full adders gives an N-bit ripple-carry adder. Carry propagates from LSB to MSB, causing delay proportional to N.<br><br>## Carry Lookahead<br><br>To speed up addition, compute carries in parallel:<br><br>    g_i = A_i AND B_i  (generate)<br>    p_i = A_i XOR B_i  (propagate)<br>    C_{i+1} = g_i OR (p_i AND C_i)<br><br>Recursively expanding gives all carries in O(log N) depth. Trade-off: more gates, but faster.<br><br>## Comparators<br><br>Equality: XNOR all bit pairs, AND the results.<br><br>Magnitude comparison: ripple from MSB. If A_i &gt; B_i and all higher bits equal, then A &gt; B.<br><br>## Multiplexers (MUX)<br><br>A 2:1 MUX selects between two inputs based on a select signal:<br><br>    Y = S ? B : A<br>    Y = S AND B OR (NOT S AND A)<br><br>Wider MUXes: 4:1 selects among 4 inputs with 2 select bits. Tree of 2:1 MUXes.<br><br>MUXes implement any function: apply all minterms as inputs and use the truth-table values as select signals.<br><br>## Decoders<br><br>An N-to-2^N decoder: activates exactly one of 2^N outputs based on N select bits. Used for memory addressing, instruction decoding.<br><br>## Encoders<br><br>Reverse of decoder: 2^N inputs to N outputs, giving the index of the active input. Priority encoder handles multiple active inputs by choosing the highest priority.<br><br>## Tri-State Buffers<br><br>Allow multiple drivers on the same wire by enabling only one at a time:<br><br>    Y = EN ? A : Z<br><br>Where Z is high impedance (disconnected). Used for shared buses.<br><br>## Read-Only Memory (ROM)<br><br>A ROM is a lookup table. Address in, data out. Internally, decoder + OR array.<br><br>ROMs implement arbitrary combinational functions - handy for complex logic.<br><br>## Programmable Logic Arrays (PLA)<br><br>Have both AND and OR planes that can be programmed. More flexible than ROM.<br><br>Used in FPGAs and CPLDs. Modern FPGAs use LUTs (lookup tables) that can implement any 4-6 input function.<br><br>## Timing<br><br>Combinational circuits have propagation delay. The critical path determines the maximum clock frequency. Setup and hold constraints must be satisfied for the downstream flip-flops.<br><br>## Key Takeaways<br><br>- Design flow: specify, minimize, implement, verify<br>- Adders: ripple vs lookahead (speed trade-off)<br>- MUXes implement any function<br>- Decoders address memories<br>- ROMs and PLAs are programmable logic<br>- Timing is critical: propagation delay limits clock speed<br>- Combinational logic: output depends only on current inputs<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Sequential Logic and Flip-Flops</h4>
+          <p>
+## Sequential Logic
+
+Combinational logic has no memory. Sequential logic has state - the output depends on current AND past inputs.
+
+Two types:
+- **Synchronous:** state changes on a clock edge
+- **Asynchronous:**...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Sequential Logic<br><br>Combinational logic has no memory. Sequential logic has state - the output depends on current AND past inputs.<br><br>Two types:<br>- <strong>Synchronous:</strong> state changes on a clock edge<br>- <strong>Asynchronous:</strong> state changes whenever inputs change<br><br>Synchronous is easier to design and verify, and is standard for digital systems.<br><br>## Latches vs Flip-Flops<br><br><strong>SR Latch:</strong> set/reset, level-sensitive. Problem: invalid state when both S and R are 1.<br><br><strong>D Latch:</strong> transparent latch. When Enable = 1, Q follows D. When Enable = 0, Q holds.<br><br><strong>D Flip-Flop:</strong> edge-triggered. Q only updates on a rising (or falling) clock edge. Two latches in a master-slave configuration.<br><br>D flip-flops are the workhorse of synchronous digital design.<br><br>## Timing Parameters<br><br><strong>Setup time t_setup:</strong> D must be stable this long before the clock edge.<br><br><strong>Hold time t_hold:</strong> D must remain stable this long after the clock edge.<br><br><strong>Clock-to-Q delay t_cq:</strong> Q changes this long after the clock edge.<br><br><strong>Maximum clock frequency:</strong> limited by t_cq + combinational delay + t_setup.<br><br>## Registers<br><br>N flip-flops with a shared clock form an N-bit register.<br><br><strong>Parallel load register:</strong> D inputs from combinational logic; Q outputs to next stage.<br><br><strong>Shift register:</strong> each FF's D comes from the previous FF's Q. Shifts data one bit per clock.<br><br>Used for serial-to-parallel conversion, delay lines, sequence generation.<br><br>## Counters<br><br>A counter increments (or decrements) on each clock edge.<br><br><strong>Ripple counter:</strong> each FF clocks the next. Simple, but accumulates delay.<br><br><strong>Synchronous counter:</strong> all FFs clocked together. Faster, but more logic.<br><br><strong>Johnson counter:</strong> ring of FFs with inverted feedback. 2N distinct states.<br><br><strong>Ring counter:</strong> one-hot circulating through N FFs.<br><br>## Finite State Machines (FSMs)<br><br>An FSM has:<br>- States (encoded as bits)<br>- Inputs<br>- Outputs<br>- Transition function<br>- Output function<br><br><strong>Moore machine:</strong> output depends only on state.<br><br><strong>Mealy machine:</strong> output depends on state AND inputs. Usually fewer states.<br><br>FSMs implement protocols, controllers, and algorithms.<br><br>## Example: Traffic Light Controller<br><br>States: RED, GREEN, YELLOW.<br>Inputs: timer_done.<br>Outputs: lights (R, Y, G).<br><br>Transitions:<br>- RED -&gt; GREEN when timer done<br>- GREEN -&gt; YELLOW when timer done<br>- YELLOW -&gt; RED when timer done<br><br>Encode as 2-bit state, implement with D flip-flops and combinational logic.<br><br>## FSM Design Steps<br><br>1. Draw state diagram<br>2. Assign binary codes to states<br>3. Derive next-state logic (truth table)<br>4. Derive output logic<br>5. Minimize<br>6. Implement with FFs + combinational logic<br><br>## Metastability<br><br>When a FF's input changes near the clock edge, its output may be undefined for a short time (metastable). Synchronizers (two or three FFs in series) resolve this.<br><br>Critical for crossing clock domains.<br><br>## Key Takeaways<br><br>- Sequential = state + combinational logic<br>- D flip-flops are edge-triggered, synchronous<br>- Setup and hold times constrain timing<br>- Registers, shift registers, counters are building blocks<br>- FSMs organize complex control logic<br>- Metastability is real - use synchronizers<br>- Timing closure is the art of meeting clock constraints<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Memory and Pipelining</h4>
+          <p>
+## Memory Hierarchy
+
+Fast memory is small and expensive; large memory is slow and cheap. We use a hierarchy:
+
+- Registers: a few bytes, ~1 cycle
+- L1 cache: 32 KB, ~1-4 cycles
+- L2 cache: 256 KB, ~10-20 cycles
+-...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Memory Hierarchy<br><br>Fast memory is small and expensive; large memory is slow and cheap. We use a hierarchy:<br><br>- Registers: a few bytes, ~1 cycle<br>- L1 cache: 32 KB, ~1-4 cycles<br>- L2 cache: 256 KB, ~10-20 cycles<br>- L3 cache: 8 MB, ~30-40 cycles<br>- DRAM: GB, ~200 cycles<br>- SSD: TB, ~100,000 cycles<br><br>Data moves up on demand. Locality determines hit rate.<br><br>## SRAM<br><br>Static RAM: 6 transistors per bit (4 for the cross-coupled inverters, 2 for access). Fast, but large. Used for caches.<br><br>Read/write at full clock speed. Retains data while powered.<br><br>## DRAM<br><br>Dynamic RAM: 1 transistor + 1 capacitor per bit. Compact and cheap, but needs periodic refresh (charge leaks).<br><br>Slower than SRAM. Used for main memory.<br><br>## Pipelining<br><br>Split a computation into stages, each of which can run independently. Multiple operations are in flight at once.<br><br>Classic 5-stage RISC pipeline:<br>1. IF - instruction fetch<br>2. ID - instruction decode / register read<br>3. EX - execute (ALU)<br>4. MEM - memory access<br>5. WB - write back<br><br>Throughput: 1 instruction per cycle (instead of 5).<br><br>## Pipeline Hazards<br><br><strong>Structural hazard:</strong> two instructions want the same hardware. Fix: duplicate hardware (e.g., separate I$ and D$).<br><br><strong>Data hazard:</strong> instruction needs a value that hasn't been written yet. Fix: forwarding (bypass) or stalling.<br><br><strong>Control hazard:</strong> branch resolution delays fetching. Fix: branch prediction.<br><br>## Forwarding<br><br>The ALU result from one instruction can be forwarded directly to the next without waiting for WB:<br><br>    add r1, r2, r3      # r1 ready at end of EX<br>    sub r4, r1, r5      # needs r1 at start of EX<br><br>Forward from add's EX output to sub's EX input. Eliminates most stalls.<br><br>## Branch Prediction<br><br>Predict taken or not-taken. If wrong, flush the pipeline and restart.<br><br>Modern predictors: 2-bit saturating counters, gshare, tournament, TAGE. Accuracy &gt; 95%.<br><br>## Superscalar<br><br>Issue multiple instructions per cycle. Requires:<br>- Multiple functional units<br>- Register renaming (removes false dependencies)<br>- Out-of-order execution<br><br>Modern CPUs issue 4-6 instructions per cycle.<br><br>## Deep Pipelines<br><br>More stages = faster clock, but higher penalty on mispredicts.<br><br>Pentium 4 had 31 stages - high clock but poor IPC. Modern CPUs use 14-20 stages as a balance.<br><br>## Key Takeaways<br><br>- Memory hierarchy: small+fast to large+slow<br>- SRAM (fast, big) vs DRAM (compact, cheap)<br>- Pipelining increases throughput, not latency<br>- Hazards: structural, data, control<br>- Forwarding and branch prediction key to performance<br>- Superscalar and out-of-order push further<br>- Balance pipeline depth vs mispredict penalty<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Instruction Set Architecture</h4>
+          <p>
+## What is an ISA?
+
+The Instruction Set Architecture is the contract between hardware and software. It defines:
+- Instructions the CPU can execute
+- Registers available
+- Data types
+- Addressing modes
+- Exceptio...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is an ISA?<br><br>The Instruction Set Architecture is the contract between hardware and software. It defines:<br>- Instructions the CPU can execute<br>- Registers available<br>- Data types<br>- Addressing modes<br>- Exceptions and interrupts<br><br>Software written for an ISA runs on any microarchitecture implementing it.<br><br>## RISC vs CISC<br><br><strong>RISC (Reduced Instruction Set Computer):</strong><br>- Fixed-length instructions<br>- Load/store architecture<br>- Many registers<br>- Simple decoding<br>- Compiler does more<br><br><strong>CISC (Complex Instruction Set Computer):</strong><br>- Variable-length<br>- Many operations can access memory<br>- Fewer registers<br>- Complex decoding<br>- Hardware does more<br><br>Examples: x86 is CISC. ARM, RISC-V, MIPS are RISC.<br><br>Modern x86 CPUs decode CISC into RISC-like micro-ops internally. The boundary is blurry.<br><br>## RISC-V Basics<br><br>RISC-V is a clean, open ISA:<br><br>- 32 general-purpose registers (x0-x31)<br>- Fixed 32-bit instructions (with 16-bit compressed variant)<br>- Load/store architecture<br>- Simple addressing: base + offset<br><br>Instruction formats:<br>- R-type: register-register (add, sub, and)<br>- I-type: register-immediate (addi, lw)<br>- S-type: store<br>- B-type: branch<br>- J-type: jump<br><br>## Sample Instructions<br><br>    add x1, x2, x3     # x1 = x2 + x3<br>    addi x1, x2, 10    # x1 = x2 + 10<br>    lw x1, 0(x2)       # x1 = memory[x2 + 0]<br>    sw x1, 0(x2)       # memory[x2 + 0] = x1<br>    beq x1, x2, label  # branch if x1 == x2<br>    jal x1, func       # call function<br><br>## Addressing Modes<br><br>- Immediate: value is in the instruction<br>- Register: value is in a register<br>- Base + offset: memory[x_reg + imm]<br>- PC-relative: for branches and jumps<br><br>RISC-V keeps it simple. CISC has many more modes.<br><br>## Calling Convention<br><br>Function call protocol (standardized for RISC-V):<br><br>- Arguments passed in a0-a7<br>- Return value in a0<br>- Return address in ra<br>- Callee-saved: s0-s11 (must restore)<br>- Caller-saved: t0-t6 (may be clobbered)<br>- Stack pointer in sp<br><br>Registers make the compiler's job easier.<br><br>## Privilege Levels<br><br>RISC-V has three:<br>- <strong>User (U):</strong> application code<br>- <strong>Supervisor (S):</strong> OS kernel<br>- <strong>Machine (M):</strong> firmware / hypervisor<br><br>Transitions via system calls, exceptions, and interrupts.<br><br>## Extensions<br><br>Base ISA + optional extensions:<br>- M: integer multiply/divide<br>- A: atomic operations<br>- F: single-precision float<br>- D: double-precision float<br>- C: compressed 16-bit instructions<br>- V: vector<br><br>This modular design lets designers pick only what they need.<br><br>## Comparison: ISA vs Microarchitecture<br><br>ISA: what the software sees. Stable across generations.<br><br>Microarchitecture: how it's implemented. Changes every generation.<br><br>Example: x86 has been stable since 1978. The implementation went from 29,000 transistors (8086) to billions (modern).<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Boolean Logic, FFs, FSMs</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Simplify F(A,B,C) = Σ(0,1,2,3,4,5,6,7) using a K-map.</p>
+            <details><summary>Show Solution</summary><p>All cells are 1. So F = 1 (constant 1). Trivial but valid — a common case for ground/power pins.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Design a D flip-flop-based 4-bit synchronous counter (mod-16). Sketch the logic.</p>
+            <details><summary>Show Solution</summary><p>Use 4 D FFs. Next D0 = ¬Q0. Next D1 = Q1 XOR Q0. Next D2 = Q2 XOR (Q0 AND Q1). Next D3 = Q3 XOR (Q0 AND Q1 AND Q2). This is a standard binary ripple-through counter.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> What is metastability? How is it mitigated in a 2-FF synchronizer?</p>
+            <details><summary>Show Solution</summary><p>Metastability: FF&#39;s output is undefined when its input changes near the clock edge. If a downstream FF samples it, unpredictable values propagate. Fix: 2 (or 3) FFs in series. First FF may go metastable; by the time it settles, the second FF samples it cleanly. MTBF depends on clock frequency and settling time.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Logic, FFs, Pipelining</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Design a 2-bit comparator with outputs LT, EQ, GT. Write the boolean equations.</p>
+            <details><summary>Show Solution</summary><p>For bits A1A0 and B1B0: EQ = (A1 XNOR B1) AND (A0 XNOR B0). GT = (A1 AND ¬B1) OR (A1 XNOR B1 AND A0 AND ¬B0). LT = ¬GT AND ¬EQ.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A pipeline has 5 stages. Compute the throughput and latency for 1000 instructions.</p>
+            <details><summary>Show Solution</summary><p>Throughput: 1 instruction per cycle at steady state → 1000 cycles total (5-cycle latency filled by 1000 instructions). Latency: 5 cycles per instruction. Total time = 5 + 999 = 1004 cycles ≈ 1000 cycles. Speedup vs non-pipelined (5000 cycles) = 5x.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Explain the difference between a Moore and Mealy FSM. Which is faster? Which has fewer states?</p>
+            <details><summary>Show Solution</summary><p>Moore: output depends only on current state. Mealy: output depends on state AND inputs. Mealy reacts faster (output changes with input, no clock wait). Mealy often has fewer states. Moore is safer (glitch-free outputs on state change).</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

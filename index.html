@@ -62,6 +62,31 @@
     ]
   }
   </script>
+
+  <style id="tp-homepage-fixes">
+    /* Ensure Trending + DYK are full-width, block, centered */
+    .trending-today,
+    .did-you-know {
+      display: block !important;
+      width: 100% !important;
+      float: none !important;
+      clear: both !important;
+      margin: 24px 0 !important;
+      position: static !important;
+    }
+
+    /* Prevent any grid side-effect */
+    .trending-today .trending-list,
+    .did-you-know p {
+      width: 100% !important;
+    }
+
+    /* Ensure they sit outside the sidebar/layout grid */
+    .layout .trending-today,
+    .layout .did-you-know {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -119,28 +144,8 @@
       <div id="langCoverage" class="lang-coverage" aria-live="polite"></div>
     </section>
 
-    <section class="trending-today" id="trendingToday" aria-labelledby="trendingTitle">
-      <div class="trending-header">
-        <h2 id="trendingTitle">
-          <span>🔥 Trending Today</span>
-          <span class="hot-badge">LIVE</span>
-        </h2>
-        <small style="color:var(--text-muted);font-size:.82rem" id="trendingUpdated">Loading...</small>
-      </div>
-      <ol class="trending-list" id="trendingList" aria-live="polite">
-        <li class="trending-item" style="justify-content:center;color:var(--text-muted);padding:30px">
-          <span data-i18n="loading">Loading trending topics...</span>
-        </li>
-      </ol>
-    </section>
 
-    <section class="did-you-know" id="didYouKnow" aria-labelledby="dykTitle">
-      <h3 id="dykTitle">💡 Did You Know?</h3>
-      <p id="dykContent" data-i18n="dyk_loading">Loading today's tech fact...</p>
-      <span class="dyk-source" id="dykSource"></span>
-    </section>
-
-    <section class="best-picks" id="bestPicks" aria-labelledby="bestPicksTitle">
+<section class="best-picks" id="bestPicks" aria-labelledby="bestPicksTitle">
       <div class="best-picks-header">
         <h2 id="bestPicksTitle">
           <span data-i18n="best_picks_title">⭐ Best Picks</span>
@@ -235,7 +240,8 @@
         </section>
       </div>
 
-      <aside class="sidebar" aria-label="Sidebar">
+
+<aside class="sidebar" aria-label="Sidebar">
         <div class="widget" id="newsWidget">
           <h3 data-i18n="widget_news">📡 Latest News</h3>
           <div id="newsWidgetList">
@@ -276,6 +282,29 @@
           <h3 data-i18n="widget_topics">🏷 Topics</h3>
           <div class="tags" id="tagList"></div>
         </div>
+
+    <!-- ============ Did You Know ============ -->
+    <section class="did-you-know" id="didYouKnow" aria-labelledby="dykTitle">
+      <h3 id="dykTitle">💡 Did You Know?</h3>
+      <p id="dykContent" data-i18n="dyk_loading">Loading today's tech fact...</p>
+      <span class="dyk-source" id="dykSource"></span>
+    </section>
+
+    <!-- ============ Trending Today ============ -->
+    <section class="trending-today" id="trendingToday" aria-labelledby="trendingTitle">
+      <div class="trending-header">
+        <h2 id="trendingTitle">
+          <span>🔥 Trending Today</span>
+          <span class="hot-badge">LIVE</span>
+        </h2>
+        <small style="color:var(--text-muted);font-size:.82rem" id="trendingUpdated">Loading...</small>
+      </div>
+      <ol class="trending-list" id="trendingList" aria-live="polite">
+        <li class="trending-item" style="justify-content:center;color:var(--text-muted);padding:30px">
+          <span data-i18n="loading">Loading trending topics...</span>
+        </li>
+      </ol>
+    </section>
       </aside>
     </div>
 
@@ -299,6 +328,7 @@
         <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
         <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
         <a href="series/index.html" data-i18n="nav_series">Series</a>
+        <a href="articles.html">All Articles</a>
         <a href="rss.xml">RSS</a>
         <a href="sitemap.xml">Sitemap</a>
       </div>

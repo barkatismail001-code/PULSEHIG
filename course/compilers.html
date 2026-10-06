@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compilers — Stanford | TechPulse Academy</title>
+<meta name="description" content="Lexical analysis, parsing, semantic analysis, type checking, code generation, and optimization.">
+<link rel="canonical" href="https://www.pulsehig.com/course/compilers.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/compilers.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/compilers.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/compilers.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/compilers.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/compilers.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/compilers.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/compilers.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Compilers">
+<meta property="og:description" content="Lexical analysis, parsing, semantic analysis, type checking, code generation, and optimization.">
+<meta property="og:url" content="https://www.pulsehig.com/course/compilers.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Compilers","description":"Lexical analysis, parsing, semantic analysis, type checking, code generation, and optimization.","provider":{"@type":"Organization","name":"Stanford"},"url":"https://www.pulsehig.com/course/compilers.html","courseCode":"Stanford CS143","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Compilers and Lexical Analysis","courseMode":"online"},{"@type":"CourseInstance","name":"Parsing and Grammar","courseMode":"online"},{"@type":"CourseInstance","name":"Semantic Analysis and Type Checking","courseMode":"online"},{"@type":"CourseInstance","name":"Intermediate Representation and Optimization","courseMode":"online"},{"@type":"CourseInstance","name":"Code Generation and Runtime Systems","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Compilers</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">Stanford CS143 · Stanford</span>
+      <h1>Compilers</h1>
+      <p>Lexical analysis, parsing, semantic analysis, type checking, code generation, and optimization.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">42h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to Compilers and Lexical Analysis</h4>
+          <p>
+## What is a Compiler?
+
+A compiler translates a program written in a source language (C, Rust, Java) into an equivalent program in a target language (assembly, bytecode, another high-level language).
+
+The compiler ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is a Compiler?<br><br>A compiler translates a program written in a source language (C, Rust, Java) into an equivalent program in a target language (assembly, bytecode, another high-level language).<br><br>The compiler must preserve the meaning of the program while producing efficient output. This is a subtle balance: correctness first, then performance.<br><br>## Why Study Compilers?<br><br>Compilers teach you:<br>- How your code actually runs on the machine<br>- Why certain coding patterns are faster than others<br>- How to write programs that optimize well<br>- How to build any kind of language processor (interpreters, DSLs, transpilers)<br><br>Every serious programmer should build at least one compiler.<br><br>## The Compilation Pipeline<br><br>Modern compilers have many stages:<br><br>1. <strong>Lexical analysis:</strong> turn characters into tokens<br>2. <strong>Syntax analysis (parsing):</strong> turn tokens into a syntax tree<br>3. <strong>Semantic analysis:</strong> check types, resolve names<br>4. <strong>Intermediate representation (IR):</strong> lower to a simple language<br>5. <strong>Optimization:</strong> improve the IR<br>6. <strong>Code generation:</strong> produce assembly<br>7. <strong>Assembly and linking:</strong> produce an executable<br><br>Each stage has a clear input and output. This modularity makes compilers manageable.<br><br>## Lexical Analysis<br><br>The lexer reads the source character by character and produces a stream of tokens: identifiers, numbers, keywords, operators, punctuation.<br><br>Example: <code>int x = 42;</code><br><br>Becomes: <code>[KEYWORD int] [IDENT x] [ASSIGN =] [NUMBER 42] [SEMICOLON ;]</code><br><br>Lexers also handle whitespace and comments (usually discarded), and track line numbers for error messages.<br><br>## Regular Expressions<br><br>Lexical patterns are described with regular expressions:<br><br>- Identifier: <code>[a-zA-Z_][a-zA-Z0-9_]*</code><br>- Integer: <code>[0-9]+</code><br>- Float: <code>[0-9]+\.[0-9]+</code><br>- Whitespace: <code>[ \t\n]+</code><br><br>Each regex matches a family of strings. The lexer picks the longest match (maximal munch).<br><br>## Finite Automata<br><br>A regex can be converted to a finite automaton (DFA or NFA). The DFA reads the input one character at a time and transitions between states.<br><br>- NFA: has epsilon transitions, can be in multiple states<br>- DFA: deterministic, exactly one state at a time<br><br>Subset construction converts NFA to DFA. The DFA runs in O(n) time for n input characters.<br><br>## Building a Lexer<br><br>Tools like <code>lex</code>, <code>flex</code>, or <code>re2c</code> generate lexers from regex specifications. Or hand-write a lexer with a big switch statement for simple languages.<br><br>Example with flex:<br><br>    %%<br>    [a-zA-Z_][a-zA-Z0-9_]*    { return IDENTIFIER; }<br>    [0-9]+                    { return INTEGER; }<br>    [ \t\n]+                  { /* skip */ }<br>    "="                       { return ASSIGN; }<br>    ";"                       { return SEMICOLON; }<br>    %%<br><br>Each rule matches a pattern and returns a token type.<br><br>## Handling Keywords<br><br>Keywords (if, while, return) look like identifiers but have special meaning. Two strategies:<br><br>1. <strong>Reserve them:</strong> the lexer has separate rules for keywords before identifier rule.<br>2. <strong>Post-process:</strong> match as identifier, then check against a keyword table.<br><br>The second is simpler and often faster.<br><br>## Error Handling<br><br>Lexers must handle:<br>- Illegal characters (<code>@</code> in C)<br>- Unterminated strings<br>- Unterminated comments<br>- Invalid numeric literals (e.g., <code>12abc</code>)<br><br>Good error messages point to the exact line and column. "Unexpected character '@' at line 5, column 12" beats "syntax error."<br><br>## Real-World Lexers<br><br>- <strong>C:</strong> flex-generated or hand-written (GCC uses a hand-written lexer)<br>- <strong>Python:</strong> hand-written in CPython (tokenizer)<br>- <strong>JavaScript:</strong> hand-written in V8<br>- <strong>Rust:</strong> hand-written in rustc (using <code>logos</code> crate sometimes)<br><br>Hand-written lexers are often faster and more controllable than generated ones.<br><br>## Key Takeaways<br><br>- Compiler = source language to target language translation<br>- Pipeline: lex → parse → semantic → IR → optimize → codegen<br>- Lexer: characters to tokens via regex + DFA<br>- Keywords: reserve or post-process<br>- Error handling: precise line/column reporting<br>- Modern compilers often hand-write the lexer for speed<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Parsing and Grammar</h4>
+          <p>
+## What is Parsing?
+
+The parser takes the token stream from the lexer and builds a **syntax tree** (or parse tree) that captures the grammatical structure of the program.
+
+    int x = 42;    →    Declaration
+     ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is Parsing?<br><br>The parser takes the token stream from the lexer and builds a <strong>syntax tree</strong> (or parse tree) that captures the grammatical structure of the program.<br><br>    int x = 42;    →    Declaration<br>                          ├── Type: int<br>                          ├── Name: x<br>                          └── Value: 42<br><br>The tree is what the semantic analyzer and code generator work with.<br><br>## Context-Free Grammars<br><br>Grammar rules describe valid programs:<br><br>    expression → expression + term<br>               | expression - term<br>               | term<br>    term       → term * factor<br>               | term / factor<br>               | factor<br>    factor     → ( expression )<br>               | number<br><br>Non-terminals: expression, term, factor.<br>Terminals: +, -, *, /, (, ), number.<br><br>## Derivation and Parse Trees<br><br>Starting from a start symbol (e.g., program), apply production rules until you get terminals.<br><br>A derivation is a sequence of rule applications. A parse tree shows the structure of a derivation.<br><br>## Ambiguity<br><br>A grammar is ambiguous if some string has multiple parse trees.<br><br>Classic example: <code>a + b * c</code> — do we add or multiply first?<br><br>Standard fix: encode precedence in the grammar (as above with expression/term/factor).<br><br>Another example: <code>if a then if b then c else d</code> — does else bind to the first or second if? Grammar must specify.<br><br>## Top-Down Parsing<br><br>Start from the start symbol, try to derive the input.<br><br><strong>Recursive descent:</strong> one function per non-terminal. Each function tries the rules in order.<br><br>    parseExpression() {<br>        parseTerm();<br>        while (peek() == '+' || peek() == '-') {<br>            consume();<br>            parseTerm();<br>        }<br>    }<br><br>Simple, easy to understand, hand-written. Used in many production compilers.<br><br><strong>LL(1):</strong> predicts which rule to use by looking at 1 token. Requires the grammar to be LL(1).<br><br>## Bottom-Up Parsing<br><br>Start from the input, reduce to the start symbol.<br><br><strong>LR parsing:</strong> shifts tokens onto a stack and reduces when the top matches a rule's right-hand side.<br><br>LR parsers are more powerful than LL: can handle more grammars, including left-recursive ones.<br><br>Variants: SLR(1), LALR(1), LR(1). Most parser generators use LALR(1).<br><br>## Tools<br><br>- <strong>yacc/bison:</strong> LALR(1) parser generator<br>- <strong>ANTLR:</strong> LL(*) parser generator<br>- <strong>PEG.js:</strong> Parsing Expression Grammars<br>- <strong>Tree-sitter:</strong> incremental parser (used in editors)<br><br>Generating parsers from grammars is convenient but often yields slower parsers than hand-written recursive descent.<br><br>## Operator Precedence and Associativity<br><br>Real grammars need:<br>- Precedence: <code>*</code> binds tighter than <code>+</code><br>- Associativity: <code>a - b - c</code> is <code>(a - b) - c</code><br><br>Encode with grammar layers (expression → term → factor) or use Pratt parsing (precedence climbing).<br><br>Pratt parsing is elegant and fast — used in many production compilers.<br><br>## Abstract Syntax Tree (AST)<br><br>The parse tree has too much detail (parentheses, intermediate non-terminals). The AST collapses to just the meaningful nodes.<br><br>For <code>1 + 2 * 3</code>:<br><br>    Parse tree:                    AST:<br>        +                              +<br>       / \                            / \<br>      1   *                          1   *<br>         / \                            / \<br>        2   3                          2   3<br><br>The AST is what the rest of the compiler works with.<br><br>## Error Recovery<br><br>Real parsers must handle errors gracefully:<br>- <strong>Panic mode:</strong> skip tokens until a sync point (semicolon, closing brace)<br>- <strong>Error productions:</strong> add rules for common mistakes<br>- <strong>Automatic repair:</strong> try to fix missing tokens<br><br>Good error messages are a competitive advantage. Modern compilers (Rust, Swift) invest heavily in this.<br><br>## Key Takeaways<br><br>- Parser: tokens → syntax tree<br>- Context-free grammars define syntax<br>- Ambiguity: fix with precedence layers<br>- Top-down (LL, recursive descent) vs bottom-up (LR)<br>- Tools: yacc, bison, ANTLR, tree-sitter<br>- AST collapses parse tree to meaningful nodes<br>- Error recovery is essential for usability<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Semantic Analysis and Type Checking</h4>
+          <p>
+## What is Semantic Analysis?
+
+The parser checks syntax. The semantic analyzer checks meaning:
+- Are all variables declared before use?
+- Are types compatible?
+- Are functions called with the right arguments?
+- A...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is Semantic Analysis?<br><br>The parser checks syntax. The semantic analyzer checks meaning:<br>- Are all variables declared before use?<br>- Are types compatible?<br>- Are functions called with the right arguments?<br>- Are break/continue inside loops?<br>- Are classes used correctly?<br><br>Semantic errors are valid syntax but invalid meaning.<br><br>    int x = "hello";   // syntax OK, type error<br><br>## Symbol Tables<br><br>Track what names are in scope and their attributes (type, storage, etc.).<br><br>A symbol table is a mapping from identifier to a symbol record.<br><br>Symbols are organized in nested scopes:<br>- Global scope<br>- Function scope<br>- Block scope<br>- Class scope<br><br>When leaving a scope, its symbols are removed.<br><br>## Scope Rules<br><br><strong>Lexical (static) scoping:</strong> a name resolves to the nearest enclosing scope. This is what C, Java, Python, Rust use.<br><br>    int x = 1;<br>    void f() {<br>        int x = 2;<br>        print(x);  // prints 2<br>    }<br><br><strong>Dynamic scoping:</strong> a name resolves to the most recent declaration on the call stack. Rare; Lisp has an option.<br><br>## Type Systems<br><br>Types classify values and constrain operations:<br>- Int + Int = Int<br>- Float + Int = Float<br>- String + Int = error (in statically typed languages)<br><br>Types catch bugs early, document intent, and enable optimization.<br><br>## Static vs Dynamic Typing<br><br><strong>Static:</strong> types checked at compile time. C, C++, Java, Rust, Haskell.<br><br>Pros: errors caught early, faster runtime, better optimization.<br>Cons: more verbose, requires explicit annotations (or inference).<br><br><strong>Dynamic:</strong> types checked at runtime. Python, JavaScript, Ruby.<br><br>Pros: flexible, concise.<br>Cons: errors at runtime, slower.<br><br><strong>Gradual:</strong> allow both. TypeScript, Python with type hints.<br><br>## Type Inference<br><br>Infer types without annotations:<br><br>    let x = 42;        // x is Int<br>    let y = x + 1;     // y is Int<br>    let f = |n| n * 2; // f: (Int) → Int<br><br>Hindley-Milner type inference is the classic algorithm. Used in Haskell, ML, Rust (partially).<br><br>## Type Checking Rules<br><br>For each operation, define rules:<br><br>    ⊢ e1 : Int    ⊢ e2 : Int<br>    ─────────────────────────<br>        ⊢ e1 + e2 : Int<br><br>This says: if e1 and e2 are both Int, then e1 + e2 is Int.<br><br>The ⊢ symbol means "in context, has type." Rules are read bottom-up (to check the conclusion, check the premises).<br><br>## Subtyping<br><br>Some types are subtypes of others:<br><br>    Dog &lt;: Animal<br><br>Then anywhere an Animal is expected, a Dog can be used.<br><br>Used in OOP languages: a Cat and Dog are both Animals, a pointer to Animal can hold either.<br><br><strong>Covariance:</strong> List&lt;Dog&gt; &lt;: List&lt;Animal&gt;? (No, usually — because you could add a Cat to List&lt;Animal&gt;.)<br><br><strong>Contravariance:</strong> Function(Animal) &lt;: Function(Dog)? (Yes — a function that handles any Animal can handle a Dog.)<br><br>Variance rules are subtle and cause real bugs.<br><br>## Type Systems in Practice<br><br>- <strong>Java:</strong> nominative (types declared, no structural matching)<br>- <strong>TypeScript:</strong> structural (shape matters, not name)<br>- <strong>Go:</strong> mostly nominal, some structural (interfaces)<br>- <strong>Rust:</strong> nominal + traits (like interfaces)<br>- <strong>Haskell:</strong> powerful inference, type classes<br><br>Each has trade-offs in expressiveness and complexity.<br><br>## Attribute Grammars<br><br>Semantic analysis can be formalized as attribute grammars:<br>- <strong>Synthesized attributes:</strong> computed from children<br>- <strong>Inherited attributes:</strong> passed down from parents<br><br>Type information often flows both ways.<br><br>## Key Takeaways<br><br>- Semantic analysis checks meaning beyond syntax<br>- Symbol tables track declarations and scopes<br>- Lexical (static) vs dynamic scoping<br>- Type systems catch errors early or late<br>- Static typing: fast, safe. Dynamic: flexible<br>- Type inference reduces annotation burden<br>- Subtyping and variance rules are subtle<br>- Attribute grammars formalize semantic checks<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Intermediate Representation and Optimization</h4>
+          <p>
+## Why an Intermediate Representation?
+
+A compiler could go directly from AST to assembly. So why insert an IR?
+
+- **Portability:** N frontends × M backends → N + M (instead of N × M)
+- **Optimization:** optimize ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why an Intermediate Representation?<br><br>A compiler could go directly from AST to assembly. So why insert an IR?<br><br>- <strong>Portability:</strong> N frontends × M backends → N + M (instead of N × M)<br>- <strong>Optimization:</strong> optimize the IR once, benefit all languages and targets<br>- <strong>Simplicity:</strong> the IR has few constructs; algorithms are simpler<br><br>LLVM IR, GCC's GIMPLE, and Java bytecode are famous IRs.<br><br>## Three-Address Code<br><br>The most common IR form:<br><br>    t1 = a + b<br>    t2 = t1 * c<br>    t3 = t2 - d<br><br>Each instruction has at most one operator. Results are stored in temporaries.<br><br>This makes data flow explicit, which enables optimization.<br><br>## Control Flow Graph (CFG)<br><br>Basic blocks (straight-line code) connected by edges (branches).<br><br>    BB1: entry<br>       │<br>    BB2: condition<br>       ├── BB3: then<br>       └── BB4: else<br>       │<br>    BB5: exit<br><br>Optimizations operate on the CFG: remove unreachable blocks, merge blocks, simplify branches.<br><br>## Static Single Assignment (SSA)<br><br>A variant of IR where each variable is assigned exactly once.<br><br>Original:<br>    x = 1<br>    x = x + 1<br>    y = x * 2<br><br>SSA:<br>    x1 = 1<br>    x2 = x1 + 1<br>    y1 = x2 * 2<br><br>When control flow merges, a <strong>phi function</strong> picks the right version:<br><br>    if (cond) x1 = 1; else x2 = 2;<br>    x3 = phi(x1, x2)<br><br>SSA makes many optimizations trivial. Used in LLVM, GCC (partially), Go, Swift.<br><br>## Optimization Categories<br><br><strong>Local:</strong> within a basic block.<br>- Constant folding: <code>2 + 3</code> → <code>5</code><br>- Algebraic simplification: <code>x * 1</code> → <code>x</code><br>- Strength reduction: <code>x * 2</code> → <code>x &lt;&lt; 1</code><br><br><strong>Global:</strong> across blocks.<br>- Common subexpression elimination (CSE)<br>- Copy propagation<br>- Dead code elimination<br>- Loop-invariant code motion<br><br><strong>Interprocedural:</strong> across functions.<br>- Inlining<br>- Whole-program analysis<br>- Devirtualization<br><br>## Constant Folding and Propagation<br><br>Compute constant expressions at compile time.<br><br>    x = 3 + 4       →  x = 7<br>    y = x * 2       →  y = 14<br><br>Propagate constants through variables, then fold.<br><br>## Dead Code Elimination<br><br>Remove code whose results are never used:<br><br>    x = compute()    // x never used<br>    y = 42           // y never used<br>    return z<br><br>Remove the first two lines. Improves both size and speed (no wasted computation).<br><br>## Common Subexpression Elimination<br><br>If the same expression is computed twice, compute once:<br><br>    a = b + c<br>    d = b + c       →  d = a<br><br>With SSA, this is automatic: two occurrences with the same operands are the same value.<br><br>## Loop Optimization<br><br>Loops dominate runtime. Optimizations target them:<br><br><strong>Loop-invariant code motion:</strong><br><br>    for (i = 0; i &lt; n; i++) {<br>        x = a * b;    // invariant<br>        arr[i] = x + i;<br>    }<br><br>Hoist <code>x = a * b</code> outside the loop.<br><br><strong>Loop unrolling:</strong> execute multiple iterations in one loop body, reducing loop overhead.<br><br><strong>Loop fusion:</strong> merge adjacent loops over the same range.<br><br><strong>Loop interchange:</strong> reorder nested loops for cache locality.<br><br>## Inlining<br><br>Replace a function call with the function body. Eliminates call overhead and enables further optimizations.<br><br>Trade-off: code size growth. Compilers use heuristics (function size, call frequency).<br><br>## Vectorization<br><br>Use SIMD instructions (SSE, AVX, NEON) to process multiple values at once.<br><br>    for (i = 0; i &lt; n; i++) c[i] = a[i] + b[i];  // scalar<br>    // becomes 4 or 8 adds in one instruction (SIMD)<br><br>Auto-vectorization by the compiler is hard. Explicit SIMD via intrinsics is common.<br><br>## Register Allocation<br><br>Map infinite virtual registers (SSA values) to finite physical registers (16 on x86-64, 31 on RISC-V).<br><br>Approach: graph coloring. Two values interfere if they're live at the same time → can't share a register.<br><br>NP-hard in general; heuristics used in practice (Chaitin-Briggs).<br><br>Spilling: if not enough registers, spill to stack. Adds loads/stores.<br><br>## Optimization Levels<br><br>- <strong>-O0:</strong> no optimization, fast compile, easy debug<br>- <strong>-O1:</strong> basic optimizations<br>- <strong>-O2:</strong> more aggressive, standard for release<br>- <strong>-O3:</strong> most aggressive, including vectorization<br>- <strong>-Os:</strong> optimize for size<br>- <strong>-Ofast:</strong> -O3 + fast math (breaks IEEE compliance)<br><br>## Key Takeaways<br><br>- IR decouples frontend and backend<br>- Three-address code: one operation per instruction<br>- CFG organizes control flow<br>- SSA simplifies analysis<br>- Optimizations: local, global, interprocedural<br>- Common: folding, DCE, CSE, inlining, vectorization<br>- Register allocation via graph coloring<br>- Choose optimization level based on need<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Code Generation and Runtime Systems</h4>
+          <p>
+## From IR to Machine Code
+
+The code generator translates the optimized IR into target machine code. Tasks:
+
+1. Instruction selection: which instructions implement each IR op?
+2. Instruction scheduling: reorder fo...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## From IR to Machine Code<br><br>The code generator translates the optimized IR into target machine code. Tasks:<br><br>1. Instruction selection: which instructions implement each IR op?<br>2. Instruction scheduling: reorder for pipeline efficiency<br>3. Register allocation: virtual → physical registers<br>4. Peephole optimization: local cleanups<br>5. Assembly emission: write the .s file<br><br>## Instruction Selection<br><br>IR: <code>a = b + c</code><br><br>For x86-64, use <code>add</code>:<br>    mov rax, [b]<br>    add rax, [c]<br>    mov [a], rax<br><br>For ARM, use <code>ADD</code>:<br>    ldr r0, [b]<br>    ldr r1, [c]<br>    add r0, r0, r1<br>    str r0, [a]<br><br>Selection uses pattern matching or tree rewriting. Modern compilers use a universal pattern (LLVM uses SelectionDAG, then MachineInstr).<br><br>## Instruction Scheduling<br><br>Reorder instructions to hide latencies:<br><br>    load r1, [mem]<br>    add r2, r1, r3    // stalls waiting for load<br><br>Better:<br>    load r1, [mem]<br>    add r4, r5, r6    // independent<br>    add r2, r1, r3<br><br>Modern CPUs are out-of-order, so scheduling matters less. But it still helps in-order cores (ARM Cortex-M).<br><br>## Peephole Optimization<br><br>Look at small windows of instructions and replace with better ones.<br><br>    mov rax, 0        →    xor rax, rax    ; smaller, faster<br>    add rsp, 0        →    (removed)<br><br>Simple, local, and effective.<br><br>## Calling Conventions<br><br>Every function call follows a standard:<br><br><strong>x86-64 System V (Linux, macOS):</strong><br>- Args 1-6 in RDI, RSI, RDX, RCX, R8, R9<br>- Args 7+ on the stack<br>- Return value in RAX<br>- Callee-saves RBX, RBP, R12-R15<br>- Caller-saves RAX, RCX, RDX, RSI, RDI, R8-R11<br><br><strong>ARM64:</strong><br>- Args 1-8 in X0-X7<br>- Return in X0<br>- Callee-saves X19-X29<br><br>The compiler must follow the convention or else C interop fails.<br><br>## Stack Frames<br><br>Each function call creates a stack frame:<br><br>    ┌─────────────────┐ ← higher addresses<br>    │  caller's frame │<br>    ├─────────────────┤<br>    │  return address │<br>    ├─────────────────┤ ← RBP (frame pointer)<br>    │  saved RBP      │<br>    ├─────────────────┤<br>    │  local variables│<br>    │  spilled regs   │<br>    ├─────────────────┤ ← RSP (stack pointer)<br>    │  outgoing args  │<br>    └─────────────────┘ ← lower addresses<br><br>Prologue: push RBP; mov RBP, RSP; sub RSP, N.<br>Epilogue: leave (mov RSP, RBP; pop RBP); ret.<br><br>Frame pointers are optional (-fomit-frame-pointer), freeing RBP as a general register.<br><br>## Object Files and Linking<br><br>Compilation produces an object file (.o) with:<br>- Code (text section)<br>- Data (initialized, uninitialized)<br>- Symbols (defined and undefined)<br>- Relocations (fix up addresses at load time)<br><br>The linker combines .o files and libraries into an executable, resolving symbols and applying relocations.<br><br><strong>Static linking:</strong> all code copied into executable. Large but self-contained.<br><br><strong>Dynamic linking:</strong> shared libraries (.so) loaded at runtime. Smaller, shareable, but version-dependent.<br><br>## Runtime Systems<br><br>The compiler emits calls to a <strong>runtime library</strong> for:<br>- Memory allocation (malloc, free)<br>- Garbage collection (in GC languages)<br>- Exception handling<br>- Thread management<br>- Dynamic dispatch (vtable lookups)<br><br>Some compilers emit code that relies on libc; others (Go, Rust) ship their own runtime.<br><br>## Garbage Collection<br><br>For GC languages, the runtime manages memory. Techniques:<br><br><strong>Mark-and-sweep:</strong> start from roots, mark reachable, sweep unreachable.<br><br><strong>Copying:</strong> copy live objects to a new space, discard the rest. Fast but needs 2x memory.<br><br><strong>Generational:</strong> most objects die young. Collect young objects frequently, old rarely. Java, C#, JavaScript use this.<br><br><strong>Reference counting:</strong> count references; free when zero. Python uses it. Cycles need extra handling.<br><br><strong>Tracing:</strong> various algorithms (Go, Java G1, ZGC).<br><br>## JIT Compilation<br><br>Just-In-Time: compile at runtime, optimizing for the actual use case.<br><br>- <strong>V8 (JavaScript):</strong> compiles hot functions to machine code<br>- <strong>PyPy (Python):</strong> JIT for Python<br>- <strong>.NET CLR:</strong> compiles IL to native on first call<br><br>JITs can beat static compilers on long-running programs (profile-guided), but startup is slower.<br><br>## AOT vs JIT<br><br>- <strong>AOT (Ahead-Of-Time):</strong> compile before running. Fast startup, slower peak performance.<br>- <strong>JIT:</strong> compile at runtime. Slower startup, faster peak performance for hot code.<br><br>Modern systems mix: Android ART uses AOT for common functions + JIT for others.<br><br>## Key Takeaways<br><br>- Codegen: IR → machine code<br>- Instruction selection, scheduling, register allocation<br>- Peephole optimization: local cleanups<br>- Calling conventions ensure interop<br>- Stack frames: locals, spill, return<br>- Linker combines objects into executables<br>- Runtime systems for memory, exceptions, threads<br>- GC: mark-sweep, copying, generational<br>- JIT for dynamic languages, AOT for ahead-of-time<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Lexing, Parsing, Type Checking</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Write a regular expression for an identifier that starts with a letter and contains letters, digits, and underscores.</p>
+            <details><summary>Show Solution</summary><p>[a-zA-Z_][a-zA-Z0-9_]*</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Given the grammar E → E+T | T, T → T*F | F, F → id, parse &#39;a+b*c&#39;. Show the parse tree.</p>
+            <details><summary>Show Solution</summary><p>E → E+T → T+T → F+T → a+T → a+T*F → a+F*F → a+b*F → a+b*c. Parse tree: + at root, a on left, * on right; * has b and c as children.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Explain how type inference works for `let f = |x| x + 1` in a Hindley-Milner system.</p>
+            <details><summary>Show Solution</summary><p>x is used with +, so x must be numeric (Int or Float). + is Int → Int → Int in default. So x : Int, and f : Int → Int. Unification algorithm: assign fresh type vars, unify constraints as you traverse the AST.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Lex, Parse, Types, Optimization</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Explain why the grammar S → if E then S | if E then S else S is ambiguous. Rewrite to fix.</p>
+            <details><summary>Show Solution</summary><p>String &#39;if a then if b then c else d&#39; — does else bind to inner or outer if? Ambiguous. Standard fix: S → M | U, M → if E then M else M | other, U → if E then S | if E then M else U. Forces else to bind to nearest unmatched if.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Apply constant folding and dead code elimination to: x = 3 + 4; y = x * 2; return z;</p>
+            <details><summary>Show Solution</summary><p>Constant folding: x = 7. Then y = 14. Dead code: x and y never used. Remove both lines. Result: return z;</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Sketch the pipeline for compiling &#39;a = b + c * d&#39; through lexing, parsing, IR, optimization, and codegen.</p>
+            <details><summary>Show Solution</summary><p>Lex: [id a] [=] [id b] [+] [id c] [*] [id d]. Parse: Assign(a, Add(b, Mul(c, d))). IR: t1 = c*d; t2 = b+t1; a = t2. Optimize: possible CSE if reused. Codegen (x86-64): imul rcx, rdx; add rbx, rcx; mov [a], rbx.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natural Language Processing — Stanford | TechPulse Academy</title>
+<meta name="description" content="Word vectors, RNNs, transformers, and modern NLP with deep learning.">
+<link rel="canonical" href="https://www.pulsehig.com/course/nlp.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/nlp.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/nlp.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/nlp.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/nlp.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/nlp.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/nlp.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/nlp.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Natural Language Processing">
+<meta property="og:description" content="Word vectors, RNNs, transformers, and modern NLP with deep learning.">
+<meta property="og:url" content="https://www.pulsehig.com/course/nlp.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Natural Language Processing","description":"Word vectors, RNNs, transformers, and modern NLP with deep learning.","provider":{"@type":"Organization","name":"Stanford"},"url":"https://www.pulsehig.com/course/nlp.html","courseCode":"Stanford CS224n","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to NLP and Word Vectors","courseMode":"online"},{"@type":"CourseInstance","name":"Recurrent Neural Networks and Language Models","courseMode":"online"},{"@type":"CourseInstance","name":"Transformers and Attention","courseMode":"online"},{"@type":"CourseInstance","name":"Pretraining, Fine-tuning, and Transfer Learning","courseMode":"online"},{"@type":"CourseInstance","name":"Modern NLP Applications","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Natural Language Processing</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">Stanford CS224n · Stanford</span>
+      <h1>Natural Language Processing</h1>
+      <p>Word vectors, RNNs, transformers, and modern NLP with deep learning.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">40h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to NLP and Word Vectors</h4>
+          <p>
+## What is Natural Language Processing?
+
+NLP is the field of AI that deals with understanding and generating human language. It spans:
+
+- **Syntax:** structure of sentences (parsing, part-of-speech tagging)
+- **Se...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is Natural Language Processing?<br><br>NLP is the field of AI that deals with understanding and generating human language. It spans:<br><br>- <strong>Syntax:</strong> structure of sentences (parsing, part-of-speech tagging)<br>- <strong>Semantics:</strong> meaning of words and sentences<br>- <strong>Pragmatics:</strong> meaning in context (dialogue, implicature)<br>- <strong>Applications:</strong> translation, summarization, question answering, sentiment analysis, chatbots<br><br>NLP is hard because language is ambiguous, context-dependent, and continually evolving.<br><br>## Why is Language Hard for Computers?<br><br>Consider: "I saw the man with the telescope."<br><br>Two meanings:<br>1. I used a telescope to see the man.<br>2. I saw a man who had a telescope.<br><br>The same words, different syntactic structures, different meanings.<br><br>Add pragmatics: "Can you pass the salt?" is a request, not a question. Sarcasm, idioms, cultural references make it even harder.<br><br>## Classical NLP vs Neural NLP<br><br><strong>Classical (pre-2013):</strong> hand-crafted features, statistical models (HMMs, CRFs, SVMs). Rule-based systems.<br><br><strong>Neural (2013+):</strong> word embeddings, RNNs, then transformers. Learned representations end-to-end.<br><br>The shift happened because neural methods scaled with data and compute.<br><br>## Word Representations<br><br>How do we represent a word as a vector?<br><br><strong>One-hot:</strong> vector of size |V|, one 1 for the word, rest 0s. Simple, but:<br>- No notion of similarity<br>- Huge vectors (|V| = 50,000+)<br>- No generalization<br><br><strong>Word embeddings:</strong> dense, low-dimensional vectors (50-300 dims) where similar words are close.<br><br>## Word2Vec<br><br>Mikolov et al. (2013) introduced Word2Vec. Two variants:<br><br><strong>Skip-gram:</strong> predict context words from center word.<br><br>    P(w_{t+j} | w_t) for j = -m..m<br><br><strong>CBOW:</strong> predict center word from context.<br><br>Both train a neural network on a large corpus. The learned weights become the embeddings.<br><br>## The Skip-gram Objective<br><br>Maximize the log probability of context words given center words:<br><br>    J(θ) = (1/T) Σ_t Σ_{j=-m, j≠0}^m log P(w_{t+j} | w_t; θ)<br><br>Where P uses softmax:<br><br>    P(o | c) = exp(u_o^T v_c) / Σ_w exp(u_w^T v_c)<br><br>Softmax over the entire vocabulary is expensive. Solutions:<br>- <strong>Negative sampling:</strong> sample a few "negative" words, train binary classifier<br>- <strong>Hierarchical softmax:</strong> tree-structured computation<br><br>## Properties of Word2Vec Embeddings<br><br>Learned embeddings capture semantic relationships:<br><br>    king - man + woman ≈ queen<br>    Paris - France + Italy ≈ Rome<br>    walking - walk + swim ≈ swimming<br><br>Analogies work in the embedding space. This surprised everyone.<br><br>## GloVe<br><br>Global Vectors (Pennington et al., 2014). Combines:<br>- Global matrix factorization (like LSA)<br>- Local context windows (like Word2Vec)<br><br>Factorizes the co-occurrence matrix directly. Often works as well as Word2Vec.<br><br>## FastText<br><br>Facebook's extension. Represents words as bags of character n-grams.<br><br>Benefits:<br>- Handles out-of-vocabulary words (morphology)<br>- Better for morphologically rich languages<br>- Robust to typos<br><br>## Contextual Embeddings<br><br>Word2Vec and GloVe give <strong>one vector per word</strong>, regardless of context. But "bank" means different things in "river bank" and "bank account".<br><br><strong>ELMo (2018):</strong> bidirectional LSTM, context-dependent embeddings. First big win.<br><br><strong>BERT (2018):</strong> transformer-based, deep bidirectional. State-of-the-art on many tasks.<br><br><strong>GPT (2018+):</strong> transformer decoder, generative. Powers ChatGPT.<br><br>Contextual embeddings replaced static ones almost entirely.<br><br>## Subword Tokenization<br><br>Modern NLP uses subword units (BPE, WordPiece, SentencePiece) instead of whole words.<br><br>Benefits:<br>- Fixed vocabulary size<br>- Handles rare words<br>- Language-agnostic<br><br>"unhappiness" → "un", "happi", "ness"<br><br>This is what GPT/BERT use.<br><br>## Key Takeaways<br><br>- NLP spans syntax, semantics, pragmatics<br>- Language is ambiguous and context-dependent<br>- One-hot encoding is simple but weak<br>- Word2Vec/GloVe: static embeddings, capture analogies<br>- FastText: handles morphology<br>- Contextual embeddings (ELMo, BERT, GPT) are current standard<br>- Subword tokenization handles open vocabulary<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Recurrent Neural Networks and Language Models</h4>
+          <p>
+## Language Modeling
+
+A language model assigns probabilities to sequences:
+
+    P(w_1, w_2, ..., w_n) = P(w_1) × P(w_2 | w_1) × ... × P(w_n | w_1..w_{n-1})
+
+Used for:
+- Speech recognition (pick most likely trans...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Language Modeling<br><br>A language model assigns probabilities to sequences:<br><br>    P(w_1, w_2, ..., w_n) = P(w_1) × P(w_2 | w_1) × ... × P(w_n | w_1..w_{n-1})<br><br>Used for:<br>- Speech recognition (pick most likely transcript)<br>- Machine translation<br>- Text generation<br>- Autocomplete<br><br>## N-gram Models<br><br>Approximate P(w_n | w_1..w_{n-1}) ≈ P(w_n | w_{n-k}..w_{n-1}).<br><br>For bigrams (k=1), trigrams (k=2). Estimate from counts:<br><br>    P(w_n | w_{n-1}) = count(w_{n-1}, w_n) / count(w_{n-1})<br><br>Simple but:<br>- Sparse (many n-grams never seen)<br>- Curse of dimensionality (exponential in n)<br>- No generalization (can't relate similar contexts)<br><br>## Neural Language Models<br><br>Bengio et al. (2003): feed-forward NN with embeddings.<br><br>    Input: previous n-1 words (embeddings)<br>    Hidden: nonlinear transformation<br>    Output: softmax over vocabulary<br><br>Benefits: shared parameters across contexts, smooth probabilities.<br><br>## Recurrent Neural Networks<br><br>An RNN processes a sequence one element at a time, maintaining a hidden state.<br><br>    h_t = tanh(W_hh × h_{t-1} + W_xh × x_t + b_h)<br>    y_t = W_hy × h_t + b_y<br><br>The hidden state h_t summarizes everything seen so far.<br><br>Unrolled through time, an RNN shares weights across timesteps.<br><br>## RNN for Language Modeling<br><br>At each step t:<br>- Input: word embedding x_t<br>- Hidden: h_t<br>- Output: distribution over next word<br><br>    P(w_{t+1} | w_1..w_t) = softmax(W × h_t)<br><br>## Backpropagation Through Time (BPTT)<br><br>Train RNN by unrolling and backpropagating. Gradients flow from output at time t back through all earlier steps.<br><br>Problem: vanishing/exploding gradients.<br><br>- <strong>Vanishing:</strong> gradients shrink exponentially with sequence length. Network can't learn long-term dependencies.<br>- <strong>Exploding:</strong> gradients grow exponentially. Training diverges.<br><br>Solutions:<br>- <strong>Gradient clipping:</strong> cap gradient magnitude<br>- <strong>Better activations:</strong> ReLU helps<br>- <strong>LSTM, GRU:</strong> gated architectures<br><br>## LSTM (Long Short-Term Memory)<br><br>Hochreiter &amp; Schmidhuber (1997). Introduces:<br>- <strong>Cell state c_t:</strong> long-term memory<br>- <strong>Forget gate:</strong> what to forget<br>- <strong>Input gate:</strong> what to add<br>- <strong>Output gate:</strong> what to output<br><br>Gate equations (simplified):<br><br>    f_t = σ(W_f [h_{t-1}, x_t])<br>    i_t = σ(W_i [h_{t-1}, x_t])<br>    o_t = σ(W_o [h_{t-1}, x_t])<br>    c_t = f_t ⊙ c_{t-1} + i_t ⊙ tanh(W_c [h_{t-1}, x_t])<br>    h_t = o_t ⊙ tanh(c_t)<br><br>Gates let the network learn to preserve or reset information. Solves vanishing gradient for long sequences.<br><br>## GRU (Gated Recurrent Unit)<br><br>Simpler than LSTM. Two gates:<br>- <strong>Update gate:</strong> combine forget and input<br>- <strong>Reset gate:</strong> how much past to forget<br><br>Fewer parameters, similar performance. Popular when compute-limited.<br><br>## Bidirectional RNNs<br><br>For tasks where the entire sequence is available (e.g., encoding), process forward and backward, concatenate hidden states.<br><br>    h_t = [h_t_forward; h_t_backward]<br><br>Captures context from both directions. Used in ELMo, BERT-style encoders.<br><br>## Sequence-to-Sequence Models<br><br>Sutskever et al. (2014). Encoder RNN → context vector → decoder RNN.<br><br>Encoder reads input, produces final hidden state.<br>Decoder generates output, conditioned on that state.<br><br>Applications: translation, summarization, dialogue.<br><br>Problem: bottleneck — the entire input compressed to one vector.<br><br>## Attention Mechanism<br><br>Bahdanau et al. (2014). Decoder can "look at" all encoder states, not just the final one.<br><br>At each decoder step, compute attention weights over encoder states:<br><br>    α_t = softmax(score(h_dec, h_enc))<br>    context = Σ α_t × h_enc<br><br>Decoder uses context plus its own state.<br><br>Revolutionized NLP. Now transformers use self-attention everywhere.<br><br>## Key Takeaways<br><br>- Language models predict next word<br>- N-gram models are simple but limited<br>- RNNs process sequences with shared weights<br>- Vanishing/exploding gradients are key issues<br>- LSTM, GRU solve long-term dependency<br>- Bidirectional for encoding tasks<br>- Seq2seq for translation<br>- Attention removes the bottleneck<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Transformers and Attention</h4>
+          <p>
+## The Transformer Revolution
+
+Vaswani et al. (2017): &quot;Attention Is All You Need.&quot; Replaced RNNs entirely. Now the standard for NLP, vision, speech, and more.
+
+Key innovation: **self-attention** — every position at...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Transformer Revolution<br><br>Vaswani et al. (2017): "Attention Is All You Need." Replaced RNNs entirely. Now the standard for NLP, vision, speech, and more.<br><br>Key innovation: <strong>self-attention</strong> — every position attends to every other position in parallel.<br><br>Benefits:<br>- Parallelizable (no sequential recurrence)<br>- Captures long-range dependencies<br>- Scales to billions of parameters<br><br>## Self-Attention<br><br>Given input embeddings X (n × d), compute:<br><br>    Q = X W_Q    (queries)<br>    K = X W_K    (keys)<br>    V = X W_V    (values)<br><br>Attention:<br><br>    Attention(Q, K, V) = softmax(Q K^T / √d_k) V<br><br>Interpretation:<br>- Q K^T: similarity between each pair of positions<br>- Softmax: attention weights<br>- Multiply by V: weighted average of values<br><br>Every position gets a new representation that's a weighted sum of all positions.<br><br>## Why √d_k?<br><br>Without scaling, dot products grow with d_k, pushing softmax into saturation (near 0 or 1). Scaling by √d_k keeps them in a reasonable range.<br><br>## Multi-Head Attention<br><br>Instead of one attention operation, run h parallel "heads," each with its own W_Q, W_K, W_V.<br><br>    MultiHead = Concat(head_1, ..., head_h) W_O<br><br>Each head can focus on different relationships (syntactic, semantic, positional).<br><br>Typical h = 8 or 16.<br><br>## Positional Encoding<br><br>Self-attention is permutation-invariant — it doesn't know word order. Add positional information:<br><br>    PE(pos, 2i) = sin(pos / 10000^(2i/d))<br>    PE(pos, 2i+1) = cos(pos / 10000^(2i/d))<br><br>Or learnable position embeddings (BERT, GPT).<br><br>## The Transformer Block<br><br>Each layer:<br><br>1. Multi-head self-attention<br>2. Add &amp; Norm (residual + layer norm)<br>3. Feed-forward (2 linear layers with ReLU)<br>4. Add &amp; Norm<br><br>Stack N such blocks (6 in original, 12-96 in modern models).<br><br>## Encoder-Decoder Architecture<br><br><strong>Encoder:</strong> stack of self-attention blocks. Each position attends to all positions.<br><br><strong>Decoder:</strong> masked self-attention (each position attends only to earlier positions) + cross-attention to encoder outputs.<br><br>Used in translation (T5, BART).<br><br>## BERT (Bidirectional Encoder Representations)<br><br>Devlin et al. (2018). Encoder-only transformer.<br><br>Pre-trained with two tasks:<br>- <strong>Masked language modeling (MLM):</strong> predict randomly masked words<br>- <strong>Next sentence prediction (NSP):</strong> predict if two sentences are consecutive<br><br>Fine-tuned per task (classification, QA, NER).<br><br>BERT-Base: 12 layers, 110M params.<br>BERT-Large: 24 layers, 340M params.<br><br>## GPT (Generative Pre-trained Transformer)<br><br>OpenAI. Decoder-only transformer. Trained to predict the next token on massive text.<br><br>GPT-1 (2018): 117M params.<br>GPT-2 (2019): 1.5B.<br>GPT-3 (2020): 175B.<br>GPT-4 (2023): ~1.7T (estimated, MoE).<br><br>Zero-shot and few-shot learning via prompting.<br><br>## Scaling Laws<br><br>Kaplan et al. (2020): model performance follows a power law in compute, parameters, and data.<br><br>Chinchilla (2022): models were undertrained. Optimal: ~20 tokens per parameter.<br><br>Modern models train on trillions of tokens.<br><br>## Beyond NLP<br><br>Transformers now dominate:<br>- <strong>Vision (ViT):</strong> patches as tokens<br>- <strong>Speech (Whisper):</strong> spectrograms as tokens<br>- <strong>Protein folding (AlphaFold):</strong> amino acids as tokens<br>- <strong>Reinforcement learning (Decision Transformer):</strong> states as tokens<br><br>A single architecture for everything.<br><br>## Key Takeaways<br><br>- Transformers replaced RNNs entirely<br>- Self-attention: every position attends to every other<br>- Multi-head for diverse relationships<br>- Positional encoding for order<br>- BERT (encoder) for understanding<br>- GPT (decoder) for generation<br>- Scaling laws guide model size<br>- Transformers dominate NLP, vision, speech, biology<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Pretraining, Fine-tuning, and Transfer Learning</h4>
+          <p>
+## The Pretrain-Finetune Paradigm
+
+Training large models from scratch is expensive. Instead:
+
+1. **Pretrain** on massive unlabeled text (months of GPU time)
+2. **Fine-tune** on task-specific data (hours-days)
+3. ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Pretrain-Finetune Paradigm<br><br>Training large models from scratch is expensive. Instead:<br><br>1. <strong>Pretrain</strong> on massive unlabeled text (months of GPU time)<br>2. <strong>Fine-tune</strong> on task-specific data (hours-days)<br>3. <strong>Deploy</strong> on the target task<br><br>Transfer learning is now standard in NLP.<br><br>## Why Does Pretraining Work?<br><br>The model learns general language understanding:<br>- Syntax (grammatical structure)<br>- Semantics (word meanings)<br>- World knowledge (facts about the world)<br>- Reasoning patterns<br><br>This knowledge transfers to any downstream NLP task.<br><br>## Pretraining Objectives<br><br><strong>Causal LM (GPT):</strong> predict next token.<br><br>    P(x_t | x_1, ..., x_{t-1})<br><br><strong>Masked LM (BERT):</strong> predict masked tokens.<br><br>    P(x_masked | context)<br><br><strong>Span corruption (T5):</strong> replace spans with sentinel tokens, predict them.<br><br><strong>Prefix LM (PaLM, UL2):</strong> hybrid.<br><br>Each has different strengths.<br><br>## Fine-tuning<br><br>Add a task-specific head and train on labeled data:<br><br>    [CLS] The movie was great [SEP]<br>       ↓<br>    Encoder<br>       ↓<br>    [CLS] representation → classifier → positive<br><br>Small dataset: 1k-100k examples. Training: hours.<br><br>## Few-shot and Zero-shot Learning<br><br>Modern large LMs can perform tasks without fine-tuning:<br><br><strong>Zero-shot:</strong> just a prompt.<br><br>    "Translate to French: Hello"<br><br><strong>Few-shot:</strong> include a few examples in the prompt.<br><br>    "cat: chat. dog: chien. bird:"<br><br>GPT-3 popularized this. No gradient updates needed.<br><br>## Instruction Tuning<br><br>Fine-tune on (instruction, response) pairs:<br><br>    Instruction: "Summarize the following..."<br>    Response: "..."<br><br>Models like InstructGPT, FLAN-T5, Alpaca are instruction-tuned.<br><br>Result: models follow instructions much better.<br><br>## RLHF (Reinforcement Learning from Human Feedback)<br><br>Align model with human preferences:<br><br>1. <strong>Supervised fine-tuning:</strong> train on demonstrations<br>2. <strong>Reward model:</strong> learn to predict human preference<br>3. <strong>RL (PPO):</strong> optimize model to maximize reward<br><br>Used for ChatGPT, Claude, Gemini.<br><br>The reward model captures what humans want (helpful, harmless, honest).<br><br>## LoRA (Low-Rank Adaptation)<br><br>Fine-tuning large models is expensive. LoRA freezes the base model and adds small trainable matrices:<br><br>    W' = W + B × A<br><br>Where A and B are low-rank (rank 4-64). Only these are trained.<br><br>Benefits: 10,000x fewer parameters, similar performance, easy to swap.<br><br>QLoRA: quantized base + LoRA → fine-tune 65B on a single 48GB GPU.<br><br>## Prompt Engineering<br><br>Crafting prompts to get desired outputs:<br><br>- <strong>Zero-shot:</strong> "Classify sentiment: This product is amazing."<br>- <strong>Chain-of-thought:</strong> "Let's think step by step..."<br>- <strong>Role prompting:</strong> "You are a helpful assistant..."<br>- <strong>Few-shot:</strong> include examples<br>- <strong>ReAct:</strong> reason + act (for tool use)<br><br>Prompt engineering is now a skill, but its importance may fade as models improve.<br><br>## Adapters<br><br>Add small trainable modules between frozen layers. Alternative to LoRA.<br><br>Multi-task adapters: one adapter per task, switch at inference.<br><br>## Distillation<br><br>Train a small "student" model to mimic a large "teacher."<br><br>Student is faster, cheaper, sometimes nearly as good.<br><br>Examples:<br>- DistilBERT: 40% smaller, 60% faster, 97% of BERT performance<br>- TinyLlama, Phi-2: small but capable<br><br>## In-Context Learning<br><br>The model learns from examples in the prompt without parameter updates.<br><br>Emergent behavior: only appears in large models (&gt;1B params).<br><br>Why it works is still debated — implicit gradient descent? Pattern matching?<br><br>## Retrieval-Augmented Generation (RAG)<br><br>Combine language model with a retrieval system:<br><br>1. Query a database for relevant documents<br>2. Feed documents + question into the LLM<br>3. LLM generates answer grounded in the documents<br><br>Benefits:<br>- Up-to-date knowledge (no retraining)<br>- Cite sources<br>- Reduce hallucination<br><br>Used in customer support, legal, medical.<br><br>## Key Takeaways<br><br>- Pretrain-finetune is standard<br>- Pretraining learns general language understanding<br>- Fine-tuning adapts to tasks<br>- Few-shot and zero-shot via prompting<br>- Instruction tuning improves following<br>- RLHF aligns with human preferences<br>- LoRA makes fine-tuning affordable<br>- Prompt engineering is a new skill<br>- Distillation compresses large models<br>- RAG combines retrieval with generation<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Modern NLP Applications</h4>
+          <p>
+## Machine Translation
+
+Translate from source to target language.
+
+Classical: rule-based → statistical (phrase-based) → neural (seq2seq).
+
+**Neural MT:** encoder-decoder transformer. State-of-the-art since 2016....</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Machine Translation<br><br>Translate from source to target language.<br><br>Classical: rule-based → statistical (phrase-based) → neural (seq2seq).<br><br><strong>Neural MT:</strong> encoder-decoder transformer. State-of-the-art since 2016.<br><br>Challenges:<br>- Low-resource languages (limited parallel data)<br>- Long documents (coherence)<br>- Idioms, cultural references<br>- Morphologically rich languages<br><br>Modern systems: Google Translate, DeepL, Meta NLLB.<br><br>## Question Answering<br><br>Given a question and context, produce an answer.<br><br><strong>Extractive:</strong> select a span from context (BERT fine-tuned on SQuAD).<br><br><strong>Generative:</strong> produce answer from scratch (GPT).<br><br><strong>Retrieval-based:</strong> find answer in a knowledge base.<br><br><strong>Open-domain:</strong> combine retrieval + reader (DPR, RAG).<br><br>Examples: ChatGPT, Google Search's "People also ask."<br><br>## Text Summarization<br><br>Condense long text into a shorter version.<br><br><strong>Extractive:</strong> select important sentences.<br><br><strong>Abstractive:</strong> generate new text (transformer seq2seq).<br><br><strong>Multi-document:</strong> summarize many documents.<br><br>Evaluation: ROUGE (n-gram overlap), BERTScore (semantic similarity), human eval.<br><br>Challenges: factual consistency (hallucination), length control, style.<br><br>## Sentiment Analysis<br><br>Classify text as positive, negative, neutral. Or with fine-grained labels (1-5 stars).<br><br>Applications: product reviews, social media monitoring, customer feedback.<br><br>Simple with BERT fine-tuning. ~95% accuracy on standard benchmarks.<br><br>Beyond binary: aspect-based sentiment ("The food was great but the service was slow").<br><br>## Named Entity Recognition (NER)<br><br>Identify people, organizations, locations, dates, etc.<br><br>Classical: CRF, HMM.<br>Neural: BiLSTM-CRF, BERT.<br>Modern: LLM with prompting.<br><br>Standard datasets: CoNLL-2003, OntoNotes.<br><br>## Text Classification<br><br>Any task that assigns labels to text:<br>- Spam detection<br>- Topic classification<br>- Intent recognition (chatbots)<br>- Hate speech detection<br>- Fake news detection<br><br>BERT + softmax head is the standard approach.<br><br>## Dialogue Systems<br><br><strong>Task-oriented:</strong> book flights, order food. Slot filling + intent.<br><br><strong>Open-domain:</strong> chat about anything. GPT-based.<br><br><strong>Retrieval-based:</strong> select response from a database.<br><br><strong>Generative:</strong> produce response from scratch.<br><br>Modern: LLMs are open-domain dialogue systems.<br><br>## Information Extraction<br><br>Turn unstructured text into structured data:<br>- <strong>Relation extraction:</strong> (Obama, born_in, Hawaii)<br>- <strong>Event extraction:</strong> who, what, when, where<br>- <strong>Coreference resolution:</strong> "He" → "Obama"<br><br>Foundation for knowledge graphs.<br><br>## Text Generation<br><br>Generate coherent, fluent text:<br>- <strong>Story generation:</strong> given prompt, write story<br>- <strong>Code generation:</strong> given description, write code<br>- <strong>Dialogue:</strong> chatbot responses<br>- <strong>Data-to-text:</strong> describe a table in natural language<br><br>Modern: GPT-4, Claude, Gemini generate human-quality text.<br><br>## Ethics and Bias<br><br>NLP models learn from human text, which contains bias.<br><br>Issues:<br>- <strong>Gender bias:</strong> "doctor" → male, "nurse" → female<br>- <strong>Racial bias:</strong> sentiment differs by dialect<br>- <strong>Political bias:</strong> training data skews<br>- <strong>Toxicity:</strong> models generate harmful content<br><br>Mitigation: data filtering, debiasing techniques, RLHF, red-teaming.<br><br>## Evaluation<br><br><strong>BLEU:</strong> n-gram overlap, machine translation.<br><strong>ROUGE:</strong> n-gram overlap, summarization.<br><strong>METEOR:</strong> synonyms and stemming.<br><strong>BERTScore:</strong> semantic similarity via embeddings.<br><strong>Perplexity:</strong> language model quality.<br><strong>Human eval:</strong> gold standard, but expensive.<br><br>No metric is perfect. Multiple metrics + human eval is best.<br><br>## Deployment<br><br>Large models are expensive to serve:<br>- <strong>Quantization:</strong> 8-bit, 4-bit reduce memory<br>- <strong>Distillation:</strong> train smaller student<br>- <strong>Pruning:</strong> remove weights<br>- <strong>Batching:</strong> process multiple requests<br>- <strong>Caching:</strong> store frequent responses<br>- <strong>Edge deployment:</strong> small models on device<br><br>Trade-offs between latency, cost, and quality.<br><br>## Future Directions<br><br>- <strong>Multimodal:</strong> text + image + audio (GPT-4V, Gemini)<br>- <strong>Agents:</strong> LLMs that use tools, take actions<br>- <strong>Long context:</strong> million-token windows<br>- <strong>Efficiency:</strong> sparse models, MoE<br>- <strong>Reasoning:</strong> chain-of-thought, tree search<br>- <strong>Alignment:</strong> ensuring helpful, harmless, honest<br><br>Rapidly evolving field.<br><br>## Key Takeaways<br><br>- Translation, QA, summarization are mature<br>- NER, classification, sentiment standard<br>- Dialogue systems revolutionized by LLMs<br>- Text generation approaching human quality<br>- Bias and ethics are serious concerns<br>- Multiple evaluation metrics needed<br>- Deployment requires efficiency techniques<br>- Future: multimodal, agents, long context<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Word Embeddings, Attention</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Given embeddings king = [0.2, 0.5], man = [0.1, 0.3], woman = [0.4, 0.6], compute the nearest word to &#39;king - man + woman&#39;.</p>
+            <details><summary>Show Solution</summary><p>king - man + woman = [0.2-0.1+0.4, 0.5-0.3+0.6] = [0.5, 0.8]. Compare to queen = [0.5, 0.7]. Close! Nearest word in vocab is likely queen.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Compute self-attention for tokens x1 = [1, 0], x2 = [0, 1], with W_Q = W_K = W_V = I (identity).</p>
+            <details><summary>Show Solution</summary><p>Q = X, K = X, V = X. Scores: QK^T = [[1, 0], [0, 1]]. Scaled by 1/√2: [[0.707, 0], [0, 0.707]]. Softmax row 1: [0.67, 0.33]. Row 2: [0.33, 0.67]. Output row 1: 0.67×[1,0] + 0.33×[0,1] = [0.67, 0.33]. Row 2: [0.33, 0.67].</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Explain why transformer attention is O(n²) in sequence length and how recent models address this.</p>
+            <details><summary>Show Solution</summary><p>Attention matrix is n×n (every token attends to every other). n=10k → 100M entries. Solutions: (1) Sparse attention (Longformer, BigBird), (2) Linear attention (Performer), (3) Recurrent memory (Transformer-XL), (4) State-space models (Mamba, S4), (5) Flash attention — same complexity but IO-efficient.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Embeddings, RNNs, Transformers</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Compute the output of a 2-unit RNN at time t=2, given x1=[1,0], x2=[0,1], h0=[0,0], W_hh = [[0.5, 0], [0, 0.5]], W_xh = I, b_h = 0, tanh activation.</p>
+            <details><summary>Show Solution</summary><p>t=1: h1 = tanh(W_hh h0 + W_xh x1) = tanh([1, 0]) = [0.762, 0]. t=2: h2 = tanh(W_hh h1 + W_xh x2) = tanh([0.381+0, 0+1]) = tanh([0.381, 1]) = [0.363, 0.762].</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Explain why BERT is bidirectional but GPT is not. How does this affect their use cases?</p>
+            <details><summary>Show Solution</summary><p>BERT: MLM objective — some tokens masked, model sees context on both sides. Bidirectional. Good for understanding (classification, QA, NER). GPT: causal LM — each token only sees earlier tokens. Unidirectional. Good for generation (text completion, dialogue). Bidirectional is stronger for encoding; unidirectional matches generation&#39;s autoregressive nature.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A language model assigns probability 0.01 to each of the 100 tokens in a sentence. What is the perplexity?</p>
+            <details><summary>Show Solution</summary><p>PPL = exp(-(1/N) Σ log P(w_i)) = exp(-log(0.01)) = exp(4.605) = 100. Perplexity = 100 means the model is as uncertain as choosing uniformly among 100 options.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

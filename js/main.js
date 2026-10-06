@@ -496,18 +496,44 @@
     var grid = document.getElementById('articles-container');
     if (!grid) return;
     var lang = I.getLang();
+    var isHomepage = !document.body.classList.contains('all-articles-page');
+
     var visible = allArticles
       .filter(function (a) { return matchesFilters(a, lang); })
-      .sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+      .sort(function (a, b) {
+        var va = C.getViews(a.id);
+        var vb = C.getViews(b.id);
+        if (vb !== va) return vb - va;
+        return (b.date || '').localeCompare(a.date || '');
+      });
 
     if (!visible.length) {
       grid.innerHTML = '<p class="loading-state">' + C.esc(I.t('no_results')) + '</p>';
       return;
     }
 
-    grid.innerHTML = visible.map(function (a) {
+    var toShow = isHomepage ? visible.slice(0, 10) : visible;
+    var totalCount = visible.length;
+
+    grid.innerHTML = toShow.map(function (a) {
       return renderCard(C.localizeArticle(a, lang), lang);
     }).join('');
+
+    // If homepage and there are more articles, show "View all" button
+    if (isHomepage && totalCount > 10) {
+      var wrapper = document.getElementById('articles-container').parentElement;
+      var existingBtn = document.getElementById('viewAllBtn');
+      if (!existingBtn) {
+        var btn = document.createElement('div');
+        btn.id = 'viewAllBtn';
+        btn.style.cssText = 'text-align:center;padding:32px 0 60px';
+        btn.innerHTML = '<a href="articles.html" class="btn-primary" style="padding:14px 32px;font-size:1rem;font-weight:700">View all ' + totalCount + ' articles →</a>';
+        wrapper.appendChild(btn);
+      } else {
+        existingBtn.querySelector('a').textContent = 'View all ' + totalCount + ' articles →';
+      }
+    }
+
     wireCardInteractions(grid);
   }
 

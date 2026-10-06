@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heat Transfer — MIT | TechPulse Academy</title>
+<meta name="description" content="Conduction, convection, radiation, and heat exchanger design.">
+<link rel="canonical" href="https://www.pulsehig.com/course/heat-transfer.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/heat-transfer.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/heat-transfer.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/heat-transfer.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/heat-transfer.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/heat-transfer.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/heat-transfer.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/heat-transfer.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Heat Transfer">
+<meta property="og:description" content="Conduction, convection, radiation, and heat exchanger design.">
+<meta property="og:url" content="https://www.pulsehig.com/course/heat-transfer.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Heat Transfer","description":"Conduction, convection, radiation, and heat exchanger design.","provider":{"@type":"Organization","name":"MIT"},"url":"https://www.pulsehig.com/course/heat-transfer.html","courseCode":"MIT 2.51","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Heat Transfer Modes","courseMode":"online"},{"@type":"CourseInstance","name":"Steady-State Conduction","courseMode":"online"},{"@type":"CourseInstance","name":"Convection Fundamentals","courseMode":"online"},{"@type":"CourseInstance","name":"Radiation Heat Transfer","courseMode":"online"},{"@type":"CourseInstance","name":"Heat Exchangers","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Heat Transfer</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">MIT 2.51 · MIT</span>
+      <h1>Heat Transfer</h1>
+      <p>Conduction, convection, radiation, and heat exchanger design.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">38h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to Heat Transfer Modes</h4>
+          <p>
+## What is Heat Transfer?
+
+Heat transfer is the study of energy movement due to temperature differences. It&#39;s distinct from thermodynamics: thermodynamics tells us whether a process is possible; heat transfer tells u...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is Heat Transfer?<br><br>Heat transfer is the study of energy movement due to temperature differences. It's distinct from thermodynamics: thermodynamics tells us whether a process is possible; heat transfer tells us how fast it happens.<br><br>Three modes:<br>1. <strong>Conduction:</strong> through solids or stationary fluids<br>2. <strong>Convection:</strong> between a surface and a moving fluid<br>3. <strong>Radiation:</strong> electromagnetic waves, no medium needed<br><br>## Conduction — Fourier's Law<br><br>    q = -k × A × dT/dx<br><br>where q is the heat rate (W), k is thermal conductivity (W/m·K), A is area (m²), and dT/dx is the temperature gradient.<br><br>For a plane wall of thickness L:<br><br>    q = k × A × (T₁ - T₂) / L<br><br>Thermal resistance:<br><br>    R_cond = L / (k × A)<br><br>## Thermal Conductivity<br><br>| Material | k (W/m·K) |<br>|----------|-----------|<br>| Air | 0.026 |<br>| Foam | 0.03 |<br>| Water | 0.6 |<br>| Glass | 1.0 |<br>| Stainless steel | 16 |<br>| Aluminum | 205 |<br>| Copper | 385 |<br>| Diamond | 2000 |<br><br>The huge range (5 orders of magnitude) explains why insulation works so well and why heat sinks are made of aluminum or copper.<br><br>## Convection — Newton's Law of Cooling<br><br>    q = h × A × (T_s - T_∞)<br><br>where h is the convection heat transfer coefficient (W/m²·K):<br>- Natural convection (air): 5-25<br>- Forced convection (air): 25-250<br>- Natural convection (water): 20-100<br>- Forced convection (water): 500-10,000<br>- Boiling: 3,000-100,000<br>- Condensation: 5,000-100,000<br><br>Convective thermal resistance:<br><br>    R_conv = 1 / (h × A)<br><br>## Radiation — Stefan-Boltzmann<br><br>    q = ε × σ × A × (T_s⁴ - T_surr⁴)<br><br>where ε is emissivity (0-1), σ = 5.67 × 10⁻⁸ W/m²·K⁴.<br><br>For small temperature differences, we can linearize:<br><br>    q ≈ h_r × A × (T_s - T_surr)<br><br>where h_r = 4εσT_m³ is the radiative heat transfer coefficient.<br><br>At room temperature, h_r ≈ 6 W/m²·K for ε = 1. So radiation is comparable to natural convection at room temperature.<br><br>## Combined Heat Transfer<br><br>Real systems often have all three modes simultaneously. Use thermal resistance networks:<br><br>    R_total = R_conv1 + R_cond + R_conv2<br><br>For a composite wall with N layers:<br><br>    R_total = Σ (L_i / k_i A) + 1/(h₁A) + 1/(h₂A)<br><br>Heat rate:<br><br>    q = ΔT / R_total<br><br>## Overall Heat Transfer Coefficient<br><br>For a wall separating two fluids:<br><br>    q = U × A × ΔT<br><br>where U is the overall coefficient:<br><br>    1/U = 1/h₁ + Σ(L_i/k_i) + 1/h₂<br><br>U values:<br>- Single glass window: U = 5.7 W/m²·K<br>- Double glazed: U = 2.8 W/m²·K<br>- Well-insulated wall: U = 0.3 W/m²·K<br>- Vacuum flask: U &lt; 0.05<br><br>## Key Takeaways<br><br>- Three modes: conduction, convection, radiation<br>- Fourier: q = -kA dT/dx<br>- Newton: q = hA(T_s - T_∞)<br>- Stefan-Boltzmann: q = εσA(T_s⁴ - T_surr⁴)<br>- Thermal resistance networks combine modes<br>- U-value summarizes overall heat transfer<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Steady-State Conduction</h4>
+          <p>
+## The Heat Diffusion Equation
+
+The general equation for conduction:
+
+    ∂/∂x (k ∂T/∂x) + ∂/∂y (k ∂T/∂y) + ∂/∂z (k ∂T/∂z) + q_gen = ρ Cp ∂T/∂t
+
+For 1D, steady, no generation:
+
+    d/dx (k dT/dx) = 0
+
+For con...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Heat Diffusion Equation<br><br>The general equation for conduction:<br><br>    ∂/∂x (k ∂T/∂x) + ∂/∂y (k ∂T/∂y) + ∂/∂z (k ∂T/∂z) + q_gen = ρ Cp ∂T/∂t<br><br>For 1D, steady, no generation:<br><br>    d/dx (k dT/dx) = 0<br><br>For constant k:<br><br>    d²T/dx² = 0<br><br>Solution: T(x) is linear in a plane wall.<br><br>## Plane Wall<br><br>Temperature profile: T(x) = T₁ + (T₂ - T₁) × x/L<br><br>Heat rate: q = kA(T₁ - T₂)/L<br><br>Constant heat rate through the wall.<br><br>## Cylindrical Wall (Pipe Insulation)<br><br>For a cylinder of inner radius r₁ and outer radius r₂:<br><br>    q = 2πkL(T₁ - T₂) / ln(r₂/r₁)<br><br>Thermal resistance:<br><br>    R = ln(r₂/r₁) / (2πkL)<br><br>The critical radius of insulation:<br><br>    r_cr = k / h<br><br>Adding insulation increases heat loss until r = r_cr, then decreases. For thin wires, adding a small amount of insulation can actually increase heat loss.<br><br>## Spherical Shell<br><br>    q = 4πk(T₁ - T₂) / (1/r₁ - 1/r₂)<br><br>Used for spherical tanks and spheres of insulating material.<br><br>## Composite Walls<br><br>For N layers in series:<br><br>    q = (T₁ - T_{N+1}) / Σ R_i<br><br>where R_i = L_i / (k_i A).<br><br>Interface temperatures are found by working through the resistances.<br><br>## Contact Resistance<br><br>Real surfaces have microscopic roughness, creating an interface resistance:<br><br>    R_contact = 1 / (h_c A)<br><br>where h_c is the contact conductance (W/m²·K). Typical values:<br>- Metal-metal, smooth, high pressure: 10,000-30,000<br>- Metal-metal, rough, low pressure: 1,000-5,000<br>- With thermal paste: 5,000-20,000<br>- With air gap: 100-1,000<br><br>This matters for electronics cooling — a bad CPU-heatsink interface can dominate thermal resistance.<br><br>## Extended Surfaces (Fins)<br><br>Fins increase surface area for convective heat transfer. Common types:<br>- Straight fins (rectangular cross-section)<br>- Pin fins (circular)<br>- Annular fins (around pipes)<br><br>Fin efficiency:<br><br>    η_fin = actual heat transfer / maximum possible (if entire fin at base temperature)<br><br>For a straight fin with adiabatic tip:<br><br>    η_fin = tanh(mL) / (mL)<br><br>where m = √(hP/(kA_c)).<br><br>Overall surface efficiency:<br><br>    η_o = 1 - (A_fin/A_total) × (1 - η_fin)<br><br>Fin effectiveness:<br><br>    ε_fin = q_fin / (h A_c θ_b)<br><br>Effective fins have ε &gt; 2. For ε &lt; 2, the fin isn't worth the cost.<br><br>## Applications<br><br>- Heat sinks for electronics (aluminum fins)<br>- Radiators in cars<br>- Fins on air-cooled engines<br>- Heat exchanger tubes (often finned on the air side)<br><br>## Key Takeaways<br><br>- 1D steady conduction: T is linear in a plane wall, logarithmic in a cylinder<br>- Composite walls: resistances add<br>- Contact resistance is often the bottleneck<br>- Fins increase surface area; efficiency depends on geometry<br>- Critical radius of insulation for cylinders<br>- Fin effectiveness must exceed 2 for a fin to be worthwhile<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Convection Fundamentals</h4>
+          <p>
+## The Convection Coefficient
+
+Convection depends on:
+- Fluid properties (k, μ, Cp, ρ)
+- Flow velocity
+- Surface geometry
+- Whether flow is laminar or turbulent
+- Whether it&#39;s natural or forced
+
+The convection...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Convection Coefficient<br><br>Convection depends on:<br>- Fluid properties (k, μ, Cp, ρ)<br>- Flow velocity<br>- Surface geometry<br>- Whether flow is laminar or turbulent<br>- Whether it's natural or forced<br><br>The convection coefficient h bundles all of this. Typical values range from 5 to 100,000 W/m²·K — a huge range.<br><br>## The Nusselt Number<br><br>Dimensionless heat transfer coefficient:<br><br>    Nu = h × L / k_fluid<br><br>Nu = 1 means pure conduction; Nu &gt;&gt; 1 means convection dominates.<br><br>For a flat plate in laminar flow:<br><br>    Nu = 0.332 × Re^0.5 × Pr^(1/3)<br><br>For turbulent:<br><br>    Nu = 0.037 × Re^0.8 × Pr^(1/3)<br><br>## Reynolds and Prandtl Numbers<br><br>Re = ρVL/μ characterizes flow regime.<br><br>Pr = μCp/k = ν/α characterizes the fluid:<br>- Liquid metals: Pr &lt;&lt; 1<br>- Gases: Pr ≈ 0.7<br>- Water: Pr ≈ 7<br>- Oils: Pr &gt;&gt; 100<br><br>## External Flow over a Flat Plate<br><br>Laminar boundary layer until Re_x = 5 × 10⁵. Then transition to turbulent.<br><br>Local Nusselt number:<br>    Laminar: Nu_x = 0.332 Re_x^0.5 Pr^(1/3)<br>    Turbulent: Nu_x = 0.0296 Re_x^0.8 Pr^(1/3)<br><br>Average Nusselt number over a plate of length L:<br>    Laminar: Nu_L = 0.664 Re_L^0.5 Pr^(1/3)<br>    Turbulent: Nu_L = 0.037 Re_L^0.8 Pr^(1/3)<br><br>## Flow over Cylinders and Spheres<br><br>The Churchill-Bernstein correlation covers a wide Re range for cylinders:<br><br>    Nu_D = 0.3 + 0.62 Re^0.5 Pr^(1/3) / [1 + (0.4/Pr)^(2/3)]^0.25 × [1 + (Re/282000)^0.625]^0.8<br><br>For spheres, the Whitaker correlation is standard.<br><br>## Internal Flow (Pipe Flow)<br><br>Entry length: L_e/D ≈ 0.05 Re (laminar), 10 (turbulent).<br><br>For laminar fully developed flow:<br>    Nu_D = 3.66 (constant wall temperature)<br>    Nu_D = 4.36 (constant heat flux)<br><br>For turbulent (Dittus-Boelter):<br>    Nu_D = 0.023 Re^0.8 Pr^n<br>    where n = 0.4 for heating, 0.3 for cooling<br><br>## Natural Convection<br><br>When buoyancy drives flow, use:<br><br>    Nu = C × Ra^n<br><br>where Ra = Gr × Pr is the Rayleigh number:<br><br>    Gr = g β ΔT L³ / ν² (Grashof number)<br><br>Typical for a vertical plate:<br>    Laminar (10⁴ &lt; Ra &lt; 10⁹): Nu = 0.59 Ra^0.25<br>    Turbulent (Ra &gt; 10⁹): Nu = 0.13 Ra^(1/3)<br><br>Natural convection gives much lower h than forced. Air-cooled heat sinks rely on natural convection, so they need to be large.<br><br>## Boiling and Condensation<br><br>Boiling has different regimes:<br>- <strong>Nucleate boiling:</strong> bubbles form at nucleation sites, very high h<br>- <strong>Transition boiling:</strong> unstable, h decreases<br>- <strong>Film boiling:</strong> vapor blanket, low h (this is why quenching in water works — the film boiling phase cools slowly)<br><br>Condensation:<br>- <strong>Filmwise:</strong> liquid film on surface, moderate h<br>- <strong>Dropwise:</strong> droplets form and fall off, much higher h (10× filmwise)<br><br>## Key Takeaways<br><br>- Convection coefficient h is the key unknown<br>- Nusselt number relates h to k<br>- Correlations exist for common geometries<br>- Laminar vs turbulent matters (different Nu formulas)<br>- Natural convection gives lower h than forced<br>- Boiling and condensation have extremely high h<br>- Always check which correlation applies to your case<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Radiation Heat Transfer</h4>
+          <p>
+## The Nature of Radiation
+
+All objects emit electromagnetic radiation. The intensity and spectrum depend on temperature.
+
+Thermal radiation is in the infrared (wavelength 0.1-100 µm) for room-temperature objects, ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Nature of Radiation<br><br>All objects emit electromagnetic radiation. The intensity and spectrum depend on temperature.<br><br>Thermal radiation is in the infrared (wavelength 0.1-100 µm) for room-temperature objects, and extends into visible for very hot objects (like the sun).<br><br>## Blackbody Radiation<br><br>A blackbody absorbs all incident radiation. Its emission is described by:<br><br><strong>Planck's law</strong> (spectral distribution):<br><br>    E_λb = (2πhc² / λ⁵) × 1 / (e^(hc/λkT) - 1)<br><br><strong>Wien's displacement law</strong> (peak wavelength):<br><br>    λ_max = 2898 / T (µm, with T in K)<br><br>At T = 3000 K, λ_max = 0.97 µm (infrared, near-visible).<br><br><strong>Stefan-Boltzmann law</strong> (total emission):<br><br>    E_b = σ T⁴<br><br>where σ = 5.67 × 10⁻⁸ W/m²·K⁴.<br><br>## Real Surfaces<br><br>Real surfaces emit less than a blackbody. The ratio is <strong>emissivity</strong> ε:<br><br>    E = ε × σ × T⁴<br><br>Emissivity ranges:<br>- Polished aluminum: ε = 0.05<br>- Oxidized aluminum: ε = 0.3<br>- White paint: ε = 0.9<br>- Black paint: ε = 0.95<br>- Human skin: ε = 0.98<br><br>High-emissivity surfaces radiate well; low-emissivity surfaces (like polished metal) do not. This is why silvered surfaces are used in vacuum flasks.<br><br>## Absorptivity, Reflectivity, Transmissivity<br><br>Incident radiation is distributed among:<br>- Absorptivity α (absorbed)<br>- Reflectivity ρ (reflected)<br>- Transmissivity τ (transmitted)<br><br>    α + ρ + τ = 1<br><br>For opaque surfaces, τ = 0, so α + ρ = 1.<br><br><strong>Kirchhoff's law:</strong> for a surface in thermal equilibrium, α = ε at each wavelength. Good absorbers are good emitters.<br><br>## View Factors<br><br>Radiative exchange between surfaces depends on geometry through the view factor F_ij — the fraction of radiation leaving surface i that reaches surface j.<br><br>Reciprocity: A_i F_ij = A_j F_ji<br><br>Summation: Σ F_ij = 1<br><br>For common geometries, F values are tabulated:<br>- Two parallel plates: F = 1 for infinite plates<br>- Small object in large enclosure: F = 1 (all emission reaches enclosure)<br>- Two perpendicular plates: F ≈ 0.2<br><br>## Radiation Exchange Between Surfaces<br><br>For two gray diffuse surfaces forming an enclosure:<br><br>    q_12 = σ × (T₁⁴ - T₂⁴) / [(1-ε₁)/(ε₁A₁) + 1/(A₁F₁₂) + (1-ε₂)/(ε₂A₂)]<br><br>This is the general formula. For common cases, simplifications exist:<br><br><strong>Small object in large enclosure:</strong><br><br>    q = ε × σ × A × (T_s⁴ - T_surr⁴)<br><br>## Combined Convection and Radiation<br><br>Real surfaces lose heat by both convection and radiation. Add the two:<br><br>    q_total = h_conv × A × (T_s - T_air) + ε × σ × A × (T_s⁴ - T_surr⁴)<br><br>For small ΔT, linearize radiation:<br><br>    h_r = 4 × ε × σ × T_m³<br><br>So total h = h_conv + h_r. At room temperature, h_r ≈ 6 W/m²·K for ε = 1.<br><br>## Radiation Shields<br><br>To reduce radiation, insert a low-emissivity shield between surfaces. Each shield reduces heat transfer.<br><br>For N shields between two surfaces:<br><br>    q_with_shields / q_without = 1 / (N + 1)<br><br>This is how multi-layer insulation (MLI) works in spacecraft — many aluminized Mylar layers reduce radiative heat loss dramatically.<br><br>## Key Takeaways<br><br>- All objects radiate; blackbodies are ideal emitters<br>- Stefan-Boltzmann: E = εσT⁴<br>- Wien's law: peak wavelength = 2898/T<br>- Kirchhoff: α = ε (good absorbers are good emitters)<br>- View factors describe geometric exchange<br>- Radiation shields reduce heat transfer<br>- At room temperature, radiation ≈ convection (h_r ≈ 6)<br>- At high temperature, radiation dominates (T⁴)<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Heat Exchangers</h4>
+          <p>
+## What is a Heat Exchanger?
+
+A device that transfers heat between two fluids without mixing them. Everywhere:
+- Car radiators
+- Air conditioners
+- Power plant condensers
+- Chemical plant preheaters
+- Computer C...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is a Heat Exchanger?<br><br>A device that transfers heat between two fluids without mixing them. Everywhere:<br>- Car radiators<br>- Air conditioners<br>- Power plant condensers<br>- Chemical plant preheaters<br>- Computer CPU coolers<br>- Refrigerators<br><br>## Classification<br><br><strong>By flow arrangement:</strong><br>- <strong>Parallel flow:</strong> both fluids enter at the same end, flow in the same direction<br>- <strong>Counterflow:</strong> fluids enter at opposite ends, flow in opposite directions<br>- <strong>Crossflow:</strong> fluids flow perpendicular to each other<br>- <strong>Shell and tube:</strong> one fluid in tubes, one in the shell<br><br><strong>By construction:</strong><br>- <strong>Tubular:</strong> concentric tubes, shell-and-tube, spiral<br>- <strong>Plate:</strong> flat plates stacked, compact<br>- <strong>Extended surface:</strong> finned tubes (for gas-liquid)<br><br>## The Overall Heat Transfer Coefficient<br><br>    Q = U × A × ΔT_lm<br><br>where:<br>- Q = heat duty (W)<br>- U = overall heat transfer coefficient<br>- A = heat transfer area<br>- ΔT_lm = log mean temperature difference<br><br>U depends on the individual resistances:<br><br>    1/UA = 1/(h_i A_i) + R_wall + 1/(h_o A_o)<br><br>where i and o refer to inner and outer surfaces.<br><br>Typical U values:<br>- Water-to-water: 800-1500 W/m²·K<br>- Water-to-air (finned): 25-100<br>- Steam-to-water: 1000-3000<br>- Gas-to-gas: 10-50<br><br>## Log Mean Temperature Difference<br><br>For counterflow or parallel flow:<br><br>    ΔT_lm = (ΔT₁ - ΔT₂) / ln(ΔT₁/ΔT₂)<br><br>where ΔT₁ and ΔT₂ are the temperature differences at the two ends.<br><br>Counterflow gives higher ΔT_lm than parallel flow for the same inlet/outlet temperatures → smaller heat exchanger for the same duty.<br><br>## Counterflow vs Parallel<br><br>Consider hot fluid cooling from 100°C to 60°C, cold fluid heating from 20°C to 50°C.<br><br>Parallel flow:<br>- ΔT₁ = 100 - 20 = 80°C<br>- ΔT₂ = 60 - 50 = 10°C<br>- ΔT_lm = (80-10)/ln(8) = 43.3°C<br><br>Counterflow:<br>- ΔT₁ = 100 - 50 = 50°C<br>- ΔT₂ = 60 - 20 = 40°C<br>- ΔT_lm = (50-40)/ln(1.25) = 44.8°C<br><br>Similar in this case, but counterflow can achieve much more when the hot outlet would be lower than the cold outlet.<br><br>## Effectiveness-NTU Method<br><br>When outlet temperatures are unknown (they depend on the heat exchanger), the LMTD method requires iteration. The <strong>effectiveness-NTU</strong> method avoids this.<br><br><strong>Effectiveness (ε):</strong><br><br>    ε = Q_actual / Q_max<br><br>where Q_max = C_min × (T_h,in - T_c,in).<br><br>C_min is the smaller of C_h = m_h × Cp_h and C_c = m_c × Cp_c.<br><br><strong>NTU (Number of Transfer Units):</strong><br><br>    NTU = U × A / C_min<br><br>For each flow arrangement, there's a relation between ε and NTU:<br><br><strong>Parallel flow:</strong><br>    ε = [1 - exp(-NTU(1 + Cr))] / (1 + Cr)<br><br><strong>Counterflow:</strong><br>    ε = [1 - exp(-NTU(1 - Cr))] / [1 - Cr × exp(-NTU(1 - Cr))]<br><br>where Cr = C_min / C_max.<br><br>For Cr = 1 counterflow: ε = NTU / (1 + NTU).<br><br>## Design Procedure<br><br>1. Compute heat duty Q = m_h × Cp_h × (T_h,in - T_h,out)<br>2. Compute C_min, C_max, Cr<br>3. Compute Q_max = C_min × (T_h,in - T_c,in)<br>4. Required ε = Q / Q_max<br>5. From ε-NTU relation, find NTU<br>6. A = NTU × C_min / U<br><br>## Fouling<br><br>Over time, deposits on heat transfer surfaces add resistance. Fouling factors R_f are added to the U calculation:<br><br>    1/U_dirty = 1/U_clean + R_f,i + R_f,o<br><br>Typical fouling factors: 0.0001-0.001 m²·K/W.<br><br>Fouling is often the dominant resistance after months of operation. Regular cleaning (chemical or mechanical) is essential.<br><br>## Key Takeaways<br><br>- Heat exchangers transfer heat between fluids<br>- Counterflow is more efficient than parallel flow<br>- LMTD method: Q = UA ΔT_lm<br>- ε-NTU method when outlet temps are unknown<br>- U depends on both fluid-side resistances<br>- Fouling adds resistance over time<br>- Compact heat exchangers use fins for gas-side enhancement<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: Conduction, Convection, Radiation</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> A wall 0.2 m thick with k = 0.8 W/m·K has inner surface at 25°C and outer at 5°C. Find heat flux.</p>
+            <details><summary>Show Solution</summary><p>q/A = kΔT/L = 0.8 × 20 / 0.2 = 80 W/m².</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A surface at 100°C loses heat by natural convection to air at 20°C (h = 10 W/m²·K) and radiation (ε = 0.9). Find total heat flux.</p>
+            <details><summary>Show Solution</summary><p>q_conv = 10 × 80 = 800 W/m². q_rad = 0.9 × 5.67e-8 × (373⁴ - 293⁴) = 0.9 × 5.67e-8 × (1.936e10 - 7.37e9) = 0.9 × 5.67e-8 × 1.199e10 = 612 W/m². Total = 1412 W/m².</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A fin has efficiency 0.7 and area 0.01 m². Base is at 80°C, ambient 25°C, h = 20 W/m²·K. Find heat transfer from the fin.</p>
+            <details><summary>Show Solution</summary><p>q = 0.7 × 20 × 0.01 × 55 = 7.7 W.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Conduction, Convection, Radiation, HX</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> A composite wall has two layers: 5 cm of brick (k=0.7) and 10 cm of insulation (k=0.04). Total ΔT = 30°C over 1 m². Find the heat rate.</p>
+            <details><summary>Show Solution</summary><p>R_brick = 0.05/0.7 = 0.0714 K/W. R_insul = 0.1/0.04 = 2.5 K/W. R_total = 2.571 K/W. q = 30/2.571 = 11.7 W.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A CPU dissipates 65 W. Heatsink has R_sa = 0.3 K/W, paste R_cs = 0.1 K/W. Ambient 25°C. Find the CPU case temperature.</p>
+            <details><summary>Show Solution</summary><p>T_case = 25 + 65 × (0.3 + 0.1) = 25 + 26 = 51°C.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A counterflow heat exchanger has U = 500 W/m²·K, A = 2 m². Hot fluid: 90°C in, 60°C out. Cold: 20°C in, 40°C out. Find heat duty.</p>
+            <details><summary>Show Solution</summary><p>ΔT1 = 90-40 = 50. ΔT2 = 60-20 = 40. LMTD = (50-40)/ln(50/40) = 10/0.223 = 44.8°C. Q = 500 × 2 × 44.8 = 44,800 W = 44.8 kW.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real-Time Systems — CMU | TechPulse Academy</title>
+<meta name="description" content="Real-time scheduling, priority inversion, WCET analysis, and safety-critical system design.">
+<link rel="canonical" href="https://www.pulsehig.com/course/real-time-systems.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/real-time-systems.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/real-time-systems.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/real-time-systems.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/real-time-systems.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/real-time-systems.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/real-time-systems.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/real-time-systems.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Real-Time Systems">
+<meta property="og:description" content="Real-time scheduling, priority inversion, WCET analysis, and safety-critical system design.">
+<meta property="og:url" content="https://www.pulsehig.com/course/real-time-systems.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Real-Time Systems","description":"Real-time scheduling, priority inversion, WCET analysis, and safety-critical system design.","provider":{"@type":"Organization","name":"CMU"},"url":"https://www.pulsehig.com/course/real-time-systems.html","courseCode":"CMU 18-549","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Real-Time Systems","courseMode":"online"},{"@type":"CourseInstance","name":"Task Scheduling: RM and EDF","courseMode":"online"},{"@type":"CourseInstance","name":"FreeRTOS: Practical RTOS on Microcontrollers","courseMode":"online"},{"@type":"CourseInstance","name":"Timing Analysis and WCET","courseMode":"online"},{"@type":"CourseInstance","name":"Real-Time Communication and Safety","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Real-Time Systems</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">CMU 18-549 · CMU</span>
+      <h1>Real-Time Systems</h1>
+      <p>Real-time scheduling, priority inversion, WCET analysis, and safety-critical system design.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">35h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to Real-Time Systems</h4>
+          <p>
+## What is a Real-Time System?
+
+A real-time system is one where the correctness of the system depends not only on the logical result of computation, but also on the time at which the result is produced. A late answer...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is a Real-Time System?<br><br>A real-time system is one where the correctness of the system depends not only on the logical result of computation, but also on the time at which the result is produced. A late answer is a wrong answer.<br><br>Examples:<br>- Airbag deployment: must fire within milliseconds of impact<br>- Pacemaker: must deliver a pulse at exactly the right moment<br>- ABS brakes: must release pressure at the right time<br>- Flight control: must respond to pilot input within 50 ms<br>- Industrial robots: must complete tasks within cycle time<br><br>## Hard vs Soft Real-Time<br><br><strong>Hard real-time:</strong> missing a deadline is catastrophic. Failure modes: airbag doesn't fire, pacemaker misses a beat, plane crashes.<br><br><strong>Firm real-time:</strong> missing a deadline makes the result useless, but not catastrophic. Example: video frame decoding — a late frame is dropped.<br><br><strong>Soft real-time:</strong> missing a deadline degrades quality but the system continues. Example: audio streaming — occasional glitches are tolerated.<br><br>## Why Not Just "Fast"?<br><br>Real-time isn't about being fast — it's about being <strong>predictable</strong>. A system that's usually fast but occasionally takes 100 ms is worse for real-time than one that's always 5 ms.<br><br>Deterministic timing is the goal. That's why real-time systems avoid:<br>- Garbage collection (unpredictable pauses)<br>- Dynamic memory allocation (fragmentation, unpredictable timing)<br>- Caches (usually helpful, but can cause timing variability)<br>- Complex scheduling algorithms with high overhead<br><br>## The Real-Time Challenge<br><br>Three sources of unpredictability:<br>1. <strong>Interrupt latency:</strong> how long until the CPU responds to an external event<br>2. <strong>Scheduling latency:</strong> how long until the right task runs<br>3. <strong>Execution time variability:</strong> how long a task takes to run<br><br>Real-time systems must bound all three.<br><br>## Deadline Types<br><br>- <strong>Absolute deadline:</strong> a specific time (e.g., "complete by 3:00:00 PM")<br>- <strong>Relative deadline:</strong> a time from release (e.g., "complete within 50 ms of activation")<br>- <strong>Periodic tasks:</strong> released at regular intervals<br>- <strong>Aperiodic tasks:</strong> released at arbitrary times<br>- <strong>Sporadic tasks:</strong> aperiodic, but with minimum inter-arrival times<br><br>## A Classic Example: Cruise Control<br><br>A car's cruise control is a periodic real-time task:<br>- Sample the speed sensor every 10 ms<br>- Compute control output<br>- Send to throttle actuator<br>- Deadline: 10 ms (if missed, control loop becomes unstable)<br><br>If the deadline is missed occasionally, the car may jerk. If missed frequently, the car oscillates dangerously.<br><br>## Key Takeaways<br><br>- Real-time = correctness depends on timing<br>- Hard, firm, soft categories based on consequences of missing deadlines<br>- Predictability &gt; raw speed<br>- Interrupt latency, scheduling latency, execution variability are the three unpredictability sources<br>- Periodic, aperiodic, sporadic tasks are the basic types<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Task Scheduling: RM and EDF</h4>
+          <p>
+## The Scheduling Problem
+
+Given a set of tasks with deadlines, how do we schedule them on one (or more) CPUs to meet all deadlines?
+
+For periodic tasks, a schedule is a repeating pattern. If all deadlines are met ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## The Scheduling Problem<br><br>Given a set of tasks with deadlines, how do we schedule them on one (or more) CPUs to meet all deadlines?<br><br>For periodic tasks, a schedule is a repeating pattern. If all deadlines are met in the first "hyperperiod" (LCM of periods), they'll be met forever.<br><br>## Task Model<br><br>Each task Ti is characterized by:<br>- <strong>Period Ti:</strong> release interval<br>- <strong>Execution time Ci:</strong> worst-case compute time<br>- <strong>Deadline Di:</strong> usually = Ti (implicit deadlines)<br>- <strong>Utilization Ui = Ci / Ti</strong><br><br>Total utilization: U = Σ Ui.<br><br>If U &gt; 1, no schedule can meet all deadlines. If U ≤ 1, we need the right algorithm.<br><br>## Rate Monotonic (RM) Scheduling<br><br><strong>Priority = 1 / period.</strong> Shorter period = higher priority. Static priorities (fixed at design time).<br><br>For RMS, we assign priorities based on rate. Faster tasks get higher priority.<br><br><strong>Utilization bound:</strong> RMS is guaranteed to meet all deadlines if:<br><br>    U ≤ n × (2^(1/n) - 1)<br><br>where n is the number of tasks. This bound approaches ln(2) ≈ 0.693 as n grows.<br><br>For 2 tasks: bound = 0.828<br>For 3 tasks: bound = 0.780<br>For large n: bound = 0.693<br><br>If U ≤ 0.693, RMS always works. If U &gt; bound but ≤ 1, RMS may or may not work (depends on specific task parameters).<br><br>## Example: RMS Utilization Test<br><br>Tasks:<br>- T1: C=2, P=5 (U1 = 0.4)<br>- T2: C=2, P=7 (U2 = 0.286)<br>- T3: C=1, P=10 (U3 = 0.1)<br><br>Total U = 0.786 &lt; 3 × (2^(1/3) - 1) = 0.780... Actually 0.786 &gt; 0.780.<br><br>So RMS bound is not satisfied. But RMS might still work — need to check the schedule explicitly.<br><br>## Earliest Deadline First (EDF)<br><br><strong>Priority = earliest deadline.</strong> Dynamic priorities (change every release).<br><br>The currently-executing task is the one with the earliest absolute deadline.<br><br><strong>Utilization bound:</strong> EDF is optimal for single-processor scheduling. If U ≤ 1, EDF meets all deadlines.<br><br>This is a stronger guarantee than RMS.<br><br>## RMS vs EDF<br><br>| Property | RMS | EDF |<br>|----------|-----|-----|<br>| Priority | Static | Dynamic |<br>| Bound | n(2^(1/n)-1) | 1 |<br>| Optimality | Optimal for static priorities | Optimal overall |<br>| Overhead | Low | Moderate |<br>| Predictability | High | Moderate |<br>| Implementation | Simple | More complex |<br><br>RMS is used in small embedded systems (predictable, low overhead). EDF is used when utilization is high (&gt; 70%) or when tasks are aperiodic.<br><br>## Priority Inversion<br><br>A famous problem in real-time systems. Scenario:<br>- Low-priority task L holds a mutex<br>- High-priority task H needs the mutex, blocks<br>- Medium-priority task M preempts L<br>- H is now waiting on M, even though H &gt;&gt; M<br><br>This famously caused the Mars Pathfinder mission to reset repeatedly in 1997.<br><br>## Priority Inheritance<br><br>Solution: when H blocks on a mutex held by L, temporarily boost L to H's priority. This prevents M from preempting L. When L releases the mutex, restore its original priority.<br><br>The Mars Pathfinder fix was to enable priority inheritance.<br><br>## Priority Ceiling<br><br>Alternative solution: assign each mutex a ceiling priority = max priority of any task that might use it. When a task acquires the mutex, boost to the ceiling.<br><br>Prevents deadlock and reduces blocking.<br><br>## Key Takeaways<br><br>- RMS: static priorities, bound ≈ 0.693, easy to implement<br>- EDF: dynamic priorities, bound = 1, optimal for single CPU<br>- Priority inversion: high-priority task blocked by low-priority via medium task<br>- Priority inheritance: temporarily boost blocker's priority<br>- Priority ceiling: prevent deadlock too<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>FreeRTOS: Practical RTOS on Microcontrollers</h4>
+          <p>
+## Why an RTOS?
+
+For simple projects, a superloop (main while loop) works fine. But as complexity grows, you need:
+- Task isolation
+- Priority-based scheduling
+- Inter-task communication
+- Timing guarantees
+
+A ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why an RTOS?<br><br>For simple projects, a superloop (main while loop) works fine. But as complexity grows, you need:<br>- Task isolation<br>- Priority-based scheduling<br>- Inter-task communication<br>- Timing guarantees<br><br>A real-time operating system (RTOS) provides all of this with minimal overhead.<br><br>FreeRTOS is the most popular embedded RTOS:<br>- Tiny footprint (6-12 KB)<br>- Portable across dozens of architectures (ARM, ESP32, AVR, RISC-V)<br>- MIT license<br>- Rich ecosystem<br><br>## Tasks<br><br>A FreeRTOS task is a function that runs "forever":<br><br>    void vTaskBlinkLED(void *pvParameters) {<br>        while (1) {<br>            gpio_set_level(LED_PIN, 1);<br>            vTaskDelay(pdMS_TO_TICKS(500));<br>            gpio_set_level(LED_PIN, 0);<br>            vTaskDelay(pdMS_TO_TICKS(500));<br>        }<br>    }<br>    <br>    xTaskCreate(vTaskBlinkLED, "Blink", 2048, NULL, 1, NULL);<br><br>Key parameters:<br>- <strong>Name:</strong> for debugging<br>- <strong>Stack size:</strong> in words (2048 = 8 KB on 32-bit)<br>- <strong>Parameters:</strong> void pointer passed to task<br>- <strong>Priority:</strong> 0 (lowest) to configMAX_PRIORITIES-1<br>- <strong>Handle:</strong> returns a TaskHandle_t<br><br>## Scheduling<br><br>FreeRTOS uses <strong>preemptive priority scheduling</strong>:<br>- Higher priority task always runs<br>- Equal-priority tasks share CPU round-robin (if time slicing enabled)<br>- If no task is ready, the idle task runs<br><br>Key insight: <strong>no task blocks the CPU waiting</strong>. Instead, tasks delay, block on queues, or wait for notifications.<br><br>## vTaskDelay vs vTaskDelayUntil<br><br><strong>vTaskDelay(ticks):</strong> delay from now. Not suitable for periodic tasks — the period drifts by execution time.<br><br><strong>vTaskDelayUntil(&amp;lastWake, period):</strong> delay until a specific time. Used for periodic tasks.<br><br>    TickType_t lastWake = xTaskGetTickCount();<br>    while (1) {<br>        do_work();<br>        vTaskDelayUntil(&amp;lastWake, pdMS_TO_TICKS(100));<br>    }<br><br>This guarantees exactly 100 ms period regardless of do_work() duration.<br><br>## Queues<br><br>Inter-task communication:<br><br>    QueueHandle_t xQueue = xQueueCreate(10, sizeof(int));<br>    <br>    // Producer<br>    int value = 42;<br>    xQueueSend(xQueue, &amp;value, portMAX_DELAY);<br>    <br>    // Consumer<br>    int received;<br>    if (xQueueReceive(xQueue, &amp;received, pdMS_TO_TICKS(100))) {<br>        // got a value<br>    }<br><br>Queues are thread-safe, block-based, and can have any item size.<br><br>## Semaphores<br><br><strong>Binary semaphore:</strong> like a flag, used for signaling.<br><br><strong>Counting semaphore:</strong> counts events.<br><br><strong>Mutex:</strong> mutual exclusion, with priority inheritance.<br><br>    SemaphoreHandle_t xMutex = xSemaphoreCreateMutex();<br>    <br>    if (xSemaphoreTake(xMutex, pdMS_TO_TICKS(100)) == pdTRUE) {<br>        // critical section<br>        xSemaphoreGive(xMutex);<br>    }<br><br>## Task Notifications<br><br>Faster than queues/semaphores for simple cases:<br><br>    // From ISR:<br>    vTaskNotifyGiveFromISR(taskHandle, &amp;higherPriorityWoken);<br>    <br>    // In task:<br>    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);<br><br>No allocation, no queue overhead, ~45% faster than a binary semaphore.<br><br>## Interrupts and ISRs<br><br>ISRs must be short. Do minimal work, then notify a task:<br><br>    void IRAM_ATTR buttonISR() {<br>        BaseType_t xHigherPriorityTaskWoken = pdFALSE;<br>        vTaskNotifyGiveFromISR(buttonTaskHandle, &amp;xHigherPriorityTaskWoken);<br>        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);<br>    }<br><br>Use <code>FromISR</code> versions of FreeRTOS API in interrupts.<br><br>## Memory Management<br><br>FreeRTOS offers 5 heap implementations (heap_1 to heap_5):<br>- <strong>heap_1:</strong> static, no free<br>- <strong>heap_2:</strong> free, but no coalescing<br>- <strong>heap_3:</strong> wraps malloc/free<br>- <strong>heap_4:</strong> coalescing, common choice<br>- <strong>heap_5:</strong> multiple memory regions<br><br>For hard real-time, prefer static allocation (xTaskCreateStatic).<br><br>## Real-World Example: ESP32 Data Logger<br><br>Tasks:<br>1. <strong>Sensor task</strong> (priority 3): reads sensor every 100 ms<br>2. <strong>Storage task</strong> (priority 2): writes to SD card<br>3. <strong>Wi-Fi task</strong> (priority 1): uploads to server every 5 min<br>4. <strong>Button task</strong> (priority 4): handles user input<br><br>Queue between sensor and storage. Notification between button and Wi-Fi. Mutex protects SD card.<br><br>## Key Takeaways<br><br>- FreeRTOS is a small, portable RTOS<br>- Tasks are functions running "forever"<br>- Preemptive priority scheduling<br>- Use vTaskDelayUntil for periodic tasks<br>- Queues, semaphores, notifications for IPC<br>- Keep ISRs short, defer to tasks<br>- Static allocation for hard real-time<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Timing Analysis and WCET</h4>
+          <p>
+## Why WCET Matters
+
+To prove a real-time system meets deadlines, you need the **worst-case execution time** (WCET) of each task. Not the average, not the best — the worst.
+
+WCET analysis is hard because:
+- Inputs...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why WCET Matters<br><br>To prove a real-time system meets deadlines, you need the <strong>worst-case execution time</strong> (WCET) of each task. Not the average, not the best — the worst.<br><br>WCET analysis is hard because:<br>- Inputs affect execution time (loop bounds, branches)<br>- Caches make timing input-dependent<br>- Pipelines and out-of-order execution complicate analysis<br>- Interrupts can occur at any time<br><br>## Sources of Timing Variability<br><br><strong>Instruction count:</strong> depends on data (branches, loops).<br><br><strong>Cache behavior:</strong> a cache hit is fast, a miss is ~100× slower.<br><br><strong>Pipeline stalls:</strong> data dependencies, branch mispredicts.<br><br><strong>Memory latency:</strong> DRAM access is slow, but predictable if prefetched.<br><br><strong>Interrupts:</strong> add delay but bounded.<br><br>## WCET Analysis Techniques<br><br><strong>Static analysis:</strong> analyze the binary, compute upper bounds on execution time by:<br>- Counting instructions<br>- Modeling cache behavior<br>- Modeling pipeline behavior<br>- Summing worst-case contributions<br><br>Tools: aiT, Bound-T, RapiTime.<br><br>Pros: sound (guaranteed upper bound). Cons: pessimistic (overestimates).<br><br><strong>Measurement-based:</strong> run the task many times, take the maximum observed time. Multiply by a safety factor.<br><br>Pros: realistic, easy. Cons: not guaranteed (may miss rare worst cases).<br><br><strong>Hybrid:</strong> use static analysis for critical paths, measurement for others.<br><br>## Loop Bounds<br><br>The analyzer must know how many times each loop runs:<br><br>    for (int i = 0; i &lt; 100; i++) { ... }   // bound = 100<br><br>    for (int i = 0; i &lt; n; i++) { ... }     // bound = ? (n unknown)<br><br>For dynamic loops, add annotations:<br><br>    #pragma loop_bound(100)<br>    for (int i = 0; i &lt; n; i++) { ... }<br><br>## Cache Analysis<br><br>Worst-case: every access is a miss (upper bound) — pessimistic.<br><br>Better: analyze cache behavior using abstract interpretation. Classify each access as always hit, always miss, or unknown.<br><br>Some real-time systems disable caches to make WCET deterministic. This slows the average case but improves predictability.<br><br>## Interrupt Latency<br><br>Time from interrupt assertion to first ISR instruction. Bounded by:<br>- Hardware interrupt processing (~10 cycles)<br>- Saving context (~20-50 cycles)<br>- Vector table lookup (~5 cycles)<br><br>On ARM Cortex-M: ~12 cycles best case, ~30 typical.<br><br>For hard real-time, interrupt latency must be &lt; the tightest deadline in the system.<br><br>## Response Time Analysis<br><br>For a task Ti, the worst-case response time is:<br><br>    R_i = C_i + Σ_{j ∈ hp(i)} ceil(R_i / T_j) × C_j<br><br>where hp(i) is the set of higher-priority tasks.<br><br>Solve by iteration:<br>- Start with R_i = C_i<br>- Compute new R_i<br>- Repeat until convergence or R_i &gt; deadline (failure)<br><br>If R_i ≤ D_i for all i, the system is schedulable.<br><br>## Example<br><br>Tasks:<br>- T1: C=1, T=4 (high priority)<br>- T2: C=2, T=6 (medium)<br>- T3: C=3, T=12 (low)<br><br>For T3:<br>- R = 3<br>- R = 3 + ceil(3/4)×1 + ceil(3/6)×2 = 3 + 1 + 2 = 6<br>- R = 3 + ceil(6/4)×1 + ceil(6/6)×2 = 3 + 2 + 2 = 7<br>- R = 3 + ceil(7/4)×1 + ceil(7/6)×2 = 3 + 2 + 4 = 9<br>- R = 3 + ceil(9/4)×1 + ceil(9/6)×2 = 3 + 3 + 4 = 10<br>- R = 3 + ceil(10/4)×1 + ceil(10/6)×2 = 3 + 3 + 4 = 10 (converged)<br><br>R_3 = 10 ≤ D_3 = 12. So T3 is schedulable.<br><br>## Key Takeaways<br><br>- WCET is essential for real-time guarantees<br>- Static analysis is sound but pessimistic<br>- Measurement is realistic but not guaranteed<br>- Loop bounds must be provided<br>- Response time analysis computes worst-case delay per task<br>- Iterate R = C + Σ interference until convergence<br>- If R ≤ D for all tasks, system is schedulable<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Real-Time Communication and Safety</h4>
+          <p>
+## Communication in Real-Time Systems
+
+Real-time systems communicate over:
+- **Shared memory:** fastest, but needs synchronization
+- **Message passing:** safer, but slower
+- **Fieldbuses:** industrial networks (CA...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Communication in Real-Time Systems<br><br>Real-time systems communicate over:<br>- <strong>Shared memory:</strong> fastest, but needs synchronization<br>- <strong>Message passing:</strong> safer, but slower<br>- <strong>Fieldbuses:</strong> industrial networks (CAN, Profibus, EtherCAT)<br>- <strong>Time-triggered protocols:</strong> deterministic (TTP, FlexRay)<br><br>## CAN Bus<br><br>The Controller Area Network (CAN) is the dominant automotive and industrial bus:<br>- 1 Mbps max (CAN FD: 8 Mbps)<br>- Multi-master, differential, 120Ω terminated<br>- Message IDs determine priority (lower = higher priority)<br>- Non-destructive arbitration: higher-priority message always wins<br>- CRC + automatic retransmission<br><br>CAN messages are small (8 bytes classic, 64 bytes CAN FD). Perfect for sensors, actuators, control commands.<br><br>## Deterministic Ethernet (TSN, EtherCAT)<br><br>Standard Ethernet isn't deterministic (CSMA/CD collisions, best-effort switches). Extensions:<br><br><strong>TSN (Time-Sensitive Networking):</strong> IEEE 802.1 standards. Time-synchronized scheduling.<br><br><strong>EtherCAT:</strong> processing-on-the-fly, &lt; 100 µs cycle times.<br><br><strong>PROFINET IRT:</strong> isochronous real-time, &lt; 1 ms cycles.<br><br>These are used in industrial automation where cycle times must be guaranteed.<br><br>## Safety Standards<br><br><strong>IEC 61508:</strong> functional safety (general).<br><br><strong>ISO 26262:</strong> automotive (ASIL A-D).<br><br><strong>DO-178C:</strong> aerospace (DAL A-E).<br><br><strong>IEC 62304:</strong> medical devices.<br><br>Each defines processes for developing safety-critical software, from requirements through testing and verification.<br><br>## Safety Integrity Levels (SIL)<br><br>SIL 1-4, with SIL 4 being the most stringent:<br>- SIL 1: probability of dangerous failure 10⁻⁵ to 10⁻⁶ per hour<br>- SIL 2: 10⁻⁶ to 10⁻⁷<br>- SIL 3: 10⁻⁷ to 10⁻⁸<br>- SIL 4: 10⁻⁸ to 10⁻⁹<br><br>ASIL D (automotive) is roughly equivalent to SIL 3.<br><br>## Redundancy<br><br>Safety-critical systems use redundancy:<br>- <strong>Hot standby:</strong> duplicate runs in parallel, output switch on failure<br>- <strong>Cold standby:</strong> backup activated on failure<br>- <strong>Triple modular redundancy (TMR):</strong> three units vote, majority wins<br>- <strong>2oo3:</strong> two-out-of-three voting<br><br>Example: spacecraft use TMR for critical subsystems. Aircraft use dual-channel flight control.<br><br>## Fail-Safe Design<br><br>When a system fails, it should fail to a safe state:<br>- Airbag: deploy (safe = fire)<br>- Pacemaker: continue at fixed rate (safe = pacing)<br>- Industrial robot: stop motion (safe = halt)<br>- Elevator: brakes engage (safe = stop)<br><br>Fail-safe means "the safest action on failure", not "do nothing".<br><br>## Watchdog Timers<br><br>A hardware counter that resets the CPU if not "fed" periodically:<br><br>    while (1) {<br>        do_work();<br>        feed_watchdog();<br>    }<br><br>If the CPU hangs (infinite loop, deadlock), the watchdog isn't fed and the system resets. Simple but effective.<br><br>Advanced: windowed watchdog — must be fed within a specific time window (not too early, not too late). Catches both hang and runaway loop bugs.<br><br>## Testing Real-Time Systems<br><br>- <strong>Unit testing</strong> for logic<br>- <strong>Integration testing</strong> for timing<br>- <strong>Stress testing</strong> at maximum load<br>- <strong>Fault injection</strong> to test error paths<br>- <strong>Hardware-in-the-loop</strong> for realistic I/O<br><br>Formal verification (model checking, theorem proving) is used at SIL 3-4.<br><br>## Key Takeaways<br><br>- CAN is the workhorse of automotive/industrial<br>- Deterministic Ethernet (TSN, EtherCAT) for high-performance RT<br>- Safety standards (IEC 61508, ISO 26262) define development processes<br>- SIL/ASIL levels define required reliability<br>- Redundancy (TMR, 2oo3) for critical systems<br>- Fail-safe design: on failure, go to safest state<br>- Watchdog timers detect hangs<br>- Testing + formal verification for safety-critical systems<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: RMS, EDF, FreeRTOS</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Three periodic tasks: T1(C=1,T=4), T2(C=2,T=6), T3(C=2,T=12). Check schedulability with RMS.</p>
+            <details><summary>Show Solution</summary><p>U = 1/4 + 2/6 + 2/12 = 0.25 + 0.333 + 0.167 = 0.75. RMS bound for n=3: 3×(2^(1/3)-1) = 0.780. U=0.75 &lt; 0.780 → schedulable with RMS.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Explain priority inversion and how priority inheritance solves it.</p>
+            <details><summary>Show Solution</summary><p>Priority inversion: high-priority task H waits on a lock held by low-priority L. Medium-priority M preempts L, blocking H indefinitely. Priority inheritance: when H blocks on L&#39;s lock, L is temporarily boosted to H&#39;s priority. M can no longer preempt L, so L finishes quickly and releases the lock.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> In FreeRTOS, explain the difference between vTaskDelay and vTaskDelayUntil. Which is used for periodic tasks?</p>
+            <details><summary>Show Solution</summary><p>vTaskDelay(n): delays n ticks from now. If loop body takes time T, period = T + n (drifts). vTaskDelayUntil(&amp;last, period): delays until last+period. Period stays constant regardless of body execution time. Use vTaskDelayUntil for periodic control loops.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: Scheduling, WCET, RTOS</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Response time analysis for T3(C=2,T=10,D=10) with higher-priority tasks T1(C=1,T=4) and T2(C=2,T=6).</p>
+            <details><summary>Show Solution</summary><p>R_3 = C_3 + Σ ceil(R_3/T_i) × C_i for i=1,2. Start R=2. R=2+ceil(2/4)×1+ceil(2/6)×2 = 2+1+2 = 5. R=2+ceil(5/4)×1+ceil(5/6)×2 = 2+2+2 = 6. R=2+ceil(6/4)×1+ceil(6/6)×2 = 2+2+2 = 6. Converged: R_3 = 6 ≤ D_3 = 10. Schedulable.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Design a watchdog-based recovery for a system that must respond within 100 ms. Choose timeout and explain.</p>
+            <details><summary>Show Solution</summary><p>Watchdog timeout should be &lt; 100 ms to detect hangs before deadline. Choose 50 ms. If task misses feeding watchdog within 50 ms, CPU resets. Log reset reason to diagnose. Add independent hardware watchdog (external chip) for maximum reliability.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> Explain how CAN bus achieves deterministic communication despite being a shared medium.</p>
+            <details><summary>Show Solution</summary><p>CAN uses non-destructive bit-wise arbitration: each message has an ID; when two nodes transmit, lower ID wins. Loser retries without data loss. Priority = message ID. This ensures highest-priority message always wins without collision. Combined with bounded frame size and CRC, CAN is deterministic.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

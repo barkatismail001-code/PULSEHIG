@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thermodynamics — MIT | TechPulse Academy</title>
+<meta name="description" content="First and second laws, entropy, thermodynamic cycles, and applications to energy systems.">
+<link rel="canonical" href="https://www.pulsehig.com/course/thermodynamics.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/thermodynamics.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/thermodynamics.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/thermodynamics.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/thermodynamics.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/thermodynamics.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/thermodynamics.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/thermodynamics.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Thermodynamics">
+<meta property="og:description" content="First and second laws, entropy, thermodynamic cycles, and applications to energy systems.">
+<meta property="og:url" content="https://www.pulsehig.com/course/thermodynamics.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Thermodynamics","description":"First and second laws, entropy, thermodynamic cycles, and applications to energy systems.","provider":{"@type":"Organization","name":"MIT"},"url":"https://www.pulsehig.com/course/thermodynamics.html","courseCode":"MIT 5.60","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction and the First Law","courseMode":"online"},{"@type":"CourseInstance","name":"The Second Law and Entropy","courseMode":"online"},{"@type":"CourseInstance","name":"Thermodynamic Cycles","courseMode":"online"},{"@type":"CourseInstance","name":"Phase Equilibria and Mixtures","courseMode":"online"},{"@type":"CourseInstance","name":"Heat Transfer Modes","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Thermodynamics</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">MIT 5.60 · MIT</span>
+      <h1>Thermodynamics</h1>
+      <p>First and second laws, entropy, thermodynamic cycles, and applications to energy systems.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">5</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">1</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">42h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (5)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (1)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (1)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction and the First Law</h4>
+          <p>
+## What is Thermodynamics?
+
+Thermodynamics is the study of energy: how it&#39;s stored, transferred, and converted. It began with steam engines in the 1800s and now underpins everything from power plants to refrigerators...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is Thermodynamics?<br><br>Thermodynamics is the study of energy: how it's stored, transferred, and converted. It began with steam engines in the 1800s and now underpins everything from power plants to refrigerators to biology.<br><br>## Systems and Surroundings<br><br>A <strong>system</strong> is what we're studying (a gas in a cylinder, a chemical reactor, a biological cell). The <strong>surroundings</strong> are everything else. The <strong>boundary</strong> separates them.<br><br>Systems are:<br>- <strong>Open:</strong> matter can cross the boundary (a pump, a turbine)<br>- <strong>Closed:</strong> matter cannot cross, but energy can (a piston-cylinder)<br>- <strong>Isolated:</strong> neither matter nor energy crosses (an ideal thermos)<br><br>## State Variables<br><br>The state of a system is described by properties like:<br>- <strong>Temperature T</strong> (K)<br>- <strong>Pressure P</strong> (Pa, atm, bar)<br>- <strong>Volume V</strong> (m³)<br>- <strong>Internal energy U</strong> (J)<br>- <strong>Enthalpy H = U + PV</strong> (J)<br>- <strong>Entropy S</strong> (J/K)<br><br>These are <strong>state functions</strong> — they depend only on the current state, not on how the system got there.<br><br>## Path Functions<br><br>Heat Q and work W are <strong>path functions</strong> — their values depend on the specific process. That's why we write δQ and δW (inexact differentials) rather than dQ and dW.<br><br>## The First Law<br><br>Energy is conserved:<br><br>    ΔU = Q - W<br><br>where:<br>- ΔU = change in internal energy<br>- Q = heat added to the system (positive if added)<br>- W = work done by the system (positive if done by the system)<br><br>This is the thermodynamic version of energy conservation. You cannot create or destroy energy — only convert it.<br><br>## Sign Convention<br><br>Two conventions exist. We use:<br>- Q &gt; 0: heat added to system<br>- W &gt; 0: work done BY system<br>- ΔU &gt; 0: internal energy increases<br><br>Alternative (chemistry): W &gt; 0 means work done ON system. Be careful when reading textbooks.<br><br>## Work in Various Processes<br><br><strong>Isochoric (constant V):</strong> W = 0 (no volume change)<br><br><strong>Isobaric (constant P):</strong> W = P × ΔV<br><br><strong>Isothermal (constant T, ideal gas):</strong> W = nRT × ln(V₂/V₁)<br><br><strong>Adiabatic (no heat exchange, Q = 0):</strong> W = -ΔU<br><br>## Heat Capacity<br><br>    Cv = (∂U/∂T)_V    (constant volume)<br>    Cp = (∂H/∂T)_P    (constant pressure)<br><br>For an ideal gas:<br><br>    Cp - Cv = R<br><br>The ratio γ = Cp/Cv is 5/3 for monatomic gases, 7/5 for diatomic gases.<br><br>## Example: Gas Expansion<br><br>A gas expands from V₁ = 1 L to V₂ = 3 L against a constant external pressure P_ext = 2 atm. How much work is done?<br><br>    W = P_ext × ΔV = 2 atm × (3 - 1) L = 4 L·atm = 405 J<br><br>The gas does 405 J of work on the surroundings. If the process is adiabatic (Q = 0), the internal energy drops by 405 J — the gas cools.<br><br>## Enthalpy<br><br>For constant-pressure processes (most chemical reactions), it's convenient to use enthalpy:<br><br>    H = U + PV<br><br>    ΔH = Q_p (heat at constant pressure)<br><br>Combustion, phase changes, and most chemical reactions happen at constant pressure. Enthalpy is the natural variable.<br><br>## Key Takeaways<br><br>- First law: energy is conserved: ΔU = Q - W<br>- State functions depend only on current state<br>- Path functions (Q, W) depend on the process<br>- Work = area under P-V diagram<br>- Enthalpy is convenient for constant-P processes<br>- Heat capacity relates temperature change to heat<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>The Second Law and Entropy</h4>
+          <p>
+## Why We Need a Second Law
+
+The first law says energy is conserved. But it doesn&#39;t tell us which processes happen. A cup of hot coffee never spontaneously heats up by absorbing heat from the room — even though that ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Why We Need a Second Law<br><br>The first law says energy is conserved. But it doesn't tell us which processes happen. A cup of hot coffee never spontaneously heats up by absorbing heat from the room — even though that would conserve energy. The second law tells us why.<br><br>## Spontaneous Processes<br><br>Processes have a direction:<br>- Heat flows from hot to cold<br>- Gas expands to fill a vacuum<br>- Salt dissolves in water<br>- Iron rusts in air<br><br>The reverse never happens spontaneously, even though it conserves energy.<br><br>## Entropy<br><br>Entropy S is a measure of the number of ways a system can be arranged — its "disorder" or, more precisely, the number of microstates consistent with the macrostate.<br><br>Boltzmann's equation:<br><br>    S = k_B × ln(Ω)<br><br>where Ω is the number of microstates.<br><br>Units: J/K.<br><br>## The Second Law<br><br>For any spontaneous process in an isolated system:<br><br>    ΔS ≥ 0<br><br>Entropy never decreases in an isolated system. The universe tends toward disorder.<br><br>For a system + surroundings (non-isolated):<br><br>    ΔS_universe = ΔS_system + ΔS_surroundings ≥ 0<br><br>## Entropy Change Calculations<br><br><strong>Reversible isothermal process:</strong><br><br>    ΔS = Q_rev / T<br><br><strong>Heating or cooling at constant pressure:</strong><br><br>    ΔS = ∫ Cp / T dT<br><br>For a constant Cp: ΔS = Cp × ln(T₂/T₁)<br><br><strong>Ideal gas expansion:</strong><br><br>    ΔS = nR × ln(V₂/V₁)<br><br>## The Carnot Cycle<br><br>The most efficient heat engine possible operates between temperatures T_H (hot) and T_C (cold):<br><br>    η_Carnot = 1 - T_C / T_H<br><br>This is the theoretical maximum. No real engine can beat it.<br><br>For a heat pump (heating):<br><br>    COP_heating = T_H / (T_H - T_C)<br><br>For a refrigerator (cooling):<br><br>    COP_cooling = T_C / (T_H - T_C)<br><br>## Real Engines<br><br>Real engines (gas turbines, steam turbines, internal combustion) have efficiencies well below Carnot due to:<br>- Friction<br>- Heat losses<br>- Irreversible combustion<br>- Finite-rate heat transfer<br><br>Typical:<br>- Coal power plant: 33-40%<br>- Combined cycle gas: 55-62%<br>- Internal combustion engine: 25-35%<br>- Solar cell: 15-25%<br><br>## Entropy and Information<br><br>Shannon's information entropy:<br><br>    H = -Σ p_i × log₂(p_i)<br><br>This has the same mathematical form as thermodynamic entropy. The connection is deep: information is physical, and erasing information costs energy (Landauer's principle: kT ln 2 per bit).<br><br>## Statistical View<br><br>The second law is statistical. For a small number of particles, entropy can decrease briefly. For 10²³ particles, entropy decrease is astronomically unlikely.<br><br>This is why the second law is so reliable in practice — it's true with overwhelming probability, not as an absolute law.<br><br>## Key Takeaways<br><br>- Second law: entropy of an isolated system never decreases<br>- Entropy measures number of microstates (S = k ln Ω)<br>- Carnot efficiency sets the upper bound for heat engines<br>- Real engines are far below Carnot due to irreversibility<br>- Entropy connects to information theory<br>- Second law is statistical, not absolute<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Thermodynamic Cycles</h4>
+          <p>
+## What is a Cycle?
+
+A thermodynamic cycle returns the working fluid to its initial state. Net work is the area enclosed by the cycle on a P-V diagram.
+
+    W_net = ∮ P dV
+
+Engines and refrigerators operate on cy...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## What is a Cycle?<br><br>A thermodynamic cycle returns the working fluid to its initial state. Net work is the area enclosed by the cycle on a P-V diagram.<br><br>    W_net = ∮ P dV<br><br>Engines and refrigerators operate on cycles.<br><br>## The Rankine Cycle (Steam Power Plants)<br><br>The standard cycle for steam power generation:<br><br>1. <strong>Pump:</strong> compress liquid water from low to high pressure<br>2. <strong>Boiler:</strong> heat water to steam at high P and T<br>3. <strong>Turbine:</strong> steam expands, producing work<br>4. <strong>Condenser:</strong> steam condenses back to liquid<br><br>Efficiency: 35-45% for typical plants. Higher T_H and lower T_C improve efficiency.<br><br>## The Brayton Cycle (Gas Turbines)<br><br>The standard cycle for jet engines and gas turbines:<br><br>1. <strong>Compressor:</strong> raises air pressure<br>2. <strong>Combustor:</strong> adds heat by burning fuel<br>3. <strong>Turbine:</strong> expands hot gas, producing work<br>4. <strong>Exhaust:</strong> hot gas exits<br><br>Efficiency: 30-40% simple cycle, 55-62% in combined cycle (with a Rankine bottoming cycle).<br><br>## The Otto Cycle (Gasoline Engines)<br><br>Used in spark-ignition engines:<br><br>1. <strong>Intake:</strong> air-fuel mixture enters<br>2. <strong>Compression:</strong> piston compresses mixture<br>3. <strong>Combustion:</strong> spark ignites, pressure spikes<br>4. <strong>Expansion:</strong> hot gas pushes piston<br>5. <strong>Exhaust:</strong> gases leave<br><br>Efficiency: 25-35%, limited by knock (premature ignition) and heat losses.<br><br>## The Diesel Cycle<br><br>Compression-ignition engines:<br>- Air compressed to 15-20:1 (vs 8-10:1 for gasoline)<br>- Fuel injected at high pressure, auto-ignites<br>- Higher efficiency than Otto (35-45%)<br><br>The high compression ratio is why diesels are more efficient.<br><br>## The Carnot Cycle<br><br>The most efficient cycle possible:<br><br>1. Isothermal expansion (T_H)<br>2. Adiabatic expansion (T_H → T_C)<br>3. Isothermal compression (T_C)<br>4. Adiabatic compression (T_C → T_H)<br><br>Efficiency: 1 - T_C/T_H.<br><br>Real cycles differ from Carnot in that they're not reversible. Irreversibilities (finite-rate heat transfer, friction) reduce efficiency.<br><br>## Refrigeration Cycles<br><br>The <strong>vapor-compression cycle</strong> is used in air conditioners and refrigerators:<br><br>1. <strong>Compressor:</strong> raises refrigerant pressure (and temperature)<br>2. <strong>Condenser:</strong> rejects heat to the environment, refrigerant condenses<br>3. <strong>Expansion valve:</strong> pressure drops suddenly, refrigerant cools<br>4. <strong>Evaporator:</strong> absorbs heat from the cold space<br><br>COP: 2-4 typical. Higher with better insulation and smaller temperature lift.<br><br>## Combined Cycles<br><br>Stack two cycles to use heat rejected by the top cycle as input to the bottom cycle:<br><br>Gas turbine (Brayton) → waste heat → steam turbine (Rankine)<br><br>Efficiency: 55-62%, the best in commercial power generation.<br><br>## Absorption Refrigeration<br><br>Instead of a mechanical compressor, use a heat source to drive the cycle. Used in RV fridges (propane) and industrial chillers (waste heat).<br><br>Lower efficiency than vapor compression, but no moving parts and can run on waste heat.<br><br>## Key Takeaways<br><br>- Cycles convert heat to work (or work to heat)<br>- Carnot sets the upper bound on efficiency<br>- Rankine for steam, Brayton for gas, Otto/Diesel for combustion<br>- Combined cycles achieve the highest real efficiencies<br>- Refrigeration moves heat against the gradient using work<br>- Efficiency improves with higher T_H and lower T_C<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Phase Equilibria and Mixtures</h4>
+          <p>
+## Phases of Matter
+
+Materials exist in phases: solid, liquid, gas, and sometimes plasma. Which phase is stable depends on temperature and pressure.
+
+A **phase diagram** shows the stable phase at each (T, P).
+
+##...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Phases of Matter<br><br>Materials exist in phases: solid, liquid, gas, and sometimes plasma. Which phase is stable depends on temperature and pressure.<br><br>A <strong>phase diagram</strong> shows the stable phase at each (T, P).<br><br>## The Phase Diagram of Water<br><br>Key features:<br>- <strong>Triple point:</strong> (0.01°C, 0.006 atm) — all three phases coexist<br>- <strong>Critical point:</strong> (374°C, 218 atm) — liquid and gas become indistinguishable<br>- <strong>Melting line:</strong> solid-liquid boundary<br>- <strong>Sublimation line:</strong> solid-gas boundary<br>- <strong>Vaporization line:</strong> liquid-gas boundary<br><br>Above the critical point, water is a supercritical fluid — used industrially for extraction and as a green solvent.<br><br>## Phase Transitions<br><br>- <strong>Melting:</strong> solid → liquid (latent heat of fusion, 334 kJ/kg for water)<br>- <strong>Vaporization:</strong> liquid → gas (latent heat of vaporization, 2257 kJ/kg for water at 100°C)<br>- <strong>Sublimation:</strong> solid → gas directly<br><br>Latent heats are large. Boiling 1 kg of water takes 7× more energy than heating it from 0 to 100°C.<br><br>## Clausius-Clapeyron Equation<br><br>Relates vapor pressure to temperature:<br><br>    dP/dT = L / (T × Δv)<br><br>where L is the latent heat and Δv is the volume change.<br><br>Integrating (for small ranges):<br><br>    ln(P₂/P₁) = -(L/R) × (1/T₂ - 1/T₁)<br><br>This is how pressure cookers work: higher pressure → higher boiling point → faster cooking.<br><br>## Humidity and Psychrometrics<br><br>For air-water mixtures:<br><br>- <strong>Relative humidity (RH):</strong> ratio of actual vapor pressure to saturation vapor pressure<br>- <strong>Absolute humidity:</strong> mass of water per mass of dry air<br>- <strong>Dew point:</strong> temperature at which condensation begins<br><br>If you cool air below its dew point, water condenses. This is why glasses sweat on humid days.<br><br>HVAC engineers use <strong>psychrometric charts</strong> to design air conditioning and drying systems.<br><br>## Mixtures and Partial Pressure<br><br>For a mixture of ideal gases:<br><br><strong>Dalton's law:</strong><br><br>    P_total = Σ P_i<br><br>Each gas has its own partial pressure P_i = y_i × P_total, where y_i is the mole fraction.<br><br><strong>Raoult's law for liquid mixtures:</strong><br><br>    P_i = x_i × P_i_sat<br><br>The vapor pressure of each component is proportional to its mole fraction in the liquid.<br><br><strong>Henry's law for dissolved gases:</strong><br><br>    P_i = k_H × x_i<br><br>Used for solubility of gases in liquids (e.g., CO₂ in water — carbonated drinks).<br><br>## Distillation<br><br>Separation by differences in volatility. Used everywhere:<br>- Refineries (crude oil → gasoline, diesel, jet fuel)<br>- Chemical plants (purify solvents)<br>- Whiskey production (separate ethanol)<br><br>Fractional distillation uses a column with many stages, each enriching the vapor in the more volatile component.<br><br>## Key Takeaways<br><br>- Phase diagrams show stable phases at each (T, P)<br>- Latent heats are large — phase changes dominate energy balances<br>- Clausius-Clapeyron relates vapor pressure to temperature<br>- Humidity is a key variable in HVAC and drying<br>- Dalton, Raoult, Henry: the three laws for mixtures<br>- Distillation separates by volatility<br></p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Heat Transfer Modes</h4>
+          <p>
+## Three Modes of Heat Transfer
+
+Heat can move by:
+1. **Conduction:** through a solid or stationary fluid
+2. **Convection:** via a moving fluid
+3. **Radiation:** electromagnetic waves
+
+Real systems often have al...</p>
+          <div class="lecture-meta">
+            <span>⏱ 50 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><p><br>## Three Modes of Heat Transfer<br><br>Heat can move by:<br>1. <strong>Conduction:</strong> through a solid or stationary fluid<br>2. <strong>Convection:</strong> via a moving fluid<br>3. <strong>Radiation:</strong> electromagnetic waves<br><br>Real systems often have all three.<br><br>## Conduction — Fourier's Law<br><br>    q = -k × A × dT/dx<br><br>where:<br>- q = heat flow rate (W)<br>- k = thermal conductivity (W/m·K)<br>- A = area (m²)<br>- dT/dx = temperature gradient<br><br>For a plane wall of thickness L with T₁ on one side and T₂ on the other:<br><br>    q = k × A × (T₁ - T₂) / L<br><br>The <strong>thermal resistance</strong> is:<br><br>    R = L / (k × A)<br><br>This lets us use electrical circuit analogies: resistances in series add.<br><br>## Thermal Conductivity<br><br>| Material | k (W/m·K) |<br>|----------|-----------|<br>| Air | 0.026 |<br>| Water | 0.6 |<br>| Wood | 0.15 |<br>| Glass | 1.0 |<br>| Steel | 50 |<br>| Copper | 400 |<br>| Diamond | 2000 |<br><br>Metals conduct well (free electrons), gases poorly (few molecules). This is why vacuum flasks work.<br><br>## Convection — Newton's Law of Cooling<br><br>    q = h × A × (T_surface - T_fluid)<br><br>where h is the convection coefficient (W/m²·K):<br>- Natural convection (air): h = 5-25<br>- Forced convection (air): h = 25-250<br>- Boiling water: h = 3,000-100,000<br><br>Forced convection is much better than natural — this is why computers have fans.<br><br>## Radiation — Stefan-Boltzmann Law<br><br>    q = ε × σ × A × (T_s⁴ - T_env⁴)<br><br>where:<br>- ε = emissivity (0 to 1)<br>- σ = 5.67 × 10⁻⁸ W/m²·K⁴ (Stefan-Boltzmann constant)<br><br>Radiative heat transfer is significant at high temperatures (T⁴ dependence). At room temperature, radiation is usually small compared to convection, but at 1000°C it dominates.<br><br>## Combined Heat Transfer<br><br>For a wall with convection on both sides:<br><br>    q = (T_hot - T_cold) / R_total<br><br>where R_total = R_conv1 + R_cond + R_conv2.<br><br>Each resistance:<br>    R_conv = 1 / (h × A)<br>    R_cond = L / (k × A)<br><br>This is the standard approach for building insulation, heat exchangers, and electronics cooling.<br><br>## Thermal Resistance Example<br><br>A CPU generates 65 W. The heatsink has R_sa = 0.3 K/W (sink-to-air), and the thermal paste has R_cs = 0.1 K/W. Ambient is 25°C.<br><br>Case temperature: T_case = T_ambient + P × (R_sa + R_cs) = 25 + 65 × 0.4 = 51°C<br><br>Adequate cooling. If R_total were 0.8, we'd hit 77°C — too close to the limit.<br><br>## Heat Exchangers<br><br>Devices that transfer heat between two fluids without mixing them:<br>- <strong>Parallel flow:</strong> both fluids flow in the same direction. Temp difference decreases along the length. Limited performance.<br>- <strong>Counterflow:</strong> fluids flow in opposite directions. Higher effectiveness. Standard for most applications.<br><br>Log Mean Temperature Difference (LMTD):<br><br>    Q = U × A × LMTD<br><br>where U is the overall heat transfer coefficient (1/R_total).<br><br>## Key Takeaways<br><br>- Three modes: conduction, convection, radiation<br>- Conduction: Fourier's law q = -kA dT/dx<br>- Convection: Newton's cooling q = hA(Ts - T∞)<br>- Radiation: Stefan-Boltzmann q = εσA(Ts⁴ - T∞⁴)<br>- Thermal resistance lets us use circuit analogies<br>- Heat exchangers use counterflow for efficiency<br>- Radiation dominates at high temperatures<br></p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Problem Set 1: First Law, Second Law, Cycles</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> 1 kg of air is heated at constant volume from 300K to 500K. Find the heat added (Cv = 0.718 kJ/kg·K).</p>
+            <details><summary>Show Solution</summary><p>Q = 1 × 0.718 × 200 = 143.6 kJ.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> A Carnot engine operates between 500°C and 30°C. What is its maximum efficiency?</p>
+            <details><summary>Show Solution</summary><p>T_H = 773K, T_C = 303K. η = 1 - 303/773 = 0.608 = 60.8%.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> An ideal gas expands isothermally at 400K from 1L to 5L. Find the work done on 1 mole of gas.</p>
+            <details><summary>Show Solution</summary><p>W = 1 × 8.314 × 400 × ln(5) = 3325.6 × 1.609 = 5353 J ≈ 5.35 kJ.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm 1: First Law, Cycles, Entropy</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> A steam power plant operates between 600°C and 40°C with efficiency 40%. Compare to Carnot efficiency.</p>
+            <details><summary>Show Solution</summary><p>Carnot: η_C = 1 - (313/873) = 0.641 = 64.1%. Actual: 40%. Ratio = 40/64.1 = 0.624. A typical real power plant achieves ~60% of Carnot.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Calculate entropy change when 1 kg of water at 20°C is heated to 80°C (Cp = 4.18 kJ/kg·K).</p>
+            <details><summary>Show Solution</summary><p>ΔS = m·Cp·ln(T2/T1) = 1 × 4.18 × ln(353/293) = 4.18 × 0.186 = 0.778 kJ/K.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q3.</strong> A refrigerator maintains 4°C in a 25°C room with COP = 3. How much work does it consume to remove 1 kJ of heat from the cold space?</p>
+            <details><summary>Show Solution</summary><p>COP = Q_C / W. W = Q_C / COP = 1/3 = 0.333 kJ = 333 J.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>
