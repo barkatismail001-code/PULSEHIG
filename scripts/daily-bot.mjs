@@ -8,7 +8,7 @@
 // Env vars (GitHub Secrets / workflow env):
 //   GROQ_API_KEY   required
 //   GROQ_MODEL     optional, default openai/gpt-oss-120b (llama-3.3-70b was retired on 16 Aug 2026)
-//   SUPABASE_URL / SUPABASE_KEY   optional (fall back to the values the site already uses)
+//   SUPABASE_URL / SUPABASE_SERVICE_KEY   service key needed to save (not needed with DRY_RUN=1)
 //   TOPIC          optional, force a topic for this run (workflow_dispatch input)
 //   TOPIC_CATEGORY optional, category used with TOPIC (default "Technology")
 //   ARTICLE_AUTHOR optional, default "TechPulse Team"
@@ -26,9 +26,10 @@ const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 const GROQ_URL = process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1/chat/completions';
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-const SUPABASE_KEY = process.env.SUPABASE_KEY || 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY; // service key: RLS only lets the admin write articles
 const AUTHOR = process.env.ARTICLE_AUTHOR || 'TechPulse Team';
 const DRY_RUN = process.env.DRY_RUN === '1';
+if (!DRY_RUN && !SUPABASE_KEY) { console.error('SUPABASE_SERVICE_KEY is required to save articles'); process.exit(1); }
 
 const MIN_WORDS = 1500;
 const MAX_WORDS = 2500;

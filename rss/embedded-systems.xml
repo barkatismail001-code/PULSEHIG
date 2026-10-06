@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+<title>TechPulse — Embedded Systems</title>
+<link>https://www.pulsehig.com/</link>
+    <item>
+      <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
+      <link>https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <description>ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.</description>
+    </item>
+    <item>
+      <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
+      <link>https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <description>A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.</description>
+    </item>
+    <item>
+      <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
+      <link>https://www.pulsehig.com/a/esp32-relay-chatter-fix.html</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <description>ESP32 relay clicking repeatedly, buzzing or rebooting? Fix relay chatter with an RC snubber, a separate 5V coil supply, and a proper opto-isolated module.</description>
+    </item>
+    <item>
+      <title>Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)</title>
+      <link>https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <description>ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.</description>
+    </item>
+    <item>
+      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
+      <link>https://www.pulsehig.com/a/led-strip-flicker-fix.html</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <description>LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.</description>
+    </item>
+    <item>
+      <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
+      <link>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70آ°C.</description>
+    </item>
+</channel>
+</rss>

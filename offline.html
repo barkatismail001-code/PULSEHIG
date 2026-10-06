@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline | TechPulse</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css?v=20261005">
+  <style>
+    .offline-wrap {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .offline-card {
+      text-align: center;
+      max-width: 520px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      box-shadow: var(--shadow-lg);
+    }
+    .offline-icon {
+      font-size: 5rem;
+      line-height: 1;
+      margin-bottom: 20px;
+      animation: offline-pulse 3s ease-in-out infinite;
+    }
+    @keyframes offline-pulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .offline-card h1 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .offline-card p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .offline-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .offline-hint {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .offline-hint ul {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      text-align: left;
+      display: inline-block;
+    }
+    .offline-hint li {
+      padding: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="academy.html">Academy</a>
+        <a href="tools.html">Tools</a>
+        <a href="guides.html">Guides</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="offline-wrap">
+      <div class="offline-card">
+        <div class="offline-icon">📡</div>
+        <h1>You're Offline</h1>
+        <p>TechPulse needs an internet connection to load new articles and news, but all previously visited pages should still work from your browser cache.</p>
+
+        <div class="offline-actions">
+          <button type="button" class="btn-primary" onclick="location.reload()">↻ Try Again</button>
+          <a href="index.html" class="btn-secondary">← Go Home</a>
+        </div>
+
+        <div class="offline-hint">
+          <strong>Available offline:</strong>
+          <ul>
+            <li>✓ Cached articles you've read</li>
+            <li>✓ Engineering calculators (if visited)</li>
+            <li>✓ Academy courses (if visited)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.TPCommon && window.TPCommon.initDarkMode) {
+        window.TPCommon.initDarkMode();
+      }
+      window.addEventListener('online', function () {
+        location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+</html>

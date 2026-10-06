@@ -1,0 +1,112 @@
+[
+ {
+  "slug": "esp32-deep-sleep-fix",
+  "title": "ESP32 Won't Wake from Deep Sleep: Causes and Fixes",
+  "excerpt": "ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.",
+  "category": "Embedded Systems",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "esp32-mosfet-dc-motor-control",
+  "title": "Driving a DC Motor from an ESP32 with a Low-Side MOSFET",
+  "excerpt": "A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.",
+  "category": "Embedded Systems",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "esp32-relay-chatter-fix",
+  "title": "Fixing Relay Chatter When Switching AC Loads from an ESP32",
+  "excerpt": "ESP32 relay clicking repeatedly, buzzing or rebooting? Fix relay chatter with an RC snubber, a separate 5V coil supply, and a proper opto-isolated module.",
+  "category": "Embedded Systems",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "esp32-wifi-dropping-fix",
+  "title": "Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)",
+  "excerpt": "ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.",
+  "category": "Embedded Systems",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "esp32-i2c-clock-stretching-timeout-fix",
+  "title": "I2C Timeouts: When Your ESP32 Freezes in Real Life",
+  "excerpt": "A practical guide linking ESP32 I2C clock stretching to everyday smart home, wearables, and industrial failures. Learn why your sensor data freezes and how to fix it.",
+  "category": "Technology",
+  "author": "TechPulse Team",
+  "date": "2026-10-01",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "led-strip-flicker-fix",
+  "title": "Why Your LED Strip Flickers: PWM, Power and Ground Explained",
+  "excerpt": "LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.",
+  "category": "Embedded Systems",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "old-laptop-ssd-upgrade-guide",
+  "title": "Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide",
+  "excerpt": "An old laptop with an HDD feels unusable. For â‚¬60 you can clone the drive to an SSD, add 8 GB RAM and get 10أ— faster boot times. Full step-by-step guide.",
+  "category": "Upgrades",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "pc-wont-boot-fix",
+  "title": "PC Won't Boot? The 7-Step No-POST Checklist",
+  "excerpt": "PC powers on but no display? Work through the no-POST checklist: RAM reseat, CMOS clear, minimum config, beep codes, PSU paperclip test and BIOS recovery.",
+  "category": "Hardware",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "raspberry-pi-overheating-fix",
+  "title": "Stop Your Raspberry Pi from Overheating in a Closed Case",
+  "excerpt": "Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70آ°C.",
+  "category": "Embedded Systems",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ },
+ {
+  "slug": "router-keeps-rebooting-fix",
+  "title": "Router Keeps Rebooting? 6 Causes You Can Fix Today",
+  "excerpt": "Router restarts every few hours? Check the power adapter, heat, firmware, DHCP lease table, IP conflict and the ISP line. Diagnose in 20 minutes.",
+  "category": "Networking",
+  "author": "TechPulse Team",
+  "date": "2026-10-03",
+  "tags": [],
+  "image": "",
+  "minutes": 5
+ }
+]

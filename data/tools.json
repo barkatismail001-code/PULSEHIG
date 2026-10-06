@@ -1,0 +1,466 @@
+[
+  {
+    "id": "battery-life",
+    "slug": "battery-life",
+    "title": "Battery Life Calculator",
+    "title_i18n": {
+      "zh": "电池寿命计算器",
+      "es": "Calculadora de Vida de Batería",
+      "hi": "बैटरी जीवन कैलकुलेटर",
+      "fr": "Calculateur de Durée de Batterie",
+      "pt": "Calculadora de Vida da Bateria"
+    },
+    "category": "Power",
+    "icon": "🔋",
+    "description": "Estimate how long a battery will power your device, factoring in sleep current, active current, and duty cycle.",
+    "keywords": ["battery", "esp32", "iot", "sleep", "power"]
+  },
+  {
+    "id": "led-resistor",
+    "slug": "led-resistor",
+    "title": "LED Resistor Calculator",
+    "title_i18n": {
+      "zh": "LED 电阻计算器",
+      "es": "Calculadora de Resistencia LED",
+      "hi": "LED रोकनेवाला कैलकुलेटर",
+      "fr": "Calculateur de Résistance LED",
+      "pt": "Calculadora de Resistor LED"
+    },
+    "category": "Electronics",
+    "icon": "💡",
+    "description": "Find the right current-limiting resistor for any LED given supply voltage and forward voltage.",
+    "keywords": ["led", "resistor", "ohms law", "current limiting"]
+  },
+  {
+    "id": "voltage-divider",
+    "slug": "voltage-divider",
+    "title": "Voltage Divider Calculator",
+    "title_i18n": {
+      "zh": "分压器计算器",
+      "es": "Calculadora de Divisor de Voltaje",
+      "hi": "वोल्टेज विभाजक कैलकुलेटर",
+      "fr": "Calculateur de Diviseur de Tension",
+      "pt": "Calculadora de Divisor de Tensão"
+    },
+    "category": "Electronics",
+    "icon": "⚡",
+    "description": "Calculate the output voltage of a resistive divider or find resistors for a target output.",
+    "keywords": ["voltage divider", "resistor", "vout", "esp32 adc"]
+  },
+  {
+    "id": "ohms-law",
+    "slug": "ohms-law",
+    "title": "Ohm's Law Calculator",
+    "title_i18n": {
+      "zh": "欧姆定律计算器",
+      "es": "Calculadora de Ley de Ohm",
+      "hi": "ओम के नियम कैलकुलेटर",
+      "fr": "Calculateur de Loi d'Ohm",
+      "pt": "Calculadora da Lei de Ohm"
+    },
+    "category": "Electronics",
+    "icon": "🔧",
+    "description": "Solve any pair of voltage, current, resistance, and power instantly.",
+    "keywords": ["ohm", "voltage", "current", "resistance", "power"]
+  },
+  {
+    "id": "pwm-duty",
+    "slug": "pwm-duty",
+    "title": "PWM Duty Cycle Calculator",
+    "title_i18n": {
+      "zh": "PWM 占空比计算器",
+      "es": "Calculadora de Ciclo de Trabajo PWM",
+      "hi": "PWM ड्यूटी साइकल कैलकुलेटर",
+      "fr": "Calculateur de Rapport Cyclique PWM",
+      "pt": "Calculadora de Ciclo de Trabalho PWM"
+    },
+    "category": "Embedded",
+    "icon": "📊",
+    "description": "Convert between duty cycle, frequency, and on-time. Useful for motor control and LED dimming.",
+    "keywords": ["pwm", "duty", "frequency", "esp32", "motor"]
+  },
+  {
+    "id": "i2c-pullup",
+    "slug": "i2c-pullup",
+    "title": "I2C Pull-up Resistor Calculator",
+    "title_i18n": {
+      "zh": "I2C 上拉电阻计算器",
+      "es": "Calculadora de Resistencia Pull-up I2C",
+      "hi": "I2C पुल-अप रोकनेवाला कैलकुलेटर",
+      "fr": "Calculateur de Résistance Pull-up I2C",
+      "pt": "Calculadora de Resistor Pull-up I2C"
+    },
+    "category": "Embedded",
+    "icon": "🔗",
+    "description": "Calculate optimal I2C pull-up values based on bus capacitance and speed.",
+    "keywords": ["i2c", "pull-up", "resistor", "bus", "capacitance"]
+  },
+  {
+    "id": "pcb-trace",
+    "slug": "pcb-trace",
+    "title": "PCB Trace Width Calculator",
+    "title_i18n": {
+      "zh": "PCB 走线宽度计算器",
+      "es": "Calculadora de Ancho de Pista PCB",
+      "hi": "PCB ट्रेस चौड़ाई कैलकुलेटर",
+      "fr": "Calculateur de Largeur de Piste PCB",
+      "pt": "Calculadora de Largura de Trilha PCB"
+    },
+    "category": "PCB",
+    "icon": "🖥️",
+    "description": "Determine safe trace width for a given current using IPC-2221 standards.",
+    "keywords": ["pcb", "trace", "width", "current", "ipc-2221"]
+  },
+  {
+    "id": "awg-wire",
+    "slug": "awg-wire",
+    "title": "Wire Gauge (AWG) Calculator",
+    "title_i18n": {
+      "zh": "线规 (AWG) 计算器",
+      "es": "Calculadora de Calibre de Cable (AWG)",
+      "hi": "तार गेज (AWG) कैलकुलेटर",
+      "fr": "Calculateur de Jauge de Fil (AWG)",
+      "pt": "Calculadora de Bitola de Fio (AWG)"
+    },
+    "category": "Electrical",
+    "icon": "🔌",
+    "description": "Convert between AWG, mm², and inches. Includes maximum current ratings.",
+    "keywords": ["awg", "wire", "gauge", "current", "diameter"]
+  },
+  {
+    "id": "buck-boost",
+    "slug": "buck-boost",
+    "title": "Buck/Boost Converter Calculator",
+    "title_i18n": {
+      "zh": "降压/升压转换器计算器",
+      "es": "Calculadora de Convertidor Buck/Boost",
+      "hi": "बक/बूस्ट कन्वर्टर कैलकुलेटर",
+      "fr": "Calculateur de Convertisseur Buck/Boost",
+      "pt": "Calculadora de Conversor Buck/Boost"
+    },
+    "category": "Power",
+    "icon": "⚙️",
+    "description": "Calculate duty cycle, inductor, and output capacitor for buck and boost converters.",
+    "keywords": ["buck", "boost", "converter", "inductor", "capacitor"]
+  },
+  {
+    "id": "heat-sink",
+    "slug": "heat-sink",
+    "title": "Heat Sink Size Calculator",
+    "title_i18n": {
+      "zh": "散热器尺寸计算器",
+      "es": "Calculadora de Tamaño de Disipador",
+      "hi": "हीट सिंक आकार कैलकुलेटर",
+      "fr": "Calculateur de Taille de Dissipateur",
+      "pt": "Calculadora de Tamanho de Dissipador"
+    },
+    "category": "Thermal",
+    "icon": "🌡️",
+    "description": "Choose the right heat sink for your power dissipation and target temperature.",
+    "keywords": ["heat sink", "thermal", "power", "temperature"]
+  },
+  {
+    "id": "resistor-color",
+    "slug": "resistor-color",
+    "title": "Resistor Color Code Decoder",
+    "title_i18n": {
+      "zh": "电阻色码解码器",
+      "es": "Decodificador de Código de Colores de Resistencia",
+      "hi": "रोकनेवाला रंग कोड डिकोडर",
+      "fr": "Décodeur de Code Couleur de Résistance",
+      "pt": "Decodificador de Código de Cores de Resistor"
+    },
+    "category": "Electronics",
+    "icon": "🌈",
+    "description": "Decode 4-band, 5-band, and 6-band resistor color codes into values.",
+    "keywords": ["resistor", "color", "code", "bands", "value"]
+  },
+  {
+    "id": "capacitor-code",
+    "slug": "capacitor-code",
+    "title": "Capacitor Code Decoder",
+    "title_i18n": {
+      "zh": "电容代码解码器",
+      "es": "Decodificador de Código de Capacitor",
+      "hi": "संधारित्र कोड डिकोडर",
+      "fr": "Décodeur de Code de Condensateur",
+      "pt": "Decodificador de Código de Capacitor"
+    },
+    "category": "Electronics",
+    "icon": "⚡",
+    "description": "Convert 3-digit capacitor codes (like 104, 223) to µF, nF, and pF values.",
+    "keywords": ["capacitor", "code", "104", "223", "uf", "nf", "pf"]
+  },
+  {
+    "id": "inductor-code",
+    "slug": "inductor-code",
+    "title": "Inductor Code Decoder",
+    "title_i18n": {
+      "zh": "电感代码解码器",
+      "es": "Decodificador de Código de Inductor",
+      "hi": "प्रेरक कोड डिकोडर",
+      "fr": "Décodeur de Code d'Inductance",
+      "pt": "Decodificador de Código de Indutor"
+    },
+    "category": "Electronics",
+    "icon": "🌀",
+    "description": "Decode SMD inductor markings like 100, 4R7, or 471.",
+    "keywords": ["inductor", "smd", "code", "uh", "mh"]
+  },
+  {
+    "id": "esp32-adc",
+    "slug": "esp32-adc",
+    "title": "ESP32 ADC Calibration",
+    "title_i18n": {
+      "zh": "ESP32 ADC 校准",
+      "es": "Calibración ADC ESP32",
+      "hi": "ESP32 ADC अंशांकन",
+      "fr": "Calibration ADC ESP32",
+      "pt": "Calibração ADC ESP32"
+    },
+    "category": "Embedded",
+    "icon": "📈",
+    "description": "Convert raw ESP32 ADC readings to voltages, accounting for nonlinearity and attenuation.",
+    "keywords": ["esp32", "adc", "calibration", "voltage", "sensor"]
+  },
+  {
+    "id": "esp32-deep-sleep",
+    "slug": "esp32-deep-sleep",
+    "title": "ESP32 Deep Sleep Calculator",
+    "title_i18n": {
+      "zh": "ESP32 深度睡眠计算器",
+      "es": "Calculadora de Deep Sleep ESP32",
+      "hi": "ESP32 डीप स्लीप कैलकुलेटर",
+      "fr": "Calculateur de Deep Sleep ESP32",
+      "pt": "Calculadora de Deep Sleep ESP32"
+    },
+    "category": "Embedded",
+    "icon": "😴",
+    "description": "Predict battery life for an ESP32 node with custom sleep intervals and wake duration.",
+    "keywords": ["esp32", "deep sleep", "battery", "iot", "power"]
+  },
+  {
+    "id": "mosfet-gate",
+    "slug": "mosfet-gate",
+    "title": "MOSFET Gate Resistor Calculator",
+    "title_i18n": {
+      "zh": "MOSFET 栅极电阻计算器",
+      "es": "Calculadora de Resistencia de Puerta MOSFET",
+      "hi": "MOSFET गेट रोकनेवाला कैलकुलेटर",
+      "fr": "Calculateur de Résistance de Grille MOSFET",
+      "pt": "Calculadora de Resistor de Porta MOSFET"
+    },
+    "category": "Electronics",
+    "icon": "🔲",
+    "description": "Choose optimal gate resistor for MOSFET switching speed vs. EMI.",
+    "keywords": ["mosfet", "gate", "resistor", "pwm", "switching"]
+  },
+  {
+    "id": "rc-time",
+    "slug": "rc-time",
+    "title": "RC Time Constant Calculator",
+    "title_i18n": {
+      "zh": "RC 时间常数计算器",
+      "es": "Calculadora de Constante de Tiempo RC",
+      "hi": "RC समय स्थिरांक कैलकुलेटर",
+      "fr": "Calculateur de Constante de Temps RC",
+      "pt": "Calculadora de Constante de Tempo RC"
+    },
+    "category": "Electronics",
+    "icon": "⏱️",
+    "description": "Calculate RC time constant, cutoff frequency, and charge/discharge times.",
+    "keywords": ["rc", "time constant", "filter", "cutoff", "frequency"]
+  },
+  {
+    "id": "lc-resonance",
+    "slug": "lc-resonance",
+    "title": "LC Resonance Calculator",
+    "title_i18n": {
+      "zh": "LC 谐振计算器",
+      "es": "Calculadora de Resonancia LC",
+      "hi": "LC अनुनाद कैलकुलेटर",
+      "fr": "Calculateur de Résonance LC",
+      "pt": "Calculadora de Ressonância LC"
+    },
+    "category": "Electronics",
+    "icon": "📡",
+    "description": "Find resonant frequency, Q factor, and bandwidth for LC circuits.",
+    "keywords": ["lc", "resonance", "frequency", "q factor", "bandwidth"]
+  },
+  {
+    "id": "opamp-gain",
+    "slug": "opamp-gain",
+    "title": "Op-Amp Gain Calculator",
+    "title_i18n": {
+      "zh": "运算放大器增益计算器",
+      "es": "Calculadora de Ganancia Op-Amp",
+      "hi": "ऑप-एम्प लाभ कैलकुलेटर",
+      "fr": "Calculateur de Gain Ampli Op",
+      "pt": "Calculadora de Ganho Op-Amp"
+    },
+    "category": "Electronics",
+    "icon": "🔊",
+    "description": "Calculate gain, bandwidth, and resistor values for inverting and non-inverting op-amp circuits.",
+    "keywords": ["opamp", "gain", "inverting", "non-inverting", "amplifier"]
+  },
+  {
+    "id": "power-consumption",
+    "slug": "power-consumption",
+    "title": "Power Consumption Calculator",
+    "title_i18n": {
+      "zh": "功耗计算器",
+      "es": "Calculadora de Consumo de Energía",
+      "hi": "बिजली खपत कैलकुलेटर",
+      "fr": "Calculateur de Consommation Électrique",
+      "pt": "Calculadora de Consumo de Energia"
+    },
+    "category": "Power",
+    "icon": "💡",
+    "description": "Estimate electricity cost for any appliance given wattage and hours per day.",
+    "keywords": ["power", "cost", "electricity", "kwh", "appliance"]
+  },
+  {
+    "id": "solar-panel",
+    "slug": "solar-panel",
+    "title": "Solar Panel Size Calculator",
+    "title_i18n": {
+      "zh": "太阳能电池板尺寸计算器",
+      "es": "Calculadora de Tamaño de Panel Solar",
+      "hi": "सौर पैनल आकार कैलकुलेटर",
+      "fr": "Calculateur de Taille de Panneau Solaire",
+      "pt": "Calculadora de Tamanho de Painel Solar"
+    },
+    "category": "Home",
+    "icon": "☀️",
+    "description": "Size a solar panel system for your daily energy consumption and location.",
+    "keywords": ["solar", "panel", "energy", "off-grid", "battery"]
+  },
+  {
+    "id": "battery-pack",
+    "slug": "battery-pack",
+    "title": "Battery Pack Builder",
+    "title_i18n": {
+      "zh": "电池组构建器",
+      "es": "Constructor de Baterías",
+      "hi": "बैटरी पैक बिल्डर",
+      "fr": "Constructeur de Pack Batterie",
+      "pt": "Construtor de Bateria"
+    },
+    "category": "Power",
+    "icon": "🔋",
+    "description": "Design a battery pack: voltage, capacity, series/parallel arrangement, and BMS needs.",
+    "keywords": ["battery", "pack", "lithium", "18650", "bms"]
+  },
+  {
+    "id": "air-quality-index",
+    "slug": "air-quality-index",
+    "title": "Air Quality Index (AQI) Calculator",
+    "title_i18n": {
+      "zh": "空气质量指数 (AQI) 计算器",
+      "es": "Calculadora del Índice de Calidad del Aire (AQI)",
+      "hi": "वायु गुणवत्ता सूचकांक (AQI) कैलकुलेटर",
+      "fr": "Calculateur d'Indice de Qualité de l'Air (AQI)",
+      "pt": "Calculadora de Índice de Qualidade do Ar (AQI)"
+    },
+    "category": "Home",
+    "icon": "🌫️",
+    "description": "Convert PM2.5 readings to AQI and health category. Includes WHO and EPA standards.",
+    "keywords": ["air quality", "aqi", "pm2.5", "pm10", "sensor"]
+  },
+  {
+    "id": "temp-humidity",
+    "slug": "temp-humidity",
+    "title": "Dew Point Calculator",
+    "title_i18n": {
+      "zh": "露点计算器",
+      "es": "Calculadora de Punto de Rocío",
+      "hi": "ओसांक कैलकुलेटर",
+      "fr": "Calculateur de Point de Rosée",
+      "pt": "Calculadora de Ponto de Orvalho"
+    },
+    "category": "Home",
+    "icon": "💧",
+    "description": "Calculate dew point from temperature and humidity. Useful for HVAC and home sensors.",
+    "keywords": ["dew point", "humidity", "temperature", "hvac", "sensor"]
+  },
+  {
+    "id": "hvac-btu",
+    "slug": "hvac-btu",
+    "title": "HVAC BTU Calculator",
+    "title_i18n": {
+      "zh": "HVAC BTU 计算器",
+      "es": "Calculadora de BTU HVAC",
+      "hi": "HVAC BTU कैलकुलेटर",
+      "fr": "Calculateur de BTU CVC",
+      "pt": "Calculadora de BTU HVAC"
+    },
+    "category": "Home",
+    "icon": "❄️",
+    "description": "Size an air conditioner or heater for any room based on dimensions and insulation.",
+    "keywords": ["hvac", "btu", "ac", "heater", "cooling"]
+  },
+  {
+    "id": "wire-voltage-drop",
+    "slug": "wire-voltage-drop",
+    "title": "Wire Voltage Drop Calculator",
+    "title_i18n": {
+      "zh": "电线电压降计算器",
+      "es": "Calculadora de Caída de Voltaje en Cable",
+      "hi": "तार वोल्टेज ड्रॉप कैलकुलेटर",
+      "fr": "Calculateur de Chute de Tension",
+      "pt": "Calculadora de Queda de Tensão em Fio"
+    },
+    "category": "Electrical",
+    "icon": "📉",
+    "description": "Calculate voltage drop in wires given gauge, length, and current. Includes NEC recommendations.",
+    "keywords": ["wire", "voltage drop", "nec", "awg", "current"]
+  },
+  {
+    "id": "antenna-length",
+    "slug": "antenna-length",
+    "title": "Antenna Length Calculator",
+    "title_i18n": {
+      "zh": "天线长度计算器",
+      "es": "Calculadora de Longitud de Antena",
+      "hi": "एंटीना लंबाई कैलकुलेटर",
+      "fr": "Calculateur de Longueur d'Antenne",
+      "pt": "Calculadora de Comprimento de Antena"
+    },
+    "category": "RF",
+    "icon": "📻",
+    "description": "Calculate wavelength and antenna length for quarter-wave, half-wave, and full-wave designs.",
+    "keywords": ["antenna", "wavelength", "frequency", "radio", "rf"]
+  },
+  {
+    "id": "led-strip-power",
+    "slug": "led-strip-power",
+    "title": "LED Strip Power Calculator",
+    "title_i18n": {
+      "zh": "LED 灯带功率计算器",
+      "es": "Calculadora de Potencia de Tira LED",
+      "hi": "LED स्ट्रिप पावर कैलकुलेटर",
+      "fr": "Calculateur de Puissance de Ruban LED",
+      "pt": "Calculadora de Potência de Fita LED"
+    },
+    "category": "Lighting",
+    "icon": "🌈",
+    "description": "Calculate total power, current, and PSU size for addressable or analog LED strips.",
+    "keywords": ["led", "strip", "ws2812", "power", "psu"]
+  },
+  {
+    "id": "relay-contact",
+    "slug": "relay-contact",
+    "title": "Relay Contact Rating Calculator",
+    "title_i18n": {
+      "zh": "继电器触点额定值计算器",
+      "es": "Calculadora de Clasificación de Contacto de Relé",
+      "hi": "रिले संपर्क रेटिंग कैलकुलेटर",
+      "fr": "Calculateur de Contact de Relais",
+      "pt": "Calculadora de Rating de Contato de Relé"
+    },
+    "category": "Electrical",
+    "icon": "🔀",
+    "description": "Check if a relay can safely switch your AC or DC load, with snubber recommendations.",
+    "keywords": ["relay", "contact", "rating", "ac", "snubber"]
+  }
+]

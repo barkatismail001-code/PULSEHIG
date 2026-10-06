@@ -1,74 +1,70 @@
-// TechPulse — SEO build step (Professional Edition with i18n support)
-// Generates:
-//   1. Static crawlable HTML per article in /a/<slug>.html (with FAQ schema + hreflang)
-//   2. sitemap.xml (with image tags + hreflang alternates)
-//   3. rss.xml
-//   4. robots.txt (with AI bots)
-//   5. llms.txt (for AI agents)
+// TechPulse — SEO Build Step (generate-seo.mjs) v20261006
+// Generates article pages, series pages, sitemaps, RSS feeds.
+// Reads from Supabase (published) + data/manual-articles.json (manual)
 // Run: node scripts/generate-seo.mjs
-import { readFile, writeFile, mkdir, rm, access, readdir, stat } from 'node:fs/promises';
-import { execSync } from 'node:child_process';
+
+import { readFile, writeFile, mkdir, access, readdir, stat } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://www.pulsehig.com';
 const SITE_NAME = 'TechPulse';
-const SITE_DESC = 'Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.';
-const SUPABASE_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
-const ASSET_V = '20261004a';
-const DEFAULT_IMG = `${SITE}/assets/og-default.png`;
-const OFFLINE = process.env.SEO_OFFLINE === '1'; // tests only: skip Supabase, handle hand-made pages only
+const SITE_DESC = 'Engineering platform for embedded systems, microcontrollers, home repair, and programming.';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY || '';
+const ASSET_V = '20261006';
+const DEFAULT_IMG = SITE + '/assets/og-default.png';
 
-// Supported languages (site UI languages)
 const LANGS = {
-  en: { name: 'English', flag: '🇬🇧', htmlLang: 'en' },
-  zh: { name: '中文',    flag: '🇨🇳', htmlLang: 'zh-CN' },
-  es: { name: 'Español', flag: '🇪🇸', htmlLang: 'es' },
-  hi: { name: 'हिन्दी',  flag: '🇮🇳', htmlLang: 'hi' },
-  fr: { name: 'Français', flag: '🇫🇷', htmlLang: 'fr' },
+  en: { name: 'English', htmlLang: 'en' },
+  zh: { name: '中文', htmlLang: 'zh-CN' },
+  es: { name: 'Español', htmlLang: 'es' },
+  hi: { name: 'हिन्दी', htmlLang: 'hi' },
+  fr: { name: 'Français', htmlLang: 'fr' },
+  pt: { name: 'Português', htmlLang: 'pt' }
 };
+
+const SERIES = [
+  { slug: 'esp32-essential-fixes', title: 'ESP32 Essential Fixes', description: 'The most common ESP32 problems with practical solutions tested on real hardware.', icon: '🔧',
+    matchSlugs: ['esp32-deep-sleep-fix', 'esp32-mosfet-dc-motor-control', 'esp32-relay-chatter-fix', 'esp32-wifi-dropping-fix',
+                 'how-to-fix-esp32-upload-failures-in-under-5-minutes', 'how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with',
+                 'fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre', 'fixing-i2c-clock-stretching-timeouts-in-esp32-why-your'] },
+  { slug: 'home-repair-guides', title: 'Home Repair & Maintenance', description: 'Fix common household problems with clear technical guidance.', icon: '🏠',
+    matchSlugs: ['how-to-fix-an-overheating-dryer-before-it-becomes-a-fire', 'diy-dishwasher-troubleshooting-and-repair-guide-fix-common',
+                 'diy-dishwasher-troubleshooting-and-repair-guide-fix-common-household-a', 'topic-how-to-fix-a-clogged-drain-without-harsh-chemicals',
+                 'how-to-fix-a-clogged-drain-without-harsh-chemicals', 'mechanical-engineering-principles-in-sanitary-piping-a-technical-analy'] },
+  { slug: 'pc-and-laptop-upgrades', title: 'PC & Laptop Upgrades', description: 'Speed up old hardware and troubleshoot boot problems.', icon: '💻',
+    matchSlugs: ['old-laptop-ssd-upgrade-guide', 'pc-wont-boot-fix', 'why-your-laptop-is-overheating-and-how-to-fix-it',
+                 'how-to-speed-up-a-slow-computer-in-10-minutes-no-new-hardware'] },
+  { slug: 'energy-and-smart-home', title: 'Energy & Smart Home', description: 'Cut your bills with telemetry and home automation.', icon: '⚡',
+    matchSlugs: ['how-to-spot-energy-vampires-draining-your-bill-silently', 'smart-energy-audits-how-telemetry-can-slash-your-power-bills',
+                 'solving-high-household-energy-bills-using-smart-home-automation', 'solving-high-household-energy-bills-using-smart-home'] },
+  { slug: 'embedded-fundamentals', title: 'Embedded Systems Fundamentals', description: 'Core knowledge every embedded engineer needs.', icon: '🔌',
+    matchSlugs: ['led-strip-flicker-fix', 'raspberry-pi-overheating-fix', 'how-to-write-code-that-anyone-can-read-and-maintain'] }
+];
 
 const STATIC_PAGES = [
   ['/', 'daily', '1.0'],
-  ['/news.html', 'hourly', '0.6'],
+  ['/academy.html', 'weekly', '0.9'],
+  ['/tools.html', 'weekly', '0.9'],
+  ['/best-picks.html', 'weekly', '0.8'],
+  ['/guides.html', 'weekly', '0.8'],
+  ['/qa.html', 'daily', '0.7'],
   ['/forum.html', 'daily', '0.6'],
+  ['/news.html', 'hourly', '0.6'],
+  ['/glossary.html', 'monthly', '0.5'],
+  ['/pinout.html', 'monthly', '0.5'],
   ['/about.html', 'monthly', '0.4'],
   ['/contact.html', 'monthly', '0.4'],
   ['/privacy-policy.html', 'yearly', '0.2'],
-  ['/terms.html', 'yearly', '0.2'],
+  ['/terms.html', 'yearly', '0.2']
 ];
 
 const today = new Date().toISOString().slice(0, 10);
-const esc = (s) => String(s ?? '').replace(/[<>&'"]/g, (c) =>
-  ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&#39;', '"': '&quot;' }[c]));
-
-const pick = (f) => {
-  if (f == null) return '';
-  if (typeof f === 'string') {
-    try { const o = JSON.parse(f); if (o && typeof o === 'object') return pick(o); } catch {}
-    return f;
-  }
-  if (typeof f === 'object') return f.en || Object.values(f).find(Boolean) || '';
-  return String(f);
-};
-
-const pickLang = (field, lang) => {
-  if (field == null) return '';
-  let obj = field;
-  if (typeof field === 'string') {
-    try { obj = JSON.parse(field); } catch { return field; }
-  }
-  if (obj && typeof obj === 'object') {
-    return obj[lang] || obj.en || Object.values(obj).find(Boolean) || '';
-  }
-  return String(field);
-};
-
+const esc = (s) => String(s ?? '').replace(/[<>&'"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&#39;', '"': '&quot;' }[c]));
 const plain = (s) => String(s || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 
-// --- Search-result friendly <title> / meta description ---
 const TITLE_MAX = 60;
 const DESC_MAX = 155;
 function cutWords(str, max) {
@@ -77,15 +73,11 @@ function cutWords(str, max) {
   t = t.slice(0, max + 1);
   const i = t.lastIndexOf(' ');
   t = i > max * 0.6 ? t.slice(0, i) : t.slice(0, max);
-  const open = t.lastIndexOf('(');
-  if (open > -1 && t.indexOf(')', open) === -1) t = t.slice(0, open);
-  let prev;
-  do { prev = t; t = t.replace(/\s+(and|or|to|the|a|an|of|in|for|with|your|how|is|are|new|without|before|after|buying)$/i, ''); } while (t !== prev);
   return t.replace(/[\s,;:\-–—(\[]+$/, '');
 }
 function seoTitle(title) {
   const t = plain(title);
-  const full = `${t} | ${SITE_NAME}`;
+  const full = t + ' | ' + SITE_NAME;
   if (full.length <= TITLE_MAX) return full;
   if (t.length <= TITLE_MAX) return t;
   return cutWords(t, TITLE_MAX);
@@ -93,54 +85,54 @@ function seoTitle(title) {
 function seoDesc(desc) {
   const d = plain(desc);
   if (d.length <= DESC_MAX) return d;
-  const head = d.slice(0, DESC_MAX);
-  let end = -1;
-  for (const m of head.matchAll(/[.!?](?=\s|$)/g)) end = m.index;
-  if (end >= 70) return head.slice(0, end + 1);
   return cutWords(d, DESC_MAX - 1) + '…';
 }
 const toDate = (d) => { const t = new Date(d); return isNaN(t) ? new Date(today) : t; };
 const iso = (d) => d.toISOString().slice(0, 10);
 
 function slugOf(a) {
-  const en = plain(pick(a.title));
-  let slug = en.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '').replace(/^topic-/, '');
-  if (slug.length > 60) {
-    slug = slug.slice(0, 60);
-    const i = slug.lastIndexOf('-');
-    if (i > 30) slug = slug.slice(0, i);
-  }
-  slug = slug.replace(/-+$/g, '');
-  return slug || `article-${encodeURIComponent(String(a.id))}`;
+  const en = plain(typeof a.title === 'object' ? (a.title.en || Object.values(a.title).find(Boolean)) : a.title);
+  let slug = en.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').replace(/^topic-/, '');
+  if (slug.length > 60) { slug = slug.slice(0, 60); const i = slug.lastIndexOf('-'); if (i > 30) slug = slug.slice(0, i); }
+  return slug.replace(/-+$/g, '') || ('article-' + encodeURIComponent(String(a.id)));
 }
 
 function tagsOf(v) {
   if (Array.isArray(v)) return v.map(String);
-  if (typeof v === 'string') {
-    try { const a = JSON.parse(v); if (Array.isArray(a)) return a.map(String); } catch {}
-    return v.split(',').map((x) => x.trim()).filter(Boolean);
-  }
+  if (typeof v === 'string') { try { const a = JSON.parse(v); if (Array.isArray(a)) return a.map(String); } catch {} return v.split(',').map((x) => x.trim()).filter(Boolean); }
   return [];
 }
 
 async function exists(p) { try { await access(p); return true; } catch { return false; } }
 
-async function loadArticles() {
-  if (OFFLINE) { console.warn('SEO_OFFLINE=1: Supabase skipped'); return []; }
+async function loadFromSupabase() {
+  if (!SUPABASE_KEY) { console.warn('No SUPABASE_KEY — skipping Supabase'); return []; }
   try {
-    const url = `${SUPABASE_URL}/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,tags,title_i18n,excerpt_i18n,content_i18n&order=date.desc&limit=1000`;
-    const res = await fetch(url, { headers: { apikey: SUPABASE_KEY } });
+    const url = SUPABASE_URL + '/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,images,tags,title_i18n,excerpt_i18n,content_i18n&order=date.desc&limit=1000';
+    const res = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
     if (res.ok) {
       const data = await res.json();
-      if (Array.isArray(data) && data.length) {
-        console.log(`Supabase: ${data.length} articles`);
+      if (Array.isArray(data)) {
+        console.log('Supabase: ' + data.length + ' articles');
         return data;
       }
-    } else console.warn('Supabase HTTP', res.status);
+    }
+    console.warn('Supabase HTTP', res.status);
   } catch (e) { console.warn('Supabase unreachable:', e.message); }
-  console.error('Supabase returned no articles. Aborting so existing static pages are not deleted.');
-  process.exit(1);
+  return [];
+}
+
+async function loadManual() {
+  try {
+    const list = JSON.parse(await readFile(join(ROOT, 'data/manual-articles.json'), 'utf8'));
+    if (!Array.isArray(list)) return [];
+    const filtered = list.filter((m) => m && m.slug && m.title);
+    console.log('Manual: ' + filtered.length + ' articles');
+    return filtered;
+  } catch (e) {
+    console.warn('No manual-articles.json:', e.message);
+    return [];
+  }
 }
 
 async function resolveImage(img) {
@@ -148,234 +140,30 @@ async function resolveImage(img) {
   if (/^https?:\/\//.test(img)) return img;
   if (img.startsWith('data:')) return '';
   const rel = img.replace(/^\/+/, '');
-  if (await exists(join(ROOT, rel))) return `${SITE}/${rel}`;
+  if (await exists(join(ROOT, rel))) return SITE + '/' + rel;
   return '';
 }
-
-function extractFAQs(content) {
-  const sentences = plain(content).split(/(?<=[.!?])\s+/);
-  const questions = sentences.filter(s => s.trim().endsWith('?') && s.length > 20 && s.length < 200);
-  return questions.slice(0, 5).map(q => {
-    const idx = sentences.indexOf(q);
-    const answer = idx >= 0 && sentences[idx + 1] ? sentences[idx + 1].slice(0, 300) : '';
-    return { q: q.trim(), a: answer };
-  }).filter(item => item.a);
-}
-
-async function loadManual() {
-  try {
-    const list = JSON.parse(await readFile(join(ROOT, 'data/manual-articles.json'), 'utf8'));
-    return Array.isArray(list) ? list.filter((m) => m && m.slug && m.title) : [];
-  } catch { return []; }
-}
-const manualList = await loadManual();
-
-/* ---------- Automatic discovery of hand-made pages ---------- */
-const unent = (s) => String(s || '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-  .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&nbsp;/g, ' ');
-const metaOf = (html, attr, name) => {
-  for (const tag of html.match(/<meta\b[^>]*>/gi) || []) {
-    if (!new RegExp(`\\b${attr}\\s*=\\s*(?:"${name}"|'${name}')`, 'i').test(tag)) continue;
-    const c = tag.match(/\bcontent\s*=\s*(?:"([^"]*)"|'([^']*)')/i);
-    if (c) return unent(c[1] ?? c[2] ?? '').trim();
-  }
-  return '';
-};
-const ARABIC = /[\u0600-\u06FF\u0750-\u077F]/;
-
-function gitFirstDate(file) {
-  try {
-    const out = execSync(`git log --diff-filter=A --format=%cs -- "${file}"`, { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] })
-      .toString().trim().split('\n').filter(Boolean);
-    return out.length ? out[out.length - 1] : '';
-  } catch { return ''; }
-}
-
-const ACTIONS_HTML = `
-<!-- tp-auto:actions -->
-<div class="share-buttons" id="tpActions">
-  <button class="like-btn" id="tpLike" type="button" aria-label="Like">\u{1F90D} <span class="like-count">0</span></button>
-  <button class="share-btn" id="tpSave" type="button">\u{1F516} Save</button>
-  <button class="share-btn" data-share="twitter" type="button">\u{1D54F} Twitter</button>
-  <button class="share-btn" data-share="facebook" type="button">Facebook</button>
-  <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
-  <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
-  <button class="share-btn" data-share="copy" type="button">\u{1F517} Copy Link</button>
-</div>
-<section class="comments-section" id="tpComments">
-  <h2 class="section-heading">Comments</h2>
-  <div id="commentsContainer"></div>
-</section>
-<!-- /tp-auto:actions -->
-`;
-
-async function discoverManualPages(taken) {
-  let files = [];
-  try { files = (await readdir(join(ROOT, 'a'))).filter((f) => f.endsWith('.html')); } catch { return []; }
-  const found = [];
-  for (const f of files.sort()) {
-    const slug = f.slice(0, -5);
-    if (taken.has(slug)) continue;
-    const path = join(ROOT, 'a', f);
-    let html = await readFile(path, 'utf8');
-
-    if (/data-id="(?!m-)[^"]+"/.test(html)) {
-      console.warn(`a/${f} belongs to a Supabase article that no longer exists: ignored.`);
-      continue;
-    }
-
-    const original = html;
-    {
-      const tt = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-      if (tt && plain(unent(tt[1])).length > TITLE_MAX) {
-        const bare = plain(unent(tt[1])).replace(/\s*[|\-–]\s*TechPulse\s*$/i, '');
-        html = html.replace(tt[0], () => `<title>${esc(seoTitle(bare))}</title>`);
-      }
-      const dm = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i);
-      if (dm && unent(dm[1]).length > DESC_MAX + 5) {
-        html = html.replace(dm[0], () => dm[0].replace(dm[1], () => esc(seoDesc(unent(dm[1])))));
-      }
-    }
-    const url = `${SITE}/a/${slug}.html`;
-    const h1 = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1];
-    const titleTag = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1];
-    const title = plain(unent(metaOf(html, 'property', 'og:title') || h1 || (titleTag || '').replace(/\s*[|\-–]\s*TechPulse\s*$/i, '')));
-    if (!title) { console.warn(`a/${f}: no title found, skipped.`); continue; }
-
-    const htmlView = html.replace(/<!-- tp-auto:related -->[\s\S]*?<!-- \/tp-auto:related -->/g, '');
-    const bodyHtml = (htmlView.match(/<article[\s\S]*?<\/article>/i) || htmlView.match(/<main[\s\S]*?<\/main>/i) || htmlView.match(/<body[\s\S]*<\/body>/i) || [htmlView])[0]
-      .replace(/<(script|style|nav|header|footer)[\s\S]*?<\/\1>/gi, ' ');
-    const firstP = (bodyHtml.match(/<p[^>]*>([\s\S]*?)<\/p>/i) || [])[1];
-    const excerpt = plain(unent(metaOf(html, 'name', 'description') || metaOf(html, 'property', 'og:description') || firstP || '')).slice(0, 300);
-    const words = plain(unent(bodyHtml)).split(/\s+/).filter(Boolean).length;
-
-    let category = metaOf(html, 'property', 'article:section') || metaOf(html, 'name', 'category')
-      || plain(unent((html.match(/class=["'][^"']*article-category[^"']*["'][^>]*>([\s\S]*?)</i) || [])[1] || ''));
-    if (!category || ARABIC.test(category)) category = 'Technology';
-
-    const image = metaOf(html, 'property', 'og:image')
-      || ((bodyHtml.match(/<img[^>]+src=["']([^"']+)["']/i) || [])[1] || '');
-    const tags = tagsOf(metaOf(html, 'name', 'keywords'));
-    const author = metaOf(html, 'name', 'author') || SITE_NAME;
-    const dateStr = metaOf(html, 'property', 'article:published_time')
-      || ((html.match(/<time[^>]+datetime=["']([^"']+)["']/i) || [])[1] || '')
-      || gitFirstDate(`a/${f}`)
-      || iso(new Date((await stat(path)).mtime));
-    const date = toDate(dateStr);
-
-    const before = html;
-    if (!/<link[^>]+rel=["']canonical["']/i.test(html))
-      html = html.replace(/<\/head>/i, `  <link rel="canonical" href="${url}">\n</head>`);
-    if (!metaOf(html, 'name', 'description') && excerpt)
-      html = html.replace(/<\/head>/i, `  <meta name="description" content="${esc(excerpt)}">\n</head>`);
-    if (!/application\/ld\+json/i.test(html)) {
-      const ld = { '@context': 'https://schema.org', '@type': 'Article', headline: title, description: excerpt,
-        datePublished: iso(date), dateModified: iso(date), mainEntityOfPage: url, author: { '@type': 'Person', name: author },
-        publisher: { '@type': 'Organization', name: SITE_NAME, logo: { '@type': 'ImageObject', url: `${SITE}/assets/og-default.png` } },
-        ...(image ? { image: [/^https?:/.test(image) ? image : `${SITE}/${image.replace(/^\/+/, '')}`] } : {}) };
-      html = html.replace(/<\/head>/i, `  <script type="application/ld+json">${JSON.stringify(ld)}</script>\n</head>`);
-    }
-    if (!html.includes('tp-auto:actions') && !html.includes('id="tpActions"')) {
-      if (/<\/article>/i.test(html)) html = html.replace(/<\/article>/i, `${ACTIONS_HTML}</article>`);
-      else if (/<\/main>/i.test(html)) html = html.replace(/<\/main>/i, `${ACTIONS_HTML}</main>`);
-      else html = html.replace(/<\/body>/i, `${ACTIONS_HTML}</body>`);
-    }
-    if (!html.includes('/js/static-article.js'))
-      html = html.replace(/<\/body>/i, `  <script src="/js/common.js?v=${ASSET_V}" defer></script>\n  <script src="/js/static-article.js?v=${ASSET_V}" defer></script>\n</body>`);
-    if (html !== original) { await writeFile(path, html); console.log(`Enhanced hand-made page: a/${f}`); }
-
-    found.push({ slug, title, excerpt, category, date: iso(date), image, tags, author, minutes: Math.max(1, Math.round(words / 200)) });
-  }
-  return found;
-}
-
-let prevSlugs = {};
-try { prevSlugs = JSON.parse(await readFile(join(ROOT, 'data/static-slugs.json'), 'utf8')); } catch {}
-const raw = (await loadArticles()).filter((a) => a && a.id);
-const articles = [];
-const seen = new Set(manualList.map((m) => m.slug));
-for (const a of raw) {
-  let slug = prevSlugs[String(a.id)] || slugOf(a);
-  if (seen.has(slug)) {
-    console.warn('Duplicate slug, renaming:', slug);
-    slug += '-' + String(a.id).replace(/[^a-z0-9]/gi, '').slice(-4);
-  }
-  seen.add(slug);
-  const content = String(pick(a.content) || '');
-  articles.push({
-    id: String(a.id), slug,
-    title: plain(pick(a.title)),
-    excerpt: plain(pick(a.excerpt)).slice(0, 300),
-    content,
-    // i18n fields (from Supabase jsonb columns)
-    title_i18n:   a.title_i18n   && typeof a.title_i18n   === 'object' ? a.title_i18n   : {},
-    excerpt_i18n: a.excerpt_i18n && typeof a.excerpt_i18n === 'object' ? a.excerpt_i18n : {},
-    content_i18n: a.content_i18n && typeof a.content_i18n === 'object' ? a.content_i18n : {},
-    category: /[\u0600-\u06FF\u0750-\u077F]/.test(String(a.category || '')) ? 'Technology' : (a.category || 'Technology'),
-    author: a.author || SITE_NAME,
-    tags: tagsOf(a.tags),
-    date: toDate(a.date),
-    image: await resolveImage(a.image),
-  });
-}
-for (const m of manualList) {
-  const hasContent = !!String(m.content || '').trim();
-  const file = join(ROOT, 'a', `${m.slug}.html`);
-  if (!hasContent && !(await exists(file))) {
-    console.warn(`Manual article "${m.slug}": no content in JSON and a/${m.slug}.html is missing - skipped.`);
-    continue;
-  }
-  articles.push({
-    id: `m-${m.slug}`, slug: m.slug, manual: true, hasContent,
-    title: plain(m.title),
-    excerpt: plain(m.excerpt || '').slice(0, 300),
-    content: String(m.content || ''),
-    title_i18n: m.title_i18n || {}, excerpt_i18n: m.excerpt_i18n || {}, content_i18n: m.content_i18n || {},
-    category: m.category || 'Technology',
-    author: m.author || SITE_NAME,
-    tags: tagsOf(m.tags),
-    date: toDate(m.date),
-    image: await resolveImage(m.image),
-  });
-}
-const discovered = await discoverManualPages(new Set(seen));
-for (const d of discovered) {
-  articles.push({
-    id: `m-${d.slug}`, slug: d.slug, manual: true, hasContent: false,
-    title: d.title, excerpt: d.excerpt, content: '', category: d.category, author: d.author,
-    tags: d.tags, date: toDate(d.date), image: await resolveImage(d.image),
-    title_i18n: {}, excerpt_i18n: {}, content_i18n: {},
-  });
-}
-await writeFile(join(ROOT, 'data', 'auto-articles.json'), JSON.stringify(discovered, null, 1) + '\n');
-
-articles.sort((x, y) => y.date - x.date);
-const urlOf = (a) => `${SITE}/a/${a.slug}.html`;
-const urlOfLang = (a, lang) => lang === 'en' ? urlOf(a) : `${SITE}/a/${a.slug}.html?lang=${lang}`;
-
-const NAV = `<a href="/index.html">Home</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>`;
 
 function inlineMd(s) {
-  return esc(s)
-    .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  return esc(s).replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>').replace(/`([^`\n]+)`/g, '<code>$1</code>');
 }
+
 function renderContent(text) {
   const src = String(text || '').replace(/\r\n/g, '\n');
   const chunks = src.split(/```[a-zA-Z0-9+#-]*\n([\s\S]*?)```/);
   const out = [];
   chunks.forEach((chunk, i) => {
-    if (i % 2) { out.push(`<pre><code>${esc(chunk.replace(/\n$/, ''))}</code></pre>`); return; }
+    if (i % 2) { out.push('<pre><code>' + esc(chunk.replace(/\n$/, '')) + '</code></pre>'); return; }
     const blocks = chunk.replace(/^(#{1,3} .+)$/gm, '\n$1\n').split(/\n\n+/).map((b) => b.trim()).filter(Boolean);
     for (const b of blocks) {
       let m;
-      if ((m = b.match(/^###\s+(.+)$/))) out.push(`<h3>${inlineMd(m[1])}</h3>`);
-      else if ((m = b.match(/^#{1,2}\s+(.+)$/))) out.push(`<h2>${inlineMd(m[1])}</h2>`);
+      if ((m = b.match(/^###\s+(.+)$/))) out.push('<h3>' + inlineMd(m[1]) + '</h3>');
+      else if ((m = b.match(/^#{1,2}\s+(.+)$/))) out.push('<h2>' + inlineMd(m[1]) + '</h2>');
       else if (b.split('\n').every((l) => /^\s*[-*•]\s+/.test(l)))
-        out.push(`<ul>${b.split('\n').map((l) => `<li>${inlineMd(l.replace(/^\s*[-*•]\s+/, ''))}</li>`).join('')}</ul>`);
+        out.push('<ul>' + b.split('\n').map((l) => '<li>' + inlineMd(l.replace(/^\s*[-*•]\s+/, '')) + '</li>').join('') + '</ul>');
       else if (b.split('\n').every((l) => /^\s*\d+[.)]\s+/.test(l)))
-        out.push(`<ol>${b.split('\n').map((l) => `<li>${inlineMd(l.replace(/^\s*\d+[.)]\s+/, ''))}</li>`).join('')}</ol>`);
-      else out.push(`<p>${inlineMd(b).replace(/\n/g, '<br>')}</p>`);
+        out.push('<ol>' + b.split('\n').map((l) => '<li>' + inlineMd(l.replace(/^\s*\d+[.)]\s+/, '')) + '</li>').join('') + '</ol>');
+      else out.push('<p>' + inlineMd(b).replace(/\n/g, '<br>') + '</p>');
     }
   });
   return out.join('\n      ');
@@ -395,388 +183,303 @@ function parseFaq(content) {
   return items.length ? { items, rest: text.replace(m[0], '\n') } : null;
 }
 
-function relatedFor(a, n = 3) {
-  const tagSet = new Set(a.tags.map((t) => t.toLowerCase()));
-  const words = (t) => plain(t).toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3);
-  const titleWords = new Set(words(a.title));
-  return articles.filter((x) => x.id !== a.id).map((x) => {
+function relatedFor(a, all, n) {
+  n = n || 3;
+  const tagSet = new Set((a.tags || []).map((t) => t.toLowerCase()));
+  const wordsOf = (t) => plain(t).toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3);
+  const titleWords = new Set(wordsOf(a.title));
+  return all.filter((x) => x.slug !== a.slug).map((x) => {
     let score = x.category === a.category ? 3 : 0;
-    for (const t of x.tags) if (tagSet.has(t.toLowerCase())) score += 2;
-    for (const w of words(x.title)) if (titleWords.has(w)) score += 1;
+    for (const t of (x.tags || [])) if (tagSet.has(t.toLowerCase())) score += 2;
+    for (const w of wordsOf(x.title)) if (titleWords.has(w)) score += 1;
     return { x, score };
   }).sort((p, q) => q.score - p.score || q.x.date - p.x.date).slice(0, n).map((p) => p.x);
 }
 
-const relatedBlock = (list) => `<!-- tp-auto:related -->
-<section class="related-section">
-  <h2 class="section-heading">📚 Related Articles</h2>
-  <div class="articles-grid">
-    ${list.map((r) => `<article class="article-card">
-      <span class="card-category">${esc(r.category)}</span>
-      <h3><a href="/a/${r.slug}.html">${esc(r.title)}</a></h3>
-      <p>${esc(r.excerpt)}</p>
-      <a href="/a/${r.slug}.html" class="read-more">Read More →</a>
-    </article>`).join('\n    ')}
-  </div>
-</section>
-<!-- /tp-auto:related -->`;
+function seriesFor(a) {
+  return SERIES.filter((s) => s.matchSlugs.includes(a.slug));
+}
 
-function page(a) {
-  const url = urlOf(a);
+const NAV = '<a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>';
+
+function page(a, all) {
+  const url = SITE + '/a/' + a.slug + '.html';
   const img = a.image || DEFAULT_IMG;
-  const desc = seoDesc(a.excerpt || plain(a.content.replace(/[#*`]/g, '')));
-  const words = plain(a.content).split(/\s+/).filter(Boolean).length;
-  const mins = Math.max(1, Math.round(words / 200));
+  const desc = seoDesc(a.excerpt || plain((a.content || '').replace(/[#*`]/g, '')));
+  const words = plain(a.content || '').split(/\s+/).filter(Boolean).length;
+  const mins = a.minutes || Math.max(1, Math.round(words / 200));
   const faqParsed = parseFaq(a.content);
-  const faqs = faqParsed ? faqParsed.items : extractFAQs(a.content);
+  const faqs = faqParsed ? faqParsed.items : [];
   const body = renderContent(faqParsed ? faqParsed.rest : a.content);
+  const related = relatedFor(a, all, 3);
+  const inSeries = seriesFor(a);
 
-  const related = relatedFor(a, 3);
-
-  // --- Hreflang alternates for translation coverage ---
-  const availableLangs = ['en', ...Object.keys(LANGS).filter(l => l !== 'en' && a.title_i18n?.[l])];
-  const hreflangTags = availableLangs.map(lang => {
-    const href = lang === 'en' ? url : `${url}?lang=${lang}`;
-    return `  <link rel="alternate" hreflang="${LANGS[lang]?.htmlLang || lang}" href="${href}">`;
+  const availableLangs = ['en'].concat(Object.keys(LANGS).filter((l) => l !== 'en' && a.title_i18n && a.title_i18n[l]));
+  const hreflangTags = availableLangs.map((lang) => {
+    const href = lang === 'en' ? url : url + '?lang=' + lang;
+    return '  <link rel="alternate" hreflang="' + (LANGS[lang] ? LANGS[lang].htmlLang : lang) + '" href="' + href + '">';
   }).join('\n');
-  const xDefault = `  <link rel="alternate" hreflang="x-default" href="${url}">`;
 
-  // --- Multi-language JSON-LD (about + inLanguage) ---
   const faqLd = faqs.length ? {
     '@type': 'FAQPage',
-    'mainEntity': faqs.map(f => ({
-      '@type': 'Question',
-      'name': f.q,
-      'acceptedAnswer': { '@type': 'Answer', 'text': f.a }
-    }))
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }))
   } : null;
 
-  const graphItems = [
-    {
-      '@type': 'Article',
-      headline: a.title,
-      description: desc,
-      image: [img],
-      datePublished: iso(a.date),
-      dateModified: iso(a.date),
-      mainEntityOfPage: url,
-      author: { '@type': 'Person', name: a.author },
-      publisher: {
-        '@type': 'Organization',
-        name: SITE_NAME,
-        logo: { '@type': 'ImageObject', url: `${SITE}/assets/og-default.png` }
-      },
-      keywords: a.tags.join(', '),
-      articleSection: a.category,
-      wordCount: words,
-      inLanguage: 'en',
-      ...(availableLangs.length > 1 ? {
-        'workTranslation': availableLangs.filter(l => l !== 'en').map(l => ({
-          '@type': 'Article',
-          'inLanguage': LANGS[l]?.htmlLang || l,
-          'url': `${url}?lang=${l}`
-        }))
-      } : {})
-    },
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-        { '@type': 'ListItem', position: 2, name: a.category, item: `${SITE}/` },
-        { '@type': 'ListItem', position: 3, name: a.title, item: url }
-      ]
-    }
+  const graph = [
+    { '@type': 'Article', headline: a.title, description: desc, image: [img],
+      datePublished: iso(a.date), dateModified: iso(a.date), mainEntityOfPage: url,
+      author: { '@type': 'Person', name: a.author || SITE_NAME },
+      publisher: { '@type': 'Organization', name: SITE_NAME, logo: { '@type': 'ImageObject', url: SITE + '/assets/og-default.png' } },
+      keywords: (a.tags || []).join(', '), articleSection: a.category, wordCount: words, inLanguage: 'en' },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
+      { '@type': 'ListItem', position: 2, name: a.category, item: SITE + '/' },
+      { '@type': 'ListItem', position: 3, name: a.title, item: url }
+    ]}
   ];
-  if (faqLd) graphItems.push(faqLd);
+  if (faqLd) graph.push(faqLd);
+  const ld = { '@context': 'https://schema.org', '@graph': graph };
 
-  const ld = { '@context': 'https://schema.org', '@graph': graphItems };
+  const faqHTML = faqs.length ? '\n    <section class="faq-section"><h2>Frequently Asked Questions</h2>' +
+    faqs.map((f) => '<details class="faq-item"><summary><strong>' + esc(f.q) + '</strong></summary><p>' + esc(f.a) + '</p></details>').join('') +
+    '</section>' : '';
 
-  const faqHTML = faqs.length ? `
-    <section class="faq-section">
-      <h2>Frequently Asked Questions</h2>
-      ${faqs.map(f => `
-        <details class="faq-item">
-          <summary><strong>${esc(f.q)}</strong></summary>
-          <p>${esc(f.a)}</p>
-        </details>
-      `).join('\n      ')}
-    </section>` : '';
+  const seriesHTML = inSeries.length ? '\n        <div class="article-series-nav" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">' +
+    inSeries.map((s) => '<a href="/series/' + s.slug + '.html" style="padding:5px 12px;background:var(--primary-soft);border:1px solid var(--primary);border-radius:999px;font-size:0.82rem;color:var(--primary);text-decoration:none">' + s.icon + ' Part of: <strong>' + esc(s.title) + '</strong></a>').join('') + '</div>' : '';
 
-  return `<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(seoTitle(a.title))}</title>
-  <meta name="description" content="${esc(desc)}">
-  <link rel="canonical" href="${url}">
-${hreflangTags}
-${xDefault}
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="${SITE_NAME}">
-  <meta property="og:title" content="${esc(a.title)}">
-  <meta property="og:description" content="${esc(desc)}">
-  <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${esc(img)}">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:locale" content="en_US">
-${availableLangs.filter(l => l !== 'en').map(l => `  <meta property="og:locale:alternate" content="${LANGS[l]?.htmlLang?.replace('-', '_') || l}">`).join('\n')}
-  <meta property="article:published_time" content="${iso(a.date)}">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#2563eb">
-  <link rel="llms" href="/llms.txt">
-  <link rel="alternate" type="application/rss+xml" title="${SITE_NAME}" href="/rss.xml">
-  <link rel="stylesheet" href="/css/style.css?v=${ASSET_V}">
-  <style>.article-content h2{margin:34px 0 12px;font-size:1.45rem;line-height:1.3}.article-content h3{margin:22px 0 8px;font-size:1.15rem}.article-content ul,.article-content ol{margin:0 0 18px 24px}.article-content li{margin-bottom:6px}.article-content pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow-x:auto;margin:0 0 18px;font-size:.9rem;line-height:1.5}.article-content code{font-family:ui-monospace,Menlo,Consolas,monospace}.article-content p code,.article-content li code{background:rgba(100,116,139,.15);padding:1px 5px;border-radius:4px}</style>
-  <script>try{if(localStorage.getItem('tp_theme')==='dark')document.documentElement.classList.add('dark-theme')}catch(e){}</script>
-  <script type="application/ld+json">${JSON.stringify(ld)}</script>
-</head>
-<body>
-  <header class="main-header">
-    <div class="container">
-      <div class="logo"><a href="/index.html" aria-label="${SITE_NAME} Home"><span>${SITE_NAME}</span></a></div>
-      <nav class="nav-links" aria-label="Main navigation">${NAV}</nav>
-    </div>
-  </header>
-  <main class="container">
-    <nav class="breadcrumb" style="margin:16px 0;font-size:.9rem;color:var(--text-muted)" aria-label="Breadcrumb">
-      <a href="/index.html">Home</a> &gt; <span>${esc(a.category)}</span>
-    </nav>
-    <article class="single-article" data-id="${esc(a.id)}">
-      <header class="article-header">
-        <span class="article-category">${esc(a.category)}</span>
-        <h1>${esc(a.title)}</h1>
-        <div class="article-meta">
-          <span>👤 ${esc(a.author)}</span>
-          <span>📅 ${iso(a.date)}</span>
-          <span>⏱ ${mins} min read</span>
-          <span id="tpViewsWrap" hidden>👁️ <span id="tpViews">0</span> views</span>
-        </div>
-        ${availableLangs.length > 1 ? `
-        <div class="lang-switcher" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <span style="font-size:.85rem;color:var(--text-muted)">🌍 Read in:</span>
-          ${availableLangs.map(l => `
-            <a href="${l === 'en' ? '' : '?lang=' + l}" style="padding:4px 10px;border-radius:999px;background:var(--bg-soft);font-size:.82rem;text-decoration:none;color:var(--text)">${LANGS[l]?.flag || ''} ${LANGS[l]?.name || l}</a>
-          `).join('')}
-        </div>` : ''}
-      </header>
-      ${a.image ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" class="article-hero-img" width="1200" height="630" loading="eager">` : ''}
-      <div class="article-excerpt"><p>${esc(a.excerpt)}</p></div>
-      <div class="article-content">
-      ${body}
-      </div>
-      ${faqHTML}
-      ${a.tags.length ? `<p class="tags">${a.tags.map((t) => `<span class="tag">#${esc(t)}</span>`).join(' ')}</p>` : ''}
-      <div class="share-buttons" id="tpActions">
-        <button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
-        <button class="share-btn" id="tpSave" type="button">🔖 Save</button>
-        <button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
-        <button class="share-btn" data-share="facebook" type="button">Facebook</button>
-        <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
-        <button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
-        <button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
-      </div>
-      <section class="comments-section" id="tpComments">
-        <h2 class="section-heading">Comments</h2>
-        <div id="commentsContainer"></div>
-      </section>
-      <div class="back-row">
-        <a class="btn-secondary" href="/index.html">← All articles</a>
-      </div>
-    </article>
-    ${related.length ? `<section class="related-section">
-      <h2 class="section-heading">📚 Related Articles</h2>
-      <div class="articles-grid">
-        ${related.map((r) => `<article class="article-card">
-          <span class="card-category">${esc(r.category)}</span>
-          <h3><a href="/a/${r.slug}.html">${esc(r.title)}</a></h3>
-          <p>${esc(r.excerpt)}</p>
-          <a href="/a/${r.slug}.html" class="read-more">Read More →</a>
-        </article>`).join('\n        ')}
-      </div>
-    </section>` : ''}
-  </main>
-  <footer class="main-footer"><div class="container">
-    <p>&copy; ${new Date().getFullYear()} ${SITE_NAME}. All rights reserved.</p>
-    <div class="footer-links">
-      <a href="/privacy-policy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Service</a>
-      <a href="/rss.xml">RSS</a>
-      <a href="/sitemap.xml">Sitemap</a>
-    </div>
-  </div></footer>
-  <script src="/js/common.js?v=${ASSET_V}" defer></script>
-  <script src="/js/static-article.js?v=${ASSET_V}" defer></script>
-</body>
-</html>
-`;
+  const relatedHTML = related.length ? '\n    <section class="related-section"><h2 class="section-heading">📚 Related Articles</h2><div class="articles-grid">' +
+    related.map((r) => '<article class="article-card"><span class="card-category">' + esc(r.category) + '</span><h3><a href="/a/' + r.slug + '.html">' + esc(r.title) + '</a></h3><p>' + esc(r.excerpt) + '</p><a href="/a/' + r.slug + '.html" class="read-more">Read More →</a></article>').join('') +
+    '</div></section>' : '';
+
+  return '<!DOCTYPE html>\n<html lang="en" dir="ltr">\n<head>\n' +
+    '<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+    '<title>' + esc(seoTitle(a.title)) + '</title>\n' +
+    '<meta name="description" content="' + esc(desc) + '">\n' +
+    '<link rel="canonical" href="' + url + '">\n' + hreflangTags + '\n' +
+    '<link rel="alternate" hreflang="x-default" href="' + url + '">\n' +
+    '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">\n' +
+    '<meta property="og:type" content="article">\n<meta property="og:site_name" content="' + SITE_NAME + '">\n' +
+    '<meta property="og:title" content="' + esc(a.title) + '">\n' +
+    '<meta property="og:description" content="' + esc(desc) + '">\n' +
+    '<meta property="og:url" content="' + url + '">\n' +
+    '<meta property="og:image" content="' + esc(img) + '">\n' +
+    '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n' +
+    '<meta property="article:published_time" content="' + iso(a.date) + '">\n' +
+    '<meta name="twitter:card" content="summary_large_image">\n' +
+    '<link rel="icon" href="/favicon.ico" type="image/x-icon">\n<link rel="manifest" href="/manifest.json">\n' +
+    '<meta name="theme-color" content="#2563eb">\n<link rel="llms" href="/llms.txt">\n' +
+    '<link rel="alternate" type="application/rss+xml" title="' + SITE_NAME + '" href="/rss.xml">\n' +
+    '<link rel="stylesheet" href="/css/style.css?v=' + ASSET_V + '">\n' +
+    '<script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>\n' +
+    '<script type="application/ld+json">' + JSON.stringify(ld) + '</script>\n</head>\n<body>\n' +
+    '<div id="readingProgressBar"></div>\n<header class="main-header"><div class="container">\n' +
+    '<div class="logo"><a href="/index.html" aria-label="' + SITE_NAME + ' Home"><span>' + SITE_NAME + '</span></a></div>\n' +
+    '<nav class="nav-links" aria-label="Main navigation">' + NAV + '</nav>\n</div></header>\n<main class="container">\n' +
+    '<nav class="breadcrumb" style="margin:16px 0;font-size:0.9rem;color:var(--text-muted)" aria-label="Breadcrumb"><a href="/index.html">Home</a> &gt; <span>' + esc(a.category) + '</span></nav>\n' +
+    '<article class="single-article" data-id="' + esc(a.id) + '">\n<header class="article-header">\n' +
+    '<span class="article-category">' + esc(a.category) + '</span>\n<h1>' + esc(a.title) + '</h1>\n<div class="article-meta">\n' +
+    '<span>👤 ' + esc(a.author || SITE_NAME) + '</span>\n<span>📅 ' + iso(a.date) + '</span>\n' +
+    '<span>⏱ ' + mins + ' min read</span>\n<span id="tpViewsWrap" hidden>👁️ <span id="tpViews">0</span> views</span>\n</div>' +
+    seriesHTML + '\n</header>\n' +
+    (a.image ? '<img src="' + esc(a.image) + '" alt="' + esc(a.title) + '" class="article-hero-img" width="1200" height="630" loading="eager" fetchpriority="high">\n' : '') +
+    '<div class="article-excerpt"><p>' + esc(a.excerpt) + '</p></div>\n' +
+    '<div id="articleToc" class="article-toc-slot"></div>\n' +
+    '<div class="article-content">\n' + body + '\n</div>\n' + faqHTML + '\n' +
+    ((a.tags && a.tags.length) ? '<p class="tags-list">' + a.tags.map((t) => '<span class="tag">#' + esc(t) + '</span>').join(' ') + '</p>\n' : '') +
+    '<div class="share-buttons" id="tpActions">\n' +
+    '<button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>\n' +
+    '<button class="share-btn" id="tpSave" type="button">🔖 Save</button>\n' +
+    '<button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>\n' +
+    '<button class="share-btn" data-share="facebook" type="button">Facebook</button>\n' +
+    '<button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>\n' +
+    '<button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>\n' +
+    '<button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>\n</div>\n' +
+    '<section class="comments-section" id="tpComments"><h2 class="section-heading">Comments</h2><div id="commentsContainer"></div></section>\n' +
+    '<div class="back-row" style="text-align:center;margin-top:24px"><a href="/index.html" class="btn-secondary">← All articles</a></div>\n' +
+    '</article>\n' + relatedHTML + '\n</main>\n<footer class="main-footer"><div class="container">\n' +
+    '<p>&copy; ' + new Date().getFullYear() + ' ' + SITE_NAME + '. All rights reserved.</p>\n' +
+    '<div class="footer-links"><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy-policy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/rss.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></div>\n' +
+    '</div></footer>\n<button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>\n' +
+    '<script src="/js/common.js?v=' + ASSET_V + '" defer></script>\n' +
+    '<script src="/js/i18n.js?v=' + ASSET_V + '" defer></script>\n' +
+    '<script src="/js/toc.js?v=' + ASSET_V + '" defer></script>\n' +
+    '<script src="/js/static-article.js?v=' + ASSET_V + '" defer></script>\n' +
+    '</body>\n</html>\n';
 }
 
-await mkdir(join(ROOT, 'a'), { recursive: true });
-
-let previous = {};
-try { previous = JSON.parse(await readFile(join(ROOT, 'data/static-slugs.json'), 'utf8')); } catch {}
-const currentSlugs = new Set(articles.map((a) => a.slug));
-for (const [pid, pslug] of Object.entries(previous)) {
-  if (!currentSlugs.has(pslug) && await exists(join(ROOT, 'a', `${pslug}.html`)))
-    console.warn(`a/${pslug}.html is not in Supabase or manual-articles.json: left in place.`);
+function seriesPage(s, all) {
+  const items = s.matchSlugs.map((slug) => all.find((a) => a.slug === slug)).filter(Boolean);
+  const url = SITE + '/series/' + s.slug + '.html';
+  return '<!DOCTYPE html>\n<html lang="en"><head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+    '<title>' + esc(s.title) + ' — Series | ' + SITE_NAME + '</title>\n' +
+    '<meta name="description" content="' + esc(s.description) + '">\n<link rel="canonical" href="' + url + '">\n' +
+    '<link rel="icon" href="/favicon.ico">\n<link rel="stylesheet" href="/css/style.css?v=' + ASSET_V + '">\n' +
+    '</head><body>\n<header class="main-header"><div class="container">\n' +
+    '<div class="logo"><a href="/index.html"><span>' + SITE_NAME + '</span></a></div>\n' +
+    '<nav class="nav-links">' + NAV + '</nav>\n</div></header>\n<main class="container">\n' +
+    '<section class="hero-section" style="text-align:center;padding:40px 20px">\n' +
+    '<div style="font-size:3.5rem;line-height:1">' + s.icon + '</div>\n<h1>' + esc(s.title) + '</h1>\n' +
+    '<p style="color:var(--text-muted);max-width:640px;margin:12px auto">' + esc(s.description) + '</p>\n' +
+    '<div style="display:inline-block;padding:5px 14px;background:var(--primary-soft);color:var(--primary);border-radius:999px;font-size:0.85rem;font-weight:600">' + items.length + ' articles</div>\n' +
+    '</section>\n<section class="articles-grid" style="padding-bottom:60px">\n' +
+    items.map((a) => '<article class="article-card"><span class="card-category">' + esc(a.category) + '</span><h3><a href="/a/' + a.slug + '.html">' + esc(a.title) + '</a></h3><p>' + esc(a.excerpt) + '</p><a href="/a/' + a.slug + '.html" class="read-more">Read More →</a></article>').join('\n') +
+    '\n</section>\n</main>\n<footer class="main-footer"><div class="container"><p>&copy; ' + new Date().getFullYear() + ' ' + SITE_NAME + '.</p></div></footer>\n' +
+    '<script src="/js/common.js?v=' + ASSET_V + '" defer></script>\n</body></html>\n';
 }
 
-for (const a of articles) {
-  if (a.manual && !a.hasContent) continue;
-  await writeFile(join(ROOT, 'a', `${a.slug}.html`), page(a));
+async function main() {
+  await mkdir(join(ROOT, 'a'), { recursive: true });
+  await mkdir(join(ROOT, 'series'), { recursive: true });
+  await mkdir(join(ROOT, 'rss'), { recursive: true });
+
+  // Load from Supabase
+  const raw = (await loadFromSupabase()).filter((a) => a && a.id);
+  const articles = [];
+  const seenSlugs = new Set();
+
+  for (const a of raw) {
+    let slug = slugOf(a);
+    if (seenSlugs.has(slug)) slug += '-' + String(a.id).replace(/[^a-z0-9]/gi, '').slice(-4);
+    seenSlugs.add(slug);
+    articles.push({
+      id: String(a.id), slug,
+      title: plain(typeof a.title === 'object' ? (a.title.en || Object.values(a.title).find(Boolean)) : a.title),
+      excerpt: plain(typeof a.excerpt === 'object' ? (a.excerpt.en || Object.values(a.excerpt).find(Boolean)) : a.excerpt).slice(0, 300),
+      content: String(a.content || ''),
+      title_i18n: a.title_i18n || {}, excerpt_i18n: a.excerpt_i18n || {}, content_i18n: a.content_i18n || {},
+      category: a.category || 'Technology',
+      author: a.author || SITE_NAME,
+      tags: tagsOf(a.tags),
+      date: toDate(a.date),
+      image: await resolveImage(a.image),
+      manual: false
+    });
+  }
+
+  // Load manual articles
+  const manualList = await loadManual();
+  for (const m of manualList) {
+    if (seenSlugs.has(m.slug)) continue;
+    seenSlugs.add(m.slug);
+    const file = join(ROOT, 'a', m.slug + '.html');
+    const hasContent = !!String(m.content || '').trim();
+    const fileExists = await exists(file);
+    if (!hasContent && !fileExists) {
+      console.warn('Skip (no content + no file):', m.slug);
+      continue;
+    }
+    articles.push({
+      id: 'm-' + m.slug, slug: m.slug,
+      title: plain(m.title),
+      excerpt: plain(m.excerpt || '').slice(0, 300),
+      content: hasContent ? String(m.content) : '',
+      title_i18n: m.title_i18n || {}, excerpt_i18n: m.excerpt_i18n || {}, content_i18n: m.content_i18n || {},
+      category: m.category || 'Technology',
+      author: m.author || SITE_NAME,
+      tags: Array.isArray(m.tags) ? m.tags : [],
+      date: toDate(m.date),
+      image: m.image || '',
+      minutes: m.minutes || 5,
+      manual: true,
+      hasContent: hasContent,
+      preserveFile: !hasContent && fileExists
+    });
+  }
+
+  // Sort by date
+  articles.sort((x, y) => y.date - x.date);
+
+  // Write article pages
+  let written = 0;
+  for (const a of articles) {
+    // Skip writing if it's a manual article WITH a file that we should preserve
+    if (a.preserveFile) continue;
+    await writeFile(join(ROOT, 'a', a.slug + '.html'), page(a, articles));
+    written++;
+  }
+  console.log('✓ ' + written + ' article pages written');
+
+  // Write series pages
+  for (const s of SERIES) {
+    await writeFile(join(ROOT, 'series', s.slug + '.html'), seriesPage(s, articles));
+  }
+  console.log('✓ ' + SERIES.length + ' series pages written');
+
+  // Save static-slugs.json (only Supabase articles, not manual)
+  const slugMap = {};
+  articles.filter((a) => !a.manual).forEach((a) => { slugMap[a.id] = a.slug; });
+  await writeFile(join(ROOT, 'data', 'static-slugs.json'), JSON.stringify(slugMap, null, 1) + '\n');
+
+  // Sitemap index
+  await writeFile(join(ROOT, 'sitemap.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    '  <sitemap><loc>' + SITE + '/sitemap-pages.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
+    '  <sitemap><loc>' + SITE + '/sitemap-posts.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
+    '  <sitemap><loc>' + SITE + '/sitemap-series.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
+    '</sitemapindex>\n');
+
+  // Pages sitemap
+  const pagesUrls = STATIC_PAGES.map(([p, f, pr]) =>
+    '  <url><loc>' + SITE + p + '</loc><lastmod>' + today + '</lastmod><changefreq>' + f + '</changefreq><priority>' + pr + '</priority></url>'
+  ).join('\n');
+  await writeFile(join(ROOT, 'sitemap-pages.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + pagesUrls + '\n</urlset>\n');
+
+  // Posts sitemap
+  const postsUrls = articles.map((a) =>
+    '  <url><loc>' + SITE + '/a/' + a.slug + '.html</loc><lastmod>' + iso(a.date) + '</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>' +
+    (a.image ? '<image:image><image:loc>' + esc(a.image) + '</image:loc><image:caption>' + esc(a.title) + '</image:caption></image:image>' : '') +
+    '</url>'
+  ).join('\n');
+  await writeFile(join(ROOT, 'sitemap-posts.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + postsUrls + '\n</urlset>\n');
+
+  // Series sitemap
+  const seriesUrls = SERIES.map((s) =>
+    '  <url><loc>' + SITE + '/series/' + s.slug + '.html</loc><lastmod>' + today + '</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>'
+  ).join('\n');
+  await writeFile(join(ROOT, 'sitemap-series.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + seriesUrls + '\n</urlset>\n');
+
+  // RSS
+  const rssItems = articles.slice(0, 50).map((a) =>
+    '    <item>\n      <title>' + esc(a.title) + '</title>\n      <link>' + SITE + '/a/' + a.slug + '.html</link>\n' +
+    '      <guid isPermaLink="true">' + SITE + '/a/' + a.slug + '.html</guid>\n' +
+    '      <pubDate>' + a.date.toUTCString() + '</pubDate>\n      <category>' + esc(a.category) + '</category>\n' +
+    '      <description><![CDATA[' + esc(a.excerpt) + ']]></description>\n    </item>'
+  ).join('\n');
+  await writeFile(join(ROOT, 'rss.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n<channel>\n' +
+    '<title>' + SITE_NAME + '</title>\n<link>' + SITE + '/</link>\n<description>' + esc(SITE_DESC) + '</description>\n' +
+    '<language>en</language>\n<lastBuildDate>' + new Date().toUTCString() + '</lastBuildDate>\n' +
+    '<atom:link href="' + SITE + '/rss.xml" rel="self" type="application/rss+xml"/>\n' + rssItems + '\n</channel>\n</rss>\n');
+
+  // Per-category RSS
+  const cats = [...new Set(articles.map((a) => a.category).filter(Boolean))];
+  for (const cat of cats) {
+    const catSlug = cat.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const catItems = articles.filter((a) => a.category === cat).slice(0, 30).map((a) =>
+      '    <item>\n      <title>' + esc(a.title) + '</title>\n      <link>' + SITE + '/a/' + a.slug + '.html</link>\n      <pubDate>' + a.date.toUTCString() + '</pubDate>\n      <description>' + esc(a.excerpt) + '</description>\n    </item>'
+    ).join('\n');
+    await writeFile(join(ROOT, 'rss', catSlug + '.xml'),
+      '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n<title>' + SITE_NAME + ' — ' + esc(cat) + '</title>\n<link>' + SITE + '/</link>\n' + catItems + '\n</channel>\n</rss>\n');
+  }
+
+  // robots.txt
+  await writeFile(join(ROOT, 'robots.txt'),
+    'User-agent: *\nAllow: /\nDisallow: /admin.html\n\n' +
+    'User-agent: GPTBot\nAllow: /\nUser-agent: OAI-SearchBot\nAllow: /\n' +
+    'User-agent: PerplexityBot\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\n\n' +
+    'Sitemap: ' + SITE + '/sitemap.xml\nSitemap: ' + SITE + '/sitemap-posts.xml\n');
+
+  // llms.txt
+  await writeFile(join(ROOT, 'llms.txt'),
+    '# ' + SITE_NAME + '\n\n> ' + SITE_DESC + '\n\n' +
+    '## Featured Articles\n' + articles.slice(0, 15).map((a) => '- [' + a.title + '](' + SITE + '/a/' + a.slug + '.html)').join('\n') + '\n\n' +
+    '## Contact\n- Website: ' + SITE + '\n- Email: contact@pulsehig.com\n');
+
+  console.log('✓ sitemap.xml, sub-sitemaps, rss.xml, per-category rss, robots.txt, llms.txt written');
+  console.log('✅ Done. Total: ' + articles.length + ' articles, ' + SERIES.length + ' series');
 }
 
-for (const a of articles) {
-  if (!(a.manual && !a.hasContent)) continue;
-  const file = join(ROOT, 'a', `${a.slug}.html`);
-  if (!(await exists(file))) continue;
-  const list = relatedFor(a, 3);
-  if (!list.length) continue;
-  let html = await readFile(file, 'utf8');
-  const block = relatedBlock(list);
-  const re = /<!-- tp-auto:related -->[\s\S]*?<!-- \/tp-auto:related -->/;
-  let next;
-  if (re.test(html)) next = html.replace(re, () => block);
-  else if (/<\/main>/i.test(html)) next = html.replace(/<\/main>/i, () => `${block}\n  </main>`);
-  else next = html.replace(/<\/body>/i, () => `${block}\n</body>`);
-  if (next !== html) await writeFile(file, next);
-}
-
-try {
-  const idxFile = join(ROOT, 'index.html');
-  const idx = await readFile(idxFile, 'utf8');
-  const re = /<!-- tp-auto:latest -->[\s\S]*?<!-- \/tp-auto:latest -->/;
-  if (re.test(idx)) {
-    const items = articles.slice(0, 80).map((a) =>
-      `<li><a href="/a/${a.slug}.html">${esc(a.title)}</a> <span class="all-articles-cat">${esc(a.category)}</span></li>`).join('\n      ');
-    const block = `<!-- tp-auto:latest -->
-<section class="all-articles" aria-labelledby="allArticlesHeading">
-  <h2 id="allArticlesHeading" class="section-heading">All articles</h2>
-  <ul class="all-articles-list">
-      ${items}
-  </ul>
-</section>
-<!-- /tp-auto:latest -->`;
-    const next = idx.replace(re, () => block);
-    if (next !== idx) await writeFile(idxFile, next);
-  } else console.warn('index.html has no tp-auto:latest markers: article list not updated.');
-} catch (e) { console.warn('index.html list skipped:', e.message); }
-
-await writeFile(join(ROOT, 'data', 'static-slugs.json'),
-  JSON.stringify(Object.fromEntries(articles.map((a) => [a.id, a.slug])), null, 1) + '\n');
-
-const urls = [
-  ...STATIC_PAGES.map(([p, f, pr]) =>
-    `  <url>\n    <loc>${SITE}${p}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${f}</changefreq>\n    <priority>${pr}</priority>\n  </url>`),
-  ...articles.map((a) => {
-    const langAlternates = Object.keys(LANGS).filter(l => l !== 'en' && a.title_i18n?.[l])
-      .map(l => `    <xhtml:link rel="alternate" hreflang="${LANGS[l]?.htmlLang || l}" href="${urlOfLang(a, l)}"/>`).join('\n');
-    return `  <url>\n    <loc>${esc(urlOf(a))}</loc>\n    <lastmod>${iso(a.date)}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>${
-      a.image ? `\n    <image:image><image:loc>${esc(a.image)}</image:loc><image:caption>${esc(a.title)}</image:caption></image:image>` : ''}${
-      langAlternates ? '\n' + langAlternates + `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${esc(urlOf(a))}"/>` : ''}\n  </url>`;
-  }),
-];
-await writeFile(join(ROOT, 'sitemap.xml'),
-`<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${urls.join('\n')}
-</urlset>
-`);
-
-const items = articles.slice(0, 50).map((a) =>
-  `    <item>\n      <title>${esc(a.title)}</title>\n      <link>${esc(urlOf(a))}</link>\n      <guid isPermaLink="true">${esc(urlOf(a))}</guid>\n      <pubDate>${a.date.toUTCString()}</pubDate>\n      <category>${esc(a.category)}</category>\n      <description>${esc(a.excerpt)}</description>\n    </item>`);
-await writeFile(join(ROOT, 'rss.xml'),
-`<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>${SITE_NAME}</title>
-    <link>${SITE}/</link>
-    <description>${esc(SITE_DESC)}</description>
-    <language>en</language>
-    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <atom:link href="${SITE}/rss.xml" rel="self" type="application/rss+xml"/>
-${items.join('\n')}
-  </channel>
-</rss>
-`);
-
-await writeFile(join(ROOT, 'robots.txt'),
-`User-agent: *
-Allow: /
-Disallow: /admin.html
-
-# AI Agents — welcome
-User-agent: GPTBot
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-# Sitemaps
-Sitemap: ${SITE}/sitemap.xml
-`);
-
-const llmsContent = `# ${SITE_NAME}
-
-> ${SITE_DESC}
-
-TechPulse publishes practical technical articles in English, Chinese (中文), Spanish (Español), Hindi (हिन्दी) and French (Français) covering:
-- Embedded systems & microcontrollers (ESP32, ESP8266, STM32, Arduino)
-- IoT hardware & firmware development
-- Petroleum engineering (upstream, midstream, downstream)
-- Natural gas processing & LNG technology
-- Programming (Python, C, Embedded C, Git, APIs)
-
-## Essential Pages
-- [Home](${SITE}/index.html): Latest technical articles
-- [Forum](${SITE}/forum.html): Live engineering community discussions
-- [Live News](${SITE}/news.html): Tech & oil/gas headlines refreshed hourly
-- [About](${SITE}/about.html): About TechPulse
-- [Contact](${SITE}/contact.html): Reach the editorial team
-
-## Featured Articles
-${articles.slice(0, 15).map(a => `- [${a.title}](${urlOf(a)})`).join('\n')}
-
-## Technical Standards
-- All articles are original, technically reviewed, and cite real engineering principles.
-- Content is structured with FAQ sections for AI citation.
-- Images are optimized (1200x630 minimum) for Google Discover.
-- Schema.org markup: Article, FAQPage, BreadcrumbList, Organization.
-- Multi-language support: hreflang alternates for zh, es, hi, fr.
-
-## Contact
-- Website: ${SITE}
-- Email: contact@pulsehig.com
-`;
-
-await writeFile(join(ROOT, 'llms.txt'), llmsContent);
-
-console.log(`✅ Done: ${articles.length} article pages, static-slugs.json, sitemap.xml, rss.xml, robots.txt, llms.txt`);
+main().catch((e) => { console.error('❌', e); process.exit(1); });

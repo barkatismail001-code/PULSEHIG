@@ -6,16 +6,14 @@
   <title>TechPulse | Article Manager</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/style.css?v=20261004a">
-
-  <!-- Supabase client library -->
+  <link rel="stylesheet" href="css/style.css?v=20261005">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     .ai-generator-card {
       background: linear-gradient(135deg, #1e293b, #0f172a);
       color: #fff;
-      padding: 20px;
+      padding: 24px;
       border-radius: 12px;
       margin-bottom: 24px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -28,15 +26,17 @@
       align-items: center;
       gap: 8px;
     }
-    .ai-input-group { margin-bottom: 12px; }
+    .ai-input-group { margin-bottom: 14px; }
     .ai-input-group label {
       display: block;
       margin-bottom: 6px;
       font-size: 0.9rem;
       color: #cbd5e1;
+      font-weight: 500;
     }
     .ai-input-group input[type="text"],
-    .ai-input-group input[type="file"] {
+    .ai-input-group input[type="file"],
+    .ai-input-group select {
       width: 100%;
       padding: 10px;
       border-radius: 6px;
@@ -44,32 +44,83 @@
       background: #0f172a;
       color: #fff;
       box-sizing: border-box;
+      font-family: inherit;
     }
+    .ai-input-group input[type="file"] { padding: 8px; }
     .btn-ai {
       background: linear-gradient(135deg, #0284c7, #2563eb);
       color: white;
       border: none;
-      padding: 10px 18px;
-      border-radius: 6px;
+      padding: 12px 22px;
+      border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
     }
-    .btn-ai:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+    .btn-ai:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); transform: translateY(-1px); }
     .btn-ai:disabled { opacity: 0.6; cursor: not-allowed; }
     #ai-status {
-      margin-top: 10px;
+      margin-top: 12px;
       font-weight: 500;
       font-size: 0.9rem;
+      min-height: 1.2em;
     }
+    .image-thumbs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .image-thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 2px solid #475569;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 30px 0 60px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+    .admin-card {
+      background: var(--bg-alt);
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .admin-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      position: relative;
+      padding-left: 14px;
+    }
+    .admin-card h3::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 4px;
+      width: 4px; height: 22px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
   </style>
 
   <script>
-    /* Real login through Supabase Auth. The page stays hidden until a session exists.
-       Security does not depend on this screen: database writes are blocked by RLS (see security.sql). */
     (function () {
       var SB_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
       var SB_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
@@ -78,6 +129,7 @@
 
       window.addEventListener('DOMContentLoaded', async function () {
         var sb = window.supabase.createClient(SB_URL, SB_KEY);
+        window.adminSb = sb;
         var res = await sb.auth.getSession();
         var session = res.data && res.data.session;
 
@@ -85,7 +137,7 @@
           document.documentElement.style.visibility = '';
           var out = document.createElement('button');
           out.textContent = 'Sign out';
-          out.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:9999;padding:8px 14px;border-radius:8px;border:0;background:#dc2626;color:#fff;cursor:pointer';
+          out.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:9999;padding:8px 14px;border-radius:8px;border:0;background:#dc2626;color:#fff;cursor:pointer;font-weight:600';
           out.onclick = async function () { await sb.auth.signOut(); location.href = 'index.html'; };
           document.body.appendChild(out);
           return;
@@ -96,10 +148,10 @@
         box.style.cssText = 'visibility:visible;position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0f172a;font-family:sans-serif';
         box.innerHTML =
           '<div style="background:#fff;padding:28px;border-radius:12px;width:min(92vw,340px)">' +
-          '<h3 style="margin:0 0 14px">Admin sign in</h3>' +
-          '<input id="adm-email" type="email" placeholder="Email" autocomplete="username" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box">' +
-          '<input id="adm-pass" type="password" placeholder="Password" autocomplete="current-password" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box">' +
-          '<button id="adm-go" style="width:100%;padding:10px;border:0;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer">Sign in</button>' +
+          '<h3 style="margin:0 0 14px;color:#0f172a">Admin sign in</h3>' +
+          '<input id="adm-email" type="email" placeholder="Email" autocomplete="username" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:6px;color:#0f172a">' +
+          '<input id="adm-pass" type="password" placeholder="Password" autocomplete="current-password" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:6px;color:#0f172a">' +
+          '<button id="adm-go" style="width:100%;padding:10px;border:0;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;font-weight:600">Sign in</button>' +
           '<p id="adm-msg" style="color:#dc2626;font-size:.85rem;min-height:1.2em;margin:10px 0 0"></p></div>';
         document.body.appendChild(box);
 
@@ -124,8 +176,8 @@
   <div class="ticker" aria-label="Admin notice">
     <span class="ticker-label">Admin</span>
     <div class="ticker-track" aria-hidden="true">
-      <span class="ticker-item"><a href="index.html">Connected to Supabase Database — Live Sync Active</a></span>
-      <span class="ticker-item"><a href="index.html">Connected to Supabase Database — Live Sync Active</a></span>
+      <span class="ticker-item"><a href="index.html">Connected to Supabase — Live sync active</a></span>
+      <span class="ticker-item"><a href="index.html">Connected to Supabase — Live sync active</a></span>
     </div>
   </div>
 
@@ -147,14 +199,13 @@
   </header>
 
   <main class="container">
-    <div id="adminStats" class="admin-stats" style="margin-top:24px"></div>
-    <div id="adminTranslationStats" class="admin-stats" style="margin-top:16px"></div>
 
-    <!-- AI Auto Generator Card — Groq (with direct title field) -->
+    <div id="adminStats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:24px"></div>
+
     <section class="ai-generator-card">
-      <h3>✨ AI Auto-Article Generator from Images (Groq)</h3>
-      <p style="font-size:0.88rem; color:#94a3b8; margin-bottom:16px;">
-        Upload up to 3 images. Enter an optional custom title below or leave it empty for AI to generate one. Groq's Qwen vision model will write a deep technical article.
+      <h3>✨ AI Article Generator from Images (Groq)</h3>
+      <p style="font-size:0.9rem; color:#94a3b8; margin-bottom:18px; line-height:1.5;">
+        Upload up to 3 images and enter a title. Groq's Qwen vision model will write a 2000+ word technical article, fill the form below, and upload the images to Supabase Storage.
       </p>
 
       <div class="ai-input-group">
@@ -163,24 +214,38 @@
       </div>
 
       <div class="ai-input-group">
-        <label for="ai-custom-title">Custom Article Title (Optional):</label>
-        <input type="text" id="ai-custom-title" placeholder="Enter your title here, or leave empty for AI auto-title" />
+        <label for="ai-custom-title">Article Title (Required):</label>
+        <input type="text" id="ai-custom-title" placeholder="e.g. How to Fix ESP32 Upload Failures in Under 5 Minutes" />
+      </div>
+
+      <div class="ai-input-group">
+        <label for="ai-category">Category:</label>
+        <select id="ai-category">
+          <option value="Technology">Technology</option>
+          <option value="Embedded Systems">Embedded Systems</option>
+          <option value="Hardware">Hardware</option>
+          <option value="Networking">Networking</option>
+          <option value="Upgrades">Upgrades</option>
+          <option value="Programming">Programming</option>
+        </select>
       </div>
 
       <div class="ai-input-group">
         <label for="ai-images-input">Select up to 3 images:</label>
         <input type="file" id="ai-images-input" accept="image/*" multiple />
+        <div class="image-thumbs" id="aiImageThumbs"></div>
       </div>
 
       <button type="button" id="ai-generate-btn" class="btn-ai">
-        <span>⚡ Analyze Images &amp; Fill Form</span>
+        <span>⚡ Analyze Images &amp; Generate Article</span>
       </button>
 
       <div id="ai-status"></div>
     </section>
 
-    <div class="admin-container">
-      <section class="admin-form-card">
+    <div class="admin-grid">
+
+      <section class="admin-card">
         <h3 id="form-title">Add New Article</h3>
         <form id="article-form" novalidate>
           <input type="hidden" id="article-id">
@@ -201,9 +266,13 @@
               <select id="category" required>
                 <option value="">— Select —</option>
                 <option>Technology</option>
+                <option>Embedded Systems</option>
+                <option>Hardware</option>
+                <option>Networking</option>
+                <option>Upgrades</option>
+                <option>Programming</option>
                 <option>Petroleum</option>
                 <option>Gas</option>
-                <option>Programming</option>
               </select>
             </div>
             <div class="form-group">
@@ -237,7 +306,7 @@
             <label>Featured Image (hero)</label>
             <div class="image-uploader">
               <div id="image-preview" class="image-preview">
-                <span class="image-hint">Click to upload an image (max 2 MB)</span>
+                <span class="image-hint">Click to upload an image (max 3 MB)</span>
               </div>
               <input type="file" id="image-file" accept="image/*" hidden>
               <button type="button" id="remove-image" class="btn-secondary" style="display:none;align-self:flex-start;padding:6px 12px;font-size:0.82rem">Remove image</button>
@@ -245,15 +314,8 @@
           </div>
 
           <div class="form-group">
-            <label>Gallery Images (optional, shown below the article body)</label>
-            <div id="gallery-strip" class="gallery-strip"></div>
-            <input type="file" id="gallery-file" accept="image/*" hidden multiple>
-            <button type="button" id="add-gallery-btn" class="btn-secondary" style="align-self:flex-start;padding:6px 12px;font-size:0.82rem">+ Add gallery image(s)</button>
-          </div>
-
-          <div class="form-group">
             <label for="content">Content * (double newline = new paragraph)</label>
-            <textarea id="content" rows="10" required placeholder="Write the full content here..."></textarea>
+            <textarea id="content" rows="14" required placeholder="Write the full content here..."></textarea>
           </div>
 
           <div class="form-group" style="flex-direction:row;align-items:center;gap:10px">
@@ -268,11 +330,15 @@
         </form>
       </section>
 
-      <section class="admin-list-card">
+      <section class="admin-card">
         <h3>Published Articles</h3>
-        <div id="admin-articles-list"></div>
+        <div id="admin-articles-list">
+          <p style="color:var(--text-muted);text-align:center;padding:20px">Loading...</p>
+        </div>
       </section>
+
     </div>
+
   </main>
 
   <footer class="main-footer">
@@ -281,220 +347,8 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=20261004a"></script>
-  <script src="js/common.js?v=20261004a"></script>
-  <script src="js/admin.js?v=20261004a"></script>
-
-  <!-- Script for AI Generation with Custom Title Input & Validator -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const apiKeyInput = document.getElementById("ai-api-key");
-      const imagesInput = document.getElementById("ai-images-input");
-      const generateBtn = document.getElementById("ai-generate-btn");
-      const statusDiv = document.getElementById("ai-status");
-      const customTitleInput = document.getElementById("ai-custom-title");
-      const formTitleInput = document.getElementById("title");
-
-      const savedKey = localStorage.getItem("tp_groq_key");
-      if (savedKey) apiKeyInput.value = savedKey;
-
-      function compressImage(file, maxWidth = 1200, quality = 0.85) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const img = new Image();
-            img.onload = () => {
-              try {
-                const canvas = document.createElement('canvas');
-                const scale = Math.min(1, maxWidth / img.width);
-                canvas.width = Math.round(img.width * scale);
-                canvas.height = Math.round(img.height * scale);
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                resolve(canvas.toDataURL('image/jpeg', quality));
-              } catch (err) { reject(err); }
-            };
-            img.onerror = reject;
-            img.src = e.target.result;
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
-      }
-
-      function validateAndCleanArticle(article) {
-        if (!article || typeof article !== 'object') {
-          throw new Error("Invalid response format received from AI.");
-        }
-        let content = String(article.content || "").trim();
-        if (content.length < 150) throw new Error("Generated technical content is too brief.");
-
-        let paragraphs = content.split(/\n\n+/);
-        let uniqueParagraphs = [];
-        let seenParagraphs = new Set();
-
-        paragraphs.forEach(p => {
-          let cleanP = p.trim();
-          if (cleanP.length > 20) {
-            let normalized = cleanP.toLowerCase().replace(/[^\w\s]/gi, '');
-            if (!seenParagraphs.has(normalized)) {
-              seenParagraphs.add(normalized);
-              uniqueParagraphs.push(cleanP);
-            }
-          } else if (cleanP.length > 0) {
-            uniqueParagraphs.push(cleanP);
-          }
-        });
-
-        article.content = uniqueParagraphs.join('\n\n');
-        return article;
-      }
-
-      const TP_MIN_WORDS = 1500, TP_MAX_WORDS = 2500;
-      const TP_GROQ_MODEL = "qwen/qwen3.8-27b";
-      const tpWords = (t) => String(t || '').split(/\s+/).filter(Boolean).length;
-
-      async function tpGroqText(apiKey, messages, maxTokens) {
-        const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
-          body: JSON.stringify({ model: TP_GROQ_MODEL, messages, max_tokens: maxTokens, temperature: 0.5, stream: false })
-        });
-        const d = await r.json();
-        if (d.error) throw new Error(d.error.message || JSON.stringify(d.error));
-        const t = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
-        if (!t) throw new Error("Empty response from Groq while expanding the article.");
-        return String(t).replace(/<think>[\s\S]*?<\/think>/gi, '').replace(/```[a-z]*\n?|```/gi, '').trim();
-      }
-
-      function tpInsertSections(content, extra) {
-        const m = content.match(/\n##\s+(Frequently Asked Questions|Conclusion)\b/i);
-        if (!m) return content + "\n\n" + extra;
-        return content.slice(0, m.index) + "\n\n" + extra + content.slice(m.index);
-      }
-
-      generateBtn.addEventListener("click", async function () {
-        const apiKey = apiKeyInput.value.trim();
-        const files = Array.from(imagesInput.files);
-        const customTitle = customTitleInput.value.trim();
-
-        if (!apiKey) { alert("Please enter your Groq API Key."); return; }
-        if (files.length < 1) { alert("Please select at least 1 technical image."); return; }
-        if (files.length > 3) { alert("Groq supports a maximum of 3 images per request."); return; }
-
-        localStorage.setItem("tp_groq_key", apiKey);
-        generateBtn.disabled = true;
-
-        try {
-          statusDiv.style.color = "#38bdf8";
-          statusDiv.innerText = "⏳ Compressing technical images...";
-
-          const imageDataUrls = await Promise.all(files.map(f => compressImage(f)));
-
-          statusDiv.innerText = "⏳ Analyzing images & structuring technical guide...";
-
-          let promptInstruction = "";
-          if (customTitle) {
-            promptInstruction = `The user has provided a specific title for this article: "${customTitle}". You MUST write a long, deep, professional technical article, excerpt, and tags strictly centered around this exact title, while thoroughly analyzing the visual details of the provided ${files.length} images. Use "${customTitle}" as the title in the returned JSON.`;
-          } else {
-            promptInstruction = `Analyze these ${files.length} technical images thoroughly and write a long, deep, highly professional technical article, and generate an appropriate technical title based strictly on the visual inspection.`;
-          }
-
-          const promptText = `${promptInstruction}
-Ensure absolute linguistic precision, high professional technical vocabulary, and zero redundancy.
-
-LENGTH AND STRUCTURE (mandatory): the article body must be between 1500 and 2500 words. Structure of the "content" field: an introduction of 120-180 words (no heading), then 6 sections each starting with a line "## Heading" and containing 220-300 words, then "## Frequently Asked Questions" with 4 entries (each a line "### Question?" followed by a 50-80 word answer), then "## Conclusion" of 100-140 words. Separate blocks with a blank line (\n\n). Use "- " bullets or "1. " steps where useful. Avoid fenced code blocks unless essential. Be concrete: values, units, steps, how to verify. Never invent statistics or quotes.
-
-Return ONLY a raw JSON object matching this exact structure (no markdown fences, no \`\`\`json):
-{
-  "title": "${customTitle ? customTitle : "A precise and professional technical title"}",
-  "category": "Technology",
-  "excerpt": "A concise, value-driven technical abstract.",
-  "tags": "embedded-systems, hardware, IoT, engineering",
-  "readTime": "8 min read",
-  "content": "The full 1500-2500 word article in the structure above, based on what is visible in the images. Use \\n\\n between blocks."
-}
-Allowed values for category are strictly: "Technology", "Petroleum", "Gas", or "Programming".`;
-
-          const contentParts = imageDataUrls.map(url => ({
-            type: "image_url",
-            image_url: { url: url }
-          }));
-          contentParts.push({ type: "text", text: promptText });
-
-          const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-              model: "qwen/qwen3.8-27b",
-              messages: [{ role: "user", content: contentParts }],
-              max_tokens: 9000,
-              temperature: 0.5,
-              stream: false
-            })
-          });
-
-          const data = await response.json();
-          if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
-          if (!data.choices || !data.choices[0]) throw new Error("No response from Groq.");
-
-          const rawText = data.choices[0].message.content;
-          const noThink = String(rawText).replace(/<think>[\s\S]*?<\/think>/gi, '').replace(/```json|```/g, '').trim();
-          const cleanJson = noThink.slice(noThink.indexOf('{'), noThink.lastIndexOf('}') + 1);
-          let parsedArticle = JSON.parse(cleanJson);
-
-          parsedArticle = validateAndCleanArticle(parsedArticle);
-
-          let wc = tpWords(parsedArticle.content);
-          for (let i = 0; i < 3 && wc < TP_MIN_WORDS; i++) {
-            statusDiv.innerText = `⏳ Article has ${wc} words — adding sections to reach ${TP_MIN_WORDS}+ ...`;
-            const need = TP_MIN_WORDS - wc + 120;
-            const extra = await tpGroqText(apiKey, [{ role: "user", content:
-              `Technical article titled "${parsedArticle.title}":\n\n${parsedArticle.content}\n\nWrite ${need} to ${need + 150} words of NEW material as 1-2 new sections. Each section starts with a line "## Heading" followed by paragraphs (practical steps, exact values, troubleshooting cases, common mistakes, how to verify). Do not repeat anything already written. Output ONLY the new sections as plain text, no JSON.` }], 5000);
-            parsedArticle.content = tpInsertSections(parsedArticle.content, extra);
-            wc = tpWords(parsedArticle.content);
-          }
-
-          if (customTitle) {
-            parsedArticle.title = customTitle;
-          }
-
-          formTitleInput.value = parsedArticle.title || '';
-          document.getElementById('excerpt').value = parsedArticle.excerpt || '';
-          document.getElementById('content').value = parsedArticle.content || '';
-          document.getElementById('tags').value = parsedArticle.tags || '';
-          document.getElementById('readTime').value = Math.max(1, Math.round(tpWords(parsedArticle.content) / 200)) + ' min read';
-          document.getElementById('author').value = 'TechPulse Engineering Team';
-
-          if (!document.getElementById('date').value) {
-            document.getElementById('date').value = new Date().toISOString().split('T')[0];
-          }
-
-          document.getElementById('category').value = "Technology";
-
-          if (window.TPAdmin && imageDataUrls.length > 0) {
-            window.TPAdmin.setFeaturedImage(imageDataUrls[0]);
-            window.TPAdmin.setGalleryImages(imageDataUrls.slice(1));
-          }
-
-          formTitleInput.dispatchEvent(new Event('input'));
-
-          statusDiv.style.color = "#4ade80";
-          const finalWords = tpWords(parsedArticle.content);
-          statusDiv.innerText = `✅ Article generated (${finalWords} words${finalWords > TP_MAX_WORDS ? ' — a bit above 2500, trim if you want' : ''}) using ${customTitle ? 'your custom title' : 'AI-detected title'}!`;
-
-        } catch (err) {
-          console.error(err);
-          statusDiv.style.color = "#f87171";
-          statusDiv.innerText = "❌ Error: " + err.message;
-        } finally {
-          generateBtn.disabled = false;
-        }
-      });
-    });
-  </script>
+  <script src="js/i18n.js?v=20261005"></script>
+  <script src="js/common.js?v=20261005"></script>
+  <script src="js/admin.js?v=20261005"></script>
 </body>
 </html>

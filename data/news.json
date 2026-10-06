@@ -1,122 +1,142 @@
 [
   {
-    "id": 1,
+    "id": "curated-001",
     "category": "tech",
     "title": {
       "en": "New RISC-V chips target edge AI workloads",
       "zh": "针对边缘 AI 工作负载的新型 RISC-V 芯片",
       "es": "Nuevos chips RISC-V dirigidos a cargas de trabajo de IA en el borde",
       "hi": "नए RISC-V चिप्स एज AI वर्कलोड को लक्षित करते हैं",
-      "fr": "De nouvelles puces RISC-V ciblent les charges de travail d'IA Edge"
+      "fr": "De nouvelles puces RISC-V ciblent les charges de travail d'IA Edge",
+      "pt": "Novos chips RISC-V visam cargas de trabalho de IA Edge"
     },
-    "url": "#"
+    "url": "https://news.ycombinator.com/",
+    "source": "Hacker News"
   },
   {
-    "id": 2,
+    "id": "curated-002",
     "category": "tech",
     "title": {
       "en": "WebGPU lands in all major browsers",
       "zh": "WebGPU 已在所有主流浏览器中正式推出",
       "es": "WebGPU llega a todos los navegadores principales",
       "hi": "WebGPU सभी प्रमुख ब्राउज़रों में उपलब्ध है",
-      "fr": "WebGPU arrive sur tous les principaux navigateurs"
+      "fr": "WebGPU arrive sur tous les principaux navigateurs",
+      "pt": "WebGPU chega a todos os principais navegadores"
     },
-    "url": "#"
+    "url": "https://www.w3.org/TR/webgpu/",
+    "source": "W3C"
   },
   {
-    "id": 3,
+    "id": "curated-003",
     "category": "tech",
     "title": {
       "en": "Rust 2.0 roadmap officially published",
       "zh": "Rust 2.0 路线图正式发布",
       "es": "Publicada oficialmente la hoja de ruta de Rust 2.0",
       "hi": "Rust 2.0 रोडमैप आधिकारिक तौर पर प्रकाशित",
-      "fr": "La feuille de route de Rust 2.0 officiellement publiée"
+      "fr": "La feuille de route de Rust 2.0 officiellement publiée",
+      "pt": "Roadmap do Rust 2.0 publicado oficialmente"
     },
-    "url": "#"
+    "url": "https://blog.rust-lang.org/",
+    "source": "Rust Blog"
   },
   {
-    "id": 4,
+    "id": "curated-004",
     "category": "tech",
     "title": {
       "en": "Linux 6.12 brings real-time preemption",
       "zh": "Linux 6.12 带来实时抢占功能",
       "es": "Linux 6.12 trae preferencia en tiempo real",
       "hi": "Linux 6.12 रीयल-टाइम प्रीएम्प्शन लाता है",
-      "fr": "Linux 6.12 apporte la préemption en temps réel"
+      "fr": "Linux 6.12 apporte la préemption en temps réel",
+      "pt": "Linux 6.12 traz preempção em tempo real"
     },
-    "url": "#"
+    "url": "https://kernel.org/",
+    "source": "Kernel.org"
   },
   {
-    "id": 5,
+    "id": "curated-005",
     "category": "tech",
     "title": {
-      "en": "ESP32-C6 adds Wi-Fi 6 & 802.15.4 support",
+      "en": "ESP32-C6 adds Wi-Fi 6 and 802.15.4 support",
       "zh": "ESP32-C6 新增 Wi-Fi 6 和 802.15.4 支持",
       "es": "ESP32-C6 añade soporte para Wi-Fi 6 y 802.15.4",
       "hi": "ESP32-C6 में वाई-फ़ाई 6 और 802.15.4 समर्थन जोड़ा गया",
-      "fr": "L'ESP32-C6 ajoute la prise en charge du Wi-Fi 6 et 802.15.4"
+      "fr": "L'ESP32-C6 ajoute la prise en charge du Wi-Fi 6 et 802.15.4",
+      "pt": "ESP32-C6 adiciona suporte a Wi-Fi 6 e 802.15.4"
     },
-    "url": "#"
+    "url": "https://www.espressif.com/",
+    "source": "Espressif"
   },
   {
-    "id": 6,
-    "category": "oil_gas",
+    "id": "curated-006",
+    "category": "home",
     "title": {
-      "en": "OPEC+ reviews output policy amid shifting demand",
-      "zh": "OPEC+ 在需求变化中审查产量政策",
-      "es": "OPEC+ revisa su política de producción ante la demanda cambiante",
-      "hi": "मांग में बदलाव के बीच OPEC+ ने उत्पादन नीति की समीक्षा की",
-      "fr": "L'OPEP+ révise sa politique de production face à une demande changeante"
+      "en": "Matter 1.4 expands smart home device support",
+      "zh": "Matter 1.4 扩展智能家居设备支持",
+      "es": "Matter 1.4 amplía la compatibilidad con dispositivos inteligentes",
+      "hi": "Matter 1.4 स्मार्ट होम डिवाइस समर्थन का विस्तार करता है",
+      "fr": "Matter 1.4 élargit la prise en charge des appareils connectés",
+      "pt": "Matter 1.4 amplia o suporte a dispositivos smart home"
     },
-    "url": "#"
+    "url": "https://csa-iot.org/",
+    "source": "CSA IoT"
   },
   {
-    "id": 7,
-    "category": "oil_gas",
+    "id": "curated-007",
+    "category": "home",
     "title": {
-      "en": "LNG shipping capacity expands as new terminals open",
-      "zh": "随着新码头的启用，LNG 运输能力不断扩大",
-      "es": "La capacidad de transporte de GNL se expande con nuevas terminales",
-      "hi": "नए टर्मिनल खुलने से LNG शिपिंग क्षमता बढ़ी",
-      "fr": "La capacité de transport de GNL s'accroît avec de nouveaux terminaux"
+      "en": "Solar panel costs dropped 89% in the last decade",
+      "zh": "过去十年太阳能电池板成本下降了 89%",
+      "es": "Los costos de los paneles solares cayeron un 89% en la última década",
+      "hi": "पिछले दशक में सौर पैनल की लागत 89% घटी",
+      "fr": "Le coût des panneaux solaires a chuté de 89 % en dix ans",
+      "pt": "Custo dos painéis solares caiu 89% na última década"
     },
-    "url": "#"
+    "url": "https://www.irena.org/",
+    "source": "IRENA"
   },
   {
-    "id": 8,
-    "category": "oil_gas",
+    "id": "curated-008",
+    "category": "tech",
     "title": {
-      "en": "Offshore operators expand use of remote monitoring sensors",
-      "zh": "海上作业公司扩大远程监测传感器的使用",
-      "es": "Los operadores offshore amplían el uso de sensores de monitoreo remoto",
-      "hi": "अपतटीय ऑपरेटरों ने रिमोट मॉनिटरिंग सेंसर के उपयोग का विस्तार किया",
-      "fr": "Les opérateurs offshore élargissent l'usage de capteurs de surveillance à distance"
+      "en": "Nvidia announces next-gen AI accelerator chips",
+      "zh": "英伟达发布下一代 AI 加速芯片",
+      "es": "Nvidia anuncia chips aceleradores de IA de próxima generación",
+      "hi": "Nvidia ने अगली पीढ़ी के AI एक्सेलेरेटर चिप्स की घोषणा की",
+      "fr": "Nvidia annonce des puces accélératrices d'IA de nouvelle génération",
+      "pt": "Nvidia anuncia chips aceleradores de IA de nova geração"
     },
-    "url": "#"
+    "url": "https://nvidianews.nvidia.com/",
+    "source": "Nvidia"
   },
   {
-    "id": 9,
-    "category": "oil_gas",
+    "id": "curated-009",
+    "category": "home",
     "title": {
-      "en": "Natural gas demand rises with winter heating season",
-      "zh": "随着冬季供暖季节的到来，天然气需求上升",
-      "es": "La demanda de gas natural aumenta con la temporada de calefacción invernal",
-      "hi": "सर्दियों के हीटिंग सीज़न के साथ प्राकृतिक गैस की मांग बढ़ी",
-      "fr": "La demande de gaz naturel augmente avec la saison de chauffage hivernal"
+      "en": "DIY home automation adoption rises 40% year over year",
+      "zh": "DIY 家庭自动化采用率同比增长 40%",
+      "es": "La adopción de la domótica DIY crece un 40% año tras año",
+      "hi": "DIY होम ऑटोमेशन अपनाने में सालाना 40% की वृद्धि",
+      "fr": "L'adoption de la domotique DIY augmente de 40 % par an",
+      "pt": "Adoção de automação residencial DIY cresce 40% ao ano"
     },
-    "url": "#"
+    "url": "https://www.statista.com/",
+    "source": "Statista"
   },
   {
-    "id": 10,
-    "category": "oil_gas",
+    "id": "curated-010",
+    "category": "tech",
     "title": {
-      "en": "Refineries invest in automation to cut downtime",
-      "zh": "炼油厂投资自动化以减少停机时间",
-      "es": "Las refinerías invierten en automatización para reducir el tiempo de inactividad",
-      "hi": "रिफाइनरियाँ डाउनटाइम घटाने के लिए ऑटोमेशन में निवेश कर रही हैं",
-      "fr": "Les raffineries investissent dans l'automatisation pour réduire les arrêts"
+      "en": "Open-source AI models now match proprietary performance",
+      "zh": "开源 AI 模型性能现已匹配专有模型",
+      "es": "Los modelos de IA de código abierto igualan el rendimiento propietario",
+      "hi": "ओपन-सोर्स AI मॉडल अब प्रोप्राइटरी प्रदर्शन से मेल खाते हैं",
+      "fr": "Les modèles d'IA open source égalent désormais les performances propriétaires",
+      "pt": "Modelos de IA open-source agora igualam desempenho proprietário"
     },
-    "url": "#"
+    "url": "https://huggingface.co/",
+    "source": "Hugging Face"
   }
 ]

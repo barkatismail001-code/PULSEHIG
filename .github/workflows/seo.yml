@@ -1,0 +1,67 @@
+name: SEO Build & Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'a/**'
+      - 'data/**'
+      - 'scripts/**'
+      - 'js/**'
+      - 'css/**'
+      - 'index.html'
+      - 'academy.html'
+      - 'tools.html'
+      - 'best-picks.html'
+      - 'guides.html'
+      - 'qa.html'
+      - 'forum.html'
+      - 'news.html'
+      - 'about.html'
+      - 'contact.html'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install @supabase/supabase-js
+
+      - name: Generate SEO files
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node scripts/generate-seo.mjs
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "techpulse-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A a series rss sitemap*.xml rss.xml robots.txt llms.txt data/static-slugs.json index.html data/auto-articles.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(seo): regenerate static pages and feeds [skip ci]"
+            git pull --rebase
+            git push
+          else
+            echo "No changes to commit."
+          fi

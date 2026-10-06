@@ -1,26 +1,13 @@
 # TechPulse
 
-> Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.
-
-TechPulse publishes practical technical articles in English (the site interface is also available in Chinese, Spanish, Hindi and French) covering:
-- Embedded systems & microcontrollers (ESP32, ESP8266, STM32, Arduino)
-- IoT hardware & firmware development
-- Petroleum engineering (upstream, midstream, downstream)
-- Natural gas processing & LNG technology
-- Programming (Python, C, Embedded C, Git, APIs)
-
-## Essential Pages
-- [Home](https://www.pulsehig.com/index.html): Latest technical articles
-- [Forum](https://www.pulsehig.com/forum.html): Live engineering community discussions
-- [Live News](https://www.pulsehig.com/news.html): Tech & oil/gas headlines refreshed hourly
-- [About](https://www.pulsehig.com/about.html): About TechPulse
-- [Contact](https://www.pulsehig.com/contact.html): Reach the editorial team
+> Engineering platform for embedded systems, microcontrollers, home repair, and programming.
 
 ## Featured Articles
 - [How to Fix ESP32 Upload Failures in Under 5 Minutes](https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html)
 - [How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32](https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html)
 - [How to Fix an Overheating Dryer Before It Becomes a Fire Hazard](https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html)
 - [How to Write Code That Anyone Can Read and Maintain](https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html)
+- [Why Is My Wi-Fi Connected But No Internet? (Quick Fixes)](https://www.pulsehig.com/a/why-is-my-wi-fi-connected-but-no-internet-quick-fixes.html)
 - [ESP32 Won't Wake from Deep Sleep: Causes and Fixes](https://www.pulsehig.com/a/esp32-deep-sleep-fix.html)
 - [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html)
 - [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/esp32-relay-chatter-fix.html)
@@ -31,13 +18,6 @@ TechPulse publishes practical technical articles in English (the site interface 
 - [Stop Your Raspberry Pi from Overheating in a Closed Case](https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html)
 - [Router Keeps Rebooting? 6 Causes You Can Fix Today](https://www.pulsehig.com/a/router-keeps-rebooting-fix.html)
 - [How to Spot Energy Vampires Draining Your Bill Silently](https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html)
-- [Why Your Laptop Is Overheating and How to Fix It](https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html)
-
-## Technical Standards
-- All articles are original, technically reviewed, and cite real engineering principles.
-- Content is structured with FAQ sections for AI citation.
-- Images are optimized (1200x630 minimum) for Google Discover.
-- Schema.org markup: Article, FAQPage, BreadcrumbList, Organization.
 
 ## Contact
 - Website: https://www.pulsehig.com

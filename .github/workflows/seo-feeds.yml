@@ -45,12 +45,15 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           TOPIC: ${{ github.event.inputs.topic }}
           TOPIC_CATEGORY: ${{ github.event.inputs.category }}
         run: node scripts/daily-bot.mjs
 
       - name: Generate SEO Files (Sitemap, RSS, article pages)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: node scripts/generate-seo.mjs
 
       - name: Commit and Push Changes
@@ -59,7 +62,7 @@ jobs:
           git config --global user.email "bot@users.noreply.github.com"
 
           # Add the generated SEO files, static article pages, homepage article list and the used-topics memory
-          git add -A a index.html sitemap.xml rss.xml robots.txt llms.txt data/static-slugs.json data/auto-articles.json data/used-topics.json
+          git add -A a series rss sitemap*.xml index.html rss.xml robots.txt llms.txt data/static-slugs.json data/auto-articles.json data/used-topics.json
 
           # Check if there are staged changes, commit and push if there are
           if ! git diff --cached --quiet; then

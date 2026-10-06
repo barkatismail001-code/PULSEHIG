@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>TechPulse</title>
-    <link>https://www.pulsehig.com/</link>
-    <description>Engineering platform for embedded systems, microcontrollers, petroleum, natural gas, and programming.</description>
-    <language>en</language>
-    <lastBuildDate>Mon, 05 Oct 2026 09:08:09 GMT</lastBuildDate>
-    <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+<channel>
+<title>TechPulse</title>
+<link>https://www.pulsehig.com/</link>
+<description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
+<language>en</language>
+<lastBuildDate>Mon, 05 Oct 2026 23:41:52 GMT</lastBuildDate>
+<atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
       <link>https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</guid>
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive diagnostic protocol for resolving ESP32 firmware upload failures, focusing on USB-to-serial bridging, hardware reset sequences, and IDE configuration optimization for rapid deployment.</description>
+      <description><![CDATA[A comprehensive diagnostic protocol for resolving ESP32 firmware upload failures, focusing on USB-to-serial bridging, hardware reset sequences, and IDE configuration optimization for rapid deployment.]]></description>
     </item>
     <item>
       <title>How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32</title>
@@ -21,7 +21,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html</guid>
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive technical guide to resolving common connectivity and signal integrity issues between the HC-SR04 ultrasonic sensor and ESP32 microcontrollers, focusing on hardware wiring, level shifting, and signal timing.</description>
+      <description><![CDATA[A comprehensive technical guide to resolving common connectivity and signal integrity issues between the HC-SR04 ultrasonic sensor and ESP32 microcontrollers, focusing on hardware wiring, level shifting, and signal timing.]]></description>
     </item>
     <item>
       <title>How to Fix an Overheating Dryer Before It Becomes a Fire Hazard</title>
@@ -29,7 +29,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html</guid>
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive technical analysis of the thermal failure modes in residential drying systems, focusing on the transition from mechanical friction and lint accumulation to active pyrolysis and structural combustion.</description>
+      <description><![CDATA[A comprehensive technical analysis of the thermal failure modes in residential drying systems, focusing on the transition from mechanical friction and lint accumulation to active pyrolysis and structural combustion.]]></description>
     </item>
     <item>
       <title>How to Write Code That Anyone Can Read and Maintain</title>
@@ -37,7 +37,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html</guid>
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>This technical guide explores the architectural and linguistic principles required to create high-maintainability codebases. By analyzing the cognitive load of software development, we examine how to leverage naming conventions, modular design, and self-documenting patterns to ensure that complex sy</description>
+      <description><![CDATA[This technical guide explores the architectural and linguistic principles required to create high-maintainability codebases. By analyzing the cognitive load of software development, we examine how to leverage naming conventions, modular design, and self-documenting patterns to ensure that complex sy]]></description>
     </item>
     <item>
       <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
@@ -45,7 +45,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description>ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.</description>
+      <description><![CDATA[ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.]]></description>
     </item>
     <item>
       <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
@@ -53,7 +53,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description>A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.</description>
+      <description><![CDATA[A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.]]></description>
     </item>
     <item>
       <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
@@ -61,7 +61,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-relay-chatter-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description>ESP32 relay clicking repeatedly, buzzing or rebooting? Fix relay chatter with an RC snubber, a separate 5V coil supply, and a proper opto-isolated module.</description>
+      <description><![CDATA[ESP32 relay clicking repeatedly, buzzing or rebooting? Fix relay chatter with an RC snubber, a separate 5V coil supply, and a proper opto-isolated module.]]></description>
     </item>
     <item>
       <title>Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)</title>
@@ -69,7 +69,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description>ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.</description>
+      <description><![CDATA[ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.]]></description>
     </item>
     <item>
       <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
@@ -77,7 +77,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/led-strip-flicker-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description>LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.</description>
+      <description><![CDATA[LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.]]></description>
     </item>
     <item>
       <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</title>
@@ -85,7 +85,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Upgrades</category>
-      <description>An old laptop with an HDD feels unusable. For €60 you can clone the drive to an SSD, add 8 GB RAM and get 10× faster boot times. Full step-by-step guide.</description>
+      <description><![CDATA[An old laptop with an HDD feels unusable. For â‚¬60 you can clone the drive to an SSD, add 8 GB RAM and get 10أ— faster boot times. Full step-by-step guide.]]></description>
     </item>
     <item>
       <title>PC Won&#39;t Boot? The 7-Step No-POST Checklist</title>
@@ -93,7 +93,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/pc-wont-boot-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Hardware</category>
-      <description>PC powers on but no display? Work through the no-POST checklist: RAM reseat, CMOS clear, minimum config, beep codes, PSU paperclip test and BIOS recovery.</description>
+      <description><![CDATA[PC powers on but no display? Work through the no-POST checklist: RAM reseat, CMOS clear, minimum config, beep codes, PSU paperclip test and BIOS recovery.]]></description>
     </item>
     <item>
       <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
@@ -101,7 +101,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description>Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.</description>
+      <description><![CDATA[Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70آ°C.]]></description>
     </item>
     <item>
       <title>Router Keeps Rebooting? 6 Causes You Can Fix Today</title>
@@ -109,7 +109,7 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/router-keeps-rebooting-fix.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Networking</category>
-      <description>Router restarts every few hours? Check the power adapter, heat, firmware, DHCP lease table, IP conflict and the ISP line. Diagnose in 20 minutes.</description>
+      <description><![CDATA[Router restarts every few hours? Check the power adapter, heat, firmware, DHCP lease table, IP conflict and the ISP line. Diagnose in 20 minutes.]]></description>
     </item>
     <item>
       <title>How to Spot Energy Vampires Draining Your Bill Silently</title>
@@ -117,31 +117,23 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</guid>
       <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A technical deep-dive into the architecture of smart metering and the identification of parasitic power loads. This analysis explores the integration of AMI (Advanced Metering Infrastructure) systems, the diagnostic capabilities of portable digital power meters, and the interpretation of multi-modal</description>
+      <description><![CDATA[A technical deep-dive into the architecture of smart metering and the identification of parasitic power loads. This analysis explores the integration of AMI (Advanced Metering Infrastructure) systems, the diagnostic capabilities of portable digital power meters, and the interpretation of multi-modal]]></description>
     </item>
     <item>
-      <title>Why Your Laptop Is Overheating and How to Fix It</title>
-      <link>https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</guid>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>A comprehensive engineering analysis of mobile thermal management, detailing the physical mechanisms of heat dissipation and the procedural steps for resolving thermal throttling through cleaning and thermal interface replacement.</description>
-    </item>
-    <item>
-      <title>Fixing I2C Clock Stretching Timeouts in ESP32: Why Your Sensor Data Freezes and How to Resolve It</title>
-      <link>https://www.pulsehig.com/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre.html</guid>
+      <title>I2C Timeouts: When Your ESP32 Freezes in Real Life</title>
+      <link>https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</guid>
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>This technical deep-dive explores the mechanics of I2C clock stretching and its role in causing communication timeouts on ESP32-based systems. We analyze oscilloscope waveforms and circuit topologies to identify the root causes of bus stalls and provide actionable hardware and firmware strategies fo</description>
+      <description><![CDATA[A practical guide linking ESP32 I2C clock stretching to everyday smart home, wearables, and industrial failures. Learn why your sensor data freezes and how to fix it.]]></description>
     </item>
     <item>
       <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
-      <link>https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common-household-a.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common-household-a.html</guid>
+      <link>https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive technical manual for diagnosing and repairing common dishwasher malfunctions, focusing on internal mechanical diagnostics, water filtration maintenance, and structural integrity assessment for modern household appliances.</description>
+      <description><![CDATA[A comprehensive technical manual for diagnosing and repairing common dishwasher malfunctions, focusing on internal mechanical diagnostics, water filtration maintenance, and structural integrity assessment for modern household appliances.]]></description>
     </item>
     <item>
       <title>Smart Energy Audits: How Telemetry Can Slash Your Power Bills</title>
@@ -149,39 +141,31 @@
       <guid isPermaLink="true">https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a</description>
-    </item>
-    <item>
-      <title>Solving High Household Energy Bills Using Smart Home Automation</title>
-      <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home-automation.html</guid>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Technology</category>
-      <description>This technical analysis explores the architecture of modern smart home automation systems, focusing on the integration of real-time telemetry, automated actuation logic, and advanced data visualization to mitigate household energy expenditure through granular control of HVAC, lighting, and solar ass</description>
+      <description><![CDATA[A comprehensive technical analysis of how high-fidelity telemetry and IoT-based energy monitoring systems optimize power consumption. This article explores the integration of hardware sensors, real-time data visualization, and algorithmic management to achieve significant reductions in residential a]]></description>
     </item>
     <item>
       <title>Topic: How to Fix a Clogged Drain Without Harsh Chemicals</title>
-      <link>https://www.pulsehig.com/a/topic-how-to-fix-a-clogged-drain-without-harsh-chemicals.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/topic-how-to-fix-a-clogged-drain-without-harsh-chemicals.html</guid>
+      <link>https://www.pulsehig.com/a/how-to-fix-a-clogged-drain-without-harsh-chemicals.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-clogged-drain-without-harsh-chemicals.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A comprehensive technical analysis of non-chemical hydro-mechanical and chemical-neutralization protocols for residential drain remediation. This article details the application of mechanical extraction, thermal shock, and reactive cleaning agents to restore hydraulic efficiency in plumbing systems.</description>
+      <description><![CDATA[A comprehensive technical analysis of non-chemical hydro-mechanical and chemical-neutralization protocols for residential drain remediation. This article details the application of mechanical extraction, thermal shock, and reactive cleaning agents to restore hydraulic efficiency in plumbing systems.]]></description>
     </item>
     <item>
       <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
-      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and-applicatio.html</guid>
+      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.</description>
+      <description><![CDATA[A detailed engineering analysis of the ESP32-VROOM-32D development board, focusing on GPIO pinout, electrical constraints, and practical application in IoT and sensor integration.]]></description>
     </item>
     <item>
       <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
-      <link>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a-technical-analy.html</guid>
+      <link>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a.html</guid>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description>This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque</description>
+      <description><![CDATA[This technical article provides a comprehensive engineering analysis of the assembly and maintenance of a sanitary drainage system. It details the structural integrity of the P-trap, the application of hydraulic principles in water flow management, and the specific mechanical requirements for torque]]></description>
     </item>
-  </channel>
+</channel>
 </rss>

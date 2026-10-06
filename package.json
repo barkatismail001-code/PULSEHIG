@@ -1,0 +1,42 @@
+{
+  "name": "techpulse",
+  "version": "1.0.0",
+  "description": "TechPulse — Tech + Home + Academy. Free engineering platform with articles, courses, tools, guides, and community.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/generate-seo.mjs",
+    "translate": "node scripts/translate-articles.mjs",
+    "seo": "node scripts/generate-seo.mjs",
+    "serve": "npx http-server -p 8000 -c-1",
+    "dev": "npx http-server -p 8000 -c-1 -o",
+    "clean": "node -e \"require('fs').rmSync('a',{recursive:true,force:true});require('fs').rmSync('series',{recursive:true,force:true});require('fs').rmSync('rss',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonsrockytech/techpulse.git"
+  },
+  "keywords": [
+    "esp32",
+    "arduino",
+    "embedded",
+    "engineering",
+    "home-automation",
+    "university-courses",
+    "calculators",
+    "iot"
+  ],
+  "author": "TechPulse",
+  "license": "MIT",
+  "homepage": "https://www.pulsehig.com"
+}

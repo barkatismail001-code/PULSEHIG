@@ -1,39 +1,484 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "TechPulse Articles API",
+    "title": "TechPulse API",
     "version": "1.0.0",
-    "description": "Read-only access to TechPulse technical articles."
+    "description": "Read-only public API for TechPulse — engineering articles, university-level courses, engineering tools, and DIY guides. Free to query, no API key required. Please credit TechPulse (https://www.pulsehig.com) when you use this data.",
+    "contact": {
+      "name": "TechPulse Editorial",
+      "email": "contact@pulsehig.com",
+      "url": "https://www.pulsehig.com/contact.html"
+    },
+    "license": {
+      "name": "CC BY-NC-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    },
+    "termsOfService": "https://www.pulsehig.com/terms.html"
   },
   "servers": [
-    { "url": "https://www.pulsehig.com" }
+    {
+      "url": "https://www.pulsehig.com",
+      "description": "Production server"
+    }
+  ],
+  "tags": [
+    { "name": "Articles", "description": "Long-form technical articles and tutorials" },
+    { "name": "Courses", "description": "University-level engineering courses (MIT, Stanford, Berkeley, CMU, Caltech)" },
+    { "name": "Tools", "description": "Engineering calculators" },
+    { "name": "Guides", "description": "Step-by-step DIY guides" },
+    { "name": "Glossary", "description": "Engineering and electronics terminology" },
+    { "name": "Pinout", "description": "Microcontroller pinout database" },
+    { "name": "Discovery", "description": "Sitemaps, RSS feeds, and AI-agent metadata" }
   ],
   "paths": {
-    "/index.html": {
+    "/": {
       "get": {
-        "summary": "Homepage with latest articles",
+        "tags": ["Discovery"],
+        "summary": "Homepage",
+        "description": "Returns the TechPulse homepage HTML with the latest articles, trending topics, and site statistics.",
         "operationId": "getHome",
         "responses": {
-          "200": { "description": "HTML homepage" }
+          "200": {
+            "description": "HTML homepage",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
         }
       }
     },
+
+    "/academy.html": {
+      "get": {
+        "tags": ["Courses"],
+        "summary": "All university-level courses",
+        "description": "Returns the Academy page listing 24 free university-level engineering courses with lectures, assignments, exams, and step-by-step solutions.",
+        "operationId": "listCourses",
+        "responses": {
+          "200": {
+            "description": "HTML page listing all courses",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/course.html": {
+      "get": {
+        "tags": ["Courses"],
+        "summary": "Single course by slug",
+        "description": "Returns the full course page including lectures, assignments, exams, and step-by-step solutions.",
+        "operationId": "getCourse",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "query",
+            "required": true,
+            "description": "Course slug (e.g. circuits-i, algorithms, embedded-systems)",
+            "schema": { "type": "string" },
+            "examples": {
+              "circuits": { "value": "circuits-i" },
+              "algorithms": { "value": "algorithms" },
+              "embedded": { "value": "embedded-systems" },
+              "machineLearning": { "value": "machine-learning" }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTML course page",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        }
+      }
+    },
+
     "/a/{slug}.html": {
       "get": {
+        "tags": ["Articles"],
         "summary": "Single article by slug",
+        "description": "Returns a full static article page with Schema.org structured data (Article + FAQPage + BreadcrumbList), FAQ section, and related articles.",
         "operationId": "getArticle",
         "parameters": [
           {
             "name": "slug",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "description": "Article slug (URL-safe identifier)",
+            "schema": { "type": "string" },
+            "examples": {
+              "esp32DeepSleep": { "value": "esp32-deep-sleep-fix" },
+              "esp32Upload": { "value": "how-to-fix-esp32-upload-failures-in-under-5-minutes" },
+              "laptopSSD": { "value": "old-laptop-ssd-upgrade-guide" }
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": false,
+            "description": "Language code for the translated version (en, zh, es, hi, fr, pt). Defaults to en.",
+            "schema": {
+              "type": "string",
+              "enum": ["en", "zh", "es", "hi", "fr", "pt"],
+              "default": "en"
+            }
           }
         ],
         "responses": {
-          "200": { "description": "HTML article page" }
+          "200": {
+            "description": "HTML article page",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
+      }
+    },
+
+    "/tools.html": {
+      "get": {
+        "tags": ["Tools"],
+        "summary": "All engineering calculators",
+        "description": "Returns the Tools index page listing 30+ engineering calculators for electronics, embedded systems, power, and home projects.",
+        "operationId": "listTools",
+        "responses": {
+          "200": {
+            "description": "HTML page listing all calculators"
+          }
+        }
+      }
+    },
+
+    "/tool.html": {
+      "get": {
+        "tags": ["Tools"],
+        "summary": "Single calculator by slug",
+        "description": "Returns an interactive engineering calculator. Available calculators include: led-resistor, voltage-divider, ohms-law, battery-life, pwm-duty, awg-wire, pcb-trace, capacitor-code, resistor-color, i2c-pullup, buck-boost, heat-sink, esp32-adc, esp32-deep-sleep, mosfet-gate, rc-time, lc-resonance, opamp-gain, power-consumption, solar-panel, battery-pack, air-quality-index, temp-humidity, hvac-btu, wire-voltage-drop, antenna-length, led-strip-power, relay-contact, inductor-code, and more.",
+        "operationId": "getTool",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "examples": {
+              "ledResistor": { "value": "led-resistor" },
+              "voltageDivider": { "value": "voltage-divider" },
+              "batteryLife": { "value": "battery-life" }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "HTML calculator page" },
+          "404": { "description": "Calculator not found" }
+        }
+      }
+    },
+
+    "/guides.html": {
+      "get": {
+        "tags": ["Guides"],
+        "summary": "All DIY guides",
+        "description": "Returns the Guides index page listing step-by-step DIY projects (smart home, IoT, home automation).",
+        "operationId": "listGuides",
+        "responses": {
+          "200": { "description": "HTML page listing all guides" }
+        }
+      }
+    },
+
+    "/guide.html": {
+      "get": {
+        "tags": ["Guides"],
+        "summary": "Single guide by slug",
+        "description": "Returns a step-by-step DIY guide with tools needed, parts needed, difficulty, time estimate, and full instructions.",
+        "operationId": "getGuide",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "examples": {
+              "smartLamp": { "value": "smart-lamp" },
+              "wifiThermometer": { "value": "wifi-thermometer" }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "HTML guide page" },
+          "404": { "description": "Guide not found" }
+        }
+      }
+    },
+
+    "/best-picks.html": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Independently tested product recommendations",
+        "description": "Returns the Best Picks page with product recommendations organized by category (Best / Also Great / Budget tiers).",
+        "operationId": "listBestPicks",
+        "responses": {
+          "200": { "description": "HTML page listing all recommendations" }
+        }
+      }
+    },
+
+    "/glossary.html": {
+      "get": {
+        "tags": ["Glossary"],
+        "summary": "Engineering glossary",
+        "description": "Returns a glossary of engineering, electronics, and embedded systems terms with short and long definitions.",
+        "operationId": "getGlossary",
+        "responses": {
+          "200": { "description": "HTML glossary page" }
+        }
+      }
+    },
+
+    "/pinout.html": {
+      "get": {
+        "tags": ["Pinout"],
+        "summary": "Microcontroller pinout database",
+        "description": "Returns an interactive pinout database for ESP32, Arduino, Raspberry Pi, STM32, and other boards. Click any pin to see its function, warnings, and typical uses.",
+        "operationId": "getPinout",
+        "responses": {
+          "200": { "description": "HTML pinout database page" }
+        }
+      }
+    },
+
+    "/news.html": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Live tech & home news",
+        "description": "Returns live headlines aggregated from Hacker News, Reddit, and curated industry sources. Refreshes hourly.",
+        "operationId": "getNews",
+        "responses": {
+          "200": { "description": "HTML news page" }
+        }
+      }
+    },
+
+    "/qa.html": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Community Q&A",
+        "description": "Returns the Q&A community page where users can ask and answer engineering questions.",
+        "operationId": "getQA",
+        "responses": {
+          "200": { "description": "HTML Q&A page" }
+        }
+      }
+    },
+
+    "/sitemap.xml": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Sitemap index",
+        "description": "Returns the XML sitemap index pointing to all sub-sitemaps (pages, posts, series).",
+        "operationId": "getSitemap",
+        "responses": {
+          "200": {
+            "description": "XML sitemap index",
+            "content": {
+              "application/xml": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/sitemap-posts.xml": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Article URLs sitemap",
+        "description": "All published article URLs with hreflang alternates for translated versions.",
+        "operationId": "getSitemapPosts",
+        "responses": {
+          "200": { "description": "XML sitemap" }
+        }
+      }
+    },
+
+    "/sitemap-pages.xml": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Static pages sitemap",
+        "description": "Static pages (homepage, academy, tools, guides, etc.) with priorities.",
+        "operationId": "getSitemapPages",
+        "responses": {
+          "200": { "description": "XML sitemap" }
+        }
+      }
+    },
+
+    "/sitemap-series.xml": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Article series sitemap",
+        "description": "Curated article series pages.",
+        "operationId": "getSitemapSeries",
+        "responses": {
+          "200": { "description": "XML sitemap" }
+        }
+      }
+    },
+
+    "/rss.xml": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Full-text RSS feed",
+        "description": "RSS 2.0 feed of the 50 most recent articles (full text).",
+        "operationId": "getRss",
+        "responses": {
+          "200": {
+            "description": "RSS feed",
+            "content": {
+              "application/rss+xml": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/llms.txt": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "AI-agent metadata",
+        "description": "Structured metadata file for LLM crawlers describing TechPulse's purpose, content types, and key URLs.",
+        "operationId": "getLlmsTxt",
+        "responses": {
+          "200": {
+            "description": "Plain text metadata",
+            "content": {
+              "text/plain": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/robots.txt": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Crawler rules",
+        "description": "Robots.txt with explicit allow rules for major AI crawlers (GPTBot, ClaudeBot, PerplexityBot, etc.).",
+        "operationId": "getRobots",
+        "responses": {
+          "200": {
+            "description": "Plain text",
+            "content": {
+              "text/plain": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
         }
       }
     }
+  },
+
+  "components": {
+    "schemas": {
+      "Article": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "slug": { "type": "string" },
+          "title": { "type": "string" },
+          "excerpt": { "type": "string" },
+          "content": { "type": "string" },
+          "category": { "type": "string" },
+          "author": { "type": "string" },
+          "date": { "type": "string", "format": "date" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "image": { "type": "string", "format": "uri" },
+          "title_i18n": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "excerpt_i18n": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "content_i18n": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      },
+      "Course": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "code": { "type": "string", "example": "MIT 6.002" },
+          "slug": { "type": "string", "example": "circuits-i" },
+          "title": { "type": "string", "example": "Circuits I" },
+          "university": { "type": "string", "example": "MIT" },
+          "path": {
+            "type": "string",
+            "enum": ["electrical", "cs", "embedded", "ai", "mechanical"]
+          },
+          "description": { "type": "string" },
+          "lectures_count": { "type": "integer" },
+          "assignments_count": { "type": "integer" },
+          "exams_count": { "type": "integer" },
+          "duration_hours": { "type": "integer" },
+          "difficulty": {
+            "type": "string",
+            "enum": ["Beginner", "Intermediate", "Advanced"]
+          },
+          "icon": { "type": "string" }
+        }
+      },
+      "Tool": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "slug": { "type": "string" },
+          "title": { "type": "string" },
+          "category": { "type": "string" },
+          "icon": { "type": "string" },
+          "description": { "type": "string" },
+          "keywords": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  },
+
+  "externalDocs": {
+    "description": "TechPulse for AI agents",
+    "url": "https://www.pulsehig.com/llms.txt"
   }
 }

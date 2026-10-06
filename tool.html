@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tool | TechPulse</title>
+  <meta name="description" content="Free engineering calculator from TechPulse.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://www.pulsehig.com/tool.html">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css?v=20261005">
+  <style>
+    .tool-page-wrap { max-width: 780px; margin: 24px auto 60px; }
+    .tool-hero {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .tool-hero-icon { font-size: 3rem; line-height: 1; margin-bottom: 8px; }
+    .tool-hero h1 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin: 0 0 10px; color: var(--text); }
+    .tool-hero p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin: 0 0 12px; }
+    .tool-cat-badge {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .tool-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .tool-card h2 {
+      font-size: 1.15rem;
+      margin: 0 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      color: var(--text);
+    }
+    .tool-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .tool-field label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .tool-field input,
+    .tool-field select {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.95rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .tool-field input:focus,
+    .tool-field select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+    .tool-field small {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .tool-result {
+      background: linear-gradient(135deg, var(--primary-soft), var(--bg-soft));
+      border: 1px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-top: 20px;
+      display: none;
+    }
+    .tool-result.active { display: block; }
+    .tool-result .result-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .tool-result .result-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+      word-break: break-word;
+    }
+    .tool-result .result-note {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .tool-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .tool-error {
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    .related-tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .related-tools a {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition);
+    }
+    .related-tools a:hover {
+      border-color: var(--primary);
+      background: var(--bg-alt);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker" aria-label="Tools ticker">
+    <span class="ticker-label">🛠️ Tool</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="academy.html" data-i18n="nav_academy">Academy</a>
+        <a href="tools.html" class="active" data-i18n="nav_tools">Tools</a>
+        <a href="best-picks.html" data-i18n="nav_picks">Best Picks</a>
+        <a href="guides.html" data-i18n="nav_guides">Guides</a>
+        <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-page-wrap">
+
+      <nav class="breadcrumb" style="margin-bottom:16px" aria-label="Breadcrumb">
+        <a href="index.html">Home</a> &gt; <a href="tools.html">Tools</a> &gt; <span id="toolCrumb">Tool</span>
+      </nav>
+
+      <div id="toolContainer">
+        <p class="loading-state">Loading tool...</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <script src="js/live-news.js?v=20261005"></script>
+  <script src="js/common.js?v=20261005"></script>
+  <script src="js/i18n.js?v=20261005"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    var C = window.TPCommon;
+    var I = window.TPI18N;
+
+    if (!C || !I) {
+      console.warn('[TP] tool.js requires common.js and i18n.js');
+      return;
+    }
+
+    var allTools = [];
+    var currentTool = null;
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      C.initDarkMode();
+      C.initTicker();
+      initScrollTop();
+      await loadTool();
+    });
+
+    function initScrollTop() {
+      var topBtn = document.getElementById('scrollTopBtn');
+      if (!topBtn) return;
+      window.addEventListener('scroll', function () {
+        topBtn.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+      topBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    async function loadTool() {
+      var slug = new URLSearchParams(location.search).get('slug');
+      var container = document.getElementById('toolContainer');
+      if (!slug) { renderNotFound(container); return; }
+
+      try {
+        var res = await fetch('data/tools.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        allTools = await res.json();
+      } catch (err) {
+        console.warn('[TP] tools load failed', err);
+        renderNotFound(container);
+        return;
+      }
+
+      currentTool = allTools.find(function (t) {
+        return t.slug === slug || t.id === slug;
+      });
+
+      if (!currentTool) { renderNotFound(container); return; }
+
+      document.title = currentTool.title + ' | TechPulse';
+      var metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && currentTool.description) metaDesc.setAttribute('content', currentTool.description);
+      var canon = document.querySelector('link[rel="canonical"]');
+      if (canon) canon.href = 'https://www.pulsehig.com/tool.html?slug=' + slug;
+      var crumb = document.getElementById('toolCrumb');
+      if (crumb) crumb.textContent = currentTool.title;
+
+      renderTool(container, currentTool);
+    }
+
+    function renderNotFound(container) {
+      container.innerHTML =
+        '<div class="not-found" style="text-align:center;padding:60px 20px">' +
+          '<div style="font-size:4rem;margin-bottom:16px">🔧</div>' +
+          '<h1 style="margin-bottom:8px">Tool Not Found</h1>' +
+          '<p style="color:var(--text-muted);margin-bottom:24px">This calculator doesn\'t exist or has been removed.</p>' +
+          '<a href="tools.html" class="btn-primary">← All Tools</a>' +
+        '</div>';
+    }
+
+    function renderTool(container, tool) {
+      var lang = I.getLang();
+      var title = (tool.title_i18n && tool.title_i18n[lang]) || tool.title || '';
+
+      container.innerHTML =
+        '<div class="tool-hero">' +
+          '<div class="tool-hero-icon">' + C.esc(tool.icon || '🔧') + '</div>' +
+          '<span class="tool-cat-badge">' + C.esc(tool.category || '') + '</span>' +
+          '<h1 style="margin-top:10px">' + C.esc(title) + '</h1>' +
+          '<p>' + C.esc(tool.description || '') + '</p>' +
+        '</div>' +
+        '<div class="tool-card">' +
+          '<h2 id="calculatorTitle">Calculator</h2>' +
+          '<div id="calculatorFields"></div>' +
+          '<div class="tool-actions">' +
+            '<button type="button" class="btn-primary" id="calcBtn">Calculate</button>' +
+            '<button type="button" class="btn-secondary" id="resetBtn">Reset</button>' +
+          '</div>' +
+          '<div class="tool-error" id="calcError"></div>' +
+          '<div class="tool-result" id="calcResult">' +
+            '<div class="result-label">Result</div>' +
+            '<div class="result-value" id="resultValue">—</div>' +
+            '<div class="result-note" id="resultNote"></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="tool-card" style="margin-top:24px">' +
+          '<h2>Related Tools</h2>' +
+          '<div class="related-tools" id="relatedTools"></div>' +
+        '</div>';
+
+      renderFields(tool);
+      renderRelated(tool);
+      wireActions(tool);
+    }
+
+    function renderFields(tool) {
+      var fieldsBox = document.getElementById('calculatorFields');
+      var fields = getFieldsFor(tool.slug || tool.id);
+      if (!fields.length) {
+        fieldsBox.innerHTML = '<p style="color:var(--text-muted)">Calculator coming soon.</p>';
+        return;
+      }
+      fieldsBox.innerHTML = fields.map(function (f) {
+        if (f.type === 'select') {
+          return '<div class="tool-field">' +
+            '<label for="field-' + f.id + '">' + C.esc(f.label) + '</label>' +
+            '<select id="field-' + f.id + '" data-field="' + f.id + '">' +
+              f.options.map(function (o) {
+                return '<option value="' + C.esc(o.value) + '">' + C.esc(o.label) + '</option>';
+              }).join('') +
+            '</select>' +
+            (f.hint ? '<small>' + C.esc(f.hint) + '</small>' : '') +
+          '</div>';
+        }
+        return '<div class="tool-field">' +
+          '<label for="field-' + f.id + '">' + C.esc(f.label) + '</label>' +
+          '<input type="number" id="field-' + f.id + '" data-field="' + f.id + '" step="any" placeholder="' + C.esc(f.placeholder || '') + '"' + (f.default != null ? ' value="' + f.default + '"' : '') + '>' +
+          (f.hint ? '<small>' + C.esc(f.hint) + '</small>' : '') +
+        '</div>';
+      }).join('');
+    }
+
+    function getFieldsFor(slug) {
+      var map = {
+        'led-resistor': [
+          { id: 'vs', label: 'Supply Voltage (V)', placeholder: '5', default: 5, hint: 'e.g. 5 or 3.3' },
+          { id: 'vf', label: 'LED Forward Voltage (V)', placeholder: '2.0', default: 2.0, hint: 'Typically 1.8–3.4V' },
+          { id: 'if', label: 'LED Current (mA)', placeholder: '20', default: 20, hint: 'Typically 10–20 mA' }
+        ],
+        'voltage-divider': [
+          { id: 'vin', label: 'Input Voltage (V)', placeholder: '12', default: 12 },
+          { id: 'r1', label: 'R1 (Ω)', placeholder: '10000', default: 10000, hint: 'Top resistor' },
+          { id: 'r2', label: 'R2 (Ω)', placeholder: '3300', default: 3300, hint: 'Bottom resistor' }
+        ],
+        'ohms-law': [
+          { id: 'v', label: 'Voltage (V) — optional', placeholder: '' },
+          { id: 'i', label: 'Current (A) — optional', placeholder: '' },
+          { id: 'r', label: 'Resistance (Ω) — optional', placeholder: '' }
+        ],
+        'battery-life': [
+          { id: 'cap', label: 'Battery Capacity (mAh)', placeholder: '3000', default: 3000, hint: 'e.g. 18650 = 3000 mAh' },
+          { id: 'avg', label: 'Average Current Draw (mA)', placeholder: '15', default: 15, hint: 'Average across sleep + wake cycles' },
+          { id: 'eff', label: 'Efficiency (%)', placeholder: '85', default: 85, hint: 'Consider regulator efficiency' }
+        ],
+        'pwm-duty': [
+          { id: 'freq', label: 'PWM Frequency (Hz)', placeholder: '1000', default: 1000 },
+          { id: 'duty', label: 'Duty Cycle (%)', placeholder: '50', default: 50, hint: '0–100' }
+        ],
+        'awg-wire': [
+          { id: 'awg', label: 'Wire Gauge (AWG)', placeholder: '22', default: 22, hint: 'e.g. 10, 14, 18, 22' }
+        ],
+        'pcb-trace': [
+          { id: 'current', label: 'Current (A)', placeholder: '2', default: 2 },
+          { id: 'temp', label: 'Allowed Temp Rise (°C)', placeholder: '10', default: 10, hint: 'Typically 10 or 20' },
+          { id: 'copper', label: 'Copper Weight (oz)', placeholder: '1', default: 1, hint: '1 oz = 35 µm' },
+          { id: 'location', label: 'Layer Type', type: 'select', options: [
+            { value: 'external', label: 'External (outer layer)' },
+            { value: 'internal', label: 'Internal (inner layer)' }
+          ]}
+        ],
+        'capacitor-code': [
+          { id: 'code', label: 'Capacitor Code', placeholder: '104', default: 104, hint: 'e.g. 104 = 100 nF' }
+        ],
+        'resistor-color': [
+          { id: 'bands', label: 'Number of Bands', type: 'select', options: [
+            { value: '4', label: '4 bands' },
+            { value: '5', label: '5 bands (precision)' }
+          ]},
+          { id: 'b1', label: 'Band 1', type: 'select', options: colorOptions() },
+          { id: 'b2', label: 'Band 2', type: 'select', options: colorOptions() },
+          { id: 'b3', label: 'Band 3 (multiplier or 3rd digit)', type: 'select', options: colorOptions() },
+          { id: 'tolerance', label: 'Tolerance Band', type: 'select', options: [
+            { value: '1', label: 'Brown ±1%' },
+            { value: '2', label: 'Red ±2%' },
+            { value: '5', label: 'Gold ±5%' },
+            { value: '10', label: 'Silver ±10%' }
+          ]}
+        ]
+      };
+      return map[slug] || [];
+    }
+
+    function colorOptions() {
+      return [
+        { value: '0', label: 'Black (0)' },
+        { value: '1', label: 'Brown (1)' },
+        { value: '2', label: 'Red (2)' },
+        { value: '3', label: 'Orange (3)' },
+        { value: '4', label: 'Yellow (4)' },
+        { value: '5', label: 'Green (5)' },
+        { value: '6', label: 'Blue (6)' },
+        { value: '7', label: 'Violet (7)' },
+        { value: '8', label: 'Gray (8)' },
+        { value: '9', label: 'White (9)' }
+      ];
+    }
+
+    function wireActions(tool) {
+      var calcBtn = document.getElementById('calcBtn');
+      var resetBtn = document.getElementById('resetBtn');
+      if (calcBtn) calcBtn.addEventListener('click', function () { calculate(tool); });
+      if (resetBtn) resetBtn.addEventListener('click', function () {
+        document.querySelectorAll('#calculatorFields [data-field]').forEach(function (el) {
+          if (el.tagName === 'SELECT') el.selectedIndex = 0;
+          else el.value = el.defaultValue || '';
+        });
+        var res = document.getElementById('calcResult');
+        if (res) res.classList.remove('active');
+        var err = document.getElementById('calcError');
+        if (err) err.textContent = '';
+      });
+
+      var inputs = document.querySelectorAll('#calculatorFields [data-field]');
+      inputs.forEach(function (el) {
+        el.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') calculate(tool);
+        });
+      });
+    }
+
+    function getVal(id) {
+      var el = document.querySelector('#calculatorFields [data-field="' + id + '"]');
+      return el ? el.value : '';
+    }
+    function getNum(id) {
+      var v = parseFloat(getVal(id));
+      return isNaN(v) ? null : v;
+    }
+
+    function showResult(value, note) {
+      var box = document.getElementById('calcResult');
+      var v = document.getElementById('resultValue');
+      var n = document.getElementById('resultNote');
+      var err = document.getElementById('calcError');
+      if (err) err.textContent = '';
+      if (v) v.textContent = value;
+      if (n) n.textContent = note || '';
+      if (box) box.classList.add('active');
+    }
+    function showError(msg) {
+      var err = document.getElementById('calcError');
+      if (err) err.textContent = '⚠️ ' + msg;
+      var box = document.getElementById('calcResult');
+      if (box) box.classList.remove('active');
+    }
+
+    function calculate(tool) {
+      var slug = tool.slug || tool.id;
+      switch (slug) {
+        case 'led-resistor': return calcLedResistor();
+        case 'voltage-divider': return calcVoltageDivider();
+        case 'ohms-law': return calcOhmsLaw();
+        case 'battery-life': return calcBatteryLife();
+        case 'pwm-duty': return calcPwmDuty();
+        case 'awg-wire': return calcAwgWire();
+        case 'pcb-trace': return calcPcbTrace();
+        case 'capacitor-code': return calcCapacitorCode();
+        case 'resistor-color': return calcResistorColor();
+        default: showError('Calculator not yet implemented');
+      }
+    }
+
+    function calcLedResistor() {
+      var vs = getNum('vs'), vf = getNum('vf'), ima = getNum('if');
+      if (vs == null || vf == null || ima == null) return showError('Please fill all fields');
+      if (vs <= vf) return showError('Supply voltage must be greater than LED forward voltage');
+      var i = ima / 1000;
+      var r = (vs - vf) / i;
+      var e12 = [10,12,15,18,22,27,33,39,47,56,68,82];
+      var magnitude = Math.pow(10, Math.floor(Math.log10(r)));
+      var closest = e12.reduce(function (best, v) {
+        var candidate = v * magnitude;
+        return Math.abs(candidate - r) < Math.abs(best - r) ? candidate : best;
+      }, e12[0] * magnitude);
+      if (r > 1000) r = r / 1000;
+      closest = closest / 1000 >= 1 ? (closest / 1000).toFixed(1) + ' kΩ' : Math.round(closest) + ' Ω';
+      showResult(closest, 'Exact value: ' + (r >= 1 ? r.toFixed(2) + ' kΩ' : Math.round(r * 1000) + ' Ω') + ' — pick the next standard value up');
+    }
+
+    function calcVoltageDivider() {
+      var vin = getNum('vin'), r1 = getNum('r1'), r2 = getNum('r2');
+      if (vin == null || r1 == null || r2 == null) return showError('Please fill all fields');
+      if (r1 + r2 === 0) return showError('Total resistance cannot be zero');
+      var vout = vin * (r2 / (r1 + r2));
+      var i = vin / (r1 + r2) * 1000;
+      showResult(vout.toFixed(3) + ' V', 'Current: ' + i.toFixed(3) + ' mA · Power: ' + (vin * i / 1000).toFixed(3) + ' W');
+    }
+
+    function calcOhmsLaw() {
+      var v = getNum('v'), i = getNum('i'), r = getNum('r');
+      var count = [v, i, r].filter(function (x) { return x != null; }).length;
+      if (count < 2) return showError('Enter any two values');
+      if (v == null) v = i * r;
+      if (i == null) i = v / r;
+      if (r == null) r = v / i;
+      var p = v * i;
+      showResult(v.toFixed(3) + ' V', i.toFixed(4) + ' A · ' + r.toFixed(2) + ' Ω · ' + p.toFixed(3) + ' W');
+    }
+
+    function calcBatteryLife() {
+      var cap = getNum('cap'), avg = getNum('avg'), eff = getNum('eff') || 100;
+      if (cap == null || avg == null) return showError('Please fill capacity and current');
+      if (avg <= 0) return showError('Current must be positive');
+      var hours = (cap * (eff / 100)) / avg;
+      var days = hours / 24;
+      var result = hours < 48 ? hours.toFixed(1) + ' hours' : days.toFixed(1) + ' days';
+      showResult(result, 'Usable capacity: ' + (cap * eff / 100).toFixed(0) + ' mAh');
+    }
+
+    function calcPwmDuty() {
+      var freq = getNum('freq'), duty = getNum('duty');
+      if (freq == null || duty == null) return showError('Please fill both fields');
+      if (freq <= 0) return showError('Frequency must be positive');
+      if (duty < 0 || duty > 100) return showError('Duty must be 0–100');
+      var period = 1 / freq;
+      var onTime = period * (duty / 100);
+      var offTime = period - onTime;
+      var us = function (s) { return (s * 1e6).toFixed(2); };
+      showResult('ON: ' + us(onTime) + ' µs', 'OFF: ' + us(offTime) + ' µs · Period: ' + us(period) + ' µs');
+    }
+
+    function calcAwgWire() {
+      var awg = getNum('awg');
+      if (awg == null) return showError('Please enter AWG value');
+      if (awg < 0 || awg > 40) return showError('AWG typically 0–40');
+      var dInch = 0.005 * Math.pow(92, (36 - awg) / 39);
+      var dMm = dInch * 25.4;
+      var areaMm2 = Math.PI * Math.pow(dMm / 2, 2);
+      var resistancePerM = 0.017241 / areaMm2;
+      showResult(areaMm2.toFixed(4) + ' mm²', 'Diameter: ' + dMm.toFixed(3) + ' mm · Resistance: ' + resistancePerM.toFixed(4) + ' Ω/m');
+    }
+
+    function calcPcbTrace() {
+      var current = getNum('current'), temp = getNum('temp'), copper = getNum('copper');
+      var location = getVal('location');
+      if (current == null || temp == null || copper == null) return showError('Please fill all fields');
+      if (current <= 0) return showError('Current must be positive');
+      var thickness = copper * 1.378; // mils (1 oz ≈ 1.378 mil)
+      var k = location === 'external' ? 0.048 : 0.024;
+      var area = Math.pow(current / (k * Math.pow(temp, 0.44)), 1 / 0.725);
+      var width = area / thickness;
+      showResult(width.toFixed(2) + ' mil', '≈ ' + (width * 0.0254).toFixed(3) + ' mm · Copper thickness: ' + thickness.toFixed(1) + ' mil');
+    }
+
+    function calcCapacitorCode() {
+      var code = String(getVal('code')).trim();
+      if (!code) return showError('Enter code');
+      var m = code.match(/^(\d{2})(\d)$/);
+      if (!m) return showError('Invalid code (e.g. 104, 223)');
+      var pf = parseInt(m[1]) * Math.pow(10, parseInt(m[2]));
+      var nf = pf / 1000;
+      var uf = nf / 1000;
+      var display = pf < 1000 ? pf + ' pF' : (nf < 1000 ? nf.toFixed(2) + ' nF' : uf.toFixed(4) + ' µF');
+      showResult(display, pf + ' pF = ' + nf.toFixed(3) + ' nF = ' + uf.toFixed(6) + ' µF');
+    }
+
+    function calcResistorColor() {
+      var b1 = getVal('b1'), b2 = getVal('b2'), b3 = getVal('b3'), tol = getVal('tolerance'), bands = getVal('bands');
+      if (!b1 || !b2 || !b3) return showError('Please select bands');
+      var value;
+      if (bands === '5') {
+        var b4 = getVal('b3');
+        value = (parseInt(b1) * 100 + parseInt(b2) * 10 + parseInt(b3)) * Math.pow(10, parseInt(b4));
+      } else {
+        value = (parseInt(b1) * 10 + parseInt(b2)) * Math.pow(10, parseInt(b3));
+      }
+      var display;
+      if (value >= 1e6) display = (value / 1e6).toFixed(2) + ' MΩ';
+      else if (value >= 1000) display = (value / 1000).toFixed(2) + ' kΩ';
+      else display = value + ' Ω';
+      showResult(display, '±' + tol + '% tolerance');
+    }
+
+    function renderRelated(tool) {
+      var box = document.getElementById('relatedTools');
+      if (!box) return;
+      var related = allTools.filter(function (t) {
+        return (t.slug || t.id) !== (tool.slug || tool.id) && t.category === tool.category;
+      }).slice(0, 4);
+      if (!related.length) {
+        related = allTools.filter(function (t) { return (t.slug || t.id) !== (tool.slug || tool.id); }).slice(0, 4);
+      }
+      box.innerHTML = related.map(function (t) {
+        return '<a href="tool.html?slug=' + C.esc(t.slug || t.id) + '">' +
+          C.esc(t.icon || '🔧') + ' ' + C.esc(t.title || '') +
+        '</a>';
+      }).join('');
+    }
+  })();
+  </script>
+</body>
+</html>
