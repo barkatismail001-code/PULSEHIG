@@ -4,8 +4,8 @@
 
 ## Featured Articles
 - [How to Write Code That Anyone Can Read and Maintain](https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html)
-- [How to Fix an Overheating Dryer Before It Becomes a Fire Hazard](https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html)
 - [How to Fix ESP32 Upload Failures in Under 5 Minutes](https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html)
+- [How to Fix an Overheating Dryer Before It Becomes a Fire Hazard](https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html)
 - [How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32](https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html)
 - [ESP32 Won't Wake from Deep Sleep: Causes and Fixes](https://www.pulsehig.com/a/esp32-deep-sleep-fix.html)
 - [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html)
