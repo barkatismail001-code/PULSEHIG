@@ -60,6 +60,8 @@ jobs:
         run: |
           git config --global user.name "techpulse-bot"
           git config --global user.email "bot@users.noreply.github.com"
+          git config --global rerere.enabled true
+          git config --global rerere.autoupdate true
 
           # Add the generated SEO files, static article pages, homepage article list and the used-topics memory
           git add -A a series rss sitemap*.xml index.html rss.xml robots.txt llms.txt data/static-slugs.json data/auto-articles.json data/used-topics.json
@@ -67,7 +69,8 @@ jobs:
           # Check if there are staged changes, commit and push if there are
           if ! git diff --cached --quiet; then
             git commit -m "chore: auto-publish daily article and update SEO [skip ci]"
-            git pull --rebase
+            git fetch origin main
+            git merge origin/main --no-edit -X ours
             git push
           else
             echo "No changes to commit."
