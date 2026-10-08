@@ -251,8 +251,9 @@ function page(a, all) {
     related.map((r) => '<article class="article-card"><span class="card-category">' + esc(r.category) + '</span><h3><a href="/a/' + r.slug + '.html">' + esc(r.title) + '</a></h3><p>' + esc(r.excerpt) + '</p><a href="/a/' + r.slug + '.html" class="read-more">Read More â†’</a></article>').join('') +
     '</div></section>' : '';
 
-  return '<!DOCTYPE html>\n<html lang="en" dir="ltr">\n<head>\n' +
-    '<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+  return '<!DOCTYPE html>\n<html lang="en" dir="ltr" translate="no">\n<head>\n' +
+    '<meta charset="UTF-8">
+<meta name="google" content="notranslate">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
     '<title>' + esc(seoTitle(a.title)) + '</title>\n' +
     '<meta name="description" content="' + esc(desc) + '">\n' +
     '<link rel="canonical" href="' + url + '">\n' + hreflangTags + '\n' +
@@ -310,7 +311,8 @@ function page(a, all) {
 function seriesPage(s, all) {
   const items = s.matchSlugs.map((slug) => all.find((a) => a.slug === slug)).filter(Boolean);
   const url = SITE + '/series/' + s.slug + '.html';
-  return '<!DOCTYPE html>\n<html lang="en"><head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+  return '<!DOCTYPE html>\n<html lang="en"><head>\n<meta charset="UTF-8">
+<meta name="google" content="notranslate">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
     '<title>' + esc(s.title) + ' â€” Series | ' + SITE_NAME + '</title>\n' +
     '<meta name="description" content="' + esc(s.description) + '">\n<link rel="canonical" href="' + url + '">\n' +
     '<link rel="icon" href="/favicon.ico">\n<link rel="stylesheet" href="/css/style.css?v=' + ASSET_V + '">\n    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>\n' +

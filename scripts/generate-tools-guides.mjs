@@ -1,4 +1,4 @@
-// TechPulse — Generate static pages for Tools + Guides
+﻿// TechPulse â€” Generate static pages for Tools + Guides
 // Run: node scripts/generate-tools-guides.mjs
 //
 // Creates:
@@ -23,14 +23,14 @@ const DEFAULT_IMG = SITE + '/assets/og-default.png';
 
 const LANGS = {
   en: { name: 'English', htmlLang: 'en' },
-  zh: { name: '中文', htmlLang: 'zh-CN' },
-  es: { name: 'Español', htmlLang: 'es' },
-  hi: { name: 'हिन्दी', htmlLang: 'hi' },
-  fr: { name: 'Français', htmlLang: 'fr' },
-  pt: { name: 'Português', htmlLang: 'pt' }
+  zh: { name: 'ن¸­و–‡', htmlLang: 'zh-CN' },
+  es: { name: 'Espaأ±ol', htmlLang: 'es' },
+  hi: { name: 'à¤¹à¤؟à¤¨à¥چà¤¦à¥€', htmlLang: 'hi' },
+  fr: { name: 'Franأ§ais', htmlLang: 'fr' },
+  pt: { name: 'Portuguأھs', htmlLang: 'pt' }
 };
 
-const NAV = '<a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>';
+const NAV = '<a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">ًںŒ™</button>';
 
 const esc = (s) => String(s ?? '').replace(/[<>&'"]/g, (c) =>
   ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&#39;', '"': '&quot;' }[c]));
@@ -57,7 +57,7 @@ function toolPage(tool) {
   const title = tool.title || '';
   const description = tool.description || '';
   const category = tool.category || 'Engineering';
-  const icon = tool.icon || '🔧';
+  const icon = tool.icon || 'ًں”§';
 
   const ld = {
     '@context': 'https://schema.org',
@@ -90,9 +90,10 @@ function toolPage(tool) {
   const hreflang = buildHreflang(url, tool.title_i18n);
 
   return `<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" translate="no">
 <head>
   <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(title)} | Free Online Calculator | ${SITE_NAME}</title>
   <meta name="description" content="${esc(description)}">
@@ -116,7 +117,7 @@ ${hreflang}
 </head>
 <body>
   <div class="ticker" aria-label="Tools ticker">
-    <span class="ticker-label">🛠️ Tool</span>
+    <span class="ticker-label">ًں› ï¸ڈ Tool</span>
     <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
   </div>
 
@@ -165,7 +166,7 @@ ${hreflang}
     </div>
   </footer>
 
-  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">â†‘</button>
 
   <script src="/js/live-news.js?v=${ASSET_V}"></script>
   <script src="/js/common.js?v=${ASSET_V}"></script>
@@ -208,7 +209,7 @@ function guidePage(guide) {
   const title = guide.title || '';
   const description = guide.description || '';
   const category = guide.category || 'DIY';
-  const icon = guide.icon || '📖';
+  const icon = guide.icon || 'ًں“–';
   const difficulty = guide.difficulty || 'Beginner';
   const time = guide.time_minutes || 0;
   const cost = guide.cost_usd || 0;
@@ -248,9 +249,10 @@ function guidePage(guide) {
   const hreflang = buildHreflang(url, guide.title_i18n);
 
   return `<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" translate="no">
 <head>
   <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(title)} | Step-by-Step DIY Guide | ${SITE_NAME}</title>
   <meta name="description" content="${esc(description)}">
@@ -274,7 +276,7 @@ ${hreflang}
 </head>
 <body>
   <div class="ticker" aria-label="Guides ticker">
-    <span class="ticker-label">🛠️ Guide</span>
+    <span class="ticker-label">ًں› ï¸ڈ Guide</span>
     <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
   </div>
 
@@ -302,7 +304,7 @@ ${hreflang}
         <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:16px">
           <div style="font-size:3.5rem;line-height:1">${icon}</div>
           <div style="flex:1">
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 12px;border-radius:6px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.2)">${esc(category)} · ${esc(difficulty)}</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 12px;border-radius:6px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.2)">${esc(category)} آ· ${esc(difficulty)}</span>
             <h1 style="font-size:clamp(1.4rem,3vw,2rem);margin:0 0 12px;line-height:1.2">${esc(title)}</h1>
             <p style="opacity:0.92;line-height:1.6;margin:0">${esc(description)}</p>
           </div>
@@ -332,7 +334,7 @@ ${hreflang}
     </div>
   </footer>
 
-  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">â†‘</button>
 
   <script src="/js/live-news.js?v=${ASSET_V}"></script>
   <script src="/js/common.js?v=${ASSET_V}"></script>
@@ -392,7 +394,7 @@ async function main() {
     await writeFile(join(ROOT, 'tools', slug + '.html'), html);
     toolCount++;
   }
-  console.log('✓ ' + toolCount + ' tool pages written');
+  console.log('âœ“ ' + toolCount + ' tool pages written');
 
   // Generate guide pages
   let guideCount = 0;
@@ -403,12 +405,12 @@ async function main() {
     await writeFile(join(ROOT, 'guides', slug + '.html'), html);
     guideCount++;
   }
-  console.log('✓ ' + guideCount + ' guide pages written');
+  console.log('âœ“ ' + guideCount + ' guide pages written');
 
-  console.log('\n✅ Done. Total: ' + toolCount + ' tools, ' + guideCount + ' guides');
+  console.log('\nâœ… Done. Total: ' + toolCount + ' tools, ' + guideCount + ' guides');
 }
 
 main().catch((e) => {
-  console.error('❌', e);
+  console.error('â‌Œ', e);
   process.exit(1);
 });
