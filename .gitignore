@@ -28,3 +28,9 @@ _archive/
 
 # Local backups
 _backup*/
+
+# Local backups & review packages
+backup_*/
+review-site_*/
+*.zip
+
