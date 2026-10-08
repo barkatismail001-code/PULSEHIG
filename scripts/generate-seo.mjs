@@ -252,8 +252,7 @@ function page(a, all) {
     '</div></section>' : '';
 
   return '<!DOCTYPE html>\n<html lang="en" dir="ltr" translate="no">\n<head>\n' +
-    '<meta charset="UTF-8">
-<meta name="google" content="notranslate">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+    '<meta charset="UTF-8">\n<meta name="google" content="notranslate">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
     '<title>' + esc(seoTitle(a.title)) + '</title>\n' +
     '<meta name="description" content="' + esc(desc) + '">\n' +
     '<link rel="canonical" href="' + url + '">\n' + hreflangTags + '\n' +
@@ -270,7 +269,6 @@ function page(a, all) {
     '<link rel="icon" href="/favicon.ico" type="image/x-icon">\n<link rel="manifest" href="/manifest.json">\n' +
     '<meta name="theme-color" content="#2563eb">\n<link rel="llms" href="/llms.txt">\n' +
     '<link rel="alternate" type="application/rss+xml" title="' + SITE_NAME + '" href="/rss.xml">\n' +
-    '<link rel="stylesheet" href="/css/style.css?v=' + ASSET_V + '">\n    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>\n' +
     '<script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>\n' +
     '<script type="application/ld+json">' + JSON.stringify(ld) + '</script>\n</head>\n<body>\n' +
     '<div id="readingProgressBar"></div>\n<header class="main-header"><div class="container">\n' +
@@ -311,11 +309,9 @@ function page(a, all) {
 function seriesPage(s, all) {
   const items = s.matchSlugs.map((slug) => all.find((a) => a.slug === slug)).filter(Boolean);
   const url = SITE + '/series/' + s.slug + '.html';
-  return '<!DOCTYPE html>\n<html lang="en"><head>\n<meta charset="UTF-8">
-<meta name="google" content="notranslate">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+  return '<!DOCTYPE html>\n<html lang="en"><head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
     '<title>' + esc(s.title) + ' â€” Series | ' + SITE_NAME + '</title>\n' +
     '<meta name="description" content="' + esc(s.description) + '">\n<link rel="canonical" href="' + url + '">\n' +
-    '<link rel="icon" href="/favicon.ico">\n<link rel="stylesheet" href="/css/style.css?v=' + ASSET_V + '">\n    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>\n' +
     '</head><body>\n<header class="main-header"><div class="container">\n' +
     '<div class="logo"><a href="/index.html"><span>' + SITE_NAME + '</span></a></div>\n' +
     '<nav class="nav-links">' + NAV + '</nav>\n</div></header>\n<main class="container">\n' +
