@@ -1,36 +1,21 @@
-﻿# Dependencies
-node_modules/
-package-lock.json
+# Local backups & review packages
+backup_*/
+review_*/
+review-site_*/
+*.zip
+*.bak_*
+*.broken
 
-# Environment
-.env
-.env.local
+# Fix scripts (temporary)
+fix-*.cjs
+fix-*.mjs
+apply-*.mjs
+split-*.mjs
+set-ga.mjs
+
+# Node
+node_modules/
 
 # OS
 .DS_Store
 Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-
-# Logs
-*.log
-
-# Archive
-_archive/
-
-# Temp
-*.tmp
-*.old
-*.bak*
-
-# Local backups
-_backup*/
-
-# Local backups & review packages
-backup_*/
-review-site_*/
-*.zip
-

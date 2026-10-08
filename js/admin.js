@@ -1,5 +1,5 @@
-﻿/* ==========================================================================
-   TechPulse â€” Admin Controller (admin.js) v20261005
+/* ==========================================================================
+   TechPulse — Admin Controller (admin.js) v20261005
    Handles: article CRUD, image upload to Supabase Storage, DeepSeek AI generation
    from 3 images + title, translation queue trigger.
    Requires js/common.js and js/i18n.js
@@ -153,7 +153,7 @@
       var slug = slugInput.value.trim() || C.slugify(title);
 
       if (!title || !excerpt || !content || !category) {
-        C.showToast('âڑ ï¸ڈ Please fill all required fields');
+        C.showToast('⚠️ Please fill all required fields');
         return;
       }
 
@@ -161,7 +161,7 @@
         var imageUrl = currentImageData && currentImageData.indexOf('http') === 0 ? currentImageData : '';
 
         if (currentImageFile) {
-          C.showToast('âڈ³ Uploading image...');
+          C.showToast('⏳ Uploading image...');
           imageUrl = await uploadToStorage(currentImageFile, 'hero_');
         }
 
@@ -188,11 +188,11 @@
         if (id) {
           var upd = await supabaseClient.from('articles').update(payload).eq('id', id);
           if (upd.error) throw upd.error;
-          C.showToast('âœ¨ Article updated successfully');
+          C.showToast('✨ Article updated successfully');
         } else {
           var ins = await supabaseClient.from('articles').insert([payload]);
           if (ins.error) throw ins.error;
-          C.showToast('ًںڑ€ Article published successfully');
+          C.showToast('🚀 Article published successfully');
         }
 
         resetForm();
@@ -200,7 +200,7 @@
         renderAdminList();
       } catch (err) {
         console.error('[TP] save error', err);
-        C.showToast('â‌Œ Error: ' + err.message);
+        C.showToast('❌ Error: ' + err.message);
       }
     });
   }
@@ -258,12 +258,12 @@
     if (!confirm('Delete this article permanently?')) return;
     var res = await supabaseClient.from('articles').delete().eq('id', id);
     if (res.error) {
-      C.showToast('â‌Œ ' + res.error.message);
+      C.showToast('❌ ' + res.error.message);
       return;
     }
     await loadArticles();
     renderAdminList();
-    C.showToast('ًں—‘ Article deleted');
+    C.showToast('🗑 Article deleted');
   }
 
   function resetForm() {
@@ -314,7 +314,7 @@
         '<div style="flex:1;min-width:0">' +
           '<h4 style="margin:0 0 4px;font-size:0.95rem;color:var(--text);word-break:break-word">' + C.esc(art.title) + '</h4>' +
           '<p style="margin:0 0 6px;font-size:0.83rem;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">' + C.esc(art.excerpt || '') + '</p>' +
-          '<small style="color:var(--text-muted);font-size:0.75rem">' + C.esc(art.category || 'â€”') + ' آ· ' + C.esc(art.date || '') + ' آ· <span style="color:' + statusColor + ';font-weight:600">' + status + '</span></small>' +
+          '<small style="color:var(--text-muted);font-size:0.75rem">' + C.esc(art.category || '—') + ' · ' + C.esc(art.date || '') + ' · <span style="color:' + statusColor + ';font-weight:600">' + status + '</span></small>' +
         '</div>' +
         '<div style="display:flex;gap:6px;flex-shrink:0">' +
           '<button type="button" data-edit="' + art.id + '" style="background:#0284c7;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:600;font-size:0.8rem">Edit</button>' +
@@ -388,9 +388,7 @@
   var aiThumbs = $('#aiImageThumbs');
 
   if (aiKeyInput) {
-    var savedKey = localStorage.getItem('tp_deepseek_key');
-    if (savedKey) aiKeyInput.value = savedKey;
-  }
+      }
 
   if (aiImagesInput) {
     aiImagesInput.addEventListener('change', function () {
@@ -425,16 +423,14 @@
       if (!apiKey) { C.showToast('Please enter your DeepSeek API Key'); return; }
       if (!customTitle) { C.showToast('Please enter an article title'); return; }
       if (!aiImageFiles || aiImageFiles.length < 1) { C.showToast('Please select at least 1 image'); return; }
-
-      localStorage.setItem('tp_deepseek_key', apiKey);
       generateBtn.disabled = true;
 
       try {
         aiStatus.style.color = '#38bdf8';
-        aiStatus.innerText = 'âڈ³ Compressing images...';
+        aiStatus.innerText = '⏳ Compressing images...';
         var imageDataUrls = await Promise.all(aiImageFiles.map(function (f) { return compressImage(f); }));
 
-        aiStatus.innerText = 'âڈ³ Analyzing images and writing article (this may take 30â€“60 seconds)...';
+        aiStatus.innerText = '⏳ Analyzing images and writing article (this may take 30–60 seconds)...';
 
         var prompt = 'You are a senior technical writer for TechPulse, an engineering platform about ESP32/Arduino, embedded systems, and home repair.\n\n' +
           'Write a long, deep, professional technical article titled: "' + customTitle + '"\n\n' +
@@ -470,12 +466,12 @@
           throw new Error('Generated content is too short');
         }
 
-        aiStatus.innerText = 'âڈ³ Checking word count...';
+        aiStatus.innerText = '⏳ Checking word count...';
         var wc = tpWords(parsed.content);
 
         if (wc < MIN_WORDS) {
           var need = MIN_WORDS - wc + 150;
-          aiStatus.innerText = 'âڈ³ Expanding article (' + wc + ' words â†’ ' + MIN_WORDS + '+)...';
+          aiStatus.innerText = '⏳ Expanding article (' + wc + ' words → ' + MIN_WORDS + '+)...';
           var extra = await callGroq(apiKey, [{
             role: 'user',
             content: 'Article titled "' + parsed.title + '":\n\n' + parsed.content + '\n\nWrite ' + need + ' to ' + (need + 200) + ' words of NEW material as 1-2 additional sections. Each section starts with "## Heading". Do not repeat existing content. Output only the new sections as plain markdown.'
@@ -501,7 +497,7 @@
         categoryInput.value = parsed.category || category;
 
         /* Set hero image + upload to storage */
-        aiStatus.innerText = 'âڈ³ Uploading hero image to Supabase Storage...';
+        aiStatus.innerText = '⏳ Uploading hero image to Supabase Storage...';
         try {
           var heroFile = aiImageFiles[0];
           var heroUrl = await uploadToStorage(heroFile, 'hero_');
@@ -520,11 +516,11 @@
         slugEdited = false;
 
         aiStatus.style.color = '#4ade80';
-        aiStatus.innerText = 'âœ… Article generated (' + wc + ' words). Review the form below and click "Save Article to Database".';
+        aiStatus.innerText = '✅ Article generated (' + wc + ' words). Review the form below and click "Save Article to Database".';
       } catch (err) {
         console.error('[TP] AI generation error', err);
         aiStatus.style.color = '#f87171';
-        aiStatus.innerText = 'â‌Œ Error: ' + err.message;
+        aiStatus.innerText = '❌ Error: ' + err.message;
       } finally {
         generateBtn.disabled = false;
       }

@@ -1,4 +1,4 @@
-﻿name: Translate Articles (Auto)
+name: Translate Articles (Auto)
 
 on:
   workflow_dispatch:

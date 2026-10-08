@@ -1,4 +1,4 @@
-﻿// scripts/generate-courses.mjs
+// scripts/generate-courses.mjs
 import { writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,7 +19,7 @@ async function sbGet(path) {
 }
 
 function renderContent(text) {
-  // Simple markdown â†’ HTML
+  // Simple markdown → HTML
   return String(text || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
@@ -46,7 +46,7 @@ function page(course, lectures, assignments, exams) {
           <h4>${esc(l.title)}</h4>
           <p>${esc((l.content || '').slice(0, 220))}...</p>
           <div class="lecture-meta">
-            <span>âڈ± ${l.duration_minutes || 50} min read</span>
+            <span>⏱ ${l.duration_minutes || 50} min read</span>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@ function page(course, lectures, assignments, exams) {
     const problems = Array.isArray(a.problems) ? a.problems : [];
     return `
       <div class="assignment-item">
-        <h3>ًں“‌ ${esc(a.title)}</h3>
+        <h3>📝 ${esc(a.title)}</h3>
         ${problems.map((p, i) => `
           <div class="problem-item">
             <p><strong>Q${i+1}.</strong> ${esc(p.question)}</p>
@@ -77,7 +77,7 @@ function page(course, lectures, assignments, exams) {
     const problems = Array.isArray(e.problems) ? e.problems : [];
     return `
       <div class="exam-item">
-        <h3>ًںژ¯ ${esc(e.title)}</h3>
+        <h3>🎯 ${esc(e.title)}</h3>
         ${problems.map((p, i) => `
           <div class="problem-item">
             <p><strong>Q${i+1}.</strong> ${esc(p.question)}</p>
@@ -110,7 +110,7 @@ function page(course, lectures, assignments, exams) {
 <meta charset="UTF-8">
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(title)} â€” ${esc(course.university)} | TechPulse Academy</title>
+<title>${esc(title)} — ${esc(course.university)} | TechPulse Academy</title>
 <meta name="description" content="${esc(course.description)}">
 <link rel="canonical" href="${url}">
 ${hreflang}
@@ -185,7 +185,7 @@ ${hreflang}
     </nav>
     
     <div class="course-hero">
-      <span class="course-code-badge">${esc(course.code)} آ· ${esc(course.university)}</span>
+      <span class="course-code-badge">${esc(course.code)} · ${esc(course.university)}</span>
       <h1>${esc(title)}</h1>
       <p>${esc(course.description)}</p>
       <div class="course-hero-stats">
@@ -197,9 +197,9 @@ ${hreflang}
     </div>
     
     <div class="course-tabs">
-      <button class="course-tab active" data-tab="lectures">ًںژ¬ Lectures (${lectures.length})</button>
-      <button class="course-tab" data-tab="assignments">ًں“‌ Assignments (${assignments.length})</button>
-      <button class="course-tab" data-tab="exams">ًںژ¯ Exams (${exams.length})</button>
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (${lectures.length})</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (${assignments.length})</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (${exams.length})</button>
     </div>
     
     <div class="course-panel active" data-panel="lectures">
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 async function main() {
-  console.log('ًں“ڑ Generating static course pages...');
+  console.log('📚 Generating static course pages...');
   
   const courses = await sbGet('courses?select=*&order=code.asc');
   console.log(`   Found ${courses.length} courses`);
@@ -276,14 +276,14 @@ async function main() {
       
       const html = page(course, lectures || [], assignments || [], exams || []);
       await writeFile(join(ROOT, 'course', `${course.slug}.html`), html);
-      console.log(`   âœ“ /course/${course.slug}.html (${lectures.length} lec, ${assignments.length} asg, ${exams.length} exm)`);
+      console.log(`   ✓ /course/${course.slug}.html (${lectures.length} lec, ${assignments.length} asg, ${exams.length} exm)`);
       generated++;
     } catch (e) {
-      console.warn(`   âœ— Failed ${course.slug}: ${e.message}`);
+      console.warn(`   ✗ Failed ${course.slug}: ${e.message}`);
     }
   }
   
-  console.log(`\nâœ… Generated ${generated}/${courses.length} course pages`);
+  console.log(`\n✅ Generated ${generated}/${courses.length} course pages`);
 }
 
-main().catch(e => { console.error('â‌Œ', e); process.exit(1); });
+main().catch(e => { console.error('❌', e); process.exit(1); });

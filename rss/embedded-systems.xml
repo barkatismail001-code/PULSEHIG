@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>TechPulse â€” Embedded Systems</title>
+<title>TechPulse — Embedded Systems</title>
 <link>https://www.pulsehig.com/</link>
     <item>
       <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
@@ -36,7 +36,7 @@
       <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
       <link>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</link>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <description>Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70آ°C.</description>
+      <description>Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.</description>
     </item>
 </channel>
 </rss>

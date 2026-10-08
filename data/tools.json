@@ -13,7 +13,13 @@
     "category": "Power",
     "icon": "🔋",
     "description": "Estimate how long a battery will power your device, factoring in sleep current, active current, and duty cycle.",
-    "keywords": ["battery", "esp32", "iot", "sleep", "power"]
+    "keywords": [
+      "battery",
+      "esp32",
+      "iot",
+      "sleep",
+      "power"
+    ]
   },
   {
     "id": "led-resistor",
@@ -29,7 +35,12 @@
     "category": "Electronics",
     "icon": "💡",
     "description": "Find the right current-limiting resistor for any LED given supply voltage and forward voltage.",
-    "keywords": ["led", "resistor", "ohms law", "current limiting"]
+    "keywords": [
+      "led",
+      "resistor",
+      "ohms law",
+      "current limiting"
+    ]
   },
   {
     "id": "voltage-divider",
@@ -45,7 +56,12 @@
     "category": "Electronics",
     "icon": "⚡",
     "description": "Calculate the output voltage of a resistive divider or find resistors for a target output.",
-    "keywords": ["voltage divider", "resistor", "vout", "esp32 adc"]
+    "keywords": [
+      "voltage divider",
+      "resistor",
+      "vout",
+      "esp32 adc"
+    ]
   },
   {
     "id": "ohms-law",
@@ -61,7 +77,13 @@
     "category": "Electronics",
     "icon": "🔧",
     "description": "Solve any pair of voltage, current, resistance, and power instantly.",
-    "keywords": ["ohm", "voltage", "current", "resistance", "power"]
+    "keywords": [
+      "ohm",
+      "voltage",
+      "current",
+      "resistance",
+      "power"
+    ]
   },
   {
     "id": "pwm-duty",
@@ -77,7 +99,13 @@
     "category": "Embedded",
     "icon": "📊",
     "description": "Convert between duty cycle, frequency, and on-time. Useful for motor control and LED dimming.",
-    "keywords": ["pwm", "duty", "frequency", "esp32", "motor"]
+    "keywords": [
+      "pwm",
+      "duty",
+      "frequency",
+      "esp32",
+      "motor"
+    ]
   },
   {
     "id": "i2c-pullup",
@@ -93,7 +121,13 @@
     "category": "Embedded",
     "icon": "🔗",
     "description": "Calculate optimal I2C pull-up values based on bus capacitance and speed.",
-    "keywords": ["i2c", "pull-up", "resistor", "bus", "capacitance"]
+    "keywords": [
+      "i2c",
+      "pull-up",
+      "resistor",
+      "bus",
+      "capacitance"
+    ]
   },
   {
     "id": "pcb-trace",
@@ -109,7 +143,13 @@
     "category": "PCB",
     "icon": "🖥️",
     "description": "Determine safe trace width for a given current using IPC-2221 standards.",
-    "keywords": ["pcb", "trace", "width", "current", "ipc-2221"]
+    "keywords": [
+      "pcb",
+      "trace",
+      "width",
+      "current",
+      "ipc-2221"
+    ]
   },
   {
     "id": "awg-wire",
@@ -125,7 +165,13 @@
     "category": "Electrical",
     "icon": "🔌",
     "description": "Convert between AWG, mm², and inches. Includes maximum current ratings.",
-    "keywords": ["awg", "wire", "gauge", "current", "diameter"]
+    "keywords": [
+      "awg",
+      "wire",
+      "gauge",
+      "current",
+      "diameter"
+    ]
   },
   {
     "id": "buck-boost",
@@ -141,7 +187,13 @@
     "category": "Power",
     "icon": "⚙️",
     "description": "Calculate duty cycle, inductor, and output capacitor for buck and boost converters.",
-    "keywords": ["buck", "boost", "converter", "inductor", "capacitor"]
+    "keywords": [
+      "buck",
+      "boost",
+      "converter",
+      "inductor",
+      "capacitor"
+    ]
   },
   {
     "id": "heat-sink",
@@ -157,7 +209,12 @@
     "category": "Thermal",
     "icon": "🌡️",
     "description": "Choose the right heat sink for your power dissipation and target temperature.",
-    "keywords": ["heat sink", "thermal", "power", "temperature"]
+    "keywords": [
+      "heat sink",
+      "thermal",
+      "power",
+      "temperature"
+    ]
   },
   {
     "id": "resistor-color",
@@ -173,7 +230,13 @@
     "category": "Electronics",
     "icon": "🌈",
     "description": "Decode 4-band, 5-band, and 6-band resistor color codes into values.",
-    "keywords": ["resistor", "color", "code", "bands", "value"]
+    "keywords": [
+      "resistor",
+      "color",
+      "code",
+      "bands",
+      "value"
+    ]
   },
   {
     "id": "capacitor-code",
@@ -189,7 +252,15 @@
     "category": "Electronics",
     "icon": "⚡",
     "description": "Convert 3-digit capacitor codes (like 104, 223) to µF, nF, and pF values.",
-    "keywords": ["capacitor", "code", "104", "223", "uf", "nf", "pf"]
+    "keywords": [
+      "capacitor",
+      "code",
+      "104",
+      "223",
+      "uf",
+      "nf",
+      "pf"
+    ]
   },
   {
     "id": "inductor-code",
@@ -205,7 +276,13 @@
     "category": "Electronics",
     "icon": "🌀",
     "description": "Decode SMD inductor markings like 100, 4R7, or 471.",
-    "keywords": ["inductor", "smd", "code", "uh", "mh"]
+    "keywords": [
+      "inductor",
+      "smd",
+      "code",
+      "uh",
+      "mh"
+    ]
   },
   {
     "id": "esp32-adc",
@@ -221,7 +298,13 @@
     "category": "Embedded",
     "icon": "📈",
     "description": "Convert raw ESP32 ADC readings to voltages, accounting for nonlinearity and attenuation.",
-    "keywords": ["esp32", "adc", "calibration", "voltage", "sensor"]
+    "keywords": [
+      "esp32",
+      "adc",
+      "calibration",
+      "voltage",
+      "sensor"
+    ]
   },
   {
     "id": "esp32-deep-sleep",
@@ -237,7 +320,13 @@
     "category": "Embedded",
     "icon": "😴",
     "description": "Predict battery life for an ESP32 node with custom sleep intervals and wake duration.",
-    "keywords": ["esp32", "deep sleep", "battery", "iot", "power"]
+    "keywords": [
+      "esp32",
+      "deep sleep",
+      "battery",
+      "iot",
+      "power"
+    ]
   },
   {
     "id": "mosfet-gate",
@@ -253,7 +342,13 @@
     "category": "Electronics",
     "icon": "🔲",
     "description": "Choose optimal gate resistor for MOSFET switching speed vs. EMI.",
-    "keywords": ["mosfet", "gate", "resistor", "pwm", "switching"]
+    "keywords": [
+      "mosfet",
+      "gate",
+      "resistor",
+      "pwm",
+      "switching"
+    ]
   },
   {
     "id": "rc-time",
@@ -269,7 +364,13 @@
     "category": "Electronics",
     "icon": "⏱️",
     "description": "Calculate RC time constant, cutoff frequency, and charge/discharge times.",
-    "keywords": ["rc", "time constant", "filter", "cutoff", "frequency"]
+    "keywords": [
+      "rc",
+      "time constant",
+      "filter",
+      "cutoff",
+      "frequency"
+    ]
   },
   {
     "id": "lc-resonance",
@@ -285,7 +386,13 @@
     "category": "Electronics",
     "icon": "📡",
     "description": "Find resonant frequency, Q factor, and bandwidth for LC circuits.",
-    "keywords": ["lc", "resonance", "frequency", "q factor", "bandwidth"]
+    "keywords": [
+      "lc",
+      "resonance",
+      "frequency",
+      "q factor",
+      "bandwidth"
+    ]
   },
   {
     "id": "opamp-gain",
@@ -301,7 +408,13 @@
     "category": "Electronics",
     "icon": "🔊",
     "description": "Calculate gain, bandwidth, and resistor values for inverting and non-inverting op-amp circuits.",
-    "keywords": ["opamp", "gain", "inverting", "non-inverting", "amplifier"]
+    "keywords": [
+      "opamp",
+      "gain",
+      "inverting",
+      "non-inverting",
+      "amplifier"
+    ]
   },
   {
     "id": "power-consumption",
@@ -317,7 +430,13 @@
     "category": "Power",
     "icon": "💡",
     "description": "Estimate electricity cost for any appliance given wattage and hours per day.",
-    "keywords": ["power", "cost", "electricity", "kwh", "appliance"]
+    "keywords": [
+      "power",
+      "cost",
+      "electricity",
+      "kwh",
+      "appliance"
+    ]
   },
   {
     "id": "solar-panel",
@@ -333,7 +452,13 @@
     "category": "Home",
     "icon": "☀️",
     "description": "Size a solar panel system for your daily energy consumption and location.",
-    "keywords": ["solar", "panel", "energy", "off-grid", "battery"]
+    "keywords": [
+      "solar",
+      "panel",
+      "energy",
+      "off-grid",
+      "battery"
+    ]
   },
   {
     "id": "battery-pack",
@@ -349,7 +474,13 @@
     "category": "Power",
     "icon": "🔋",
     "description": "Design a battery pack: voltage, capacity, series/parallel arrangement, and BMS needs.",
-    "keywords": ["battery", "pack", "lithium", "18650", "bms"]
+    "keywords": [
+      "battery",
+      "pack",
+      "lithium",
+      "18650",
+      "bms"
+    ]
   },
   {
     "id": "air-quality-index",
@@ -365,7 +496,13 @@
     "category": "Home",
     "icon": "🌫️",
     "description": "Convert PM2.5 readings to AQI and health category. Includes WHO and EPA standards.",
-    "keywords": ["air quality", "aqi", "pm2.5", "pm10", "sensor"]
+    "keywords": [
+      "air quality",
+      "aqi",
+      "pm2.5",
+      "pm10",
+      "sensor"
+    ]
   },
   {
     "id": "temp-humidity",
@@ -381,7 +518,13 @@
     "category": "Home",
     "icon": "💧",
     "description": "Calculate dew point from temperature and humidity. Useful for HVAC and home sensors.",
-    "keywords": ["dew point", "humidity", "temperature", "hvac", "sensor"]
+    "keywords": [
+      "dew point",
+      "humidity",
+      "temperature",
+      "hvac",
+      "sensor"
+    ]
   },
   {
     "id": "hvac-btu",
@@ -397,7 +540,13 @@
     "category": "Home",
     "icon": "❄️",
     "description": "Size an air conditioner or heater for any room based on dimensions and insulation.",
-    "keywords": ["hvac", "btu", "ac", "heater", "cooling"]
+    "keywords": [
+      "hvac",
+      "btu",
+      "ac",
+      "heater",
+      "cooling"
+    ]
   },
   {
     "id": "wire-voltage-drop",
@@ -413,7 +562,13 @@
     "category": "Electrical",
     "icon": "📉",
     "description": "Calculate voltage drop in wires given gauge, length, and current. Includes NEC recommendations.",
-    "keywords": ["wire", "voltage drop", "nec", "awg", "current"]
+    "keywords": [
+      "wire",
+      "voltage drop",
+      "nec",
+      "awg",
+      "current"
+    ]
   },
   {
     "id": "antenna-length",
@@ -429,7 +584,13 @@
     "category": "RF",
     "icon": "📻",
     "description": "Calculate wavelength and antenna length for quarter-wave, half-wave, and full-wave designs.",
-    "keywords": ["antenna", "wavelength", "frequency", "radio", "rf"]
+    "keywords": [
+      "antenna",
+      "wavelength",
+      "frequency",
+      "radio",
+      "rf"
+    ]
   },
   {
     "id": "led-strip-power",
@@ -445,7 +606,13 @@
     "category": "Lighting",
     "icon": "🌈",
     "description": "Calculate total power, current, and PSU size for addressable or analog LED strips.",
-    "keywords": ["led", "strip", "ws2812", "power", "psu"]
+    "keywords": [
+      "led",
+      "strip",
+      "ws2812",
+      "power",
+      "psu"
+    ]
   },
   {
     "id": "relay-contact",
@@ -461,6 +628,121 @@
     "category": "Electrical",
     "icon": "🔀",
     "description": "Check if a relay can safely switch your AC or DC load, with snubber recommendations.",
-    "keywords": ["relay", "contact", "rating", "ac", "snubber"]
+    "keywords": [
+      "relay",
+      "contact",
+      "rating",
+      "ac",
+      "snubber"
+    ]
+  },
+  {
+    "id": "battery-charge-time",
+    "slug": "battery-charge-time",
+    "title": "Battery Charge Time Calculator",
+    "title_i18n": {
+      "zh": "?????????",
+      "es": "Calculadora de Tiempo de Carga",
+      "hi": "????? ????? ??? ?????????",
+      "fr": "Calculateur de Temps de Charge",
+      "pt": "Calculadora de Tempo de Carga"
+    },
+    "category": "Power",
+    "icon": "??",
+    "description": "Estimate how long to charge a battery from a given charger current, accounting for efficiency and CC/CV phases.",
+    "keywords": [
+      "battery charge time",
+      "lithium charging",
+      "cc cv",
+      "charger current"
+    ]
+  },
+  {
+    "id": "555-timer",
+    "slug": "555-timer",
+    "title": "555 Timer Calculator (Astable & Monostable)",
+    "title_i18n": {
+      "zh": "555 ??????",
+      "es": "Calculadora de Temporizador 555",
+      "hi": "555 ????? ?????????",
+      "fr": "Calculateur de Minuterie 555",
+      "pt": "Calculadora de Timer 555"
+    },
+    "category": "Electronics",
+    "icon": "??",
+    "description": "Calculate frequency, duty cycle, and R/C values for astable and monostable 555 timer circuits.",
+    "keywords": [
+      "555 timer",
+      "astable",
+      "monostable",
+      "frequency",
+      "duty cycle"
+    ]
+  },
+  {
+    "id": "transistor-base-resistor",
+    "slug": "transistor-base-resistor",
+    "title": "Transistor Base Resistor Calculator",
+    "title_i18n": {
+      "zh": "??????????",
+      "es": "Calculadora de Resistencia Base",
+      "hi": "??????????? ??? ?????????",
+      "fr": "Calculateur de R?sistance de Base",
+      "pt": "Calculadora de Resistor de Base"
+    },
+    "category": "Electronics",
+    "icon": "??",
+    "description": "Pick the right base resistor to drive a BJT safely from a 3.3V or 5V microcontroller pin.",
+    "keywords": [
+      "bjt",
+      "base resistor",
+      "transistor switch",
+      "arduino",
+      "esp32"
+    ]
+  },
+  {
+    "id": "stepper-torque",
+    "slug": "stepper-torque",
+    "title": "Stepper & Servo Motor Torque Calculator",
+    "title_i18n": {
+      "zh": "??/?????????",
+      "es": "Calculadora de Par de Motor",
+      "hi": "?????? ???? ?????",
+      "fr": "Calculateur de Couple Moteur",
+      "pt": "Calculadora de Torque"
+    },
+    "category": "Motion",
+    "icon": "??",
+    "description": "Estimate required torque for a stepper or servo motor given load, arm length, and safety margin.",
+    "keywords": [
+      "stepper motor",
+      "servo",
+      "torque",
+      "nema 17",
+      "gearbox"
+    ]
+  },
+  {
+    "id": "esp32-wifi-power",
+    "slug": "esp32-wifi-power",
+    "title": "ESP32 WiFi Power Draw Estimator",
+    "title_i18n": {
+      "zh": "ESP32 WiFi ?????",
+      "es": "Estimador de Consumo WiFi ESP32",
+      "hi": "ESP32 WiFi ???? ????",
+      "fr": "Estimateur de Consommation WiFi ESP32",
+      "pt": "Estimador de Consumo WiFi ESP32"
+    },
+    "category": "Embedded",
+    "icon": "??",
+    "description": "Estimate average current of an ESP32 based on WiFi TX/RX duty cycle, modem-sleep, and light-sleep modes.",
+    "keywords": [
+      "esp32 wifi",
+      "power",
+      "current",
+      "battery",
+      "modem sleep"
+    ]
   }
 ]

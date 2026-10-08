@@ -17,8 +17,7 @@
     "clean": "node -e \"const fs=require('fs');['a','series','rss','course','tools','guides'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true})}catch(e){}})\""
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.45.0",
-    "pg": "^8.13.0"
+    "@supabase/supabase-js": "^2.45.0"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
@@ -31,8 +30,14 @@
     "url": "https://github.com/jonsrockytech/TECHN-PULSE.git"
   },
   "keywords": [
-    "esp32", "arduino", "embedded", "engineering",
-    "home-automation", "university-courses", "calculators", "iot"
+    "esp32",
+    "arduino",
+    "embedded",
+    "engineering",
+    "home-automation",
+    "university-courses",
+    "calculators",
+    "iot"
   ],
   "author": "TechPulse",
   "license": "MIT",

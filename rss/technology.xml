@@ -1,84 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>TechPulse â€” Technology</title>
+<title>TechPulse — Technology</title>
 <link>https://www.pulsehig.com/</link>
-    <item>
-      <title>How to Write Code That Anyone Can Read and Maintain</title>
-      <link>https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html</link>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade software engineering guide on clean code architecture, maintainability standards, descriptive naming conventions, modular design, and documentation best practices.</description>
-    </item>
-    <item>
-      <title>How to Fix ESP32 Upload Failures in Under 5 Minutes</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html</link>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade engineering guide to ultrasonic distance measurement, time-of-flight physics, acoustic wave propagation, and microcontroller interfacing.</description>
-    </item>
-    <item>
-      <title>How to Fix an Overheating Dryer Before It Becomes a Fire Hazard</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-an-overheating-dryer-before-it-becomes-a-fire.html</link>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade engineering guide to domestic clothes dryer troubleshooting, heating element testing, thermal fuse replacement, and airflow optimization.</description>
-    </item>
-    <item>
-      <title>How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html</link>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade engineering guide to troubleshooting HC-SR04 ultrasonic sensor connection issues with ESP32, covering 5V/3.3V logic level shifting, safe GPIO selection, and time-of-flight debugging.</description>
-    </item>
-    <item>
-      <title>How to Spot Energy Vampires Draining Your Bill Silently</title>
-      <link>https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</link>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade technical analysis of phantom power loads, switched-mode power supply standby dissipation, and automated IoT countermeasures for residential and industrial energy conservation.</description>
-    </item>
-    <item>
-      <title>Why Your Laptop Is Overheating and How to Fix It</title>
-      <link>https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</link>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade engineering analysis of laptop thermal dynamics, thermal interface material degradation, micro-blower maintenance, and heat dissipation optimization.</description>
-    </item>
     <item>
       <title>I2C Timeouts: When Your ESP32 Freezes in Real Life</title>
       <link>https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</link>
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
       <description>A practical guide linking ESP32 I2C clock stretching to everyday smart home, wearables, and industrial failures. Learn why your sensor data freezes and how to fix it.</description>
-    </item>
-    <item>
-      <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
-      <link>https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common.html</link>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <description>A comprehensive technical tutorial on constructing a low-latency, offline video surveillance and facial recognition pipeline using Python, OpenCV, RTSP streams, and InsightFace.</description>
-    </item>
-    <item>
-      <title>Smart Energy Audits: How Telemetry Can Slash Your Power Bills</title>
-      <link>https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</link>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade engineering guide to conducting automated smart energy audits using non-invasive current transformers, ESP32 microcontrollers, MQTT telemetry, and real-time power analytics.</description>
-    </item>
-    <item>
-      <title>Solving High Household Energy Bills Using Smart Home Automation</title>
-      <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home.html</link>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <description>An engineering deep-dive into designing a safe, fault-tolerant ESP32-based hydronic underfloor heating controller with hardware watchdogs and Home Assistant integration.</description>
-    </item>
-    <item>
-      <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
-      <link>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a.html</link>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade engineering treatise on mechanical engineering fundamentals, fluid dynamics, thermodynamic cycles, stress analysis, and hydraulic accumulator design in industrial machinery.</description>
-    </item>
-    <item>
-      <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
-      <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and.html</link>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <description>A comprehensive engineering guide to sensor interfacing, robust telemetry architectures, and secure Over-The-Air (OTA) firmware deployment on ESP32 and ESP8266 platforms.</description>
-    </item>
-    <item>
-      <title>How to Fix a Clogged Drain Without Harsh Chemicals</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-a-clogged-drain-without-harsh-chemicals.html</link>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade technical manual on advanced residential plumbing diagnostics, hydro-mechanical clog remediation, trap fluid dynamics, and preventative maintenance without corrosive chemical agents.</description>
     </item>
 </channel>
 </rss>

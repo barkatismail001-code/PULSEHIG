@@ -1,4 +1,4 @@
-﻿// TechPulse â€” SEO Build Step (generate-seo.mjs) v20261006
+// TechPulse — SEO Build Step (generate-seo.mjs) v20261006
 // Generates article pages, series pages, sitemaps, RSS feeds.
 // Reads from Supabase (published) + data/manual-articles.json (manual)
 // Run: node scripts/generate-seo.mjs
@@ -13,34 +13,34 @@ const SITE_NAME = 'TechPulse';
 const SITE_DESC = 'Engineering platform for embedded systems, microcontrollers, home repair, and programming.';
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY || '';
-const ASSET_V = '20261006';
+const ASSET_V = '20261010';
 const DEFAULT_IMG = SITE + '/assets/og-default.png';
 
 const LANGS = {
   en: { name: 'English', htmlLang: 'en' },
-  zh: { name: 'ن¸­و–‡', htmlLang: 'zh-CN' },
-  es: { name: 'Espaأ±ol', htmlLang: 'es' },
-  hi: { name: 'à¤¹à¤؟à¤¨à¥چà¤¦à¥€', htmlLang: 'hi' },
-  fr: { name: 'Franأ§ais', htmlLang: 'fr' },
-  pt: { name: 'Portuguأھs', htmlLang: 'pt' }
+  zh: { name: '中文', htmlLang: 'zh-CN' },
+  es: { name: 'Español', htmlLang: 'es' },
+  hi: { name: 'हिन्दी', htmlLang: 'hi' },
+  fr: { name: 'Français', htmlLang: 'fr' },
+  pt: { name: 'Português', htmlLang: 'pt' }
 };
 
 const SERIES = [
-  { slug: 'esp32-essential-fixes', title: 'ESP32 Essential Fixes', description: 'The most common ESP32 problems with practical solutions tested on real hardware.', icon: 'ًں”§',
+  { slug: 'esp32-essential-fixes', title: 'ESP32 Essential Fixes', description: 'The most common ESP32 problems with practical solutions tested on real hardware.', icon: '🔧',
     matchSlugs: ['esp32-deep-sleep-fix', 'esp32-mosfet-dc-motor-control', 'esp32-relay-chatter-fix', 'esp32-wifi-dropping-fix',
                  'how-to-fix-esp32-upload-failures-in-under-5-minutes', 'how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with',
                  'fixing-i2c-clock-stretching-timeouts-in-esp32-why-your-sensor-data-fre', 'fixing-i2c-clock-stretching-timeouts-in-esp32-why-your'] },
-  { slug: 'home-repair-guides', title: 'Home Repair & Maintenance', description: 'Fix common household problems with clear technical guidance.', icon: 'ًںڈ ',
+  { slug: 'home-repair-guides', title: 'Home Repair & Maintenance', description: 'Fix common household problems with clear technical guidance.', icon: '🏠',
     matchSlugs: ['how-to-fix-an-overheating-dryer-before-it-becomes-a-fire', 'diy-dishwasher-troubleshooting-and-repair-guide-fix-common',
                  'diy-dishwasher-troubleshooting-and-repair-guide-fix-common-household-a', 'topic-how-to-fix-a-clogged-drain-without-harsh-chemicals',
                  'how-to-fix-a-clogged-drain-without-harsh-chemicals', 'mechanical-engineering-principles-in-sanitary-piping-a-technical-analy'] },
-  { slug: 'pc-and-laptop-upgrades', title: 'PC & Laptop Upgrades', description: 'Speed up old hardware and troubleshoot boot problems.', icon: 'ًں’»',
+  { slug: 'pc-and-laptop-upgrades', title: 'PC & Laptop Upgrades', description: 'Speed up old hardware and troubleshoot boot problems.', icon: '💻',
     matchSlugs: ['old-laptop-ssd-upgrade-guide', 'pc-wont-boot-fix', 'why-your-laptop-is-overheating-and-how-to-fix-it',
                  'how-to-speed-up-a-slow-computer-in-10-minutes-no-new-hardware'] },
-  { slug: 'energy-and-smart-home', title: 'Energy & Smart Home', description: 'Cut your bills with telemetry and home automation.', icon: 'âڑ،',
+  { slug: 'energy-and-smart-home', title: 'Energy & Smart Home', description: 'Cut your bills with telemetry and home automation.', icon: '⚡',
     matchSlugs: ['how-to-spot-energy-vampires-draining-your-bill-silently', 'smart-energy-audits-how-telemetry-can-slash-your-power-bills',
                  'solving-high-household-energy-bills-using-smart-home-automation', 'solving-high-household-energy-bills-using-smart-home'] },
-  { slug: 'embedded-fundamentals', title: 'Embedded Systems Fundamentals', description: 'Core knowledge every embedded engineer needs.', icon: 'ًں”Œ',
+  { slug: 'embedded-fundamentals', title: 'Embedded Systems Fundamentals', description: 'Core knowledge every embedded engineer needs.', icon: '🔌',
     matchSlugs: ['led-strip-flicker-fix', 'raspberry-pi-overheating-fix', 'how-to-write-code-that-anyone-can-read-and-maintain'] }
 ];
 
@@ -73,7 +73,7 @@ function cutWords(str, max) {
   t = t.slice(0, max + 1);
   const i = t.lastIndexOf(' ');
   t = i > max * 0.6 ? t.slice(0, i) : t.slice(0, max);
-  return t.replace(/[\s,;:\-â€“â€”(\[]+$/, '');
+  return t.replace(/[\s,;:\-–—(\[]+$/, '');
 }
 function seoTitle(title) {
   const t = plain(title);
@@ -85,7 +85,7 @@ function seoTitle(title) {
 function seoDesc(desc) {
   const d = plain(desc);
   if (d.length <= DESC_MAX) return d;
-  return cutWords(d, DESC_MAX - 1) + 'â€¦';
+  return cutWords(d, DESC_MAX - 1) + '…';
 }
 const toDate = (d) => { const t = new Date(d); return isNaN(t) ? new Date(today) : t; };
 const iso = (d) => d.toISOString().slice(0, 10);
@@ -106,7 +106,7 @@ function tagsOf(v) {
 async function exists(p) { try { await access(p); return true; } catch { return false; } }
 
 async function loadFromSupabase() {
-  if (!SUPABASE_KEY) { console.warn('No SUPABASE_KEY â€” skipping Supabase'); return []; }
+  if (!SUPABASE_KEY) { console.warn('No SUPABASE_KEY — skipping Supabase'); return []; }
   try {
     const url = SUPABASE_URL + '/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,images,tags,title_i18n,excerpt_i18n,content_i18n&order=date.desc&limit=1000';
     const res = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
@@ -159,8 +159,8 @@ function renderContent(text) {
       let m;
       if ((m = b.match(/^###\s+(.+)$/))) out.push('<h3>' + inlineMd(m[1]) + '</h3>');
       else if ((m = b.match(/^#{1,2}\s+(.+)$/))) out.push('<h2>' + inlineMd(m[1]) + '</h2>');
-      else if (b.split('\n').every((l) => /^\s*[-*â€¢]\s+/.test(l)))
-        out.push('<ul>' + b.split('\n').map((l) => '<li>' + inlineMd(l.replace(/^\s*[-*â€¢]\s+/, '')) + '</li>').join('') + '</ul>');
+      else if (b.split('\n').every((l) => /^\s*[-*•]\s+/.test(l)))
+        out.push('<ul>' + b.split('\n').map((l) => '<li>' + inlineMd(l.replace(/^\s*[-*•]\s+/, '')) + '</li>').join('') + '</ul>');
       else if (b.split('\n').every((l) => /^\s*\d+[.)]\s+/.test(l)))
         out.push('<ol>' + b.split('\n').map((l) => '<li>' + inlineMd(l.replace(/^\s*\d+[.)]\s+/, '')) + '</li>').join('') + '</ol>');
       else out.push('<p>' + inlineMd(b).replace(/\n/g, '<br>') + '</p>');
@@ -200,7 +200,7 @@ function seriesFor(a) {
   return SERIES.filter((s) => s.matchSlugs.includes(a.slug));
 }
 
-const NAV = '<a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">ًںŒ™</button>';
+const NAV = '<a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>';
 
 function page(a, all) {
   const url = SITE + '/a/' + a.slug + '.html';
@@ -247,8 +247,8 @@ function page(a, all) {
   const seriesHTML = inSeries.length ? '\n        <div class="article-series-nav" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">' +
     inSeries.map((s) => '<a href="/series/' + s.slug + '.html" style="padding:5px 12px;background:var(--primary-soft);border:1px solid var(--primary);border-radius:999px;font-size:0.82rem;color:var(--primary);text-decoration:none">' + s.icon + ' Part of: <strong>' + esc(s.title) + '</strong></a>').join('') + '</div>' : '';
 
-  const relatedHTML = related.length ? '\n    <section class="related-section"><h2 class="section-heading">ًں“ڑ Related Articles</h2><div class="articles-grid">' +
-    related.map((r) => '<article class="article-card"><span class="card-category">' + esc(r.category) + '</span><h3><a href="/a/' + r.slug + '.html">' + esc(r.title) + '</a></h3><p>' + esc(r.excerpt) + '</p><a href="/a/' + r.slug + '.html" class="read-more">Read More â†’</a></article>').join('') +
+  const relatedHTML = related.length ? '\n    <section class="related-section"><h2 class="section-heading">📚 Related Articles</h2><div class="articles-grid">' +
+    related.map((r) => '<article class="article-card"><span class="card-category">' + esc(r.category) + '</span><h3><a href="/a/' + r.slug + '.html">' + esc(r.title) + '</a></h3><p>' + esc(r.excerpt) + '</p><a href="/a/' + r.slug + '.html" class="read-more">Read More →</a></article>').join('') +
     '</div></section>' : '';
 
   return '<!DOCTYPE html>\n<html lang="en" dir="ltr" translate="no">\n<head>\n' +
@@ -277,8 +277,8 @@ function page(a, all) {
     '<nav class="breadcrumb" style="margin:16px 0;font-size:0.9rem;color:var(--text-muted)" aria-label="Breadcrumb"><a href="/index.html">Home</a> &gt; <span>' + esc(a.category) + '</span></nav>\n' +
     '<article class="single-article" data-id="' + esc(a.id) + '">\n<header class="article-header">\n' +
     '<span class="article-category">' + esc(a.category) + '</span>\n<h1>' + esc(a.title) + '</h1>\n<div class="article-meta">\n' +
-    '<span>ًں‘¤ ' + esc(a.author || SITE_NAME) + '</span>\n<span>ًں“… ' + iso(a.date) + '</span>\n' +
-    '<span>âڈ± ' + mins + ' min read</span>\n<span id="tpViewsWrap" hidden>ًں‘پï¸ڈ <span id="tpViews">0</span> views</span>\n</div>' +
+    '<span>👤 ' + esc(a.author || SITE_NAME) + '</span>\n<span>📅 ' + iso(a.date) + '</span>\n' +
+    '<span>⏱ ' + mins + ' min read</span>\n<span id="tpViewsWrap" hidden>👁️ <span id="tpViews">0</span> views</span>\n</div>' +
     seriesHTML + '\n</header>\n' +
     (a.image ? '<img src="' + esc(a.image) + '" alt="' + esc(a.title) + '" class="article-hero-img" width="1200" height="630" loading="eager" fetchpriority="high">\n' : '') +
     '<div class="article-excerpt"><p>' + esc(a.excerpt) + '</p></div>\n' +
@@ -286,19 +286,19 @@ function page(a, all) {
     '<div class="article-content">\n' + body + '\n</div>\n' + faqHTML + '\n' +
     ((a.tags && a.tags.length) ? '<p class="tags-list">' + a.tags.map((t) => '<span class="tag">#' + esc(t) + '</span>').join(' ') + '</p>\n' : '') +
     '<div class="share-buttons" id="tpActions">\n' +
-    '<button class="like-btn" id="tpLike" type="button" aria-label="Like">ًں¤چ <span class="like-count">0</span></button>\n' +
-    '<button class="share-btn" id="tpSave" type="button">ًں”– Save</button>\n' +
-    '<button class="share-btn" data-share="twitter" type="button">ً‌•ڈ Twitter</button>\n' +
+    '<button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>\n' +
+    '<button class="share-btn" id="tpSave" type="button">🔖 Save</button>\n' +
+    '<button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>\n' +
     '<button class="share-btn" data-share="facebook" type="button">Facebook</button>\n' +
     '<button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>\n' +
     '<button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>\n' +
-    '<button class="share-btn" data-share="copy" type="button">ًں”— Copy Link</button>\n</div>\n' +
+    '<button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>\n</div>\n' +
     '<section class="comments-section" id="tpComments"><h2 class="section-heading">Comments</h2><div id="commentsContainer"></div></section>\n' +
-    '<div class="back-row" style="text-align:center;margin-top:24px"><a href="/index.html" class="btn-secondary">â†گ All articles</a></div>\n' +
+    '<div class="back-row" style="text-align:center;margin-top:24px"><a href="/index.html" class="btn-secondary">← All articles</a></div>\n' +
     '</article>\n' + relatedHTML + '\n</main>\n<footer class="main-footer"><div class="container">\n' +
     '<p>&copy; ' + new Date().getFullYear() + ' ' + SITE_NAME + '. All rights reserved.</p>\n' +
     '<div class="footer-links"><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy-policy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/rss.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></div>\n' +
-    '</div></footer>\n<button id="scrollTopBtn" type="button" aria-label="Scroll to top">â†‘</button>\n' +
+    '</div></footer>\n<button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>\n' +
     '<script src="/js/common.js?v=' + ASSET_V + '" defer></script>\n' +
     '<script src="/js/i18n.js?v=' + ASSET_V + '" defer></script>\n' +
     '<script src="/js/toc.js?v=' + ASSET_V + '" defer></script>\n' +
@@ -310,7 +310,7 @@ function seriesPage(s, all) {
   const items = s.matchSlugs.map((slug) => all.find((a) => a.slug === slug)).filter(Boolean);
   const url = SITE + '/series/' + s.slug + '.html';
   return '<!DOCTYPE html>\n<html lang="en"><head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
-    '<title>' + esc(s.title) + ' â€” Series | ' + SITE_NAME + '</title>\n' +
+    '<title>' + esc(s.title) + ' — Series | ' + SITE_NAME + '</title>\n' +
     '<meta name="description" content="' + esc(s.description) + '">\n<link rel="canonical" href="' + url + '">\n' +
     '</head><body>\n<header class="main-header"><div class="container">\n' +
     '<div class="logo"><a href="/index.html"><span>' + SITE_NAME + '</span></a></div>\n' +
@@ -320,7 +320,7 @@ function seriesPage(s, all) {
     '<p style="color:var(--text-muted);max-width:640px;margin:12px auto">' + esc(s.description) + '</p>\n' +
     '<div style="display:inline-block;padding:5px 14px;background:var(--primary-soft);color:var(--primary);border-radius:999px;font-size:0.85rem;font-weight:600">' + items.length + ' articles</div>\n' +
     '</section>\n<section class="articles-grid" style="padding-bottom:60px">\n' +
-    items.map((a) => '<article class="article-card"><span class="card-category">' + esc(a.category) + '</span><h3><a href="/a/' + a.slug + '.html">' + esc(a.title) + '</a></h3><p>' + esc(a.excerpt) + '</p><a href="/a/' + a.slug + '.html" class="read-more">Read More â†’</a></article>').join('\n') +
+    items.map((a) => '<article class="article-card"><span class="card-category">' + esc(a.category) + '</span><h3><a href="/a/' + a.slug + '.html">' + esc(a.title) + '</a></h3><p>' + esc(a.excerpt) + '</p><a href="/a/' + a.slug + '.html" class="read-more">Read More →</a></article>').join('\n') +
     '\n</section>\n</main>\n<footer class="main-footer"><div class="container"><p>&copy; ' + new Date().getFullYear() + ' ' + SITE_NAME + '.</p></div></footer>\n' +
     '<script src="/js/common.js?v=' + ASSET_V + '" defer></script>\n</body></html>\n';
 }
@@ -395,13 +395,13 @@ async function main() {
     await writeFile(join(ROOT, 'a', a.slug + '.html'), page(a, articles));
     written++;
   }
-  console.log('âœ“ ' + written + ' article pages written');
+  console.log('✓ ' + written + ' article pages written');
 
   // Write series pages
   for (const s of SERIES) {
     await writeFile(join(ROOT, 'series', s.slug + '.html'), seriesPage(s, articles));
   }
-  console.log('âœ“ ' + SERIES.length + ' series pages written');
+  console.log('✓ ' + SERIES.length + ' series pages written');
 
   // Save static-slugs.json (only Supabase articles, not manual)
   const slugMap = {};
@@ -460,7 +460,7 @@ async function main() {
       '    <item>\n      <title>' + esc(a.title) + '</title>\n      <link>' + SITE + '/a/' + a.slug + '.html</link>\n      <pubDate>' + a.date.toUTCString() + '</pubDate>\n      <description>' + esc(a.excerpt) + '</description>\n    </item>'
     ).join('\n');
     await writeFile(join(ROOT, 'rss', catSlug + '.xml'),
-      '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n<title>' + SITE_NAME + ' â€” ' + esc(cat) + '</title>\n<link>' + SITE + '/</link>\n' + catItems + '\n</channel>\n</rss>\n');
+      '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n<title>' + SITE_NAME + ' — ' + esc(cat) + '</title>\n<link>' + SITE + '/</link>\n' + catItems + '\n</channel>\n</rss>\n');
   }
 
   // robots.txt
@@ -476,8 +476,8 @@ async function main() {
     '## Featured Articles\n' + articles.slice(0, 15).map((a) => '- [' + a.title + '](' + SITE + '/a/' + a.slug + '.html)').join('\n') + '\n\n' +
     '## Contact\n- Website: ' + SITE + '\n- Email: contact@pulsehig.com\n');
 
-  console.log('âœ“ sitemap.xml, sub-sitemaps, rss.xml, per-category rss, robots.txt, llms.txt written');
-  console.log('âœ… Done. Total: ' + articles.length + ' articles, ' + SERIES.length + ' series');
+  console.log('✓ sitemap.xml, sub-sitemaps, rss.xml, per-category rss, robots.txt, llms.txt written');
+  console.log('✅ Done. Total: ' + articles.length + ' articles, ' + SERIES.length + ' series');
 }
 
-main().catch((e) => { console.error('â‌Œ', e); process.exit(1); });
+main().catch((e) => { console.error('❌', e); process.exit(1); });

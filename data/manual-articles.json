@@ -68,7 +68,7 @@
  {
   "slug": "old-laptop-ssd-upgrade-guide",
   "title": "Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide",
-  "excerpt": "An old laptop with an HDD feels unusable. For â‚¬60 you can clone the drive to an SSD, add 8 GB RAM and get 10أ— faster boot times. Full step-by-step guide.",
+  "excerpt": "An old laptop with an HDD feels unusable. For €60 you can clone the drive to an SSD, add 8 GB RAM and get 10× faster boot times. Full step-by-step guide.",
   "category": "Upgrades",
   "author": "TechPulse Team",
   "date": "2026-10-03",
@@ -90,7 +90,7 @@
  {
   "slug": "raspberry-pi-overheating-fix",
   "title": "Stop Your Raspberry Pi from Overheating in a Closed Case",
-  "excerpt": "Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70آ°C.",
+  "excerpt": "Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.",
   "category": "Embedded Systems",
   "author": "TechPulse Team",
   "date": "2026-10-03",

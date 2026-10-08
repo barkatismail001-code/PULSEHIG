@@ -1380,3 +1380,46 @@ pre { position: relative; }
   }
   .ticker-track { animation: none; padding-left: 20px; overflow-x: auto; }
 }
+
+/* ===== Command Palette ===== */
+.tp-cmdk-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);z-index:9999;display:none;align-items:flex-start;justify-content:center;padding-top:12vh}
+.tp-cmdk-overlay.open{display:flex}
+.tp-cmdk{width:min(640px,92vw);background:var(--bg-alt);border:1px solid var(--border);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden}
+.tp-cmdk-input{width:100%;padding:18px 22px;border:none;outline:none;background:transparent;color:var(--text);font-size:1.05rem;border-bottom:1px solid var(--border);font-family:inherit}
+.tp-cmdk-results{max-height:400px;overflow-y:auto;padding:8px 0}
+.tp-cmdk-item{padding:10px 22px;cursor:pointer;display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;transition:background .15s}
+.tp-cmdk-item.active,.tp-cmdk-item:hover{background:var(--primary-soft)}
+.tp-cmdk-item .icon{font-size:1.1rem;width:22px;text-align:center}
+.tp-cmdk-item .title{flex:1;font-weight:500}
+.tp-cmdk-item .type{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em}
+.tp-cmdk-empty{padding:24px 22px;color:var(--text-muted);text-align:center}
+.tp-cmdk-footer{padding:8px 22px;background:var(--bg-soft,#f8fafc);border-top:1px solid var(--border);font-size:.75rem;color:var(--text-muted);display:flex;gap:16px;flex-wrap:wrap}
+.tp-cmdk-footer kbd{background:var(--bg-alt);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:.7rem}
+
+/* ===== Command Palette hint badge ===== */
+.tp-cmdk-hint{position:fixed;bottom:16px;right:16px;padding:8px 12px;background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;font-size:.75rem;color:var(--text-muted);box-shadow:0 4px 12px rgba(0,0,0,.06);z-index:9000;display:flex;align-items:center;gap:6px;cursor:pointer;transition:opacity .3s,transform .3s}
+.tp-cmdk-hint:hover{border-color:var(--primary);color:var(--primary)}
+.tp-cmdk-hint kbd{background:var(--bg-soft,#f1f5f9);border:1px solid var(--border);padding:1px 5px;border-radius:4px;font-family:monospace}
+.tp-cmdk-hint.hidden{opacity:0;transform:translateY(10px);pointer-events:none}
+@media (max-width:600px){.tp-cmdk-hint{display:none}}
+
+
+/* ===== Q&A / Forum cards ===== */
+.qa-item,.forum-card{display:flex;gap:16px;padding:20px;background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;text-decoration:none;color:var(--text);transition:border-color .15s,box-shadow .15s}
+.qa-item:hover,.forum-card:hover{border-color:var(--primary);box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.qa-votes{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:60px;background:var(--bg-soft,#f1f5f9);border-radius:8px;padding:8px 12px;font-size:.75rem;color:var(--text-muted)}
+.qa-votes .vote-count{font-size:1.1rem;font-weight:700;color:var(--primary)}
+.qa-votes .vote-label{text-transform:uppercase;letter-spacing:.05em}
+.qa-content{flex:1;min-width:0}
+.qa-content h3{margin:0 0 8px;font-size:1.05rem;line-height:1.4}
+.qa-excerpt{margin:0 0 12px;color:var(--text-muted);font-size:.9rem;line-height:1.5}
+.qa-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:.78rem;color:var(--text-muted);align-items:center}
+.qa-status{padding:2px 8px;border-radius:999px;font-weight:600}
+.qa-status.answered{background:#dcfce7;color:#166534}
+.qa-status.open{background:#fef3c7;color:#92400e}
+.qa-tag{padding:2px 8px;background:var(--bg-soft,#f1f5f9);border-radius:999px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}
+.forum-card{flex-direction:column;gap:8px}
+.forum-badge{align-self:flex-start;padding:3px 10px;background:var(--primary-soft,#dbeafe);color:var(--primary,#2563eb);border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.05em}
+.forum-card h3{margin:4px 0 6px;font-size:1.05rem;line-height:1.4}
+.forum-card p{margin:0 0 12px;color:var(--text-muted);font-size:.9rem;line-height:1.5}
+.forum-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:.8rem;color:var(--text-muted)}

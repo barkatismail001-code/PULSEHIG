@@ -1,6 +1,6 @@
 /* ==========================================================================
    TechPulse — Q&A Engine (qa.js) v20261005
-   Stack Overflow-style Q&A built on Supabase (forum_topics / forum_replies).
+   Stack Overflow-style Q&A built on Supabase (qa_questions / qa_answers).
    Handles: load, search, filter, sort, ask, sign in/up, modals.
    Requires js/common.js and js/i18n.js and supabase-js v2
    ========================================================================== */
@@ -229,10 +229,10 @@
       content: body + (tags ? '\n\nTags: ' + tags : ''),
       author: currentUser.email.split('@')[0],
       author_id: currentUser.id,
-      replies_count: 0
+      answers_count: 0
     };
 
-    var res = await sb.from('forum_topics').insert([insert]);
+    var res = await sb.from('qa_questions').insert([insert]);
 
     if (btn) { btn.disabled = false; btn.textContent = 'Publish Question'; }
 
@@ -247,24 +247,24 @@
   async function loadQuestions() {
     var list = document.getElementById('qaList');
     if (!list) return;
-
     list.innerHTML = '<p class="loading-state">Loading questions...</p>';
 
-    if (!sb) {
-      list.innerHTML = '<p class="loading-state">Service unavailable.</p>';
-      return;
+    var SB = C.SUPABASE_URL;
+    var KEY = C.SUPABASE_ANON_KEY;
+    var url = SB + '/rest/v1/qa_questions?select=*&order=created_at.desc&limit=200';
+
+    try {
+      var res = await fetch(url, {
+        headers: { apikey: KEY, Authorization: 'Bearer ' + KEY }
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      var data = await res.json();
+      allQuestions = Array.isArray(data) ? data : [];
+      renderQuestions();
+    } catch (err) {
+      console.warn('[TP] qa load error', err);
+      list.innerHTML = '<p class="loading-state">Failed to load: ' + (err.message || err) + '</p>';
     }
-
-    var res = await sb.from('forum_topics').select('*').order('created_at', { ascending: false }).limit(100);
-
-    if (res.error) {
-      console.warn('[TP] qa load error', res.error);
-      list.innerHTML = '<p class="loading-state">Failed to load questions.</p>';
-      return;
-    }
-
-    allQuestions = res.data || [];
-    renderQuestions();
   }
 
   /* ---------- Filters ---------- */
@@ -316,9 +316,9 @@
 
     /* Sort */
     if (activeSort === 'votes') {
-      filtered.sort(function (a, b) { return (b.replies_count || 0) - (a.replies_count || 0); });
+      filtered.sort(function (a, b) { return (b.answers_count || 0) - (a.answers_count || 0); });
     } else if (activeSort === 'answers') {
-      filtered.sort(function (a, b) { return (b.replies_count || 0) - (a.replies_count || 0); });
+      filtered.sort(function (a, b) { return (b.answers_count || 0) - (a.answers_count || 0); });
     } else {
       filtered.sort(function (a, b) {
         return new Date(b.created_at || 0) - new Date(a.created_at || 0);
@@ -331,14 +331,14 @@
     }
 
     list.innerHTML = filtered.map(function (q) {
-      var votes = Number(q.replies_count) || 0;
+      var votes = Number(q.answers_count) || 0;
       var status = votes > 0 ? 'answered' : 'open';
       var statusLabel = votes > 0 ? '✓ ' + votes + ' answers' : 'Open';
       var excerpt = String(q.content || '').replace(/Tags:.*$/m, '').trim();
       if (excerpt.length > 200) excerpt = excerpt.slice(0, 200) + '…';
       var cat = String(q.category || '').toLowerCase();
 
-      return '<a href="forum.html#topic-' + C.esc(q.id) + '" class="qa-item">' +
+      return '<a href="question.html?id=' + encodeURIComponent(q.id) + '" class="qa-item">' +
         '<div class="qa-votes">' +
           '<span class="vote-count">' + votes + '</span>' +
           '<span class="vote-label">answers</span>' +

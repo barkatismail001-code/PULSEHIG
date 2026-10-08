@@ -1,5 +1,5 @@
-﻿// TechPulse â€” daily article generator (DeepSeek)
-// Writes ONE long article (1500â€“2500 words) per run and saves it to Supabase.
+// TechPulse — daily article generator (DeepSeek)
+// Writes ONE long article (1500–2500 words) per run and saves it to Supabase.
 //
 // Why several calls instead of one: a single request rarely produces more than ~900 words.
 // So we ask for an outline first, then write each section separately, then check the word count
@@ -38,37 +38,43 @@ const FAQ_COUNT = 4;
 
 // Edit this list freely. One topic is used per run and is not repeated until all are used.
 const TOPICS = [
-  { topic: 'ESP32 deep sleep and battery life: how to run a sensor node for months', category: 'Embedded Systems' },
-  { topic: 'Choosing a logic-level MOSFET for ESP32 and Arduino projects', category: 'Embedded Systems' },
-  { topic: 'ESP32 vs ESP8266 vs Arduino Uno: which board for which project', category: 'Embedded Systems' },
-  { topic: 'Reading analog sensors accurately with the ESP32 ADC', category: 'Embedded Systems' },
-  { topic: 'I2C troubleshooting on ESP32 and Arduino: pull-ups, addresses and noise', category: 'Embedded Systems' },
-  { topic: 'Controlling AC loads safely with relays and SSRs from a microcontroller', category: 'Embedded Systems' },
-  { topic: 'Building a temperature controller with ESP32, DS18B20 and PID', category: 'Embedded Systems' },
-  { topic: 'Powering ESP32 projects: regulators, brownouts and decoupling capacitors', category: 'Embedded Systems' },
-  { topic: 'MQTT for beginners: connecting ESP32 devices to Home Assistant', category: 'Smart Home' },
-  { topic: 'OTA firmware updates on ESP32: how they work and how to make them safe', category: 'Embedded Systems' },
-  { topic: 'Using a watchdog timer to make Arduino and ESP32 projects reliable', category: 'Embedded Systems' },
-  { topic: 'PWM explained: motor speed, LED dimming and heater control with ESP32', category: 'Embedded Systems' },
-  { topic: 'Python scripts that automate everyday engineering and electronics tasks', category: 'Programming' },
-  { topic: 'Git for hardware and firmware projects: a practical workflow', category: 'Programming' },
-  { topic: 'Writing non-blocking Arduino code with millis() instead of delay()', category: 'Programming' },
-  { topic: 'Serial debugging techniques for microcontroller projects', category: 'Programming' },
-  { topic: 'How to fix a dripping faucet: cartridge, ceramic disc and compression types', category: 'Home Repair' },
-  { topic: 'How to find and fix a running toilet', category: 'Home Repair' },
-  { topic: 'Why your central heating radiators are cold at the top or bottom and how to fix it', category: 'Home Repair' },
-  { topic: 'How to bleed a central heating system and restore proper pressure', category: 'Home Repair' },
-  { topic: 'Basic multimeter use for home electrical troubleshooting', category: 'Home Repair' },
-  { topic: 'Troubleshooting a washing machine that will not drain or spin', category: 'Home Repair' },
-  { topic: 'Car battery and alternator testing with a multimeter', category: 'Home Repair' },
-  { topic: 'Smart thermostats and zoning: how they cut heating costs', category: 'Smart Home' },
+  { topic: "ESP32 WiFi power consumption: real numbers and how to cut them", category: "Embedded Systems" },
+  { topic: "Why your ESP32 draws 10 mA in deep sleep and how to fix it", category: "Embedded Systems" },
+  { topic: "Fixing ESP32 brownout resets caused by weak USB power", category: "Embedded Systems" },
+  { topic: "Safe OTA firmware updates on ESP32 with rollback and signing", category: "Embedded Systems" },
+  { topic: "Connecting an ESP32 to Home Assistant over MQTT in 20 minutes", category: "Smart Home" },
+  { topic: "Replacing delay() with millis() for non-blocking Arduino code", category: "Programming" },
+  { topic: "Picking a logic-level MOSFET for a 3.3V GPIO", category: "Embedded Systems" },
+  { topic: "Fixing I2C clock stretching timeouts on the ESP32", category: "Embedded Systems" },
+  { topic: "Choosing the right I2C pull-up resistor value with math", category: "Electronics" },
+  { topic: "Stopping WS2812 LED flicker: power, ground, and level shifting", category: "Embedded Systems" },
+  { topic: "ESP32 ADC calibration for accurate voltage readings", category: "Embedded Systems" },
+  { topic: "ESP32 vs ESP8266 vs Arduino Uno: which board for which project", category: "Embedded Systems" },
+  { topic: "LiPo battery safety practices for hobby projects", category: "Power" },
+  { topic: "Buck converter vs LDO: when to use each", category: "Power" },
+  { topic: "Stopping relay arcing with an RC snubber", category: "Electronics" },
+  { topic: "Opto-isolated relays: real safety or marketing?", category: "Electronics" },
+  { topic: "555 timer in astable mode: formula, example, and common mistakes", category: "Electronics" },
+  { topic: "Using a BJT as a switch with proper base resistor calculation", category: "Electronics" },
+  { topic: "PCB trace width vs current: IPC-2221 explained in plain English", category: "PCB" },
+  { topic: "Fixing ESP32 servo jitter with a separate 5V rail", category: "Embedded Systems" },
+  { topic: "Driving a NEMA 17 stepper motor with ESP32 and A4988", category: "Motion" },
+  { topic: "Building a smart thermostat with ESP32 and Home Assistant", category: "Smart Home" },
+  { topic: "Smart plugs with energy monitoring: worth it in 2026?", category: "Smart Home" },
+  { topic: "Keeping a Raspberry Pi cool inside a sealed enclosure", category: "Hardware" },
+  { topic: "Upgrading a 2015 laptop with an SSD and more RAM", category: "Upgrades" },
+  { topic: "PC will not boot: the 7-step no-POST checklist", category: "Hardware" },
+  { topic: "Router keeps rebooting: six causes you can fix today", category: "Networking" },
+  { topic: "Finding energy vampires silently draining your power bill", category: "Energy" },
+  { topic: "MQTT vs HTTP for IoT devices: which one to pick", category: "Programming" },
+  { topic: "Matter vs Zigbee vs Thread: which smart home protocol?", category: "Smart Home" }
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const words = (s) => String(s || '').split(/\s+/).filter(Boolean).length;
 
 async function deepseek(messages, { json = false, maxTokens = 3500, temperature = 0.6 } = {}) {
-  if (!DEEPSEEK_API_KEY) throw new Error('DEEPSEEK_API_KEY is missing (add it in GitHub â†’ Settings â†’ Secrets).');
+  if (!DEEPSEEK_API_KEY) throw new Error('DEEPSEEK_API_KEY is missing (add it in GitHub → Settings → Secrets).');
   for (let attempt = 1; attempt <= 5; attempt++) {
     const body = { model: DEEPSEEK_MODEL, messages, temperature, max_tokens: maxTokens };
         if (json) body.response_format = { type: 'json_object' };
@@ -234,8 +240,8 @@ Exactly ${SECTION_COUNT} sections in a logical order (no intro, conclusion or FA
     console.log(`   ${total} words`);
   }
 
-  if (total < 1200) throw new Error(`Article too short (${total} words) â€” not published.`);
-  if (total < MIN_WORDS || total > MAX_WORDS) console.warn(`âڑ ï¸ڈ ${total} words is outside ${MIN_WORDS}-${MAX_WORDS}, published anyway.`);
+  if (total < 1200) throw new Error(`Article too short (${total} words) — not published.`);
+  if (total < MIN_WORDS || total > MAX_WORDS) console.warn(`⚠️ ${total} words is outside ${MIN_WORDS}-${MAX_WORDS}, published anyway.`);
 
   return {
     title: String(outline.title).trim().slice(0, 140),
@@ -249,7 +255,7 @@ Exactly ${SECTION_COUNT} sections in a logical order (no intro, conclusion or FA
 
 async function main() {
   const t = await pickTopic();
-  console.log(`ًں¤– Topic: ${t.topic} [${t.category}] â€” model ${DEEPSEEK_MODEL}`);
+  console.log(`🤖 Topic: ${t.topic} [${t.category}] — model ${DEEPSEEK_MODEL}`);
   const a = await buildArticle(t);
 
   if (DRY_RUN) {
@@ -274,11 +280,11 @@ async function main() {
   }]);
 
   if (error) {
-    console.error('â‌Œ Error saving to Supabase:', error);
+    console.error('❌ Error saving to Supabase:', error);
     process.exit(1); // make the workflow run visibly fail instead of silently continuing
   }
   await markUsed(t);
-  console.log(`âœ… Published "${a.title}" (${a.total} words)`);
+  console.log(`✅ Published "${a.title}" (${a.total} words)`);
 }
 
-main().catch((e) => { console.error('â‌Œ', e.message || e); process.exit(1); });
+main().catch((e) => { console.error('❌', e.message || e); process.exit(1); });

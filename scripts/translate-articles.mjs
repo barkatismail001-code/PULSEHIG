@@ -1,8 +1,8 @@
-﻿/* ==========================================================================
-   TechPulse â€” Auto-Translation Worker (translate-articles.mjs) v20261005
+/* ==========================================================================
+   TechPulse — Auto-Translation Worker (translate-articles.mjs) v20261005
    Reads articles from Supabase, translates title/excerpt/content into
    6 languages via DeepSeek, and saves them back into the i18n JSONB columns.
-   Translations do NOT create HTML pages â€” they appear only when the user
+   Translations do NOT create HTML pages — they appear only when the user
    switches language (loaded on-demand by article.js).
    Run: node scripts/translate-articles.mjs
    Env: SUPABASE_URL, SUPABASE_SERVICE_KEY, DEEPSEEK_API_KEY, DEEPSEEK_MODEL, TRANSLATE_LIMIT
@@ -18,19 +18,19 @@ const GROQ_URL = 'https://api.deepseek.com/chat/completions';
 const LIMIT = Number(process.env.TRANSLATE_LIMIT || 5);
 
 const LANGS = {
-  zh: 'Simplified Chinese (ç®€ن½“ن¸­و–‡)',
-  es: 'Spanish (Espaأ±ol)',
-  hi: 'Hindi (à¤¹à¤؟à¤¨à¥چà¤¦à¥€)',
-  fr: 'French (Franأ§ais)',
-  pt: 'Portuguese (Portuguأھs)'
+  zh: 'Simplified Chinese (简体中文)',
+  es: 'Spanish (Español)',
+  hi: 'Hindi (हिन्दी)',
+  fr: 'French (Français)',
+  pt: 'Portuguese (Português)'
 };
 
 if (!SUPABASE_KEY) {
-  console.error('â‌Œ SUPABASE_SERVICE_KEY is required');
+  console.error('❌ SUPABASE_SERVICE_KEY is required');
   process.exit(1);
 }
 if (!DEEPSEEK_API_KEY) {
-  console.error('â‌Œ DEEPSEEK_API_KEY is required');
+  console.error('❌ DEEPSEEK_API_KEY is required');
   process.exit(1);
 }
 
@@ -52,7 +52,7 @@ STRICT RULES:
 - Preserve ALL code blocks (\`\`\`...\`\`\`) EXACTLY as-is. Never translate code.
 - Preserve ALL markdown formatting (##, ###, **, -, 1., etc.).
 - Keep technical terms in English when they are standard: ESP32, Arduino, MOSFET, GPIO, PWM, I2C, SPI, UART, WiFi, GPIO, RTC, OTA, LED, ADC, DAC.
-- Keep units and numbers unchanged (5V, 100خ©, 20 kHz, 470 آµF, etc.).
+- Keep units and numbers unchanged (5V, 100Ω, 20 kHz, 470 µF, etc.).
 - Natural, fluent, native-level translation. Not word-for-word.
 - Return ONLY the translated text. No explanations, no preamble.`;
 
@@ -81,7 +81,7 @@ STRICT RULES:
 
       if (res.status === 429 || res.status >= 500) {
         const wait = (Number(res.headers.get('retry-after')) || 5 * attempt) * 1000;
-        console.warn(`   âڈ¸  DeepSeek HTTP ${res.status}, retrying in ${wait / 1000}s (attempt ${attempt})`);
+        console.warn(`   ⏸  DeepSeek HTTP ${res.status}, retrying in ${wait / 1000}s (attempt ${attempt})`);
         await sleep(wait);
         continue;
       }
@@ -94,14 +94,14 @@ STRICT RULES:
         .trim();
 
       if (!out) {
-        console.warn(`   âڑ ï¸ڈ  Empty response, retrying (attempt ${attempt})`);
+        console.warn(`   ⚠️  Empty response, retrying (attempt ${attempt})`);
         await sleep(2000);
         continue;
       }
 
       return out;
     } catch (e) {
-      console.warn(`   âڑ ï¸ڈ  Attempt ${attempt} failed: ${e.message}`);
+      console.warn(`   ⚠️  Attempt ${attempt} failed: ${e.message}`);
       await sleep(3000 * attempt);
     }
   }
@@ -132,7 +132,7 @@ function chunkContent(content, maxLen = 6000) {
 
 /* ---------- Translate one article ---------- */
 async function translateArticle(article) {
-  console.log(`\nًں“„ #${article.id}: "${article.title.slice(0, 70)}"`);
+  console.log(`\n📄 #${article.id}: "${article.title.slice(0, 70)}"`);
 
   const titleI18n = Object.assign({ en: article.title }, article.title_i18n || {});
   const excerptI18n = Object.assign({ en: article.excerpt || '' }, article.excerpt_i18n || {});
@@ -140,11 +140,11 @@ async function translateArticle(article) {
 
   for (const [code, langName] of Object.entries(LANGS)) {
     if (titleI18n[code] && contentI18n[code]) {
-      console.log(`   âœ“ ${code} already translated`);
+      console.log(`   ✓ ${code} already translated`);
       continue;
     }
 
-    console.log(`   ًںŒگ â†’ ${code} (${langName})`);
+    console.log(`   🌐 → ${code} (${langName})`);
 
     try {
       if (!titleI18n[code]) {
@@ -162,10 +162,10 @@ async function translateArticle(article) {
         if (chunks.length === 1) {
           contentI18n[code] = await deepseekTranslate(chunks[0], langName, article.title);
         } else {
-          console.log(`      â†³ content split into ${chunks.length} chunks`);
+          console.log(`      ↳ content split into ${chunks.length} chunks`);
           const out = [];
           for (let i = 0; i < chunks.length; i++) {
-            console.log(`      â†³ chunk ${i + 1}/${chunks.length}`);
+            console.log(`      ↳ chunk ${i + 1}/${chunks.length}`);
             out.push(await deepseekTranslate(chunks[i], langName, article.title));
             await sleep(1200);
           }
@@ -173,10 +173,10 @@ async function translateArticle(article) {
         }
       }
 
-      console.log(`   âœ… ${code} done`);
+      console.log(`   ✅ ${code} done`);
       await sleep(1200);
     } catch (e) {
-      console.error(`   â‌Œ ${code} failed: ${e.message}`);
+      console.error(`   ❌ ${code} failed: ${e.message}`);
     }
   }
 
@@ -189,7 +189,7 @@ async function translateArticle(article) {
 
 /* ---------- Main ---------- */
 async function main() {
-  console.log('ًںŒچ TechPulse Translation Worker');
+  console.log('🌍 TechPulse Translation Worker');
   console.log(`   Model: ${DEEPSEEK_MODEL}`);
   console.log(`   Limit: ${LIMIT}`);
   console.log('');
@@ -201,12 +201,12 @@ async function main() {
     .limit(LIMIT * 3);
 
   if (error) {
-    console.error('â‌Œ Supabase error:', error);
+    console.error('❌ Supabase error:', error);
     process.exit(1);
   }
 
   if (!articles || !articles.length) {
-    console.log('âœ… No articles found.');
+    console.log('✅ No articles found.');
     return;
   }
 
@@ -219,11 +219,11 @@ async function main() {
   }).slice(0, LIMIT);
 
   if (!toTranslate.length) {
-    console.log('âœ… Nothing to translate. All articles are complete.');
+    console.log('✅ Nothing to translate. All articles are complete.');
     return;
   }
 
-  console.log(`ًں“ڑ Found ${toTranslate.length} article(s) needing translation\n`);
+  console.log(`📚 Found ${toTranslate.length} article(s) needing translation\n`);
 
   let done = 0;
   for (const art of toTranslate) {
@@ -249,21 +249,21 @@ async function main() {
         .eq('id', art.id);
 
       if (updErr) {
-        console.error(`   â‌Œ Save failed for #${art.id}: ${updErr.message}`);
+        console.error(`   ❌ Save failed for #${art.id}: ${updErr.message}`);
         continue;
       }
 
-      console.log(`   ًں’¾ Saved (#${art.id}) â€” status: ${status} (${langsPresent.length}/5 langs)`);
+      console.log(`   💾 Saved (#${art.id}) — status: ${status} (${langsPresent.length}/5 langs)`);
       done++;
     } catch (e) {
-      console.error(`â‌Œ Failed #${art.id}: ${e.message}`);
+      console.error(`❌ Failed #${art.id}: ${e.message}`);
     }
   }
 
-  console.log(`\nâœ… Done: ${done}/${toTranslate.length} articles translated`);
+  console.log(`\n✅ Done: ${done}/${toTranslate.length} articles translated`);
 }
 
 main().catch((e) => {
-  console.error('â‌Œ', e);
+  console.error('❌', e);
   process.exit(1);
 });
