@@ -1,8 +1,7 @@
 ﻿/* ==========================================================================
-   TechPulse â€” Live News (live-news.js) v20261005
+   TechPulse — Live News (live-news.js) v20261008
    Multi-source live news feed:
-   - Hacker News (tech) â€” no API key needed
-   - Reddit r/technology + r/DIY â€” no API key needed
+   - Hacker News (tech) — no API key needed
    - Curated fallback from data/news.json
    Refreshes every hour by default.
    ========================================================================== */
@@ -104,8 +103,6 @@ window.TPLiveNews = (function () {
     getFeed: getFeed,
     startAutoRefresh: startAutoRefresh,
     fetchLiveTech: fetchLiveTech,
-    fetchRedditTech: fetchRedditTech,
-    fetchRedditDIY: fetchRedditDIY,
     fetchCurated: fetchCurated
   };
 })();
