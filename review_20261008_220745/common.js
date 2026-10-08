@@ -1,5 +1,5 @@
-/* ==========================================================================
-   TechPulse — Shared Utilities (common.js) v20261005
+﻿/* ==========================================================================
+   TechPulse â€” Shared Utilities (common.js) v20261005
    All pages depend on this file. Must load BEFORE main.js/article.js.
    ========================================================================== */
 window.TPCommon = (function () {
@@ -72,22 +72,22 @@ window.TPCommon = (function () {
 
   // ===== Category translations =====
   var CATEGORY_LABELS = {
-    'Technology': { en: 'Technology', zh: '科技', es: 'Tecnología', hi: 'तकनीक', fr: 'Technologie', pt: 'Tecnologia' },
-    'Petroleum': { en: 'Petroleum', zh: '石油', es: 'Petróleo', hi: 'पेट्रोलियम', fr: 'Pétrole', pt: 'Petróleo' },
-    'Gas': { en: 'Natural Gas', zh: '天然气', es: 'Gas Natural', hi: 'प्राकृतिक गैस', fr: 'Gaz Naturel', pt: 'Gás Natural' },
-    'Programming': { en: 'Programming', zh: '编程', es: 'Programación', hi: 'प्रोग्रामिंग', fr: 'Programmation', pt: 'Programação' },
-    'Embedded Systems': { en: 'Embedded Systems', zh: '嵌入式系统', es: 'Sistemas Embebidos', hi: 'एम्बेडेड सिस्टम', fr: 'Systèmes Embarqués', pt: 'Sistemas Embarcados' },
-    'Hardware': { en: 'Hardware', zh: '硬件', es: 'Hardware', hi: 'हार्डवेयर', fr: 'Matériel', pt: 'Hardware' },
-    'Networking': { en: 'Networking', zh: '网络', es: 'Redes', hi: 'नेटवर्किंग', fr: 'Réseaux', pt: 'Redes' },
-    'Upgrades': { en: 'Upgrades', zh: '升级', es: 'Actualizaciones', hi: 'अपग्रेड', fr: 'Mises à niveau', pt: 'Atualizações' },
+    'Technology': { en: 'Technology', zh: 'ç§‘وٹ€', es: 'Tecnologأ­a', hi: 'à¤¤à¤•à¤¨à¥€à¤•', fr: 'Technologie', pt: 'Tecnologia' },
+    'Petroleum': { en: 'Petroleum', zh: 'çں³و²¹', es: 'Petrأ³leo', hi: 'à¤ھà¥‡à¤ںà¥چà¤°à¥‹à¤²à¤؟à¤¯à¤®', fr: 'Pأ©trole', pt: 'Petrأ³leo' },
+    'Gas': { en: 'Natural Gas', zh: 'ه¤©ç„¶و°”', es: 'Gas Natural', hi: 'à¤ھà¥چà¤°à¤¾à¤•à¥ƒà¤¤à¤؟à¤• à¤—à¥ˆà¤¸', fr: 'Gaz Naturel', pt: 'Gأ،s Natural' },
+    'Programming': { en: 'Programming', zh: 'ç¼–ç¨‹', es: 'Programaciأ³n', hi: 'à¤ھà¥چà¤°à¥‹à¤—à¥چà¤°à¤¾à¤®à¤؟à¤‚à¤—', fr: 'Programmation', pt: 'Programaأ§أ£o' },
+    'Embedded Systems': { en: 'Embedded Systems', zh: 'هµŒه…¥ه¼ڈç³»ç»ں', es: 'Sistemas Embebidos', hi: 'à¤ڈà¤®à¥چà¤¬à¥‡à¤،à¥‡à¤، à¤¸à¤؟à¤¸à¥چà¤ںà¤®', fr: 'Systأ¨mes Embarquأ©s', pt: 'Sistemas Embarcados' },
+    'Hardware': { en: 'Hardware', zh: 'ç،¬ن»¶', es: 'Hardware', hi: 'à¤¹à¤¾à¤°à¥چà¤،à¤µà¥‡à¤¯à¤°', fr: 'Matأ©riel', pt: 'Hardware' },
+    'Networking': { en: 'Networking', zh: 'ç½‘ç»œ', es: 'Redes', hi: 'à¤¨à¥‡à¤ںà¤µà¤°à¥چà¤•à¤؟à¤‚à¤—', fr: 'Rأ©seaux', pt: 'Redes' },
+    'Upgrades': { en: 'Upgrades', zh: 'هچ‡ç؛§', es: 'Actualizaciones', hi: 'à¤…à¤ھà¤—à¥چà¤°à¥‡à¤،', fr: 'Mises أ  niveau', pt: 'Atualizaأ§أµes' },
     'Windows': { en: 'Windows', zh: 'Windows', es: 'Windows', hi: 'Windows', fr: 'Windows', pt: 'Windows' },
-    'Mobile': { en: 'Mobile', zh: '移动', es: 'Móvil', hi: 'मोबाइल', fr: 'Mobile', pt: 'Móvel' },
-    'Software': { en: 'Software', zh: '软件', es: 'Software', hi: 'सॉफ़्टवेयर', fr: 'Logiciel', pt: 'Software' },
-    'Storage': { en: 'Storage', zh: '存储', es: 'Almacenamiento', hi: 'भंडारण', fr: 'Stockage', pt: 'Armazenamento' },
-    'Peripherals': { en: 'Peripherals', zh: '外设', es: 'Periféricos', hi: 'परिधीय', fr: 'Périphériques', pt: 'Periféricos' },
-    'Audio': { en: 'Audio', zh: '音频', es: 'Audio', hi: 'ऑडियो', fr: 'Audio', pt: 'Áudio' },
-    'Displays': { en: 'Displays', zh: '显示器', es: 'Pantallas', hi: 'डिस्प्ले', fr: 'Écrans', pt: 'Telas' },
-    'Home Entertainment': { en: 'Home Entertainment', zh: '家庭娱乐', es: 'Entretenimiento en Casa', hi: 'होम एंटरटेनमेंट', fr: 'Divertissement Maison', pt: 'Entretenimento em Casa' }
+    'Mobile': { en: 'Mobile', zh: 'ç§»هٹ¨', es: 'Mأ³vil', hi: 'à¤®à¥‹à¤¬à¤¾à¤‡à¤²', fr: 'Mobile', pt: 'Mأ³vel' },
+    'Software': { en: 'Software', zh: 'è½¯ن»¶', es: 'Software', hi: 'à¤¸à¥‰à¤«à¤¼à¥چà¤ںà¤µà¥‡à¤¯à¤°', fr: 'Logiciel', pt: 'Software' },
+    'Storage': { en: 'Storage', zh: 'ه­که‚¨', es: 'Almacenamiento', hi: 'à¤­à¤‚à¤،à¤¾à¤°à¤£', fr: 'Stockage', pt: 'Armazenamento' },
+    'Peripherals': { en: 'Peripherals', zh: 'ه¤–è®¾', es: 'Perifأ©ricos', hi: 'à¤ھà¤°à¤؟à¤§à¥€à¤¯', fr: 'Pأ©riphأ©riques', pt: 'Perifأ©ricos' },
+    'Audio': { en: 'Audio', zh: 'éں³é¢‘', es: 'Audio', hi: 'à¤‘à¤،à¤؟à¤¯à¥‹', fr: 'Audio', pt: 'أپudio' },
+    'Displays': { en: 'Displays', zh: 'وک¾ç¤؛ه™¨', es: 'Pantallas', hi: 'à¤،à¤؟à¤¸à¥چà¤ھà¥چà¤²à¥‡', fr: 'أ‰crans', pt: 'Telas' },
+    'Home Entertainment': { en: 'Home Entertainment', zh: 'ه®¶ه؛­ه¨±ن¹گ', es: 'Entretenimiento en Casa', hi: 'à¤¹à¥‹à¤® à¤ڈà¤‚à¤ںà¤°à¤ںà¥‡à¤¨à¤®à¥‡à¤‚à¤ں', fr: 'Divertissement Maison', pt: 'Entretenimento em Casa' }
   };
   var ARABIC_RE = /[\u0600-\u06FF\u0750-\u077F]/;
 
@@ -198,23 +198,29 @@ window.TPCommon = (function () {
   var articlesInflight = null;
 
   async function loadArticles() {
-    var published = [];
-    try {
-      published = await fetchArticlesREST();
-    } catch (err) {
-      console.warn('[TP] REST failed, trying SDK...', err);
+    var pubTask = (async function () {
       try {
-        var sb = getClient();
-        if (sb) {
-          var resp = await sb.from('articles').select('*').order('id', { ascending: false });
-          if (!resp.error && resp.data) published = resp.data;
+        return await fetchArticlesREST();
+      } catch (err) {
+        console.warn('[TP] REST failed, trying SDK...', err);
+        try {
+          var sb = getClient();
+          if (sb) {
+            var resp = await sb.from('articles').select('*').order('id', { ascending: false });
+            if (!resp.error && resp.data) return resp.data;
+          }
+        } catch (err2) {
+          console.warn('[TP] SDK failed too', err2);
         }
-      } catch (err2) {
-        console.warn('[TP] SDK failed too', err2);
+        return [];
       }
-    }
+    })();
+
+    var settled = await Promise.allSettled([pubTask, loadManualArticles()]);
+    var published = (settled[0].status === 'fulfilled' && Array.isArray(settled[0].value)) ? settled[0].value : [];
+    var manual = (settled[1].status === 'fulfilled' && Array.isArray(settled[1].value)) ? settled[1].value : [];
+
     published.forEach(function (a) { a.category = normalizeCategory(a.category); });
-    var manual = await loadManualArticles();
 
     if (!published.length) {
       try {
@@ -428,7 +434,7 @@ window.TPCommon = (function () {
     function applyTheme(t) {
       root.classList.toggle('dark-theme', t === 'dark');
       if (btn) {
-        btn.textContent = t === 'dark' ? '☀️' : '🌙';
+        btn.textContent = t === 'dark' ? 'âک€ï¸ڈ' : 'ًںŒ™';
         btn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
       }
     }
@@ -584,7 +590,7 @@ window.TPCommon = (function () {
   var FACTS = [
     { text: 'The ESP32 chip family powers over 40% of consumer smart home devices shipped worldwide in 2025.', source: 'Espressif Annual Report' },
     { text: 'Modern CPUs can execute over 5 billion instructions per second while drawing less power than a light bulb.', source: 'Intel Technical Brief' },
-    { text: 'CMOS logic gates use less than 1 nanowatt when idle — that is why your laptop battery lasts all day.', source: 'IEEE Solid-State Circuits' },
+    { text: 'CMOS logic gates use less than 1 nanowatt when idle â€” that is why your laptop battery lasts all day.', source: 'IEEE Solid-State Circuits' },
     { text: 'A standard LED consumes 90% less energy than an incandescent bulb of the same brightness.', source: 'US Department of Energy' },
     { text: 'Home automation can cut heating and cooling costs by up to 30% through smart scheduling.', source: 'ENERGY STAR' },
     { text: 'The first microcontroller, the TMS1000, was released by Texas Instruments in 1974 with 1 KB of ROM.', source: 'IEEE History Center' },
@@ -605,7 +611,7 @@ window.TPCommon = (function () {
 
   function disqusUnavailableHTML() {
     var msg = window.TPI18N ? window.TPI18N.t('comments_unavailable') : "Comments aren't set up yet.";
-    return '<p class="comments-unavailable">💬 ' + esc(msg) + '</p>';
+    return '<p class="comments-unavailable">ًں’¬ ' + esc(msg) + '</p>';
   }
 
   function loadDisqusThread(container, opts) {
@@ -675,7 +681,18 @@ window.TPCommon = (function () {
   registerServiceWorker();
 
   // ===== Public API =====
-  return {
+  
+  /* ---------- Extract slug from URL path OR query string ----------
+     Supports:
+       /tools/led-resistor.html       â†’ "led-resistor"
+       /guides/smart-lamp.html         â†’ "smart-lamp"
+       /course/circuits-i.html         â†’ "circuits-i"
+       /tool.html?slug=led-resistor    â†’ "led-resistor"  */
+  function getSlugFromUrl() {
+    var pathMatch = location.pathname.match(/\/(tools|guides|course)\/([^\/]+?)\.html$/);
+    if (pathMatch) return decodeURIComponent(pathMatch[2]);
+    return new URLSearchParams(location.search).get('slug');
+  }return {
     esc: esc,
     slugify: slugify,
     formatDate: formatDate,
@@ -688,6 +705,7 @@ window.TPCommon = (function () {
     loadStaticSlugs: loadStaticSlugs,
     articleUrl: articleUrl,
     canonicalUrl: canonicalUrl,
+    getSlugFromUrl: getSlugFromUrl,
     getViews: getViews,
     getDailyViews: getDailyViews,
     registerView: registerView,

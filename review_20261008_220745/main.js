@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    TechPulse Global Engine (main.js) v20261005
    Homepage article engine + Trending + Best Picks + Did You Know
    Requires js/common.js and js/i18n.js to be loaded first.
@@ -22,9 +22,9 @@
 
   var VISIT_LABELS = {
     en: ['Visits today', 'Total visits'],
-    zh: ['今日访问', '总访问量'],
+    zh: ['ن»ٹو—¥è®؟é—®', 'و€»è®؟é—®é‡ڈ'],
     es: ['Visitas hoy', 'Visitas totales'],
-    hi: ['आज के विज़िट', 'कुल विज़िट'],
+    hi: ['à¤†à¤œ à¤•à¥‡ à¤µà¤؟à¤œà¤¼à¤؟à¤ں', 'à¤•à¥پà¤² à¤µà¤؟à¤œà¤¼à¤؟à¤ں'],
     fr: ["Visites aujourd'hui", 'Visites totales'],
     pt: ['Visitas hoje', 'Visitas totais']
   };
@@ -87,8 +87,8 @@
             '<h3><a href="' + C.esc(it.url) + '" target="_blank" rel="noopener">' + C.esc(it.title) + '</a></h3>' +
             '<div class="trending-meta">' +
               '<span class="source-tag">' + C.esc(it.source) + '</span>' +
-              '<span>▲ ' + (it.score || 0) + ' points</span>' +
-              '<span>💬 ' + (it.comments || 0) + ' comments</span>' +
+              '<span>â–² ' + (it.score || 0) + ' points</span>' +
+              '<span>ًں’¬ ' + (it.comments || 0) + ' comments</span>' +
             '</div>' +
           '</div>' +
         '</li>';
@@ -112,7 +112,7 @@
     var fact = C.getDidYouKnow();
     if (!fact) return;
     contentEl.textContent = fact.text;
-    if (sourceEl) sourceEl.textContent = '— ' + fact.source;
+    if (sourceEl) sourceEl.textContent = 'â€” ' + fact.source;
   }
 
   /* ---------- Best Picks ---------- */
@@ -185,7 +185,7 @@
       return;
     }
     container.innerHTML = bookmarks.map(function (b) {
-      return '<li style="margin-bottom:6px">📌 <a href="article.html?id=' +
+      return '<li style="margin-bottom:6px">ًں“Œ <a href="article.html?id=' +
         encodeURIComponent(b.id) + '" style="color:var(--primary);text-decoration:none">' +
         C.esc(b.title) + '</a></li>';
     }).join('');
@@ -286,9 +286,9 @@
     var labels = VISIT_LABELS[I.getLang()] || VISIT_LABELS.en;
     var fmt = function (n) { return Number(n || 0).toLocaleString(); };
     box.innerHTML =
-      '<span>👁️ ' + C.esc(labels[0]) + ': <strong>' + fmt(siteStats.daily) + '</strong></span>' +
+      '<span>ًں‘پï¸ڈ ' + C.esc(labels[0]) + ': <strong>' + fmt(siteStats.daily) + '</strong></span>' +
       '<span style="margin:0 12px;opacity:.5">|</span>' +
-      '<span>📊 ' + C.esc(labels[1]) + ': <strong>' + fmt(siteStats.total) + '</strong></span>';
+      '<span>ًں“ٹ ' + C.esc(labels[1]) + ': <strong>' + fmt(siteStats.total) + '</strong></span>';
   }
 
   /* ---------- Language coverage ---------- */
@@ -296,8 +296,8 @@
     var box = document.getElementById('langCoverage');
     if (!box) return;
     var langs = ['zh', 'es', 'hi', 'fr', 'pt'];
-    var flags = { zh: '🇨🇳', es: '🇪🇸', hi: '🇮🇳', fr: '🇫🇷', pt: '🇵🇹' };
-    var names = { zh: '中文', es: 'ES', hi: 'हिन्दी', fr: 'FR', pt: 'PT' };
+    var flags = { zh: 'ًں‡¨ًں‡³', es: 'ًں‡ھًں‡¸', hi: 'ًں‡®ًں‡³', fr: 'ًں‡«ًں‡·', pt: 'ًں‡µًں‡¹' };
+    var names = { zh: 'ن¸­و–‡', es: 'ES', hi: 'à¤¹à¤؟à¤¨à¥چà¤¦à¥€', fr: 'FR', pt: 'PT' };
 
     var translatable = allArticles.filter(function (a) { return !a.manual; });
     var articleCount = translatable.length;
@@ -314,8 +314,8 @@
     var totalPossible = articleCount * langs.length;
     var coverage = totalPossible > 0 ? Math.round((totalTranslations / totalPossible) * 100) : 0;
 
-    box.innerHTML = '<span><strong>' + articleCount + '</strong> 📚 articles</span>' +
-      '<span><strong>' + coverage + '%</strong> 🌍 translated</span>' +
+    box.innerHTML = '<span><strong>' + articleCount + '</strong> ًں“ڑ articles</span>' +
+      '<span><strong>' + coverage + '%</strong> ًںŒچ translated</span>' +
       langs.map(function (code) {
         var c = translatedCounts[code];
         return '<span>' + flags[code] + ' ' + names[code] + ' <strong>' + c + '</strong></span>';
@@ -497,18 +497,44 @@
     var grid = document.getElementById('articles-container');
     if (!grid) return;
     var lang = I.getLang();
+    var isHomepage = !document.body.classList.contains('all-articles-page');
+
     var visible = allArticles
       .filter(function (a) { return matchesFilters(a, lang); })
-      .sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+      .sort(function (a, b) {
+        var va = C.getViews(a.id);
+        var vb = C.getViews(b.id);
+        if (vb !== va) return vb - va;
+        return (b.date || '').localeCompare(a.date || '');
+      });
 
     if (!visible.length) {
       grid.innerHTML = '<p class="loading-state">' + C.esc(I.t('no_results')) + '</p>';
       return;
     }
 
-    grid.innerHTML = visible.map(function (a) {
+    var toShow = isHomepage ? visible.slice(0, 10) : visible;
+    var totalCount = visible.length;
+
+    grid.innerHTML = toShow.map(function (a) {
       return renderCard(C.localizeArticle(a, lang), lang);
     }).join('');
+
+    // If homepage and there are more articles, show "View all" button
+    if (isHomepage && totalCount > 10) {
+      var wrapper = document.getElementById('articles-container').parentElement;
+      var existingBtn = document.getElementById('viewAllBtn');
+      if (!existingBtn) {
+        var btn = document.createElement('div');
+        btn.id = 'viewAllBtn';
+        btn.style.cssText = 'text-align:center;padding:32px 0 60px';
+        btn.innerHTML = '<a href="articles.html" class="btn-primary" style="padding:14px 32px;font-size:1rem;font-weight:700">View all ' + totalCount + ' articles â†’</a>';
+        wrapper.appendChild(btn);
+      } else {
+        existingBtn.querySelector('a').textContent = 'View all ' + totalCount + ' articles â†’';
+      }
+    }
+
     wireCardInteractions(grid);
   }
 
@@ -530,18 +556,18 @@
       '<h3><a href="' + C.esc(url) + '">' + C.esc(a.title) + '</a></h3>' +
       '<p>' + C.esc(a.excerpt || '') + '</p>' +
       '<div class="card-meta">' +
-        '<span>📅 ' + C.esc(C.formatDate(a.date, lang)) + '</span>' +
-        '<span>⏱️ ' + readMin + ' ' + C.esc(I.t('read_time')) + '</span>' +
-        '<span>👁️ ' + views + ' ' + C.esc(I.t('views')) + '</span>' +
+        '<span>ًں“… ' + C.esc(C.formatDate(a.date, lang)) + '</span>' +
+        '<span>âڈ±ï¸ڈ ' + readMin + ' ' + C.esc(I.t('read_time')) + '</span>' +
+        '<span>ًں‘پï¸ڈ ' + views + ' ' + C.esc(I.t('views')) + '</span>' +
       '</div>' +
       '<div class="card-meta" style="border-top:none;padding-top:0;align-items:center;justify-content:space-between">' +
-        '<a href="' + C.esc(url) + '" class="read-more">' + C.esc(I.t('read_more')) + ' →</a>' +
+        '<a href="' + C.esc(url) + '" class="read-more">' + C.esc(I.t('read_more')) + ' â†’</a>' +
         '<span style="display:flex;gap:10px;align-items:center">' +
           '<button type="button" class="like-btn' + (liked ? ' liked' : '') + '" data-like="' + C.esc(a.id) + '" aria-label="Like">' +
-            (liked ? '❤️' : '🤍') + ' <span class="like-count">' + likeCount + '</span>' +
+            (liked ? 'â‌¤ï¸ڈ' : 'ًں¤چ') + ' <span class="like-count">' + likeCount + '</span>' +
           '</button>' +
           '<button type="button" class="bookmark-btn" data-bookmark="' + C.esc(a.id) + '" data-title="' + C.esc(a.title) + '" aria-label="Bookmark">' +
-            (bookmarked ? '📌' : '🔖') +
+            (bookmarked ? 'ًں“Œ' : 'ًں”–') +
           '</button>' +
         '</span>' +
       '</div>' +
@@ -557,7 +583,7 @@
         var id = btn.dataset.like;
         var result = C.toggleLike(id);
         btn.classList.toggle('liked', result.liked);
-        btn.innerHTML = (result.liked ? '❤️' : '🤍') + ' <span class="like-count">' + result.count + '</span>';
+        btn.innerHTML = (result.liked ? 'â‌¤ï¸ڈ' : 'ًں¤چ') + ' <span class="like-count">' + result.count + '</span>';
       });
     });
     grid.querySelectorAll('[data-bookmark]').forEach(function (btn) {
@@ -565,7 +591,7 @@
       btn.dataset.wired = '1';
       btn.addEventListener('click', function () {
         C.toggleBookmark(btn.dataset.bookmark, btn.dataset.title);
-        btn.innerHTML = C.isBookmarked(btn.dataset.bookmark) ? '📌' : '🔖';
+        btn.innerHTML = C.isBookmarked(btn.dataset.bookmark) ? 'ًں“Œ' : 'ًں”–';
         renderBookmarksList();
       });
     });
