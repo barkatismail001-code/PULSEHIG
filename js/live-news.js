@@ -1,8 +1,8 @@
-/* ==========================================================================
-   TechPulse — Live News (live-news.js) v20261005
+﻿/* ==========================================================================
+   TechPulse â€” Live News (live-news.js) v20261005
    Multi-source live news feed:
-   - Hacker News (tech) — no API key needed
-   - Reddit r/technology + r/DIY — no API key needed
+   - Hacker News (tech) â€” no API key needed
+   - Reddit r/technology + r/DIY â€” no API key needed
    - Curated fallback from data/news.json
    Refreshes every hour by default.
    ========================================================================== */
@@ -11,8 +11,6 @@ window.TPLiveNews = (function () {
 
   var HN_TOP_URL = 'https://hacker-news.firebaseio.com/v0/topstories.json';
   var HN_ITEM_URL = function (id) { return 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json'; };
-  var REDDIT_TECH_URL = 'https://www.reddit.com/r/technology/hot.json?limit=8';
-  var REDDIT_DIY_URL = 'https://www.reddit.com/r/DIY/hot.json?limit=5';
 
   function safeFetch(url, opts) {
     return fetch(url, opts || {}).then(function (r) {
@@ -49,35 +47,6 @@ window.TPLiveNews = (function () {
       });
   }
 
-  /* ---------- Reddit (Tech + DIY) ---------- */
-  async function fetchReddit(url, category) {
-    var data = await safeFetch(url);
-    if (!data || !data.data || !data.data.children) return [];
-
-    return data.data.children
-      .filter(function (c) { return c.data && c.data.title && !c.data.over_18 && !c.data.stickied; })
-      .map(function (c) {
-        return {
-          id: 'reddit-' + c.data.id,
-          category: category,
-          title: { en: c.data.title },
-          url: c.data.url && c.data.url.indexOf('reddit.com') !== -1
-            ? c.data.url
-            : 'https://reddit.com' + c.data.permalink,
-          source: 'r/' + c.data.subreddit,
-          live: true
-        };
-      });
-  }
-
-  async function fetchRedditTech() {
-    return fetchReddit(REDDIT_TECH_URL, 'tech');
-  }
-
-  async function fetchRedditDIY() {
-    return fetchReddit(REDDIT_DIY_URL, 'home');
-  }
-
   /* ---------- Curated fallback ---------- */
   async function fetchCurated() {
     try {
@@ -94,14 +63,12 @@ window.TPLiveNews = (function () {
   /* ---------- Aggregate feed ---------- */
   async function getFeed() {
     var results = await Promise.all([
-      fetchLiveTech(6).catch(function () { return []; }),
-      fetchRedditTech().catch(function () { return []; }),
-      fetchRedditDIY().catch(function () { return []; }),
+      fetchLiveTech(8).catch(function () { return []; }),
       fetchCurated().catch(function () { return []; })
     ]);
 
-    var live = results[0].concat(results[1]).concat(results[2]);
-    var curated = results[3];
+    var live = results[0];
+    var curated = results[1];
 
     /* Deduplicate by title */
     var seen = new Set();
