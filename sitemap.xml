@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
@@ -25,3 +26,32 @@
     <lastmod>2026-10-08</lastmod>
   </sitemap>
 </sitemapindex>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://www.pulsehig.com/sitemap-pages.xml</loc>
+    <lastmod>2026-10-08</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.pulsehig.com/sitemap-posts.xml</loc>
+    <lastmod>2026-10-08</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.pulsehig.com/sitemap-series.xml</loc>
+    <lastmod>2026-10-08</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.pulsehig.com/sitemap-tools.xml</loc>
+    <lastmod>2026-10-08</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.pulsehig.com/sitemap-guides.xml</loc>
+    <lastmod>2026-10-08</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.pulsehig.com/sitemap-courses.xml</loc>
+    <lastmod>2026-10-08</lastmod>
+  </sitemap>
+</sitemapindex>
+>>>>>>> 49a0ec1265a83af3156758d04eadd86c05ce3c9d

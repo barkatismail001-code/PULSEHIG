@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TechPulse
 
 > Engineering platform for embedded systems, microcontrollers, home repair, and programming.
@@ -17,3 +18,24 @@
 ## Contact
 - Website: https://www.pulsehig.com
 - Email: contact@pulsehig.com
+=======
+# TechPulse
+
+> Engineering platform for embedded systems, microcontrollers, home repair, and programming.
+
+## Featured Articles
+- [ESP32 Won't Wake from Deep Sleep: Causes and Fixes](https://www.pulsehig.com/a/esp32-deep-sleep-fix.html)
+- [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html)
+- [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/esp32-relay-chatter-fix.html)
+- [Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)](https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html)
+- [Why Your LED Strip Flickers: PWM, Power and Ground Explained](https://www.pulsehig.com/a/led-strip-flicker-fix.html)
+- [Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide](https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html)
+- [PC Won't Boot? The 7-Step No-POST Checklist](https://www.pulsehig.com/a/pc-wont-boot-fix.html)
+- [Stop Your Raspberry Pi from Overheating in a Closed Case](https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html)
+- [Router Keeps Rebooting? 6 Causes You Can Fix Today](https://www.pulsehig.com/a/router-keeps-rebooting-fix.html)
+- [I2C Timeouts: When Your ESP32 Freezes in Real Life](https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html)
+
+## Contact
+- Website: https://www.pulsehig.com
+- Email: contact@pulsehig.com
+>>>>>>> 49a0ec1265a83af3156758d04eadd86c05ce3c9d

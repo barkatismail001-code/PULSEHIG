@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en" dir="ltr" translate="no">
 <head>
@@ -43,4 +44,51 @@
   <script src="js/cmdk-init.js?v=20261010" defer></script>
   <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en" dir="ltr" translate="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found — TechPulse</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .nf-wrap{max-width:760px;margin:80px auto;padding:0 20px;text-align:center}
+    .nf-code{font-size:5rem;font-weight:900;color:var(--primary);line-height:1}
+    .nf-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:32px 0}
+    .nf-links a{padding:10px 18px;background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text);font-weight:600}
+    .nf-links a:hover{border-color:var(--primary);color:var(--primary)}
+    .nf-search{display:flex;gap:8px;max-width:480px;margin:24px auto}
+    .nf-search input{flex:1;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-alt);color:var(--text)}
+    .nf-search button{padding:12px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="nf-wrap">
+    <div class="nf-code">404</div>
+    <h1>Page not found</h1>
+    <p style="color:var(--text-muted);max-width:520px;margin:16px auto">The page you are looking for does not exist or has been moved.</p>
+    <form class="nf-search" onsubmit="event.preventDefault();location.href='/index.html?q='+encodeURIComponent(this.q.value)">
+      <input name="q" placeholder="Search articles, tools, guides..." aria-label="Search">
+      <button type="submit">Search</button>
+    </form>
+    <div class="nf-links">
+      <a href="/index.html">Home</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/academy.html">Academy</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/qa.html">Q&amp;A</a>
+      <a href="/news.html">News</a>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-top:32px">Press <kbd>Ctrl</kbd>+<kbd>K</kbd> on any page to jump anywhere.</p>
+  </div>
+
+  <script src="js/cmdk.js?v=20261010" defer></script>
+  <script src="js/cmdk-init.js?v=20261010" defer></script>
+  <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
+</body>
+>>>>>>> 49a0ec1265a83af3156758d04eadd86c05ce3c9d
 </html>

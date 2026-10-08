@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
@@ -89,3 +90,96 @@
     </item>
 </channel>
 </rss>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>TechPulse</title>
+<link>https://www.pulsehig.com/</link>
+<description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
+<language>en</language>
+<lastBuildDate>Thu, 08 Oct 2026 22:04:36 GMT</lastBuildDate>
+<atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
+      <link>https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[ESP32 deep sleep not waking, waking instantly or draining the battery? Fix RTC GPIO choice, floating pins, wake sources and real sleep current.]]></description>
+    </item>
+    <item>
+      <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
+      <link>https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-mosfet-dc-motor-control.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[A practical guide to switching and PWM-controlling a small DC motor from an ESP32 using a logic-level MOSFET, a gate resistor, a pull-down and a flyback diode.]]></description>
+    </item>
+    <item>
+      <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
+      <link>https://www.pulsehig.com/a/esp32-relay-chatter-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-relay-chatter-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[ESP32 relay clicking repeatedly, buzzing or rebooting? Fix relay chatter with an RC snubber, a separate 5V coil supply, and a proper opto-isolated module.]]></description>
+    </item>
+    <item>
+      <title>Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)</title>
+      <link>https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-wifi-dropping-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[ESP32 Wi-Fi disconnects, reconnects, or drops packets? Fix unstable Wi-Fi with power filtering, antenna placement, code tweaks and a common-ground check.]]></description>
+    </item>
+    <item>
+      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
+      <link>https://www.pulsehig.com/a/led-strip-flicker-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/led-strip-flicker-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[LED strip flickering at low brightness or on long runs? Fix voltage drop, power injection, level shifting and data-line resistors step by step.]]></description>
+    </item>
+    <item>
+      <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</title>
+      <link>https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/old-laptop-ssd-upgrade-guide.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Upgrades</category>
+      <description><![CDATA[An old laptop with an HDD feels unusable. For €60 you can clone the drive to an SSD, add 8 GB RAM and get 10× faster boot times. Full step-by-step guide.]]></description>
+    </item>
+    <item>
+      <title>PC Won&#39;t Boot? The 7-Step No-POST Checklist</title>
+      <link>https://www.pulsehig.com/a/pc-wont-boot-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/pc-wont-boot-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Hardware</category>
+      <description><![CDATA[PC powers on but no display? Work through the no-POST checklist: RAM reseat, CMOS clear, minimum config, beep codes, PSU paperclip test and BIOS recovery.]]></description>
+    </item>
+    <item>
+      <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
+      <link>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[Raspberry Pi throttling in a sealed enclosure? Learn how to read throttle flags, design passive vents, add a PWM fan curve and keep temperatures below 70°C.]]></description>
+    </item>
+    <item>
+      <title>Router Keeps Rebooting? 6 Causes You Can Fix Today</title>
+      <link>https://www.pulsehig.com/a/router-keeps-rebooting-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/router-keeps-rebooting-fix.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Networking</category>
+      <description><![CDATA[Router restarts every few hours? Check the power adapter, heat, firmware, DHCP lease table, IP conflict and the ISP line. Diagnose in 20 minutes.]]></description>
+    </item>
+    <item>
+      <title>I2C Timeouts: When Your ESP32 Freezes in Real Life</title>
+      <link>https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</guid>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[A practical guide linking ESP32 I2C clock stretching to everyday smart home, wearables, and industrial failures. Learn why your sensor data freezes and how to fix it.]]></description>
+    </item>
+</channel>
+</rss>
+>>>>>>> 49a0ec1265a83af3156758d04eadd86c05ce3c9d

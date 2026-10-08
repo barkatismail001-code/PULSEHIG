@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -644,4 +645,652 @@
   <script src="js/cmdk-init.js?v=20261010" defer></script>
   <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinout Database | TechPulse — Interactive GPIO Reference for 200+ Boards</title>
+  <meta name="description" content="Interactive pinout database for ESP32, Arduino, Raspberry Pi, STM32, and more. Click any GPIO to see its function, warnings, and typical uses.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="ESP32 pinout, Arduino pinout, Raspberry Pi GPIO, STM32 pinout, microcontroller reference">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/pinout.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://www.pulsehig.com/pinout.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/pinout.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/pinout.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/pinout.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/pinout.html?lang=pt">
+  <link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/pinout.html">
+
+  <link rel="canonical" href="https://www.pulsehig.com/pinout.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TechPulse">
+  <meta property="og:title" content="Pinout Database | TechPulse">
+  <meta property="og:description" content="Interactive pinout database for ESP32, Arduino, Raspberry Pi, STM32, and more.">
+  <meta property="og:url" content="https://www.pulsehig.com/pinout.html">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css?v=20261010">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "TechPulse Pinout Database",
+    "description": "Interactive GPIO reference for ESP32, Arduino, Raspberry Pi, STM32 and other microcontrollers.",
+    "url": "https://www.pulsehig.com/pinout.html"
+  }
+  </script>
+
+  <style>
+    .pinout-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      padding: 12px 0 60px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .pinout-layout { grid-template-columns: 1fr; }
+    }
+
+    .board-selector {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      position: sticky;
+      top: 90px;
+    }
+    .board-selector h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .board-selector input[type="search"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+    .board-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .board-list button {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text);
+      padding: 10px 12px;
+      text-align: left;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.88rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition);
+    }
+    .board-list button:hover { background: var(--bg-soft); }
+    .board-list button.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+    .board-list button small {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .board-list button.active small { color: var(--primary); }
+
+    .pinout-panel {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      min-height: 400px;
+    }
+    .board-header {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .board-header h2 {
+      font-size: 1.4rem;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+    .board-header .board-meta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .board-header .board-meta strong { color: var(--text); }
+
+    .pins-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 8px;
+    }
+    .pin-tile {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-align: center;
+      position: relative;
+      min-height: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .pin-tile:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .pin-tile.warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    .pin-tile.flash {
+      background: rgba(220, 38, 38, 0.08);
+      border-color: rgba(220, 38, 38, 0.3);
+      opacity: 0.75;
+    }
+    .pin-tile.input-only {
+      background: rgba(37, 99, 235, 0.08);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+    .pin-name {
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+    .pin-type {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-weight: 600;
+    }
+    .pin-tile.warn .pin-type { color: #b45309; }
+    .pin-tile.flash .pin-type { color: #991b1b; }
+    html.dark-theme .pin-tile.warn .pin-type { color: #fbbf24; }
+    html.dark-theme .pin-tile.flash .pin-type { color: #f87171; }
+
+    .pin-detail {
+      position: fixed;
+      top: 0; right: 0;
+      width: 100%;
+      max-width: 480px;
+      height: 100vh;
+      background: var(--bg-alt);
+      border-left: 1px solid var(--border);
+      box-shadow: -20px 0 40px rgba(0,0,0,0.2);
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .pin-detail.open { transform: translateX(0); }
+    .pin-detail-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .pin-detail-header h3 {
+      margin: 0;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+    .pin-detail-close {
+      background: transparent;
+      border: 1px solid var(--border);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      font-family: inherit;
+    }
+    .pin-detail-close:hover {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+    .pin-detail-body {
+      padding: 22px 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .pin-detail-row {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pin-detail-row:last-child { border-bottom: none; }
+    .pin-detail-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .pin-detail-value {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.6;
+      word-break: break-word;
+    }
+    .pin-warning-box {
+      background: rgba(245, 158, 11, 0.12);
+      border-left: 3px solid var(--accent);
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .pin-warning-box strong { color: #b45309; display: block; margin-bottom: 4px; }
+    html.dark-theme .pin-warning-box strong { color: #fbbf24; }
+
+    .pin-detail-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .pin-detail-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .pin-legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.78rem;
+    }
+    .pin-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+    .pin-legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+    .pin-legend-dot.normal { background: var(--bg-soft); }
+    .pin-legend-dot.warn { background: rgba(245, 158, 11, 0.3); }
+    .pin-legend-dot.flash { background: rgba(220, 38, 38, 0.2); }
+    .pin-legend-dot.input-only { background: rgba(37, 99, 235, 0.2); }
+  </style>
+</head>
+<body>
+
+  <div class="ticker" aria-label="Pinout ticker">
+    <span class="ticker-label">🔌 Pinout</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="academy.html" data-i18n="nav_academy">Academy</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="best-picks.html" data-i18n="nav_picks">Best Picks</a>
+        <a href="guides.html" data-i18n="nav_guides">Guides</a>
+        <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="hero-section">
+      <h1>🔌 Interactive Pinout Database</h1>
+      <p>Click any GPIO to see its function, warnings, and typical uses. Covers ESP32, Arduino, Raspberry Pi, STM32, and more.</p>
+      <div class="site-stats-bar" id="pinoutStatsBar"></div>
+    </section>
+
+    <div class="pinout-layout">
+
+      <aside class="board-selector">
+        <h3>Boards</h3>
+        <input type="search" id="boardSearch" placeholder="Search boards..." aria-label="Search boards">
+        <div class="board-list" id="boardList">
+          <p style="color:var(--text-muted);font-size:0.85rem;padding:8px">Loading...</p>
+        </div>
+      </aside>
+
+      <section class="pinout-panel" id="pinoutPanel">
+        <p class="loading-state">Loading pinout database...</p>
+      </section>
+
+    </div>
+
+  </main>
+
+  <div class="pin-detail-overlay" id="pinDetailOverlay"></div>
+  <aside class="pin-detail" id="pinDetail" aria-hidden="true">
+    <div class="pin-detail-header">
+      <h3 id="pinDetailName">—</h3>
+      <button type="button" class="pin-detail-close" id="pinDetailClose" aria-label="Close">✕</button>
+    </div>
+    <div class="pin-detail-body" id="pinDetailBody"></div>
+  </aside>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <script src="js/live-news.js?v=20261010"></script>
+  <script src="js/common.js?v=20261010"></script>
+  <script src="js/i18n.js?v=20261010"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    var C = window.TPCommon;
+    if (!C) { console.warn('[TP] pinout requires common.js'); return; }
+
+    var allBoards = [];
+    var currentBoard = null;
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      C.initDarkMode();
+      C.initTicker();
+      initScrollTop();
+      wireBoardSearch();
+      wirePinDetail();
+      await loadBoards();
+    });
+
+    function initScrollTop() {
+      var topBtn = document.getElementById('scrollTopBtn');
+      if (!topBtn) return;
+      window.addEventListener('scroll', function () {
+        topBtn.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+      topBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    function wireBoardSearch() {
+      var input = document.getElementById('boardSearch');
+      if (!input) return;
+      input.addEventListener('input', function () {
+        renderBoardList(input.value.trim().toLowerCase());
+      });
+    }
+
+    function wirePinDetail() {
+      var overlay = document.getElementById('pinDetailOverlay');
+      var closeBtn = document.getElementById('pinDetailClose');
+      if (overlay) overlay.addEventListener('click', closePinDetail);
+      if (closeBtn) closeBtn.addEventListener('click', closePinDetail);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closePinDetail();
+      });
+    }
+
+    async function loadBoards() {
+      try {
+        var res = await fetch('data/pinouts.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        allBoards = await res.json();
+        if (!Array.isArray(allBoards)) allBoards = [];
+
+        updateStatsBar();
+        renderBoardList('');
+
+        if (allBoards.length) {
+          selectBoard(allBoards[0].id);
+        }
+      } catch (err) {
+        console.warn('[TP] pinouts load failed', err);
+        document.getElementById('pinoutPanel').innerHTML = '<p class="loading-state">Unable to load pinout data.</p>';
+      }
+    }
+
+    function updateStatsBar() {
+      var box = document.getElementById('pinoutStatsBar');
+      if (!box) return;
+      var totalPins = allBoards.reduce(function (sum, b) {
+        return sum + (Array.isArray(b.pins) ? b.pins.length : 0);
+      }, 0);
+      box.innerHTML =
+        '<div class="stat-block"><span class="stat-num">' + allBoards.length + '</span><span class="stat-label">Boards</span></div>' +
+        '<div class="stat-block"><span class="stat-num">' + totalPins + '</span><span class="stat-label">Pins</span></div>' +
+        '<div class="stat-block"><span class="stat-num">100%</span><span class="stat-label">Free</span></div>';
+    }
+
+    function renderBoardList(filter) {
+      var list = document.getElementById('boardList');
+      if (!list) return;
+
+      var filtered = allBoards.filter(function (b) {
+        if (!filter) return true;
+        return (b.name + ' ' + (b.manufacturer || '') + ' ' + (b.type || '')).toLowerCase().indexOf(filter) !== -1;
+      });
+
+      if (!filtered.length) {
+        list.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;padding:8px">No boards match.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(function (b) {
+        var isActive = currentBoard && currentBoard.id === b.id;
+        return '<button type="button" class="' + (isActive ? 'active' : '') + '" data-board="' + C.esc(b.id) + '">' +
+          '<span>' + C.esc(b.name) + '</span>' +
+          '<small>' + (b.pins ? b.pins.length : 0) + '</small>' +
+        '</button>';
+      }).join('');
+
+      list.querySelectorAll('button[data-board]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selectBoard(btn.dataset.board);
+        });
+      });
+    }
+
+    function selectBoard(id) {
+      var board = allBoards.find(function (b) { return b.id === id; });
+      if (!board) return;
+
+      currentBoard = board;
+      renderBoardList(document.getElementById('boardSearch').value.trim().toLowerCase());
+      renderPinout(board);
+    }
+
+    function renderPinout(board) {
+      var panel = document.getElementById('pinoutPanel');
+      if (!panel) return;
+
+      var pins = Array.isArray(board.pins) ? board.pins : [];
+
+      var metaParts = [];
+      if (board.manufacturer) metaParts.push('<span><strong>' + C.esc(board.manufacturer) + '</strong></span>');
+      if (board.type) metaParts.push('<span>' + C.esc(board.type) + '</span>');
+      if (board.voltage) metaParts.push('<span>Voltage: <strong>' + C.esc(board.voltage) + '</strong></span>');
+      if (board.gpio_count) metaParts.push('<span><strong>' + board.gpio_count + '</strong> GPIO</span>');
+      if (board.adc_channels) metaParts.push('<span><strong>' + board.adc_channels + '</strong> ADC</span>');
+      if (board.pwm_channels) metaParts.push('<span><strong>' + board.pwm_channels + '</strong> PWM</span>');
+
+      var pinsHTML = pins.length
+        ? '<div class="pins-grid">' + pins.map(function (p) {
+            var pinClass = 'pin-tile';
+            var warnings = Array.isArray(p.warnings) ? p.warnings : [];
+            if (warnings.indexOf('strapping') !== -1 || warnings.indexOf('boot') !== -1) pinClass += ' warn';
+            if (warnings.indexOf('flash') !== -1) pinClass += ' flash';
+            if (warnings.indexOf('input-only') !== -1) pinClass += ' input-only';
+
+            return '<div class="' + pinClass + '" data-pin-idx="' + pins.indexOf(p) + '">' +
+              '<div class="pin-name">' + C.esc(p.number || p.name || '') + '</div>' +
+              '<div class="pin-type">' + C.esc(p.type || '') + '</div>' +
+            '</div>';
+          }).join('') + '</div>'
+        : '<p style="color:var(--text-muted);text-align:center;padding:30px">No pin data available for this board.</p>';
+
+      panel.innerHTML =
+        '<div class="board-header">' +
+          '<h2>' + C.esc(board.name) + '</h2>' +
+          '<div class="board-meta">' + metaParts.join('') + '</div>' +
+        '</div>' +
+        pinsHTML +
+        '<div class="pin-legend">' +
+          '<div class="pin-legend-item"><span class="pin-legend-dot normal"></span> Normal use</div>' +
+          '<div class="pin-legend-item"><span class="pin-legend-dot warn"></span> Strapping / Boot pin</div>' +
+          '<div class="pin-legend-item"><span class="pin-legend-dot flash"></span> Flash / Do not use</div>' +
+          '<div class="pin-legend-item"><span class="pin-legend-dot input-only"></span> Input only</div>' +
+        '</div>';
+
+      panel.querySelectorAll('.pin-tile').forEach(function (tile) {
+        tile.addEventListener('click', function () {
+          var idx = parseInt(tile.dataset.pinIdx, 10);
+          openPinDetail(pins[idx]);
+        });
+      });
+    }
+
+    function openPinDetail(pin) {
+      if (!pin) return;
+      var detail = document.getElementById('pinDetail');
+      var overlay = document.getElementById('pinDetailOverlay');
+      var name = document.getElementById('pinDetailName');
+      var body = document.getElementById('pinDetailBody');
+
+      name.textContent = pin.number || pin.name || '';
+      var warnings = Array.isArray(pin.warnings) ? pin.warnings : [];
+
+      var html = '';
+      if (pin.type) {
+        html += '<div class="pin-detail-row"><div class="pin-detail-label">Type</div><div class="pin-detail-value">' + C.esc(pin.type) + '</div></div>';
+      }
+      if (pin.notes) {
+        html += '<div class="pin-detail-row"><div class="pin-detail-label">Notes</div><div class="pin-detail-value">' + C.esc(pin.notes) + '</div></div>';
+      }
+      if (warnings.length) {
+        var warningsText = warnings.map(function (w) {
+          var map = {
+            'strapping': 'This is a strapping pin — its state at boot affects the ESP32\'s startup mode. Use with care.',
+            'boot': 'This pin is used during boot. Avoid pulling it during power-up.',
+            'flash': 'Connected to the SPI flash chip. Do NOT use for GPIO — doing so will crash the board.',
+            'input-only': 'This pin is input-only. It cannot drive outputs or enable internal pull-ups.'
+          };
+          return map[w] || w;
+        }).join(' ');
+        html += '<div class="pin-detail-row">' +
+          '<div class="pin-detail-label">⚠️ Warnings</div>' +
+          '<div class="pin-warning-box"><strong>' + warnings.length + ' warning(s)</strong>' + C.esc(warningsText) + '</div>' +
+        '</div>';
+      }
+      if (pin.safe !== undefined) {
+        html += '<div class="pin-detail-row"><div class="pin-detail-label">Safe for general use</div><div class="pin-detail-value">' + (pin.safe ? '✅ Yes' : '❌ No') + '</div></div>';
+      }
+
+      if (!html) {
+        html = '<p style="color:var(--text-muted)">No additional details available.</p>';
+      }
+
+      body.innerHTML = html;
+      detail.classList.add('open');
+      overlay.classList.add('open');
+      detail.setAttribute('aria-hidden', 'false');
+    }
+
+    function closePinDetail() {
+      var detail = document.getElementById('pinDetail');
+      var overlay = document.getElementById('pinDetailOverlay');
+      detail.classList.remove('open');
+      overlay.classList.remove('open');
+      detail.setAttribute('aria-hidden', 'true');
+    }
+  })();
+  </script>
+
+  <script src="js/cmdk.js?v=20261010" defer></script>
+  <script src="js/cmdk-init.js?v=20261010" defer></script>
+  <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
+</body>
+>>>>>>> 49a0ec1265a83af3156758d04eadd86c05ce3c9d
 </html>

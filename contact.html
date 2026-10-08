@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -346,4 +347,354 @@
   <script src="js/cmdk-init.js?v=20261010" defer></script>
   <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | TechPulse — Questions, Feedback, Editorial</title>
+  <meta name="description" content="Contact TechPulse for questions, feedback, or editorial inquiries. Reach the team via form or email.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/contact.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://www.pulsehig.com/contact.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/contact.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/contact.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/contact.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/contact.html?lang=pt">
+  <link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/contact.html">
+
+  <link rel="canonical" href="https://www.pulsehig.com/contact.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TechPulse">
+  <meta property="og:title" content="Contact | TechPulse">
+  <meta property="og:description" content="Contact TechPulse for questions, feedback, or editorial inquiries.">
+  <meta property="og:url" content="https://www.pulsehig.com/contact.html">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css?v=20261010">
+
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 24px;
+    }
+    @media (max-width: 720px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .contact-info {
+      padding: 24px;
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .contact-info h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.05rem;
+    }
+    .contact-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+    }
+    .contact-info li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.92rem;
+    }
+    .contact-info li:last-child { border-bottom: none; }
+    .contact-info .ci-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .contact-info a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-info a:hover { text-decoration: underline; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .form-group input,
+    .form-group textarea {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.95rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 140px;
+      font-family: inherit;
+    }
+    .form-status {
+      min-height: 1.2em;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      color: var(--text-muted);
+    }
+    .form-status.success { color: var(--success); }
+    .form-status.error { color: var(--danger); }
+
+    .visually-hidden {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker" aria-label="Notice">
+    <span class="ticker-label">📬 Contact</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="academy.html" data-i18n="nav_academy">Academy</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="best-picks.html" data-i18n="nav_picks">Best Picks</a>
+        <a href="guides.html" data-i18n="nav_guides">Guides</a>
+        <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-content">
+      <h1 data-i18n="contact_title">Contact Us</h1>
+      <p data-i18n="contact_intro">Have questions, feedback, or editorial inquiries? Reach out via the form below or send us an email.</p>
+
+      <div class="contact-grid">
+
+        <div>
+          <form
+            class="contact-form"
+            id="contactForm"
+            name="contact"
+            method="POST"
+            action="https://api.web3forms.com/submit"
+          >
+            <input type="hidden" name="access_key" value="3cdd18de-34b1-42eb-bdc8-773a77f36f92">
+            <input type="hidden" name="subject" value="New message from TechPulse website">
+            <input type="hidden" name="from_name" value="TechPulse Contact Form">
+            <input type="hidden" name="redirect" value="https://www.pulsehig.com/contact.html?sent=1">
+
+            <p class="visually-hidden">
+              <label>Don't fill this out if you're human: <input name="bot-field"></label>
+            </p>
+
+            <div class="form-group">
+              <label for="cname" data-i18n="contact_name_ph">Full Name</label>
+              <input type="text" id="cname" name="name" required autocomplete="name" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="cemail" data-i18n="contact_email_ph">Email</label>
+              <input type="email" id="cemail" name="email" required autocomplete="email" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label for="cmsg" data-i18n="contact_msg_ph">Message</label>
+              <textarea id="cmsg" name="message" rows="6" required placeholder="Your message..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%" data-i18n="btn_send">Send Message</button>
+            <p class="form-status" id="contactStatus" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <h3>Other ways to reach us</h3>
+          <ul>
+            <li>
+              <span class="ci-icon">📧</span>
+              <div>
+                <strong>Email</strong><br>
+                <a href="mailto:contact@pulsehig.com">contact@pulsehig.com</a>
+              </div>
+            </li>
+            <li>
+              <span class="ci-icon">💬</span>
+              <div>
+                <strong>Community</strong><br>
+                <a href="forum.html">Community Forum</a> · <a href="qa.html">Q&amp;A</a>
+              </div>
+            </li>
+            <li>
+              <span class="ci-icon">🐙</span>
+              <div>
+                <strong>GitHub</strong><br>
+                <a href="https://github.com/jonsrockytech" target="_blank" rel="noopener">github.com/jonsrockytech</a>
+              </div>
+            </li>
+            <li>
+              <span class="ci-icon">📰</span>
+              <div>
+                <strong>Editorial</strong><br>
+                Corrections, guest posts, partnerships
+              </div>
+            </li>
+            <li>
+              <span class="ci-icon">🔒</span>
+              <div>
+                <strong>Security</strong><br>
+                Report a vulnerability to the same email
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <script src="js/live-news.js?v=20261010"></script>
+  <script src="js/common.js?v=20261010"></script>
+  <script src="js/i18n.js?v=20261010"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.TPCommon) {
+        window.TPCommon.initDarkMode();
+        window.TPCommon.initTicker();
+      }
+
+      var topBtn = document.getElementById('scrollTopBtn');
+      if (topBtn) {
+        window.addEventListener('scroll', function () {
+          topBtn.classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+        topBtn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      var form = document.getElementById('contactForm');
+      var status = document.getElementById('contactStatus');
+      if (!form) return;
+
+      /* Show success message if redirected back */
+      if (location.search.indexOf('sent=1') !== -1 && status) {
+        status.textContent = '✓ Thanks! Your message has been sent.';
+        status.className = 'form-status success';
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (status) {
+          status.textContent = 'Sending...';
+          status.className = 'form-status';
+        }
+
+        var formData = new FormData(form);
+        var btn = form.querySelector('button[type="submit"]');
+        var originalText = btn ? btn.textContent : '';
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+
+        try {
+          var res = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (!res.ok) throw new Error('Network error');
+
+          if (status) {
+            status.textContent = '✓ Thanks! Your message has been sent.';
+            status.className = 'form-status success';
+          }
+          form.reset();
+        } catch (err) {
+          if (status) {
+            status.textContent = '✗ Something went wrong. Please email us directly at contact@pulsehig.com';
+            status.className = 'form-status error';
+          }
+        } finally {
+          if (btn) { btn.disabled = false; btn.textContent = originalText; }
+        }
+      });
+    });
+  })();
+  </script>
+
+  <script src="js/cmdk.js?v=20261010" defer></script>
+  <script src="js/cmdk-init.js?v=20261010" defer></script>
+  <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
+</body>
+>>>>>>> 49a0ec1265a83af3156758d04eadd86c05ce3c9d
 </html>
