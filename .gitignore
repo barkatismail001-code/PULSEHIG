@@ -1,0 +1,21 @@
+# Local backups & review packages
+backup_*/
+review_*/
+review-site_*/
+*.zip
+*.bak_*
+*.broken
+
+# Fix scripts (temporary)
+fix-*.cjs
+fix-*.mjs
+apply-*.mjs
+split-*.mjs
+set-ga.mjs
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db

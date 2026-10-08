@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide | TechPulse</title>
+  <meta name="description" content="Step-by-step DIY guide from TechPulse.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://www.pulsehig.com/guide.html">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css?v=20261010">
+  <style>
+    .guide-page-wrap { max-width: 900px; margin: 24px auto 60px; }
+
+    .guide-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-xl);
+    }
+    .guide-hero-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .guide-hero-icon { font-size: 3.5rem; line-height: 1; }
+    .guide-hero h1 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      margin: 0 0 8px;
+      line-height: 1.2;
+    }
+    .guide-hero p {
+      opacity: 0.92;
+      line-height: 1.6;
+      margin: 0;
+      font-size: 1rem;
+    }
+    .guide-hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    .guide-hero-badges span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 720px) {
+      .guide-grid { grid-template-columns: 1fr; }
+    }
+
+    .guide-info-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .guide-info-card h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    .guide-info-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .guide-info-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .guide-info-card li::before {
+      content: "•";
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .guide-steps {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+    .guide-steps h2 {
+      margin: 0 0 20px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .guide-step {
+      display: flex;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .guide-step:last-child { border-bottom: none; }
+    .guide-step-number {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--brand-2));
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: var(--shadow-md);
+    }
+    .guide-step-content { flex: 1; min-width: 0; }
+    .guide-step-content h4 {
+      margin: 0 0 8px;
+      font-size: 1.02rem;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .guide-step-content p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+    .guide-step-content img {
+      max-width: 100%;
+      border-radius: var(--radius-sm);
+      margin: 12px 0;
+      border: 1px solid var(--border);
+    }
+
+    .guide-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .guide-warning {
+      background: #fef3c7;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 14px 18px;
+      margin: 20px 0;
+      font-size: 0.92rem;
+      color: #78350f;
+    }
+    html.dark-theme .guide-warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+    .guide-warning strong { display: block; margin-bottom: 4px; }
+
+    .difficulty-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .difficulty-badge.beginner { background: #dcfce7; color: #166534; }
+    .difficulty-badge.intermediate { background: #fef3c7; color: #92400e; }
+    .difficulty-badge.advanced { background: #fee2e2; color: #991b1b; }
+    html.dark-theme .difficulty-badge.beginner { background: rgba(22, 163, 74, 0.2); color: #4ade80; }
+    html.dark-theme .difficulty-badge.intermediate { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    html.dark-theme .difficulty-badge.advanced { background: rgba(220, 38, 38, 0.2); color: #f87171; }
+
+    .related-guides {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .related-guides a {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all var(--transition);
+    }
+    .related-guides a:hover {
+      border-color: var(--primary);
+      background: var(--bg-alt);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker" aria-label="Guides ticker">
+    <span class="ticker-label">🛠️ Guide</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="academy.html" data-i18n="nav_academy">Academy</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="best-picks.html" data-i18n="nav_picks">Best Picks</a>
+        <a href="guides.html" class="active" data-i18n="nav_guides">Guides</a>
+        <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="guide-page-wrap">
+
+      <nav class="breadcrumb" style="margin-bottom:16px" aria-label="Breadcrumb">
+        <a href="index.html">Home</a> &gt; <a href="guides.html">Guides</a> &gt; <span id="guideCrumb">Guide</span>
+      </nav>
+
+      <div id="guideContainer">
+        <p class="loading-state">Loading guide...</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <script src="js/live-news.js?v=20261010"></script>
+  <script src="js/common.js?v=20261010"></script>
+  <script src="js/i18n.js?v=20261010"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    var C = window.TPCommon;
+    var I = window.TPI18N;
+
+    if (!C || !I) {
+      console.warn('[TP] guide.js requires common.js and i18n.js');
+      return;
+    }
+
+    var allGuides = [];
+    var currentGuide = null;
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      C.initDarkMode();
+      C.initTicker();
+      initScrollTop();
+      await loadGuide();
+    });
+
+    function initScrollTop() {
+      var topBtn = document.getElementById('scrollTopBtn');
+      if (!topBtn) return;
+      window.addEventListener('scroll', function () {
+        topBtn.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+      topBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    async function loadGuide() {
+      var slug = new URLSearchParams(location.search).get('slug');
+      var container = document.getElementById('guideContainer');
+      if (!slug) { renderNotFound(container); return; }
+
+      try {
+        var res = await fetch('data/guides.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        allGuides = await res.json();
+      } catch (err) {
+        console.warn('[TP] guides load failed', err);
+        renderNotFound(container);
+        return;
+      }
+
+      currentGuide = allGuides.find(function (g) {
+        return g.slug === slug || g.id === slug;
+      });
+
+      if (!currentGuide) { renderNotFound(container); return; }
+
+      document.title = currentGuide.title + ' | TechPulse Guide';
+      var metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && currentGuide.description) metaDesc.setAttribute('content', currentGuide.description);
+      var canon = document.querySelector('link[rel="canonical"]');
+      if (canon) canon.href = 'https://www.pulsehig.com/guide.html?slug=' + slug;
+      var crumb = document.getElementById('guideCrumb');
+      if (crumb) crumb.textContent = currentGuide.title;
+
+      renderGuide(container, currentGuide);
+    }
+
+    function renderNotFound(container) {
+      container.innerHTML =
+        '<div class="not-found" style="text-align:center;padding:60px 20px">' +
+          '<div style="font-size:4rem;margin-bottom:16px">📖</div>' +
+          '<h1 style="margin-bottom:8px">Guide Not Found</h1>' +
+          '<p style="color:var(--text-muted);margin-bottom:24px">This guide doesn\'t exist or has been removed.</p>' +
+          '<a href="guides.html" class="btn-primary">← All Guides</a>' +
+        '</div>';
+    }
+
+    function renderGuide(container, g) {
+      var lang = I.getLang();
+      var title = (g.title_i18n && g.title_i18n[lang]) || g.title || '';
+      var desc = g.description || '';
+      var diffClass = String(g.difficulty || 'beginner').toLowerCase();
+
+      var toolsHTML = (g.tools || []).length
+        ? '<div class="guide-info-card">' +
+            '<h3>🛠️ Tools Needed</h3>' +
+            '<ul>' + g.tools.map(function (t) { return '<li>' + C.esc(t) + '</li>'; }).join('') + '</ul>' +
+          '</div>'
+        : '';
+
+      var partsHTML = (g.parts || []).length
+        ? '<div class="guide-info-card">' +
+            '<h3>📦 Parts Needed</h3>' +
+            '<ul>' + g.parts.map(function (p) { return '<li>' + C.esc(p) + '</li>'; }).join('') + '</ul>' +
+          '</div>'
+        : '';
+
+      var stepsHTML = (g.steps && g.steps.length)
+        ? '<div class="guide-steps">' +
+            '<h2>📝 Step-by-Step</h2>' +
+            g.steps.map(function (s, i) {
+              return '<div class="guide-step">' +
+                '<div class="guide-step-number">' + (i + 1) + '</div>' +
+                '<div class="guide-step-content">' +
+                  '<h4>' + C.esc(s.title || '') + '</h4>' +
+                  '<p>' + C.esc(s.body || '').replace(/\n/g, '<br>') + '</p>' +
+                  (s.image ? '<img src="' + C.esc(s.image) + '" alt="Step ' + (i + 1) + '" loading="lazy">' : '') +
+                '</div>' +
+              '</div>';
+            }).join('') +
+          '</div>'
+        : '<div class="guide-steps">' +
+            '<h2>📝 Coming Soon</h2>' +
+            '<p style="color:var(--text-muted);line-height:1.7">The full step-by-step guide for this project is being written. Check back soon, or ask a question in the <a href="qa.html">Q&amp;A</a> section.</p>' +
+          '</div>';
+
+      var warningHTML = g.warning
+        ? '<div class="guide-warning"><strong>⚠️ Safety Notice</strong>' + C.esc(g.warning) + '</div>'
+        : '';
+
+      var related = allGuides.filter(function (x) {
+        return (x.slug || x.id) !== (g.slug || g.id) && x.category === g.category;
+      }).slice(0, 4);
+      if (!related.length) {
+        related = allGuides.filter(function (x) { return (x.slug || x.id) !== (g.slug || g.id); }).slice(0, 4);
+      }
+
+      var relatedHTML = related.length
+        ? '<div style="margin-top:32px">' +
+            '<h2 class="section-heading" style="font-size:1.1rem">📚 Related Guides</h2>' +
+            '<div class="related-guides">' +
+              related.map(function (r) {
+                return '<a href="guide.html?slug=' + C.esc(r.slug || r.id) + '">' +
+                  '<span style="font-size:1.3rem">' + C.esc(r.icon || '📖') + '</span>' +
+                  '<span>' + C.esc(r.title || '') + '</span>' +
+                '</a>';
+              }).join('') +
+            '</div>' +
+          '</div>'
+        : '';
+
+      container.innerHTML =
+        '<div class="guide-hero">' +
+          '<div class="guide-hero-top">' +
+            '<div class="guide-hero-icon">' + C.esc(g.icon || '📖') + '</div>' +
+            '<div>' +
+              '<h1>' + C.esc(title) + '</h1>' +
+              '<p>' + C.esc(desc) + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="guide-hero-badges">' +
+            '<span class="difficulty-badge ' + C.esc(diffClass) + '">' + C.esc(g.difficulty || 'Beginner') + '</span>' +
+            '<span>⏱ ' + (g.time_minutes || 0) + ' min</span>' +
+            '<span>💰 $' + (g.cost_usd || 0) + '</span>' +
+            '<span>📦 ' + (g.parts ? g.parts.length : 0) + ' parts</span>' +
+          '</div>' +
+        '</div>' +
+        warningHTML +
+        ((toolsHTML || partsHTML) ? '<div class="guide-grid">' + toolsHTML + partsHTML + '</div>' : '') +
+        stepsHTML +
+        relatedHTML +
+        '<div class="guide-actions">' +
+          '<a href="guides.html" class="btn-secondary">← All Guides</a>' +
+          '<button type="button" class="btn-primary" onclick="navigator.clipboard&&navigator.clipboard.writeText(location.href).then(function(){window.TPCommon&&window.TPCommon.showToast(\'✓ Link copied\')})">🔗 Copy Link</button>' +
+        '</div>';
+    }
+  })();
+  </script>
+
+  <script src="js/cmdk.js?v=20261010" defer></script>
+  <script src="js/cmdk-init.js?v=20261010" defer></script>
+  <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
+</body>
+</html>

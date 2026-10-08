@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechPulse | Article Manager</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css?v=20261010">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .ai-generator-card {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      border: 1px solid #334155;
+    }
+    .ai-generator-card h3 {
+      margin-top: 0;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ai-input-group { margin-bottom: 14px; }
+    .ai-input-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+    .ai-input-group input[type="text"],
+    .ai-input-group input[type="file"],
+    .ai-input-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: #fff;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    .ai-input-group input[type="file"] { padding: 8px; }
+    .btn-ai {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    .btn-ai:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); transform: translateY(-1px); }
+    .btn-ai:disabled { opacity: 0.6; cursor: not-allowed; }
+    #ai-status {
+      margin-top: 12px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      min-height: 1.2em;
+    }
+    .image-thumbs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .image-thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 2px solid #475569;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 30px 0 60px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+    .admin-card {
+      background: var(--bg-alt);
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .admin-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      position: relative;
+      padding-left: 14px;
+    }
+    .admin-card h3::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 4px;
+      width: 4px; height: 22px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  </style>
+
+  <script>
+    (function () {
+      var SB_URL = 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+      var SB_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+      var ADMIN_EMAIL = 'jonsrockytech@gmail.com';
+      document.documentElement.style.visibility = 'hidden';
+
+      window.addEventListener('DOMContentLoaded', async function () {
+        var sb = window.supabase.createClient(SB_URL, SB_KEY);
+        window.adminSb = sb;
+        var res = await sb.auth.getSession();
+        var session = res.data && res.data.session;
+
+        if (session && session.user.email && session.user.email.toLowerCase() === ADMIN_EMAIL) {
+          document.documentElement.style.visibility = '';
+          var out = document.createElement('button');
+          out.textContent = 'Sign out';
+          out.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:9999;padding:8px 14px;border-radius:8px;border:0;background:#dc2626;color:#fff;cursor:pointer;font-weight:600';
+          out.onclick = async function () { await sb.auth.signOut(); location.href = 'index.html'; };
+          document.body.appendChild(out);
+          return;
+        }
+        if (session) { await sb.auth.signOut(); }
+
+        var box = document.createElement('div');
+        box.style.cssText = 'visibility:visible;position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0f172a;font-family:sans-serif';
+        box.innerHTML =
+          '<div style="background:#fff;padding:28px;border-radius:12px;width:min(92vw,340px)">' +
+          '<h3 style="margin:0 0 14px;color:#0f172a">Admin sign in</h3>' +
+          '<input id="adm-email" type="email" placeholder="Email" autocomplete="username" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:6px;color:#0f172a">' +
+          '<input id="adm-pass" type="password" placeholder="Password" autocomplete="current-password" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:6px;color:#0f172a">' +
+          '<button id="adm-go" style="width:100%;padding:10px;border:0;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;font-weight:600">Sign in</button>' +
+          '<p id="adm-msg" style="color:#dc2626;font-size:.85rem;min-height:1.2em;margin:10px 0 0"></p></div>';
+        document.body.appendChild(box);
+
+        async function go() {
+          var msg = document.getElementById('adm-msg');
+          msg.textContent = '';
+          var r = await sb.auth.signInWithPassword({
+            email: document.getElementById('adm-email').value.trim(),
+            password: document.getElementById('adm-pass').value
+          });
+          if (r.error) { msg.textContent = 'Wrong email or password.'; return; }
+          location.reload();
+        }
+        document.getElementById('adm-go').onclick = go;
+        document.getElementById('adm-pass').addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+      });
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="ticker" aria-label="Admin notice">
+    <span class="ticker-label">Admin</span>
+    <div class="ticker-track" aria-hidden="true">
+      <span class="ticker-item"><a href="index.html">Connected to Supabase — Live sync active</a></span>
+      <span class="ticker-item"><a href="index.html">Connected to Supabase — Live sync active</a></span>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse CMS</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">← View Site</a>
+        <button type="button" id="darkModeToggle" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div id="adminStats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:24px"></div>
+
+    <section class="ai-generator-card">
+      <h3>✨ AI Article Generator from Images (Groq)</h3>
+      <p style="font-size:0.9rem; color:#94a3b8; margin-bottom:18px; line-height:1.5;">
+        Upload up to 3 images and enter a title. Groq's Qwen vision model will write a 2000+ word technical article, fill the form below, and upload the images to Supabase Storage.
+      </p>
+
+      <div class="ai-input-group">
+        <label for="ai-api-key">Groq API Key (Required):</label>
+        <input type="text" id="ai-api-key" placeholder="gsk_..." />
+      </div>
+
+      <div class="ai-input-group">
+        <label for="ai-custom-title">Article Title (Required):</label>
+        <input type="text" id="ai-custom-title" placeholder="e.g. How to Fix ESP32 Upload Failures in Under 5 Minutes" />
+      </div>
+
+      <div class="ai-input-group">
+        <label for="ai-category">Category:</label>
+        <select id="ai-category">
+          <option value="Technology">Technology</option>
+          <option value="Embedded Systems">Embedded Systems</option>
+          <option value="Hardware">Hardware</option>
+          <option value="Networking">Networking</option>
+          <option value="Upgrades">Upgrades</option>
+          <option value="Programming">Programming</option>
+        </select>
+      </div>
+
+      <div class="ai-input-group">
+        <label for="ai-images-input">Select up to 3 images:</label>
+        <input type="file" id="ai-images-input" accept="image/*" multiple />
+        <div class="image-thumbs" id="aiImageThumbs"></div>
+      </div>
+
+      <button type="button" id="ai-generate-btn" class="btn-ai">
+        <span>⚡ Analyze Images &amp; Generate Article</span>
+      </button>
+
+      <div id="ai-status"></div>
+    </section>
+
+    <div class="admin-grid">
+
+      <section class="admin-card">
+        <h3 id="form-title">Add New Article</h3>
+        <form id="article-form" novalidate>
+          <input type="hidden" id="article-id">
+
+          <div class="form-group">
+            <label for="title">Title *</label>
+            <input type="text" id="title" required maxlength="140" placeholder="Article title">
+          </div>
+
+          <div class="form-group">
+            <label for="slug">Slug</label>
+            <input type="text" id="slug" maxlength="140" placeholder="auto-generated">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="category">Category *</label>
+              <select id="category" required>
+                <option value="">— Select —</option>
+                <option>Technology</option>
+                <option>Embedded Systems</option>
+                <option>Hardware</option>
+                <option>Networking</option>
+                <option>Upgrades</option>
+                <option>Programming</option>
+                <option>Petroleum</option>
+                <option>Gas</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="author">Author</label>
+              <input type="text" id="author" maxlength="60" placeholder="TechPulse Team">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Date *</label>
+              <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+              <label for="readTime">Read Time</label>
+              <input type="text" id="readTime" maxlength="20" placeholder="5 min">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="excerpt">Excerpt *</label>
+            <textarea id="excerpt" rows="2" required maxlength="300" placeholder="Short summary"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="tags">Tags (comma-separated)</label>
+            <input type="text" id="tags" maxlength="200" placeholder="esp32, iot, firmware">
+          </div>
+
+          <div class="form-group">
+            <label>Featured Image (hero)</label>
+            <div class="image-uploader">
+              <div id="image-preview" class="image-preview">
+                <span class="image-hint">Click to upload an image (max 3 MB)</span>
+              </div>
+              <input type="file" id="image-file" accept="image/*" hidden>
+              <button type="button" id="remove-image" class="btn-secondary" style="display:none;align-self:flex-start;padding:6px 12px;font-size:0.82rem">Remove image</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="content">Content * (double newline = new paragraph)</label>
+            <textarea id="content" rows="14" required placeholder="Write the full content here..."></textarea>
+          </div>
+
+          <div class="form-group" style="flex-direction:row;align-items:center;gap:10px">
+            <input type="checkbox" id="featured" style="width:auto">
+            <label for="featured" style="margin:0;font-weight:500">Featured article</label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Save Article to Database</button>
+            <button type="button" id="reset-btn" class="btn-secondary" style="display:none">Cancel Editing</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="admin-card">
+        <h3>Published Articles</h3>
+        <div id="admin-articles-list">
+          <p style="color:var(--text-muted);text-align:center;padding:20px">Loading...</p>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse CMS. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js?v=20261010"></script>
+  <script src="js/common.js?v=20261010"></script>
+  <script src="js/admin.js?v=20261010"></script>
+
+  <script src="js/cmdk.js?v=20261010" defer></script>
+  <script src="js/cmdk-init.js?v=20261010" defer></script>
+  <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "name": "techpulse",
+  "version": "1.0.0",
+  "description": "TechPulse — Tech + Home + Academy. Free engineering platform.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/generate-seo.mjs",
+    "build:all": "node scripts/generate-seo.mjs && node scripts/generate-courses.mjs && node scripts/generate-tools-guides.mjs && node scripts/update-sitemap.mjs",
+    "translate": "node scripts/translate-articles.mjs",
+    "seo": "node scripts/generate-seo.mjs",
+    "seo:courses": "node scripts/generate-courses.mjs",
+    "seo:tools": "node scripts/generate-tools-guides.mjs",
+    "seo:sitemap": "node scripts/update-sitemap.mjs",
+    "serve": "npx http-server -p 8000 -c-1",
+    "dev": "npx http-server -p 8000 -c-1 -o",
+    "clean": "node -e \"const fs=require('fs');['a','series','rss','course','tools','guides'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true})}catch(e){}})\""
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonsrockytech/TECHN-PULSE.git"
+  },
+  "keywords": [
+    "esp32",
+    "arduino",
+    "embedded",
+    "engineering",
+    "home-automation",
+    "university-courses",
+    "calculators",
+    "iot"
+  ],
+  "author": "TechPulse",
+  "license": "MIT",
+  "homepage": "https://www.pulsehig.com"
+}

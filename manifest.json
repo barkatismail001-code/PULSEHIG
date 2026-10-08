@@ -1,0 +1,60 @@
+{
+  "name": "TechPulse — Tech + Home + Academy",
+  "short_name": "TechPulse",
+  "description": "Free engineering guides, ESP32 tutorials, home repair, university-level courses with solutions, and best product picks.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1220",
+  "theme_color": "#2563eb",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "news", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Academy",
+      "short_name": "Academy",
+      "url": "/academy.html",
+      "description": "Free university-level engineering courses",
+      "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Tools",
+      "short_name": "Tools",
+      "url": "/tools.html",
+      "description": "Engineering calculators and utilities",
+      "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Best Picks",
+      "short_name": "Picks",
+      "url": "/best-picks.html",
+      "description": "Product recommendations for engineers and home users",
+      "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Live News",
+      "short_name": "News",
+      "url": "/news.html",
+      "description": "Latest tech and oil/gas headlines",
+      "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

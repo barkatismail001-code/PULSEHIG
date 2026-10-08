@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academy | TechPulse — Free University-Level Engineering Courses</title>
+  <meta name="description" content="Free MIT, Stanford, Berkeley, CMU-level engineering courses: lectures, assignments, past exams and step-by-step solutions. Circuits, algorithms, embedded systems, machine learning and more.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="MIT OpenCourseWare, Stanford online courses, engineering lectures, circuits, algorithms, embedded systems, exam solutions">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/academy.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://www.pulsehig.com/academy.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/academy.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/academy.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/academy.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/academy.html?lang=pt">
+  <link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/academy.html">
+
+  <link rel="canonical" href="https://www.pulsehig.com/academy.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TechPulse">
+  <meta property="og:title" content="TechPulse Academy — Free University-Level Engineering Courses">
+  <meta property="og:description" content="Free MIT, Stanford, Berkeley, CMU-level courses with solutions.">
+  <meta property="og:url" content="https://www.pulsehig.com/academy.html">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://ijgvrjkpiofamwcmkmgi.supabase.co" crossorigin>
+  <link rel="dns-prefetch" href="https://ijgvrjkpiofamwcmkmgi.supabase.co">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css?v=20261010">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "TechPulse Academy",
+    "url": "https://www.pulsehig.com/academy.html",
+    "description": "Free university-level engineering courses with lectures, assignments, exams and solutions.",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Engineering Courses",
+      "itemListElement": [
+        {"@type": "Course", "name": "Circuits I", "description": "DC and AC circuit analysis, Thevenin, Norton, op-amps.", "provider": {"@type": "Organization", "name": "TechPulse Academy"}},
+        {"@type": "Course", "name": "Algorithms", "description": "Sorting, graphs, dynamic programming, NP-completeness.", "provider": {"@type": "Organization", "name": "TechPulse Academy"}},
+        {"@type": "Course", "name": "Embedded Systems", "description": "Microcontrollers, interrupts, RTOS, embedded C.", "provider": {"@type": "Organization", "name": "TechPulse Academy"}}
+      ]
+    }
+  }
+  </script>
+  <style id="tp-courses-grid-fix">
+    /* Force multi-column grid for courses */
+    .academy-courses { margin: 40px 0; }
+    .courses-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .courses-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .courses-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+      gap: 20px !important;
+    }
+    .course-card {
+      background: var(--bg-alt) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      padding: 22px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      text-decoration: none !important;
+      color: var(--text) !important;
+      transition: all 0.25s ease !important;
+      box-shadow: 0 1px 2px rgba(15,23,42,0.06);
+    }
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.12) !important;
+      border-color: var(--primary) !important;
+    }
+    .course-card-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+    }
+    .course-card h3 {
+      font-size: 1.1rem !important;
+      margin: 0 !important;
+      line-height: 1.35 !important;
+      color: var(--text) !important;
+    }
+    .course-card .course-desc {
+      font-size: 0.9rem !important;
+      color: var(--text-muted) !important;
+      margin: 0 !important;
+      line-height: 1.5 !important;
+      flex: 1;
+    }
+    .course-card .course-meta {
+      display: flex !important;
+      gap: 12px !important;
+      flex-wrap: wrap !important;
+      font-size: 0.8rem !important;
+      color: var(--text-muted) !important;
+      padding-top: 12px !important;
+      border-top: 1px solid var(--border) !important;
+    }
+    .course-card .course-meta span {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+    }
+    .course-code {
+      display: inline-block !important;
+      padding: 4px 10px !important;
+      background: var(--primary-soft, #dbeafe) !important;
+      color: var(--primary, #2563eb) !important;
+      border-radius: 6px !important;
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.03em;
+    }
+    .course-icon {
+      font-size: 1.8rem !important;
+      line-height: 1 !important;
+      flex-shrink: 0;
+    }
+    @media (max-width: 720px) {
+      .courses-header { flex-direction: column; align-items: flex-start; }
+      .courses-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="readingProgressBar"></div>
+
+  <div class="ticker" aria-label="Academy ticker">
+    <span class="ticker-label">🎓 Academy</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="academy.html" class="active" data-i18n="nav_academy">Academy</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="best-picks.html" data-i18n="nav_picks">Best Picks</a>
+        <a href="guides.html" data-i18n="nav_guides">Guides</a>
+        <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="academy-hero" aria-labelledby="academyHeroTitle">
+      <div class="academy-hero-content">
+        <div class="academy-badge" data-i18n="academy_badge">🎓 100% Free · No Signup Required</div>
+        <h1 id="academyHeroTitle" data-i18n="academy_preview_title">Free University-Level Engineering Courses</h1>
+        <p data-i18n="academy_hero_desc">Complete lectures, assignments, past exams and step-by-step solutions — structured after MIT OpenCourseWare, Stanford Online, Berkeley and CMU curricula.</p>
+        <div class="academy-stats-bar" id="academyStats">
+          <div class="academy-stat">
+            <span class="academy-stat-num" id="statTotalCourses">0</span>
+            <span class="academy-stat-label" data-i18n="stat_courses">Courses</span>
+          </div>
+          <div class="academy-stat">
+            <span class="academy-stat-num" id="statTotalLectures">0</span>
+            <span class="academy-stat-label" data-i18n="stat_lectures">Lectures</span>
+          </div>
+          <div class="academy-stat">
+            <span class="academy-stat-num" id="statTotalProblems">0</span>
+            <span class="academy-stat-label" data-i18n="stat_problems">Problems</span>
+          </div>
+          <div class="academy-stat">
+            <span class="academy-stat-num" id="statTotalSolutions">0</span>
+            <span class="academy-stat-label" data-i18n="academy_solutions">Solutions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="academy-trust">
+      <span class="trust-item">✅ Aligned with MIT 6.xxx / Stanford CS xxx</span>
+      <span class="trust-item">✅ Every problem has a full solution</span>
+      <span class="trust-item">✅ Reviewed by graduate TAs</span>
+      <span class="trust-item">✅ 6 languages supported</span>
+    </div>
+
+    <section class="academy-courses" aria-labelledby="coursesTitle">
+      <div class="courses-header">
+        <h2 class="section-heading" id="coursesTitle" data-i18n="academy_all_courses">🎯 All Courses</h2>
+        <div class="courses-filters" id="coursesFilters">
+          <button type="button" class="filter-chip active" data-filter="all">All</button>
+          <button type="button" class="filter-chip" data-filter="electrical">⚡ EE</button>
+          <button type="button" class="filter-chip" data-filter="cs">💻 CS</button>
+          <button type="button" class="filter-chip" data-filter="embedded">🔌 Embedded</button>
+          <button type="button" class="filter-chip" data-filter="ai">🤖 AI</button>
+          <button type="button" class="filter-chip" data-filter="mechanical">⚙️ MechE</button>
+        </div>
+      </div>
+      <div class="courses-grid" id="coursesGrid">
+        <p class="loading-state" data-i18n="loading">Loading courses...</p>
+      </div>
+    </section>
+
+    <section class="did-you-know" aria-labelledby="dykTitle">
+      <h3 id="dykTitle">💡 Did You Know?</h3>
+      <p id="dykContent">Loading...</p>
+      <span class="dyk-source" id="dykSource"></span>
+    </section>
+
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <style>
+    .academy-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #4c1d95 50%, #6b21a8 100%);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      margin: 24px 0;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      overflow: hidden;
+    }
+    .academy-hero-content { position: relative; z-index: 2; text-align: center; }
+    .academy-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+    .academy-hero p {
+      font-size: 1.05rem;
+      max-width: 720px;
+      margin: 0 auto 32px;
+      opacity: 0.92;
+      line-height: 1.6;
+    }
+    .academy-stats-bar {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .academy-stat { text-align: center; }
+    .academy-stat-num { display: block; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; color: #fbbf24; }
+    .academy-stat-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; }
+    .academy-trust {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      padding: 16px 20px; background: var(--bg-soft);
+      border-radius: var(--radius); margin: 16px 0 32px; font-size: 0.85rem;
+    }
+    .trust-item { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; color: var(--text); }
+    .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+    .course-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .course-code { display: inline-block; background: var(--primary-soft); color: var(--primary); font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.03em; }
+    .course-icon { font-size: 1.8rem; line-height: 1; }
+    .course-card h3 { font-size: 1.05rem; margin: 0; line-height: 1.35; }
+    .course-card .course-desc { font-size: 0.88rem; color: var(--text-muted); margin: 0; flex: 1; line-height: 1.5; }
+    .course-card .course-meta { display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-muted); padding-top: 10px; border-top: 1px solid var(--border); }
+  </style>
+
+  <script src="js/live-news.js?v=20261010"></script>
+  <script src="js/common.js?v=20261010"></script>
+  <script src="js/i18n.js?v=20261010"></script>
+  <script src="js/academy.js?v=20261010"></script>
+
+  <script src="js/cmdk.js?v=20261010" defer></script>
+  <script src="js/cmdk-init.js?v=20261010" defer></script>
+  <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
+</body>
+</html>

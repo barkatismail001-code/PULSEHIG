@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Forum | TechPulse — Discuss Tech, Home & Engineering</title>
+  <meta name="description" content="Join the TechPulse community forum. Discuss electronics, ESP32 projects, home automation, programming, and practical engineering questions.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="engineering forum, ESP32 forum, embedded systems community, tech discussion, home automation forum">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/forum.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://www.pulsehig.com/forum.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/forum.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/forum.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/forum.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/forum.html?lang=pt">
+  <link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/forum.html">
+
+  <link rel="canonical" href="https://www.pulsehig.com/forum.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TechPulse">
+  <meta property="og:title" content="Community Forum | TechPulse">
+  <meta property="og:description" content="Discuss electronics, ESP32, home automation, and practical engineering.">
+  <meta property="og:url" content="https://www.pulsehig.com/forum.html">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://ijgvrjkpiofamwcmkmgi.supabase.co" crossorigin>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css?v=20261010">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .forum-hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      margin: 20px 0 30px;
+      border: 1px solid #334155;
+    }
+    .forum-hero h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 10px; color: #38bdf8; }
+    .forum-hero p { color: #94a3b8; max-width: 640px; margin: 0 auto; }
+
+    .forum-actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      margin-bottom: 30px;
+    }
+    .user-status-area { font-size: 0.95rem; font-weight: 500; color: var(--text); }
+    .btn-action {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    .btn-action:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-action:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-success { background: var(--success); }
+    .btn-success:hover { background: #047857; }
+    .btn-muted { background: #64748b; }
+    .btn-muted:hover { background: #475569; }
+
+    .forum-categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+    .forum-cat-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      transition: all var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .forum-cat-card:hover, .forum-cat-card.active-cat {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+    .cat-icon-wrapper { font-size: 2.2rem; line-height: 1; }
+    .forum-cat-card h3 { font-size: 1.1rem; margin: 0; color: var(--text); }
+    .forum-cat-card p { font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.4; }
+    .cat-stats {
+      font-size: 0.78rem;
+      color: var(--primary);
+      font-weight: 600;
+      background: var(--primary-soft);
+      padding: 5px 10px;
+      border-radius: 6px;
+      align-self: flex-start;
+    }
+
+    .live-topics-section {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+    .topic-item-card {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .topic-item-card:hover { background: var(--bg-soft); }
+    .topic-item-card:last-child { border-bottom: none; }
+    .topic-item-card .topic-title { margin: 0 0 5px; color: var(--text); font-size: 1rem; }
+    .topic-item-card small { color: var(--text-muted); }
+    .reply-badge {
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-content {
+      background: var(--bg-alt);
+      padding: 28px;
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 480px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border);
+      color: var(--text);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-content.lg { max-width: 660px; }
+    .modal-content h3 { margin-top: 0; color: var(--text); }
+    .modal-content input,
+    .modal-content select,
+    .modal-content textarea {
+      width: 100%;
+      padding: 11px 14px;
+      margin-bottom: 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: var(--bg);
+      color: var(--text);
+      box-sizing: border-box;
+    }
+    .modal-content textarea { resize: vertical; min-height: 100px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+
+    #toastBox {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 2000;
+      pointer-events: none;
+    }
+    .toast {
+      background: #1e293b;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.9rem;
+      min-width: 220px;
+      pointer-events: auto;
+      animation: slideIn 0.25s ease;
+    }
+    .toast.success { border-left-color: var(--success); }
+    .toast.error { border-left-color: var(--danger); }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .reply-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: var(--bg-soft);
+    }
+    .reply-item .reply-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .reply-item p { margin: 0; font-size: 0.92rem; color: var(--text); white-space: pre-wrap; }
+    .loading-row { text-align: center; color: var(--text-muted); padding: 18px; }
+
+    @media (max-width: 560px) {
+      .forum-hero h1 { font-size: 1.5rem; }
+      .forum-actions-bar { flex-direction: column; align-items: stretch; }
+      .topic-item-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="readingProgressBar"></div>
+
+  <div class="ticker" aria-label="Notice">
+    <span class="ticker-label">Community</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="academy.html" data-i18n="nav_academy">Academy</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="best-picks.html" data-i18n="nav_picks">Best Picks</a>
+        <a href="guides.html" data-i18n="nav_guides">Guides</a>
+        <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
+        <a href="forum.html" class="active" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="forum-hero">
+      <h1 data-i18n="forum_hero_title">TechPulse Community Forum</h1>
+      <p data-i18n="forum_hero_desc">Ask questions, share engineering projects, and discuss Technology, Petroleum, Natural Gas, and Programming.</p>
+    </section>
+
+    <div class="forum-actions-bar">
+      <div class="user-status-area" id="userStatusDisplay">👤 Guest User (Please Sign In)</div>
+      <div>
+        <button type="button" class="btn-action" id="authBtn">Sign In</button>
+        <button type="button" class="btn-action btn-success" id="newTopicBtn" style="margin-left:8px;">+ New Topic</button>
+      </div>
+    </div>
+
+    <div class="forum-categories-grid">
+      <div class="forum-cat-card" data-cat="Technology" onclick="filterCategory('Technology', this)">
+        <div class="cat-icon-wrapper">💻</div>
+        <div>
+          <h3>Technology</h3>
+          <p>Microcontrollers, IoT hardware, and automation systems.</p>
+        </div>
+        <span class="cat-stats" id="stat-Technology">Loading...</span>
+      </div>
+      <div class="forum-cat-card" data-cat="Petroleum" onclick="filterCategory('Petroleum', this)">
+        <div class="cat-icon-wrapper">🛢️</div>
+        <div>
+          <h3>Petroleum</h3>
+          <p>Upstream &amp; downstream engineering, and process machinery.</p>
+        </div>
+        <span class="cat-stats" id="stat-Petroleum">Loading...</span>
+      </div>
+      <div class="forum-cat-card" data-cat="Gas" onclick="filterCategory('Gas', this)">
+        <div class="cat-icon-wrapper">🔥</div>
+        <div>
+          <h3>Natural Gas</h3>
+          <p>Gas processing, pipeline distribution, and safety.</p>
+        </div>
+        <span class="cat-stats" id="stat-Gas">Loading...</span>
+      </div>
+      <div class="forum-cat-card" data-cat="Programming" onclick="filterCategory('Programming', this)">
+        <div class="cat-icon-wrapper">⚡</div>
+        <div>
+          <h3>Programming</h3>
+          <p>C++, MicroPython, Python, and firmware development.</p>
+        </div>
+        <span class="cat-stats" id="stat-Programming">Loading...</span>
+      </div>
+    </div>
+
+    <section class="live-topics-section">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+        <h3 style="margin:0;color:var(--text)">💬 Real Community Discussions</h3>
+        <button type="button" class="btn-action btn-muted" id="refreshBtn" style="padding:6px 12px;font-size:0.8rem;">↻ Refresh</button>
+      </div>
+      <div id="liveTopicsContainer">
+        <p class="loading-row">Fetching topics from database...</p>
+      </div>
+    </section>
+
+    <section class="live-topics-section">
+      <h3 style="margin-top:0;margin-bottom:20px;color:var(--text)">🌐 Global Discussion Board</h3>
+      <div id="disqus_thread"></div>
+    </section>
+
+  </main>
+
+  <div id="topicModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Create New Discussion</h3>
+      <input type="text" id="newTitle" placeholder="Topic Title..." maxlength="140">
+      <select id="newCategory">
+        <option value="Technology">Technology</option>
+        <option value="Petroleum">Petroleum</option>
+        <option value="Gas">Natural Gas</option>
+        <option value="Programming">Programming</option>
+      </select>
+      <textarea id="newContent" rows="5" placeholder="Describe your topic or question..."></textarea>
+      <div class="modal-actions">
+        <button type="button" class="btn-action btn-muted" onclick="closeTopicModal()">Cancel</button>
+        <button type="button" class="btn-action" id="publishTopicBtn" onclick="submitNewTopic()">Publish</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 id="authModalTitle">Sign In / Register</h3>
+      <input type="email" id="authEmail" placeholder="Email Address..." autocomplete="email">
+      <input type="password" id="authPassword" placeholder="Password (min 6 chars)..." autocomplete="current-password">
+      <div class="modal-actions" style="justify-content:space-between">
+        <button type="button" class="btn-action" id="signInBtn">Sign In</button>
+        <button type="button" class="btn-action btn-success" id="signUpBtn">Register</button>
+        <button type="button" class="btn-action btn-muted" onclick="closeAuthModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="topicDetailModal" class="modal-overlay">
+    <div class="modal-content lg">
+      <h3 id="detailTitle" style="margin-top:0;color:var(--text)"></h3>
+      <small id="detailMeta" style="color:var(--text-muted)"></small>
+      <p id="detailContent" style="white-space:pre-wrap;margin:14px 0 20px;color:var(--text)"></p>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:18px 0">
+      <h4 style="margin:0 0 10px;color:var(--text)">Replies</h4>
+      <div id="repliesContainer"><p class="loading-row">Loading replies...</p></div>
+
+      <div id="replyFormWrap" style="margin-top:16px;display:none">
+        <textarea id="replyContent" rows="3" placeholder="Write a reply..."></textarea>
+        <div class="modal-actions">
+          <button type="button" class="btn-action btn-muted" onclick="closeTopicDetail()">Close</button>
+          <button type="button" class="btn-action" id="postReplyBtn" onclick="submitReply()">Post Reply</button>
+        </div>
+      </div>
+      <div id="replyLoginHint" style="margin-top:16px;display:none;text-align:center">
+        <p style="color:var(--text-muted);font-size:0.9rem">Sign in to reply to this topic.</p>
+        <button type="button" class="btn-action" onclick="closeTopicDetail();openAuthModal();">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastBox"></div>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <script src="js/common.js?v=20261010"></script>
+  <script src="js/i18n.js?v=20261010"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    var sb = null;
+    var currentUser = null;
+    var allTopics = [];
+    var activeCategory = null;
+    var activeTopic = null;
+    var realtimeChannel = null;
+
+    var $ = function (id) { return document.getElementById(id); };
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function fmtDate(iso) {
+      try {
+        return new Date(iso).toLocaleString(undefined, {
+          year: 'numeric', month: 'short', day: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        });
+      } catch (e) { return ''; }
+    }
+
+    function toast(msg, type, ms) {
+      type = type || 'info';
+      ms = ms || 3200;
+      var box = $('toastBox');
+      var el = document.createElement('div');
+      el.className = 'toast ' + type;
+      el.textContent = msg;
+      box.appendChild(el);
+      setTimeout(function () {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(30px)';
+        el.style.transition = 'all 0.25s ease';
+        setTimeout(function () { el.remove(); }, 260);
+      }, ms);
+    }
+
+    function initSupabase() {
+      var C = window.TPCommon;
+      if (!C) return false;
+      if (window.supabaseClient) { sb = window.supabaseClient; return true; }
+      if (!window.supabase || !window.supabase.createClient) return false;
+      sb = window.supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+      });
+      window.supabaseClient = sb;
+      return true;
+    }
+
+    async function refreshAuthUI() {
+      var statusEl = $('userStatusDisplay');
+      var authBtn = $('authBtn');
+
+      if (!sb) {
+        statusEl.textContent = '👤 Guest (offline)';
+        return;
+      }
+
+      var res = await sb.auth.getSession();
+      var session = res.data && res.data.session;
+      currentUser = (session && session.user) || null;
+
+      if (currentUser) {
+        statusEl.innerHTML = '👤 Connected as: <b>' + escapeHtml(currentUser.email) + '</b>';
+        authBtn.textContent = 'Sign Out';
+        authBtn.className = 'btn-action btn-muted';
+        authBtn.onclick = userSignOut;
+      } else {
+        statusEl.textContent = '👤 Guest User (Please Sign In)';
+        authBtn.textContent = 'Sign In';
+        authBtn.className = 'btn-action';
+        authBtn.onclick = openAuthModal;
+      }
+    }
+
+    async function userSignIn() {
+      if (!sb) return toast('Supabase not configured', 'error');
+      var email = $('authEmail').value.trim();
+      var password = $('authPassword').value;
+      if (!email || !password) return toast('Enter email and password', 'error');
+
+      var btn = $('signInBtn');
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      var res = await sb.auth.signInWithPassword({ email: email, password: password });
+
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+
+      if (res.error) return toast(res.error.message, 'error');
+      toast('Signed in successfully', 'success');
+      closeAuthModal();
+      $('authEmail').value = '';
+      $('authPassword').value = '';
+    }
+
+    async function userSignUp() {
+      if (!sb) return toast('Supabase not configured', 'error');
+      var email = $('authEmail').value.trim();
+      var password = $('authPassword').value;
+      if (!email || !password) return toast('Enter email and password', 'error');
+      if (password.length < 6) return toast('Password must be 6+ chars', 'error');
+
+      var btn = $('signUpBtn');
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      var res = await sb.auth.signUp({ email: email, password: password });
+
+      btn.disabled = false;
+      btn.textContent = 'Register';
+
+      if (res.error) return toast(res.error.message, 'error');
+      toast('Account created! You are signed in.', 'success');
+      closeAuthModal();
+    }
+
+    async function userSignOut() {
+      if (!sb) return;
+      await sb.auth.signOut();
+      toast('Signed out', 'info');
+    }
+
+    async function loadTopics() {
+      var container = $('liveTopicsContainer');
+      container.innerHTML = '<p class="loading-row">Fetching topics...</p>';
+
+      if (!sb) {
+        container.innerHTML = '<p class="loading-row">Service unavailable</p>';
+        return;
+      }
+
+      var res = await sb.from('forum_topics').select('*').order('created_at', { ascending: false }).limit(100);
+
+      if (res.error) {
+        container.innerHTML = '<p style="color:#f87171;text-align:center">Failed to load: ' + escapeHtml(res.error.message) + '</p>';
+        return;
+      }
+
+      allTopics = res.data || [];
+      renderTopics(applyFilter(allTopics));
+      updateStats(allTopics);
+    }
+
+    function applyFilter(topics) {
+      return activeCategory ? topics.filter(function (t) { return t.category === activeCategory; }) : topics;
+    }
+
+    function renderTopics(topics) {
+      var container = $('liveTopicsContainer');
+      if (!topics.length) {
+        container.innerHTML = '<p style="text-align:center;color:var(--text-muted)">No discussions found. Be the first to start one!</p>';
+        return;
+      }
+
+      container.innerHTML = topics.map(function (t) {
+        return '<div class="topic-item-card" onclick="openTopicDetail(\'' + t.id + '\')">' +
+          '<div style="min-width:0">' +
+            '<h4 class="topic-title">' + escapeHtml(t.title) + '</h4>' +
+            '<small>By <b>' + escapeHtml(t.author || 'Member') + '</b> in <b>' + escapeHtml(t.category) + '</b> — ' + fmtDate(t.created_at) + '</small>' +
+          '</div>' +
+          '<span class="reply-badge">💬 ' + (Number(t.replies_count) || 0) + '</span>' +
+        '</div>';
+      }).join('');
+    }
+
+    function updateStats(topics) {
+      var counts = { Technology: 0, Petroleum: 0, Gas: 0, Programming: 0 };
+      topics.forEach(function (t) {
+        if (counts[t.category] !== undefined) counts[t.category]++;
+      });
+      ['Technology', 'Petroleum', 'Gas', 'Programming'].forEach(function (cat) {
+        var el = $('stat-' + cat);
+        if (el) el.textContent = counts[cat] + ' Topics';
+      });
+    }
+
+    window.filterCategory = function (catName, el) {
+      if (activeCategory === catName) {
+        activeCategory = null;
+        document.querySelectorAll('.forum-cat-card').forEach(function (c) { c.classList.remove('active-cat'); });
+      } else {
+        activeCategory = catName;
+        document.querySelectorAll('.forum-cat-card').forEach(function (c) { c.classList.remove('active-cat'); });
+        if (el) el.classList.add('active-cat');
+      }
+      renderTopics(applyFilter(allTopics));
+    };
+
+    window.openTopicModal = function () {
+      if (!sb) return toast('Service unavailable', 'error');
+      if (!currentUser) {
+        toast('Please sign in first', 'error');
+        openAuthModal();
+        return;
+      }
+      $('topicModal').classList.add('open');
+    };
+
+    window.closeTopicModal = function () {
+      $('topicModal').classList.remove('open');
+    };
+
+    window.submitNewTopic = async function () {
+      if (!sb || !currentUser) return;
+
+      var title = $('newTitle').value.trim();
+      var category = $('newCategory').value;
+      var content = $('newContent').value.trim();
+
+      if (!title) return toast('Please enter a title', 'error');
+      if (title.length > 140) return toast('Title too long', 'error');
+
+      var btn = $('publishTopicBtn');
+      btn.disabled = true;
+      btn.textContent = 'Publishing...';
+
+      var res = await sb.from('forum_topics').insert([{
+        title: title,
+        category: category,
+        content: content,
+        author: currentUser.email.split('@')[0],
+        author_id: currentUser.id,
+        replies_count: 0
+      }]);
+
+      btn.disabled = false;
+      btn.textContent = 'Publish';
+
+      if (res.error) return toast('Error: ' + res.error.message, 'error');
+
+      toast('Topic published', 'success');
+      $('newTitle').value = '';
+      $('newContent').value = '';
+      closeTopicModal();
+      loadTopics();
+    };
+
+    window.openTopicDetail = async function (topicId) {
+      var topic = allTopics.find(function (t) { return t.id === topicId; });
+      if (!topic) return;
+
+      activeTopic = topic;
+      $('detailTitle').textContent = topic.title;
+      $('detailMeta').textContent = 'By ' + (topic.author || 'Member') + ' • ' + topic.category + ' • ' + fmtDate(topic.created_at);
+      $('detailContent').textContent = topic.content || '(no description)';
+      $('repliesContainer').innerHTML = '<p class="loading-row">Loading replies...</p>';
+
+      $('topicDetailModal').classList.add('open');
+      $('replyFormWrap').style.display = currentUser ? 'block' : 'none';
+      $('replyLoginHint').style.display = currentUser ? 'none' : 'block';
+
+      await loadReplies(topicId);
+    };
+
+    window.closeTopicDetail = function () {
+      $('topicDetailModal').classList.remove('open');
+      activeTopic = null;
+      $('replyContent').value = '';
+    };
+
+    async function loadReplies(topicId) {
+      var box = $('repliesContainer');
+      if (!sb) { box.innerHTML = '<p class="loading-row">Offline</p>'; return; }
+
+      var res = await sb.from('forum_replies').select('*').eq('topic_id', topicId).order('created_at', { ascending: true });
+
+      if (res.error) {
+        box.innerHTML = '<p class="loading-row">No replies yet</p>';
+        return;
+      }
+      if (!res.data || !res.data.length) {
+        box.innerHTML = '<p class="loading-row">No replies yet — be the first!</p>';
+        return;
+      }
+
+      box.innerHTML = res.data.map(function (r) {
+        return '<div class="reply-item">' +
+          '<div class="reply-head"><b>' + escapeHtml(r.author || 'Member') + '</b><span>' + fmtDate(r.created_at) + '</span></div>' +
+          '<p>' + escapeHtml(r.content) + '</p>' +
+        '</div>';
+      }).join('');
+    }
+
+    window.submitReply = async function () {
+      if (!sb || !currentUser || !activeTopic) return;
+
+      var content = $('replyContent').value.trim();
+      if (!content) return toast('Write something first', 'error');
+
+      var btn = $('postReplyBtn');
+      btn.disabled = true;
+      btn.textContent = 'Posting...';
+
+      var res = await sb.from('forum_replies').insert([{
+        topic_id: activeTopic.id,
+        content: content,
+        author: currentUser.email.split('@')[0],
+        author_id: currentUser.id
+      }]);
+
+      if (res.error) {
+        btn.disabled = false;
+        btn.textContent = 'Post Reply';
+        return toast('Error: ' + res.error.message, 'error');
+      }
+
+      var newCount = (Number(activeTopic.replies_count) || 0) + 1;
+      await sb.from('forum_topics').update({ replies_count: newCount }).eq('id', activeTopic.id);
+
+      activeTopic.replies_count = newCount;
+      var local = allTopics.find(function (t) { return t.id === activeTopic.id; });
+      if (local) local.replies_count = newCount;
+
+      $('replyContent').value = '';
+      btn.disabled = false;
+      btn.textContent = 'Post Reply';
+
+      toast('Reply posted', 'success');
+      await loadReplies(activeTopic.id);
+      renderTopics(applyFilter(allTopics));
+    };
+
+    window.openAuthModal = function () { $('authModal').classList.add('open'); };
+    window.closeAuthModal = function () { $('authModal').classList.remove('open'); $('authPassword').value = ''; };
+
+    document.querySelectorAll('.modal-overlay').forEach(function (overlay) {
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) overlay.classList.remove('open');
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(function (m) {
+          m.classList.remove('open');
+        });
+      }
+    });
+
+    function subscribeRealtime() {
+      if (!sb || realtimeChannel) return;
+      realtimeChannel = sb.channel('techpulse_forum')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'forum_topics' }, function () { loadTopics(); })
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'forum_replies' }, function (payload) {
+          if (activeTopic && payload.new.topic_id === activeTopic.id) loadReplies(activeTopic.id);
+        })
+        .subscribe();
+    }
+
+    async function initForum() {
+      var C = window.TPCommon;
+      if (C) {
+        C.initDarkMode();
+        C.initTicker();
+      }
+
+      var ok = initSupabase();
+      if (ok) {
+        sb.auth.onAuthStateChange(function (_evt, session) {
+          currentUser = (session && session.user) || null;
+          refreshAuthUI();
+          if (activeTopic) {
+            $('replyFormWrap').style.display = currentUser ? 'block' : 'none';
+            $('replyLoginHint').style.display = currentUser ? 'none' : 'block';
+          }
+        });
+      }
+
+      await refreshAuthUI();
+      await loadTopics();
+      if (ok) subscribeRealtime();
+
+      var signInBtn = $('signInBtn');
+      var signUpBtn = $('signUpBtn');
+      var newTopicBtn = $('newTopicBtn');
+      var refreshBtn = $('refreshBtn');
+      var authPass = $('authPassword');
+
+      if (signInBtn) signInBtn.addEventListener('click', userSignIn);
+      if (signUpBtn) signUpBtn.addEventListener('click', userSignUp);
+      if (newTopicBtn) newTopicBtn.addEventListener('click', openTopicModal);
+      if (refreshBtn) refreshBtn.addEventListener('click', function () { loadTopics(); toast('Refreshed', 'info', 1500); });
+      if (authPass) authPass.addEventListener('keydown', function (e) { if (e.key === 'Enter') userSignIn(); });
+
+      /* Scroll top */
+      var topBtn = document.getElementById('scrollTopBtn');
+      if (topBtn) {
+        window.addEventListener('scroll', function () {
+          topBtn.classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+        topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initForum);
+    } else {
+      initForum();
+    }
+  })();
+  </script>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = 'techpulse_community_forum';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://techpulse-1.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', String(+new Date()));
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
+  <script src="js/cmdk.js?v=20261010" defer></script>
+  <script src="js/cmdk-init.js?v=20261010" defer></script>
+  <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
+  </body>
+</html>

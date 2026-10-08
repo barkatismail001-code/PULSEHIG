@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIY Guides | TechPulse — Step-by-Step Home & Tech Projects</title>
+  <meta name="description" content="Step-by-step DIY guides for smart home projects, IoT builds, and practical upgrades. From smart lamps to WiFi thermometers and home security cameras.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="DIY guides, smart home projects, ESP32 tutorials, IoT builds, home automation, step by step">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/guides.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://www.pulsehig.com/guides.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/guides.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/guides.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/guides.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/guides.html?lang=pt">
+  <link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/guides.html">
+
+  <link rel="canonical" href="https://www.pulsehig.com/guides.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TechPulse">
+  <meta property="og:title" content="DIY Guides | TechPulse">
+  <meta property="og:description" content="Step-by-step DIY guides for smart home projects and IoT builds.">
+  <meta property="og:url" content="https://www.pulsehig.com/guides.html">
+  <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://ijgvrjkpiofamwcmkmgi.supabase.co" crossorigin>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css?v=20261010">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "DIY Guides",
+    "url": "https://www.pulsehig.com/guides.html",
+    "description": "Step-by-step DIY guides for smart home projects and IoT builds."
+  }
+  </script>
+</head>
+<body>
+
+  <div id="readingProgressBar"></div>
+
+  <div class="ticker" aria-label="Guides ticker">
+    <span class="ticker-label">🛠️ Guides</span>
+    <div class="ticker-track" id="tickerTrack" aria-hidden="true"></div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html" aria-label="TechPulse Home">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>TechPulse</span>
+        </a>
+      </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="academy.html" data-i18n="nav_academy">Academy</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="best-picks.html" data-i18n="nav_picks">Best Picks</a>
+        <a href="guides.html" class="active" data-i18n="nav_guides">Guides</a>
+        <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
+        <a href="forum.html" data-i18n="nav_forum">Forum</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
+        <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="hero-section">
+      <h1 data-i18n="guides_hero_title">🛠️ DIY Guides</h1>
+      <p data-i18n="guides_hero_desc">Step-by-step projects for smart home, IoT, and practical upgrades. Each guide includes tools, parts, difficulty, and time estimate.</p>
+      <div class="site-stats-bar" id="guidesStatsBar"></div>
+    </section>
+
+    <div class="toolbar">
+      <div class="search-box" style="flex:1">
+        <input type="search" id="guideSearch" placeholder="Search guides..." aria-label="Search guides">
+      </div>
+      <div class="category-filter-box">
+        <select id="guideCategory" class="category-select" aria-label="Filter by category">
+          <option value="all">All Categories</option>
+          <option value="Home Automation">Home Automation</option>
+          <option value="Home Security">Home Security</option>
+          <option value="Sensors">Sensors</option>
+          <option value="Garden">Garden</option>
+          <option value="Home">Home</option>
+          <option value="Energy">Energy</option>
+        </select>
+      </div>
+      <div class="category-filter-box">
+        <select id="guideDifficulty" class="category-select" aria-label="Filter by difficulty">
+          <option value="all">All Levels</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="guides-grid" id="guidesGrid" aria-live="polite">
+      <p class="loading-state" data-i18n="loading">Loading guides...</p>
+    </section>
+
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 TechPulse. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <div class="footer-links">
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="privacy-policy.html" data-i18n="nav_privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="nav_terms">Terms of Service</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <style>
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 22px;
+      padding: 12px 0 60px;
+      margin-top: 16px;
+    }
+    .guide-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .guide-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .guide-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+    .difficulty-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .difficulty-badge.beginner { background: #dcfce7; color: #166534; }
+    .difficulty-badge.intermediate { background: #fef3c7; color: #92400e; }
+    .difficulty-badge.advanced { background: #fee2e2; color: #991b1b; }
+    html.dark-theme .difficulty-badge.beginner { background: rgba(22, 163, 74, 0.2); color: #4ade80; }
+    html.dark-theme .difficulty-badge.intermediate { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    html.dark-theme .difficulty-badge.advanced { background: rgba(220, 38, 38, 0.2); color: #f87171; }
+    .guide-card h3 {
+      font-size: 1.1rem;
+      margin: 0;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .guide-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin: 0;
+      flex: 1;
+      line-height: 1.5;
+    }
+    .guide-meta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .guide-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+  </style>
+
+  <script src="js/live-news.js?v=20261010"></script>
+  <script src="js/common.js?v=20261010"></script>
+  <script src="js/i18n.js?v=20261010"></script>
+  <script src="js/guides.js?v=20261010"></script>
+
+  <script src="js/cmdk.js?v=20261010" defer></script>
+  <script src="js/cmdk-init.js?v=20261010" defer></script>
+  <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
+</body>
+</html>
