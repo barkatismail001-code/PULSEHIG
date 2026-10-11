@@ -1,0 +1,233 @@
+[
+  {
+    "id": "smart-lamp",
+    "slug": "smart-lamp",
+    "title": "Turn Any Lamp Into a Smart Lamp",
+    "title_i18n": {
+      "zh": "把任何灯具变成智能灯",
+      "es": "Convierte cualquier lámpara en una lámpara inteligente",
+      "hi": "किसी भी लैंप को स्मार्ट लैंप बनाएं",
+      "fr": "Transformez n'importe quelle lampe en lampe intelligente",
+      "pt": "Transforme qualquer lâmpada em uma lâmpada inteligente"
+    },
+    "category": "Home Automation",
+    "icon": "💡",
+    "difficulty": "Beginner",
+    "time_minutes": 20,
+    "cost_usd": 8,
+    "tools": ["Soldering iron", "Wire cutters", "Screwdriver"],
+    "parts": ["ESP32-C3 Mini", "5V relay module", "5V PSU", "Jumper wires"],
+    "description": "Convert a cheap IKEA lamp into a Wi-Fi controlled smart lamp with scheduling and voice control.",
+    "keywords": ["smart lamp", "esp32", "relay", "home automation", "diy"]
+  },
+  {
+    "id": "wifi-thermometer",
+    "slug": "wifi-thermometer",
+    "title": "Build a Wi-Fi Thermometer with ESP32",
+    "title_i18n": {
+      "zh": "用 ESP32 打造 WiFi 温度计",
+      "es": "Construye un termómetro Wi-Fi con ESP32",
+      "hi": "ESP32 के साथ WiFi थर्मामीटर बनाएं",
+      "fr": "Construisez un thermomètre Wi-Fi avec ESP32",
+      "pt": "Construa um termômetro Wi-Fi com ESP32"
+    },
+    "category": "Sensors",
+    "icon": "🌡️",
+    "difficulty": "Beginner",
+    "time_minutes": 30,
+    "cost_usd": 12,
+    "tools": ["Breadboard", "USB cable"],
+    "parts": ["ESP32-WROOM", "DHT22 sensor", "10k resistor", "Jumper wires"],
+    "description": "Read temperature and humidity, send data over MQTT, and visualize on Home Assistant.",
+    "keywords": ["thermometer", "esp32", "dht22", "mqtt", "home assistant"]
+  },
+  {
+    "id": "plant-watering",
+    "slug": "plant-watering",
+    "title": "Automatic Plant Watering System",
+    "title_i18n": {
+      "zh": "自动浇水系统",
+      "es": "Sistema de riego automático para plantas",
+      "hi": "स्वचालित पौधा पानी प्रणाली",
+      "fr": "Système d'arrosage automatique",
+      "pt": "Sistema automático de rega de plantas"
+    },
+    "category": "Garden",
+    "icon": "🌱",
+    "difficulty": "Intermediate",
+    "time_minutes": 60,
+    "cost_usd": 25,
+    "tools": ["Drill", "Wire stripper", "Screwdriver"],
+    "parts": ["ESP32", "Capacitive soil moisture sensor", "5V mini pump", "Relay", "5V PSU", "Silicone tube"],
+    "description": "Build a self-watering system that monitors soil moisture and activates a pump when dry.",
+    "keywords": ["plant", "watering", "garden", "soil moisture", "esp32"]
+  },
+  {
+    "id": "security-camera",
+    "slug": "security-camera",
+    "title": "Repurpose an Old Phone as a Security Camera",
+    "title_i18n": {
+      "zh": "把旧手机改造成安防摄像头",
+      "es": "Reutiliza un teléfono viejo como cámara de seguridad",
+      "hi": "पुराने फोन को सुरक्षा कैमरे के रूप में उपयोग करें",
+      "fr": "Réutilisez un vieux téléphone comme caméra de sécurité",
+      "pt": "Reutilize um celular antigo como câmera de segurança"
+    },
+    "category": "Home Security",
+    "icon": "🔒",
+    "difficulty": "Beginner",
+    "time_minutes": 15,
+    "cost_usd": 0,
+    "tools": [],
+    "parts": ["Old Android phone", "Phone mount", "USB power cable"],
+    "description": "Use a free app like IP Webcam to turn any old Android phone into a network camera with motion detection.",
+    "keywords": ["security camera", "old phone", "ip webcam", "home security"]
+  },
+  {
+    "id": "smart-doorbell",
+    "slug": "smart-doorbell",
+    "title": "DIY Smart Doorbell with Camera",
+    "title_i18n": {
+      "zh": "DIY 带摄像头的智能门铃",
+      "es": "Timbre inteligente DIY con cámara",
+      "hi": "कैमरे के साथ DIY स्मार्ट डोरबेल",
+      "fr": "Sonnette connectée DIY avec caméra",
+      "pt": "Campainha inteligente DIY com câmera"
+    },
+    "category": "Home Security",
+    "icon": "🔔",
+    "difficulty": "Intermediate",
+    "time_minutes": 120,
+    "cost_usd": 35,
+    "tools": ["Drill", "Screwdriver", "Wire stripper"],
+    "parts": ["ESP32-CAM", "Push button", "5V PSU", "Enclosure"],
+    "description": "Build a doorbell that sends photo notifications to your phone when pressed.",
+    "keywords": ["doorbell", "esp32-cam", "camera", "notifications"]
+  },
+  {
+    "id": "air-quality",
+    "slug": "air-quality",
+    "title": "Air Quality Monitor with ESP32",
+    "title_i18n": {
+      "zh": "使用 ESP32 的空气质量监测器",
+      "es": "Monitor de calidad del aire con ESP32",
+      "hi": "ESP32 के साथ वायु गुणवत्ता मॉनिटर",
+      "fr": "Moniteur de qualité de l'air avec ESP32",
+      "pt": "Monitor de qualidade do ar com ESP32"
+    },
+    "category": "Home",
+    "icon": "🌫️",
+    "difficulty": "Intermediate",
+    "time_minutes": 45,
+    "cost_usd": 30,
+    "tools": ["Soldering iron", "Breadboard"],
+    "parts": ["ESP32", "PMS5003 PM2.5 sensor", "SSD1306 OLED", "Jumper wires"],
+    "description": "Monitor PM2.5, PM10, and volatile organic compounds. Display on OLED and log to Google Sheets.",
+    "keywords": ["air quality", "pm2.5", "esp32", "oled", "sensor"]
+  },
+  {
+    "id": "ac-control",
+    "slug": "ac-control",
+    "title": "Control AC Devices with ESP32",
+    "title_i18n": {
+      "zh": "使用 ESP32 控制交流设备",
+      "es": "Controla dispositivos AC con ESP32",
+      "hi": "ESP32 के साथ AC उपकरण नियंत्रित करें",
+      "fr": "Contrôlez des appareils AC avec ESP32",
+      "pt": "Controle dispositivos AC com ESP32"
+    },
+    "category": "Home Automation",
+    "icon": "🔌",
+    "difficulty": "Advanced",
+    "time_minutes": 180,
+    "cost_usd": 20,
+    "tools": ["Multimeter", "Insulated screwdriver", "Wire stripper"],
+    "parts": ["ESP32", "Opto-isolated relay module", "5V PSU", "Enclosure", "Fuse"],
+    "description": "Safely switch mains-powered devices from ESP32. Covers snubbers, opto-isolation, and safety.",
+    "keywords": ["ac control", "relay", "mains", "safety", "esp32"]
+  },
+  {
+    "id": "leak-detector",
+    "slug": "leak-detector",
+    "title": "Water Leak Detector",
+    "title_i18n": {
+      "zh": "漏水检测器",
+      "es": "Detector de fugas de agua",
+      "hi": "पानी रिसाव डिटेक्टर",
+      "fr": "Détecteur de fuite d'eau",
+      "pt": "Detector de vazamento de água"
+    },
+    "category": "Home",
+    "icon": "💧",
+    "difficulty": "Beginner",
+    "time_minutes": 30,
+    "cost_usd": 10,
+    "tools": ["Soldering iron", "Wire cutter"],
+    "parts": ["ESP8266", "Water sensor", "Buzzer", "Battery holder"],
+    "description": "Place under sinks or water heaters. Sends alert to your phone when water is detected.",
+    "keywords": ["water leak", "sensor", "esp8266", "alert"]
+  },
+  {
+    "id": "mailbox-notifier",
+    "slug": "mailbox-notifier",
+    "title": "Smart Mailbox Notifier",
+    "title_i18n": {
+      "zh": "智能邮箱通知器",
+      "es": "Notificador de buzón inteligente",
+      "hi": "स्मार्ट मेलबॉक्स नोटिफायर",
+      "fr": "Notification de boîte aux lettres intelligente",
+      "pt": "Notificador de caixa de correio inteligente"
+    },
+    "category": "Home Automation",
+    "icon": "📬",
+    "difficulty": "Beginner",
+    "time_minutes": 40,
+    "cost_usd": 15,
+    "tools": ["Soldering iron", "Drill"],
+    "parts": ["ESP32", "Reed switch", "Magnet", "Battery holder (LiPo + charger)"],
+    "description": "Detect when the mailbox is opened and send a push notification via Wi-Fi.",
+    "keywords": ["mailbox", "reed switch", "notification", "esp32"]
+  },
+  {
+    "id": "energy-monitor",
+    "slug": "energy-monitor",
+    "title": "Whole-Home Energy Monitor",
+    "title_i18n": {
+      "zh": "全屋能源监测器",
+      "es": "Monitor de energía del hogar",
+      "hi": "पूरे घर का ऊर्जा मॉनिटर",
+      "fr": "Moniteur d'énergie domestique",
+      "pt": "Monitor de energia doméstico"
+    },
+    "category": "Energy",
+    "icon": "⚡",
+    "difficulty": "Advanced",
+    "time_minutes": 240,
+    "cost_usd": 60,
+    "tools": ["Multimeter", "Wire stripper", "Screwdriver"],
+    "parts": ["ESP32", "SCT-013 current transformer", "Burden resistor", "3.5mm jack breakout", "Enclosure"],
+    "description": "Build a non-invasive current monitor that logs your home energy usage and shows cost per day.",
+    "keywords": ["energy", "monitor", "ct clamp", "sct-013", "esp32"]
+  },
+  {
+    "id": "garage-door",
+    "slug": "garage-door",
+    "title": "Smart Garage Door Opener",
+    "title_i18n": {
+      "zh": "智能车库门开启器",
+      "es": "Abridor de puerta de garaje inteligente",
+      "hi": "स्मार्ट गैराज दरवाजा ओपनर",
+      "fr": "Ouvre-porte de garage intelligent",
+      "pt": "Abridor de porta de garagem inteligente"
+    },
+    "category": "Home Automation",
+    "icon": "🚪",
+    "difficulty": "Intermediate",
+    "time_minutes": 90,
+    "cost_usd": 25,
+    "tools": ["Soldering iron", "Screwdriver", "Multimeter"],
+    "parts": ["ESP8266", "Reed switch", "5V relay", "5V PSU", "Enclosure"],
+    "description": "Open and close your garage from anywhere. Includes state detection to prevent accidental opening.",
+    "keywords": ["garage", "door", "relay", "esp8266", "alexa"]
+  }
+]

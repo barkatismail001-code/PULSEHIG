@@ -1,0 +1,322 @@
+[
+  {
+    "term": "MOSFET",
+    "slug": "mosfet",
+    "category": "Electronics",
+    "short": "Metal-Oxide-Semiconductor Field-Effect Transistor — a voltage-controlled switch.",
+    "long": "A MOSFET is a three-terminal semiconductor device (Gate, Drain, Source) that acts as a voltage-controlled switch or amplifier. For microcontroller projects, logic-level N-channel MOSFETs (like AO3400, IRLML6344) can be driven directly from a 3.3V GPIO pin, making them ideal for switching motors, LED strips, and resistive loads that exceed the pin's 20 mA limit. Always check that the Rds(on) is specified at 3.3V — otherwise the MOSFET will operate in its linear region and dissipate significant heat.",
+    "related": ["bjt", "relay", "gate-resistor", "pwm"]
+  },
+  {
+    "term": "I2C",
+    "slug": "i2c",
+    "category": "Protocols",
+    "short": "Inter-Integrated Circuit — a two-wire synchronous serial bus.",
+    "long": "I2C uses two bidirectional lines: SDA (data) and SCL (clock). Each slave device on the bus has a unique 7-bit (or 10-bit) address. The bus requires pull-up resistors (typically 2.2kΩ – 10kΩ) on both lines. Up to 127 devices can share the bus, but long wires or many devices increase capacitance and can cause clock stretching timeouts. The default speeds are 100 kHz (Standard), 400 kHz (Fast), and 1 MHz+ (Fast-plus).",
+    "related": ["spi", "uart", "i2c-pullup", "clock-stretching"]
+  },
+  {
+    "term": "SPI",
+    "slug": "spi",
+    "category": "Protocols",
+    "short": "Serial Peripheral Interface — a four-wire full-duplex synchronous bus.",
+    "long": "SPI uses four lines: SCLK (clock), MOSI (Master Out Slave In), MISO (Master In Slave Out), and SS (Slave Select). Unlike I2C, each slave requires its own SS line, which limits the number of devices. However, SPI is much faster — commonly 10–50 MHz — and is preferred for SD cards, displays, and high-speed ADCs. SPI is not standardized across vendors, so always check CPOL (clock polarity) and CPHA (clock phase) settings for compatibility.",
+    "related": ["i2c", "uart", "display", "sdcard"]
+  },
+  {
+    "term": "UART",
+    "slug": "uart",
+    "category": "Protocols",
+    "short": "Universal Asynchronous Receiver/Transmitter — a two-wire serial port.",
+    "long": "UART has no shared clock; both ends must agree on a baud rate (e.g., 9600, 115200). Data is sent LSB-first over TX and RX lines. Common applications include GPS modules, serial debugging, and legacy sensors. Since the two ends may run at slightly different speeds, UART tolerates only about 2-3% clock drift; higher baud rates are more sensitive. Cross-connect TX of one device to RX of the other, and share ground.",
+    "related": ["i2c", "spi", "serial-debugging", "baud-rate"]
+  },
+  {
+    "term": "PWM",
+    "slug": "pwm",
+    "category": "Embedded",
+    "short": "Pulse Width Modulation — varying duty cycle to control average power.",
+    "long": "PWM rapidly switches a digital output between HIGH and LOW. The ratio of HIGH time to total period is the duty cycle (0–100%). Applications include LED dimming (typical 1–2 kHz), motor speed control (10–25 kHz), and heater regulation. Frequencies that fall in the audible range (20 Hz – 20 kHz) can cause buzzing in motors and transformers, so 20 kHz+ is often chosen. On the ESP32, the LEDC peripheral supports up to 16 PWM channels with 1–20 bit resolution.",
+    "related": ["ledc", "motor-control", "duty-cycle", "timer"]
+  },
+  {
+    "term": "RTC GPIO",
+    "slug": "rtc-gpio",
+    "category": "Embedded",
+    "short": "Real-Time Clock GPIO — pins that remain powered during deep sleep on ESP32.",
+    "long": "Only certain ESP32 GPIO pins are connected to the RTC (Real-Time Clock) power domain, which stays alive during deep sleep. These pins can be used to wake the chip: GPIO 0, 2, 4, 12–15, 25–27, 32–33. Pins 34–39 can only be used as inputs. Using a non-RTC pin as a wake source results in the chip either never waking or waking immediately. Always enable internal pull-up or pull-down on the wake pin to avoid floating-trigger resets.",
+    "related": ["deep-sleep", "wake-source", "esp32", "power-management"]
+  },
+  {
+    "term": "Floating Pin",
+    "slug": "floating-pin",
+    "category": "Embedded",
+    "short": "A GPIO pin not connected to any defined voltage — causes random reads and spurious wakes.",
+    "long": "A floating input pin picks up electromagnetic noise and can oscillate between HIGH and LOW unpredictably. This causes false button presses, random interrupts, and — most critically — prevents reliable deep sleep because the pin triggers a wake the moment the chip sleeps. Fix it by enabling an internal pull-up or pull-down resistor, or by adding an external 10 kΩ resistor to VCC or GND.",
+    "related": ["pull-up", "pull-down", "deep-sleep", "gpio"]
+  },
+  {
+    "term": "Pull-up Resistor",
+    "slug": "pull-up-resistor",
+    "category": "Electronics",
+    "short": "A resistor connected between a signal line and VCC to keep it HIGH by default.",
+    "long": "When a switch or open-drain output pulls the line LOW, the pull-up brings it back HIGH when released. Typical values: 4.7 kΩ – 10 kΩ for buttons and general-purpose signals; 2.2 kΩ – 4.7 kΩ for I2C at 400 kHz. Too high a value slows rise times (bad for high-speed buses); too low wastes power when the line is pulled LOW. On ESP32, internal pull-ups are ~45 kΩ — often too weak for I2C, so external pull-ups are recommended.",
+    "related": ["pull-down", "i2c", "button-debounce", "gpio"]
+  },
+  {
+    "term": "BJT",
+    "slug": "bjt",
+    "category": "Electronics",
+    "short": "Bipolar Junction Transistor — current-controlled switch.",
+    "long": "A BJT has three terminals: Base, Collector, and Emitter. A small base current controls a much larger collector current (β or hFE). Unlike MOSFETs, BJTs are current-driven and require a base resistor to limit current (typically 1 kΩ for small-signal, 220 Ω for higher gain). BJTs have a fixed voltage drop of ~0.7V across the base-emitter junction, so they are less efficient than MOSFETs for switching heavy loads. They are still preferred for very low-voltage circuits and where low cost matters.",
+    "related": ["mosfet", "base-resistor", "amplifier", "switch"]
+  },
+  {
+    "term": "Buck Converter",
+    "slug": "buck-converter",
+    "category": "Power",
+    "short": "A switching regulator that steps voltage DOWN efficiently.",
+    "long": "A buck converter uses an inductor, a diode (or synchronous MOSFET), and a capacitor to efficiently reduce a higher input voltage to a lower output voltage. Efficiencies of 85–95% are typical, far better than a linear regulator's ~40–60% at high voltage drop. Applications include powering 3.3V logic from a 12V battery, or 5V from a 24V industrial supply. Key parameters: input voltage range, output current, switching frequency, and ripple.",
+    "related": ["boost-converter", "ldo", "efficiency", "inductor"]
+  },
+  {
+    "term": "LDO",
+    "slug": "ldo",
+    "category": "Power",
+    "short": "Low Drop-Out linear regulator — simple, quiet, but inefficient.",
+    "long": "An LDO (like the AMS1117 or HT7333) regulates voltage by dissipating excess energy as heat. It requires very few external components (typically 2 capacitors) and produces very low noise, which is excellent for sensitive analog circuits. However, its efficiency is Vin/Vout, so dropping 12V to 3.3V wastes 72% of the energy as heat. Use an LDO when the input-to-output difference is small (< 1V) or when low noise is critical.",
+    "related": ["buck-converter", "efficiency", "power", "voltage-regulator"]
+  },
+  {
+    "term": "Brownout",
+    "slug": "brownout",
+    "category": "Embedded",
+    "short": "A brief drop in supply voltage that can reset a microcontroller.",
+    "long": "The ESP32 brownout detector triggers a reset when VDD drops below ~2.43V. This commonly happens when Wi-Fi transmission draws a 250 mA current spike through an undersized USB cable or weak power supply. Symptoms: random reboots, WiFi disconnects, or the chip restarting just as the radio powers up. Fix by adding a 470 µF bulk capacitor near the ESP32's 3.3V pin and using a supply rated for at least 1 A continuous.",
+    "related": ["decoupling", "power-supply", "esp32", "reset"]
+  },
+  {
+    "term": "Decoupling Capacitor",
+    "slug": "decoupling-capacitor",
+    "category": "Electronics",
+    "short": "A small capacitor placed close to a chip's power pin to filter high-frequency noise.",
+    "long": "Typically a 100 nF ceramic capacitor, placed within a few millimetres of each power pin. It provides a low-impedance path for high-frequency noise to ground, and supplies instantaneous current during switching. Without decoupling, digital ICs can oscillate or latch up. For sensitive analog circuits, add a 10 µF bulk capacitor alongside the 100 nF. For ESP32 boards, a 10 µF + 100 nF pair near the 3.3V pin is standard.",
+    "related": ["bulk-capacitor", "brownout", "pcb-layout", "power-integrity"]
+  },
+  {
+    "term": "Bootloader",
+    "slug": "bootloader",
+    "category": "Embedded",
+    "short": "A small program that runs before your firmware and can flash new firmware over serial or OTA.",
+    "long": "On the ESP32, the ROM bootloader runs on power-up and looks for a firmware image in flash. If the BOOT (GPIO0) pin is LOW at reset, the bootloader enters download mode, allowing the host computer to flash new firmware via serial. In production, custom bootloaders enable OTA updates, firmware rollback, and secure boot with signed images. Understanding this is essential for recovering bricked boards.",
+    "related": ["ota", "reset", "flash", "esp32"]
+  },
+  {
+    "term": "OTA",
+    "slug": "ota",
+    "category": "Embedded",
+    "short": "Over-The-Air update — flashing firmware wirelessly without physical access.",
+    "long": "OTA lets an ESP32 download a new firmware binary over Wi-Fi and flash it into a spare partition, then reboot into it. This is essential for devices deployed in the field. Safety features include rollback (if the new image fails to boot, revert to the old one) and signature verification (reject unsigned images). The Arduino-ESP32 core includes ArduinoOTA which works alongside a Wi-Fi connection — typically finishes in 10–30 seconds for a small binary.",
+    "related": ["bootloader", "partition-table", "wifi", "update"]
+  },
+  {
+    "term": "Watchdog Timer",
+    "slug": "watchdog-timer",
+    "category": "Embedded",
+    "short": "A hardware timer that resets the chip if the firmware stops responding.",
+    "long": "A watchdog is a countdown timer that must be periodically reset ('fed' or 'kicked') by healthy firmware. If the timer expires, it forces a reset — perfect for unattended devices that could otherwise hang. The ESP32 has two watchdogs: the RTC watchdog (always running) and the Task watchdog (per-task). In Arduino, use esp_task_wdt_reset() periodically if your loop takes longer than 5 seconds. Disabling the watchdog is dangerous in production.",
+    "related": ["reset", "reliability", "task", "esp32"]
+  },
+  {
+    "term": "Clock Stretching",
+    "slug": "clock-stretching",
+    "category": "Protocols",
+    "short": "An I2C slave holding the SCL line LOW to request more time.",
+    "long": "Some I2C slaves (like the HD44780 LCD controller or slow ADCs) need more time than the master allows, so they hold SCL LOW. The master must wait for the slave to release before continuing. If the ESP32's I2C driver has a strict timeout (default ~50 ms), it will abort the transaction, causing hangs. Fixes: lower the clock (100 kHz), increase the timeout (Wire.setTimeOut(1000)), and check that bus capacitance isn't excessive.",
+    "related": ["i2c", "i2c-pullup", "timeout", "esp32"]
+  },
+  {
+    "term": "Duty Cycle",
+    "slug": "duty-cycle",
+    "category": "Embedded",
+    "short": "The percentage of time a PWM signal is HIGH during one period.",
+    "long": "Duty cycle is expressed as a percentage (0–100%) or a fraction (0–1). A 50% duty cycle on an LED means the LED is on half the time — its perceived brightness is roughly half. Duty cycle is independent of frequency: at 1 kHz or 20 kHz, 50% is still 50%. On the ESP32's LEDC peripheral, duty is represented by a value from 0 to 2^resolution − 1 (e.g., 0–255 for 8-bit).",
+    "related": ["pwm", "ledc", "motor-control", "led-dimming"]
+  },
+  {
+    "term": "Strapping Pin",
+    "slug": "strapping-pin",
+    "category": "Embedded",
+    "short": "An ESP32 GPIO read at boot to select boot mode — must be at the right level.",
+    "long": "ESP32 strapping pins (GPIO0, GPIO2, GPIO5, GPIO12, GPIO15) are sampled at power-on to configure boot mode (flash vs download), flash voltage, and SD card boot. If an external circuit pulls them to the wrong level during boot, the ESP32 may fail to start or enter an unexpected mode. Common mistake: attaching an LED to GPIO2 or GPIO15 without a series resistor, or driving GPIO12 HIGH when the flash expects 3.3V. Use these pins only after the ESP32 has booted.",
+    "related": ["gpio", "bootloader", "esp32", "reset"]
+  },
+  {
+    "term": "Duty Cycle",
+    "slug": "duty-cycle-2",
+    "category": "Embedded",
+    "short": "Ratio of on-time to period in a PWM signal.",
+    "long": "See Duty Cycle above.",
+    "related": ["pwm"]
+  },
+  {
+    "term": "Bulk Capacitor",
+    "slug": "bulk-capacitor",
+    "category": "Electronics",
+    "short": "A large electrolytic capacitor (100 µF – 1000 µF) providing energy during current spikes.",
+    "long": "Bulk capacitors store enough charge to supply brief current spikes that a regulator or USB cable cannot. On ESP32 projects, a 470 µF – 1000 µF capacitor near the 3.3V rail absorbs the WiFi transmit spike (up to 500 mA). Without it, the ESP32 resets during WiFi transmission. Bulk capacitors work with smaller decoupling capacitors (100 nF) which handle high-frequency noise.",
+    "related": ["decoupling-capacitor", "brownout", "power-supply", "esp32"]
+  },
+  {
+    "term": "Gate Resistor",
+    "slug": "gate-resistor",
+    "category": "Electronics",
+    "short": "A small resistor (10–220 Ω) between a microcontroller pin and a MOSFET gate.",
+    "long": "The gate resistor limits the peak current that charges the MOSFET's gate capacitance when the pin switches. Without it, the inrush current can exceed the MCU pin's rating and damage it, or cause ringing that leads to false switching. Typical values: 100 Ω for slow PWM (≤ 1 kHz), 22–47 Ω for faster switching (10–20 kHz). Always add a 10 kΩ pull-down from gate to source to define the off-state during boot.",
+    "related": ["mosfet", "pwm", "pull-down", "gate-driver"]
+  },
+  {
+    "term": "Flyback Diode",
+    "slug": "flyback-diode",
+    "category": "Electronics",
+    "short": "A diode placed across an inductive load to absorb voltage spikes when the switch opens.",
+    "long": "When you switch off a relay coil, motor, or solenoid, the collapsing magnetic field generates a large reverse voltage spike (hundreds of volts). The flyback diode (also called a freewheeling or snubber diode) provides a safe path for the current to circulate and die out. Use a fast switching diode (1N4148 for small coils, 1N4007 for relays, Schottky for high-frequency). Cathode goes to the positive side of the coil, anode to the switched side.",
+    "related": ["relay", "inductive-load", "mosfet", "snubber"]
+  },
+  {
+    "term": "Snubber",
+    "slug": "snubber",
+    "category": "Electronics",
+    "short": "An RC or diode network that suppresses voltage spikes on AC or inductive loads.",
+    "long": "A snubber (often a resistor in series with a capacitor, e.g., 100 Ω + 0.1 µF X2-rated) is placed across the load to reduce arcing in relay contacts and reduce EMI. On AC loads, X2-rated capacitors are mandatory because they are designed for mains transients. Snubbers extend relay life dramatically — without one, contacts arc and weld shut after a few thousand cycles.",
+    "related": ["relay", "arc-suppression", "emi", "mains-safety"]
+  },
+  {
+    "term": "Multimeter",
+    "slug": "multimeter",
+    "category": "Tools",
+    "short": "The basic instrument for measuring voltage, current, and resistance.",
+    "long": "A digital multimeter (DMM) is the first tool every electronics engineer should own. Modes: DC/AC voltage, DC/AC current, resistance, continuity, and often capacitance and frequency. Safety ratings matter: CAT III 600V is the minimum for working on mains. For DC electronics, an inexpensive $30 meter is fine; for AC mains, spend $80+ on a name brand (Fluke, Brymen).",
+    "related": ["oscilloscope", "tools", "safety", "measurement"]
+  },
+  {
+    "term": "Oscilloscope",
+    "slug": "oscilloscope",
+    "category": "Tools",
+    "short": "An instrument that displays voltage as a function of time.",
+    "long": "An oscilloscope is essential for diagnosing signal integrity, timing problems, and protocol issues (I2C, SPI, UART). A basic 100 MHz, 2-channel scope is enough for most embedded work. For digital signals, a cheap USB logic analyzer (like the $10 Saleae clone or the DSLogic) with Sigrok/PulseView software is often more useful than a full scope — it decodes I2C, SPI, UART, and more.",
+    "related": ["multimeter", "logic-analyzer", "debugging", "i2c"]
+  },
+  {
+    "term": "Logic Analyzer",
+    "slug": "logic-analyzer",
+    "category": "Tools",
+    "short": "A multi-channel digital signal capture tool for decoding protocols.",
+    "long": "A logic analyzer captures the HIGH/LOW state of many digital lines simultaneously and decodes them into human-readable protocol messages. It is essential for debugging I2C clock stretching, SPI bus contention, or UART baud rate mismatches. Cheap 8-channel USB analyzers work with the open-source PulseView (Sigrok) software, making them affordable for hobbyists.",
+    "related": ["oscilloscope", "i2c", "spi", "uart"]
+  },
+  {
+    "term": "EMI",
+    "slug": "emi",
+    "category": "Electronics",
+    "short": "Electromagnetic Interference — unwanted noise coupling into a circuit.",
+    "long": "EMI can come from switching power supplies, motors, PWM signals, or nearby radio transmitters. It manifests as noise on ADC readings, dropouts on communication buses, or phantom button presses. Mitigation: add decoupling capacitors, use twisted pairs for signals, keep high-current traces away from sensitive analog, use a ground plane on PCBs, and add ferrite beads on cables.",
+    "related": ["snubber", "decoupling", "pcb-layout", "grounding"]
+  },
+  {
+    "term": "Ground Loop",
+    "slug": "ground-loop",
+    "category": "Electronics",
+    "short": "Multiple return paths for current that create noise and offset voltages.",
+    "long": "When two circuits share a ground but current flows through different paths, the resulting voltage difference causes noise, hum, or — in extreme cases — fires. Common in audio (hum) and in multi-board systems where each board has its own ground. Fix: use a single-point ground, star grounding, or opto-isolators to break the loop. In battery-powered sensors, use a single ground wire back to the ADC reference.",
+    "related": ["emi", "grounding", "shielding", "analog"]
+  },
+  {
+    "term": "Common Ground",
+    "slug": "common-ground",
+    "category": "Electronics",
+    "short": "A shared reference point between two circuits that must be connected for signals to work.",
+    "long": "If the ESP32 and an external 5V relay module or motor driver do not share a ground, the control signal has no reference and the relay won't switch. Always connect the ground of every power supply in the system. However, on opto-isolated circuits, do NOT connect the grounds if you want isolation — that defeats the purpose. Choose based on whether isolation is needed.",
+    "related": ["ground-loop", "opto-isolator", "signal-reference", "relay"]
+  },
+  {
+    "term": "Opto-Isolator",
+    "slug": "opto-isolator",
+    "category": "Electronics",
+    "short": "A device that transmits a signal using light, providing electrical isolation.",
+    "long": "An opto-isolator contains an LED and a phototransistor inside a single package. There is no electrical connection between input and output, only light. This protects sensitive microcontrollers from high-voltage transients, ground loops, and industrial noise. Common parts: 4N35, PC817, and the opto-isolated relay modules sold online. Do NOT connect the input and output grounds together — that defeats the isolation.",
+    "related": ["relay", "common-ground", "isolation", "industrial"]
+  },
+  {
+    "term": "RS-485",
+    "slug": "rs-485",
+    "category": "Protocols",
+    "short": "A differential serial bus for long-distance, noise-resistant communication.",
+    "long": "RS-485 uses a twisted pair of wires (A and B) carrying complementary signals. Common-mode noise cancels out, allowing cable runs up to 1,200 m at moderate baud rates (up to 10 Mbps for short runs). Used in industrial automation, Modbus, DMX lighting, and building management. Requires a transceiver chip like MAX485, and a shared ground reference between distant nodes.",
+    "related": ["modbus", "industrial", "uart", "differential"]
+  },
+  {
+    "term": "Modbus",
+    "slug": "modbus",
+    "category": "Protocols",
+    "short": "A widely-used industrial protocol for connecting PLCs and sensors.",
+    "long": "Modbus is a master-slave protocol originally for serial (Modbus RTU) but now also runs over TCP. It defines a simple register-based addressing scheme: coils (bits) and holding registers (16-bit words). A master polls each slave; slaves respond. Because it is simple and open, it has been adopted by nearly every industrial device — PLCs, inverters, energy meters, flow sensors, and more.",
+    "related": ["rs-485", "plc", "industrial", "scada"]
+  },
+  {
+    "term": "MQTT",
+    "slug": "mqtt",
+    "category": "Protocols",
+    "short": "A lightweight publish-subscribe protocol for IoT devices.",
+    "long": "MQTT uses a broker (like Mosquitto or EMQX) to route messages between publishers and subscribers. Devices publish to topics like home/livingroom/temperature and subscribe to topics they care about. The protocol is extremely lightweight — perfect for battery-powered sensors on flaky Wi-Fi. QoS levels (0, 1, 2) allow the sender to trade reliability for speed. Home Assistant uses MQTT as its primary IoT integration.",
+    "related": ["home-assistant", "iot", "broker", "qos"]
+  },
+  {
+    "term": "Home Assistant",
+    "slug": "home-assistant",
+    "category": "Smart Home",
+    "short": "An open-source home automation platform that runs locally.",
+    "long": "Home Assistant is a Python-based hub that runs on a Raspberry Pi, mini PC, or in Docker. It integrates thousands of devices — Zigbee, Z-Wave, MQTT, Matter, and custom integrations — and provides automation, dashboards, and voice control. Unlike cloud hubs (Alexa, Google Home), everything runs locally, so it works during internet outages. The YAML-based configuration is powerful but has a learning curve.",
+    "related": ["mqtt", "zigbee", "matter", "automation"]
+  },
+  {
+    "term": "Zigbee",
+    "slug": "zigbee",
+    "category": "Smart Home",
+    "short": "A low-power mesh networking protocol for battery-powered devices.",
+    "long": "Zigbee operates at 2.4 GHz and forms a mesh network where mains-powered devices (like smart plugs) relay signals from battery-powered sensors (like door sensors). Typical range: 10–100 m per hop, extendable via the mesh. Requires a hub/coordinator (like the Conbee II or Sonoff Zigbee 3.0 dongle). Battery life is measured in months or years because devices sleep 99% of the time.",
+    "related": ["thread", "matter", "home-assistant", "mesh"]
+  },
+  {
+    "term": "Thread",
+    "slug": "thread",
+    "category": "Smart Home",
+    "short": "An IP-based mesh protocol designed for low-power smart home devices.",
+    "long": "Thread is similar to Zigbee but uses IPv6, making it directly addressable from the internet without translation. It requires a Thread Border Router (often built into a smart speaker or hub) to bridge to the wider network. Matter, the new smart home standard, uses Thread as one of its transports, along with Wi-Fi and Ethernet.",
+    "related": ["zigbee", "matter", "ipv6", "border-router"]
+  },
+  {
+    "term": "Matter",
+    "slug": "matter",
+    "category": "Smart Home",
+    "short": "An open standard for smart home device interoperability.",
+    "long": "Matter, backed by Apple, Google, Amazon, and the CSA, aims to end ecosystem lock-in. Devices that support Matter work with any Matter-compatible hub. It runs over Wi-Fi, Ethernet, or Thread, and uses certificates to establish trust. Adoption has been uneven — cameras and advanced features (like energy monitoring) are still being added to the spec.",
+    "related": ["thread", "zigbee", "home-assistant", "interoperability"]
+  },
+  {
+    "term": "LEDC",
+    "slug": "ledc",
+    "category": "Embedded",
+    "short": "LED Control — the ESP32 peripheral dedicated to PWM generation.",
+    "long": "The ESP32 LEDC peripheral provides up to 16 independent PWM channels (8 high-speed + 8 low-speed) with 1–20 bit resolution. Frequencies range from a few Hz to 40 MHz, allowing silent motor control (20 kHz+) and precise LED dimming. Each channel can be attached to any GPIO. Unlike delay-based PWM, hardware PWM continues in the background with zero CPU load.",
+    "related": ["pwm", "duty-cycle", "timer", "gpio"]
+  },
+  {
+    "term": "Deep Sleep",
+    "slug": "deep-sleep",
+    "category": "Embedded",
+    "short": "An ESP32 mode that shuts down almost all peripherals, drawing ~10 µA.",
+    "long": "In deep sleep, the CPU, RAM, and radios are powered off. Only the RTC domain stays alive, keeping the RTC timer running and monitoring selected wake sources. Typical sleep current on a bare ESP32 module is 10 µA — three orders of magnitude lower than a dev board (2–10 mA) because dev boards have the USB chip and power LED consuming current. Battery life for a sensor node waking every 5 minutes to read a sensor and send data over Wi-Fi can exceed a year on 18650 cells.",
+    "related": ["rtc-gpio", "wake-source", "low-power", "battery-life"]
+  }
+]

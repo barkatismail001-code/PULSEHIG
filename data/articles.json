@@ -1,0 +1,563 @@
+[
+  {
+    "id": "article-1789501032884",
+    "title": {
+      "en": "ESP32 & ESP8266 Microcontroller Programming"
+    },
+    "category": "Programming",
+    "author": "TechPulse Team",
+    "date": "2026-09-15",
+    "excerpt": {
+      "en": "A practical guide to sensor interfacing, telemetry, and Over-The-Air (OTA) firmware updates on ESP32 and ESP8266 boards."
+    },
+    "content": {
+      "en": "The ESP32 and ESP8266 remain two of the most popular microcontrollers for hobbyist and professional IoT projects alike, thanks to their built-in Wi-Fi, low cost, and mature toolchain support in both the Arduino IDE and PlatformIO.\n\nThis guide walks through wiring a few common sensors (DHT22 for temperature/humidity, a basic PIR motion sensor, and an analog light sensor), reading them reliably with debouncing and averaging, and publishing the readings over MQTT to a home automation hub such as Home Assistant.\n\nWe also cover a safe Over-The-Air (OTA) update workflow, so firmware can be pushed to boards already deployed in the field without needing a USB cable, along with basic rollback protection in case a new build fails to boot."
+    },
+    "tags": [
+      "esp32",
+      "esp8266",
+      "iot",
+      "firmware",
+      "arduino"
+    ],
+    "featured": true,
+    "image": "assets/images/tech-esp32.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "article-1789501099001",
+    "title": {
+      "en": "Building a DIY Central Heating Controller"
+    },
+    "category": "Technology",
+    "author": "TechPulse Team",
+    "date": "2026-09-16",
+    "excerpt": {
+      "en": "Designing a safe, ESP32-based central heating controller with a proper safety architecture and Home Assistant integration."
+    },
+    "content": {
+      "en": "Replacing a stock thermostat with a microcontroller-based system is a rewarding project, but it raises the stakes: mistakes here can affect comfort, energy bills, and — if the boiler relay wiring is mishandled — safety.\n\nThis article covers a low-side relay/MOSFET switching design with hardware watchdog protection, a fail-safe default state (heating off, not on, if the controller loses power or crashes), and a clean separation between the mains-adjacent relay stage and the low-voltage logic board.\n\nOn the software side, the controller exposes its state to Home Assistant over MQTT, so scheduling, manual overrides, and temperature history all live in one dashboard instead of a proprietary app."
+    },
+    "tags": [
+      "esp32",
+      "home-assistant",
+      "diy",
+      "safety"
+    ],
+    "featured": false,
+    "image": "assets/images/tech-heating.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "article-1789501145223",
+    "title": {
+      "en": "Real-Time Face Recognition with an IP Webcam and Python"
+    },
+    "category": "Programming",
+    "author": "TechPulse Team",
+    "date": "2026-09-17",
+    "excerpt": {
+      "en": "Streaming frames from a phone's IP Webcam app into a Python pipeline for real-time face recognition with InsightFace."
+    },
+    "content": {
+      "en": "You don't need a dedicated camera module to experiment with computer vision: an old phone running an IP Webcam app can act as a free, wireless video source over your local network.\n\nThis walkthrough pulls MJPEG frames from that stream with OpenCV, runs them through InsightFace for fast face detection and recognition, and matches detected faces against a small local database of known embeddings.\n\nWe finish with a few practical tips for keeping the pipeline responsive: frame skipping under load, running detection and recognition on separate threads, and keeping the known-faces database small enough to search in real time."
+    },
+    "tags": [
+      "python",
+      "ai",
+      "opencv",
+      "insightface"
+    ],
+    "featured": false,
+    "image": "assets/images/tech-face-recognition.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "tech-edge-ai",
+    "title": {
+      "en": "The Rise of Edge AI: Running Machine Learning on Small Devices"
+    },
+    "category": "Technology",
+    "author": "TechPulse Team",
+    "date": "2026-08-10",
+    "excerpt": {
+      "en": "Why more machine learning inference is moving from the cloud to tiny, cheap chips — and what that means for privacy and latency."
+    },
+    "content": {
+      "en": "For years, running a neural network meant sending data to a cloud server and waiting for a response. Edge AI flips that: the model runs directly on the device — a security camera, a wearable, a factory sensor — with no round trip to the internet.\n\nThe two big drivers are latency and privacy. A camera that detects a fall in a nursing home can't afford a 2-second cloud delay, and many users would rather their voice or video never leaves the device at all.\n\nThis is possible today because of quantized models (8-bit or even 4-bit weights instead of 32-bit) and dedicated silicon like NPUs, now shipping in everything from smartphones to $5 microcontrollers. Frameworks such as TensorFlow Lite Micro and ONNX Runtime Mobile make it realistic to deploy a trained model on hardware with only a few hundred kilobytes of RAM."
+    },
+    "tags": [
+      "ai",
+      "edge-computing",
+      "embedded",
+      "machine-learning"
+    ],
+    "featured": true,
+    "image": "assets/images/tech-edge-ai.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "tech-5g-iot",
+    "title": {
+      "en": "Understanding 5G and What It Means for IoT"
+    },
+    "category": "Technology",
+    "author": "TechPulse Team",
+    "date": "2026-08-12",
+    "excerpt": {
+      "en": "5G isn't just 'faster 4G' — the parts that matter most for IoT devices are lower latency and massive device density."
+    },
+    "content": {
+      "en": "Marketing tends to sell 5G on raw download speed, but for IoT the more relevant specs are latency (as low as 1ms in ideal conditions) and device density — a single cell can support far more simultaneous connections than 4G, which matters when you're deploying thousands of sensors in a single factory or city block.\n\n5G also introduces network slicing, letting operators carve out a virtual network tuned for a specific use case — for example, a slice prioritizing reliability for industrial control versus one prioritizing throughput for video.\n\nFor most hobbyist and small-business IoT projects, however, Wi-Fi, LoRa, or NB-IoT remain cheaper and simpler than 5G modules — this guide covers when 5G actually earns its higher cost and complexity, and when it doesn't."
+    },
+    "tags": [
+      "5g",
+      "iot",
+      "networking"
+    ],
+    "featured": false,
+    "image": "assets/images/tech-5g-iot.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "tech-matter-thread",
+    "title": {
+      "en": "A Beginner's Guide to Home Automation with Matter/Thread"
+    },
+    "category": "Technology",
+    "author": "TechPulse Team",
+    "date": "2026-08-14",
+    "excerpt": {
+      "en": "Matter promises one standard that works across brands. Here's what it actually fixes, and where it still falls short."
+    },
+    "content": {
+      "en": "For a decade, 'smart home' meant picking an ecosystem — Google, Amazon, Apple — and hoping every device you bought later would support it. Matter, an open standard backed by all three plus the Zigbee Alliance (now the Connectivity Standards Alliance), aims to end that lock-in.\n\nMatter runs over your existing Wi-Fi or Thread, a low-power mesh protocol purpose-built for battery devices like door sensors and locks. A Thread Border Router (often built into a smart speaker or hub) bridges Thread devices back to your normal network.\n\nIn practice, adoption is uneven: many older devices need a firmware update to speak Matter, and some advanced features (like camera feeds) aren't part of the spec yet. This guide walks through setting up a Thread network and pairing your first Matter device with Home Assistant."
+    },
+    "tags": [
+      "smart-home",
+      "matter",
+      "thread",
+      "home-assistant"
+    ],
+    "featured": false,
+    "image": "assets/images/tech-matter.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "tech-ssd-vs-hdd",
+    "title": {
+      "en": "Solid State Drives vs Hard Drives: What Actually Changed"
+    },
+    "category": "Technology",
+    "author": "TechPulse Team",
+    "date": "2026-08-16",
+    "excerpt": {
+      "en": "SSDs won on speed years ago. The real question in 2026 is which SSD type fits your workload and budget."
+    },
+    "content": {
+      "en": "A mechanical hard drive stores data on spinning platters read by a physical arm — inherently slower and more fragile than flash memory with no moving parts. That much hasn't changed. What has changed is the SSD market itself, which has split into several tiers.\n\nSATA SSDs are the budget option, limited to roughly 550MB/s by the aging SATA interface. NVMe SSDs plug directly into the PCIe bus and can exceed 7,000MB/s on modern hardware — a huge difference for large file transfers and game load times, though a much smaller one for everyday web browsing.\n\nFor most upgrades, the practical advice is simple: get an NVMe drive if your motherboard supports it, keep at least 20% of the drive free for the controller's garbage collection, and use a mechanical drive only for cold, bulk storage such as video archives where cost per terabyte still matters more than speed."
+    },
+    "tags": [
+      "hardware",
+      "storage",
+      "ssd"
+    ],
+    "featured": false,
+    "image": "assets/images/tech-ssd.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "tech-cybersecurity-basics",
+    "title": {
+      "en": "Cybersecurity Basics Every Small Business Should Know"
+    },
+    "category": "Technology",
+    "author": "TechPulse Team",
+    "date": "2026-08-18",
+    "excerpt": {
+      "en": "Most small business breaches come from a handful of preventable mistakes, not sophisticated hackers."
+    },
+    "content": {
+      "en": "Headlines focus on nation-state hackers, but the reality for most small businesses is far more mundane: a reused password from an old data breach, an employee clicking a phishing link, or a router still using its factory default admin password.\n\nA few low-cost habits close most of that gap: a password manager with unique passwords per account, multi-factor authentication on email and financial accounts specifically (the two most commonly targeted), and automatic OS and router firmware updates instead of 'I'll do it later.'\n\nBackups deserve special mention because they're the difference between a bad afternoon and a business-ending event during a ransomware attack: keep at least one backup that ransomware can't reach, meaning it's offline or on a service with immutable/versioned snapshots, not just a second folder on the same network."
+    },
+    "tags": [
+      "cybersecurity",
+      "small-business",
+      "backups"
+    ],
+    "featured": false,
+    "image": "assets/images/tech-cybersecurity.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "oil-brent-wti",
+    "title": {
+      "en": "How Crude Oil Prices Are Actually Set (Brent vs WTI Explained)"
+    },
+    "category": "Petroleum",
+    "author": "TechPulse Team",
+    "date": "2026-08-20",
+    "excerpt": {
+      "en": "News reports quote 'oil prices' as one number, but there's no single global oil price — here's how the two big benchmarks work."
+    },
+    "content": {
+      "en": "Crude oil isn't a single uniform product — it varies in density and sulfur content by region — so the market relies on benchmark grades to price everything else at a discount or premium.\n\nBrent crude, sourced from North Sea fields, is the benchmark for roughly two-thirds of the world's traded oil, particularly in Europe, Africa, and the Middle East. West Texas Intermediate (WTI) is the US benchmark, historically priced slightly differently due to transport costs and storage capacity at its Cushing, Oklahoma delivery point.\n\nPrices for both are set on futures exchanges (ICE for Brent, NYMEX for WTI) based on supply and demand expectations — not a single seller — which is why prices swing on OPEC+ meeting outcomes, inventory reports, and geopolitical events long before any actual barrel changes hands."
+    },
+    "tags": [
+      "oil-prices",
+      "brent",
+      "wti",
+      "opec"
+    ],
+    "featured": true,
+    "image": "assets/images/oil-brent-wti.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "oil-refinery-process",
+    "title": {
+      "en": "Inside an Oil Refinery: From Crude to Consumer Products"
+    },
+    "category": "Petroleum",
+    "author": "TechPulse Team",
+    "date": "2026-08-22",
+    "excerpt": {
+      "en": "A single barrel of crude becomes gasoline, diesel, jet fuel, and dozens of other products — here's the refining process, step by step."
+    },
+    "content": {
+      "en": "Refining starts with distillation: crude oil is heated in a tall column, and its different hydrocarbon components boil off and are captured at different heights — light gases at the top, heavy residues at the bottom, with gasoline, kerosene, and diesel fractions in between.\n\nThat first pass alone isn't enough to meet demand, because crude naturally contains more heavy fractions than the market wants. Refineries use conversion units — catalytic crackers and hydrocrackers — to break those heavy molecules into lighter, more valuable ones like gasoline.\n\nFinally, treatment units remove sulfur and other impurities to meet environmental and engine specifications before the finished products are blended, stored, and shipped by pipeline, rail, or ship to distribution terminals."
+    },
+    "tags": [
+      "refining",
+      "petroleum",
+      "gasoline"
+    ],
+    "featured": false,
+    "image": "assets/images/oil-refinery.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "oil-opec-decisions",
+    "title": {
+      "en": "What OPEC+ Decisions Mean for Prices at the Pump"
+    },
+    "category": "Petroleum",
+    "author": "TechPulse Team",
+    "date": "2026-08-24",
+    "excerpt": {
+      "en": "OPEC+ production quotas move global oil prices, but the effect on your local gas station is slower and smaller than headlines suggest."
+    },
+    "content": {
+      "en": "OPEC+ — the original OPEC members plus allies like Russia — coordinates production quotas to manage global supply. When the group cuts output, less oil reaches the market, which tends to push crude prices up; raising quotas has the opposite effect.\n\nBut crude price is only one input into what you pay at the pump. Refining costs, distribution, local taxes, and retailer margins make up a large share of the final price, and they don't move in lockstep with crude. That's why a 10% jump in crude rarely means a 10% jump in gasoline prices the next day.\n\nRegional factors matter too: a refinery outage or a pipeline disruption in your specific region can move local prices independently of what OPEC+ decided that quarter."
+    },
+    "tags": [
+      "opec",
+      "oil-prices",
+      "energy-policy"
+    ],
+    "featured": false,
+    "image": "assets/images/oil-opec.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "oil-offshore-drilling",
+    "title": {
+      "en": "The Basics of Offshore Drilling Technology"
+    },
+    "category": "Petroleum",
+    "author": "TechPulse Team",
+    "date": "2026-08-26",
+    "excerpt": {
+      "en": "From fixed platforms in shallow water to dynamically-positioned drillships in 3,000 meters of water — how offshore rigs actually work."
+    },
+    "content": {
+      "en": "Offshore rig design depends almost entirely on water depth. In shallow water, a fixed platform bolted to the seabed is simplest and cheapest. As depth increases, engineers switch to floating designs: semi-submersible platforms held in place by anchor chains, and — in the deepest water, beyond about 1,500 meters — drillships that use dynamic positioning, firing thrusters continuously to hold station without any anchor at all.\n\nThe drilling itself sends a rotating drill string down through a riser pipe connecting the vessel to the wellhead on the seafloor, with drilling mud pumped down to cool the bit, carry rock cuttings back up, and — critically — maintain enough pressure to prevent an uncontrolled blowout.\n\nBlowout preventers, massive valve stacks sitting on the seafloor wellhead, are the last line of defense if that pressure balance fails, and their maintenance and testing schedule is one of the most heavily regulated parts of the entire operation."
+    },
+    "tags": [
+      "offshore",
+      "drilling",
+      "petroleum-engineering"
+    ],
+    "featured": false,
+    "image": "assets/images/oil-offshore.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "oil-field-automation",
+    "title": {
+      "en": "Oil Field Automation: Sensors, SCADA, and Remote Monitoring"
+    },
+    "category": "Petroleum",
+    "author": "TechPulse Team",
+    "date": "2026-08-28",
+    "excerpt": {
+      "en": "Modern oil fields run on the same SCADA and sensor principles as any industrial automation system — just built to survive harsher conditions."
+    },
+    "content": {
+      "en": "A modern well pad is covered in instrumentation: pressure and temperature transmitters on the wellhead, flow meters on every pipeline, vibration sensors on pumps, and gas detectors for safety. All of that data feeds into a SCADA (Supervisory Control and Data Acquisition) system, letting a handful of engineers in a central control room monitor hundreds of wells spread across a wide area.\n\nCommunication is the hard part: many well sites are remote, so operators rely on a mix of licensed radio, satellite links, and increasingly cellular or private LTE networks to get data back reliably.\n\nThe payoff is real: automated alarms catch problems like a stuck valve or an abnormal pressure reading in seconds rather than during the next scheduled site visit, and predictive maintenance based on vibration and temperature trends can catch a failing pump weeks before it actually breaks down."
+    },
+    "tags": [
+      "scada",
+      "automation",
+      "sensors",
+      "petroleum"
+    ],
+    "featured": false,
+    "image": "assets/images/oil-automation.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "gas-lng-explained",
+    "title": {
+      "en": "LNG Explained: How Natural Gas Crosses Oceans"
+    },
+    "category": "Gas",
+    "author": "TechPulse Team",
+    "date": "2026-08-30",
+    "excerpt": {
+      "en": "Pipelines can't cross oceans, so LNG shrinks natural gas 600-fold by cooling it to -162°C for shipping."
+    },
+    "content": {
+      "en": "Pipelines are efficient but geographically limited — they can't easily cross oceans. Liquefied Natural Gas (LNG) solves that by cooling natural gas to about -162°C (-260°F), at which point it becomes a liquid roughly 1/600th the volume of the gas, dense enough to ship economically on specialized tankers.\n\nThe process happens in stages at a liquefaction plant: the gas is first cleaned of water, CO2, and other impurities that would freeze solid and clog equipment at cryogenic temperatures, then cooled progressively through heat exchangers until it liquefies.\n\nAt the receiving end, regasification terminals warm the LNG back into gas (often using seawater as the heat source) and inject it into the local pipeline network — meaning by the time it reaches a stove or power plant, it's chemically identical to gas that was never liquefied at all."
+    },
+    "tags": [
+      "lng",
+      "natural-gas",
+      "energy-trade"
+    ],
+    "featured": true,
+    "image": "assets/images/gas-lng.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "gas-pipelines",
+    "title": {
+      "en": "Natural Gas Pipelines: How the Global Network Works"
+    },
+    "category": "Gas",
+    "author": "TechPulse Team",
+    "date": "2026-09-01",
+    "excerpt": {
+      "en": "Millions of kilometers of pipe move gas from wellhead to home — here's how pressure, compressor stations, and metering keep it flowing."
+    },
+    "content": {
+      "en": "Natural gas pipeline networks operate in three tiers. Gathering lines carry raw gas short distances from wells to a processing plant. Transmission lines, running at high pressure (often 700-1,200 psi), move processed gas hundreds or thousands of kilometers across a country or continent. Distribution lines then step pressure down repeatedly until it's safe to deliver into a home or business at just a few ounces per square inch.\n\nBecause friction gradually drops pressure along a transmission line, compressor stations are spaced every 60-100km to boost it back up, typically using a portion of the gas itself as fuel for the compressor's turbine or engine.\n\nMetering stations at key points measure exact volumes for billing between the many companies whose gas might share the same physical pipe, while odorant is added — natural gas is naturally odorless — specifically at the distribution stage so a leak can be smelled well before it becomes dangerous."
+    },
+    "tags": [
+      "pipelines",
+      "natural-gas",
+      "infrastructure"
+    ],
+    "featured": false,
+    "image": "assets/images/gas-pipelines.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "gas-shale-fracking",
+    "title": {
+      "en": "Shale Gas and Hydraulic Fracturing: A Technical Overview"
+    },
+    "category": "Gas",
+    "author": "TechPulse Team",
+    "date": "2026-09-03",
+    "excerpt": {
+      "en": "Shale gas reshaped global energy markets in the 2010s. Here's the actual engineering behind horizontal drilling and fracking."
+    },
+    "content": {
+      "en": "Shale gas is trapped in rock formations so dense that it won't flow to a conventional vertical well in commercial quantities. Two technologies, combined, unlocked it: horizontal drilling and hydraulic fracturing.\n\nA well is first drilled vertically, then curves to run horizontally through the shale layer, exposing far more rock to the wellbore than a vertical well ever could — often more than a kilometer of horizontal reach from a single surface location. \n\nHydraulic fracturing then pumps a high-pressure mixture of water, sand, and a small percentage of chemical additives (roughly 0.5-2% of the total volume) down the well, cracking the rock and propping those cracks open with the sand so gas can finally flow through them to the wellbore. Multiple fracturing stages are performed along the horizontal section, isolated from each other by mechanical plugs, to maximize the rock volume that's actually stimulated."
+    },
+    "tags": [
+      "shale-gas",
+      "fracking",
+      "drilling"
+    ],
+    "featured": false,
+    "image": "assets/images/gas-fracking.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "gas-smart-metering",
+    "title": {
+      "en": "Gas Metering and Smart Meters for Homes and Industry"
+    },
+    "category": "Gas",
+    "author": "TechPulse Team",
+    "date": "2026-09-05",
+    "excerpt": {
+      "en": "Smart gas meters do more than replace a manual reading — they enable leak detection and remote shutoff."
+    },
+    "content": {
+      "en": "Traditional gas meters use a simple mechanical diaphragm that expands and contracts with each pulse of gas flow, driving a mechanical counter — reliable, but requiring someone to physically read it.\n\nSmart meters add a pulse sensor and a small microcontroller that logs consumption digitally and transmits it over a low-power wireless network (often the same NB-IoT or LoRaWAN technology used in other IoT applications), eliminating manual readings entirely and enabling much more granular billing.\n\nThe bigger benefit for safety is anomaly detection: software can flag a consumption pattern consistent with a leak (continuous low flow when no appliance should be running) far faster than a human would notice a raised gas bill, and many smart meters include a remote or automatic shutoff valve that can isolate supply during an emergency without a technician visiting the property."
+    },
+    "tags": [
+      "smart-meters",
+      "natural-gas",
+      "iot",
+      "safety"
+    ],
+    "featured": false,
+    "image": "assets/images/gas-metering.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "gas-energy-transition",
+    "title": {
+      "en": "The Role of Natural Gas in the Energy Transition"
+    },
+    "category": "Gas",
+    "author": "TechPulse Team",
+    "date": "2026-09-07",
+    "excerpt": {
+      "en": "Natural gas is often called a 'bridge fuel' — here's the technical reasoning behind that label, and its limits."
+    },
+    "content": {
+      "en": "Natural gas is primarily methane, and burning it produces roughly 50% less CO2 than coal per unit of electricity generated, along with far lower particulate and sulfur emissions. That's the technical basis for calling it a 'bridge fuel' — a lower-carbon option to replace coal while renewable capacity and grid-scale storage continue to scale up.\n\nGas power plants also start and ramp output far faster than coal or nuclear plants, making them well-suited to backing up intermittent solar and wind generation on the grid — running when the sun isn't shining or the wind isn't blowing, and idling when renewables cover demand.\n\nThe technical caveat is methane leakage: because methane itself is a much more potent greenhouse gas than CO2 over a 20-year timeframe, leaks anywhere in the extraction, processing, or pipeline chain can erode much of that climate advantage — which is why leak detection technology (including satellite and drone-based methane sensors) has become a major focus for the industry."
+    },
+    "tags": [
+      "natural-gas",
+      "energy-transition",
+      "climate"
+    ],
+    "featured": false,
+    "image": "assets/images/gas-transition.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "prog-arduino-first-project",
+    "title": {
+      "en": "Getting Started with Arduino: Your First Project"
+    },
+    "category": "Programming",
+    "author": "TechPulse Team",
+    "date": "2026-09-09",
+    "excerpt": {
+      "en": "Blinking an LED is the classic first step — here's what's actually happening under the hood, and where to go next."
+    },
+    "content": {
+      "en": "Every Arduino tutorial starts with blinking an LED, and for good reason: it exercises the entire toolchain — writing code, compiling it, flashing it to the board, and watching real-world hardware respond — with almost no room for wiring mistakes.\n\nUnder the hood, `pinMode(LED_PIN, OUTPUT)` configures a microcontroller pin as a digital output, and `digitalWrite(LED_PIN, HIGH)` sets that pin to 5V (or 3.3V on some boards), lighting the LED through a current-limiting resistor. The `delay()` calls simply pause code execution — fine for a first project, though real applications usually avoid `delay()` in favor of non-blocking timing so the board can do other things while waiting.\n\nFrom there, natural next steps are reading a button with `digitalRead()`, reading an analog sensor with `analogRead()`, and finally combining both — for example, dimming an LED's brightness based on a potentiometer reading using `analogWrite()` for PWM output."
+    },
+    "tags": [
+      "arduino",
+      "beginners",
+      "embedded"
+    ],
+    "featured": false,
+    "image": "assets/images/prog-arduino.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "prog-python-automation",
+    "title": {
+      "en": "Python for Automation: Practical Scripts That Save Time"
+    },
+    "category": "Programming",
+    "author": "TechPulse Team",
+    "date": "2026-09-10",
+    "excerpt": {
+      "en": "You don't need to be a professional developer to automate the repetitive parts of your work with a few dozen lines of Python."
+    },
+    "content": {
+      "en": "Some of the most useful automation scripts are also the simplest. Renaming hundreds of files to a consistent format, converting a folder of CSV files to a single Excel workbook, or backing up a folder to a timestamped zip file are all realistic beginner projects that solve real, recurring annoyances.\n\nPython's standard library already covers a lot of this: `os` and `pathlib` for file operations, `shutil` for copying and archiving, and `csv` for reading and writing spreadsheets without any external dependencies at all. For anything involving real Excel formatting, the `openpyxl` package is the standard choice.\n\nThe habit that turns a one-off script into a real tool is adding a tiny command-line interface with the built-in `argparse` module, so instead of editing the script every time you need to change a filename or folder path, you can run `python rename_files.py --folder ./photos --prefix vacation_`."
+    },
+    "tags": [
+      "python",
+      "automation",
+      "scripting"
+    ],
+    "featured": true,
+    "image": "assets/images/prog-python.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "prog-apis-explained",
+    "title": {
+      "en": "Understanding APIs: How Apps Talk to Each Other"
+    },
+    "category": "Programming",
+    "author": "TechPulse Team",
+    "date": "2026-09-11",
+    "excerpt": {
+      "en": "Every app on your phone talks to a server through an API. Here's what's actually happening in that request and response."
+    },
+    "content": {
+      "en": "An API (Application Programming Interface) is simply an agreed-upon contract: send a request in a specific format, and you'll get a response in a specific format, without needing to know anything about how the other system works internally.\n\nMost web APIs today are REST-based over HTTP: a request has a method (GET to read data, POST to create something, PUT/PATCH to update, DELETE to remove), a URL identifying the resource, and often a JSON body carrying data. The server responds with a status code (200 for success, 404 for not found, 401 for unauthorized, 500 for a server error) and usually a JSON payload.\n\nAuthentication is the part beginners most often get stuck on: most APIs require an API key or a token sent in an HTTP header (commonly `Authorization: Bearer <token>`), obtained by registering for a developer account with the service — a weather app, a payment processor, or a mapping service all follow this same basic pattern despite doing completely different things."
+    },
+    "tags": [
+      "apis",
+      "web-development",
+      "rest"
+    ],
+    "featured": false,
+    "image": "assets/images/prog-apis.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "prog-git-basics",
+    "title": {
+      "en": "Version Control Basics: Git for Beginners"
+    },
+    "category": "Programming",
+    "author": "TechPulse Team",
+    "date": "2026-09-12",
+    "excerpt": {
+      "en": "Git tracks every change to your code so you can experiment fearlessly and always get back to a working version."
+    },
+    "content": {
+      "en": "Git solves a problem every programmer eventually hits: 'it worked yesterday, what did I change?' Instead of manually saving copies like `project_final_v2_ACTUALLY_FINAL.zip`, Git records a snapshot of your entire project every time you make a commit, with a message describing what changed and why.\n\nThe core workflow is small and repeatable: `git add` stages the files you want to include in the next snapshot, `git commit -m \"message\"` saves that snapshot permanently to your project's history, and `git push` uploads your commits to a remote repository (like GitHub) so others can see them or so you have an off-machine backup.\n\nBranches are what make Git genuinely powerful for teams: `git checkout -b new-feature` creates an isolated copy of the codebase to experiment in, without touching the stable `main` branch, and `git merge` brings those changes back in once they're tested and ready — letting multiple people work on the same project simultaneously without stepping on each other's changes."
+    },
+    "tags": [
+      "git",
+      "version-control",
+      "beginners"
+    ],
+    "featured": false,
+    "image": "assets/images/prog-git.svg",
+    "images": [],
+    "likes": 0
+  },
+  {
+    "id": "prog-embedded-c",
+    "title": {
+      "en": "Introduction to Embedded C for Microcontrollers"
+    },
+    "category": "Programming",
+    "author": "TechPulse Team",
+    "date": "2026-09-13",
+    "excerpt": {
+      "en": "Embedded C looks like regular C, but with no operating system underneath, you're directly responsible for the hardware."
+    },
+    "content": {
+      "en": "On a desktop, C code runs on top of an operating system that manages memory, schedules processes, and mediates access to hardware. Bare-metal embedded C, common on smaller microcontrollers like an ATmega328 or a basic STM32, has none of that — your code IS the entire program, running directly on the chip from power-on.\n\nThat means direct register manipulation is normal: setting a bit in a specific memory address configures a hardware peripheral, like `DDRB |= (1 << PB5);` to set pin 5 of port B as an output on an AVR chip — the same operation `pinMode()` performs in Arduino, just without the abstraction layer hiding it.\n\nWithout an OS, there's also no automatic memory management or protection: a stack overflow can silently corrupt other memory with no crash message to warn you, which is why embedded C style strongly favors static, fixed-size buffers over dynamic allocation (`malloc`) wherever possible, and why interrupt service routines are kept as short as possible to avoid missing the next interrupt."
+    },
+    "tags": [
+      "embedded-c",
+      "microcontrollers",
+      "low-level"
+    ],
+    "featured": false,
+    "image": "assets/images/prog-embedded-c.svg",
+    "images": [],
+    "likes": 0
+  }
+]

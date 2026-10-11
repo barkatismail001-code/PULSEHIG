@@ -1,0 +1,132 @@
+[
+  {
+    "id": "esp32-boards",
+    "category": "Microcontrollers",
+    "title": "ESP32 Development Boards",
+    "icon": "🔌",
+    "picks": [
+      {
+        "tier": "best",
+        "title": "ESP32-WROOM-32E DevKitC",
+        "price": "$6.50",
+        "why": "The most reliable ESP32 board for beginners. Dual-core 240MHz, Wi-Fi + BT, 4MB flash, USB-C option. Broad community support."
+      },
+      {
+        "tier": "also_great",
+        "title": "ESP32-S3-DevKitC-1",
+        "price": "$12.99",
+        "why": "For AI/ML edge projects. Adds native USB, more GPIO, vector instructions. Better if you need TinyML or camera work."
+      },
+      {
+        "tier": "budget",
+        "title": "ESP8266 NodeMCU V3",
+        "price": "$3.20",
+        "why": "Entry-level Wi-Fi. Single core, limited GPIO, but plenty for simple IoT sensors and no compile-time bloat."
+      }
+    ]
+  },
+  {
+    "id": "multimeters",
+    "category": "Tools",
+    "title": "Multimeters for Home & Bench",
+    "icon": "🔍",
+    "picks": [
+      {
+        "tier": "best",
+        "title": "Fluke 117 Electrician's Multimeter",
+        "price": "$180",
+        "why": "The gold standard for electrical work. True-RMS, non-contact voltage detection, CAT III 600V. Reliable for 20+ years."
+      },
+      {
+        "tier": "also_great",
+        "title": "Brymen BM235",
+        "price": "$120",
+        "why": "Professional specs at half the Fluke price. True-RMS, high accuracy, excellent build. Favorite of EEVblog community."
+      },
+      {
+        "tier": "budget",
+        "title": "UNI-T UT61E+",
+        "price": "$65",
+        "why": "Best budget meter with logging. 22,000 count display, USB data output, accurate DC. Common pick for hobbyist labs."
+      }
+    ]
+  },
+  {
+    "id": "smart-plugs",
+    "category": "Home Automation",
+    "title": "Smart Plugs (Works with Alexa/Google)",
+    "icon": "⚡",
+    "picks": [
+      {
+        "tier": "best",
+        "title": "TP-Link Kasa EP25 (Matter)",
+        "price": "$12",
+        "why": "Native Matter support, no hub required, energy monitoring. Works with Apple Home, Alexa, Google, and SmartThings."
+      },
+      {
+        "tier": "also_great",
+        "title": "Shelly Plus Plug US",
+        "price": "$22",
+        "why": "Local control, no cloud dependency. Best pick if you run Home Assistant and want full offline operation."
+      },
+      {
+        "tier": "budget",
+        "title": "Wyze Plug (2-pack)",
+        "price": "$15",
+        "why": "Cheap and reliable for basic on/off automation. No energy monitoring, but great value for 2 plugs."
+      }
+    ]
+  },
+  {
+    "id": "soldering-stations",
+    "category": "Tools",
+    "title": "Soldering Stations for Beginners",
+    "icon": "🔥",
+    "picks": [
+      {
+        "tier": "best",
+        "title": "Hakko FX-888D",
+        "price": "$110",
+        "why": "Industry standard for hobby and light professional work. Fast heat-up, accurate temperature, reliable for a decade."
+      },
+      {
+        "tier": "also_great",
+        "title": "Weller WE1010NA",
+        "price": "$105",
+        "why": "Great alternative to Hakko. Excellent ergonomics, quick temperature recovery, ESD-safe. Pick based on availability."
+      },
+      {
+        "tier": "budget",
+        "title": "Pinecil V2",
+        "price": "$40",
+        "why": "USB-C powered, portable, smart. Open-source firmware. Perfect for students and travelers."
+      }
+    ]
+  },
+  {
+    "id": "3d-printers",
+    "category": "Fabrication",
+    "title": "3D Printers for Engineering Projects",
+    "icon": "🖨️",
+    "picks": [
+      {
+        "tier": "best",
+        "title": "Prusa MK4S",
+        "price": "$799",
+        "why": "Best all-rounder. Auto bed leveling, reliable, excellent support. Ships assembled and calibrated."
+      },
+      {
+        "tier": "also_great",
+        "title": "Bambu Lab P1S",
+        "price": "$599",
+        "why": "Enclosed, fast, multi-color with AMS. Best for production runs and ABS/ASA printing."
+      },
+      {
+        "tier": "budget",
+        "title": "Creality Ender 3 V3 SE",
+        "price": "$199",
+        "why": "Entry-level king. Auto leveling, direct drive, decent quality. Great for learning before upgrading."
+      }
+    ]
+  }
+]
