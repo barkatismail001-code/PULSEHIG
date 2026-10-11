@@ -1,0 +1,71 @@
+name: Translate Articles (Auto)
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of articles to translate'
+        required: false
+        default: '5'
+  schedule:
+    # every day at 03:00 UTC
+    - cron: '0 3 * * *'
+
+permissions:
+  contents: write
+
+# same group as seo.yml / seo-feeds.yml so two jobs never push at the same time
+concurrency:
+  group: seo-build
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Translate articles
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+          TRANSLATE_LIMIT: ${{ github.event.inputs.limit || '5' }}
+        run: node scripts/translate-articles.mjs
+
+      - name: Rebuild SEO files (with translations)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node scripts/generate-seo.mjs
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "techpulse-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git config --global rerere.enabled true
+          git config --global rerere.autoupdate true
+
+          git add -A -- a series rss sitemap*.xml rss.xml robots.txt llms.txt index.html data
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(i18n): auto-translate articles [skip ci]"
+            git fetch origin main
+            git merge origin/main --no-edit -X ours
+            git push
+          else
+            echo "No changes to commit."
+          fi
