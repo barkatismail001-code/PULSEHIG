@@ -194,12 +194,10 @@
         };
 
         if (id) {
-          var upd = await supabaseClient.from('articles').update(payload).eq('id', id);
-          if (upd.error) throw upd.error;
+          await saveArticle(function (p) { return supabaseClient.from('articles').update(p).eq('id', id); }, payload);
           C.showToast('✨ Article updated successfully');
         } else {
-          var ins = await supabaseClient.from('articles').insert([payload]);
-          if (ins.error) throw ins.error;
+          await saveArticle(function (p) { return supabaseClient.from('articles').insert([p]); }, payload);
           C.showToast('🚀 Article published successfully');
         }
 
@@ -211,6 +209,22 @@
         C.showToast('❌ Error: ' + err.message);
       }
     });
+  }
+
+  /* Save with automatic fallback: if Supabase says a column does not exist in the
+     table (e.g. "readtime"), drop that field from the payload and retry, so a missing
+     optional column never blocks publishing. Run database/fix_missing_columns.sql to add them. */
+  async function saveArticle(run, payload) {
+    var p = Object.assign({}, payload);
+    for (var attempt = 0; attempt < 8; attempt++) {
+      var res = await run(p);
+      if (!res.error) return res;
+      var m = /find the ['"]([A-Za-z0-9_]+)['"] column/i.exec(res.error.message || '');
+      if (!m || !(m[1] in p) || m[1] === 'title' || m[1] === 'content') throw res.error;
+      console.warn('[TP] column missing in DB, saving without it:', m[1]);
+      delete p[m[1]];
+    }
+    throw new Error('Could not save: too many missing columns - run database/fix_missing_columns.sql');
   }
 
   function calcReadTime(text) {
