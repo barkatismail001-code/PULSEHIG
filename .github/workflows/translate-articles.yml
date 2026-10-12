@@ -8,7 +8,9 @@ on:
         required: false
         default: '5'
   schedule:
-    # every day at 03:00 UTC
+    # every 5 minutes: only articles still marked "pending" (new articles, or languages Gemini was too busy for)
+    - cron: '*/5 * * * *'
+    # every day at 03:00 UTC: full pass over all articles
     - cron: '0 3 * * *'
 
 permissions:
@@ -25,35 +27,66 @@ jobs:
     timeout-minutes: 30
 
     steps:
+      # Cheap gate: on the 5-minute schedule, stop here if no article is pending (no checkout, no npm install).
+      - name: Check for pending translations
+        id: gate
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ "$SCHEDULE" = '*/5 * * * *' ]; then
+            echo "only_pending=true" >> "$GITHUB_OUTPUT"
+            RES=$(curl -sS "$SUPABASE_URL/rest/v1/articles?select=id&translation_status=eq.pending&limit=1" \
+              -H "apikey: $SUPABASE_SERVICE_KEY" || true)
+            if echo "$RES" | jq -e 'type=="array"' >/dev/null 2>&1; then
+              N=$(echo "$RES" | jq 'length')
+            else
+              echo "::warning::Pending check failed (check SUPABASE_URL / SUPABASE_SERVICE_KEY and that database/fix_missing_columns.sql was run): $RES"
+              N=0
+            fi
+            if [ "$N" -gt 0 ]; then echo "run=true" >> "$GITHUB_OUTPUT"; else echo "run=false" >> "$GITHUB_OUTPUT"; echo "Nothing pending."; fi
+          else
+            echo "only_pending=false" >> "$GITHUB_OUTPUT"
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout repository
+        if: steps.gate.outputs.run == 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
+        if: steps.gate.outputs.run == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - name: Install dependencies
+        if: steps.gate.outputs.run == 'true'
         run: npm install --no-audit --no-fund
 
       - name: Translate articles
+        if: steps.gate.outputs.run == 'true'
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
           TRANSLATE_LIMIT: ${{ github.event.inputs.limit || '5' }}
+          ONLY_PENDING: ${{ steps.gate.outputs.only_pending }}
         run: node scripts/translate-articles.mjs
 
       - name: Rebuild SEO files (with translations)
+        if: steps.gate.outputs.run == 'true'
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: node scripts/generate-seo.mjs
 
       - name: Commit and push changes
+        if: steps.gate.outputs.run == 'true'
         run: |
           git config user.name "techpulse-bot"
           git config user.email "bot@users.noreply.github.com"
