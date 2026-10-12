@@ -103,13 +103,7 @@ async function main() {
     category: art.category || category,
     tags: Array.isArray(art.tags) ? art.tags : [],
     author: 'TechPulse Team',
-    readtime: Math.max(1, Math.round(words / 200)) + ' min read',
-    // new article enters the translation queue (picked up within ~5 minutes)
-    title_i18n: { en: art.title },
-    excerpt_i18n: { en: String(art.excerpt || '').slice(0, 300) },
-    content_i18n: { en: art.content },
-    translation_status: 'pending',
-    translation_langs: ['en']
+    readtime: Math.max(1, Math.round(words / 200)) + ' min read'
   };
   // If an optional column is missing in the live table, drop it and retry.
   for (let attempt = 0; attempt < 5; attempt++) {
