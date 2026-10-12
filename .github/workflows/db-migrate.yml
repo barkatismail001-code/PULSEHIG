@@ -1,0 +1,46 @@
+name: Run database fix (Supabase)
+
+# Runs database/fix_missing_columns.sql on your Supabase project.
+# Triggers: automatically when that file changes on main, or manually (Actions tab -> Run workflow).
+# The SQL is idempotent (IF NOT EXISTS), so running it again is harmless.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'database/fix_missing_columns.sql'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Execute SQL through the Supabase Management API
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_ACCESS_TOKEN:-}" ] || [ -z "${SUPABASE_URL:-}" ]; then
+            echo "::error::Add the secrets SUPABASE_ACCESS_TOKEN and SUPABASE_URL (Settings -> Secrets and variables -> Actions)"
+            exit 1
+          fi
+          REF=$(echo "$SUPABASE_URL" | sed -E 's#^https?://([^.]+)\..*#\1#')
+          BODY=$(jq -Rs '{query: .}' database/fix_missing_columns.sql)
+          STATUS=$(curl -sS -o response.json -w '%{http_code}' \
+            -X POST "https://api.supabase.com/v1/projects/${REF}/database/query" \
+            -H "Authorization: Bearer ${SUPABASE_ACCESS_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d "$BODY")
+          echo "HTTP $STATUS"
+          cat response.json; echo
+          if [ "$STATUS" -lt 200 ] || [ "$STATUS" -ge 300 ]; then
+            echo "::error::Supabase rejected the SQL (HTTP $STATUS)"
+            exit 1
+          fi
+          echo "Done: columns added and schema cache reloaded."
