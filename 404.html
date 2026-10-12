@@ -40,6 +40,28 @@
     <p style="color:var(--text-muted);font-size:0.85rem;margin-top:32px">Press <kbd>Ctrl</kbd>+<kbd>K</kbd> on any page to jump anywhere.</p>
   </div>
 
+  <script>
+    /* Old / mistyped article links: /a/<slug>.html where the slug is longer or shorter than the real file name
+       (e.g. ...-with-esp32.html instead of ...-with.html). Find the closest real article and go there. */
+    (function () {
+      var m = /^\/a\/([^\/]+)\.html$/.exec(location.pathname);
+      if (!m) return;
+      var want = decodeURIComponent(m[1]).toLowerCase();
+      Promise.all([
+        fetch('/data/static-slugs.json').then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }),
+        fetch('/data/manual-articles.json').then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+      ]).then(function (res) {
+        var slugs = Object.keys(res[0]).map(function (k) { return res[0][k]; })
+          .concat(res[1].map(function (x) { return x.slug; })).filter(Boolean);
+        var best = '';
+        slugs.forEach(function (c) {
+          var near = Math.min(c.length, want.length) >= 25 && (want.indexOf(c) === 0 || c.indexOf(want) === 0);
+          if (near && c.length > best.length) best = c;
+        });
+        if (best && best !== want) location.replace('/a/' + best + '.html');
+      });
+    })();
+  </script>
   <script src="/js/cmdk.js?v=20261011" defer></script>
   <script src="/js/cmdk-init.js?v=20261011" defer></script>
   <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>

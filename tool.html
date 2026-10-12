@@ -218,8 +218,9 @@
   <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
 
   <script src="js/live-news.js?v=20261011"></script>
-  <script src="js/common.js?v=20261011"></script>
+  <script src="js/common.js?v=20261013"></script>
   <script src="js/i18n.js?v=20261011"></script>
+  <script src="js/tool-calcs.js?v=20261011"></script>
   <script>
   (function () {
     'use strict';
@@ -351,7 +352,7 @@
         }
         return '<div class="tool-field">' +
           '<label for="field-' + f.id + '">' + C.esc(f.label) + '</label>' +
-          '<input type="number" id="field-' + f.id + '" data-field="' + f.id + '" step="any" placeholder="' + C.esc(f.placeholder || '') + '"' + (f.default != null ? ' value="' + f.default + '"' : '') + '>' +
+          '<input type="' + (f.type === 'text' ? 'text' : 'number') + '" id="field-' + f.id + '" data-field="' + f.id + '" step="any" placeholder="' + C.esc(f.placeholder || '') + '"' + (f.default != null ? ' value="' + f.default + '"' : '') + '>' +
           (f.hint ? '<small>' + C.esc(f.hint) + '</small>' : '') +
         '</div>';
       }).join('');
@@ -405,7 +406,8 @@
           ]},
           { id: 'b1', label: 'Band 1', type: 'select', options: colorOptions() },
           { id: 'b2', label: 'Band 2', type: 'select', options: colorOptions() },
-          { id: 'b3', label: 'Band 3 (multiplier or 3rd digit)', type: 'select', options: colorOptions() },
+          { id: 'b3', label: 'Band 3 (3rd digit for 5 bands, multiplier for 4 bands)', type: 'select', options: colorOptions() },
+          { id: 'b4', label: 'Band 4 multiplier (5-band only)', type: 'select', options: colorOptions() },
           { id: 'tolerance', label: 'Tolerance Band', type: 'select', options: [
             { value: '1', label: 'Brown ±1%' },
             { value: '2', label: 'Red ±2%' },
@@ -414,7 +416,7 @@
           ]}
         ]
       };
-      return map[slug] || [];
+      return map[slug] || (window.TPCalcs && window.TPCalcs.fields[slug]) || [];
     }
 
     function colorOptions() {
@@ -493,7 +495,11 @@
         case 'pcb-trace': return calcPcbTrace();
         case 'capacitor-code': return calcCapacitorCode();
         case 'resistor-color': return calcResistorColor();
-        default: showError('Calculator not yet implemented');
+        default:
+          if (window.TPCalcs && window.TPCalcs.calc[slug]) {
+            return window.TPCalcs.calc[slug]({ getNum: getNum, getVal: getVal, showResult: showResult, showError: showError });
+          }
+          showError('Calculator not yet implemented');
       }
     }
 
@@ -509,9 +515,8 @@
         var candidate = v * magnitude;
         return Math.abs(candidate - r) < Math.abs(best - r) ? candidate : best;
       }, e12[0] * magnitude);
-      if (r > 1000) r = r / 1000;
-      closest = closest / 1000 >= 1 ? (closest / 1000).toFixed(1) + ' kΩ' : Math.round(closest) + ' Ω';
-      showResult(closest, 'Exact value: ' + (r >= 1 ? r.toFixed(2) + ' kΩ' : Math.round(r * 1000) + ' Ω') + ' — pick the next standard value up');
+      var fmtR = function (x) { return x >= 1000 ? parseFloat((x / 1000).toFixed(2)) + ' kΩ' : Math.round(x) + ' Ω'; };
+      showResult(fmtR(closest), 'Exact value: ' + fmtR(r) + ' — use this or the next standard value up');
     }
 
     function calcVoltageDivider() {
@@ -596,7 +601,7 @@
       if (!b1 || !b2 || !b3) return showError('Please select bands');
       var value;
       if (bands === '5') {
-        var b4 = getVal('b3');
+        var b4 = getVal('b4');
         value = (parseInt(b1) * 100 + parseInt(b2) * 10 + parseInt(b3)) * Math.pow(10, parseInt(b4));
       } else {
         value = (parseInt(b1) * 10 + parseInt(b2)) * Math.pow(10, parseInt(b3));
