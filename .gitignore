@@ -1,0 +1,44 @@
+# ================================
+# TechPulse .gitignore
+# ================================
+
+# Dependencies
+node_modules/
+
+# Backups
+*.bak
+*.bak2
+*.bak3
+*.bak4
+*.bak5
+*.bak_conflict
+*.bak_cc
+*.bak_final
+_backup_*/
+a_backup/
+*_backup_*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env
+.env
+.env.local
+
+# Disabled workflows (keep in repo intentionally? uncomment to exclude)
+# *.yml.disabled
+
+# Cache
+.cache/
+.temp/
+
+.env

@@ -41,9 +41,22 @@ GitHub Pages cannot set HTTP headers; the Content-Security-Policy is applied wit
 | `seo.yml` | Rebuilds static pages, sitemaps and feeds when `a/`, `data/`, `js/` ... change |
 | `seo-feeds.yml` | Manual run: generates a new article with Gemini (optional topic), then rebuilds the SEO files |
 | `translate-articles.yml` | Daily translation of new articles (03:00 UTC) with Gemini |
+| `db-setup.yml` | One-time: builds ALL tables, policies, storage bucket, courses and recovered articles on a NEW Supabase project |
+| `switch-supabase.yml` | One-time: points the whole site (URL + public key + CSP) to the new project and commits |
+| `db-migrate.yml` | Runs `database/fix_missing_columns.sql` on Supabase (on push or manually). Needs secret `SUPABASE_ACCESS_TOKEN` |
 
 Repository secrets: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `GEMINI_API_KEY`
 (optional: `GEMINI_MODEL`, default `gemini-flash-latest`).
+
+## Moving to a new Supabase project
+
+1. Create the project, then sign up in it with the admin email used in `database/supabase_security_fix.sql` (function `is_admin()`).
+2. Add repository secrets: `SUPABASE_URL` (new), `SUPABASE_SERVICE_KEY` (new secret key), `SUPABASE_ACCESS_TOKEN`.
+3. Actions → **Set up a NEW Supabase project** → Run workflow.
+4. Actions → **Switch site to a new Supabase project** → enter the new URL and public key.
+5. Supabase → Authentication → URL configuration: set the site URL to https://www.pulsehig.com.
+
+Forum posts, Q&A, users, likes and view counters live only in the old project and cannot be recreated from the repository.
 
 ## Admin panel (`/admin.html`)
 
