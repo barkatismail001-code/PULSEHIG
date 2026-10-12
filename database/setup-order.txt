@@ -1,0 +1,22 @@
+# Order used by .github/workflows/db-setup.yml (one file per line, comments start with #)
+database/supabase_schema.sql
+database/supabase_site_stats.sql
+database/supabase_article_views.sql
+database/supabase_split_qa.sql
+database/supabase_security_fix.sql
+database/fix_missing_columns.sql
+database/supabase_storage.sql
+database/supabase_seed_courses.sql
+database/supabase_add_cs61c.sql
+database/supabase_batch2.sql
+database/supabase_batch3.sql
+database/supabase_batch4.sql
+database/supabase_batch5.sql
+database/supabase_batch6.sql
+database/supabase_batch7.sql
+database/supabase_batch8.sql
+database/supabase_batch9.sql
+database/supabase_batch10.sql
+database/supabase_add_assignments_exams.sql
+database/supabase_update_lectures.sql
+database/supabase_seed_articles.sql
