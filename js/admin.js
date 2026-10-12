@@ -196,9 +196,12 @@
         if (id) {
           await saveArticle(function (p) { return supabaseClient.from('articles').update(p).eq('id', id); }, payload);
           C.showToast('✨ Article updated successfully');
+          startTranslation(id, { title: title, excerpt: excerpt, content: content });
         } else {
-          await saveArticle(function (p) { return supabaseClient.from('articles').insert([p]); }, payload);
+          var insRes = await saveArticle(function (p) { return supabaseClient.from('articles').insert([p]).select('id'); }, payload);
           C.showToast('🚀 Article published successfully');
+          var newId = insRes && insRes.data && insRes.data[0] && insRes.data[0].id;
+          startTranslation(newId, { title: title, excerpt: excerpt, content: content });
         }
 
         resetForm();
@@ -225,6 +228,113 @@
       delete p[m[1]];
     }
     throw new Error('Could not save: too many missing columns - run database/fix_missing_columns.sql');
+  }
+
+  /* ============================================
+     Instant translation (Gemini, straight from this page)
+     The article is already saved in Supabase. Right after saving, each missing language
+     (fr, es, zh, hi, pt) is translated and written back to the same row, so readers get
+     it immediately. If Gemini is busy, the page retries every 5 minutes while it stays open.
+     The server (GitHub Actions) also retries every 5 minutes for anything still "pending".
+     ============================================ */
+  var TR_LANGS = [
+    { code: 'fr', name: 'French' },
+    { code: 'es', name: 'Spanish' },
+    { code: 'zh', name: 'Simplified Chinese' },
+    { code: 'hi', name: 'Hindi' },
+    { code: 'pt', name: 'Portuguese' }
+  ];
+  var TR_RETRY_MS = 5 * 60 * 1000;
+  var TR_MAX_PASSES = 12;           // about one hour of page-side retries
+  var trTimers = {};
+
+  function trSay(msg) {
+    var el = document.getElementById('translate-status');
+    if (el) el.textContent = msg;
+  }
+  function trSleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function trParse(raw) {
+    var t = String(raw).trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+    return JSON.parse(t);
+  }
+
+  async function translateFields(apiKey, lang, src) {
+    var prompt = 'Translate these article fields from English to ' + lang.name + '.\n' +
+      'Rules: keep every HTML tag and attribute exactly as written; do NOT translate code inside <pre> or <code>, ' +
+      'URLs, file names, or part/product names; keep the same structure. ' +
+      'Return ONLY valid JSON: {"title":"...","excerpt":"...","content":"..."}\n\n' +
+      JSON.stringify({ title: src.title, excerpt: src.excerpt, content: src.content });
+    var o = trParse(await callGemini(apiKey, [{ text: prompt }], 24000, true));
+    if (!o || !o.title || !o.excerpt || !o.content) throw new Error('Incomplete translation');
+    return o;
+  }
+
+  function trPending(state) {
+    return TR_LANGS.filter(function (l) { return !(state.ti[l.code] && state.ei[l.code] && state.ci[l.code]); });
+  }
+
+  async function trSave(id, state) {
+    var left = trPending(state).length;
+    var done = TR_LANGS.filter(function (l) { return state.ti[l.code] && state.ei[l.code] && state.ci[l.code]; })
+      .map(function (l) { return l.code; });
+    var payload = {
+      title_i18n: state.ti, excerpt_i18n: state.ei, content_i18n: state.ci,
+      translation_langs: ['en'].concat(done),
+      translation_status: left === 0 ? 'done' : 'pending'
+    };
+    await saveArticle(function (p) { return supabaseClient.from('articles').update(p).eq('id', id); }, payload);
+  }
+
+  async function runTranslation(id, src, apiKey, state, pass) {
+    var todo = trPending(state);
+    var fatal = false;
+    for (var i = 0; i < todo.length && !fatal; i++) {
+      var lang = todo[i];
+      trSay('⏳ Translating article #' + id + ' → ' + lang.name + ' (' + (TR_LANGS.length - todo.length + i + 1) + '/' + TR_LANGS.length + ')…');
+      try {
+        var o = await translateFields(apiKey, lang, src);
+        state.ti[lang.code] = o.title;
+        state.ei[lang.code] = o.excerpt;
+        state.ci[lang.code] = o.content;
+        await trSave(id, state);
+      } catch (e) {
+        console.warn('[TP] translation failed for', lang.code, e);
+        // A bad key / no permission will not fix itself: stop and let the server handle it.
+        if (/API key|permission|PERMISSION_DENIED|not valid|unauthenticated/i.test(e.message || '')) fatal = true;
+      }
+      await trSleep(1500);
+    }
+
+    var left = trPending(state).length;
+    if (left === 0) {
+      trSay('✅ Article #' + id + ' translated into all 5 languages and saved.');
+      C.showToast('🌍 Translations saved');
+      return;
+    }
+    if (fatal) {
+      trSay('⚠️ Gemini rejected the request (check the API key). The server will translate this article automatically within about 5 minutes.');
+      return;
+    }
+    if (pass >= TR_MAX_PASSES) {
+      trSay('⚠️ ' + left + ' language(s) still missing. The server keeps retrying every 5 minutes automatically.');
+      return;
+    }
+    trSay('⏳ Gemini is busy: ' + left + ' language(s) left. Retrying in 5 minutes (keep this page open; the server retries too).');
+    trTimers[id] = setTimeout(function () { runTranslation(id, src, apiKey, state, pass + 1); }, TR_RETRY_MS);
+  }
+
+  function startTranslation(id, src) {
+    if (!id) return;
+    var keyEl = document.getElementById('ai-api-key');
+    var apiKey = keyEl ? keyEl.value.trim() : '';
+    clearTimeout(trTimers[id]);
+    if (!apiKey) {
+      trSay('ℹ️ Saved. No Gemini key entered here, so the server will translate this article automatically within about 5 minutes.');
+      return;
+    }
+    var state = { ti: { en: src.title }, ei: { en: src.excerpt }, ci: { en: src.content } };
+    runTranslation(id, src, apiKey, state, 1);   // runs in the background
   }
 
   function calcReadTime(text) {

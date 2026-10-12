@@ -193,7 +193,7 @@ window.TPCommon = (function () {
 
   // ===== Articles cache =====
   var ARTICLES_CACHE_KEY = 'tp_articles_v8';
-  var ARTICLES_CACHE_TTL = 5 * 60 * 1000;
+  var ARTICLES_CACHE_TTL = 60 * 1000;   // 1 minute: new articles from Supabase show up quickly
   var articlesCache = null;
   var articlesInflight = null;
 
@@ -276,21 +276,15 @@ window.TPCommon = (function () {
 
   function articleUrl(a, lang) {
     var L = lang || 'en';
-    var isEn = (L === 'en');
-    // Non-English always goes to dynamic article.html with ?lang=
-    if (!isEn) {
-      return '/article.html?id=' + encodeURIComponent(a.id) + '&lang=' + encodeURIComponent(L);
-    }
-    // English: prefer static file
+    // Hand-written articles that only exist as files keep their static page.
     if (a.manual && a.slug) return '/a/' + a.slug + '.html';
-    var s = staticSlugFor(a.id);
-    if (s) return '/a/' + s + '.html';
-    if (a.slug) return '/a/' + a.slug + '.html';
-    return '/article.html?id=' + encodeURIComponent(a.id);
+    // Everything stored in Supabase is read live from the database (article.html), in every language.
+    var url = '/article.html?id=' + encodeURIComponent(a.id);
+    return L === 'en' ? url : url + '&lang=' + encodeURIComponent(L);
   }
 
   function canonicalUrl(a) {
-    var s = (a.manual && a.slug) || staticSlugFor(a.id) || a.slug;
+    var s = (a.manual && a.slug) || staticSlugFor(a.id);
     return 'https://www.pulsehig.com' + (s ? '/a/' + s + '.html' : '/article.html?id=' + encodeURIComponent(a.id));
   }
 
