@@ -27,6 +27,7 @@ var STATIC_ASSETS = [
   '/js/main.js',
   '/js/article.js',
   '/js/live-news.js',
+  '/js/tool-calcs.js',
   '/manifest.json'
 ];
 
