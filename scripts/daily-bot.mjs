@@ -95,7 +95,7 @@ async function main() {
   if (words < 800) throw new Error(`Article too short (${words} words) - not saved`);
 
   const slug = await uniqueSlug(slugify(art.title));
-  const { error } = await supabase.from('articles').insert({
+  const row = {
     title: art.title,
     slug,
     excerpt: String(art.excerpt || '').slice(0, 300),
@@ -103,9 +103,23 @@ async function main() {
     category: art.category || category,
     tags: Array.isArray(art.tags) ? art.tags : [],
     author: 'TechPulse Team',
-    readtime: Math.max(1, Math.round(words / 200)) + ' min read'
-  });
-  if (error) throw error;
+    readtime: Math.max(1, Math.round(words / 200)) + ' min read',
+    // new article enters the translation queue (picked up within ~5 minutes)
+    title_i18n: { en: art.title },
+    excerpt_i18n: { en: String(art.excerpt || '').slice(0, 300) },
+    content_i18n: { en: art.content },
+    translation_status: 'pending',
+    translation_langs: ['en']
+  };
+  // If an optional column is missing in the live table, drop it and retry.
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const { error } = await supabase.from('articles').insert(row);
+    if (!error) break;
+    const m = /find the ['"]([A-Za-z0-9_]+)['"] column/i.exec(error.message || '');
+    if (!m || !(m[1] in row) || ['title', 'content'].includes(m[1])) throw error;
+    console.warn('Column missing in DB, saving without it:', m[1]);
+    delete row[m[1]];
+  }
 
   if (!manualTopic) {
     queue.shift();
