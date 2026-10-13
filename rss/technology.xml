@@ -9,12 +9,6 @@
       <description>Solve frustrating CORS policy connection blocks across modern web applications, reverse proxies, and embedded ESP32 microcontrollers with this guide.</description>
     </item>
     <item>
-      <title>Demystifying CORS: The Ultimate Guide to Solving Web API Connection Blocks</title>
-      <link>https://www.pulsehig.com/a/demystifying-cors-the-ultimate-guide-to-solving-web-api-48.html</link>
-      <pubDate>Tue, 13 Oct 2026 00:00:00 GMT</pubDate>
-      <description>Master Cross-Origin Resource Sharing (CORS). Learn how preflight requests work, configure embedded IoT servers, and fix API connection errors.</description>
-    </item>
-    <item>
       <title>How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32</title>
       <link>https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html</link>
       <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
@@ -39,16 +33,16 @@
       <description>An exhaustive, publication-grade engineering guide to ultrasonic distance measurement, time-of-flight physics, acoustic wave propagation, and microcontroller interfacing.</description>
     </item>
     <item>
-      <title>How to Spot Energy Vampires Draining Your Bill Silently</title>
-      <link>https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</link>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade technical analysis of phantom power loads, switched-mode power supply standby dissipation, and automated IoT countermeasures for residential and industrial energy conservation.</description>
-    </item>
-    <item>
       <title>Why Your Laptop Is Overheating and How to Fix It</title>
       <link>https://www.pulsehig.com/a/why-your-laptop-is-overheating-and-how-to-fix-it.html</link>
       <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
       <description>An exhaustive, publication-grade engineering analysis of laptop thermal dynamics, thermal interface material degradation, micro-blower maintenance, and heat dissipation optimization.</description>
+    </item>
+    <item>
+      <title>How to Spot Energy Vampires Draining Your Bill Silently</title>
+      <link>https://www.pulsehig.com/a/how-to-spot-energy-vampires-draining-your-bill-silently.html</link>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+      <description>An exhaustive, publication-grade technical analysis of phantom power loads, switched-mode power supply standby dissipation, and automated IoT countermeasures for residential and industrial energy conservation.</description>
     </item>
     <item>
       <title>I2C Timeouts: When Your ESP32 Freezes in Real Life</title>
@@ -63,12 +57,6 @@
       <description>Your smart home dims the lights at 2 AM. Your fitness tracker loses your heart rate mid-run. Your factory robot halts production. The culprit is often the same: I2C clock stretching timeouts on ESP32. This deep-dive connects the technical to the tangible, showing you why these failures happen and ho</description>
     </item>
     <item>
-      <title>Solving High Household Energy Bills Using Smart Home Automation</title>
-      <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home.html</link>
-      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-      <description>An engineering deep-dive into designing a safe, fault-tolerant ESP32-based hydronic underfloor heating controller with hardware watchdogs and Home Assistant integration.</description>
-    </item>
-    <item>
       <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
       <link>https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common.html</link>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
@@ -81,6 +69,18 @@
       <description>An exhaustive, publication-grade engineering guide to conducting automated smart energy audits using non-invasive current transformers, ESP32 microcontrollers, MQTT telemetry, and real-time power analytics.</description>
     </item>
     <item>
+      <title>Solving High Household Energy Bills Using Smart Home Automation</title>
+      <link>https://www.pulsehig.com/a/solving-high-household-energy-bills-using-smart-home.html</link>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+      <description>An engineering deep-dive into designing a safe, fault-tolerant ESP32-based hydronic underfloor heating controller with hardware watchdogs and Home Assistant integration.</description>
+    </item>
+    <item>
+      <title>How to Fix a Clogged Drain Without Harsh Chemicals</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-a-clogged-drain-without-harsh-chemicals.html</link>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+      <description>An exhaustive, publication-grade technical manual on advanced residential plumbing diagnostics, hydro-mechanical clog remediation, trap fluid dynamics, and preventative maintenance without corrosive chemical agents.</description>
+    </item>
+    <item>
       <title>Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly</title>
       <link>https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a.html</link>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
@@ -91,12 +91,6 @@
       <link>https://www.pulsehig.com/a/esp32-vroom-32d-a-comprehensive-guide-to-gpio-selection-and.html</link>
       <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
       <description>A comprehensive engineering guide to sensor interfacing, robust telemetry architectures, and secure Over-The-Air (OTA) firmware deployment on ESP32 and ESP8266 platforms.</description>
-    </item>
-    <item>
-      <title>How to Fix a Clogged Drain Without Harsh Chemicals</title>
-      <link>https://www.pulsehig.com/a/how-to-fix-a-clogged-drain-without-harsh-chemicals.html</link>
-      <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
-      <description>An exhaustive, publication-grade technical manual on advanced residential plumbing diagnostics, hydro-mechanical clog remediation, trap fluid dynamics, and preventative maintenance without corrosive chemical agents.</description>
     </item>
 </channel>
 </rss>
