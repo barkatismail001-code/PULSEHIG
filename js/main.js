@@ -272,14 +272,9 @@
     var box = document.getElementById('siteStatsBar');
     if (!box) return;
 
-        var langs = ['zh', 'es', 'hi', 'fr', 'pt'];
-    var translated = allArticles.filter(function (a) {
-      if (!a.title_i18n) return false;
-      return langs.some(function (l) { return a.title_i18n[l]; });
-    });
-
+    // Count ALL published articles (a new article is counted immediately, even before it is translated).
     box.innerHTML =
-      '<div class="stat-block"><span class="stat-num">' + translated.length + '</span>' +
+      '<div class="stat-block"><span class="stat-num">' + allArticles.length + '</span>' +
       '<span class="stat-label">' + C.esc(I.t('stats_articles')) + '</span></div>';
   }
 
@@ -303,16 +298,13 @@
     var flags = { zh: '🇨🇳', es: '🇪🇸', hi: '🇮🇳', fr: '🇫🇷', pt: '🇵🇹' };
     var names = { zh: '中文', es: 'ES', hi: 'हिन्दी', fr: 'FR', pt: 'PT' };
 
-        var translatedArticles = allArticles.filter(function (a) {
-      if (!a.title_i18n) return false;
-      return langs.some(function (l) { return a.title_i18n[l]; });
-    });
-
-    var articleCount = translatedArticles.length;
+    // Total = every published article; per-language counters only count real translations.
+    var articleCount = allArticles.length;
     var translatedCounts = { zh: 0, es: 0, hi: 0, fr: 0, pt: 0 };
-    translatedArticles.forEach(function (a) {
+    allArticles.forEach(function (a) {
+      var ti = a.title_i18n || {};
       langs.forEach(function (l) {
-        if (a.title_i18n[l]) translatedCounts[l]++;
+        if (ti[l]) translatedCounts[l]++;
       });
     });
 

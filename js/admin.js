@@ -249,7 +249,7 @@
      The article is already saved in Supabase. Right after saving, each missing language
      (fr, es, zh, hi, pt) is translated and written back to the same row, so readers get
      it immediately. If Gemini is busy, the page retries every 5 minutes while it stays open.
-     The server (GitHub Actions) also retries every 5 minutes for anything still "pending".
+     The server (GitHub Actions) also translates anything still "pending" every day at 03:00 UTC (or when you run it manually).
      ============================================ */
   var TR_LANGS = [
     { code: 'fr', name: 'French' },
@@ -331,10 +331,10 @@
       return;
     }
     if (pass >= TR_MAX_PASSES) {
-      trSay('⚠️ ' + left + ' language(s) still missing. The server keeps retrying every 5 minutes automatically.');
+      trSay('⚠️ ' + left + ' language(s) still missing. The server will finish them automatically (daily at 03:00 UTC, or run "Translate Articles (Auto)" manually).');
       return;
     }
-    trSay('⏳ Gemini is busy: ' + left + ' language(s) left. Retrying in 5 minutes (keep this page open; the server retries too).');
+    trSay('⏳ Gemini is busy: ' + left + ' language(s) left. Retrying in 5 minutes (keep this page open; the server also translates daily).');
     trTimers[id] = setTimeout(function () { runTranslation(id, src, apiKey, state, pass + 1); }, TR_RETRY_MS);
   }
 
@@ -455,7 +455,7 @@
 
     listContainer.innerHTML = articles.map(function (art) {
       var status = art.translation_status || 'pending';
-      var statusColor = status === 'completed' ? '#16a34a' : status === 'in_progress' ? '#f59e0b' : '#64748b';
+      var statusColor = (status === 'done' || status === 'completed') ? '#16a34a' : status === 'in_progress' ? '#f59e0b' : '#64748b';
       return '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);gap:12px">' +
         '<div style="flex:1;min-width:0">' +
           '<h4 style="margin:0 0 4px;font-size:0.95rem;color:var(--text);word-break:break-word">' + C.esc(art.title) + '</h4>' +
