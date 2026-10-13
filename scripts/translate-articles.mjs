@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import { GoogleGenAI } from '@google/genai';
 import { createClient } from '@supabase/supabase-js';
 import { appendFileSync } from 'node:fs';
 
@@ -20,8 +19,12 @@ if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_KEY) {
   console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_KEY'); process.exit(1);
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const MODEL = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+const API_KEY = process.env.GEMINI_API_KEY;
+// Models are tried in this order; the first one that answers is used for the whole run.
+const MODELS = [process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.5-flash-lite']
+  .filter((m, i, a) => m && a.indexOf(m) === i);
+let activeModel = MODELS[0];
+const MODEL = MODELS[0];
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
 const LANGS = [
@@ -57,42 +60,65 @@ function summary(lines) {
   try { appendFileSync(f, lines.join('\n') + '\n'); } catch (e) { /* ignore */ }
 }
 
-/* ---------- one Gemini call with hard timeout ---------- */
-async function callOnce(text, langName) {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
-  let hardTimer;
-  const hardTimeout = new Promise((_, rej) => {
-    // safety net in case the SDK ignores the abort signal
-    hardTimer = setTimeout(
-      () => rej(Object.assign(new Error('Request timed out'), { status: 'TIMEOUT' })),
-      REQUEST_TIMEOUT_MS + 5000
-    );
-  });
+/* ---------- one Gemini call (plain REST, hard timeout) ---------- */
+async function callGemini(model, text, langName, timeoutMs) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+  const body = {
+    systemInstruction: { parts: [{ text:
+      `Translate the user's text to ${langName}. Preserve ALL HTML tags, markdown syntax, URLs and code blocks exactly. ` +
+      `Do not translate code. Return ONLY the translation, with no comments and no code fences around it.` }] },
+    contents: [{ role: 'user', parts: [{ text }] }],
+    generationConfig: { temperature: 0.3 }
+  };
+  let res;
   try {
-    const res = await Promise.race([
-      ai.models.generateContent({
-        model: MODEL,
-        contents: text,
-        config: {
-          systemInstruction:
-            `Translate the user's text to ${langName}. Preserve ALL HTML tags, markdown syntax, URLs and code blocks exactly. ` +
-            `Do not translate code. Return ONLY the translation, with no comments and no code fences around it.`,
-          temperature: 0.3,
-          abortSignal: ctrl.signal
-        }
-      }),
-      hardTimeout
-    ]);
-    const out = (res.text || '').trim();
-    const finish = res.candidates && res.candidates[0] && res.candidates[0].finishReason;
-    if (!out) throw Object.assign(new Error('Empty response' + (finish ? ' (' + finish + ')' : '')), { status: 'EMPTY' });
-    if (finish && finish !== 'STOP') throw Object.assign(new Error('Incomplete response: ' + finish), { status: 'INCOMPLETE' });
-    return out;
-  } finally {
-    clearTimeout(timer);
-    clearTimeout(hardTimer);
+    res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': API_KEY },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(timeoutMs)
+    });
+  } catch (e) {
+    const timedOut = e && (e.name === 'TimeoutError' || e.name === 'AbortError');
+    throw Object.assign(new Error(timedOut ? `No answer within ${Math.round(timeoutMs / 1000)}s` : 'Network error: ' + (e.cause && e.cause.code || e.message)),
+      { status: timedOut ? 'TIMEOUT' : 'NETWORK' });
   }
+  let d = null;
+  try { d = await res.json(); } catch (e) { /* not json */ }
+  if (!res.ok) {
+    const m = (d && d.error && d.error.message) || ('HTTP ' + res.status);
+    throw Object.assign(new Error(m), { status: res.status });
+  }
+  const cand = d && d.candidates && d.candidates[0];
+  const finish = cand && cand.finishReason;
+  const out = cand && cand.content && cand.content.parts ? cand.content.parts.map((p) => p.text || '').join('').trim() : '';
+  if (d && d.promptFeedback && d.promptFeedback.blockReason) {
+    throw Object.assign(new Error('Blocked: ' + d.promptFeedback.blockReason), { status: 'BLOCKED' });
+  }
+  if (!out) throw Object.assign(new Error('Empty response' + (finish ? ' (' + finish + ')' : '')), { status: 'EMPTY' });
+  if (finish && finish !== 'STOP') throw Object.assign(new Error('Incomplete response: ' + finish), { status: 'INCOMPLETE' });
+  return out;
+}
+
+const callOnce = (text, langName) => callGemini(activeModel, text, langName, REQUEST_TIMEOUT_MS);
+
+/* Try every model with a tiny request; print the real HTTP status of each one. */
+async function preflight() {
+  const problems = [];
+  for (const m of MODELS) {
+    try {
+      await callGemini(m, 'Hello', 'French', 30 * 1000);
+      activeModel = m;
+      console.log(`Gemini preflight OK with model: ${m}`);
+      return;
+    } catch (e) {
+      const msg = `${m}: ${e.status || ''} ${String(e.message || '').slice(0, 200)}`;
+      problems.push(msg);
+      console.error('  preflight failed -> ' + msg);
+      if (e.status === 401 || e.status === 403 || e.status === 400 && /API key/i.test(e.message || '')) break; // bad key: other models will not help
+    }
+  }
+  throw new StopRun('Gemini preflight failed for all models | ' + problems.join(' | '));
 }
 
 function isDailyQuota(e) {
@@ -198,15 +224,12 @@ async function main() {
   const todo = arts.filter((a) => has(a.title) && has(a.content) && missingLangs(a).length > 0);
   console.log(`Total articles: ${arts.length} | need translation: ${todo.length} | limit: ${LIMIT || 'none'} | budget: ${MAX_RUNTIME_MIN} min`);
 
-  console.log(`Supabase: ${new URL(process.env.SUPABASE_URL).host} | model: ${MODEL}`);
+  console.log(`Supabase: ${new URL(process.env.SUPABASE_URL).host} | models: ${MODELS.join(', ')}`);
   todo.slice(0, 10).forEach((a) => console.log(`  - #${a.id} "${String(a.title).slice(0, 60)}" missing: ${missingLangs(a).map((l) => l.code).join(',')}`));
 
   let attempted = 0, completed = 0;
   try {
-    if (todo.length) {                            // preflight: one tiny request tells us at once if key/model/quota work
-      try { await callOnce('Hello', 'French'); console.log('Gemini preflight OK'); }
-      catch (e) { throw new StopRun('Gemini preflight failed: ' + (e.status || '') + ' ' + String(e.message || '').slice(0, 300)); }
-    }
+    if (todo.length) await preflight();   // one tiny request per model tells us at once if key/model/quota work
     for (const a of todo) {                       // newest articles first
       if (LIMIT && attempted >= LIMIT) { console.log(`Limit reached (${LIMIT})`); break; }
       if (outOfTime()) { console.log('Time budget used up, stopping cleanly'); break; }
