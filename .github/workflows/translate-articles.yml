@@ -39,7 +39,9 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Translate articles
+        timeout-minutes: 25
         env:
+          MAX_RUNTIME_MIN: '20'
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -48,6 +50,8 @@ jobs:
         run: node scripts/translate-articles.mjs
 
       - name: Rebuild SEO files (with translations)
+        if: ${{ !cancelled() }}
+        timeout-minutes: 10
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
