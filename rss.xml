@@ -5,7 +5,7 @@
 <link>https://www.pulsehig.com/</link>
 <description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
 <language>en</language>
-<lastBuildDate>Tue, 13 Oct 2026 09:40:14 GMT</lastBuildDate>
+<lastBuildDate>Tue, 13 Oct 2026 10:38:44 GMT</lastBuildDate>
 <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32</title>
@@ -40,12 +40,12 @@
       <description><![CDATA[An exhaustive, publication-grade engineering guide to domestic clothes dryer troubleshooting, heating element testing, thermal fuse replacement, and airflow optimization.]]></description>
     </item>
     <item>
-      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
-      <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</guid>
+      <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
+      <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
+      <description><![CDATA[A relay that buzzes, clicks repeatedly, or resets your ESP32 is almost never a broken relay. It is a power, isolation or snubber problem. Fix those three and the circuit becomes as reliable as any commercial smart switch.]]></description>
     </item>
     <item>
       <title>Router Keeps Rebooting? 6 Causes You Can Fix Today</title>
@@ -65,16 +65,16 @@
     </item>
     <item>
       <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
-      <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained-27.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained-27.html</guid>
+      <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
     </item>
     <item>
       <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
-      <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html</guid>
+      <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-25.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-25.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description><![CDATA[A relay that buzzes, clicks repeatedly, or resets your ESP32 is almost never a broken relay. It is a power, isolation or snubber problem. Fix those three and the circuit becomes as reliable as any commercial smart switch.]]></description>
@@ -160,12 +160,12 @@
       <description><![CDATA[Deep sleep is the single most useful feature of a battery ESP32 — and the one that trips up the most people. If your board never wakes, wakes instantly, or drains a 18650 in three days, one of the six causes below is almost certainly the reason.]]></description>
     </item>
     <item>
-      <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
-      <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-5.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-5.html</guid>
+      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
+      <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained-14.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained-14.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description><![CDATA[A relay that buzzes, clicks repeatedly, or resets your ESP32 is almost never a broken relay. It is a power, isolation or snubber problem. Fix those three and the circuit becomes as reliable as any commercial smart switch.]]></description>
+      <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
     </item>
     <item>
       <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
