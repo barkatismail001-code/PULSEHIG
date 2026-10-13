@@ -1,4 +1,4 @@
-﻿/* TechPulse Command Palette (Ctrl+K) v20261010 */
+/* TechPulse Command Palette (Ctrl+K) v20261010 */
 window.TPCommandPalette = (function () {
   'use strict';
   var items = [], current = [], activeIdx = 0, overlay, input, results;
@@ -7,14 +7,15 @@ window.TPCommandPalette = (function () {
       C = '\u{1F4AC}', N = '\u{1F4E1}', I = '\u{2139}\u{FE0F}', M = '\u{2709}\u{FE0F}', A = '\u{1F4C4}';
 
   function load() {
+    var artsP = (window.TPCommon && window.TPCommon.getArticles)
+      ? window.TPCommon.getArticles().catch(function () { return []; })
+      : Promise.resolve([]);
     return Promise.all([
-      fetch('/data/articles.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      artsP,
       fetch('/data/tools.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('/data/guides.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('/data/manual-articles.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('/data/auto-articles.json').then(r => r.ok ? r.json() : []).catch(() => [])
+      fetch('/data/guides.json').then(r => r.ok ? r.json() : []).catch(() => [])
     ]).then(function (arr) {
-      var arts = arr[0], tools = arr[1], guides = arr[2], manual = arr[3], auto = arr[4];
+      var arts = arr[0] || [], tools = arr[1], guides = arr[2];
 
       [
         ['Home', '/index.html', P, 'pages home'],
@@ -38,19 +39,17 @@ window.TPCommandPalette = (function () {
         icon: g.icon || B, type: 'Guide', keywords: (g.category || '').toLowerCase()
       }));
 
-      var all = [].concat(manual || [], auto || [], arts || []);
       var seen = new Set();
-      all.forEach(a => {
+      arts.forEach(a => {
         var t = a.title;
         if (typeof t === 'object') t = t.en || Object.values(t)[0];
         if (!t || seen.has(t)) return;
         seen.add(t);
-        var url = a.slug ? '/a/' + a.slug + '.html' : '/article.html?id=' + (a.id || '');
+        var url = (a.manual && a.slug) ? '/a/' + a.slug + '.html' : '/article.html?id=' + (a.id || '');
         items.push({ title: t, url: url, icon: A, type: 'Article', keywords: (a.category || '').toLowerCase() });
       });
     });
   }
-
   function build() {
     overlay = document.createElement('div');
     overlay.className = 'tp-cmdk-overlay';

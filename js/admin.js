@@ -173,6 +173,20 @@
           imageUrl = await uploadToStorage(currentImageFile, 'hero_');
         }
 
+        var existing = id ? articlesCache.find(function (a) { return String(a.id) === String(id); }) : null;
+        function mergeI18n(oldObj, enVal, oldEn) {
+          if (oldEn !== undefined && oldEn !== enVal) return { en: enVal };
+          var out = Object.assign({}, oldObj || {});
+          out.en = enVal;
+          return out;
+        }
+        var titleI18n   = mergeI18n(existing && existing.title_i18n,   title,   existing && existing.title);
+        var excerptI18n = mergeI18n(existing && existing.excerpt_i18n, excerpt, existing && existing.excerpt);
+        var contentI18n = mergeI18n(existing && existing.content_i18n, content, existing && existing.content);
+        var keptLangs = ['en'].concat(['fr','es','zh','hi','pt'].filter(function (l) {
+          return titleI18n[l] && excerptI18n[l] && contentI18n[l];
+        }));
+
         var payload = {
           title: title,
           excerpt: excerpt,
@@ -186,11 +200,11 @@
           image: imageUrl || '',
           likes: 0,
           slug: slug,
-          title_i18n: { en: title },
-          excerpt_i18n: { en: excerpt },
-          content_i18n: { en: content },
-          translation_status: 'pending',
-          translation_langs: ['en']
+          title_i18n: titleI18n,
+          excerpt_i18n: excerptI18n,
+          content_i18n: contentI18n,
+          translation_status: keptLangs.length === 6 ? 'done' : 'pending',
+          translation_langs: keptLangs
         };
 
         if (id) {
@@ -313,7 +327,7 @@
       return;
     }
     if (fatal) {
-      trSay('⚠️ Gemini rejected the request (check the API key). The server will translate this article automatically within about 5 minutes.');
+      trSay('⚠️ Gemini rejected the request (check the API key). The server will translate this article automatically daily at 03:00 UTC.');
       return;
     }
     if (pass >= TR_MAX_PASSES) {
@@ -330,7 +344,7 @@
     var apiKey = keyEl ? keyEl.value.trim() : '';
     clearTimeout(trTimers[id]);
     if (!apiKey) {
-      trSay('ℹ️ Saved. No Gemini key entered here, so the server will translate this article automatically within about 5 minutes.');
+      trSay('ℹ️ Saved. No Gemini key entered here, so the server will translate this article automatically daily at 03:00 UTC.');
       return;
     }
     var state = { ti: { en: src.title }, ei: { en: src.excerpt }, ci: { en: src.content } };

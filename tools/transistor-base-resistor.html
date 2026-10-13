@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" translate="no">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://ijgvrjkpiofamwcmkmgi.supabase.co wss://ijgvrjkpiofamwcmkmgi.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
   <meta charset="UTF-8">
   <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,9 +26,17 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2563eb">
-  <link rel="stylesheet" href="/css/style.css?v=20261011">
+  <link rel="stylesheet" href="/css/style.css?v=20261010">
   <script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Transistor Base Resistor Calculator","description":"Pick the right base resistor to drive a BJT safely from a 3.3V or 5V microcontroller pin.","url":"https://www.pulsehig.com/tools/transistor-base-resistor.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Web Browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.pulsehig.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://www.pulsehig.com/tools.html"},{"@type":"ListItem","position":3,"name":"Transistor Base Resistor Calculator","item":"https://www.pulsehig.com/tools/transistor-base-resistor.html"}]}]}</script>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZY178VSH5', { anonymize_ip: true, send_page_view: true });
+  </script>
 </head>
 <body>
   <div class="ticker" aria-label="Tools ticker">
@@ -84,9 +91,9 @@
 
   <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
 
-  <script src="/js/live-news.js?v=20261011"></script>
-  <script src="/js/common.js?v=20261011"></script>
-  <script src="/js/i18n.js?v=20261011"></script>
+  <script src="/js/live-news.js?v=20261010"></script>
+  <script src="/js/common.js?v=20261010"></script>
+  <script src="/js/i18n.js?v=20261010"></script>
   <script>
     // Interactive version lives at /tool.html?slug=... ; this static page is the SEO / no-JS version.
     (function () {

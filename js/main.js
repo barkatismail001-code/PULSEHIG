@@ -272,8 +272,7 @@
     var box = document.getElementById('siteStatsBar');
     if (!box) return;
 
-    // ???? ??? ???????? ????????
-    var langs = ['zh', 'es', 'hi', 'fr', 'pt'];
+        var langs = ['zh', 'es', 'hi', 'fr', 'pt'];
     var translated = allArticles.filter(function (a) {
       if (!a.title_i18n) return false;
       return langs.some(function (l) { return a.title_i18n[l]; });
@@ -304,8 +303,7 @@
     var flags = { zh: '🇨🇳', es: '🇪🇸', hi: '🇮🇳', fr: '🇫🇷', pt: '🇵🇹' };
     var names = { zh: '中文', es: 'ES', hi: 'हिन्दी', fr: 'FR', pt: 'PT' };
 
-    //     (     )
-    var translatedArticles = allArticles.filter(function (a) {
+        var translatedArticles = allArticles.filter(function (a) {
       if (!a.title_i18n) return false;
       return langs.some(function (l) { return a.title_i18n[l]; });
     });
@@ -505,21 +503,39 @@
     var grid = document.getElementById('articles-container');
     if (!grid) return;
     var lang = I.getLang();
-    var visible = allArticles
-      .filter(function (a) { return matchesFilters(a, lang); })
-      .sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+    var mode = grid.dataset.mode || 'top';
+
+    var visible = allArticles.filter(function (a) { return matchesFilters(a, lang); });
+
+    if (mode === 'all') {
+      visible.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+    } else {
+      // Homepage: top 10 by views, fallback to date
+      visible.sort(function (a, b) {
+        var va = C.getViews(a.id) || 0;
+        var vb = C.getViews(b.id) || 0;
+        if (vb !== va) return vb - va;
+        return (b.date || '').localeCompare(a.date || '');
+      });
+      visible = visible.slice(0, 10);
+    }
 
     if (!visible.length) {
       grid.innerHTML = '<p class="loading-state">' + C.esc(I.t('no_results')) + '</p>';
-      return;
+    } else {
+      grid.innerHTML = visible.map(function (a) {
+        return renderCard(C.localizeArticle(a, lang), lang);
+      }).join('');
+      wireCardInteractions(grid);
     }
 
-    grid.innerHTML = visible.map(function (a) {
-      return renderCard(C.localizeArticle(a, lang), lang);
-    }).join('');
-    wireCardInteractions(grid);
+    var btn = document.getElementById('viewAllArticlesBtn');
+    if (btn) {
+      var total = allArticles.length;
+      btn.style.display = (mode === 'all' || total <= 10) ? 'none' : 'inline-block';
+      btn.textContent = 'View all ' + total + ' articles →';
+    }
   }
-
   /* ---------- Card renderer ---------- */
   function renderCard(a, lang) {
     var readMin = C.calcReadMinutes(a.content);

@@ -49,7 +49,7 @@ window.TPLiveNews = (function () {
   /* ---------- Curated fallback ---------- */
   async function fetchCurated() {
     try {
-      var res = await fetch('data/news.json', { cache: 'no-store' });
+      var res = await fetch('/data/news.json', { cache: 'no-store' });
       if (!res.ok) return [];
       var json = await res.json();
       return Array.isArray(json) ? json : [];
