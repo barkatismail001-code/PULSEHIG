@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Computer Science and Programming in Python — MIT — EECS | TechPulse Academy</title>
+<meta name="description" content="A first course in programming using Python. Covers variables, control flow, functions, data structures, recursion, and basic algorithm analysis. Designed for students with little or no prior coding experience. Assessment is project-based.">
+<link rel="canonical" href="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Introduction to Computer Science and Programming in Python">
+<meta property="og:description" content="A first course in programming using Python. Covers variables, control flow, functions, data structures, recursion, and basic algorithm analysis. Designed for students with little or no prior coding experience. Assessment is project-based.">
+<meta property="og:url" content="https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Introduction to Computer Science and Programming in Python","description":"A first course in programming using Python. Covers variables, control flow, functions, data structures, recursion, and basic algorithm analysis. Designed for students with little or no prior coding experience. Assessment is project-based.","provider":{"@type":"Organization","name":"MIT — EECS"},"url":"https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html","courseCode":"6.0001","hasCourseInstance":[{"@type":"CourseInstance","name":"What is Computation?","courseMode":"online"},{"@type":"CourseInstance","name":"Branching and Iteration","courseMode":"online"},{"@type":"CourseInstance","name":"String Manipulation and Guess-and-Check","courseMode":"online"},{"@type":"CourseInstance","name":"Functions and Abstraction","courseMode":"online"},{"@type":"CourseInstance","name":"Tuples, Lists, Aliasing, and Mutability","courseMode":"online"},{"@type":"CourseInstance","name":"Recursion and Dictionaries","courseMode":"online"},{"@type":"CourseInstance","name":"Testing, Debugging, Exceptions, Assertions","courseMode":"online"},{"@type":"CourseInstance","name":"Object-Oriented Programming","courseMode":"online"},{"@type":"CourseInstance","name":"Algorithmic Complexity","courseMode":"online"},{"@type":"CourseInstance","name":"Searching and Sorting","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZY178VSH5', { anonymize_ip: true, send_page_view: true });
+  </script>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Introduction to Computer Science and Programming in Python</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">6.0001 · MIT — EECS</span>
+      <h1>Introduction to Computer Science and Programming in Python</h1>
+      <p>A first course in programming using Python. Covers variables, control flow, functions, data structures, recursion, and basic algorithm analysis. Designed for students with little or no prior coding experience. Assessment is project-based.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">10</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">1h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (10)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (2)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (2)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>What is Computation?</h4>
+          <p>## Overview
+
+Every program you write is a sequence of primitive operations that manipulate data. Programming is choosing the right operations, arranging them well, and packaging them so others can reuse them.
+
+The course...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Every program you write is a sequence of primitive operations that manipulate data. Programming is choosing the right operations, arranging them well, and packaging them so others can reuse them.</p>
+<p>The course distinguishes two kinds of knowledge. <strong>Declarative knowledge</strong> is knowledge of facts: "Paris is the capital of France." <strong>Imperative knowledge</strong> is knowledge of how to do something: a recipe, an algorithm. A computer only understands the second kind.</p>
+<h2>Key ideas</h2>
+<ul><li>A computer manipulates data according to a stored program.</li><li>Programs are imperative: they say <em>how</em> to compute, not <em>what</em> is true.</li><li>Python is a good first language because its syntax is close to English.</li><li>The same computation can be expressed at many levels of abstraction.</li></ul>
+<h2>Worked example: Python as a calculator</h2>
+<p>``<code><br>&gt;&gt;&gt; 3 + 4<br>7<br>&gt;&gt;&gt; 2 ** 10<br>1024<br>&gt;&gt;&gt; 7 / 3<br>2.3333333333333335<br>&gt;&gt;&gt; 7 // 3<br>2<br>&gt;&gt;&gt; 7 % 3<br>1<br></code>``</p>
+<p>Each line is an <em>expression</em>. The interpreter evaluates it and prints a value. Notice the difference between <code>/</code> (true division) and <code>//</code> (floor division).</p>
+<h2>Common pitfalls</h2>
+<ul><li>Confusing <code>/</code> and <code>//</code>. In Python 3, <code>/</code> always returns a float.</li><li>Forgetting that <code>*<em></code> has higher precedence than <code></em></code>.</li><li>Assuming all languages treat big integers exactly. Python does; most do not.</li></ul>
+<h2>Why it matters</h2>
+<p>Everything later — functions, recursion, classes, algorithms — builds on this idea: a program is a sequence of steps a machine can follow without thinking.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Branching and Iteration</h4>
+          <p>## Overview
+
+Programs that only do one thing are useless. Real programs make decisions and repeat actions. This lecture covers the two control-flow constructs that make this possible: *conditionals* and *loops*.
+
+## Bool...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Programs that only do one thing are useless. Real programs make decisions and repeat actions. This lecture covers the two control-flow constructs that make this possible: <em>conditionals</em> and <em>loops</em>.</p>
+<h2>Boolean expressions</h2>
+<p>``<code><br>&gt;&gt;&gt; 3 &lt; 5<br>True<br>&gt;&gt;&gt; 3 == 3.0<br>True<br>&gt;&gt;&gt; "abc" &lt; "abd"<br>True<br></code>``</p>
+<p>Combine with <code>and</code>, <code>or</code>, <code>not</code>.</p>
+<h2>If statements</h2>
+<p>``<code>python<br>if x &gt; 0:<br>    print("positive")<br>elif x &lt; 0:<br>    print("negative")<br>else:<br>    print("zero")<br></code>``</p>
+<p>Python uses <strong>indentation</strong> to mark blocks. Mixing tabs and spaces raises an error.</p>
+<h2>While loops</h2>
+<p>``<code>python<br>n = 10<br>while n &gt; 0:<br>    print(n)<br>    n = n - 1<br></code>``</p>
+<p>The loop body must change something, or you get an infinite loop.</p>
+<h2>For loops</h2>
+<p>``<code>python<br>for i in range(5):<br>    print(i)      # 0 1 2 3 4<br>for c in "hello":<br>    print(c)<br></code>``</p>
+<p><code>range(n)</code> produces <code>0, 1, ..., n-1</code>.</p>
+<h2>Loop invariants</h2>
+<p>A <strong>loop invariant</strong> is a statement true before and after every iteration. Reasoning about invariants is the professional way to convince yourself a loop is correct.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting the colon after <code>if</code>, <code>while</code>, or <code>for</code>.</li><li>Mixing tabs and spaces.</li><li>Using <code>=</code> (assignment) where <code>==</code> (comparison) is meant.</li></ul>
+<h2>Why it matters</h2>
+<p>Every algorithm reduces to decisions and repetitions.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>String Manipulation and Guess-and-Check</h4>
+          <p>## Overview
+
+Strings are indexed sequences of characters. They introduce **indexing** and **iteration over structure**. This lecture uses strings to introduce the *guess-and-check* pattern.
+
+## Strings as sequences
+
+```
+...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Strings are indexed sequences of characters. They introduce <strong>indexing</strong> and <strong>iteration over structure</strong>. This lecture uses strings to introduce the <em>guess-and-check</em> pattern.</p>
+<h2>Strings as sequences</h2>
+<p>``<code><br>&gt;&gt;&gt; s = "pulse"<br>&gt;&gt;&gt; s[0]<br>'p'<br>&gt;&gt;&gt; s[-1]<br>'e'<br>&gt;&gt;&gt; s[1:4]<br>'uls'<br>&gt;&gt;&gt; len(s)<br>5<br></code>``</p>
+<p>Strings are <strong>immutable</strong>: <code>s[0] = 'P'</code> raises TypeError. Build a new string instead:</p>
+<p>``<code><br>&gt;&gt;&gt; s = "P" + s[1:]<br>&gt;&gt;&gt; s<br>'Pulse'<br></code>``</p>
+<h2>Guess-and-check</h2>
+<p>``<code>python<br>def is_prime(n):<br>    if n &lt; 2:<br>        return False<br>    for d in range(2, n):<br>        if n % d == 0:<br>            return False<br>    return True<br></code>``</p>
+<p>Correct but slow: for <code>n = 10**6</code>, it tries a million divisions. Testing only up to <code>sqrt(n)</code> cuts the work enormously.</p>
+<h2>Approximation</h2>
+<p>``<code>python<br>def cube_root(x, eps=1e-6):<br>    g = x / 3<br>    while abs(g*<em>3 - x) &gt; eps:<br>        g = (2</em>g + x/(g*g)) / 3<br>    return g<br></code>``</p>
+<p>This is Newton's method; it converges quadratically.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Off-by-one errors in slices. <code>s[1:4]</code> returns three characters.</li><li>Forgetting strings are immutable.</li><li>Comparing with <code>is</code> instead of <code>==</code>.</li></ul>
+<h2>Why it matters</h2>
+<p>Guess-and-check is the simplest algorithmic idea there is — and often a smart way to start thinking about a problem.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Functions and Abstraction</h4>
+          <p>## Overview
+
+Functions package a computation under a name and reuse it. This is the single biggest step in abstraction. Every serious language has functions; Python&#39;s are particularly flexible.
+
+## Defining and calling
+
+...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Functions package a computation under a name and reuse it. This is the single biggest step in abstraction. Every serious language has functions; Python's are particularly flexible.</p>
+<h2>Defining and calling</h2>
+<p>```python<br>def area(width, height):<br>    return width * height</p>
+<p>a = area(3, 4)   # a == 12<br>```</p>
+<p><code>def</code> starts the definition. <code>width</code> and <code>height</code> are <strong>parameters</strong>. <code>3</code> and <code>4</code> are <strong>arguments</strong>.</p>
+<h2>Scope</h2>
+<p>Variables created inside a function are <strong>local</strong>:</p>
+<p>```python<br>def f():<br>    x = 10<br>    return x</p>
+<p>f()<br>print(x)   # NameError: x is not defined<br>```</p>
+<p>This is a feature. Local variables cannot accidentally break code elsewhere.</p>
+<h2>Decomposition</h2>
+<p>```python<br>def distance(x1, y1, x2, y2):<br>    return ((x2-x1)<strong>2 + (y2-y1)</strong>2) ** 0.5</p>
+<p>def perimeter(points):<br>    total = 0<br>    for i in range(len(points)):<br>        x1, y1 = points[i]<br>        x2, y2 = points[(i+1) % len(points)]<br>        total += distance(x1, y1, x2, y2)<br>    return total<br>```</p>
+<p>Each function does one thing.</p>
+<h2>Default arguments</h2>
+<p>```python<br>def greet(name, greeting="Hello"):<br>    return f"{greeting}, {name}!"</p>
+<p>greet("Jon")                    # "Hello, Jon!"<br>greet("Jon", greeting="Hi")     # "Hi, Jon!"<br>```</p>
+<h2>Common pitfalls</h2>
+<ul><li><strong>Mutable default arguments</strong>:</li></ul>
+<p>``<code>python<br>def bad(x, acc=[]):<br>    acc.append(x)<br>    return acc<br></code>``</p>
+<p><code>acc</code> persists between calls. Use <code>acc=None</code> instead.</p>
+<ul><li>Shadowing built-in names (<code>list</code>, <code>str</code>, <code>sum</code>).</li></ul>
+<h2>Why it matters</h2>
+<p>Abstraction is the difference between a hobby script and software.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Tuples, Lists, Aliasing, and Mutability</h4>
+          <p>## Overview
+
+Compound data types let you group values. Python has two workhorses: **tuples** (immutable) and **lists** (mutable). The distinction is small in syntax and enormous in consequence.
+
+## Tuples
+
+```python
+poin...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Compound data types let you group values. Python has two workhorses: <strong>tuples</strong> (immutable) and <strong>lists</strong> (mutable). The distinction is small in syntax and enormous in consequence.</p>
+<h2>Tuples</h2>
+<p>``<code>python<br>point = (3, 4)<br>x, y = point          # unpacking<br>print(point[0])       # 3<br></code>``</p>
+<p>Tuples are immutable. Safe to share, safe to hash, safe as dict keys.</p>
+<h2>Lists</h2>
+<p>``<code>python<br>nums = [10, 20, 30]<br>nums[0] = 5<br>nums.append(40)<br>nums.sort()<br></code>``</p>
+<p>Mutable. <code>append</code>, <code>pop</code>, <code>sort</code> change the list in place and return <code>None</code>.</p>
+<h2>Aliasing</h2>
+<p>``<code>python<br>a = [1, 2, 3]<br>b = a<br>b.append(4)<br>print(a)   # [1, 2, 3, 4]  &lt;- a changed too<br></code>``</p>
+<p><code>a</code> and <code>b</code> name the <strong>same object</strong>. This is <strong>aliasing</strong>.</p>
+<h2>Copying</h2>
+<p>``<code>python<br>b = a[:]        # shallow copy<br>c = list(a)     # shallow copy<br>import copy<br>d = copy.deepcopy(a)   # deep copy<br></code>``</p>
+<p>Shallow copy is enough when the list contains only immutable values.</p>
+<h2>Tuple vs list</h2>
+<ul><li><strong>Tuple</strong> for fixed collections: a point, an RGB triple, a database row.</li><li><strong>List</strong> for growing collections: a queue, a shopping cart.</li></ul>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming <code>b = a</code> copies the list. It does not.</li><li>Mutating a list while iterating over it.</li><li>Using a list as a dictionary key (unhashable).</li><li>Forgetting <code>sort()</code> returns <code>None</code>.</li></ul>
+<h2>Why it matters</h2>
+<p>Aliasing is how references work in every modern language — Java, JavaScript, C++.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Recursion and Dictionaries</h4>
+          <p>## Overview
+
+Recursion solves a problem by solving a smaller version of the same problem. Dictionaries are Python&#39;s built-in hash map — constant-time lookup. Together, they turn exponential solutions into linear ones.
+
+#...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Recursion solves a problem by solving a smaller version of the same problem. Dictionaries are Python's built-in hash map — constant-time lookup. Together, they turn exponential solutions into linear ones.</p>
+<h2>Structure of recursion</h2>
+<p>Every recursive function has:</p>
+<ol><li><strong>Base case</strong> — a simple input answered directly.</li><li><strong>Recursive step</strong> — calls itself on smaller input.</li></ol>
+<p>``<code>python<br>def factorial(n):<br>    if n &lt;= 1:          # base case<br>        return 1<br>    return n * factorial(n - 1)   # recursive step<br></code>``</p>
+<h2>The call stack</h2>
+<p>Each pending call keeps its own frame — its own <code>n</code>, its own locals. Python's default recursion limit is around 1000.</p>
+<h2>When recursion shines</h2>
+<p>Trees, nested structures, divide-and-conquer:</p>
+<p>``<code>python<br>def total_size(folder):<br>    size = 0<br>    for entry in folder:<br>        if entry.is_file():<br>            size += entry.size<br>        else:<br>            size += total_size(entry)<br>    return size<br></code>``</p>
+<h2>Dictionaries</h2>
+<p>``<code>python<br>d = {"a": 1, "b": 2}<br>d["c"] = 3<br>print(d.get("z", 0))   # 0 — safe lookup<br></code>``</p>
+<p>Average lookup, insert, delete are <strong>O(1)</strong>.</p>
+<h2>Memoisation</h2>
+<p>``<code>python<br>memo = {}<br>def fib(n):<br>    if n in memo: return memo[n]<br>    if n &lt; 2: return n<br>    memo[n] = fib(n-1) + fib(n-2)<br>    return memo[n]<br></code>``</p>
+<p>Without the cache, <code>fib(40)</code> takes billions of calls. With it, 40.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Missing base case → infinite recursion.</li><li>Base case never reached.</li><li>Rebuilding the same subproblem — the Fibonacci trap.</li></ul>
+<h2>Why it matters</h2>
+<p>Recursion is the natural language for self-similar problems. Combined with memoisation, it becomes <strong>dynamic programming</strong>.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">7</div>
+        <div class="lecture-content">
+          <h4>Testing, Debugging, Exceptions, Assertions</h4>
+          <p>## Overview
+
+Writing code is one skill; making it **reliable** is another. This lecture covers unit tests, assertions, exception handling, and disciplined debugging.
+
+## Why test
+
+You cannot know a function is correct by...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Writing code is one skill; making it <strong>reliable</strong> is another. This lecture covers unit tests, assertions, exception handling, and disciplined debugging.</p>
+<h2>Why test</h2>
+<p>You cannot know a function is correct by reading it. You know it by running it against inputs where you already know the answer.</p>
+<p>```python<br>def add(a, b):<br>    return a + b</p>
+<p>assert add(2, 3) == 5<br>assert add(-1, 1) == 0<br>```</p>
+<h2>Unit tests</h2>
+<p>```python<br>import unittest</p>
+<p>class TestSquare(unittest.TestCase):<br>    def test_positive(self):<br>        self.assertEqual(square(3), 9)<br>    def test_zero(self):<br>        self.assertEqual(square(0), 0)<br>    def test_negative(self):<br>        self.assertEqual(square(-4), 16)<br>```</p>
+<p>Cover normal cases, boundary cases, and error cases.</p>
+<h2>Assertions</h2>
+<p>``<code>python<br>def average(nums):<br>    assert len(nums) &gt; 0, "average of empty list is undefined"<br>    return sum(nums) / len(nums)<br></code>``</p>
+<p>Assertions document invariants. They stop the program before corrupt data spreads.</p>
+<h2>Exceptions</h2>
+<p>``<code>python<br>try:<br>    n = int(input("number: "))<br>    result = 100 / n<br>except ValueError:<br>    print("not a number")<br>except ZeroDivisionError:<br>    print("cannot divide by zero")<br>else:<br>    print("result =", result)<br>finally:<br>    print("done")<br></code>``</p>
+<p>Catch <strong>specific</strong> exceptions. A bare <code>except:</code> swallows everything, including typos.</p>
+<h2>Debugging</h2>
+<p>The professional debugger is <code>print</code>. Strategic prints show which branch was taken, values before failure, and loop counts. For bigger problems, use <code>pdb</code>.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Tests that pass regardless of the code.</li><li>Over-broad <code>except:</code> that hides bugs.</li><li>Assertions used for user input validation (should be exceptions).</li></ul>
+<h2>Why it matters</h2>
+<p>Professional software is defined less by what it does than by how it fails.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">8</div>
+        <div class="lecture-content">
+          <h4>Object-Oriented Programming</h4>
+          <p>## Overview
+
+Classes bundle data and the operations on that data into a single unit. OOP is the dominant style in large Python codebases and the foundation of most libraries you will use.
+
+## A first class
+
+```python
+cla...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Classes bundle data and the operations on that data into a single unit. OOP is the dominant style in large Python codebases and the foundation of most libraries you will use.</p>
+<h2>A first class</h2>
+<p>```python<br>class Point:<br>    def __init__(self, x, y):<br>        self.x = x<br>        self.y = y</p>
+<p>def distance_to(self, other):<br>        return ((self.x - other.x)<strong>2 + (self.y - other.y)</strong>2) ** 0.5</p>
+<p>p = Point(3, 4)<br>q = Point(0, 0)<br>print(p.distance_to(q))   # 5.0<br>```</p>
+<p><code>__init__</code> runs when you call <code>Point(3, 4)</code>. <code>self</code> refers to the instance.</p>
+<h2>Attributes and methods</h2>
+<ul><li><strong>Attributes</strong> are data: <code>self.x</code>.</li><li><strong>Methods</strong> are behaviour: <code>distance_to</code>.</li></ul>
+<p>Class attribute shared by all instances:</p>
+<p>``<code>python<br>class Counter:<br>    total = 0<br>    def __init__(self):<br>        Counter.total += 1<br></code>``</p>
+<h2>Inheritance</h2>
+<p>```python<br>class Shape:<br>    def area(self):<br>        raise NotImplementedError</p>
+<p>class Circle(Shape):<br>    def __init__(self, r): self.r = r<br>    def area(self): return 3.14159 <em> self.r </em>* 2<br>```</p>
+<p>Code that accepts a <code>Shape</code> accepts either. This is <strong>polymorphism</strong>.</p>
+<h2>Composition over inheritance</h2>
+<p>Inheritance models <strong>is-a</strong>. Composition models <strong>has-a</strong>. Prefer composition when neither fits:</p>
+<p>``<code>python<br>class Car:<br>    def __init__(self):<br>        self.engine = Engine()   # has-a<br></code>``</p>
+<h2>Magic methods</h2>
+<p>``<code>python<br>class Vec:<br>    def __init__(self, x, y): self.x, self.y = x, y<br>    def __add__(self, o): return Vec(self.x+o.x, self.y+o.y)<br>    def __repr__(self):   return f"Vec({self.x}, {self.y})"<br></code>``</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting <code>self</code> in method definitions.</li><li>Mutating a class attribute when you meant an instance attribute.</li><li>Deep inheritance hierarchies (5+ levels) that become hard to reason about.</li></ul>
+<h2>Why it matters</h2>
+<p>Classes package state and behaviour. Understanding them means reading library code — and writing libraries of your own.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">9</div>
+        <div class="lecture-content">
+          <h4>Algorithmic Complexity</h4>
+          <p>## Overview
+
+Not all correct programs are equally good. **Algorithmic complexity** is the language for how running time grows with input size.
+
+## Counting operations
+
+```python
+def sum_list(nums):
+    total = 0
+    for ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Not all correct programs are equally good. <strong>Algorithmic complexity</strong> is the language for how running time grows with input size.</p>
+<h2>Counting operations</h2>
+<p>``<code>python<br>def sum_list(nums):<br>    total = 0<br>    for n in nums:<br>        total += n<br>    return total<br></code>``</p>
+<p>Time is proportional to <code>len(nums)</code>. Double the list, double the time.</p>
+<h2>Big-O notation</h2>
+<p>Three rules:</p>
+<ol><li>Drop constants: <code>2n + 5</code> becomes <code>O(n)</code>.</li><li>Drop lower-order terms: <code>n^2 + n + 1</code> becomes <code>O(n^2)</code>.</li><li>Keep only the fastest-growing term.</li></ol>
+<h2>The common classes</h2>
+<ul><li><strong>O(1)</strong> — constant. Array indexing, dictionary lookup.</li><li><strong>O(log n)</strong> — logarithmic. Binary search, balanced trees.</li><li><strong>O(n)</strong> — linear. One pass over the data.</li><li><strong>O(n log n)</strong> — merge sort, heapsort.</li><li><strong>O(n^2)</strong> — nested loops.</li><li><strong>O(2^n)</strong> — exponential. Brute-force over subsets.</li></ul>
+<h2>Why shape matters</h2>
+<p>An O(n^2) algorithm takes 1 second for <code>n = 1,000</code>. For <code>n = 1,000,000</code>, it takes 1,000,000 seconds — over 11 days. Same hardware, same program. The algorithm did not get slower; the input grew.</p>
+<p>An O(n log n) algorithm on <code>n = 1,000,000</code> takes roughly 20 seconds. The difference is not 10× — it is 50,000×.</p>
+<h2>Amortised complexity</h2>
+<p>Python lists occasionally resize (an O(n) copy) but rarely. The <strong>amortised</strong> cost of <code>append</code> is O(1).</p>
+<h2>Best, worst, average</h2>
+<ul><li><strong>Worst case</strong> — the guarantee.</li><li><strong>Average case</strong> — requires input assumptions.</li></ul>
+<p>Always quote worst case unless you have a specific reason.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Confusing Big-O with actual time. A 1000×-smaller constant can dominate at small <code>n</code>.</li><li>Assuming <code>len(list)</code> is O(n). It is O(1).</li><li>String concatenation in a loop is O(n^2). Use <code>"".join(parts)</code>.</li></ul>
+<h2>Why it matters</h2>
+<p>Complexity analysis predicts whether your code survives growth.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">10</div>
+        <div class="lecture-content">
+          <h4>Searching and Sorting</h4>
+          <p>## Overview
+
+Two problems dominate practical programming: *find this thing* and *put these things in order*.
+
+## Linear search
+
+```python
+def linear_search(nums, target):
+    for i, n in enumerate(nums):
+        if n == ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Two problems dominate practical programming: <em>find this thing</em> and <em>put these things in order</em>.</p>
+<h2>Linear search</h2>
+<p>``<code>python<br>def linear_search(nums, target):<br>    for i, n in enumerate(nums):<br>        if n == target:<br>            return i<br>    return -1<br></code>``</p>
+<p>O(n). Works on any list.</p>
+<h2>Binary search</h2>
+<p>``<code>python<br>def binary_search(nums, target):<br>    lo, hi = 0, len(nums) - 1<br>    while lo &lt;= hi:<br>        mid = (lo + hi) // 2<br>        if nums[mid] == target: return mid<br>        if nums[mid] &lt; target: lo = mid + 1<br>        else: hi = mid - 1<br>    return -1<br></code>``</p>
+<p>O(log n). For a million items, ~20 comparisons.</p>
+<h2>Simple sorts</h2>
+<p>Insertion sort: O(n^2) worst case, fast on nearly sorted data.</p>
+<p>``<code>python<br>for i in range(1, len(nums)):<br>    key = nums[i]<br>    j = i - 1<br>    while j &gt;= 0 and nums[j] &gt; key:<br>        nums[j+1] = nums[j]<br>        j -= 1<br>    nums[j+1] = key<br></code>``</p>
+<p>Selection and bubble sort: also O(n^2). Mostly teaching tools.</p>
+<h2>Merge sort</h2>
+<p>``<code>python<br>def merge_sort(a):<br>    if len(a) &lt;= 1: return a<br>    mid = len(a) // 2<br>    L = merge_sort(a[:mid])<br>    R = merge_sort(a[mid:])<br>    return merge(L, R)<br></code>``</p>
+<p>O(n log n) always. Stable. Predictable.</p>
+<h2>Why O(n log n) is optimal</h2>
+<p>Any comparison sort must distinguish <code>n!</code> orderings. Each comparison has two outcomes. So <code>log2(n!) ≈ n log n</code> comparisons are needed.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Using bubble sort in production.</li><li>Forgetting <code>list.sort()</code> returns <code>None</code>.</li><li>Using <code>sorted()</code> when a heap would do.</li></ul>
+<h2>Why it matters</h2>
+<p>Sorting is a benchmark for algorithmic thinking: optimal solution, provable lower bound, multiple strategies.</p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Python Basics</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Find the 100th prime.</p>
+            <details><summary>Show Solution</summary><p>Exhaustive enumeration up to sqrt(n).</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Compare recursive and iterative Fibonacci for n=30.</p>
+            <details><summary>Show Solution</summary><p>O(2^n) vs O(n).</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="assignment-item">
+        <h3>📝 Data Structures</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Hash table with separate chaining.</p>
+            <details><summary>Show Solution</summary><p>Array of lists; hash mod capacity.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Top 10 most frequent words in a file.</p>
+            <details><summary>Show Solution</summary><p>Dictionary + sort by value.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Longest common prefix of strings.</p>
+            <details><summary>Show Solution</summary><p>Column-wise compare.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> List vs tuple.</p>
+            <details><summary>Show Solution</summary><p>Mutability difference.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="exam-item">
+        <h3>🎯 Final Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Implement merge sort; prove O(n log n).</p>
+            <details><summary>Show Solution</summary><p>Recurrence + Master Theorem.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Design a small library class hierarchy.</p>
+            <details><summary>Show Solution</summary><p>Book, Member, Loan.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

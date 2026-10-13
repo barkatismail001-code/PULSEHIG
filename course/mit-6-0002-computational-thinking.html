@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Computational Thinking and Data Science — MIT — EECS | TechPulse Academy</title>
+<meta name="description" content="Builds on 6.0001. Introduces computational problem-solving with data: plotting, stochastic simulation, random walks, Monte Carlo methods, and an introduction to machine learning concepts. Emphasises reasoning about uncertainty.">
+<link rel="canonical" href="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Introduction to Computational Thinking and Data Science">
+<meta property="og:description" content="Builds on 6.0001. Introduces computational problem-solving with data: plotting, stochastic simulation, random walks, Monte Carlo methods, and an introduction to machine learning concepts. Emphasises reasoning about uncertainty.">
+<meta property="og:url" content="https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Introduction to Computational Thinking and Data Science","description":"Builds on 6.0001. Introduces computational problem-solving with data: plotting, stochastic simulation, random walks, Monte Carlo methods, and an introduction to machine learning concepts. Emphasises reasoning about uncertainty.","provider":{"@type":"Organization","name":"MIT — EECS"},"url":"https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html","courseCode":"6.0002","hasCourseInstance":[{"@type":"CourseInstance","name":"Optimisation and the Knapsack Problem","courseMode":"online"},{"@type":"CourseInstance","name":"Graph Problems and Search","courseMode":"online"},{"@type":"CourseInstance","name":"Stochastic Thinking","courseMode":"online"},{"@type":"CourseInstance","name":"Random Walks and Monte Carlo","courseMode":"online"},{"@type":"CourseInstance","name":"Probability Distributions and Inference","courseMode":"online"},{"@type":"CourseInstance","name":"Linear Regression","courseMode":"online"},{"@type":"CourseInstance","name":"Classification and Logistic Regression","courseMode":"online"},{"@type":"CourseInstance","name":"Clustering","courseMode":"online"},{"@type":"CourseInstance","name":"Model Selection and Cross-Validation","courseMode":"online"},{"@type":"CourseInstance","name":"Bias, Fairness, and the Limits of Models","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZY178VSH5', { anonymize_ip: true, send_page_view: true });
+  </script>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Introduction to Computational Thinking and Data Science</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">6.0002 · MIT — EECS</span>
+      <h1>Introduction to Computational Thinking and Data Science</h1>
+      <p>Builds on 6.0001. Introduces computational problem-solving with data: plotting, stochastic simulation, random walks, Monte Carlo methods, and an introduction to machine learning concepts. Emphasises reasoning about uncertainty.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">10</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">1h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (10)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (2)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (2)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Optimisation and the Knapsack Problem</h4>
+          <p>## Overview
+
+The knapsack problem asks you to choose items to maximise value under a weight limit. It appears in budgeting, cargo loading, and resource allocation.
+
+## Key ideas
+
+- Greedy approach: pick the best value/we...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>The knapsack problem asks you to choose items to maximise value under a weight limit. It appears in budgeting, cargo loading, and resource allocation.</p>
+<h2>Key ideas</h2>
+<ul><li>Greedy approach: pick the best value/weight ratio first.</li><li>Brute-force: try all subsets.</li><li>Dynamic programming: pseudo-polynomial, exact.</li></ul>
+<h2>Worked example</h2>
+<p>Greedy fails: capacity 10, items (6,6),(5,5),(5,5). Greedy picks 6/6; optimal picks two 5/5.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming greedy is optimal.</li><li>Ignoring the weight budget.</li></ul>
+<h2>Why it matters</h2>
+<p>Not every problem has a fast exact solution.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Graph Problems and Search</h4>
+          <p>## Overview
+
+Graphs model networks, dependencies, and state spaces.
+
+## Key ideas
+
+- BFS explores by levels.
+- DFS goes deep first.
+- Both run in O(V+E).
+
+## Worked example
+
+Course prerequisite chains form a DAG. Topolog...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Graphs model networks, dependencies, and state spaces.</p>
+<h2>Key ideas</h2>
+<ul><li>BFS explores by levels.</li><li>DFS goes deep first.</li><li>Both run in O(V+E).</li></ul>
+<h2>Worked example</h2>
+<p>Course prerequisite chains form a DAG. Topological sort gives a valid study order.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Using DFS when shortest paths are needed.</li></ul>
+<h2>Why it matters</h2>
+<p>Traversal is the foundation of routing and scheduling.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Stochastic Thinking</h4>
+          <p>## Overview
+
+Real data is noisy. Probability gives us a language for uncertainty.
+
+## Key ideas
+
+- Random variables, distributions.
+- Independence vs dependence.
+- Law of large numbers.
+
+## Worked example
+
+Roll two dice ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Real data is noisy. Probability gives us a language for uncertainty.</p>
+<h2>Key ideas</h2>
+<ul><li>Random variables, distributions.</li><li>Independence vs dependence.</li><li>Law of large numbers.</li></ul>
+<h2>Worked example</h2>
+<p>Roll two dice 10,000 times. Average sum is ~7. Error scales as 1/sqrt(N).</p>
+<h2>Common pitfalls</h2>
+<ul><li>Confusing correlation with causation.</li></ul>
+<h2>Why it matters</h2>
+<p>Every later topic rests on probability.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Random Walks and Monte Carlo</h4>
+          <p>## Overview
+
+A random walk is a path of random steps. Monte Carlo estimates quantities by sampling.
+
+## Key ideas
+
+- Simulate many walks.
+- Error ~ 1/sqrt(N).
+- Used in physics and finance.
+
+## Worked example
+
+Estimate p...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>A random walk is a path of random steps. Monte Carlo estimates quantities by sampling.</p>
+<h2>Key ideas</h2>
+<ul><li>Simulate many walks.</li><li>Error ~ 1/sqrt(N).</li><li>Used in physics and finance.</li></ul>
+<h2>Worked example</h2>
+<p>Estimate pi: N random points, pi ~ 4*(inside/total).</p>
+<h2>Common pitfalls</h2>
+<ul><li>Too few samples gives high variance.</li></ul>
+<h2>Why it matters</h2>
+<p>Complex integrals can be estimated by simulation.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Probability Distributions and Inference</h4>
+          <p>## Overview
+
+Distributions describe how likely each outcome is.
+
+## Key ideas
+
+- Discrete: Bernoulli, binomial, Poisson.
+- Continuous: uniform, normal.
+- Maximum likelihood.
+
+## Worked example
+
+8 heads in 10 flips gives ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Distributions describe how likely each outcome is.</p>
+<h2>Key ideas</h2>
+<ul><li>Discrete: Bernoulli, binomial, Poisson.</li><li>Continuous: uniform, normal.</li><li>Maximum likelihood.</li></ul>
+<h2>Worked example</h2>
+<p>8 heads in 10 flips gives MLE p=0.8.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming normality without checking.</li></ul>
+<h2>Why it matters</h2>
+<p>Inference is how we learn from data.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Linear Regression</h4>
+          <p>## Overview
+
+The simplest predictive model: fit a line to data.
+
+## Key ideas
+
+- Minimise squared error.
+- Normal equations.
+- Regularisation prevents overfitting.
+
+## Worked example
+
+Slope = cov(x,y)/var(x). Intercept =...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>The simplest predictive model: fit a line to data.</p>
+<h2>Key ideas</h2>
+<ul><li>Minimise squared error.</li><li>Normal equations.</li><li>Regularisation prevents overfitting.</li></ul>
+<h2>Worked example</h2>
+<p>Slope = cov(x,y)/var(x). Intercept = mean(y) - slope*mean(x).</p>
+<h2>Common pitfalls</h2>
+<ul><li>Extrapolating beyond range.</li></ul>
+<h2>Why it matters</h2>
+<p>Regression is the entry to supervised learning.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">7</div>
+        <div class="lecture-content">
+          <h4>Classification and Logistic Regression</h4>
+          <p>## Overview
+
+When target is a category, regression is not enough.
+
+## Key ideas
+
+- Sigmoid squashes output to (0,1).
+- Linear decision boundary.
+- Log-loss minimisation.
+
+## Worked example
+
+Predict spam from word counts....</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>When target is a category, regression is not enough.</p>
+<h2>Key ideas</h2>
+<ul><li>Sigmoid squashes output to (0,1).</li><li>Linear decision boundary.</li><li>Log-loss minimisation.</li></ul>
+<h2>Worked example</h2>
+<p>Predict spam from word counts.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Thresholding at 0.5 on imbalanced data.</li></ul>
+<h2>Why it matters</h2>
+<p>Classification is the workhorse of practical ML.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">8</div>
+        <div class="lecture-content">
+          <h4>Clustering</h4>
+          <p>## Overview
+
+Unsupervised learning: group data without labels.
+
+## Key ideas
+
+- k-means alternates assign/recompute.
+- Hierarchical builds a merge tree.
+- Silhouette evaluation.
+
+## Worked example
+
+Cluster customers by p...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Unsupervised learning: group data without labels.</p>
+<h2>Key ideas</h2>
+<ul><li>k-means alternates assign/recompute.</li><li>Hierarchical builds a merge tree.</li><li>Silhouette evaluation.</li></ul>
+<h2>Worked example</h2>
+<p>Cluster customers by purchase history with k=5.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming spherical clusters.</li></ul>
+<h2>Why it matters</h2>
+<p>Clustering reveals hidden structure.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">9</div>
+        <div class="lecture-content">
+          <h4>Model Selection and Cross-Validation</h4>
+          <p>## Overview
+
+A model fitting training data perfectly may be useless on new data.
+
+## Key ideas
+
+- Split: train/validation/test.
+- k-fold cross-validation.
+- Occams razor.
+
+## Worked example
+
+Train 80%, tune 10%, test 10%...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>A model fitting training data perfectly may be useless on new data.</p>
+<h2>Key ideas</h2>
+<ul><li>Split: train/validation/test.</li><li>k-fold cross-validation.</li><li>Occams razor.</li></ul>
+<h2>Worked example</h2>
+<p>Train 80%, tune 10%, test 10% with 5 splits.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Tuning on test set.</li></ul>
+<h2>Why it matters</h2>
+<p>Reliable evaluation separates a model from a guess.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">10</div>
+        <div class="lecture-content">
+          <h4>Bias, Fairness, and the Limits of Models</h4>
+          <p>## Overview
+
+Data-driven systems can amplify social biases.
+
+## Key ideas
+
+- Bias enters at collection, labelling, modelling, deployment.
+- Multiple fairness definitions.
+- Model cards.
+
+## Worked example
+
+A hiring model...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Data-driven systems can amplify social biases.</p>
+<h2>Key ideas</h2>
+<ul><li>Bias enters at collection, labelling, modelling, deployment.</li><li>Multiple fairness definitions.</li><li>Model cards.</li></ul>
+<h2>Worked example</h2>
+<p>A hiring model trained on historical data may reproduce past discrimination.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming math is neutral.</li></ul>
+<h2>Why it matters</h2>
+<p>A model is not neutral because it is mathematical.</p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Knapsack and Greedy</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Show greedy 0/1 knapsack is suboptimal.</p>
+            <details><summary>Show Solution</summary><p>Capacity 10; items (6,6),(5,5),(5,5).</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="assignment-item">
+        <h3>📝 Monte Carlo</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Estimate pi via random points.</p>
+            <details><summary>Show Solution</summary><p>pi ~ 4 * inside/total; error ~ 1/sqrt(N).</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Estimate pi via Monte Carlo for N=1000 and N=10000; compare errors.</p>
+            <details><summary>Show Solution</summary><p>Error scales as 1/sqrt(N).</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Show that greedy 0/1 knapsack can be suboptimal.</p>
+            <details><summary>Show Solution</summary><p>Provide a counterexample.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="exam-item">
+        <h3>🎯 Final Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Fit a linear regression to the given dataset and report residuals.</p>
+            <details><summary>Show Solution</summary><p>Normal equations or gradient descent.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Explain the bias-variance trade-off with an example from k-NN.</p>
+            <details><summary>Show Solution</summary><p>Small k: low bias high variance; large k: opposite.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

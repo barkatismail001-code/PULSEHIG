@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuits and Electronics — MIT — EECS | TechPulse Academy</title>
+<meta name="description" content="Introduces the fundamentals of circuit analysis and electronics. Topics include resistive networks, Thevenin and Norton equivalents, capacitors, inductors, first- and second-order transients, operational amplifiers, and MOSFET logic. Laboratory work is included.">
+<link rel="canonical" href="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Circuits and Electronics">
+<meta property="og:description" content="Introduces the fundamentals of circuit analysis and electronics. Topics include resistive networks, Thevenin and Norton equivalents, capacitors, inductors, first- and second-order transients, operational amplifiers, and MOSFET logic. Laboratory work is included.">
+<meta property="og:url" content="https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Circuits and Electronics","description":"Introduces the fundamentals of circuit analysis and electronics. Topics include resistive networks, Thevenin and Norton equivalents, capacitors, inductors, first- and second-order transients, operational amplifiers, and MOSFET logic. Laboratory work is included.","provider":{"@type":"Organization","name":"MIT — EECS"},"url":"https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html","courseCode":"6.002","hasCourseInstance":[{"@type":"CourseInstance","name":"Lumped Abstraction and KVL/KCL","courseMode":"online"},{"@type":"CourseInstance","name":"Resistive Networks and Node Analysis","courseMode":"online"},{"@type":"CourseInstance","name":"Superposition and Thevenin/Norton","courseMode":"online"},{"@type":"CourseInstance","name":"Capacitors and Inductors","courseMode":"online"},{"@type":"CourseInstance","name":"First-Order Transients","courseMode":"online"},{"@type":"CourseInstance","name":"Second-Order Transients","courseMode":"online"},{"@type":"CourseInstance","name":"Operational Amplifiers","courseMode":"online"},{"@type":"CourseInstance","name":"MOSFETs and Digital Logic","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZY178VSH5', { anonymize_ip: true, send_page_view: true });
+  </script>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Circuits and Electronics</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">6.002 · MIT — EECS</span>
+      <h1>Circuits and Electronics</h1>
+      <p>Introduces the fundamentals of circuit analysis and electronics. Topics include resistive networks, Thevenin and Norton equivalents, capacitors, inductors, first- and second-order transients, operational amplifiers, and MOSFET logic. Laboratory work is included.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">8</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">1h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (8)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (2)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (2)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Lumped Abstraction and KVL/KCL</h4>
+          <p>## Overview
+
+Lumped-element abstraction treats each component as a two-terminal black box.
+
+## Key ideas
+
+- KVL: voltages around a loop sum to zero.
+- KCL: currents into a node sum to zero.
+- Plus V-I relations, solves a...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Lumped-element abstraction treats each component as a two-terminal black box.</p>
+<h2>Key ideas</h2>
+<ul><li>KVL: voltages around a loop sum to zero.</li><li>KCL: currents into a node sum to zero.</li><li>Plus V-I relations, solves any linear circuit.</li></ul>
+<h2>Worked example</h2>
+<p>Series loop with 9V source and two resistors: V1 + V2 = 9.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting KVL needs a closed loop.</li></ul>
+<h2>Why it matters</h2>
+<p>When circuit size approaches signal wavelength, you need Maxwell.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Resistive Networks and Node Analysis</h4>
+          <p>## Overview
+
+Resistors obey Ohm law. Node analysis is systematic.
+
+## Key ideas
+
+- Choose ground.
+- Write KCL at every node.
+- Solve linear system.
+
+## Worked example
+
+Two unknown nodes, three resistors, one source gives...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Resistors obey Ohm law. Node analysis is systematic.</p>
+<h2>Key ideas</h2>
+<ul><li>Choose ground.</li><li>Write KCL at every node.</li><li>Solve linear system.</li></ul>
+<h2>Worked example</h2>
+<p>Two unknown nodes, three resistors, one source gives two equations.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Missing currents at a node.</li></ul>
+<h2>Why it matters</h2>
+<p>With N nodes, you always get N-1 equations.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Superposition and Thevenin/Norton</h4>
+          <p>## Overview
+
+Two powerful simplifications for linear circuits.
+
+## Key ideas
+
+- Superposition: sum of single-source responses.
+- Thevenin: Vth in series with Rth.
+- Norton: current source in parallel with R.
+
+## Worked e...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Two powerful simplifications for linear circuits.</p>
+<h2>Key ideas</h2>
+<ul><li>Superposition: sum of single-source responses.</li><li>Thevenin: Vth in series with Rth.</li><li>Norton: current source in parallel with R.</li></ul>
+<h2>Worked example</h2>
+<p>Rth = Voc/Isc. Then any load sees a simple two-element source.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Applying to nonlinear circuits.</li></ul>
+<h2>Why it matters</h2>
+<p>Reduces a complex circuit to two numbers.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Capacitors and Inductors</h4>
+          <p>## Overview
+
+Two components that store energy.
+
+## Key ideas
+
+- Capacitor: i = C dV/dt.
+- Inductor: v = L di/dt.
+- Energy: 0.5 C V^2, 0.5 L I^2.
+
+## Worked example
+
+1 uF at 5V holds 12.5 uJ.
+
+## Common pitfalls
+
+- Forget...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Two components that store energy.</p>
+<h2>Key ideas</h2>
+<ul><li>Capacitor: i = C dV/dt.</li><li>Inductor: v = L di/dt.</li><li>Energy: 0.5 C V^2, 0.5 L I^2.</li></ul>
+<h2>Worked example</h2>
+<p>1 uF at 5V holds 12.5 uJ.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting discontinuity constraints.</li></ul>
+<h2>Why it matters</h2>
+<p>These are the memory elements of analog design.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>First-Order Transients</h4>
+          <p>## Overview
+
+RC and RL circuits respond with an exponential curve.
+
+## Key ideas
+
+- tau = RC or L/R.
+- After 1 tau, ~63% done.
+- After 5 tau, settled.
+
+## Worked example
+
+10 kohm and 1 uF: tau = 10 ms. A 5V step reaches ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>RC and RL circuits respond with an exponential curve.</p>
+<h2>Key ideas</h2>
+<ul><li>tau = RC or L/R.</li><li>After 1 tau, ~63% done.</li><li>After 5 tau, settled.</li></ul>
+<h2>Worked example</h2>
+<p>10 kohm and 1 uF: tau = 10 ms. A 5V step reaches 3.16V after 10 ms.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Wrong sign in the exponential.</li></ul>
+<h2>Why it matters</h2>
+<p>The time constant is the fundamental timescale.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Second-Order Transients</h4>
+          <p>## Overview
+
+RLC circuits are second-order.
+
+## Key ideas
+
+- omega_0 = 1/sqrt(LC).
+- zeta determines damping.
+- Underdamped: oscillations with decay.
+
+## Worked example
+
+L=1mH, C=1uF: omega_0 ~ 31,623 rad/s.
+
+## Common p...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>RLC circuits are second-order.</p>
+<h2>Key ideas</h2>
+<ul><li>omega_0 = 1/sqrt(LC).</li><li>zeta determines damping.</li><li>Underdamped: oscillations with decay.</li></ul>
+<h2>Worked example</h2>
+<p>L=1mH, C=1uF: omega_0 ~ 31,623 rad/s.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring R controls damping.</li></ul>
+<h2>Why it matters</h2>
+<p>Second-order behaviour is everywhere.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">7</div>
+        <div class="lecture-content">
+          <h4>Operational Amplifiers</h4>
+          <p>## Overview
+
+High-gain differential amplifier with feedback.
+
+## Key ideas
+
+- Ideal: infinite gain, infinite input Z, zero output Z.
+- Virtual short with feedback.
+- Inverting, non-inverting, summing.
+
+## Worked example
+...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>High-gain differential amplifier with feedback.</p>
+<h2>Key ideas</h2>
+<ul><li>Ideal: infinite gain, infinite input Z, zero output Z.</li><li>Virtual short with feedback.</li><li>Inverting, non-inverting, summing.</li></ul>
+<h2>Worked example</h2>
+<p>Non-inverting gain 5: Rf/R1 = 4.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting feedback.</li></ul>
+<h2>Why it matters</h2>
+<p>Op-amps are the workhorse of analog design.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">8</div>
+        <div class="lecture-content">
+          <h4>MOSFETs and Digital Logic</h4>
+          <p>## Overview
+
+The MOSFET is a voltage-controlled switch.
+
+## Key ideas
+
+- Digital: on or off.
+- CMOS inverter: one PMOS, one NMOS.
+- NAND/NOR are the building blocks.
+
+## Worked example
+
+CMOS inverter with input 0 outputs...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>The MOSFET is a voltage-controlled switch.</p>
+<h2>Key ideas</h2>
+<ul><li>Digital: on or off.</li><li>CMOS inverter: one PMOS, one NMOS.</li><li>NAND/NOR are the building blocks.</li></ul>
+<h2>Worked example</h2>
+<p>CMOS inverter with input 0 outputs VDD.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming perfect switches.</li></ul>
+<h2>Why it matters</h2>
+<p>Every processor is billions of MOSFETs.</p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Resistive Circuits</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Find Thevenin equivalent.</p>
+            <details><summary>Show Solution</summary><p>Rth = Voc/Isc.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Solve 3-node circuit by node analysis.</p>
+            <details><summary>Show Solution</summary><p>KCL at each non-ref node.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="assignment-item">
+        <h3>📝 Transients</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Find v_C(t) for step input.</p>
+            <details><summary>Show Solution</summary><p>v_C = Vf + (Vi - Vf) exp(-t/RC).</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Classify RLC damping.</p>
+            <details><summary>Show Solution</summary><p>zeta = (R/2) sqrt(C/L).</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Two-source network via superposition.</p>
+            <details><summary>Show Solution</summary><p>Sum of single-source results.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Time constant of RC.</p>
+            <details><summary>Show Solution</summary><p>tau = Req * C.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="exam-item">
+        <h3>🎯 Final Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Non-inverting amp gain 5.</p>
+            <details><summary>Show Solution</summary><p>1 + Rf/R1 = 5.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> LPF frequency response.</p>
+            <details><summary>Show Solution</summary><p>-20 dB/dec above fc.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

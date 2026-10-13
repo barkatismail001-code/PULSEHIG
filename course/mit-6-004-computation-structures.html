@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computation Structures — MIT — EECS | TechPulse Academy</title>
+<meta name="description" content="Introduces the design of digital systems from logic gates to complete processors. Covers combinational and sequential logic, finite-state machines, instruction-set architectures, pipelines, caches, and virtual memory.">
+<link rel="canonical" href="https://www.pulsehig.com/course/mit-6-004-computation-structures.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/mit-6-004-computation-structures.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/mit-6-004-computation-structures.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/mit-6-004-computation-structures.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/mit-6-004-computation-structures.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/mit-6-004-computation-structures.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/mit-6-004-computation-structures.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/mit-6-004-computation-structures.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Computation Structures">
+<meta property="og:description" content="Introduces the design of digital systems from logic gates to complete processors. Covers combinational and sequential logic, finite-state machines, instruction-set architectures, pipelines, caches, and virtual memory.">
+<meta property="og:url" content="https://www.pulsehig.com/course/mit-6-004-computation-structures.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Computation Structures","description":"Introduces the design of digital systems from logic gates to complete processors. Covers combinational and sequential logic, finite-state machines, instruction-set architectures, pipelines, caches, and virtual memory.","provider":{"@type":"Organization","name":"MIT — EECS"},"url":"https://www.pulsehig.com/course/mit-6-004-computation-structures.html","courseCode":"6.004","hasCourseInstance":[{"@type":"CourseInstance","name":"From Electrons to Logic Gates","courseMode":"online"},{"@type":"CourseInstance","name":"Combinational Logic and Boolean Algebra","courseMode":"online"},{"@type":"CourseInstance","name":"Sequential Logic and Flip-Flops","courseMode":"online"},{"@type":"CourseInstance","name":"Finite State Machines","courseMode":"online"},{"@type":"CourseInstance","name":"Instruction Set Architectures","courseMode":"online"},{"@type":"CourseInstance","name":"Pipelining","courseMode":"online"},{"@type":"CourseInstance","name":"Caches and Memory Hierarchy","courseMode":"online"},{"@type":"CourseInstance","name":"Virtual Memory","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZY178VSH5', { anonymize_ip: true, send_page_view: true });
+  </script>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Computation Structures</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">6.004 · MIT — EECS</span>
+      <h1>Computation Structures</h1>
+      <p>Introduces the design of digital systems from logic gates to complete processors. Covers combinational and sequential logic, finite-state machines, instruction-set architectures, pipelines, caches, and virtual memory.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">8</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">1h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (8)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (2)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (2)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>From Electrons to Logic Gates</h4>
+          <p>## Overview
+
+Bridge analog to digital design.
+
+## Key ideas
+
+- MOSFETs as switches; CMOS as logic.
+- Digital signal is a voltage range.
+- Noise margins make it reliable.
+
+## Worked example
+
+3.3V logic high might be 2.4-3...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Bridge analog to digital design.</p>
+<h2>Key ideas</h2>
+<ul><li>MOSFETs as switches; CMOS as logic.</li><li>Digital signal is a voltage range.</li><li>Noise margins make it reliable.</li></ul>
+<h2>Worked example</h2>
+<p>3.3V logic high might be 2.4-3.3V. Above 2.0V is 1.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming exact voltages.</li></ul>
+<h2>Why it matters</h2>
+<p>Ladder: transistors -&gt; gates -&gt; modules -&gt; processor.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Combinational Logic and Boolean Algebra</h4>
+          <p>## Overview
+
+Boole algebra is the math of digital logic.
+
+## Key ideas
+
+- AND, OR, NOT, XOR, NAND, NOR.
+- Truth tables.
+- Karnaugh maps.
+
+## Worked example
+
+Simplify A_NOT_B + A_B_NOT + AB to A + B.
+
+## Common pitfalls
+
+...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Boole algebra is the math of digital logic.</p>
+<h2>Key ideas</h2>
+<ul><li>AND, OR, NOT, XOR, NAND, NOR.</li><li>Truth tables.</li><li>Karnaugh maps.</li></ul>
+<h2>Worked example</h2>
+<p>Simplify A_NOT_B + A_B_NOT + AB to A + B.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring dont-cares.</li></ul>
+<h2>Why it matters</h2>
+<p>Fewer gates is not always faster.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Sequential Logic and Flip-Flops</h4>
+          <p>## Overview
+
+Storage requires feedback.
+
+## Key ideas
+
+- Latch: level-sensitive.
+- Flip-flop: edge-triggered.
+- Setup and hold times.
+
+## Worked example
+
+D flip-flop stores one bit on rising edge.
+
+## Common pitfalls
+
+- ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Storage requires feedback.</p>
+<h2>Key ideas</h2>
+<ul><li>Latch: level-sensitive.</li><li>Flip-flop: edge-triggered.</li><li>Setup and hold times.</li></ul>
+<h2>Worked example</h2>
+<p>D flip-flop stores one bit on rising edge.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring setup/hold violations.</li></ul>
+<h2>Why it matters</h2>
+<p>Synchronous design makes timing tractable.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Finite State Machines</h4>
+          <p>## Overview
+
+States, inputs, transitions, outputs.
+
+## Key ideas
+
+- Moore: output = f(state).
+- Mealy: output = f(state, input).
+- Any FSM can be built from flip-flops and gates.
+
+## Worked example
+
+Traffic light states ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>States, inputs, transitions, outputs.</p>
+<h2>Key ideas</h2>
+<ul><li>Moore: output = f(state).</li><li>Mealy: output = f(state, input).</li><li>Any FSM can be built from flip-flops and gates.</li></ul>
+<h2>Worked example</h2>
+<p>Traffic light states red/yellow/green with timer transitions.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Missing transitions.</li></ul>
+<h2>Why it matters</h2>
+<p>Traffic lights, protocols, and CPU control units.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Instruction Set Architectures</h4>
+          <p>## Overview
+
+The ISA is the contract between hardware and software.
+
+## Key ideas
+
+- Registers, memory, PC.
+- RISC vs CISC.
+- Beta ISA is a clean RISC for teaching.
+
+## Worked example
+
+To add two numbers: load, add, stor...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>The ISA is the contract between hardware and software.</p>
+<h2>Key ideas</h2>
+<ul><li>Registers, memory, PC.</li><li>RISC vs CISC.</li><li>Beta ISA is a clean RISC for teaching.</li></ul>
+<h2>Worked example</h2>
+<p>To add two numbers: load, add, store.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming complex ISAs are faster.</li></ul>
+<h2>Why it matters</h2>
+<p>Compilers target an ISA; OSes save and restore its state.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Pipelining</h4>
+          <p>## Overview
+
+Execute instructions in parallel by overlapping stages.
+
+## Key ideas
+
+- Five stages: fetch, decode, execute, memory, write-back.
+- Hazards: data, control, structural.
+- Forwarding handles most.
+
+## Worked e...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Execute instructions in parallel by overlapping stages.</p>
+<h2>Key ideas</h2>
+<ul><li>Five stages: fetch, decode, execute, memory, write-back.</li><li>Hazards: data, control, structural.</li><li>Forwarding handles most.</li></ul>
+<h2>Worked example</h2>
+<p>Ideal CPI = 1.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting pipeline fill/drain.</li></ul>
+<h2>Why it matters</h2>
+<p>Ideal speedup 5x, real workloads 3-4x.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">7</div>
+        <div class="lecture-content">
+          <h4>Caches and Memory Hierarchy</h4>
+          <p>## Overview
+
+CPU speed grows faster than memory speed.
+
+## Key ideas
+
+- Temporal and spatial locality.
+- Direct-mapped, set-associative, fully associative.
+- Write-through vs write-back.
+
+## Worked example
+
+Good locality...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>CPU speed grows faster than memory speed.</p>
+<h2>Key ideas</h2>
+<ul><li>Temporal and spatial locality.</li><li>Direct-mapped, set-associative, fully associative.</li><li>Write-through vs write-back.</li></ul>
+<h2>Worked example</h2>
+<p>Good locality runs several times faster on identical hardware.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring cache-line effects.</li></ul>
+<h2>Why it matters</h2>
+<p>Programming for locality is highest-leverage.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">8</div>
+        <div class="lecture-content">
+          <h4>Virtual Memory</h4>
+          <p>## Overview
+
+Private, contiguous address space per process.
+
+## Key ideas
+
+- Pages, page tables, TLB.
+- Page faults load from disk.
+- Protection falls out of translation.
+
+## Worked example
+
+Two processes both use virtua...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Private, contiguous address space per process.</p>
+<h2>Key ideas</h2>
+<ul><li>Pages, page tables, TLB.</li><li>Page faults load from disk.</li><li>Protection falls out of translation.</li></ul>
+<h2>Worked example</h2>
+<p>Two processes both use virtual 0x1000, mapped differently.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting TLB is a cache.</li></ul>
+<h2>Why it matters</h2>
+<p>On 64-bit, VM is more about protection.</p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Boolean Logic</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Simplify A&#39;B + AB&#39; + AB.</p>
+            <details><summary>Show Solution</summary><p>A + B.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="assignment-item">
+        <h3>📝 FSM Design</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Detect sequence 1011.</p>
+            <details><summary>Show Solution</summary><p>4 states S0-S3.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> 2-bit counter with D flip-flops.</p>
+            <details><summary>Show Solution</summary><p>Next-state logic for 00-&gt;01-&gt;10-&gt;11.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="exam-item">
+        <h3>🎯 Final Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> 5-stage pipeline speedup.</p>
+            <details><summary>Show Solution</summary><p>Ideal ~5x, reduced by hazards.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

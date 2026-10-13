@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Algorithms — MIT — EECS | TechPulse Academy</title>
+<meta name="description" content="Covers the design and analysis of algorithms: sorting, hashing, binary search trees, heaps, graph search, shortest paths, dynamic programming, and NP-completeness. Emphasises rigorous complexity analysis.">
+<link rel="canonical" href="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Introduction to Algorithms">
+<meta property="og:description" content="Covers the design and analysis of algorithms: sorting, hashing, binary search trees, heaps, graph search, shortest paths, dynamic programming, and NP-completeness. Emphasises rigorous complexity analysis.">
+<meta property="og:url" content="https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Introduction to Algorithms","description":"Covers the design and analysis of algorithms: sorting, hashing, binary search trees, heaps, graph search, shortest paths, dynamic programming, and NP-completeness. Emphasises rigorous complexity analysis.","provider":{"@type":"Organization","name":"MIT — EECS"},"url":"https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html","courseCode":"6.006","hasCourseInstance":[{"@type":"CourseInstance","name":"Algorithmic Thinking and Peak Finding","courseMode":"online"},{"@type":"CourseInstance","name":"Models of Computation and Document Distance","courseMode":"online"},{"@type":"CourseInstance","name":"Sorting: Insertion, Merge, Heap","courseMode":"online"},{"@type":"CourseInstance","name":"Hashing with Chaining and Open Addressing","courseMode":"online"},{"@type":"CourseInstance","name":"Binary Search Trees and AVL","courseMode":"online"},{"@type":"CourseInstance","name":"Graph Search: BFS and DFS","courseMode":"online"},{"@type":"CourseInstance","name":"Shortest Paths: Dijkstra and Bellman-Ford","courseMode":"online"},{"@type":"CourseInstance","name":"Dynamic Programming","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZY178VSH5', { anonymize_ip: true, send_page_view: true });
+  </script>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Introduction to Algorithms</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">6.006 · MIT — EECS</span>
+      <h1>Introduction to Algorithms</h1>
+      <p>Covers the design and analysis of algorithms: sorting, hashing, binary search trees, heaps, graph search, shortest paths, dynamic programming, and NP-completeness. Emphasises rigorous complexity analysis.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">8</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">1h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (8)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (2)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (2)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Algorithmic Thinking and Peak Finding</h4>
+          <p>## Overview
+
+An algorithm transforms input to output.
+
+## Key ideas
+
+- 1-D: linear scan O(n) vs binary search O(log n).
+- 2-D: extend to a grid.
+
+## Worked example
+
+For [1,3,5,2,4,0], 5 is a peak.
+
+## Common pitfalls
+
+- ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>An algorithm transforms input to output.</p>
+<h2>Key ideas</h2>
+<ul><li>1-D: linear scan O(n) vs binary search O(log n).</li><li>2-D: extend to a grid.</li></ul>
+<h2>Worked example</h2>
+<p>For [1,3,5,2,4,0], 5 is a peak.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Assuming binary search works on unsorted data.</li></ul>
+<h2>Why it matters</h2>
+<p>Divide and conquer beats linear scan.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Models of Computation and Document Distance</h4>
+          <p>## Overview
+
+Word RAM treats each operation as O(1).
+
+## Key ideas
+
+- Document = vector of word frequencies.
+- Distance = angle between vectors.
+- Naive O(n^2) vs dictionary O(n).
+
+## Worked example
+
+Two 1000-word docs: ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Word RAM treats each operation as O(1).</p>
+<h2>Key ideas</h2>
+<ul><li>Document = vector of word frequencies.</li><li>Distance = angle between vectors.</li><li>Naive O(n^2) vs dictionary O(n).</li></ul>
+<h2>Worked example</h2>
+<p>Two 1000-word docs: naive = 1M comparisons; hash = 2000.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring data structure cost.</li></ul>
+<h2>Why it matters</h2>
+<p>Choosing the right structure is the biggest win.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Sorting: Insertion, Merge, Heap</h4>
+          <p>## Overview
+
+Three classic comparison sorts.
+
+## Key ideas
+
+- Insertion: O(n^2).
+- Merge: O(n log n), stable.
+- Heap: O(n log n) in place.
+
+## Worked example
+
+1M integers: insertion takes hours, merge takes seconds.
+
+## ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Three classic comparison sorts.</p>
+<h2>Key ideas</h2>
+<ul><li>Insertion: O(n^2).</li><li>Merge: O(n log n), stable.</li><li>Heap: O(n log n) in place.</li></ul>
+<h2>Worked example</h2>
+<p>1M integers: insertion takes hours, merge takes seconds.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Using insertion on large arrays.</li></ul>
+<h2>Why it matters</h2>
+<p>Any comparison sort is Omega(n log n).</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Hashing with Chaining and Open Addressing</h4>
+          <p>## Overview
+
+Hash tables provide average O(1) lookup.
+
+## Key ideas
+
+- Chaining: linked lists.
+- Open addressing: probing.
+- Good hash spreads uniformly.
+
+## Worked example
+
+1000 keys in table of 1013 gives average chain...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Hash tables provide average O(1) lookup.</p>
+<h2>Key ideas</h2>
+<ul><li>Chaining: linked lists.</li><li>Open addressing: probing.</li><li>Good hash spreads uniformly.</li></ul>
+<h2>Worked example</h2>
+<p>1000 keys in table of 1013 gives average chain 1.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring load factor.</li></ul>
+<h2>Why it matters</h2>
+<p>Worst case O(n); randomised hashing mitigates.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Binary Search Trees and AVL</h4>
+          <p>## Overview
+
+BST stores keys so in-order traversal is sorted.
+
+## Key ideas
+
+- Insert/search/delete: O(h).
+- Degenerate trees: h = n.
+- AVL maintains h = O(log n).
+
+## Worked example
+
+Inserting sorted keys gives a linked...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>BST stores keys so in-order traversal is sorted.</p>
+<h2>Key ideas</h2>
+<ul><li>Insert/search/delete: O(h).</li><li>Degenerate trees: h = n.</li><li>AVL maintains h = O(log n).</li></ul>
+<h2>Worked example</h2>
+<p>Inserting sorted keys gives a linked list. AVL rebalances.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting to update heights.</li></ul>
+<h2>Why it matters</h2>
+<p>A balanced tree turns a list into a fast dictionary.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Graph Search: BFS and DFS</h4>
+          <p>## Overview
+
+Graphs model networks, dependencies, state spaces.
+
+## Key ideas
+
+- BFS: levels, shortest unweighted paths.
+- DFS: deep first, cycles.
+- Both O(V+E).
+
+## Worked example
+
+Friendship graph: BFS finds degrees o...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Graphs model networks, dependencies, state spaces.</p>
+<h2>Key ideas</h2>
+<ul><li>BFS: levels, shortest unweighted paths.</li><li>DFS: deep first, cycles.</li><li>Both O(V+E).</li></ul>
+<h2>Worked example</h2>
+<p>Friendship graph: BFS finds degrees of separation.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Using DFS for shortest paths.</li></ul>
+<h2>Why it matters</h2>
+<p>Traversal underlies routing and scheduling.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">7</div>
+        <div class="lecture-content">
+          <h4>Shortest Paths: Dijkstra and Bellman-Ford</h4>
+          <p>## Overview
+
+Cheapest path from a source to every vertex.
+
+## Key ideas
+
+- Dijkstra: non-negative, O((V+E)logV).
+- Bellman-Ford: negative, O(VE).
+
+## Worked example
+
+GPS routing: cities as vertices, roads as edges.
+
+## C...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Cheapest path from a source to every vertex.</p>
+<h2>Key ideas</h2>
+<ul><li>Dijkstra: non-negative, O((V+E)logV).</li><li>Bellman-Ford: negative, O(VE).</li></ul>
+<h2>Worked example</h2>
+<p>GPS routing: cities as vertices, roads as edges.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Using Dijkstra with negative edges.</li></ul>
+<h2>Why it matters</h2>
+<p>Shortest paths underlie routing and network analysis.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">8</div>
+        <div class="lecture-content">
+          <h4>Dynamic Programming</h4>
+          <p>## Overview
+
+Overlapping subproblems and optimal substructure.
+
+## Key ideas
+
+- Break into subproblems.
+- Store answers.
+- Build up to final.
+
+## Worked example
+
+LCS of &quot;ABCBDAB&quot; and &quot;BDCABA&quot; is 4.
+
+## Common pitfalls
+
+-...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Overlapping subproblems and optimal substructure.</p>
+<h2>Key ideas</h2>
+<ul><li>Break into subproblems.</li><li>Store answers.</li><li>Build up to final.</li></ul>
+<h2>Worked example</h2>
+<p>LCS of "ABCBDAB" and "BDCABA" is 4.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Defining subproblem incorrectly.</li></ul>
+<h2>Why it matters</h2>
+<p>DP solves problems that look exponential.</p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Asymptotic Analysis</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Solve T(n)=2T(n/2)+n.</p>
+            <details><summary>Show Solution</summary><p>Master Theorem Case 2: Theta(n log n).</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Prove Omega(n log n) lower bound.</p>
+            <details><summary>Show Solution</summary><p>log2(n!) = Theta(n log n).</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="assignment-item">
+        <h3>📝 Graph Algorithms</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Implement BFS and DFS.</p>
+            <details><summary>Show Solution</summary><p>Queue vs stack.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Dijkstra on weighted graph.</p>
+            <details><summary>Show Solution</summary><p>Priority queue + relaxation.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Prove RB-tree height is O(log n).</p>
+            <details><summary>Show Solution</summary><p>Black-height argument.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> Hash table vs balanced BST.</p>
+            <details><summary>Show Solution</summary><p>Ordering support.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="exam-item">
+        <h3>🎯 Final Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Reduce 3-SAT to graph problem.</p>
+            <details><summary>Show Solution</summary><p>Polynomial reduction.</p></details>
+          </div>
+        
+          <div class="problem-item">
+            <p><strong>Q2.</strong> DP for edit distance.</p>
+            <details><summary>Show Solution</summary><p>D[i][j] recurrence.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>

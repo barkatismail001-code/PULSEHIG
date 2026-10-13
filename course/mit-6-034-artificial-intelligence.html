@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artificial Intelligence — MIT — EECS | TechPulse Academy</title>
+<meta name="description" content="Introduces the core methods of AI: search (A*, minimax, alpha-beta), knowledge representation, reasoning under uncertainty (Bayesian networks, HMMs), machine learning, and natural language processing.">
+<link rel="canonical" href="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html">
+  <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html">
+  <link rel="alternate" hreflang="zh" href="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html?lang=zh">
+  <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html?lang=es">
+  <link rel="alternate" hreflang="hi" href="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html?lang=hi">
+  <link rel="alternate" hreflang="fr" href="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html?lang=fr">
+  <link rel="alternate" hreflang="pt" href="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Artificial Intelligence">
+<meta property="og:description" content="Introduces the core methods of AI: search (A*, minimax, alpha-beta), knowledge representation, reasoning under uncertainty (Bayesian networks, HMMs), machine learning, and natural language processing.">
+<meta property="og:url" content="https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html">
+<meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=20261007">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Artificial Intelligence","description":"Introduces the core methods of AI: search (A*, minimax, alpha-beta), knowledge representation, reasoning under uncertainty (Bayesian networks, HMMs), machine learning, and natural language processing.","provider":{"@type":"Organization","name":"MIT — EECS"},"url":"https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html","courseCode":"6.034","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to AI and Search","courseMode":"online"},{"@type":"CourseInstance","name":"Games: Minimax and Alpha-Beta","courseMode":"online"},{"@type":"CourseInstance","name":"Constraint Satisfaction","courseMode":"online"},{"@type":"CourseInstance","name":"Knowledge Representation and Inference","courseMode":"online"},{"@type":"CourseInstance","name":"Bayesian Networks and HMMs","courseMode":"online"},{"@type":"CourseInstance","name":"Machine Learning: Decision Trees and Nearest Neighbours","courseMode":"online"},{"@type":"CourseInstance","name":"Neural Networks and Deep Learning","courseMode":"online"},{"@type":"CourseInstance","name":"Natural Language Processing","courseMode":"online"}]}</script>
+<style>
+  .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
+  .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
+  .course-hero h1 { font-size: 2rem; margin: 0 0 12px; }
+  .course-hero p { opacity: 0.92; line-height: 1.65; margin: 0; }
+  .course-code-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+  .course-hero-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 24px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .course-stat-num { font-size: 1.6rem; font-weight: 900; color: #fbbf24; display: block; }
+  .course-stat-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.85; }
+  .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .course-tab { background: transparent; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .course-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .course-panel { display: none; }
+  .course-panel.active { display: block; }
+  .course-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; }
+  .lecture-item { border-bottom: 1px solid var(--border); }
+  .lecture-item:last-child { border-bottom: none; }
+  .lecture-header { display: flex; gap: 16px; padding: 20px 24px; cursor: pointer; }
+  .lecture-num { width: 44px; height: 44px; background: var(--primary-soft, #dbeafe); color: var(--primary, #2563eb); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  .lecture-content h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .lecture-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 8px; }
+  .lecture-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .lecture-full { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .lecture-item.open .lecture-full { max-height: 10000px; }
+  .lecture-full-content { padding: 0 24px 24px 84px; line-height: 1.75; border-top: 1px dashed var(--border); padding-top: 20px; }
+  .assignment-item, .exam-item { padding: 24px; border-bottom: 1px solid var(--border); }
+  .problem-item { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .problem-item:last-child { border-bottom: none; }
+  .problem-item details { margin-top: 10px; }
+  .problem-item details p { background: var(--bg-soft); padding: 14px; border-left: 3px solid var(--success); margin-top: 8px; }
+  .problem-item summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lecture-full-content { padding-left: 24px; }
+  }
+</style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZY178VSH5', { anonymize_ip: true, send_page_view: true });
+  </script>
+</head>
+<body>
+<header class="main-header">
+  <div class="container">
+    <div class="logo"><a href="/index.html"><span>TechPulse</span></a></div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/academy.html" class="active">Academy</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/best-picks.html">Best Picks</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/qa.html">Q&A</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/news.html">News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="course-page-wrap">
+    <nav class="breadcrumb" style="margin-bottom:16px">
+      <a href="/index.html">Home</a> &gt; <a href="/academy.html">Academy</a> &gt; <span>Artificial Intelligence</span>
+    </nav>
+    
+    <div class="course-hero">
+      <span class="course-code-badge">6.034 · MIT — EECS</span>
+      <h1>Artificial Intelligence</h1>
+      <p>Introduces the core methods of AI: search (A*, minimax, alpha-beta), knowledge representation, reasoning under uncertainty (Bayesian networks, HMMs), machine learning, and natural language processing.</p>
+      <div class="course-hero-stats">
+        <div><span class="course-stat-num">8</span><span class="course-stat-label">Lectures</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Assignments</span></div>
+        <div><span class="course-stat-num">2</span><span class="course-stat-label">Exams</span></div>
+        <div><span class="course-stat-num">1h</span><span class="course-stat-label">Duration</span></div>
+      </div>
+    </div>
+    
+    <div class="course-tabs">
+      <button class="course-tab active" data-tab="lectures">🎬 Lectures (8)</button>
+      <button class="course-tab" data-tab="assignments">📝 Assignments (2)</button>
+      <button class="course-tab" data-tab="exams">🎯 Exams (2)</button>
+    </div>
+    
+    <div class="course-panel active" data-panel="lectures">
+      <div class="course-section">
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">1</div>
+        <div class="lecture-content">
+          <h4>Introduction to AI and Search</h4>
+          <p>## Overview
+
+Symbolic reasoning and search.
+
+## Key ideas
+
+- Uninformed: BFS, DFS.
+- Informed: greedy, A*.
+- Admissibility guarantees A* optimality.
+
+## Worked example
+
+Map with straight-line heuristic: A* expands fewer ...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Symbolic reasoning and search.</p>
+<h2>Key ideas</h2>
+<ul><li>Uninformed: BFS, DFS.</li><li>Informed: greedy, A*.</li><li>Admissibility guarantees A* optimality.</li></ul>
+<h2>Worked example</h2>
+<p>Map with straight-line heuristic: A* expands fewer nodes than BFS.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Using inadmissible heuristic with A*.</li></ul>
+<h2>Why it matters</h2>
+<p>Search is the foundation of planning and optimisation.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">2</div>
+        <div class="lecture-content">
+          <h4>Games: Minimax and Alpha-Beta</h4>
+          <p>## Overview
+
+Two-player deterministic games.
+
+## Key ideas
+
+- Model as game tree.
+- Minimax assumes optimal play.
+- Alpha-beta prunes branches.
+
+## Worked example
+
+Tic-tac-toe minimax: 255,168 nodes; alpha-beta halves.
+
+...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Two-player deterministic games.</p>
+<h2>Key ideas</h2>
+<ul><li>Model as game tree.</li><li>Minimax assumes optimal play.</li><li>Alpha-beta prunes branches.</li></ul>
+<h2>Worked example</h2>
+<p>Tic-tac-toe minimax: 255,168 nodes; alpha-beta halves.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Forgetting terminal states.</li></ul>
+<h2>Why it matters</h2>
+<p>Real engines add evaluation and deepening.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">3</div>
+        <div class="lecture-content">
+          <h4>Constraint Satisfaction</h4>
+          <p>## Overview
+
+Assign values to variables subject to constraints.
+
+## Key ideas
+
+- Backtracking with propagation.
+- Forward checking.
+- Arc consistency.
+
+## Worked example
+
+Sudoku: 27 constraints. Propagation solves many p...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Assign values to variables subject to constraints.</p>
+<h2>Key ideas</h2>
+<ul><li>Backtracking with propagation.</li><li>Forward checking.</li><li>Arc consistency.</li></ul>
+<h2>Worked example</h2>
+<p>Sudoku: 27 constraints. Propagation solves many puzzles.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring propagation power.</li></ul>
+<h2>Why it matters</h2>
+<p>Propagation removes whole subtrees.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">4</div>
+        <div class="lecture-content">
+          <h4>Knowledge Representation and Inference</h4>
+          <p>## Overview
+
+Telling a machine what we know.
+
+## Key ideas
+
+- Propositional and first-order logic.
+- Forward and backward chaining.
+- Resolution.
+
+## Worked example
+
+&quot;All humans are mortal&quot; + &quot;Socrates is human&quot; -&gt; morta...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Telling a machine what we know.</p>
+<h2>Key ideas</h2>
+<ul><li>Propositional and first-order logic.</li><li>Forward and backward chaining.</li><li>Resolution.</li></ul>
+<h2>Worked example</h2>
+<p>"All humans are mortal" + "Socrates is human" -&gt; mortal.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring computational cost.</li></ul>
+<h2>Why it matters</h2>
+<p>Real systems combine rules with search.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">5</div>
+        <div class="lecture-content">
+          <h4>Bayesian Networks and HMMs</h4>
+          <p>## Overview
+
+Graphical models for probability.
+
+## Key ideas
+
+- DAG encodes conditional independence.
+- Inference is NP-hard generally.
+- HMM: latent state chain.
+
+## Worked example
+
+Medical diagnosis: symptoms -&gt; diseas...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Graphical models for probability.</p>
+<h2>Key ideas</h2>
+<ul><li>DAG encodes conditional independence.</li><li>Inference is NP-hard generally.</li><li>HMM: latent state chain.</li></ul>
+<h2>Worked example</h2>
+<p>Medical diagnosis: symptoms -&gt; diseases.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring arc direction.</li></ul>
+<h2>Why it matters</h2>
+<p>HMMs powered speech recognition for decades.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">6</div>
+        <div class="lecture-content">
+          <h4>Machine Learning: Decision Trees and Nearest Neighbours</h4>
+          <p>## Overview
+
+Two foundational supervised learners.
+
+## Key ideas
+
+- Trees: split on best feature.
+- k-NN: majority vote of neighbours.
+- Trees: low bias high variance.
+
+## Worked example
+
+Classify iris from petal length....</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Two foundational supervised learners.</p>
+<h2>Key ideas</h2>
+<ul><li>Trees: split on best feature.</li><li>k-NN: majority vote of neighbours.</li><li>Trees: low bias high variance.</li></ul>
+<h2>Worked example</h2>
+<p>Classify iris from petal length.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Growing trees until pure.</li></ul>
+<h2>Why it matters</h2>
+<p>Understanding bias/variance is key.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">7</div>
+        <div class="lecture-content">
+          <h4>Neural Networks and Deep Learning</h4>
+          <p>## Overview
+
+From perceptron to multi-layer networks.
+
+## Key ideas
+
+- Perceptron: weighted sum + activation.
+- Stacking gives universal approximator.
+- Backprop via chain rule.
+
+## Worked example
+
+2-layer network approx...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>From perceptron to multi-layer networks.</p>
+<h2>Key ideas</h2>
+<ul><li>Perceptron: weighted sum + activation.</li><li>Stacking gives universal approximator.</li><li>Backprop via chain rule.</li></ul>
+<h2>Worked example</h2>
+<p>2-layer network approximates XOR.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Linear activation in hidden layers.</li></ul>
+<h2>Why it matters</h2>
+<p>ReLU, dropout, batch norm, Adam made it practical.</p></div>
+      </div>
+    </div>
+  
+    <div class="lecture-item">
+      <div class="lecture-header">
+        <div class="lecture-num">8</div>
+        <div class="lecture-content">
+          <h4>Natural Language Processing</h4>
+          <p>## Overview
+
+Language is sequential and ambiguous.
+
+## Key ideas
+
+- Tokenisation, stemming, POS.
+- Constituency and dependency parsing.
+- Embeddings and transformers.
+
+## Worked example
+
+Sentiment: &quot;not bad&quot; positive, &quot;n...</p>
+          <div class="lecture-meta">
+            <span>⏱ 1 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="lecture-full">
+        <div class="lecture-full-content"><h2>Overview</h2>
+<p>Language is sequential and ambiguous.</p>
+<h2>Key ideas</h2>
+<ul><li>Tokenisation, stemming, POS.</li><li>Constituency and dependency parsing.</li><li>Embeddings and transformers.</li></ul>
+<h2>Worked example</h2>
+<p>Sentiment: "not bad" positive, "not good" negative.</p>
+<h2>Common pitfalls</h2>
+<ul><li>Ignoring context window.</li></ul>
+<h2>Why it matters</h2>
+<p>Pre-trained LMs dominate NLP benchmarks.</p></div>
+      </div>
+    </div>
+  </div>
+    </div>
+    
+    <div class="course-panel" data-panel="assignments">
+      <div class="course-section">
+      <div class="assignment-item">
+        <h3>📝 Search</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> A* on grid vs BFS.</p>
+            <details><summary>Show Solution</summary><p>Heuristic reduces expansions.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="assignment-item">
+        <h3>📝 Bayesian Inference</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> P(disease | positive test).</p>
+            <details><summary>Show Solution</summary><p>Bayes rule.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+    
+    <div class="course-panel" data-panel="exams">
+      <div class="course-section">
+      <div class="exam-item">
+        <h3>🎯 Midterm Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> Alpha-beta on given tree.</p>
+            <details><summary>Show Solution</summary><p>Prune when alpha &gt;= beta.</p></details>
+          </div>
+        
+      </div>
+    
+      <div class="exam-item">
+        <h3>🎯 Final Exam</h3>
+        
+          <div class="problem-item">
+            <p><strong>Q1.</strong> First two splits of decision tree.</p>
+            <details><summary>Show Solution</summary><p>Highest information gain.</p></details>
+          </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>&copy; 2026 TechPulse. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/js/common.js?v=20261007" defer></script>
+<script src="/js/i18n.js?v=20261007" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Tab switching
+  document.querySelectorAll('.course-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.course-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.course-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.querySelector('.course-panel[data-panel="' + tab.dataset.tab + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Lecture toggle
+  document.querySelectorAll('.lecture-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var item = header.closest('.lecture-item');
+      if (item) item.classList.toggle('open');
+    });
+  });
+  
+  // Language switcher via ?lang=
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang && lang !== 'en' && window.TPI18N) {
+    window.TPI18N.setLang(lang);
+  }
+});
+</script>
+</body>
+</html>
