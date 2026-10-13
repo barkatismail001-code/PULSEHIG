@@ -21,7 +21,7 @@ if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_KEY) {
 
 const API_KEY = process.env.GEMINI_API_KEY;
 // Models are tried in this order; the first one that answers is used for the whole run.
-const MODELS = [process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.5-flash-lite']
+const MODELS = [process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-3.8-flash', 'gemini-3.5-flash-lite']
   .filter((m, i, a) => m && a.indexOf(m) === i);
 let activeModel = MODELS[0];
 const MODEL = MODELS[0];
@@ -102,21 +102,50 @@ async function callGemini(model, text, langName, timeoutMs) {
 
 const callOnce = (text, langName) => callGemini(activeModel, text, langName, REQUEST_TIMEOUT_MS);
 
-/* Try every model with a tiny request; print the real HTTP status of each one. */
+/* Ask Google which Flash models this key can use right now (old ones get retired). */
+async function discoverModels() {
+  try {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200', {
+      headers: { 'x-goog-api-key': API_KEY }, signal: AbortSignal.timeout(20 * 1000)
+    });
+    if (!res.ok) return [];
+    const d = await res.json();
+    return (d.models || [])
+      .filter((m) => (m.supportedGenerationMethods || []).includes('generateContent'))
+      .map((m) => String(m.name || '').replace(/^models\//, ''))
+      .filter((n) => /flash/i.test(n) && !/image|tts|live|audio|embed|vision|thinking|exp|robotics|computer/i.test(n))
+      .sort((a, b) => (/lite/i.test(a) ? 1 : 0) - (/lite/i.test(b) ? 1 : 0) || b.localeCompare(a));
+  } catch (e) { return []; }
+}
+
+/* Try the models with a tiny request; 503/429/timeouts are temporary, so retry a few rounds. */
 async function preflight() {
-  const problems = [];
-  for (const m of MODELS) {
-    try {
-      await callGemini(m, 'Hello', 'French', 30 * 1000);
-      activeModel = m;
-      console.log(`Gemini preflight OK with model: ${m}`);
-      return;
-    } catch (e) {
-      const msg = `${m}: ${e.status || ''} ${String(e.message || '').slice(0, 200)}`;
-      problems.push(msg);
-      console.error('  preflight failed -> ' + msg);
-      if (e.status === 401 || e.status === 403 || e.status === 400 && /API key/i.test(e.message || '')) break; // bad key: other models will not help
+  const found = await discoverModels();
+  if (found.length) console.log('Models available for this key: ' + found.slice(0, 8).join(', '));
+  const list = MODELS.concat(found.slice(0, 6)).filter((m, i, a) => a.indexOf(m) === i);
+  const ROUNDS = 3;
+  let problems = [];
+  for (let round = 1; round <= ROUNDS; round++) {
+    problems = [];
+    let temporary = false;
+    for (const m of list) {
+      try {
+        await callGemini(m, 'Hello', 'French', 30 * 1000);
+        activeModel = m;
+        console.log(`Gemini preflight OK with model: ${m}`);
+        return;
+      } catch (e) {
+        problems.push(`${m}: ${e.status || ''} ${String(e.message || '').slice(0, 160)}`);
+        console.error('  preflight failed -> ' + problems[problems.length - 1]);
+        if (e.status === 401 || e.status === 403 || (e.status === 400 && /API key/i.test(e.message || ''))) {
+          throw new StopRun('Gemini rejected the API key | ' + problems.join(' | '));
+        }
+        if ([429, 500, 503, 504, 'TIMEOUT', 'NETWORK'].includes(e.status)) temporary = true;
+      }
     }
+    if (!temporary || round === ROUNDS) break;
+    console.log(`  Gemini is busy, new attempt in 30s (round ${round}/${ROUNDS})`);
+    await sleep(30 * 1000);
   }
   throw new StopRun('Gemini preflight failed for all models | ' + problems.join(' | '));
 }
