@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { GoogleGenAI } from '@google/genai';
 import { createClient } from '@supabase/supabase-js';
+import { appendFileSync } from 'node:fs';
 
 /*
  * Translate articles (fr, es, zh, hi, pt) with Gemini and save them to Supabase.
@@ -45,7 +46,16 @@ const outOfTime = () => Date.now() - START > MAX_RUNTIME_MIN * 60 * 1000;
 const has = (v) => typeof v === 'string' && v.trim().length > 0;
 
 let consecutiveFails = 0;
+let failures = 0;
+let stopReason = '';
+const errorsSeen = [];
 class StopRun extends Error {}
+
+function summary(lines) {
+  const f = process.env.GITHUB_STEP_SUMMARY;
+  if (!f) return;
+  try { appendFileSync(f, lines.join('\n') + '\n'); } catch (e) { /* ignore */ }
+}
 
 /* ---------- one Gemini call with hard timeout ---------- */
 async function callOnce(text, langName) {
@@ -188,8 +198,15 @@ async function main() {
   const todo = arts.filter((a) => has(a.title) && has(a.content) && missingLangs(a).length > 0);
   console.log(`Total articles: ${arts.length} | need translation: ${todo.length} | limit: ${LIMIT || 'none'} | budget: ${MAX_RUNTIME_MIN} min`);
 
+  console.log(`Supabase: ${new URL(process.env.SUPABASE_URL).host} | model: ${MODEL}`);
+  todo.slice(0, 10).forEach((a) => console.log(`  - #${a.id} "${String(a.title).slice(0, 60)}" missing: ${missingLangs(a).map((l) => l.code).join(',')}`));
+
   let attempted = 0, completed = 0;
   try {
+    if (todo.length) {                            // preflight: one tiny request tells us at once if key/model/quota work
+      try { await callOnce('Hello', 'French'); console.log('Gemini preflight OK'); }
+      catch (e) { throw new StopRun('Gemini preflight failed: ' + (e.status || '') + ' ' + String(e.message || '').slice(0, 300)); }
+    }
     for (const a of todo) {                       // newest articles first
       if (LIMIT && attempted >= LIMIT) { console.log(`Limit reached (${LIMIT})`); break; }
       if (outOfTime()) { console.log('Time budget used up, stopping cleanly'); break; }
@@ -214,18 +231,33 @@ async function main() {
         } catch (e) {
           if (e instanceof StopRun) throw e;
           ok = false;
-          console.error(`  ❌ ${a.id}/${L.code}: ${e.status || ''} ${e.message}`);
+          failures++;
+          const msg = `${a.id}/${L.code}: ${e.status || ''} ${String(e.message || '').slice(0, 300)}`;
+          if (errorsSeen.length < 8) errorsSeen.push(msg);
+          console.error(`  ❌ ${msg}`);
         }
       }
       if (ok) { completed++; console.log(`✅ Translated: ${a.id}`); }
       else console.log(`⚠️  Partly translated: ${a.id} (will be retried next run)`);
     }
   } catch (e) {
-    if (e instanceof StopRun) console.error(`🛑 Stopped: ${e.message}`);
+    if (e instanceof StopRun) { stopReason = e.message; console.error(`🛑 Stopped: ${e.message}`); }
     else throw e;
   }
 
-  console.log(`🎉 Done. attempted=${attempted} completed=${completed} time=${Math.round((Date.now() - START) / 1000)}s`);
+  console.log(`Done. attempted=${attempted} completed=${completed} failures=${failures} time=${Math.round((Date.now() - START) / 1000)}s`);
+  summary([
+    '### Translate articles',
+    `- need translation: ${todo.length} | attempted: ${attempted} | completed: ${completed} | failures: ${failures}`,
+    stopReason ? `- STOPPED: ${stopReason}` : '',
+    ...errorsSeen.map((m) => '- ' + m)
+  ]);
+
+  // Never report "success" when the work did not happen.
+  if (stopReason || (attempted > 0 && completed === 0)) {
+    console.error('❌ Translation did not complete. See the errors above.');
+    process.exit(1);
+  }
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
