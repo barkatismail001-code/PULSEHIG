@@ -1,0 +1,115 @@
+﻿TechPulse Audit — 2026-10-13 09:51:25
+Root: D:\SITEWEB\pulsetech
+
+============================================================
+  1) FILE COUNTS
+============================================================
+  index.html           True
+  HTML total           122
+  a/*.html             42
+  course/*.html        6
+  tools/*.html         34
+  guides/*.html        11
+  series/*.html        6
+  js/*.js              20
+  scripts/*.mjs        12
+  data/*.json          10
+
+============================================================
+  2) SECURITY
+============================================================
+  [!!] .env EXISTS
+    SUPABASE_URL           = https://cesc… (len=40)
+    SUPABASE_SERVICE_KEY   = sb_secret_OS… (len=41)
+    GEMINI_API_KEY         = AQ.Ab8RN6I7k… (len=53)
+  .gitignore contains '.env': YES
+  .gitignore contains 'node_modules': YES
+  .gitignore contains '_backup_': YES
+  .gitignore contains '*.zip': YES
+
+============================================================
+  3) ARTICLES CONSISTENCY
+============================================================
+  Supabase articles:      32
+  a/articles.json:        32
+  data/articles.json:     23
+  manual-articles.json:   10
+  a/*.html on disk:       42
+  [!!] On disk but not in DB (10):
+       driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet-4
+       esp32-won-t-wake-from-deep-sleep-causes-and-fixes-23
+       fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-25
+       i2c-timeouts-when-your-esp32-freezes-in-real-life-32
+       pc-won-t-boot-the-7-step-no-post-checklist-29
+       router-keeps-rebooting-6-causes-you-can-fix-today-31
+       stop-your-raspberry-pi-from-overheating-in-a-closed-case-30
+       turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide-28
+       why-your-esp32-wi-fi-keeps-dropping-and-how-to-fix-it-7
+       why-your-led-strip-flickers-pwm-power-and-ground-explained-27
+  [OK] every DB row has a file
+
+============================================================
+  4) SITEMAPS
+============================================================
+  sitemap.xml              locs=6     OK
+  sitemap-pages.xml        locs=14    OK
+  sitemap-posts.xml        locs=42    OK
+  sitemap-series.xml       locs=5     OK
+  sitemap-tools.xml        locs=34    OK
+  sitemap-guides.xml       locs=11    OK
+  sitemap-courses.xml      locs=6     OK
+
+============================================================
+  5) VERIFY-BUILD
+============================================================
+  Errors:   0
+  Warnings: 0
+  [OK] PASSED
+
+============================================================
+  6) NEWS.JSON PATHS
+============================================================
+  js\common.js           relative=0  absolute=1
+  js\live-news.js        relative=0  absolute=1
+
+============================================================
+  7) HREFLANG in index.html
+============================================================
+  en         YES (1)
+  zh         YES (1)
+  es         YES (1)
+  fr         YES (1)
+  hi         YES (1)
+  pt         YES (1)
+  x-default  YES (1)
+
+============================================================
+  8) COURSE FILES vs DB
+============================================================
+  DB courses:  6
+  Disk files:  6
+  [OK] every course file has a DB row
+
+============================================================
+  9) BACKUPS + SIZE
+============================================================
+  Backup dirs:   1
+    _backup_20261013-082821
+  node_modules:  EXISTS
+  Total size:    56 MB
+  Without junk:  3.9 MB
+
+============================================================
+  10) NPM SCRIPTS
+============================================================
+  build              node scripts/generate-seo.mjs
+  build:static       node scripts/generate-seo.mjs && node scripts/generate-courses.mjs && node scripts/generate-tools-guides.mjs && node scripts/update-sitemap.mjs
+  seo                node scripts/generate-seo.mjs
+  seo:courses        node scripts/generate-courses.mjs
+  seo:tools          node scripts/generate-tools-guides.mjs
+  seo:sitemap        node scripts/update-sitemap.mjs
+  serve              npx http-server -p 8000 -c-1
+  dev                npx http-server -p 8000 -c-1 -o
+  clean              node -e "const fs=require('fs');['a','series','rss','course','tools','guides'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true})}catch(e){}})"
+  bot                node scripts/daily-bot.mjs
+  translate          node scripts/translate-articles.mjs

@@ -2,7 +2,7 @@
    TechPulse — Service Worker v20261005
    Network-first with multi-tier caching for offline support.
    ========================================================================== */
-var CACHE_VERSION = 'techpulse-v3.0.3';
+var CACHE_VERSION = 'techpulse-v3.0.4';
 var STATIC_CACHE = CACHE_VERSION + '-static';
 var DYNAMIC_CACHE = CACHE_VERSION + '-dynamic';
 var TOOLS_CACHE = CACHE_VERSION + '-tools';

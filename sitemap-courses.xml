@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-</urlset>
-
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
+  <url><loc>https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html</loc><lastmod>2026-10-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html</loc><lastmod>2026-10-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html</loc><lastmod>2026-10-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-004-computation-structures.html</loc><lastmod>2026-10-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html</loc><lastmod>2026-10-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html</loc><lastmod>2026-10-13</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
 </urlset>

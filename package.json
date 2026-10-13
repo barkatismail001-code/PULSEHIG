@@ -1,48 +1,50 @@
-{
-  "name": "techpulse",
-  "version": "1.0.0",
-  "description": "TechPulse — Tech + Home + Academy. Free engineering platform.",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "build": "node scripts/generate-seo.mjs",
-    "build:static": "node scripts/generate-seo.mjs && node scripts/generate-courses.mjs && node scripts/generate-tools-guides.mjs && node scripts/update-sitemap.mjs",
-    "seo": "node scripts/generate-seo.mjs",
-    "seo:courses": "node scripts/generate-courses.mjs",
-    "seo:tools": "node scripts/generate-tools-guides.mjs",
-    "seo:sitemap": "node scripts/update-sitemap.mjs",
-    "serve": "npx http-server -p 8000 -c-1",
-    "dev": "npx http-server -p 8000 -c-1 -o",
-    "clean": "node -e \"const fs=require('fs');['a','series','rss','course','tools','guides'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true})}catch(e){}})\"",
-    "bot": "node scripts/daily-bot.mjs",
-    "translate": "node scripts/translate-articles.mjs"
-  },
-  "dependencies": {
-    "@google/genai": "^2.28.0",
-    "@supabase/supabase-js": "^2.45.0",
-    "dotenv": "^18.0.7"
-  },
-  "devDependencies": {
-    "http-server": "^14.1.1"
-  },
-  "engines": {
-    "node": ">=20.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jonsrockytech/TECHN-PULSE.git"
-  },
-  "keywords": [
-    "esp32",
-    "arduino",
-    "embedded",
-    "engineering",
-    "home-automation",
-    "university-courses",
-    "calculators",
-    "iot"
-  ],
-  "author": "TechPulse",
-  "license": "MIT",
-  "homepage": "https://www.pulsehig.com"
+﻿{
+    "name":  "techpulse",
+    "version":  "1.0.0",
+    "description":  "TechPulse — Tech + Home + Academy. Free engineering platform.",
+    "type":  "module",
+    "private":  true,
+    "scripts":  {
+                    "build":  "node scripts/generate-seo.mjs",
+                    "build:static":  "node scripts/generate-seo.mjs \u0026\u0026 node scripts/generate-courses.mjs \u0026\u0026 node scripts/generate-tools-guides.mjs \u0026\u0026 node scripts/update-sitemap.mjs",
+                    "seo":  "node scripts/generate-seo.mjs",
+                    "seo:courses":  "node scripts/generate-courses.mjs",
+                    "seo:tools":  "node scripts/generate-tools-guides.mjs",
+                    "seo:sitemap":  "node scripts/update-sitemap.mjs",
+                    "serve":  "npx http-server -p 8000 -c-1",
+                    "dev":  "npx http-server -p 8000 -c-1 -o",
+                    "clean":  "node -e \"const fs=require(\u0027fs\u0027);[\u0027a\u0027,\u0027series\u0027,\u0027rss\u0027,\u0027course\u0027,\u0027tools\u0027,\u0027guides\u0027].forEach(d=\u003e{try{fs.rmSync(d,{recursive:true,force:true})}catch(e){}})\"",
+                    "bot":  "node scripts/daily-bot.mjs",
+                    "translate":  "node scripts/translate-articles.mjs"
+                },
+    "dependencies":  {
+                         "@google/genai":  "^2.28.0",
+                         "@supabase/supabase-js":  "^2.45.0",
+                         "dotenv":  "^18.0.7",
+                         "cheerio":  "^1.0.0",
+                         "turndown":  "^7.2.0"
+                     },
+    "devDependencies":  {
+                            "http-server":  "^14.1.1"
+                        },
+    "engines":  {
+                    "node":  "\u003e=20.0.0"
+                },
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/jonsrockytech/TECHN-PULSE.git"
+                   },
+    "keywords":  [
+                     "esp32",
+                     "arduino",
+                     "embedded",
+                     "engineering",
+                     "home-automation",
+                     "university-courses",
+                     "calculators",
+                     "iot"
+                 ],
+    "author":  "TechPulse",
+    "license":  "MIT",
+    "homepage":  "https://www.pulsehig.com"
 }

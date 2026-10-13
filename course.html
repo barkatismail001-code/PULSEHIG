@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://ijgvrjkpiofamwcmkmgi.supabase.co wss://ijgvrjkpiofamwcmkmgi.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://cescfarawvpzmilteufq.supabase.co wss://cescfarawvpzmilteufq.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Course | TechPulse Academy</title>
@@ -10,7 +10,7 @@
   <link rel="canonical" href="https://www.pulsehig.com/course.html">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="manifest" href="manifest.json">
-  <link rel="preconnect" href="https://ijgvrjkpiofamwcmkmgi.supabase.co" crossorigin>
+  <link rel="preconnect" href="https://cescfarawvpzmilteufq.supabase.co" crossorigin>
   <link rel="stylesheet" href="css/style.css?v=20261011">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0"></script>
 
@@ -380,6 +380,14 @@
       transform: translateY(-2px);
     }
   </style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZY178VSH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZY178VSH5', { anonymize_ip: true, send_page_view: true });
+  </script>
 </head>
 <body>
 
@@ -576,8 +584,27 @@
             var lecTitle = (lec.title_i18n && lec.title_i18n[lang]) || lec.title || '';
             var lecContent = (lec.content_i18n && lec.content_i18n[lang]) || lec.content || '';
             var fullRendered = renderMarkdown(lecContent);
-            var plainContent = lecContent.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-            var excerpt = plainContent.slice(0, 200) + (plainContent.length > 200 ? '…' : '');
+            // ---- Build a real summary: Overview + Key ideas only ----
+            var mdClean = function (s) {
+              return String(s || '')
+                .replace(/```[\s\S]*?```/g, ' ')
+                .replace(/^#{1,6}\s+/gm, '')
+                .replace(/\*\*([^*\n]+)\*\*/g, '$1')
+                .replace(/\*([^*\n]+)\*/g, '$1')
+                .replace(/`([^`\n]+)`/g, '$1')
+                .replace(/^\s*[-*•]\s+/gm, '')
+                .replace(/^\s*\d+[.)]\s+/gm, '')
+                .replace(/<[^>]+>/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+            };
+            var ovM = lecContent.match(/##\s+Overview\s*\n+([\s\S]*?)(?=\n##\s|$)/);
+            var kiM = lecContent.match(/##\s+Key ideas\s*\n+([\s\S]*?)(?=\n##\s|$)/);
+            var summaryParts = [];
+            if (ovM) summaryParts.push(mdClean(ovM[1]));
+            if (kiM) summaryParts.push(mdClean(kiM[1]));
+            var plainContent = summaryParts.join(' ') || mdClean(lecContent);
+            var excerpt = plainContent.slice(0, 260) + (plainContent.length > 260 ? '…' : '');
             var duration = Number(lec.duration_minutes) || 50;
 
             return '<div class="lecture-item" data-lecture="' + (lec.number || '') + '">' +

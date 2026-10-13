@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" translate="no">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://ijgvrjkpiofamwcmkmgi.supabase.co wss://ijgvrjkpiofamwcmkmgi.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://cescfarawvpzmilteufq.supabase.co wss://cescfarawvpzmilteufq.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
   <meta charset="UTF-8">
   <meta http-equiv="Content-Language" content="en">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,9 +32,9 @@
   <meta name="twitter:description" content="Free engineering guides, university-level courses, best tech picks.">
   <meta name="twitter:image" content="https://www.pulsehig.com/assets/og-default.png">
 
-  <link rel="preconnect" href="https://ijgvrjkpiofamwcmkmgi.supabase.co" crossorigin>
+  <link rel="preconnect" href="https://cescfarawvpzmilteufq.supabase.co" crossorigin>
   <link rel="preconnect" href="https://hacker-news.firebaseio.com" crossorigin>
-  <link rel="dns-prefetch" href="https://ijgvrjkpiofamwcmkmgi.supabase.co">
+  <link rel="dns-prefetch" href="https://cescfarawvpzmilteufq.supabase.co">
 
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="manifest" href="manifest.json">
@@ -254,10 +254,12 @@
 
     <div class="layout">
       <div>
-        <section class="articles-grid" id="articles-container" aria-live="polite">
+        <section class="articles-grid" id="articles-container" data-mode="top" aria-live="polite">
           <p class="loading-state" data-i18n="loading">Loading articles...</p>
         </section>
-      </div>
+        <div style="text-align:center;margin:28px 0 8px">
+          <a href="articles.html" id="viewAllArticlesBtn" class="btn-primary" style="display:none">View all articles →</a>
+        </div>      </div>
 
 
 <aside class="sidebar" aria-label="Sidebar">
@@ -327,14 +329,6 @@
       </aside>
     </div>
 
-    <!-- tp-auto:latest -->
-    <section class="all-articles" aria-labelledby="allArticlesHeading">
-      <h2 id="allArticlesHeading" class="section-heading" data-i18n="all_articles">All articles</h2>
-      <ul class="all-articles-list" id="allArticlesList">
-        <li><a href="/a/how-to-fix-esp32-upload-failures-in-under-5-minutes.html">How to Fix ESP32 Upload Failures in Under 5 Minutes</a> <span class="all-articles-cat">Technology</span></li>
-      </ul>
-    </section>
-    <!-- /tp-auto:latest -->
 
   </main>
 
