@@ -54,9 +54,9 @@ async function generateArticle(topic, category) {
     model: MODEL,
     contents: `Write a detailed, practical technical article (1500-2500 words) about: "${topic}".
 Use concrete component values, units and step-by-step verification. Never invent statistics or quotes.
-Structure: short introduction, 5-7 sections with <h2> headings, a FAQ section with 4 questions, a conclusion.
+Structure: short introduction, 5-7 sections with "## Heading" markdown headings, a FAQ section with 4 questions, a conclusion. Output Markdown only - no HTML tags.
 Return JSON only (no markdown fences):
-{"title":"...","excerpt":"140-155 characters","content":"<p>HTML content using only p, h2, h3, ul, ol, li, strong, code, pre tags</p>","category":"${category}","tags":["...","..."]}`,
+{"title":"...","excerpt":"140-155 characters","content":"full Markdown article","category":"${category}","tags":["...","..."]}`,
     config: {
       systemInstruction: 'You are a senior technical writer for TechPulse, a website about ESP32/Arduino, embedded systems, home repair and programming. Output valid JSON only.',
       responseMimeType: 'application/json',

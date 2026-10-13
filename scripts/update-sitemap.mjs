@@ -1,94 +1,54 @@
-// TechPulse — Generate sitemaps for tools, guides, courses
-// Run: node scripts/update-sitemap.mjs
+// TechPulse — Build sitemaps from the files on disk.
+// Disk state = what's actually deployed = source of truth for SEO.
+// Runs after generate-seo.mjs, generate-courses.mjs, generate-tools-guides.mjs.
 
-import { readFile, writeFile } from 'node:fs/promises';
+import { readdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://www.pulsehig.com';
 const TODAY = new Date().toISOString().slice(0, 10);
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY || '';
 
-async function loadJson(path) {
+async function listHtml(dir) {
   try {
-    const raw = await readFile(path, 'utf8');
-    const data = JSON.parse(raw);
-    return Array.isArray(data) ? data : [];
-  } catch (e) {
-    console.warn('  WARN: Could not load ' + path + ': ' + e.message);
-    return [];
-  }
-}
-
-async function fetchCourses() {
-  if (!SUPABASE_KEY) {
-    console.warn('  WARN: No SUPABASE_KEY, skipping courses');
-    return [];
-  }
-  try {
-    const url = SUPABASE_URL + '/rest/v1/courses?select=slug,title,code,university&order=code.asc&limit=500';
-    const res = await fetch(url, {
-      headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
-    });
-    if (!res.ok) {
-      console.warn('  WARN: Supabase HTTP ' + res.status);
-      return [];
-    }
-    const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch (e) {
-    console.warn('  WARN: ' + e.message);
-    return [];
-  }
+    return (await readdir(join(ROOT, dir))).filter(f => f.endsWith('.html') && f !== 'index.html').sort();
+  } catch { return []; }
 }
 
 function wrapUrlset(urls) {
-  return '<?xml version="1.0" encoding="UTF-8"?>\n' +
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    urls + '\n</urlset>\n';
+  return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '\n</urlset>\n';
+}
+
+const DIR_TO_SITEMAP = {
+  'a':      'sitemap-posts.xml',
+  'course': 'sitemap-courses.xml',
+  'tools':  'sitemap-tools.xml',
+  'guides': 'sitemap-guides.xml',
+  'series': 'sitemap-series.xml'
+};
+
+async function buildFromDir(dir, urlPrefix, priority) {
+  const files = await listHtml(dir);
+  const urls = files.map(f => {
+    const slug = f.replace(/\.html$/, '');
+    return '  <url><loc>' + SITE + urlPrefix + slug + '.html</loc><lastmod>' + TODAY + '</lastmod><changefreq>monthly</changefreq><priority>' + priority + '</priority></url>';
+  }).join('\n');
+  const out = DIR_TO_SITEMAP[dir] || ('sitemap-' + dir + '.xml');
+  await writeFile(join(ROOT, out), wrapUrlset(urls));
+  console.log('  ' + out + ' (' + files.length + ')');
+  return files.length;
 }
 
 async function main() {
-  console.log('Generating extended sitemaps...\n');
+  console.log('Building sitemaps from disk...');
 
-  // 1) Tools sitemap
-  const tools = await loadJson(join(ROOT, 'data', 'tools.json'));
-  const toolsUrls = tools
-    .filter(t => t && (t.slug || t.id))
-    .map(t => {
-      const slug = t.slug || t.id;
-      return '  <url>\n    <loc>' + SITE + '/tools/' + slug + '.html</loc>\n    <lastmod>' + TODAY + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.85</priority>\n  </url>';
-    })
-    .join('\n');
-  await writeFile(join(ROOT, 'sitemap-tools.xml'), wrapUrlset(toolsUrls));
-  console.log('  sitemap-tools.xml (' + tools.length + ' tools)');
+  await buildFromDir('a',      '/a/',      '0.8');
+  await buildFromDir('course', '/course/', '0.85');
+  await buildFromDir('tools',  '/tools/',  '0.85');
+  await buildFromDir('guides', '/guides/', '0.85');
+  await buildFromDir('series', '/series/', '0.7');
 
-  // 2) Guides sitemap
-  const guides = await loadJson(join(ROOT, 'data', 'guides.json'));
-  const guidesUrls = guides
-    .filter(g => g && (g.slug || g.id))
-    .map(g => {
-      const slug = g.slug || g.id;
-      return '  <url>\n    <loc>' + SITE + '/guides/' + slug + '.html</loc>\n    <lastmod>' + TODAY + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.85</priority>\n  </url>';
-    })
-    .join('\n');
-  await writeFile(join(ROOT, 'sitemap-guides.xml'), wrapUrlset(guidesUrls));
-  console.log('  sitemap-guides.xml (' + guides.length + ' guides)');
-
-  // 3) Courses sitemap
-  const courses = await fetchCourses();
-  const coursesUrls = courses
-    .filter(c => c && c.slug)
-    .map(c => {
-      return '  <url>\n    <loc>' + SITE + '/course/' + c.slug + '.html</loc>\n    <lastmod>' + TODAY + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.85</priority>\n  </url>';
-    })
-    .join('\n');
-  await writeFile(join(ROOT, 'sitemap-courses.xml'), wrapUrlset(coursesUrls));
-  console.log('  sitemap-courses.xml (' + courses.length + ' courses)');
-
-  // 4) Update sitemap.xml index
   const subSitemaps = [
     'sitemap-pages.xml',
     'sitemap-posts.xml',
@@ -101,17 +61,12 @@ async function main() {
   const indexXml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
     '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     subSitemaps.map(name =>
-      '  <sitemap>\n    <loc>' + SITE + '/' + name + '</loc>\n    <lastmod>' + TODAY + '</lastmod>\n  </sitemap>'
+      '  <sitemap><loc>' + SITE + '/' + name + '</loc><lastmod>' + TODAY + '</lastmod></sitemap>'
     ).join('\n') + '\n</sitemapindex>\n';
 
   await writeFile(join(ROOT, 'sitemap.xml'), indexXml);
-  console.log('  sitemap.xml (index updated with ' + subSitemaps.length + ' sub-sitemaps)');
-
+  console.log('  sitemap.xml (index: ' + subSitemaps.length + ' sub-sitemaps)');
   console.log('\nDone.');
-  console.log('  Tools:   ' + tools.length);
-  console.log('  Guides:  ' + guides.length);
-  console.log('  Courses: ' + courses.length);
-  console.log('  Total new URLs: ' + (tools.length + guides.length + courses.length));
 }
 
-main().catch((e) => { console.error('ERROR:', e); process.exit(1); });
+main().catch(e => { console.error(e); process.exit(1); });

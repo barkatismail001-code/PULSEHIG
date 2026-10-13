@@ -12,7 +12,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://www.pulsehig.com';
 const SITE_NAME = 'TechPulse';
 const SITE_DESC = 'Engineering platform for embedded systems, microcontrollers, home repair, and programming.';
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://cescfarawvpzmilteufq.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY || '';
 const ASSET_V = '20261010';
 const DEFAULT_IMG = SITE + '/assets/og-default.png';
@@ -109,7 +109,7 @@ async function exists(p) { try { await access(p); return true; } catch { return 
 async function loadFromSupabase() {
   if (!SUPABASE_KEY) { console.warn('No SUPABASE_KEY — skipping Supabase'); return []; }
   try {
-    const url = SUPABASE_URL + '/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,images,tags,title_i18n,excerpt_i18n,content_i18n&order=date.desc&limit=1000';
+    const url = SUPABASE_URL + '/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,images,tags,slug,title_i18n,excerpt_i18n,content_i18n&order=date.desc&limit=1000';
     const res = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
     if (res.ok) {
       const data = await res.json();
@@ -145,11 +145,52 @@ async function resolveImage(img) {
   return '';
 }
 
+function looksLikeHtml(s) {
+  return /<\s*(h[1-6]|p|ul|ol|li|pre|code|strong|em|a|img|blockquote|table|div|section)\b/i.test(String(s || ''));
+}
+
 function inlineMd(s) {
   return esc(s).replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>').replace(/`([^`\n]+)`/g, '<code>$1</code>');
 }
 
+function htmlToMarkdown(html) {
+  return String(html || '')
+    .replace(/<h1[^>]*>([\s\S]*?)<\/h1>/gi, '# $1\n\n')
+    .replace(/<h2[^>]*>([\s\S]*?)<\/h2>/gi, '## $1\n\n')
+    .replace(/<h3[^>]*>([\s\S]*?)<\/h3>/gi, '### $1\n\n')
+    .replace(/<h4[^>]*>([\s\S]*?)<\/h4>/gi, '#### $1\n\n')
+    .replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, '$1\n\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, '- $1\n')
+    .replace(/<\/?(ul|ol)[^>]*>/gi, '\n')
+    .replace(/<strong[^>]*>([\s\S]*?)<\/strong>/gi, '**$1**')
+    .replace(/<b[^>]*>([\s\S]*?)<\/b>/gi, '**$1**')
+    .replace(/<em[^>]*>([\s\S]*?)<\/em>/gi, '*$1*')
+    .replace(/<i[^>]*>([\s\S]*?)<\/i>/gi, '*$1*')
+    .replace(/<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi, '[$2]($1)')
+    .replace(/<code[^>]*>([\s\S]*?)<\/code>/gi, '`$1`')
+    .replace(/<pre[^>]*>([\s\S]*?)<\/pre>/gi, '\n```\n$1\n```\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 function renderContent(text) {
+  const src = String(text || '').replace(/\r\n/g, '\n');
+  // Real HTML tags → convert first
+  if (/<\s*(h[1-6]|p|ul|ol|li|pre|code|strong|em|a|img|blockquote|table|div|section)\b/i.test(src)) {
+    return renderMarkdown(htmlToMarkdown(src));
+  }
+  return renderMarkdown(src);
+}
+
+function renderMarkdown(text) {
   const src = String(text || '').replace(/\r\n/g, '\n');
   const chunks = src.split(/```[a-zA-Z0-9+#-]*\n([\s\S]*?)```/);
   const out = [];
@@ -326,6 +367,53 @@ function seriesPage(s, all) {
     '<script src="/js/common.js?v=' + ASSET_V + '" defer></script>\n</body></html>\n';
 }
 
+
+// ---------- tools / guides / courses for the sitemap index ----------
+async function loadTools() {
+  try { const j = JSON.parse(await readFile(join(ROOT, 'data', 'tools.json'), 'utf8')); return Array.isArray(j) ? j : []; } catch { return []; }
+}
+async function loadGuides() {
+  try { const j = JSON.parse(await readFile(join(ROOT, 'data', 'guides.json'), 'utf8')); return Array.isArray(j) ? j : []; } catch { return []; }
+}
+async function loadCourses() {
+  if (!SUPABASE_KEY) return [];
+  try {
+    const url = SUPABASE_URL + '/rest/v1/courses?select=slug,code&order=code.asc&limit=500';
+    const res = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
+    return res.ok ? (await res.json()) : [];
+  } catch { return []; }
+}
+async function buildToolsSitemap() {
+  const items = await loadTools();
+  const urls = items.filter(t => t && (t.slug || t.id))
+    .map(t => '  <url><loc>' + SITE + '/tools/' + (t.slug || t.id) + '.html</loc><lastmod>' + today + '</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>')
+    .join('\n');
+  await writeFile(join(ROOT, 'sitemap-tools.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '\n</urlset>\n');
+  console.log('✓ sitemap-tools.xml (' + items.length + ')');
+  return items.length;
+}
+async function buildGuidesSitemap() {
+  const items = await loadGuides();
+  const urls = items.filter(g => g && (g.slug || g.id))
+    .map(g => '  <url><loc>' + SITE + '/guides/' + (g.slug || g.id) + '.html</loc><lastmod>' + today + '</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>')
+    .join('\n');
+  await writeFile(join(ROOT, 'sitemap-guides.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '\n</urlset>\n');
+  console.log('✓ sitemap-guides.xml (' + items.length + ')');
+  return items.length;
+}
+async function buildCoursesSitemap() {
+  const items = await loadCourses();
+  const urls = items.filter(c => c && c.slug)
+    .map(c => '  <url><loc>' + SITE + '/course/' + c.slug + '.html</loc><lastmod>' + today + '</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>')
+    .join('\n');
+  await writeFile(join(ROOT, 'sitemap-courses.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '\n</urlset>\n');
+  console.log('✓ sitemap-courses.xml (' + items.length + ')');
+  return items.length;
+}
+
 async function main() {
   await mkdir(join(ROOT, 'a'), { recursive: true });
   await mkdir(join(ROOT, 'series'), { recursive: true });
@@ -356,7 +444,7 @@ async function main() {
   }
 
   // Load manual articles
-  const manualList = await loadManual();
+  const manualList = [];
   for (const m of manualList) {
     if (seenSlugs.has(m.slug)) continue;
     seenSlugs.add(m.slug);
@@ -397,6 +485,19 @@ async function main() {
     written++;
   }
   console.log('✓ ' + written + ' article pages written');
+  // a/articles.json — fallback feed consumed by common.js loadFromA()
+  const aIndex = articles.map((a) => ({
+    id: a.id, slug: a.slug, title: a.title, excerpt: a.excerpt, content: a.content,
+    category: a.category, author: a.author,
+    date: a.date instanceof Date ? a.date.toISOString().slice(0, 10) : a.date,
+    image: a.image || '',
+    tags: a.tags || [], featured: !!a.featured,
+    title_i18n: a.title_i18n || {},
+    excerpt_i18n: a.excerpt_i18n || {},
+    content_i18n: a.content_i18n || {}
+  }));
+  await writeFile(join(ROOT, 'a', 'articles.json'), JSON.stringify(aIndex, null, 2) + '\n');
+  console.log('✓ a/articles.json written (' + aIndex.length + ')');
 
   // Write series pages
   for (const s of SERIES) {
@@ -409,12 +510,18 @@ async function main() {
   articles.filter((a) => !a.manual).forEach((a) => { slugMap[a.id] = a.slug; });
   await writeFile(join(ROOT, 'data', 'static-slugs.json'), JSON.stringify(slugMap, null, 1) + '\n');
 
-  // Sitemap index
+  await buildToolsSitemap();
+  await buildGuidesSitemap();
+  await buildCoursesSitemap();
+  // Sitemap index — includes tools/guides/courses so nothing is missing
   await writeFile(join(ROOT, 'sitemap.xml'),
     '<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     '  <sitemap><loc>' + SITE + '/sitemap-pages.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
     '  <sitemap><loc>' + SITE + '/sitemap-posts.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
     '  <sitemap><loc>' + SITE + '/sitemap-series.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
+    '  <sitemap><loc>' + SITE + '/sitemap-tools.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
+    '  <sitemap><loc>' + SITE + '/sitemap-guides.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
+    '  <sitemap><loc>' + SITE + '/sitemap-courses.xml</loc><lastmod>' + today + '</lastmod></sitemap>\n' +
     '</sitemapindex>\n');
 
   // Pages sitemap

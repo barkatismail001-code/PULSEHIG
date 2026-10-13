@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://www.pulsehig.com';
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ijgvrjkpiofamwcmkmgi.supabase.co';
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY || 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://cescfarawvpzmilteufq.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY || 'sb_publishable_OK1bvVPK50JpOlxaNMVQeg_dTKo3Dru';
 
 const esc = s => String(s ?? '').replace(/[<>&'"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&#39;','"':'&quot;'}[c]));
 
@@ -18,12 +18,36 @@ async function sbGet(path) {
   return res.json();
 }
 
-function renderContent(text) {
-  // Simple markdown → HTML
-  return String(text || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+function inlineMd(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .split(/\n\n+/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+function renderContent(text) {
+  const src = String(text || '').replace(/\r\n/g, '\n');
+  const blocks = src.split(/\n\n+/);
+  const out = [];
+  for (const b of blocks) {
+    const t = b.trim();
+    if (!t) continue;
+    const lines = t.split('\n');
+    let m;
+    if (lines.length === 1 && (m = t.match(/^###\s+(.+)$/)))  out.push('<h3>' + inlineMd(m[1]) + '</h3>');
+    else if (lines.length === 1 && (m = t.match(/^##\s+(.+)$/)))  out.push('<h2>' + inlineMd(m[1]) + '</h2>');
+    else if (lines.length === 1 && (m = t.match(/^#\s+(.+)$/)))   out.push('<h2>' + inlineMd(m[1]) + '</h2>');
+    else if (lines.every(l => /^\s*[-*]\s+/.test(l)))
+      out.push('<ul>' + lines.map(l => '<li>' + inlineMd(l.replace(/^\s*[-*]\s+/, '')) + '</li>').join('') + '</ul>');
+    else if (lines.every(l => /^\s*\d+[.)]\s+/.test(l)))
+      out.push('<ol>' + lines.map(l => '<li>' + inlineMd(l.replace(/^\s*\d+[.)]\s+/, '')) + '</li>').join('') + '</ol>');
+    else if (lines.every(l => /^```/.test(l) === false) && t.includes('```')) {
+      const code = t.replace(/^```[a-z]*\n?/, '').replace(/\n?```$/, '');
+      out.push('<pre><code>' + code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</code></pre>');
+    }
+    else out.push('<p>' + inlineMd(t).replace(/\n/g, '<br>') + '</p>');
+  }
+  return out.join('\n');
 }
 
 function page(course, lectures, assignments, exams) {
@@ -46,7 +70,7 @@ function page(course, lectures, assignments, exams) {
           <h4>${esc(l.title)}</h4>
           <p>${esc((l.content || '').slice(0, 220))}...</p>
           <div class="lecture-meta">
-            <span>⏱ ${l.duration_minutes || 50} min read</span>
+            <span>⏱ ${Math.max(1, Math.round((String(l.content||"").split(/\s+/).filter(Boolean).length)/200))} min read</span>
           </div>
         </div>
       </div>

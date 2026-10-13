@@ -5,8 +5,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const OLD_REF = 'ijgvrjkpiofamwcmkmgi';
-const OLD_KEY = 'sb_publishable_5NcPMPDtyNXRg-oduydRUA_JM6IeV9k';
+const OLD_REF = 'cescfarawvpzmilteufq';
+const OLD_KEY = 'sb_publishable_OK1bvVPK50JpOlxaNMVQeg_dTKo3Dru';
 const [url, key] = process.argv.slice(2);
 
 const m = /^https:\/\/([a-z0-9]{15,30})\.supabase\.co\/?$/.exec(url || '');

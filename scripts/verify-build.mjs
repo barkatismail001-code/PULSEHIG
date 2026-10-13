@@ -32,7 +32,15 @@ async function listHtml(dir) {
 }
 
 async function readJson(p, fallback) {
-  try { return JSON.parse((await read(p)).replace(/^\uFEFF/, '')); } catch (e) { err(`${p}: invalid or missing JSON (${e.message})`); return fallback; }
+  try {
+    return JSON.parse((await read(p)).replace(/^\uFEFF/, ""));
+  } catch (e) {
+    // Missing files are OK (they may have been removed). Only error if the file exists but is malformed.
+    if (await exists(join(ROOT, p))) {
+      err(`${p}: invalid JSON (${e.message})`);
+    }
+    return fallback;
+  }
 }
 
 function urlToFile(url) {
