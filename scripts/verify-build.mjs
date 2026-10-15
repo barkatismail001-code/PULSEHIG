@@ -113,10 +113,17 @@ async function checkRequiredPages(inSitemap) {
     if (!(await exists(join(ROOT, 'a', slug + '.html')))) err(`article "${slug}" should have a page but a/${slug}.html is missing`);
   }
 
-  // every page in a/ must be in the posts sitemap
+  // Every page in a/ must be in the posts sitemap — unless it's marked noindex
+  // (duplicates and legacy -fix pages are intentionally excluded).
   const articlePages = (await listHtml('a')).map((f) => f.replace(/\.html$/, ''));
   for (const slug of articlePages) {
-    if (!has(`/a/${slug}.html`)) err(`a/${slug}.html exists but is not in the sitemap (stale page or incomplete build)`);
+    if (has(`/a/${slug}.html`)) continue;
+    let isNoindex = false;
+    try {
+      const html = await read(`a/${slug}.html`);
+      isNoindex = /<meta\s+name="robots"[^>]*noindex/i.test(html);
+    } catch {}
+    if (!isNoindex) err(`a/${slug}.html exists but is not in the sitemap`);
   }
   if (Object.keys(staticSlugs).length === 0 && articlePages.length > 0) {
     warn('data/static-slugs.json is empty: the last build probably could not read Supabase');
@@ -141,7 +148,14 @@ async function checkRequiredPages(inSitemap) {
     if (!has(`/guides/${slug}.html`)) err(`guide "${slug}" is not in the sitemap`);
   }
   for (const f of await listHtml('course')) {
-    if (f !== 'index.html' && !has(`/course/${f}`)) err(`course/${f} is not in the sitemap`);
+    if (f === 'index.html') continue;
+    if (has(`/course/${f}`)) continue;
+    let isNoindex = false;
+    try {
+      const h = await read(`course/${f}`);
+      isNoindex = /<meta\s+name="robots"[^>]*noindex/i.test(h);
+    } catch {}
+    if (!isNoindex) err(`course/${f} is not in the sitemap`);
   }
   // static pages listed in sitemap-pages.xml must exist (checked above), and the key hubs must be present
   for (const p of ['/', '/academy.html', '/tools.html', '/guides.html']) {
@@ -154,7 +168,7 @@ async function walkHtml(dir, out = []) {
   let entries = [];
   try { entries = await readdir(join(ROOT, dir), { withFileTypes: true }); } catch { return out; }
   for (const e of entries) {
-    if (e.name === 'node_modules' || e.name.startsWith('.')) continue;
+    if (e.name === 'node_modules' || e.name.startsWith('.') || e.name.startsWith('_trash')) continue;
     const rel = dir ? posix.join(dir, e.name) : e.name;
     if (e.isDirectory()) await walkHtml(rel, out);
     else if (e.name.endsWith('.html')) out.push(rel);
@@ -191,9 +205,17 @@ async function checkLinks(inSitemap) {
   // orphans: generated pages that no page links to
   const sitemapFiles = new Set([...inSitemap.keys()].map(urlToFile).filter(Boolean));
   // question.html is a template opened by js/qa.js with ?id=..., 404/offline are served by the host / service worker
-  const skip = new Set(['404.html', 'offline.html', 'admin.html', 'question.html']);
+  const skip = new Set(['article.html', '404.html', 'offline.html', 'admin.html', 'question.html']);
+  const noindexSet = new Set();
   for (const f of files) {
-    if (skip.has(f) || linked.has(f)) continue;
+    if (!f.startsWith('a/')) continue;
+    try {
+      const h = await read(f);
+      if (/<meta\s+name="robots"[^>]*noindex/i.test(h)) noindexSet.add(f);
+    } catch {}
+  }
+  for (const f of files) {
+    if (skip.has(f) || linked.has(f) || noindexSet.has(f)) continue;
     if (/^(a|series|tools|guides|course)\//.test(f) || !f.includes('/')) {
       warn(`orphan page (nothing links to it${sitemapFiles.has(f) ? ', only the sitemap does' : ''}): ${f}`);
     }

@@ -1,5 +1,20 @@
 [
-    "ESP32 deep sleep power optimization techniques",
-    "Raspberry Pi 5 cooling solutions compared",
-    "Smart home energy monitoring with telemetry"
+  "ESP32 deep sleep power optimization techniques",
+  "Raspberry Pi 5 cooling solutions compared",
+  "Smart home energy monitoring with telemetry",
+  "How to calibrate an ESP32 ADC for accurate battery voltage reading",
+  "Why relay modules click twice when driven by 3.3V logic",
+  "Fixing I2C bus lockups caused by slave devices holding SDA low",
+  "Designing a 12V to 3.3V buck converter for ESP32 projects",
+  "Understanding inrush current when switching AC loads with relays",
+  "Safe techniques for measuring mains voltage with an oscilloscope",
+  "Choosing pull-up resistor values for I2C buses at different speeds",
+  "How to detect water leaks with ESP32 and a conductivity sensor",
+  "ESP32 deep sleep current: why your battery drains in days",
+  "Common mistakes when driving LEDs directly from GPIO pins",
+  "Reading a 4-20mA industrial sensor with an ESP32 and ADS1115",
+  "Why your 5V relay module browns out the ESP32 and how to fix it",
+  "Setting up OTA updates for ESP32 without exposing credentials",
+  "Building a reliable water tank level monitor with ultrasonic sensors",
+  "Gas leak detection with MQ-2 and MQ-5: calibration and false alarms"
 ]

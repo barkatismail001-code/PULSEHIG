@@ -254,21 +254,23 @@ window.TPCommon = (function () {
   }
 
   function staticSlugFor(id) {
+    var m = window.TP_SLUG_MAP;
+    if (m && m[String(id)]) return m[String(id)];
     return (staticSlugs && staticSlugs[String(id)]) || '';
   }
 
   function articleUrl(a, lang) {
     var L = lang || 'en';
-    // Hand-written articles that only exist as files keep their static page.
-    if (a.manual && a.slug) return '/a/' + a.slug + '.html';
-    // Everything stored in Supabase is read live from the database (article.html), in every language.
-    var url = '/article.html?id=' + encodeURIComponent(a.id);
-    return L === 'en' ? url : url + '&lang=' + encodeURIComponent(L);
+    var staticSlug = staticSlugFor(a.id) || (a.manual && a.slug) || a.slug;
+    if (!staticSlug) return '/';
+    var url = '/a/' + staticSlug + '.html';
+    return L === 'en' ? url : url + '?lang=' + encodeURIComponent(L);
   }
 
   function canonicalUrl(a) {
-    var s = (a.manual && a.slug) || staticSlugFor(a.id);
-    return 'https://www.pulsehig.com' + (s ? '/a/' + s + '.html' : '/article.html?id=' + encodeURIComponent(a.id));
+    var s = (a.manual && a.slug) || staticSlugFor(a.id) || a.slug;
+    if (!s) return 'https://www.pulsehig.com/';
+    return 'https://www.pulsehig.com/a/' + s + '.html';
   }
 
   // ===== Site stats (visits) =====

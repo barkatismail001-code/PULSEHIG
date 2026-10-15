@@ -110,7 +110,12 @@ async function loadFromSupabase() {
   if (!SUPABASE_KEY) { console.warn('No SUPABASE_KEY — skipping Supabase'); return []; }
   try {
     const url = SUPABASE_URL + '/rest/v1/articles?select=id,title,excerpt,content,category,author,date,image,images,tags,slug,title_i18n,excerpt_i18n,content_i18n&order=date.desc&limit=1000';
-    const res = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
+    const res = await fetch(url, { headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: 'Bearer ' + SUPABASE_KEY,
+      'User-Agent': 'techpulse-build/1.0 (server)',
+      'X-Client-Info': 'techpulse-build'
+    }});
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
@@ -379,7 +384,12 @@ async function loadCourses() {
   if (!SUPABASE_KEY) return [];
   try {
     const url = SUPABASE_URL + '/rest/v1/courses?select=slug,code&order=code.asc&limit=500';
-    const res = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
+    const res = await fetch(url, { headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: 'Bearer ' + SUPABASE_KEY,
+      'User-Agent': 'techpulse-build/1.0 (server)',
+      'X-Client-Info': 'techpulse-build'
+    }});
     return res.ok ? (await res.json()) : [];
   } catch { return []; }
 }
@@ -414,19 +424,148 @@ async function buildCoursesSitemap() {
   return items.length;
 }
 
+// POST-BUILD-CONSISTENCY v1
+// Rewrites deprecated links, injects slug-map + analytics on every generated
+// HTML. Required because GitHub Pages is static-only: the generators rebuild
+// HTML from scratch each run and would otherwise wipe these injection fixes.
+async function postBuildConsistency() {
+  const depMap = {};
+  try {
+    const aFiles = (await readdir(join(ROOT, 'a'))).filter((f) => f.endsWith('.html'));
+    const aSet = new Set(aFiles);
+    for (const f of aFiles) {
+      const base = f.replace(/\.html$/, '');
+      const m = base.match(/^(.+)-(\d{1,2})$/);
+      if (!m) continue;
+      const canonFile = m[1] + '.html';
+      if (!aSet.has(canonFile)) continue;
+      try {
+        const h = await readFile(join(ROOT, 'a', f), 'utf8');
+        if (/<meta\s+name="robots"[^>]*noindex/i.test(h)) depMap[base] = m[1];
+      } catch {}
+    }
+  } catch (e) {
+    console.warn('post-build: could not build depMap:', e.message);
+  }
+
+  async function walk(dir) {
+    const out = [];
+    let entries = [];
+    try { entries = await readdir(join(ROOT, dir), { withFileTypes: true }); } catch { return out; }
+    for (const e of entries) {
+      if (e.name === 'node_modules' || e.name.startsWith('.') || e.name.startsWith('_trash')) continue;
+      const rel = dir ? dir + '/' + e.name : e.name;
+      if (e.isDirectory()) out.push(...await walk(rel));
+      else if (e.name.endsWith('.html')) out.push(rel);
+    }
+    return out;
+  }
+
+  const files = await walk('');
+  let fixed = 0, addedSlug = 0, addedAna = 0;
+  const tpAna = '  <script>window.TP_ANALYTICS = { plausible: \'pulsehig.com\' };</script>';
+
+  for (const f of files) {
+    let html = await readFile(join(ROOT, f), 'utf8');
+    const before = html;
+
+    for (const [oldSlug, newSlug] of Object.entries(depMap)) {
+      const esc = oldSlug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp('/a/' + esc + '\\.html(?=["\'?#>\\s)]|$)', 'g');
+      html = html.replace(re, '/a/' + newSlug + '.html');
+    }
+
+    if (!html.includes('slug-map.js') && html.includes('js/common.js')) {
+      const i = html.indexOf('js/common.js');
+      const ls = html.lastIndexOf('\n', i);
+      const at = ls < 0 ? 0 : ls + 1;
+      html = html.slice(0, at) + '  <script src="/js/slug-map.js?v=' + ASSET_V + '"></script>\n' + html.slice(at);
+      addedSlug++;
+    }
+
+    if (!html.includes('js/analytics.js')) {
+      const idx = html.lastIndexOf('</body>');
+      if (idx >= 0) {
+        html = html.slice(0, idx) + tpAna + '\n  <script src="/js/analytics.js?v=' + ASSET_V + '" defer></script>\n' + html.slice(idx);
+        addedAna++;
+      }
+    } else if (!html.includes('TP_ANALYTICS')) {
+      const i = html.indexOf('js/analytics.js');
+      const ls = html.lastIndexOf('\n', i);
+      const at = ls < 0 ? 0 : ls + 1;
+      html = html.slice(0, at) + tpAna + '\n' + html.slice(at);
+    }
+
+    if (html !== before) {
+      await writeFile(join(ROOT, f), html);
+      fixed++;
+    }
+  }
+  console.log('post-build: ' + fixed + ' files updated (slug-map +' + addedSlug + ', analytics +' + addedAna + ')');
+}
+
+async function loadCanonicalOverrides() {
+  try {
+    const j = JSON.parse(await readFile(join(ROOT, 'data', 'canonical-overrides.json'), 'utf8'));
+    const out = {};
+    for (const [k, v] of Object.entries(j)) {
+      if (k.startsWith('_')) continue;
+      out[String(k)] = String(v);
+    }
+    return out;
+  } catch { return {}; }
+}
+
+async function loadExistingSlugs() {
+  try {
+    const j = JSON.parse(await readFile(join(ROOT, 'data', 'static-slugs.json'), 'utf8'));
+    return (j && typeof j === 'object') ? j : {};
+  } catch { return {}; }
+}
+
+function depStubPage(title, canonicalSlug) {
+  const t = String(title).replace(/[<>&'"]/g, (c) => ({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&#39;','"':'&quot;'})[c]);
+  return '<!DOCTYPE html>\n<html lang="en"><head>\n' +
+    '<meta charset="UTF-8">\n' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1.0">\n' +
+    '<meta name="robots" content="noindex, follow">\n' +
+    '<link rel="canonical" href="https://www.pulsehig.com/a/' + canonicalSlug + '.html">\n' +
+    '<meta http-equiv="refresh" content="0; url=/a/' + canonicalSlug + '.html">\n' +
+    '<title>' + t + '</title>\n' +
+    '<script>location.replace("/a/' + canonicalSlug + '.html");<\/script>\n' +
+    '</head><body><p>Redirecting to <a href="/a/' + canonicalSlug + '.html">/a/' + canonicalSlug + '.html</a></p></body></html>\n';
+}
+
 async function main() {
   await mkdir(join(ROOT, 'a'), { recursive: true });
   await mkdir(join(ROOT, 'series'), { recursive: true });
   await mkdir(join(ROOT, 'rss'), { recursive: true });
 
   // Load from Supabase
-  const raw = (await loadFromSupabase()).filter((a) => a && a.id);
+  const rawAll = (await loadFromSupabase()).filter((a) => a && a.id);
+
+  // SAFETY-GUARD: refuse to wipe when Supabase is empty
+  if (rawAll.length === 0 && !process.env.SUPABASE_ALLOW_EMPTY) {
+    console.error('');
+    console.error('SAFETY ABORT: Supabase returned 0 articles. Refusing to wipe.');
+    console.error('If this is a dry run: SUPABASE_ALLOW_EMPTY=1');
+    console.error('');
+    process.exit(1);
+  }
+
+  const overrides = await loadCanonicalOverrides();
+  const existingSlugs = await loadExistingSlugs();
+  rawAll.sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
+  const raw = rawAll.filter((a) => !overrides[String(a.id)]);
   const articles = [];
   const seenSlugs = new Set();
 
   for (const a of raw) {
-    let slug = slugOf(a);
-    if (seenSlugs.has(slug)) slug += '-' + String(a.id).replace(/[^a-z0-9]/gi, '').slice(-4);
+    let slug = existingSlugs[String(a.id)];
+    if (!slug) {
+      slug = slugOf(a);
+      if (seenSlugs.has(slug)) slug += '-' + String(a.id).replace(/[^a-z0-9]/gi, '').slice(-4);
+    }
     seenSlugs.add(slug);
     articles.push({
       id: String(a.id), slug,
@@ -441,6 +580,16 @@ async function main() {
       image: await resolveImage(a.image),
       manual: false
     });
+  }
+
+  // Collect deprecated articles
+  const deprecatedArticles = [];
+  for (const a of rawAll) {
+    const canId = overrides[String(a.id)];
+    if (!canId) continue;
+    const canon = articles.find((x) => x.id === canId);
+    if (!canon) { console.warn('overrides: canonical ' + canId + ' missing for ' + a.id); continue; }
+    deprecatedArticles.push({ id: String(a.id), canonicalSlug: canon.slug, raw: a });
   }
 
   // Load manual articles
@@ -485,6 +634,14 @@ async function main() {
     written++;
   }
   console.log('✓ ' + written + ' article pages written');
+  for (const d of deprecatedArticles) {
+    const depSlug = d.canonicalSlug + '-' + d.id;
+    const r = d.raw;
+    const title = plain(typeof r.title === 'object' ? (r.title.en || Object.values(r.title).find(Boolean)) : r.title);
+    await writeFile(join(ROOT, 'a', depSlug + '.html'), depStubPage(title, d.canonicalSlug));
+    written++;
+  }
+  console.log('OK +' + deprecatedArticles.length + ' deprecated noindex pages');
   // a/articles.json — fallback feed consumed by common.js loadFromA()
   const aIndex = articles.map((a) => ({
     id: a.id, slug: a.slug, title: a.title, excerpt: a.excerpt, content: a.content,
@@ -510,6 +667,11 @@ async function main() {
   articles.filter((a) => !a.manual).forEach((a) => { slugMap[a.id] = a.slug; });
   await writeFile(join(ROOT, 'data', 'static-slugs.json'), JSON.stringify(slugMap, null, 1) + '\n');
 
+  // write synchronous slug-map for GitHub Pages static-only hosting
+  await mkdir(join(ROOT, 'js'), { recursive: true });
+  await writeFile(join(ROOT, 'js', 'slug-map.js'),
+    'window.TP_SLUG_MAP = ' + JSON.stringify(slugMap) + ';\n');
+  console.log('OK js/slug-map.js written (' + Object.keys(slugMap).length + ' entries)');
   await buildToolsSitemap();
   await buildGuidesSitemap();
   await buildCoursesSitemap();
@@ -586,6 +748,8 @@ async function main() {
 
   console.log('✓ sitemap.xml, sub-sitemaps, rss.xml, per-category rss, robots.txt, llms.txt written');
   console.log('✅ Done. Total: ' + articles.length + ' articles, ' + SERIES.length + ' series');
+
+  await postBuildConsistency();
 }
 
 main().catch((e) => { console.error('❌', e); process.exit(1); });

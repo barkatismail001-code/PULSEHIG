@@ -187,6 +187,18 @@
           return titleI18n[l] && excerptI18n[l] && contentI18n[l];
         }));
 
+        // SEO pre-publish validation
+        var seoWc = content.split(/\s+/).filter(Boolean).length;
+        var seoFails = [];
+        if (seoWc < 800) seoFails.push('Content is ' + seoWc + ' words (min 800)');
+        if (title.length > 60) seoFails.push('Title is ' + title.length + '/60 chars');
+        if (excerpt.length > 155) seoFails.push('Excerpt is ' + excerpt.length + '/155 chars');
+        if (!slug || !/^[a-z0-9-]+$/.test(slug)) seoFails.push('Invalid slug (lowercase/numbers/hyphens)');
+        if (seoFails.length > 0) {
+          var seoMsg = 'SEO warnings:' + String.fromCharCode(10) + String.fromCharCode(10) + seoFails.join(String.fromCharCode(10)) + String.fromCharCode(10) + String.fromCharCode(10) + 'Publish anyway?';
+          if (!confirm(seoMsg)) return;
+        }
+
         var payload = {
           title: title,
           excerpt: excerpt,
@@ -514,7 +526,7 @@
 
   /* Call Gemini (generateContent). `parts` = array of {text} / {inlineData} parts. */
   async function callGemini(apiKey, parts, maxTokens, wantJson) {
-    var cfg = { temperature: 0.5, maxOutputTokens: maxTokens || 8192 };
+    var cfg = { temperature: 0.75, maxOutputTokens: maxTokens || 8192 };
     if (wantJson) cfg.responseMimeType = 'application/json';
     var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + GEMINI_MODEL + ':generateContent', {
       method: 'POST',
@@ -591,6 +603,8 @@
         var prompt = 'You are a senior technical writer for TechPulse, an engineering platform about ESP32/Arduino, embedded systems, and home repair.\n\n' +
           'Write a long, deep, professional technical article titled: "' + customTitle + '"\n\n' +
           'Write a detailed engineering tutorial based on real experience. Use concrete component values, units, and step-by-step verification. Use the attached images as real context for what the project looks like.\n\n' +
+          'AVOID these AI-typical phrases: delve, navigate the complexities, leverage, seamless, robust solution, game-changer, in today\'s fast-paced world. Never use them.\n\n' +
+          'USE specific numbers with units (4.7k ohm, 3.3V, 12.4mA), first-person experience (I tested, we measured), one real failure story (what broke and how you debugged it), and a Sources section with 3-5 verifiable URLs at the end. Include one markdown table of real measurements.\n\n' +
           'STRUCTURE (mandatory):\n' +
           '- Introduction: 120-180 words (no heading)\n' +
           '- Then 6 sections, each starting with "## Heading" and containing 220-300 words\n' +

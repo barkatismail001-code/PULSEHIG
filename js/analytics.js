@@ -3,7 +3,7 @@
    Privacy-friendly analytics: Plausible or Umami.
    Loads only on production domain, only after 'load' event.
    Configure by adding BEFORE this file:
-     <script>window.TP_ANALYTICS = { plausible: 'pulsehig.com' };</script>
+     <script>window.TP_ANALYTICS = { plausible: 'www.pulsehig.com' };</script>
    Or:
      <script>window.TP_ANALYTICS = { umami: 'https://analytics.example.com', umamiId: 'xxx' };</script>
    ========================================================================== */

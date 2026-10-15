@@ -1,0 +1,77 @@
+name: Daily Article Generator & SEO Update
+
+on:
+  
+  workflow_dispatch: # Run manually from the Actions tab (optionally with your own topic)
+    inputs:
+      topic:
+        description: 'Optional: write an article about this topic instead of the automatic one'
+        required: false
+        default: ''
+      category:
+        description: 'Category used with the topic above (e.g. Embedded Systems, Home Repair, Programming)'
+        required: false
+        default: 'Technology'
+
+permissions:
+  contents: write # Required to push changes back to the repo
+
+concurrency:
+  group: seo-build
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history: used to date hand-made articles
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Generate Daily Article (1500-2500 words)
+        # If Gemini/Supabase fails, the run is marked with a warning but the SEO files below are still rebuilt.
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          TOPIC: ${{ github.event.inputs.topic }}
+          TOPIC_CATEGORY: ${{ github.event.inputs.category }}
+        run: node scripts/daily-bot.mjs
+
+      - name: Generate SEO Files (Sitemap, RSS, article pages)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node scripts/generate-seo.mjs
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "techpulse-bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          git config --global rerere.enabled true
+          git config --global rerere.autoupdate true
+
+          # Add the generated SEO files, static article pages, homepage article list and the used-topics memory
+          git add -A -- a series rss sitemap*.xml rss.xml robots.txt llms.txt index.html data
+
+          # Check if there are staged changes, commit and push if there are
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: auto-publish daily article and update SEO [skip ci]"
+            git fetch origin main
+            git merge origin/main --no-edit -X ours
+            git push
+          else
+            echo "No changes to commit."
+          fi

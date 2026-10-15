@@ -1,0 +1,5 @@
+{
+  "_comment": "Deprecated article ID -> canonical article ID. Keeps slugs stable across builds.",
+  "3": 32, "4": 24, "5": 25, "16": 28, "17": 29, "18": 30, "19": 31,
+  "23": 2, "26": 7, "27": 14
+}
