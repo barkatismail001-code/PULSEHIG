@@ -1,0 +1,70 @@
+name: Daily Article Generator
+
+on:
+  schedule:
+    # Runs every day at 06:00 UTC (07:00 Algeria time)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate one article
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: 'gemini-flash-latest'
+        run: node scripts/daily-bot.mjs
+
+      - name: Commit updated queue
+        run: |
+          if git diff --quiet data/topics-queue.json; then
+            echo "No queue changes"
+          else
+            git config user.name "TechPulse Bot"
+            git config user.email "bot@pulsehig.com"
+            git add data/topics-queue.json
+            git commit -m "Bot: consume topic from queue"
+            git push
+          fi
+      - name: Rebuild static pages
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node scripts/generate-seo.mjs
+
+      - name: Commit regenerated files
+        run: |
+          if git diff --quiet; then
+            echo "No changes"
+          else
+            git config user.name "TechPulse Bot"
+            git config user.email "bot@pulsehig.com"
+            git add -A
+            git commit -m "Bot: rebuild SEO after daily article"
+            git push
+          fi
+
+
+
+      - name: Summary
+        run: echo "Daily article generated at $(date -u)"
