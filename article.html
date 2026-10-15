@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TechPulse | Article</title>
   <meta name="description" content="TechPulse — technical article details and tutorials.">
-  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://www.pulsehig.com/article.html">
 
   <meta property="og:type" content="article">
@@ -100,7 +100,8 @@
   <button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
 
   <script src="js/live-news.js?v=20261011"></script>
-  <script src="js/common.js?v=20261011"></script>
+<script src="/js/slug-map.js?v=20261015"></script>
+    <script src="js/common.js?v=20261011"></script>
   <script src="js/i18n.js?v=20261011"></script>
   <script src="js/toc.js?v=20261011" defer></script>
   <script src="js/article.js?v=20261011" defer></script>
@@ -109,5 +110,27 @@
   <script src="js/cmdk-init.js?v=20261011" defer></script>
   <div class="tp-cmdk-hint" id="tpCmdkHint" title="Open command palette"><kbd>Ctrl</kbd><kbd>K</kbd> Search</div>
 <script src="js/cookie-consent.js?v=20261011" defer></script>
+<script>
+/* TP_REDIRECT_STUB: GitHub Pages is static-only. Forward ?id= to canonical. */
+(function () {
+  function go() {
+    var p = new URLSearchParams(location.search);
+    var id = p.get('id');
+    if (!id) return;
+    var map = window.TP_SLUG_MAP || {};
+    var slug = map[String(id)];
+    if (!slug) { location.replace('/'); return; }
+    var qs = [];
+    var lang = p.get('lang');
+    if (lang) qs.push('lang=' + encodeURIComponent(lang));
+    location.replace('/a/' + slug + '.html' + (qs.length ? '?' + qs.join('&') : '') + (location.hash || ''));
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', go);
+  } else { go(); }
+})();
+</script>
+  <script>window.TP_ANALYTICS = { plausible: 'www.pulsehig.com' };</script>
+  <script src="/js/analytics.js?v=20261010" defer></script>
 </body>
 </html>
