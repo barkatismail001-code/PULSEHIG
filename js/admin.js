@@ -29,6 +29,17 @@
     return;
   }
 
+  // ---- Gemini API Key: save to localStorage so it persists ----
+  var GEMINI_KEY_STORAGE = 'tp_gemini_key';
+  function loadGeminiKey() {
+    try { return localStorage.getItem(GEMINI_KEY_STORAGE) || ''; } catch (e) { return ''; }
+  }
+  function saveGeminiKey(val) {
+    try {
+      if (val && val.trim()) localStorage.setItem(GEMINI_KEY_STORAGE, val.trim());
+      else localStorage.removeItem(GEMINI_KEY_STORAGE);
+    } catch (e) {}
+  }
   var articlesCache = [];
   var currentImageData = '';
   var currentImageFile = null;
@@ -435,6 +446,16 @@
     formTitle.textContent = 'Add New Article';
     resetBtn.style.display = 'none';
     if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
+
+  // Auto-load Gemini API key from localStorage
+  var _aiKeyEl = document.getElementById('ai-api-key');
+  if (_aiKeyEl) {
+    var saved = loadGeminiKey();
+    if (saved && !_aiKeyEl.value) _aiKeyEl.value = saved;
+    // Save on change
+    _aiKeyEl.addEventListener('change', function () { saveGeminiKey(this.value); });
+    _aiKeyEl.addEventListener('blur', function () { saveGeminiKey(this.value); });
+  }
   }
 
   if (resetBtn) resetBtn.addEventListener('click', resetForm);
@@ -695,7 +716,6 @@
      Initial load
      ============================================ */
   if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
-
   loadArticles().then(renderAdminList);
 
   /* ============================================
