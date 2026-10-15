@@ -5,15 +5,15 @@
 <link>https://www.pulsehig.com/</link>
 <description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
 <language>en</language>
-<lastBuildDate>Thu, 15 Oct 2026 08:08:51 GMT</lastBuildDate>
+<lastBuildDate>Thu, 15 Oct 2026 10:49:46 GMT</lastBuildDate>
 <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>Building a Production-Ready RAG Pipeline with Local LLMs and Vector Databases: A Complete Architecture Guide</title>
-      <link>https://www.pulsehig.com/a/building-a-production-ready-rag-pipeline-with-local-llms.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/building-a-production-ready-rag-pipeline-with-local-llms.html</guid>
-      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <title>How to Fix a Leaking Water Pump Pressure Tank step-by-step</title>
+      <link>https://www.pulsehig.com/a/how-to-fix-a-leaking-water-pump-pressure-tank-step-by-step.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-leaking-water-pump-pressure-tank-step-by-step.html</guid>
+      <pubDate>Thu, 15 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description><![CDATA[Architect a secure, production-grade local RAG pipeline using quantized LLMs, HNSW vector indexing, and hybrid re-ranking on dedicated hardware.]]></description>
+      <description><![CDATA[Diagnose bladder ruptures, repair bottom flange leaks, and rebuild a well pump pressure tank with exact torque specs and pressure calibrations.]]></description>
     </item>
     <item>
       <title>How to Fix a Washing Machine That Won’t Drain</title>
@@ -22,6 +22,14 @@
       <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description><![CDATA[Diagnose and repair washing machine drainage failures with step-by-step mechanical extraction, pump coil testing, and pressure transducer troubleshooting.]]></description>
+    </item>
+    <item>
+      <title>Building a Production-Ready RAG Pipeline with Local LLMs and Vector Databases: A Complete Architecture Guide</title>
+      <link>https://www.pulsehig.com/a/building-a-production-ready-rag-pipeline-with-local-llms.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/building-a-production-ready-rag-pipeline-with-local-llms.html</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[Architect a secure, production-grade local RAG pipeline using quantized LLMs, HNSW vector indexing, and hybrid re-ranking on dedicated hardware.]]></description>
     </item>
     <item>
       <title>Demystifying CORS: The Ultimate Guide to Solving Web API Connection Blocks</title>
@@ -80,22 +88,6 @@
       <description><![CDATA[A Raspberry Pi inside a sealed 3D-printed box will happily hit 85 °C under load, throttle itself to 600 MHz, and feel &quot;slow&quot; without ever crashing. The fix is not a bigger heatsink — it is understanding airflow, thermal mass and the throttle flags the Pi already reports.]]></description>
     </item>
     <item>
-      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
-      <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Embedded Systems</category>
-      <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
-    </item>
-    <item>
-      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
-      <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained-27.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained-27.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Embedded Systems</category>
-      <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
-    </item>
-    <item>
       <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
       <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html</guid>
@@ -104,12 +96,28 @@
       <description><![CDATA[A relay that buzzes, clicks repeatedly, or resets your ESP32 is almost never a broken relay. It is a power, isolation or snubber problem. Fix those three and the circuit becomes as reliable as any commercial smart switch.]]></description>
     </item>
     <item>
-      <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
-      <link>https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes.html</guid>
+      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
+      <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description><![CDATA[Deep sleep is the single most useful feature of a battery ESP32 — and the one that trips up the most people. If your board never wakes, wakes instantly, or drains a 18650 in three days, one of the six causes below is almost certainly the reason.]]></description>
+      <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
+    </item>
+    <item>
+      <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
+      <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-25.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-25.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[A relay that buzzes, clicks repeatedly, or resets your ESP32 is almost never a broken relay. It is a power, isolation or snubber problem. Fix those three and the circuit becomes as reliable as any commercial smart switch.]]></description>
+    </item>
+    <item>
+      <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</title>
+      <link>https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Upgrades</category>
+      <description><![CDATA[A laptop with an i5-5200U and 4 GB RAM is not slow because the CPU is old — it is slow because it is waiting for a 5400 rpm hard drive and swapping to disk. Replacing those two parts costs less than a new laptop and gives 10× the responsiveness.]]></description>
     </item>
     <item>
       <title>PC Won&#39;t Boot? The 7-Step No-POST Checklist</title>
@@ -129,8 +137,8 @@
     </item>
     <item>
       <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
-      <link>https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes-23.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes-23.html</guid>
+      <link>https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description><![CDATA[Deep sleep is the single most useful feature of a battery ESP32 — and the one that trips up the most people. If your board never wakes, wakes instantly, or drains a 18650 in three days, one of the six causes below is almost certainly the reason.]]></description>
@@ -152,12 +160,12 @@
       <description><![CDATA[A Raspberry Pi inside a sealed 3D-printed box will happily hit 85 °C under load, throttle itself to 600 MHz, and feel &quot;slow&quot; without ever crashing. The fix is not a bigger heatsink — it is understanding airflow, thermal mass and the throttle flags the Pi already reports.]]></description>
     </item>
     <item>
-      <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
-      <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-5.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-5.html</guid>
+      <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
+      <link>https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes-2.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes-2.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
-      <description><![CDATA[A relay that buzzes, clicks repeatedly, or resets your ESP32 is almost never a broken relay. It is a power, isolation or snubber problem. Fix those three and the circuit becomes as reliable as any commercial smart switch.]]></description>
+      <description><![CDATA[Deep sleep is the single most useful feature of a battery ESP32 — and the one that trips up the most people. If your board never wakes, wakes instantly, or drains a 18650 in three days, one of the six causes below is almost certainly the reason.]]></description>
     </item>
     <item>
       <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
@@ -169,8 +177,8 @@
     </item>
     <item>
       <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</title>
-      <link>https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide.html</guid>
+      <link>https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide-28.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide-28.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Upgrades</category>
       <description><![CDATA[A laptop with an i5-5200U and 4 GB RAM is not slow because the CPU is old — it is slow because it is waiting for a 5400 rpm hard drive and swapping to disk. Replacing those two parts costs less than a new laptop and gives 10× the responsiveness.]]></description>
@@ -192,12 +200,12 @@
       <description><![CDATA[The fans spin, the LEDs light up, but there is no display and no beep. Before you assume the motherboard is dead, strip the system down to the minimum and let it tell you what is wrong.]]></description>
     </item>
     <item>
-      <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</title>
-      <link>https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide-16.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide-16.html</guid>
+      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
+      <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained-14.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained-14.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Upgrades</category>
-      <description><![CDATA[A laptop with an i5-5200U and 4 GB RAM is not slow because the CPU is old — it is slow because it is waiting for a 5400 rpm hard drive and swapping to disk. Replacing those two parts costs less than a new laptop and gives 10× the responsiveness.]]></description>
+      <category>Embedded Systems</category>
+      <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
     </item>
     <item>
       <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
@@ -240,12 +248,12 @@
       <description><![CDATA[Your smart home dims the lights at 2 AM. Your fitness tracker loses your heart rate mid-run. Your factory robot halts production. The culprit is often the same: I2C clock stretching timeouts on ESP32. This deep-dive connects the technical to the tangible, showing you why these failures happen and ho]]></description>
     </item>
     <item>
-      <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
-      <link>https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common.html</guid>
+      <title>Smart Energy Audits: How Telemetry Can Slash Your Power Bills</title>
+      <link>https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description><![CDATA[A comprehensive technical tutorial on constructing a low-latency, offline video surveillance and facial recognition pipeline using Python, OpenCV, RTSP streams, and InsightFace.]]></description>
+      <description><![CDATA[An exhaustive, publication-grade engineering guide to conducting automated smart energy audits using non-invasive current transformers, ESP32 microcontrollers, MQTT telemetry, and real-time power analytics.]]></description>
     </item>
     <item>
       <title>Solving High Household Energy Bills Using Smart Home Automation</title>
@@ -256,12 +264,12 @@
       <description><![CDATA[An engineering deep-dive into designing a safe, fault-tolerant ESP32-based hydronic underfloor heating controller with hardware watchdogs and Home Assistant integration.]]></description>
     </item>
     <item>
-      <title>Smart Energy Audits: How Telemetry Can Slash Your Power Bills</title>
-      <link>https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html</guid>
+      <title>DIY Dishwasher Troubleshooting and Repair Guide: Fix Common Household Appliance Issues</title>
+      <link>https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/diy-dishwasher-troubleshooting-and-repair-guide-fix-common.html</guid>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
-      <description><![CDATA[An exhaustive, publication-grade engineering guide to conducting automated smart energy audits using non-invasive current transformers, ESP32 microcontrollers, MQTT telemetry, and real-time power analytics.]]></description>
+      <description><![CDATA[A comprehensive technical tutorial on constructing a low-latency, offline video surveillance and facial recognition pipeline using Python, OpenCV, RTSP streams, and InsightFace.]]></description>
     </item>
     <item>
       <title>ESP32-VROOM-32D: A Comprehensive Guide to GPIO Selection and Application</title>
