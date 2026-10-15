@@ -313,10 +313,8 @@ function page(a, all) {
     '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n' +
     '<meta property="article:published_time" content="' + iso(a.date) + '">\n' +
     '<meta name="twitter:card" content="summary_large_image">\n' +
-    '<link rel="icon" href="/favicon.ico" type="image/x-icon">\n<link rel="manifest" href="/manifest.json">' +
     '<link rel="stylesheet" href="/css/style.css?v=' + ASSET_V + '">\n' +
-    '<link rel="stylesheet" href="/css/style.css?v=' + ASSET_V + '">' +
-    '\n' +
+    '<link rel="icon" href="/favicon.ico" type="image/x-icon">\n<link rel="manifest" href="/manifest.json">\n' +
     '<meta name="theme-color" content="#2563eb">\n<link rel="llms" href="/llms.txt">\n' +
     '<link rel="alternate" type="application/rss+xml" title="' + SITE_NAME + '" href="/rss.xml">\n' +
     '<script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>\n' +
@@ -362,6 +360,7 @@ function seriesPage(s, all) {
   return '<!DOCTYPE html>\n<html lang="en"><head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
     '<title>' + esc(s.title) + ' — Series | ' + SITE_NAME + '</title>\n' +
     '<meta name="description" content="' + esc(s.description) + '">\n<link rel="canonical" href="' + url + '">\n' +
+    '<link rel="stylesheet" href="/css/style.css?v=' + ASSET_V + '">\n' +
     '</head><body>\n<header class="main-header"><div class="container">\n' +
     '<div class="logo"><a href="/index.html"><span>' + SITE_NAME + '</span></a></div>\n' +
     '<nav class="nav-links">' + NAV + '</nav>\n</div></header>\n<main class="container">\n' +
