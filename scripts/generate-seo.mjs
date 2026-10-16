@@ -155,7 +155,12 @@ function looksLikeHtml(s) {
 }
 
 function inlineMd(s) {
-  return esc(s).replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>').replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  return esc(s)
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g,
+      '<img src="$2" alt="$1" loading="lazy" decoding="async" ' +
+      'style="max-width:100%;height:auto;border-radius:8px;margin:16px 0;display:block">')
+    .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`\n]+)`/g, '<code>$1</code>');
 }
 
 function htmlToMarkdown(html) {
