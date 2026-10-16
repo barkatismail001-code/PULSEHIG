@@ -3,6 +3,7 @@
 > Engineering platform for embedded systems, microcontrollers, home repair, and programming.
 
 ## Featured Articles
+- [Troubleshooting and Replacing a Tripped or Faulty Miniature Circuit Breaker (MCB) in a Home Distribution Board](https://www.pulsehig.com/a/troubleshooting-and-replacing-a-tripped-or-faulty-miniature.html)
 - [How to Fix a Leaking Water Pump Pressure Tank step-by-step](https://www.pulsehig.com/a/how-to-fix-a-leaking-water-pump-pressure-tank-step-by-step.html)
 - [Building a Production-Ready RAG Pipeline with Local LLMs and Vector Databases: A Complete Architecture Guide](https://www.pulsehig.com/a/building-a-production-ready-rag-pipeline-with-local-llms.html)
 - [How to Fix a Washing Machine That Won’t Drain](https://www.pulsehig.com/a/how-to-fix-a-washing-machine-that-won-t-drain.html)
@@ -12,12 +13,11 @@
 - [How to Fix HC-SR04 Ultrasonic Sensor Connection Issues with ESP32](https://www.pulsehig.com/a/how-to-fix-hc-sr04-ultrasonic-sensor-connection-issues-with.html)
 - [How to Write Code That Anyone Can Read and Maintain](https://www.pulsehig.com/a/how-to-write-code-that-anyone-can-read-and-maintain.html)
 - [ESP32 Won't Wake from Deep Sleep: Causes and Fixes](https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes.html)
-- [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet.html)
-- [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html)
 - [Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)](https://www.pulsehig.com/a/why-your-esp32-wi-fi-keeps-dropping-and-how-to-fix-it.html)
 - [Why Your LED Strip Flickers: PWM, Power and Ground Explained](https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html)
+- [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet.html)
+- [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html)
 - [Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide](https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide.html)
-- [PC Won't Boot? The 7-Step No-POST Checklist](https://www.pulsehig.com/a/pc-won-t-boot-the-7-step-no-post-checklist.html)
 
 ## Contact
 - Website: https://www.pulsehig.com
