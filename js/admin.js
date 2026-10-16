@@ -46,6 +46,110 @@
   var aiImageFiles = [];
 
   /* ============================================
+     Section Images — optional uploads per ## heading
+     ============================================ */
+  var SECTION_SLOTS = [
+    { key: 'problem',  label: 'Problem',              heading: '## Problem' },
+    { key: 'causes',   label: 'Possible Causes',      heading: '## Possible Causes' },
+    { key: 'tools',    label: 'Tools & Components',   heading: '## Tools and Components Needed' },
+    { key: 'solution', label: 'Step-by-Step',         heading: '## Step-by-Step Solution' },
+    { key: 'diagrams', label: 'Diagrams',             heading: '## Diagrams' },
+    { key: 'mistakes', label: 'Common Mistakes',      heading: '## Common Mistakes' },
+    { key: 'safety',   label: 'Safety',               heading: '## Safety Precautions' },
+    { key: 'verify',   label: 'How to Verify',        heading: '## How to Verify the Fix' }
+  ];
+  var sectionImages = {};        // { key: { url, alt } }
+  var pendingSlotKey = null;     // currently uploading
+
+  function getContentEl() { return document.getElementById('content'); }
+
+  function renderSectionSlots() {
+    var grid = document.getElementById('sectionImagesGrid');
+    if (!grid) return;
+    grid.innerHTML = SECTION_SLOTS.map(function (s) {
+      var img = sectionImages[s.key];
+      var cls = 'section-image-slot' + (img ? ' filled' : '');
+      return '<div class="' + cls + '" data-slot="' + s.key + '">' +
+        (img ? '<img src="' + img.url + '" alt="' + s.label + '">' : '') +
+        '<div class="slot-label">' + s.label + '</div>' +
+        '<div class="slot-hint">' + (img ? 'Click to replace' : 'Click to upload') + '</div>' +
+        (img ? '<button type="button" class="slot-remove" data-remove="' + s.key + '">×</button>' : '') +
+      '</div>';
+    }).join('');
+  }
+
+  function insertImageInContent(heading, url, alt) {
+    var el = getContentEl();
+    if (!el) return;
+    var content = el.value || '';
+    var marker = '![' + alt + '](' + url + ')';
+    // remove any previous image right after this heading (any URL)
+    var headingEsc = heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re = new RegExp('(' + headingEsc + '\\s*\\n+)(!\\[[^\\]]*\\]\\([^)]+\\)\\s*\\n+)?', 'g');
+    if (re.test(content)) {
+      content = content.replace(re, '$1' + marker + '\n\n');
+    } else {
+      content = marker + '\n\n' + content;
+    }
+    el.value = content;
+  }
+
+  function removeImageFromContent(heading) {
+    var el = getContentEl();
+    if (!el) return;
+    var headingEsc = heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re = new RegExp('(' + headingEsc + '\\s*\\n+)(!\\[[^\\]]*\\]\\([^)]+\\)\\s*\\n+)', 'g');
+    el.value = el.value.replace(re, '$1');
+  }
+
+  async function handleSectionImageUpload(slotKey, file) {
+    var slot = SECTION_SLOTS.find(function (s) { return s.key === slotKey; });
+    if (!slot || !file) return;
+    C.showToast('⏳ Uploading section image...');
+    try {
+      var url = await uploadToStorage(file, 'sec_' + slotKey + '_');
+      sectionImages[slotKey] = { url: url, alt: slot.label };
+      insertImageInContent(slot.heading, url, slot.label);
+      renderSectionSlots();
+      C.showToast('✅ Image inserted into content');
+    } catch (err) {
+      console.error(err);
+      C.showToast('❌ ' + err.message);
+    }
+  }
+
+  // Wire slot clicks (delegation)
+  document.addEventListener('click', function (e) {
+    var removeBtn = e.target.closest('[data-remove]');
+    if (removeBtn) {
+      e.stopPropagation();
+      var key = removeBtn.dataset.remove;
+      var slot = SECTION_SLOTS.find(function (s) { return s.key === key; });
+      if (slot) {
+        removeImageFromContent(slot.heading);
+        delete sectionImages[key];
+        renderSectionSlots();
+      }
+      return;
+    }
+    var slotEl = e.target.closest('.section-image-slot');
+    if (slotEl) {
+      pendingSlotKey = slotEl.dataset.slot;
+      var input = document.getElementById('sectionImageInput');
+      if (input) { input.value = ''; input.click(); }
+    }
+  });
+
+  // File input
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'sectionImageInput' && e.target.files[0]) {
+      handleSectionImageUpload(pendingSlotKey, e.target.files[0]);
+      pendingSlotKey = null;
+    }
+  });
+
+
+  /* ============================================
      Load Articles
      ============================================ */
   async function loadArticles() {
@@ -443,6 +547,8 @@
     currentImageFile = null;
     imagePreview.innerHTML = '<span class="image-hint">Click to upload an image (max 3 MB)</span>';
     if (removeImageBtn) removeImageBtn.style.display = 'none';
+    sectionImages = {};
+    renderSectionSlots();
     formTitle.textContent = 'Add New Article';
     resetBtn.style.display = 'none';
     if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
@@ -626,12 +732,31 @@
           'Write a detailed engineering tutorial based on real experience. Use concrete component values, units, and step-by-step verification. Use the attached images as real context for what the project looks like.\n\n' +
           'AVOID these AI-typical phrases: delve, navigate the complexities, leverage, seamless, robust solution, game-changer, in today\'s fast-paced world. Never use them.\n\n' +
           'USE specific numbers with units (4.7k ohm, 3.3V, 12.4mA), first-person experience (I tested, we measured), one real failure story (what broke and how you debugged it), and a Sources section with 3-5 verifiable URLs at the end. Include one markdown table of real measurements.\n\n' +
-          'STRUCTURE (mandatory):\n' +
-          '- Introduction: 120-180 words (no heading)\n' +
-          '- Then 6 sections, each starting with "## Heading" and containing 220-300 words\n' +
-          '- Then "## Frequently Asked Questions" with 4 entries (each as "### Question?" followed by 50-80 word answer)\n' +
-          '- Then "## Conclusion" of 100-140 words\n' +
-          'Total: 2000-2500 words. Separate blocks with \\n\\n.\n\n' +
+          'STRUCTURE (mandatory, use these exact ## headings in this order):\n' +
+          "STRUCTURE (mandatory, use these exact ## headings in this order):\n" +
+          "## Problem\n" +
+          "2-3 sentences describing the symptom a user would notice.\n" +
+          "\n" +
+          "## Possible Causes\n" +
+          "Bulleted list of 4-6 likely root causes, one line each.\n" +
+          "\n" +
+          "## Tools and Components Needed\n" +
+          "Bulleted list of specific tools (multimeter, screwdriver sizes, soldering iron wattage, etc.) and replacement parts with model numbers where relevant.\n" +
+          "\n" +
+          "## Step-by-Step Solution\n" +
+          "6-10 sub-sections, each starting with \"### Step N: Short Title\" followed by 1-3 paragraphs of concrete instructions with real values, measurements, pin names, and code snippets where relevant.\n" +
+          "\n" +
+          "## Diagrams\n" +
+          "Bulleted descriptions of what a photo or diagram should show at each key step.\n" +
+          "\n" +
+          "## Common Mistakes\n" +
+          "Bulleted list of 4-6 mistakes beginners make, with the fix for each.\n" +
+          "\n" +
+          "## Safety Precautions\n" +
+          "Two sub-bullets: \"**Electrical:**\" and \"**Mechanical:**\" with concrete warnings (voltages, lockout/tagout, PPE, sharp edges, capacitor discharge).\n" +
+          "\n" +
+          "## How to Verify the Fix\n" +
+          "Numbered list of 4-6 validation steps ending with the expected measured result (voltage, resistance, temperature, etc.).\n" +
           'Use real component values, units, and how-to-verify steps. No fluff. Never invent statistics or quotes.\n\n' +
           'Return ONLY a raw JSON object (no markdown fences):\n' +
           '{\n' +
