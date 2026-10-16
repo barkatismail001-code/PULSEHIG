@@ -1423,3 +1423,23 @@ pre { position: relative; }
 .forum-card h3{margin:4px 0 6px;font-size:1.05rem;line-height:1.4}
 .forum-card p{margin:0 0 12px;color:var(--text-muted);font-size:.9rem;line-height:1.5}
 .forum-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:.8rem;color:var(--text-muted)}
+
+/* ============ Performance fixes (CLS / LCP) — 2026-10-16 ============ */
+img, picture, video { max-width: 100%; height: auto; display: block; }
+.article-hero-img, .hero-img, .og-image {
+  aspect-ratio: 1200 / 630;
+  width: 100%;
+  object-fit: cover;
+  background: #1e293b;
+}
+.article-card img {
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  object-fit: cover;
+  background: #1e293b;
+}
+.ticker, .ticker-track { min-height: 40px; }
+.hero-section { min-height: 220px; }
+.best-picks, .home-tech-grid, .academy-preview { min-height: 140px; }
+.sidebar .widget { min-height: 60px; }
+.loading-state { min-height: 120px; }
