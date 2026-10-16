@@ -5,7 +5,7 @@
 <link>https://www.pulsehig.com/</link>
 <description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
 <language>en</language>
-<lastBuildDate>Fri, 16 Oct 2026 17:09:40 GMT</lastBuildDate>
+<lastBuildDate>Fri, 16 Oct 2026 17:11:18 GMT</lastBuildDate>
 <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>Troubleshooting and Replacing a Tripped or Faulty Miniature Circuit Breaker (MCB) in a Home Distribution Board</title>
@@ -105,48 +105,48 @@
     </item>
     <item>
       <title>Driving a DC Motor from an ESP32 with a Low-Side MOSFET</title>
-      <link>https://www.pulsehig.com/a/driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet.html</guid>
+      <link>https://www.pulsehig.com/a/driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet-24.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet-24.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description><![CDATA[An ESP32 pin can only supply a few milliamps, so it can never power a motor directly. A logic-level MOSFET turns the pin into a safe, fast electronic switch and lets you control speed with PWM.]]></description>
     </item>
     <item>
       <title>Fixing Relay Chatter When Switching AC Loads from an ESP32</title>
-      <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html</guid>
+      <link>https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-25.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-25.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description><![CDATA[A relay that buzzes, clicks repeatedly, or resets your ESP32 is almost never a broken relay. It is a power, isolation or snubber problem. Fix those three and the circuit becomes as reliable as any commercial smart switch.]]></description>
     </item>
     <item>
       <title>Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide</title>
-      <link>https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide.html</guid>
+      <link>https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide-28.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide-28.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Upgrades</category>
       <description><![CDATA[A laptop with an i5-5200U and 4 GB RAM is not slow because the CPU is old — it is slow because it is waiting for a 5400 rpm hard drive and swapping to disk. Replacing those two parts costs less than a new laptop and gives 10× the responsiveness.]]></description>
     </item>
     <item>
       <title>PC Won&#39;t Boot? The 7-Step No-POST Checklist</title>
-      <link>https://www.pulsehig.com/a/pc-won-t-boot-the-7-step-no-post-checklist.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/pc-won-t-boot-the-7-step-no-post-checklist.html</guid>
+      <link>https://www.pulsehig.com/a/pc-won-t-boot-the-7-step-no-post-checklist-29.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/pc-won-t-boot-the-7-step-no-post-checklist-29.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Hardware</category>
       <description><![CDATA[The fans spin, the LEDs light up, but there is no display and no beep. Before you assume the motherboard is dead, strip the system down to the minimum and let it tell you what is wrong.]]></description>
     </item>
     <item>
       <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
-      <link>https://www.pulsehig.com/a/stop-your-raspberry-pi-from-overheating-in-a-closed-case.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/stop-your-raspberry-pi-from-overheating-in-a-closed-case.html</guid>
+      <link>https://www.pulsehig.com/a/stop-your-raspberry-pi-from-overheating-in-a-closed-case-30.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/stop-your-raspberry-pi-from-overheating-in-a-closed-case-30.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description><![CDATA[A Raspberry Pi inside a sealed 3D-printed box will happily hit 85 °C under load, throttle itself to 600 MHz, and feel &quot;slow&quot; without ever crashing. The fix is not a bigger heatsink — it is understanding airflow, thermal mass and the throttle flags the Pi already reports.]]></description>
     </item>
     <item>
       <title>Router Keeps Rebooting? 6 Causes You Can Fix Today</title>
-      <link>https://www.pulsehig.com/a/router-keeps-rebooting-6-causes-you-can-fix-today.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/router-keeps-rebooting-6-causes-you-can-fix-today.html</guid>
+      <link>https://www.pulsehig.com/a/router-keeps-rebooting-6-causes-you-can-fix-today-31.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/router-keeps-rebooting-6-causes-you-can-fix-today-31.html</guid>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <category>Networking</category>
       <description><![CDATA[A router that reboots itself is usually telling you the power supply is dying, the firmware is buggy, or the DHCP table is full. Only one of those requires buying a new router.]]></description>
@@ -169,8 +169,8 @@
     </item>
     <item>
       <title>I2C Timeouts: When Your ESP32 Freezes in Real Life</title>
-      <link>https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life.html</guid>
+      <link>https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life-32.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life-32.html</guid>
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description><![CDATA[Your smart home dims the lights at 2 AM. Your fitness tracker loses your heart rate mid-run. Your factory robot halts production. The culprit is often the same: I2C clock stretching timeouts on ESP32. This deep-dive connects the technical to the tangible, showing you why these failures happen and ho]]></description>

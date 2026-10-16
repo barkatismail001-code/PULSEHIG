@@ -70,7 +70,7 @@
     </item>
     <item>
       <title>I2C Timeouts: When Your ESP32 Freezes in Real Life</title>
-      <link>https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life.html</link>
+      <link>https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life-32.html</link>
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
       <description>Your smart home dims the lights at 2 AM. Your fitness tracker loses your heart rate mid-run. Your factory robot halts production. The culprit is often the same: I2C clock stretching timeouts on ESP32. This deep-dive connects the technical to the tangible, showing you why these failures happen and ho</description>
     </item>
