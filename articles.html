@@ -42,6 +42,15 @@
         <a href="guides.html">Guides</a>
         <a href="qa.html">Q&amp;A</a>
         <a href="forum.html">Forum</a>
+
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
         <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
       </nav>
     </div>
@@ -53,7 +62,7 @@
     </nav>
 
     <h1 style="margin-bottom:8px">All Articles</h1>
-    <p style="color:var(--text-muted);margin-bottom:24px" id="articleCountLine">Loading…</p>
+    <p style="color:var(--text-muted);margin-bottom:24px" id="articleCountLine"></p>
 
     <div class="toolbar">
       <div class="search-box" style="flex:1">

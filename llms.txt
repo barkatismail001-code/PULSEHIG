@@ -3,7 +3,6 @@
 > Engineering platform for embedded systems, microcontrollers, home repair, and programming.
 
 ## Featured Articles
-- [Fix a stuck ESP8266 central heating relay using multimeter diagnostics](https://www.pulsehig.com/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter.html)
 - [Troubleshooting and Replacing a Tripped or Faulty Miniature Circuit Breaker (MCB) in a Home Distribution Board](https://www.pulsehig.com/a/troubleshooting-and-replacing-a-tripped-or-faulty-miniature.html)
 - [How to Fix a Leaking Water Pump Pressure Tank step-by-step](https://www.pulsehig.com/a/how-to-fix-a-leaking-water-pump-pressure-tank-step-by-step.html)
 - [Building a Production-Ready RAG Pipeline with Local LLMs and Vector Databases: A Complete Architecture Guide](https://www.pulsehig.com/a/building-a-production-ready-rag-pipeline-with-local-llms.html)
@@ -18,6 +17,7 @@
 - [I2C Timeouts: When Your ESP32 Freezes in Real Life](https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life.html)
 - [Smart Energy Audits: How Telemetry Can Slash Your Power Bills](https://www.pulsehig.com/a/smart-energy-audits-how-telemetry-can-slash-your-power-bills.html)
 - [How to Fix a Clogged Drain Without Harsh Chemicals](https://www.pulsehig.com/a/how-to-fix-a-clogged-drain-without-harsh-chemicals.html)
+- [Mechanical Engineering Principles in Sanitary Piping: A Technical Analysis of Trap and Fitting Assembly](https://www.pulsehig.com/a/mechanical-engineering-principles-in-sanitary-piping-a.html)
 
 ## Contact
 - Website: https://www.pulsehig.com

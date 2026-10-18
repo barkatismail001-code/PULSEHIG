@@ -253,6 +253,15 @@
         <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
         <a href="forum.html" data-i18n="nav_forum">Forum</a>
 
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
         <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
       </nav>
     </div>
@@ -288,7 +297,7 @@
     <div class="alphabet-bar" id="alphabetBar" aria-label="Jump to letter"></div>
 
     <div class="glossary-list" id="glossaryList">
-      <p class="loading-state">Loading glossary...</p>
+      <div class="loading-state" role="status" aria-label="Please wait"></div>
     </div>
 
     <div class="glossary-stats" id="glossaryStats"></div>

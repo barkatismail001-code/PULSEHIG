@@ -278,6 +278,15 @@
         <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
         <a href="forum.html" class="active" data-i18n="nav_forum">Forum</a>
 
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="pt">🇵🇹 Português</option>
+        </select>
+
         <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
       </nav>
     </div>
@@ -305,7 +314,7 @@
           <h3>Technology</h3>
           <p>Microcontrollers, IoT hardware, and automation systems.</p>
         </div>
-        <span class="cat-stats" id="stat-Technology">Loading...</span>
+        <span class="cat-stats" id="stat-Technology">&nbsp;</span>
       </div>
       <div class="forum-cat-card" data-cat="Petroleum" onclick="filterCategory('Petroleum', this)">
         <div class="cat-icon-wrapper">🛢️</div>
@@ -313,7 +322,7 @@
           <h3>Petroleum</h3>
           <p>Upstream &amp; downstream engineering, and process machinery.</p>
         </div>
-        <span class="cat-stats" id="stat-Petroleum">Loading...</span>
+        <span class="cat-stats" id="stat-Petroleum">&nbsp;</span>
       </div>
       <div class="forum-cat-card" data-cat="Gas" onclick="filterCategory('Gas', this)">
         <div class="cat-icon-wrapper">🔥</div>
@@ -321,7 +330,7 @@
           <h3>Natural Gas</h3>
           <p>Gas processing, pipeline distribution, and safety.</p>
         </div>
-        <span class="cat-stats" id="stat-Gas">Loading...</span>
+        <span class="cat-stats" id="stat-Gas">&nbsp;</span>
       </div>
       <div class="forum-cat-card" data-cat="Programming" onclick="filterCategory('Programming', this)">
         <div class="cat-icon-wrapper">⚡</div>
@@ -329,7 +338,7 @@
           <h3>Programming</h3>
           <p>C++, MicroPython, Python, and firmware development.</p>
         </div>
-        <span class="cat-stats" id="stat-Programming">Loading...</span>
+        <span class="cat-stats" id="stat-Programming">&nbsp;</span>
       </div>
     </div>
 
@@ -389,7 +398,7 @@
 
       <hr style="border:none;border-top:1px solid var(--border);margin:18px 0">
       <h4 style="margin:0 0 10px;color:var(--text)">Replies</h4>
-      <div id="repliesContainer"><p class="loading-row">Loading replies...</p></div>
+      <div id="repliesContainer"><div class="loading-state" role="status" aria-label="Please wait"></div></div>
 
       <div id="replyFormWrap" style="margin-top:16px;display:none">
         <textarea id="replyContent" rows="3" placeholder="Write a reply..."></textarea>
@@ -683,7 +692,7 @@
       $('detailTitle').textContent = topic.title;
       $('detailMeta').textContent = 'By ' + (topic.author || 'Member') + ' • ' + topic.category + ' • ' + fmtDate(topic.created_at);
       $('detailContent').textContent = topic.content || '(no description)';
-      $('repliesContainer').innerHTML = '<p class="loading-row">Loading replies...</p>';
+      $('repliesContainer').innerHTML = '<div class="loading-state" role="status" aria-label="Please wait"></div>';
 
       $('topicDetailModal').classList.add('open');
       $('replyFormWrap').style.display = currentUser ? 'block' : 'none';
