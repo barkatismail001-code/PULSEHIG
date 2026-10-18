@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.pulsehig.com/course/mit-6-004-computation-structures.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.pulsehig.com/course/analog-electronics.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/circuits-i.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/compilers.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/computer-architecture.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/control-systems.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/data-structures.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/deep-learning.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/designing-information.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/digital-design.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/dsp.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/electromagnetics.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/fluid-mechanics.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/heat-transfer.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mechanics-materials.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/microcontrollers.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-0002-computational-thinking.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-002-circuits-electronics.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-004-computation-structures.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-006-intro-algorithms.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/mit-6-034-artificial-intelligence.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/nlp.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/operating-systems.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/programming-c.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/real-time-systems.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/robotics.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/signals-systems.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/thermodynamics.html</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
