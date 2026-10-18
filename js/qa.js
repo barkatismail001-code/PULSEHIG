@@ -247,7 +247,7 @@
   async function loadQuestions() {
     var list = document.getElementById('qaList');
     if (!list) return;
-    list.innerHTML = '<p class="loading-state">Loading questions...</p>';
+    list.innerHTML = '<div class="loading-state" role="status" aria-label="Please wait"></div>';
 
     var SB = C.SUPABASE_URL;
     var KEY = C.SUPABASE_ANON_KEY;

@@ -304,6 +304,16 @@ window.TPCommon = (function () {
     return fallback;
   }
 
+  // Read-only refresh of the visit counters (does NOT register a new visit)
+  async function getSiteStats() {
+    try {
+      var rows = await sbSelect('site_stats?select=total_visits,daily_visits,last_visit_date&id=eq.global');
+      var r = rows && rows[0];
+      if (!r) return null;
+      return { total: r.total_visits || 0, daily: r.last_visit_date === todayStr() ? (r.daily_visits || 0) : 0 };
+    } catch (e) { return null; }
+  }
+
   // ===== Article views =====
   var viewCache = {};
   var dailyViewCache = {};
@@ -682,6 +692,7 @@ window.TPCommon = (function () {
     registerView: registerView,
     refreshViews: refreshViews,
     trackAndGetSiteStats: trackAndGetSiteStats,
+    getSiteStats: getSiteStats,
     getLikeCount: getLikeCount,
     hasLiked: hasLiked,
     toggleLike: toggleLike,

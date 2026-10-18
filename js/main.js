@@ -340,6 +340,14 @@
       renderGlobalStats();
     });
 
+    // Visit counters refresh every 2 minutes (paused while the tab is hidden)
+    var refreshVisits = function () {
+      if (document.hidden) return;
+      C.getSiteStats().then(function (s) { if (s) { siteStats = s; renderGlobalStats(); } });
+    };
+    setInterval(refreshVisits, 120000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) refreshVisits(); });
+
     var results = await Promise.all([C.getArticles(), C.loadStaticSlugs()]);
     allArticles = results[0];
 

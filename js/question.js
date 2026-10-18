@@ -108,7 +108,7 @@
           '<span>' + esc(new Date(q.created_at).toLocaleDateString()) + '</span></div></header>' +
         '<div class="topic-body">' + body(q.content) + '</div>' +
         '<section class="topic-replies-section"><h2 id="qAnswersCount">Answers</h2>' +
-          '<div class="topic-replies" id="qAnswers"><p class="loading-state">Loading...</p></div></section>' +
+          '<div class="topic-replies" id="qAnswers"><div class="loading-state" role="status" aria-label="Please wait"></div></div></section>' +
         '<section style="margin-top:28px"><h3>Your answer</h3><div id="qAnswerForm"></div></section>' +
         '<div style="text-align:center;margin:32px 0"><a href="/qa.html" class="btn-secondary">&larr; Back to Q&amp;A</a></div>';
       renderForm();

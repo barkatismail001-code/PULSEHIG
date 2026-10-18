@@ -78,7 +78,7 @@
   async function loadCourses() {
     var grid = document.getElementById('coursesGrid');
     if (!grid) return;
-    grid.innerHTML = '<p class="loading-state">Loading courses...</p>';
+    grid.innerHTML = '<div class="loading-state" role="status" aria-label="Please wait"></div>';
 
     try {
       // Fetch all data in parallel

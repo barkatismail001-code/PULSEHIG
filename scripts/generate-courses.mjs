@@ -27,7 +27,7 @@ function inlineMd(s) {
 }
 function renderContent(text) {
   const src = String(text || '').replace(/\r\n/g, '\n');
-  const blocks = src.split(/\n\n+/);
+  const blocks = src.split(/\n[ \t]*\n+/);
   const out = [];
   for (const b of blocks) {
     const t = b.trim();
@@ -45,7 +45,15 @@ function renderContent(text) {
       const code = t.replace(/^```[a-z]*\n?/, '').replace(/\n?```$/, '');
       out.push('<pre><code>' + code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</code></pre>');
     }
-    else out.push('<p>' + inlineMd(t).replace(/\n/g, '<br>') + '</p>');
+    else {
+      // lead-in sentence followed by list lines ("Robots combine:\n- a\n- b")
+      const k = lines.findIndex((l) => /^\s*([-*]|\d+[.)])\s+/.test(l));
+      const rest = k > 0 ? lines.slice(k) : [];
+      if (k > 0 && rest.every((l) => /^\s*[-*]\s+/.test(l))) {
+        out.push('<p>' + inlineMd(lines.slice(0, k).join(' ')) + '</p>');
+        out.push('<ul>' + rest.map((l) => '<li>' + inlineMd(l.replace(/^\s*[-*]\s+/, '')) + '</li>').join('') + '</ul>');
+      } else out.push('<p>' + inlineMd(t).replace(/\n/g, '<br>') + '</p>');
+    }
   }
   return out.join('\n');
 }
@@ -68,7 +76,7 @@ function page(course, lectures, assignments, exams) {
         <div class="lecture-num">${l.number}</div>
         <div class="lecture-content">
           <h4>${esc(l.title)}</h4>
-          <p>${esc((l.content || '').slice(0, 220))}...</p>
+          <p>${esc(String(l.content || '').replace(/^\s*#{1,3}\s*/gm, '').replace(/^\s*[-*]\s+/gm, '').replace(/[*`]/g, '').replace(/\s+/g, ' ').trim().slice(0, 200))}...</p>
           <div class="lecture-meta">
             <span>⏱ ${Math.max(1, Math.round((String(l.content||"").split(/\s+/).filter(Boolean).length)/200))} min read</span>
           </div>

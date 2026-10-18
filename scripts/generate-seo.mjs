@@ -596,6 +596,30 @@ function depStubPage(title, canonicalSlug) {
     '</head><body><p>Redirecting to <a href="/a/' + canonicalSlug + '.html">/a/' + canonicalSlug + '.html</a></p></body></html>\n';
 }
 
+// Reads visit counters from Supabase (when a key is available) and bakes them into index.html.
+async function bakeSiteStats() {
+  const file = join(ROOT, 'data/site-stats.json');
+  let stats = { total: 0, daily: 0 };
+  try { stats = JSON.parse(await readFile(file, 'utf8')); } catch {}
+  if (SUPABASE_KEY) {
+    try {
+      const r = await fetch(SUPABASE_URL + '/rest/v1/site_stats?select=total_visits,daily_visits,last_visit_date&id=eq.global',
+        { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
+      const rows = r.ok ? await r.json() : [];
+      if (rows[0]) stats = { total: rows[0].total_visits || 0, daily: rows[0].last_visit_date === iso(new Date()) ? (rows[0].daily_visits || 0) : 0, date: iso(new Date()) };
+    } catch (e) { console.warn('site_stats fetch failed:', e.message); }
+  }
+  await writeFile(file, JSON.stringify(stats, null, 1) + '\n');
+  const fmt = (n) => Number(n || 0).toLocaleString('en-US');
+  let h = await readFile(join(ROOT, 'index.html'), 'utf8');
+  const re = /<!--TP_STATS_START-->[\s\S]*?<!--TP_STATS_END-->/;
+  if (re.test(h)) {
+    h = h.replace(re, () => '<!--TP_STATS_START--><span>👁️ Visits today: <strong>' + fmt(stats.daily) + '</strong></span><span style="margin:0 12px;opacity:.5">|</span><span>📊 Total visits: <strong>' + fmt(stats.total) + '</strong></span><!--TP_STATS_END-->');
+    await writeFile(join(ROOT, 'index.html'), h);
+    console.log('✓ visit counters baked into index.html (total ' + fmt(stats.total) + ')');
+  }
+}
+
 // Puts real article links into the HTML (no JavaScript needed) between the TP_ARTICLES markers.
 async function injectStatic(listed) {
   const card = (a) => '<article class="article-card"><span class="card-category">' + esc(a.category) + '</span><h3><a href="/a/' + a.slug + '.html">' + esc(a.title) + '</a></h3><p>' + esc(a.excerpt) + '</p><a href="/a/' + a.slug + '.html" class="read-more">Read more →</a></article>';
@@ -872,6 +896,7 @@ async function main() {
   console.log('✅ Done. Total: ' + articles.length + ' articles, ' + SERIES.length + ' series');
 
   await injectStatic(articles);
+  await bakeSiteStats();
   await gateCourses();
   await postBuildConsistency();
 }
