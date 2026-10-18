@@ -1,7 +1,7 @@
 {
   "name": "techpulse",
   "version": "1.0.0",
-  "description": "TechPulse — Tech + Home + Academy. Free engineering platform.",
+  "description": "TechPulse \u2014 Tech + Home + Academy. Free engineering platform.",
   "type": "module",
   "private": true,
   "scripts": {
@@ -13,14 +13,10 @@
     "seo:sitemap": "node scripts/update-sitemap.mjs",
     "serve": "npx http-server -p 8000 -c-1",
     "dev": "npx http-server -p 8000 -c-1 -o",
-    "clean": "node -e \"const fs=require('fs');['rss','series'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true})}catch(e){}})\"",
-    "bot": "node scripts/daily-bot.mjs",
-    "translate": "node scripts/translate-articles.mjs",
     "verify": "node scripts/verify-build.mjs",
     "verify:full": "node scripts/generate-seo.mjs && node scripts/verify-build.mjs"
   },
   "dependencies": {
-    "@google/genai": "^2.28.0",
     "@supabase/supabase-js": "^2.45.0",
     "dotenv": "^18.0.7",
     "cheerio": "^1.0.0",

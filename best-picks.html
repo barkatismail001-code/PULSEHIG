@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://cescfarawvpzmilteufq.supabase.co wss://cescfarawvpzmilteufq.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://partner.googleadservices.com https://www.googletagservices.com https://fundingchoicesmessages.google.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://cescfarawvpzmilteufq.supabase.co wss://cescfarawvpzmilteufq.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://fundingchoicesmessages.google.com; frame-src https://disqus.com https://*.disqus.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Best Picks | TechPulse — Independently Tested Product Recommendations</title>
-  <meta name="description" content="Independently tested product recommendations for engineers, makers, and smart home enthusiasts. Best microcontrollers, multimeters, smart plugs, soldering stations, and 3D printers.">
+  <title>Best Picks | TechPulse — Recommended Parts for Makers and Engineers</title>
+  <meta name="description" content="Part suggestions for engineers, makers and smart-home builders, based on datasheets and specifications. Best microcontrollers, multimeters, smart plugs, soldering stations, and 3D printers.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="keywords" content="best esp32 board, best multimeter, best smart plug, best soldering station, best 3d printer, product reviews">
   <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/best-picks.html">
@@ -21,7 +21,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="TechPulse">
   <meta property="og:title" content="Best Picks | TechPulse">
-  <meta property="og:description" content="Independently tested product recommendations for engineers and home users.">
+  <meta property="og:description" content="Part suggestions for engineers and home users, based on datasheets and specifications.">
   <meta property="og:url" content="https://www.pulsehig.com/best-picks.html">
   <meta property="og:image" content="https://www.pulsehig.com/assets/og-default.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -37,7 +37,7 @@
     "@type": "CollectionPage",
     "name": "Best Picks",
     "url": "https://www.pulsehig.com/best-picks.html",
-    "description": "Independently tested product recommendations for engineers and home users."
+    "description": "Part suggestions for engineers and home users, based on datasheets and specifications."
   }
   </script>
   <!-- Google Analytics 4 -->
@@ -76,16 +76,6 @@
         <a href="guides.html" data-i18n="nav_guides">Guides</a>
         <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
         <a href="forum.html" data-i18n="nav_forum">Forum</a>
-        <a href="news.html" data-i18n="nav_news">News</a>
-
-        <select id="languageSelector" class="lang-select" aria-label="Select Language">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="hi">🇮🇳 हिन्दी</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="pt">🇵🇹 Português</option>
-        </select>
 
         <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
       </nav>
@@ -96,15 +86,15 @@
 
     <section class="hero-section">
       <h1 data-i18n="best_picks_hero_title">⭐ Best Picks</h1>
-      <p data-i18n="best_picks_hero_desc">Independently tested product recommendations for engineers, makers, and smart home enthusiasts. We research, buy, and test every product we recommend.</p>
+      <p data-i18n="best_picks_hero_desc">Part suggestions for engineers, makers and smart-home builders, based on datasheets, specifications and community experience. Prices are approximate and change often.</p>
       <div class="site-stats-bar" id="picksStatsBar"></div>
     </section>
 
     <div class="best-picks-trust">
-      <span class="trust-item">✓ Independently researched</span>
+      <span class="trust-item">✓ Based on datasheets and specs</span>
       <span class="trust-item">✓ No sponsored placements</span>
-      <span class="trust-item">✓ Updated quarterly</span>
-      <span class="trust-item">✓ Real prices, real models</span>
+      <span class="trust-item">✓ Prices are approximate</span>
+      <span class="trust-item">✓ Specific, named models</span>
     </div>
 
     <section class="picks-categories" id="picksCategories" aria-live="polite">

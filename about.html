@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://cescfarawvpzmilteufq.supabase.co wss://cescfarawvpzmilteufq.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://partner.googleadservices.com https://www.googletagservices.com https://fundingchoicesmessages.google.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://cescfarawvpzmilteufq.supabase.co wss://cescfarawvpzmilteufq.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://fundingchoicesmessages.google.com; frame-src https://disqus.com https://*.disqus.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | TechPulse — Engineering Platform for Everyone</title>
@@ -71,16 +71,6 @@
         <a href="guides.html" data-i18n="nav_guides">Guides</a>
         <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
         <a href="forum.html" data-i18n="nav_forum">Forum</a>
-        <a href="news.html" data-i18n="nav_news">News</a>
-
-        <select id="languageSelector" class="lang-select" aria-label="Select Language">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="hi">🇮🇳 हिन्दी</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="pt">🇵🇹 Português</option>
-        </select>
 
         <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
       </nav>
@@ -89,50 +79,35 @@
 
   <main class="container">
     <section class="page-content">
-      <h1 data-i18n="about_title">About TechPulse</h1>
-      <p data-i18n="about_desc">TechPulse is a dedicated engineering platform for embedded systems, microcontrollers, home automation, and hardware tutorials.</p>
+      <h1>About TechPulse</h1>
+      <p>TechPulse publishes practical, step-by-step guides for people who build and repair things: ESP32 and Arduino projects, electronics troubleshooting, PC and network problems, and home repair.</p>
 
       <h2>What we publish</h2>
       <ul>
-        <li>ESP32, ESP8266, STM32, and Arduino tutorials with tested code</li>
-        <li>Home automation and DIY guides with real costs and time estimates</li>
-        <li>University-level engineering courses — MIT, Stanford, Berkeley, CMU — with lectures, assignments, and step-by-step solutions</li>
-        <li>30+ engineering calculators for electronics, embedded, and home projects</li>
-        <li>Independently tested product picks (microcontrollers, tools, smart home devices)</li>
-        <li>Programming guides (Python, C, Embedded C, Git, APIs, IoT)</li>
-        <li>Live industry news from Hacker News, Reddit, and curated sources</li>
+        <li><strong>Troubleshooting guides.</strong> Each guide follows the same structure: the problem, possible causes, tools and components needed, a detailed step-by-step solution, images or diagrams where they help, and common mistakes.</li>
+        <li><strong>Calculators.</strong> Free engineering calculators for electronics, embedded and home projects.</li>
+        <li><strong>Project guides.</strong> Small home-automation projects with parts lists and wiring notes.</li>
+        <li><strong>Study notes.</strong> Independent engineering study notes in the Academy section. They are not affiliated with, endorsed by, or copied from any university.</li>
+        <li><strong>Parts suggestions.</strong> Recommendations based on datasheets, specifications and community experience. Prices are approximate and change often.</li>
       </ul>
 
-      <h2>Our standards</h2>
-      <p>Every article is technically reviewed, uses real component values and units, and is structured with FAQ sections for AI citation. We do not publish sponsored content disguised as reviews. Our product picks are based on independent research and community feedback.</p>
-
-      <h2>Languages</h2>
-      <p>TechPulse is available in six languages:</p>
+      <h2>Editorial standards</h2>
       <ul>
-        <li>🇬🇧 English</li>
-        <li>🇨🇳 中文 (Chinese)</li>
-        <li>🇪🇸 Español (Spanish)</li>
-        <li>🇮🇳 हिन्दी (Hindi)</li>
-        <li>🇫🇷 Français (French)</li>
-        <li>🇵🇹 Português (Portuguese)</li>
-      </ul>
-      <p>Automatic translation is powered by AI and refined by the community. If you spot a translation error, let us know.</p>
-
-      <h2>Our stack</h2>
-      <ul>
-        <li><strong>Frontend:</strong> Vanilla HTML/CSS/JS (fast, no frameworks)</li>
-        <li><strong>Backend:</strong> Supabase (PostgreSQL + Auth + Storage)</li>
-        <li><strong>Hosting:</strong> GitHub Pages + Cloudflare CDN</li>
-        <li><strong>AI:</strong> Google Gemini API</li>
-        <li><strong>Analytics:</strong> Plausible / Umami (privacy-friendly)</li>
+        <li>Articles are reviewed by a person before they are published. Nothing is published automatically.</li>
+        <li>Guides must contain real values, units and part numbers, and enough detail to be followed without guessing.</li>
+        <li>Anything involving mains voltage, gas, water pressure or heat includes a safety note. If a repair is unsafe for a beginner, we say so.</li>
+        <li>We do not publish sponsored content disguised as advice.</li>
+        <li>We correct mistakes quickly and note significant corrections on the article.</li>
       </ul>
 
-      <h2>Contact</h2>
-      <p>Editorial: <strong>contact@pulsehig.com</strong></p>
-      <p>For press, partnerships, or corrections, please use our <a href="contact.html">contact form</a>.</p>
+      <h2>Advertising disclosure</h2>
+      <p>The site may display ads from Google AdSense. Advertisers do not influence what we write or recommend.</p>
 
-      <h2>License</h2>
-      <p>TechPulse content is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>. Code samples are MIT-licensed. University course content follows original licenses (mostly CC BY-NC-SA from MIT OpenCourseWare and similar).</p>
+      <h2>Corrections and contact</h2>
+      <p>Found an error or have a suggestion? Email <strong>contact@pulsehig.com</strong> or use the <a href="contact.html">contact form</a>.</p>
+
+      <h2>Copyright</h2>
+      <p>&copy; TechPulse. All rights reserved unless stated otherwise. Short code samples are released under the MIT license.</p>
     </section>
   </main>
 

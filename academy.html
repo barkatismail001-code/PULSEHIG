@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://cescfarawvpzmilteufq.supabase.co wss://cescfarawvpzmilteufq.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://partner.googleadservices.com https://www.googletagservices.com https://fundingchoicesmessages.google.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://cescfarawvpzmilteufq.supabase.co wss://cescfarawvpzmilteufq.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://fundingchoicesmessages.google.com; frame-src https://disqus.com https://*.disqus.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Academy | TechPulse — Free University-Level Engineering Courses</title>
-  <meta name="description" content="Free MIT, Stanford, Berkeley, CMU-level engineering courses: lectures, assignments, past exams and step-by-step solutions. Circuits, algorithms, embedded systems, machine learning and more.">
+  <meta name="description" content="Free independent engineering study notes: lectures, assignments and worked solutions. Circuits, algorithms, embedded systems, machine learning and more.">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="keywords" content="MIT OpenCourseWare, Stanford online courses, engineering lectures, circuits, algorithms, embedded systems, exam solutions">
+  <meta name="keywords" content="engineering lectures, circuits, algorithms, embedded systems, exam solutions">
   <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/academy.html">
   <link rel="alternate" hreflang="zh-CN" href="https://www.pulsehig.com/academy.html?lang=zh">
   <link rel="alternate" hreflang="es" href="https://www.pulsehig.com/academy.html?lang=es">
@@ -21,7 +21,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="TechPulse">
   <meta property="og:title" content="TechPulse Academy — Free University-Level Engineering Courses">
-  <meta property="og:description" content="Free MIT, Stanford, Berkeley, CMU-level courses with solutions.">
+  <meta property="og:description" content="Free independent engineering study notes with worked solutions.">
   <meta property="og:url" content="https://www.pulsehig.com/academy.html">
   <meta property="og:image" content="https://www.pulsehig.com/assets/og-academy.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -174,16 +174,6 @@
         <a href="guides.html" data-i18n="nav_guides">Guides</a>
         <a href="qa.html" data-i18n="nav_qa">Q&amp;A</a>
         <a href="forum.html" data-i18n="nav_forum">Forum</a>
-        <a href="news.html" data-i18n="nav_news">News</a>
-
-        <select id="languageSelector" class="lang-select" aria-label="Select Language">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="hi">🇮🇳 हिन्दी</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="pt">🇵🇹 Português</option>
-        </select>
 
         <button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>
       </nav>
@@ -196,7 +186,7 @@
       <div class="academy-hero-content">
         <div class="academy-badge" data-i18n="academy_badge">🎓 100% Free · No Signup Required</div>
         <h1 id="academyHeroTitle" data-i18n="academy_preview_title">Free University-Level Engineering Courses</h1>
-        <p data-i18n="academy_hero_desc">Complete lectures, assignments, past exams and step-by-step solutions — structured after MIT OpenCourseWare, Stanford Online, Berkeley and CMU curricula.</p>
+        <p data-i18n="academy_hero_desc">Independent study notes, lectures, assignments and worked solutions for core engineering subjects.</p>
         <div class="academy-stats-bar" id="academyStats">
           <div class="academy-stat">
             <span class="academy-stat-num" id="statTotalCourses">0</span>
@@ -219,7 +209,7 @@
     </section>
 
     <div class="academy-trust">
-      <span class="trust-item">✅ Aligned with MIT 6.xxx / Stanford CS xxx</span>
+      <span class="trust-item">✅ Independent notes, not affiliated with any university</span>
       <span class="trust-item">✅ Every problem has a full solution</span>
       <span class="trust-item">✅ Reviewed by graduate TAs</span>
       <span class="trust-item">✅ 6 languages supported</span>
