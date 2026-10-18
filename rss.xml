@@ -5,8 +5,16 @@
 <link>https://www.pulsehig.com/</link>
 <description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
 <language>en</language>
-<lastBuildDate>Sun, 18 Oct 2026 21:46:40 GMT</lastBuildDate>
+<lastBuildDate>Sun, 18 Oct 2026 22:19:09 GMT</lastBuildDate>
 <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Fix a stuck ESP8266 central heating relay using multimeter diagnostics</title>
+      <link>https://www.pulsehig.com/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter.html</guid>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[Learn how to diagnose and fix a stuck relay on an ESP8266 central heating controller using multimeter diagnostics and firmware debugging.]]></description>
+    </item>
     <item>
       <title>Troubleshooting and Replacing a Tripped or Faulty Miniature Circuit Breaker (MCB) in a Home Distribution Board</title>
       <link>https://www.pulsehig.com/a/troubleshooting-and-replacing-a-tripped-or-faulty-miniature.html</link>
