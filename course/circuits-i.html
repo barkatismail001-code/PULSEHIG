@@ -108,135 +108,62 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Introduction; Lumped Element Abstraction</h4>
-          <p>
-## The Lumped Element Abstraction
-
-In real circuits, signals propagate at the speed of light. Every wire is an antenna, every component has parasitic capacitance, and Maxwell&#39;s equations describe reality precisely - ...</p>
+          <p>The Lumped Element Abstraction In real circuits, signals propagate at the speed of light. Every wire is an antenna, every component has parasitic capacitance, and Maxwell&amp;#39;s equations describe...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The Lumped Element Abstraction
-<br>
-<br>In real circuits, signals propagate at the speed of light. Every wire is an antenna, every component has parasitic capacitance, and Maxwell's equations describe reality precisely - but they are incredibly hard to solve.
-<br>
-<br>The lumped element abstraction lets us ignore most of this. We model a circuit as a network of ideal components (R, L, C, V-source, I-source) connected by ideal wires. The abstraction is valid when the circuit's physical size is much smaller than the wavelength of the signals.
-<br>
-<br>## When Does the Abstraction Break Down?
-<br>
-<br>Rule of thumb: the lumped model is valid when the propagation delay through the circuit is much smaller than the signal's rise time:
-<br>
-<br>    t_propagation &lt;&lt; t_rise
-<br>
-<br>Where:
-<br>- t_propagation = L / v (L = length, v ~ 2x10^8 m/s for PCB traces)
-<br>- t_rise = rise time of the fastest signal
-<br>
-<br>Example: A 10 cm PCB trace with a 1 ns rise time:
-<br>- t_prop = 0.1 / (2x10^8) = 0.5 ns
-<br>- 0.5 ns vs 1 ns: the abstraction is marginal
-<br>- Rule of thumb: need t_prop &lt; t_rise / 10, so 0.5 ns &lt; 0.1 ns fails
-<br>
-<br>At 100 MHz+ or with fast digital signals, you must think about transmission lines.
-<br>
-<br>## Ideal Circuit Elements
-<br>
-<br>Resistor (R): V = I * R (Ohm's law). Unit: ohm.
-<br>- Power: P = V*I = I^2*R = V^2/R
-<br>- Dissipates energy as heat
-<br>
-<br>Capacitor (C): I = C * dV/dt. Unit: farad.
-<br>- Stores energy in electric field: E = 0.5 * C * V^2
-<br>- Blocks DC, passes AC
-<br>
-<br>Inductor (L): V = L * dI/dt. Unit: henry.
-<br>- Stores energy in magnetic field: E = 0.5 * L * I^2
-<br>- Passes DC, blocks AC
-<br>
-<br>Voltage source: provides V regardless of current drawn.
-<br>Current source: provides I regardless of voltage across it.
-<br>
-<br>## Kirchhoff's Laws
-<br>
-<br>Kirchhoff's Current Law (KCL): The sum of currents entering any node equals the sum leaving.
-<br>
-<br>    Sum I_in = Sum I_out
-<br>
-<br>Kirchhoff's Voltage Law (KVL): The sum of voltage drops around any closed loop is zero.
-<br>
-<br>    Sum V_loop = 0
-<br>
-<br>## Series and Parallel Resistors
-<br>
-<br>Series: R_eq = R1 + R2 + ... + Rn
-<br>
-<br>    --[R1]--[R2]--[R3]--    equivalent to    --[R_eq]--
-<br>
-<br>Parallel: 1/R_eq = 1/R1 + 1/R2 + ... + 1/Rn
-<br>
-<br>For two: R_eq = (R1 * R2) / (R1 + R2)
-<br>
-<br>        +--[R1]--+
-<br>    ----+         +----    equivalent to    --[R_eq]--
-<br>        +--[R2]--+
-<br>
-<br>## Voltage Divider
-<br>
-<br>          R1
-<br>    Vin --/\/\/\--+-- Vout
-<br>                  |
-<br>                  R2
-<br>                  |
-<br>                 GND
-<br>
-<br>    Vout = Vin * R2 / (R1 + R2)
-<br>
-<br>This is the most common circuit in all of electronics. Use it to:
-<br>- Scale a sensor output to a safe ADC range
-<br>- Set a reference voltage
-<br>- Bias a transistor
-<br>
-<br>Current draw: I = Vin / (R1 + R2). Make R1+R2 large enough to avoid wasting power, but small enough to avoid loading effects.
-<br>
-<br>## Example Problem
-<br>
-<br>Question: Design a voltage divider to produce 3.3 V from a 5 V source, with total current draw under 1 mA.
-<br>
-<br>Solution:
-<br>- Need R2 / (R1 + R2) = 3.3 / 5 = 0.66
-<br>- Total R &gt;= 5 V / 1 mA = 5 kohm
-<br>- Pick R1 = 1.7 kohm, R2 = 3.3 kohm
-<br>- Verify: 5 * 3.3 / (1.7 + 3.3) = 5 * 3.3 / 5 = 3.3 V correct
-<br>- Current: 5 V / 5 kohm = 1 mA correct
-<br>
-<br>## Power in Circuits
-<br>
-<br>Every element has a power rating. Exceed it and it smokes.
-<br>
-<br>- Resistor: typical 0.25 W, 0.5 W
-<br>- Small LED: 20 mA, V_f ~ 2 V, P = 40 mW
-<br>- ESP32 GPIO pin: 20 mA max, 3.3 V, P = 66 mW
-<br>
-<br>Use P = I^2*R or P = V^2/R to check before connecting.
-<br>
-<br>## Why This Matters
-<br>
-<br>The lumped model is the foundation of all circuit analysis. Every SPICE simulator uses it. Every schematic capture tool assumes it. Without it, we'd have to solve Maxwell's equations for every LED blinker - which would take hours instead of milliseconds.
-<br>
-<br>The abstraction lets us reason about circuits using algebra, not calculus. It's one of the most successful engineering abstractions ever devised.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Lumped model valid when t_prop &lt;&lt; t_rise
-<br>- KCL: currents in = currents out at every node
-<br>- KVL: voltages around any loop sum to zero
-<br>- Series: R adds; Parallel: 1/R adds
-<br>- Voltage divider: Vout = Vin * R2/(R1+R2)
-<br>- Check power ratings BEFORE connecting
-<br></p></div>
+        <div class="lecture-full-content"><h3>The Lumped Element Abstraction</h3>
+<p>In real circuits, signals propagate at the speed of light. Every wire is an antenna, every component has parasitic capacitance, and Maxwell's equations describe reality precisely - but they are incredibly hard to solve.</p>
+<p>The lumped element abstraction lets us ignore most of this. We model a circuit as a network of ideal components (R, L, C, V-source, I-source) connected by ideal wires. The abstraction is valid when the circuit's physical size is much smaller than the wavelength of the signals.</p>
+<h3>When Does the Abstraction Break Down?</h3>
+<p>Rule of thumb: the lumped model is valid when the propagation delay through the circuit is much smaller than the signal's rise time:</p>
+<p>t_propagation &lt;&lt; t_rise</p>
+<p>Where:</p>
+<ul><li>t_propagation = L / v (L = length, v ~ 2x10^8 m/s for PCB traces)</li><li>t_rise = rise time of the fastest signal</li></ul>
+<p>Example: A 10 cm PCB trace with a 1 ns rise time:</p>
+<ul><li>t_prop = 0.1 / (2x10^8) = 0.5 ns</li><li>0.5 ns vs 1 ns: the abstraction is marginal</li><li>Rule of thumb: need t_prop &lt; t_rise / 10, so 0.5 ns &lt; 0.1 ns fails</li></ul>
+<p>At 100 MHz+ or with fast digital signals, you must think about transmission lines.</p>
+<h3>Ideal Circuit Elements</h3>
+<p>Resistor (R): V = I * R (Ohm's law). Unit: ohm.</p>
+<ul><li>Power: P = V*I = I^2*R = V^2/R</li><li>Dissipates energy as heat</li></ul>
+<p>Capacitor (C): I = C * dV/dt. Unit: farad.</p>
+<ul><li>Stores energy in electric field: E = 0.5 * C * V^2</li><li>Blocks DC, passes AC</li></ul>
+<p>Inductor (L): V = L * dI/dt. Unit: henry.</p>
+<ul><li>Stores energy in magnetic field: E = 0.5 * L * I^2</li><li>Passes DC, blocks AC</li></ul>
+<p>Voltage source: provides V regardless of current drawn.<br>Current source: provides I regardless of voltage across it.</p>
+<h3>Kirchhoff's Laws</h3>
+<p>Kirchhoff's Current Law (KCL): The sum of currents entering any node equals the sum leaving.</p>
+<p>Sum I_in = Sum I_out</p>
+<p>Kirchhoff's Voltage Law (KVL): The sum of voltage drops around any closed loop is zero.</p>
+<p>Sum V_loop = 0</p>
+<h3>Series and Parallel Resistors</h3>
+<p>Series: R_eq = R1 + R2 + ... + Rn</p>
+<p>--[R1]--[R2]--[R3]--    equivalent to    --[R_eq]--</p>
+<p>Parallel: 1/R_eq = 1/R1 + 1/R2 + ... + 1/Rn</p>
+<p>For two: R_eq = (R1 * R2) / (R1 + R2)</p>
+<p>+--[R1]--+<br>    ----+         +----    equivalent to    --[R_eq]--<br>        +--[R2]--+</p>
+<h3>Voltage Divider</h3>
+<p>R1<br>    Vin --/\/\/\--+-- Vout<br>                  |<br>                  R2<br>                  |<br>                 GND</p>
+<p>Vout = Vin * R2 / (R1 + R2)</p>
+<p>This is the most common circuit in all of electronics. Use it to:</p>
+<ul><li>Scale a sensor output to a safe ADC range</li><li>Set a reference voltage</li><li>Bias a transistor</li></ul>
+<p>Current draw: I = Vin / (R1 + R2). Make R1+R2 large enough to avoid wasting power, but small enough to avoid loading effects.</p>
+<h3>Example Problem</h3>
+<p>Question: Design a voltage divider to produce 3.3 V from a 5 V source, with total current draw under 1 mA.</p>
+<p>Solution:</p>
+<ul><li>Need R2 / (R1 + R2) = 3.3 / 5 = 0.66</li><li>Total R &gt;= 5 V / 1 mA = 5 kohm</li><li>Pick R1 = 1.7 kohm, R2 = 3.3 kohm</li><li>Verify: 5 * 3.3 / (1.7 + 3.3) = 5 * 3.3 / 5 = 3.3 V correct</li><li>Current: 5 V / 5 kohm = 1 mA correct</li></ul>
+<h3>Power in Circuits</h3>
+<p>Every element has a power rating. Exceed it and it smokes.</p>
+<ul><li>Resistor: typical 0.25 W, 0.5 W</li><li>Small LED: 20 mA, V_f ~ 2 V, P = 40 mW</li><li>ESP32 GPIO pin: 20 mA max, 3.3 V, P = 66 mW</li></ul>
+<p>Use P = I^2*R or P = V^2/R to check before connecting.</p>
+<h3>Why This Matters</h3>
+<p>The lumped model is the foundation of all circuit analysis. Every SPICE simulator uses it. Every schematic capture tool assumes it. Without it, we'd have to solve Maxwell's equations for every LED blinker - which would take hours instead of milliseconds.</p>
+<p>The abstraction lets us reason about circuits using algebra, not calculus. It's one of the most successful engineering abstractions ever devised.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Lumped model valid when t_prop &lt;&lt; t_rise</li><li>KCL: currents in = currents out at every node</li><li>KVL: voltages around any loop sum to zero</li><li>Series: R adds; Parallel: 1/R adds</li><li>Voltage divider: Vout = Vin * R2/(R1+R2)</li><li>Check power ratings BEFORE connecting</li></ul></div>
       </div>
     </div>
   
@@ -245,7 +172,7 @@ In real circuits, signals propagate at the speed of light. Every wire is an ante
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>Basic Circuit Analysis Method</h4>
-          <p>We introduce the node method for solving linear circuits. Instead of writing KVL and KCL repeatedly, the node method uses KCL at every node with unknown node voltages as the variables. We derive the method formally and a...</p>
+          <p>We introduce the node method for solving linear circuits. Instead of writing KVL and KCL repeatedly, the node method uses KCL at every node with unknown node voltages as the variables. We derive the...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
@@ -261,7 +188,7 @@ In real circuits, signals propagate at the speed of light. Every wire is an ante
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>Superposition, Thevenin, and Norton</h4>
-          <p>Superposition: in a linear circuit with multiple independent sources, the total response is the sum of responses to each source acting alone. Thevenin theorem: any linear two-terminal network can be replaced by a single ...</p>
+          <p>Superposition: in a linear circuit with multiple independent sources, the total response is the sum of responses to each source acting alone. Thevenin theorem: any linear two-terminal network can be...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
@@ -277,7 +204,7 @@ In real circuits, signals propagate at the speed of light. Every wire is an ante
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>The Digital Abstraction</h4>
-          <p>Digital circuits are built on a specific discipline: voltages below V_IL are treated as 0, voltages above V_IH as 1, and we guarantee that outputs stay within valid ranges. This lecture covers noise margins, static disci...</p>
+          <p>Digital circuits are built on a specific discipline: voltages below V_IL are treated as 0, voltages above V_IH as 1, and we guarantee that outputs stay within valid ranges. This lecture covers noise...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
@@ -293,7 +220,7 @@ In real circuits, signals propagate at the speed of light. Every wire is an ante
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>Inside the Digital Gate</h4>
-          <p>We open the black box: the MOSFET as a switch, the resistor pull-up and pull-down networks, and how CMOS logic gates actually work. This lecture explains why CMOS dominates modern digital design: low static power, high n...</p>
+          <p>We open the black box: the MOSFET as a switch, the resistor pull-up and pull-down networks, and how CMOS logic gates actually work. This lecture explains why CMOS dominates modern digital design: low...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
@@ -309,7 +236,7 @@ In real circuits, signals propagate at the speed of light. Every wire is an ante
         <div class="lecture-num">6</div>
         <div class="lecture-content">
           <h4>Nonlinear Elements: Diodes and MOSFETs</h4>
-          <p>Real diodes follow the Shockley equation; real MOSFETs have a quadratic I-V characteristic. We introduce nonlinear elements and demonstrate how to solve circuits containing them using graphical and iterative methods....</p>
+          <p>Real diodes follow the Shockley equation; real MOSFETs have a quadratic I-V characteristic. We introduce nonlinear elements and demonstrate how to solve circuits containing them using graphical and...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
@@ -325,7 +252,7 @@ In real circuits, signals propagate at the speed of light. Every wire is an ante
         <div class="lecture-num">7</div>
         <div class="lecture-content">
           <h4>Amplifiers and the Small-Signal Model</h4>
-          <p>An amplifier takes a small input signal and produces a larger output. We introduce the linear amplifier abstraction and the small-signal model, then apply it to analyze the MOSFET common-source amplifier....</p>
+          <p>An amplifier takes a small input signal and produces a larger output. We introduce the linear amplifier abstraction and the small-signal model, then apply it to analyze the MOSFET common-source...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
@@ -341,7 +268,7 @@ In real circuits, signals propagate at the speed of light. Every wire is an ante
         <div class="lecture-num">8</div>
         <div class="lecture-content">
           <h4>Capacitors and Inductors: Energy Storage</h4>
-          <p>Capacitors store energy in electric fields; inductors store energy in magnetic fields. We define their I-V relationships, show how they behave under DC steady-state, and introduce the concept of state variables....</p>
+          <p>Capacitors store energy in electric fields; inductors store energy in magnetic fields. We define their I-V relationships, show how they behave under DC steady-state, and introduce the concept of...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>

@@ -108,104 +108,44 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Digital Abstraction and Boolean Logic</h4>
-          <p>
-## The Digital Abstraction
-
-Digital circuits don&#39;t exist. Every wire carries an analog voltage that could, in principle, take any value. The digital abstraction is a discipline we impose on top of that:
-
-- Any volt...</p>
+          <p>The Digital Abstraction Digital circuits don&amp;#39;t exist. Every wire carries an analog voltage that could, in principle, take any value. The digital abstraction is a discipline we impose on top of...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The Digital Abstraction
-<br>
-<br>Digital circuits don't exist. Every wire carries an analog voltage that could, in principle, take any value. The digital abstraction is a discipline we impose on top of that:
-<br>
-<br>- Any voltage below V_IL is interpreted as logical 0
-<br>- Any voltage above V_IH is interpreted as logical 1
-<br>- The circuit must produce outputs below V_OL or above V_OH
-<br>
-<br>The gaps V_IL - V_OL and V_OH - V_IH are the noise margins NM_L and NM_H. They let us ignore noise, crosstalk, and process variation as long as the noise stays below the margins.
-<br>
-<br>## Why Digital?
-<br>
-<br>Analog circuits amplify, filter, and process continuous signals. Digital circuits are robust, scalable, and programmable. Moore's law exists because digital circuits can shrink to nanometer dimensions while retaining their function. Analog circuits cannot.
-<br>
-<br>Digital is a contract: as long as we honor the voltage thresholds, the circuit works.
-<br>
-<br>## Boolean Algebra
-<br>
-<br>Proposed by George Boole (1854). Variables take values in {0, 1}. Operations:
-<br>
-<br>- AND: A AND B (1 if both are 1)
-<br>- OR: A OR B (1 if either is 1)
-<br>- NOT: inverts
-<br>
-<br>Derived:
-<br>- NAND: NOT (A AND B)
-<br>- NOR: NOT (A OR B)
-<br>- XOR: A XOR B (1 if A != B)
-<br>
-<br>## Truth Tables
-<br>
-<br>Every boolean function of n variables is defined by a table with 2^n rows. Example, XOR:
-<br>
-<br>    A | B | A XOR B
-<br>    0 | 0 | 0
-<br>    0 | 1 | 1
-<br>    1 | 0 | 1
-<br>    1 | 1 | 0
-<br>
-<br>## Boolean Identities
-<br>
-<br>- Commutative: A+B = B+A, A·B = B·A
-<br>- Associative: (A+B)+C = A+(B+C)
-<br>- Distributive: A(B+C) = AB + AC
-<br>- Identity: A + 0 = A, A · 1 = A
-<br>- Complement: A + NOT A = 1, A · NOT A = 0
-<br>- Idempotent: A + A = A, A · A = A
-<br>- Absorption: A + AB = A
-<br>- De Morgan: NOT(A+B) = NOT A · NOT B, NOT(A·B) = NOT A + NOT B
-<br>
-<br>De Morgan is the most useful for circuit simplification.
-<br>
-<br>## Sum of Products (SOP)
-<br>
-<br>Any boolean function can be written as an OR of AND terms, one per row of the truth table where the output is 1. This is the canonical SOP form.
-<br>
-<br>Example: XOR = (NOT A)·B + A·(NOT B)
-<br>
-<br>## Karnaugh Maps
-<br>
-<br>A graphical tool for minimizing boolean expressions. Arrange the truth table in a 2D grid with Gray-coded rows and columns (adjacent cells differ by one bit). Find the largest power-of-2 groups of 1s. Each group becomes one product term.
-<br>
-<br>Example: minimize F(A,B,C) = sum of minterms 1, 3, 5, 7:
-<br>- Group all four cells: F = C
-<br>- Massive simplification.
-<br>
-<br>## Logic Gates
-<br>
-<br>Physical implementations of boolean operations:
-<br>- CMOS: complementary pull-up (PMOS) and pull-down (NMOS) networks
-<br>- TTL: bipolar transistors (legacy)
-<br>- Static CMOS is the dominant technology
-<br>
-<br>NAND and NOR are the universal gates - any boolean function can be built from NAND alone (or NOR alone).
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Digital abstraction imposes thresholds for robustness
-<br>- Noise margins enable reliable operation
-<br>- Boolean algebra is the mathematical foundation
-<br>- De Morgan's law is the workhorse for simplification
-<br>- SOP form is canonical but not minimal
-<br>- Karnaugh maps minimize small functions
-<br>- NAND/NOR are universal gates
-<br></p></div>
+        <div class="lecture-full-content"><h3>The Digital Abstraction</h3>
+<p>Digital circuits don't exist. Every wire carries an analog voltage that could, in principle, take any value. The digital abstraction is a discipline we impose on top of that:</p>
+<ul><li>Any voltage below V_IL is interpreted as logical 0</li><li>Any voltage above V_IH is interpreted as logical 1</li><li>The circuit must produce outputs below V_OL or above V_OH</li></ul>
+<p>The gaps V_IL - V_OL and V_OH - V_IH are the noise margins NM_L and NM_H. They let us ignore noise, crosstalk, and process variation as long as the noise stays below the margins.</p>
+<h3>Why Digital?</h3>
+<p>Analog circuits amplify, filter, and process continuous signals. Digital circuits are robust, scalable, and programmable. Moore's law exists because digital circuits can shrink to nanometer dimensions while retaining their function. Analog circuits cannot.</p>
+<p>Digital is a contract: as long as we honor the voltage thresholds, the circuit works.</p>
+<h3>Boolean Algebra</h3>
+<p>Proposed by George Boole (1854). Variables take values in {0, 1}. Operations:</p>
+<ul><li>AND: A AND B (1 if both are 1)</li><li>OR: A OR B (1 if either is 1)</li><li>NOT: inverts</li></ul>
+<p>Derived:</p>
+<ul><li>NAND: NOT (A AND B)</li><li>NOR: NOT (A OR B)</li><li>XOR: A XOR B (1 if A != B)</li></ul>
+<h3>Truth Tables</h3>
+<p>Every boolean function of n variables is defined by a table with 2^n rows. Example, XOR:</p>
+<p>A | B | A XOR B<br>    0 | 0 | 0<br>    0 | 1 | 1<br>    1 | 0 | 1<br>    1 | 1 | 0</p>
+<h3>Boolean Identities</h3>
+<ul><li>Commutative: A+B = B+A, A·B = B·A</li><li>Associative: (A+B)+C = A+(B+C)</li><li>Distributive: A(B+C) = AB + AC</li><li>Identity: A + 0 = A, A · 1 = A</li><li>Complement: A + NOT A = 1, A · NOT A = 0</li><li>Idempotent: A + A = A, A · A = A</li><li>Absorption: A + AB = A</li><li>De Morgan: NOT(A+B) = NOT A · NOT B, NOT(A·B) = NOT A + NOT B</li></ul>
+<p>De Morgan is the most useful for circuit simplification.</p>
+<h3>Sum of Products (SOP)</h3>
+<p>Any boolean function can be written as an OR of AND terms, one per row of the truth table where the output is 1. This is the canonical SOP form.</p>
+<p>Example: XOR = (NOT A)·B + A·(NOT B)</p>
+<h3>Karnaugh Maps</h3>
+<p>A graphical tool for minimizing boolean expressions. Arrange the truth table in a 2D grid with Gray-coded rows and columns (adjacent cells differ by one bit). Find the largest power-of-2 groups of 1s. Each group becomes one product term.</p>
+<p>Example: minimize F(A,B,C) = sum of minterms 1, 3, 5, 7:</p>
+<ul><li>Group all four cells: F = C</li><li>Massive simplification.</li></ul>
+<h3>Logic Gates</h3>
+<p>Physical implementations of boolean operations:</p>
+<ul><li>CMOS: complementary pull-up (PMOS) and pull-down (NMOS) networks</li><li>TTL: bipolar transistors (legacy)</li><li>Static CMOS is the dominant technology</li></ul>
+<p>NAND and NOR are the universal gates - any boolean function can be built from NAND alone (or NOR alone).</p>
+<h3>Key Takeaways</h3>
+<ul><li>Digital abstraction imposes thresholds for robustness</li><li>Noise margins enable reliable operation</li><li>Boolean algebra is the mathematical foundation</li><li>De Morgan's law is the workhorse for simplification</li><li>SOP form is canonical but not minimal</li><li>Karnaugh maps minimize small functions</li><li>NAND/NOR are universal gates</li></ul></div>
       </div>
     </div>
   
@@ -214,109 +154,51 @@ Digital circuits don&#39;t exist. Every wire carries an analog voltage that coul
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>Combinational Logic Design</h4>
-          <p>
-## From Truth Table to Circuit
-
-The design flow:
-1. Specify the function (truth table or boolean equation)
-2. Minimize (algebraic or K-map)
-3. Implement with available gates
-4. Verify (simulation, timing analysis...</p>
+          <p>From Truth Table to Circuit The design flow: 1. Specify the function (truth table or boolean equation) 2. Minimize (algebraic or K-map) 3. Implement with available gates 4. Verify (simulation, timing...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## From Truth Table to Circuit
-<br>
-<br>The design flow:
-<br>1. Specify the function (truth table or boolean equation)
-<br>2. Minimize (algebraic or K-map)
-<br>3. Implement with available gates
-<br>4. Verify (simulation, timing analysis)
-<br>
-<br>## Adders
-<br>
-<br>The half adder: sum = A XOR B, carry = A AND B.
-<br>
-<br>The full adder: takes A, B, Cin, produces Sum and Cout:
-<br>
-<br>    Sum = A XOR B XOR Cin
-<br>    Cout = (A AND B) OR (Cin AND (A XOR B))
-<br>
-<br>Cascading N full adders gives an N-bit ripple-carry adder. Carry propagates from LSB to MSB, causing delay proportional to N.
-<br>
-<br>## Carry Lookahead
-<br>
-<br>To speed up addition, compute carries in parallel:
-<br>
-<br>    g_i = A_i AND B_i  (generate)
-<br>    p_i = A_i XOR B_i  (propagate)
-<br>    C_{i+1} = g_i OR (p_i AND C_i)
-<br>
-<br>Recursively expanding gives all carries in O(log N) depth. Trade-off: more gates, but faster.
-<br>
-<br>## Comparators
-<br>
-<br>Equality: XNOR all bit pairs, AND the results.
-<br>
-<br>Magnitude comparison: ripple from MSB. If A_i &gt; B_i and all higher bits equal, then A &gt; B.
-<br>
-<br>## Multiplexers (MUX)
-<br>
-<br>A 2:1 MUX selects between two inputs based on a select signal:
-<br>
-<br>    Y = S ? B : A
-<br>    Y = S AND B OR (NOT S AND A)
-<br>
-<br>Wider MUXes: 4:1 selects among 4 inputs with 2 select bits. Tree of 2:1 MUXes.
-<br>
-<br>MUXes implement any function: apply all minterms as inputs and use the truth-table values as select signals.
-<br>
-<br>## Decoders
-<br>
-<br>An N-to-2^N decoder: activates exactly one of 2^N outputs based on N select bits. Used for memory addressing, instruction decoding.
-<br>
-<br>## Encoders
-<br>
-<br>Reverse of decoder: 2^N inputs to N outputs, giving the index of the active input. Priority encoder handles multiple active inputs by choosing the highest priority.
-<br>
-<br>## Tri-State Buffers
-<br>
-<br>Allow multiple drivers on the same wire by enabling only one at a time:
-<br>
-<br>    Y = EN ? A : Z
-<br>
-<br>Where Z is high impedance (disconnected). Used for shared buses.
-<br>
-<br>## Read-Only Memory (ROM)
-<br>
-<br>A ROM is a lookup table. Address in, data out. Internally, decoder + OR array.
-<br>
-<br>ROMs implement arbitrary combinational functions - handy for complex logic.
-<br>
-<br>## Programmable Logic Arrays (PLA)
-<br>
-<br>Have both AND and OR planes that can be programmed. More flexible than ROM.
-<br>
-<br>Used in FPGAs and CPLDs. Modern FPGAs use LUTs (lookup tables) that can implement any 4-6 input function.
-<br>
-<br>## Timing
-<br>
-<br>Combinational circuits have propagation delay. The critical path determines the maximum clock frequency. Setup and hold constraints must be satisfied for the downstream flip-flops.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Design flow: specify, minimize, implement, verify
-<br>- Adders: ripple vs lookahead (speed trade-off)
-<br>- MUXes implement any function
-<br>- Decoders address memories
-<br>- ROMs and PLAs are programmable logic
-<br>- Timing is critical: propagation delay limits clock speed
-<br>- Combinational logic: output depends only on current inputs
-<br></p></div>
+        <div class="lecture-full-content"><h3>From Truth Table to Circuit</h3>
+<p>The design flow:</p>
+<ol><li>Specify the function (truth table or boolean equation)</li><li>Minimize (algebraic or K-map)</li><li>Implement with available gates</li><li>Verify (simulation, timing analysis)</li></ol>
+<h3>Adders</h3>
+<p>The half adder: sum = A XOR B, carry = A AND B.</p>
+<p>The full adder: takes A, B, Cin, produces Sum and Cout:</p>
+<p>Sum = A XOR B XOR Cin<br>    Cout = (A AND B) OR (Cin AND (A XOR B))</p>
+<p>Cascading N full adders gives an N-bit ripple-carry adder. Carry propagates from LSB to MSB, causing delay proportional to N.</p>
+<h3>Carry Lookahead</h3>
+<p>To speed up addition, compute carries in parallel:</p>
+<p>g_i = A_i AND B_i  (generate)<br>    p_i = A_i XOR B_i  (propagate)<br>    C_{i+1} = g_i OR (p_i AND C_i)</p>
+<p>Recursively expanding gives all carries in O(log N) depth. Trade-off: more gates, but faster.</p>
+<h3>Comparators</h3>
+<p>Equality: XNOR all bit pairs, AND the results.</p>
+<p>Magnitude comparison: ripple from MSB. If A_i &gt; B_i and all higher bits equal, then A &gt; B.</p>
+<h3>Multiplexers (MUX)</h3>
+<p>A 2:1 MUX selects between two inputs based on a select signal:</p>
+<p>Y = S ? B : A<br>    Y = S AND B OR (NOT S AND A)</p>
+<p>Wider MUXes: 4:1 selects among 4 inputs with 2 select bits. Tree of 2:1 MUXes.</p>
+<p>MUXes implement any function: apply all minterms as inputs and use the truth-table values as select signals.</p>
+<h3>Decoders</h3>
+<p>An N-to-2^N decoder: activates exactly one of 2^N outputs based on N select bits. Used for memory addressing, instruction decoding.</p>
+<h3>Encoders</h3>
+<p>Reverse of decoder: 2^N inputs to N outputs, giving the index of the active input. Priority encoder handles multiple active inputs by choosing the highest priority.</p>
+<h3>Tri-State Buffers</h3>
+<p>Allow multiple drivers on the same wire by enabling only one at a time:</p>
+<p>Y = EN ? A : Z</p>
+<p>Where Z is high impedance (disconnected). Used for shared buses.</p>
+<h3>Read-Only Memory (ROM)</h3>
+<p>A ROM is a lookup table. Address in, data out. Internally, decoder + OR array.</p>
+<p>ROMs implement arbitrary combinational functions - handy for complex logic.</p>
+<h3>Programmable Logic Arrays (PLA)</h3>
+<p>Have both AND and OR planes that can be programmed. More flexible than ROM.</p>
+<p>Used in FPGAs and CPLDs. Modern FPGAs use LUTs (lookup tables) that can implement any 4-6 input function.</p>
+<h3>Timing</h3>
+<p>Combinational circuits have propagation delay. The critical path determines the maximum clock frequency. Setup and hold constraints must be satisfied for the downstream flip-flops.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Design flow: specify, minimize, implement, verify</li><li>Adders: ripple vs lookahead (speed trade-off)</li><li>MUXes implement any function</li><li>Decoders address memories</li><li>ROMs and PLAs are programmable logic</li><li>Timing is critical: propagation delay limits clock speed</li><li>Combinational logic: output depends only on current inputs</li></ul></div>
       </div>
     </div>
   
@@ -325,126 +207,57 @@ The design flow:
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>Sequential Logic and Flip-Flops</h4>
-          <p>
-## Sequential Logic
-
-Combinational logic has no memory. Sequential logic has state - the output depends on current AND past inputs.
-
-Two types:
-- **Synchronous:** state changes on a clock edge
-- **Asynchronous:**...</p>
+          <p>Sequential Logic Combinational logic has no memory. Sequential logic has state - the output depends on current AND past inputs. Two types: Synchronous: state changes on a clock edge Asynchronous:...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Sequential Logic
-<br>
-<br>Combinational logic has no memory. Sequential logic has state - the output depends on current AND past inputs.
-<br>
-<br>Two types:
-<br>- <strong>Synchronous:</strong> state changes on a clock edge
-<br>- <strong>Asynchronous:</strong> state changes whenever inputs change
-<br>
-<br>Synchronous is easier to design and verify, and is standard for digital systems.
-<br>
-<br>## Latches vs Flip-Flops
-<br>
-<br><strong>SR Latch:</strong> set/reset, level-sensitive. Problem: invalid state when both S and R are 1.
-<br>
-<br><strong>D Latch:</strong> transparent latch. When Enable = 1, Q follows D. When Enable = 0, Q holds.
-<br>
-<br><strong>D Flip-Flop:</strong> edge-triggered. Q only updates on a rising (or falling) clock edge. Two latches in a master-slave configuration.
-<br>
-<br>D flip-flops are the workhorse of synchronous digital design.
-<br>
-<br>## Timing Parameters
-<br>
-<br><strong>Setup time t_setup:</strong> D must be stable this long before the clock edge.
-<br>
-<br><strong>Hold time t_hold:</strong> D must remain stable this long after the clock edge.
-<br>
-<br><strong>Clock-to-Q delay t_cq:</strong> Q changes this long after the clock edge.
-<br>
-<br><strong>Maximum clock frequency:</strong> limited by t_cq + combinational delay + t_setup.
-<br>
-<br>## Registers
-<br>
-<br>N flip-flops with a shared clock form an N-bit register.
-<br>
-<br><strong>Parallel load register:</strong> D inputs from combinational logic; Q outputs to next stage.
-<br>
-<br><strong>Shift register:</strong> each FF's D comes from the previous FF's Q. Shifts data one bit per clock.
-<br>
-<br>Used for serial-to-parallel conversion, delay lines, sequence generation.
-<br>
-<br>## Counters
-<br>
-<br>A counter increments (or decrements) on each clock edge.
-<br>
-<br><strong>Ripple counter:</strong> each FF clocks the next. Simple, but accumulates delay.
-<br>
-<br><strong>Synchronous counter:</strong> all FFs clocked together. Faster, but more logic.
-<br>
-<br><strong>Johnson counter:</strong> ring of FFs with inverted feedback. 2N distinct states.
-<br>
-<br><strong>Ring counter:</strong> one-hot circulating through N FFs.
-<br>
-<br>## Finite State Machines (FSMs)
-<br>
-<br>An FSM has:
-<br>- States (encoded as bits)
-<br>- Inputs
-<br>- Outputs
-<br>- Transition function
-<br>- Output function
-<br>
-<br><strong>Moore machine:</strong> output depends only on state.
-<br>
-<br><strong>Mealy machine:</strong> output depends on state AND inputs. Usually fewer states.
-<br>
-<br>FSMs implement protocols, controllers, and algorithms.
-<br>
-<br>## Example: Traffic Light Controller
-<br>
-<br>States: RED, GREEN, YELLOW.
-<br>Inputs: timer_done.
-<br>Outputs: lights (R, Y, G).
-<br>
-<br>Transitions:
-<br>- RED -&gt; GREEN when timer done
-<br>- GREEN -&gt; YELLOW when timer done
-<br>- YELLOW -&gt; RED when timer done
-<br>
-<br>Encode as 2-bit state, implement with D flip-flops and combinational logic.
-<br>
-<br>## FSM Design Steps
-<br>
-<br>1. Draw state diagram
-<br>2. Assign binary codes to states
-<br>3. Derive next-state logic (truth table)
-<br>4. Derive output logic
-<br>5. Minimize
-<br>6. Implement with FFs + combinational logic
-<br>
-<br>## Metastability
-<br>
-<br>When a FF's input changes near the clock edge, its output may be undefined for a short time (metastable). Synchronizers (two or three FFs in series) resolve this.
-<br>
-<br>Critical for crossing clock domains.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Sequential = state + combinational logic
-<br>- D flip-flops are edge-triggered, synchronous
-<br>- Setup and hold times constrain timing
-<br>- Registers, shift registers, counters are building blocks
-<br>- FSMs organize complex control logic
-<br>- Metastability is real - use synchronizers
-<br>- Timing closure is the art of meeting clock constraints
-<br></p></div>
+        <div class="lecture-full-content"><h3>Sequential Logic</h3>
+<p>Combinational logic has no memory. Sequential logic has state - the output depends on current AND past inputs.</p>
+<p>Two types:</p>
+<ul><li><strong>Synchronous:</strong> state changes on a clock edge</li><li><strong>Asynchronous:</strong> state changes whenever inputs change</li></ul>
+<p>Synchronous is easier to design and verify, and is standard for digital systems.</p>
+<h3>Latches vs Flip-Flops</h3>
+<p><strong>SR Latch:</strong> set/reset, level-sensitive. Problem: invalid state when both S and R are 1.</p>
+<p><strong>D Latch:</strong> transparent latch. When Enable = 1, Q follows D. When Enable = 0, Q holds.</p>
+<p><strong>D Flip-Flop:</strong> edge-triggered. Q only updates on a rising (or falling) clock edge. Two latches in a master-slave configuration.</p>
+<p>D flip-flops are the workhorse of synchronous digital design.</p>
+<h3>Timing Parameters</h3>
+<p><strong>Setup time t_setup:</strong> D must be stable this long before the clock edge.</p>
+<p><strong>Hold time t_hold:</strong> D must remain stable this long after the clock edge.</p>
+<p><strong>Clock-to-Q delay t_cq:</strong> Q changes this long after the clock edge.</p>
+<p><strong>Maximum clock frequency:</strong> limited by t_cq + combinational delay + t_setup.</p>
+<h3>Registers</h3>
+<p>N flip-flops with a shared clock form an N-bit register.</p>
+<p><strong>Parallel load register:</strong> D inputs from combinational logic; Q outputs to next stage.</p>
+<p><strong>Shift register:</strong> each FF's D comes from the previous FF's Q. Shifts data one bit per clock.</p>
+<p>Used for serial-to-parallel conversion, delay lines, sequence generation.</p>
+<h3>Counters</h3>
+<p>A counter increments (or decrements) on each clock edge.</p>
+<p><strong>Ripple counter:</strong> each FF clocks the next. Simple, but accumulates delay.</p>
+<p><strong>Synchronous counter:</strong> all FFs clocked together. Faster, but more logic.</p>
+<p><strong>Johnson counter:</strong> ring of FFs with inverted feedback. 2N distinct states.</p>
+<p><strong>Ring counter:</strong> one-hot circulating through N FFs.</p>
+<h3>Finite State Machines (FSMs)</h3>
+<p>An FSM has:</p>
+<ul><li>States (encoded as bits)</li><li>Inputs</li><li>Outputs</li><li>Transition function</li><li>Output function</li></ul>
+<p><strong>Moore machine:</strong> output depends only on state.</p>
+<p><strong>Mealy machine:</strong> output depends on state AND inputs. Usually fewer states.</p>
+<p>FSMs implement protocols, controllers, and algorithms.</p>
+<h3>Example: Traffic Light Controller</h3>
+<p>States: RED, GREEN, YELLOW.<br>Inputs: timer_done.<br>Outputs: lights (R, Y, G).</p>
+<p>Transitions:</p>
+<ul><li>RED -&gt; GREEN when timer done</li><li>GREEN -&gt; YELLOW when timer done</li><li>YELLOW -&gt; RED when timer done</li></ul>
+<p>Encode as 2-bit state, implement with D flip-flops and combinational logic.</p>
+<h3>FSM Design Steps</h3>
+<ol><li>Draw state diagram</li><li>Assign binary codes to states</li><li>Derive next-state logic (truth table)</li><li>Derive output logic</li><li>Minimize</li><li>Implement with FFs + combinational logic</li></ol>
+<h3>Metastability</h3>
+<p>When a FF's input changes near the clock edge, its output may be undefined for a short time (metastable). Synchronizers (two or three FFs in series) resolve this.</p>
+<p>Critical for crossing clock domains.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Sequential = state + combinational logic</li><li>D flip-flops are edge-triggered, synchronous</li><li>Setup and hold times constrain timing</li><li>Registers, shift registers, counters are building blocks</li><li>FSMs organize complex control logic</li><li>Metastability is real - use synchronizers</li><li>Timing closure is the art of meeting clock constraints</li></ul></div>
       </div>
     </div>
   
@@ -453,108 +266,48 @@ Two types:
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>Memory and Pipelining</h4>
-          <p>
-## Memory Hierarchy
-
-Fast memory is small and expensive; large memory is slow and cheap. We use a hierarchy:
-
-- Registers: a few bytes, ~1 cycle
-- L1 cache: 32 KB, ~1-4 cycles
-- L2 cache: 256 KB, ~10-20 cycles
--...</p>
+          <p>Memory Hierarchy Fast memory is small and expensive; large memory is slow and cheap. We use a hierarchy: Registers: a few bytes, ~1 cycle L1 cache: 32 KB, ~1-4 cycles L2 cache: 256 KB, ~10-20 cycles...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Memory Hierarchy
-<br>
-<br>Fast memory is small and expensive; large memory is slow and cheap. We use a hierarchy:
-<br>
-<br>- Registers: a few bytes, ~1 cycle
-<br>- L1 cache: 32 KB, ~1-4 cycles
-<br>- L2 cache: 256 KB, ~10-20 cycles
-<br>- L3 cache: 8 MB, ~30-40 cycles
-<br>- DRAM: GB, ~200 cycles
-<br>- SSD: TB, ~100,000 cycles
-<br>
-<br>Data moves up on demand. Locality determines hit rate.
-<br>
-<br>## SRAM
-<br>
-<br>Static RAM: 6 transistors per bit (4 for the cross-coupled inverters, 2 for access). Fast, but large. Used for caches.
-<br>
-<br>Read/write at full clock speed. Retains data while powered.
-<br>
-<br>## DRAM
-<br>
-<br>Dynamic RAM: 1 transistor + 1 capacitor per bit. Compact and cheap, but needs periodic refresh (charge leaks).
-<br>
-<br>Slower than SRAM. Used for main memory.
-<br>
-<br>## Pipelining
-<br>
-<br>Split a computation into stages, each of which can run independently. Multiple operations are in flight at once.
-<br>
-<br>Classic 5-stage RISC pipeline:
-<br>1. IF - instruction fetch
-<br>2. ID - instruction decode / register read
-<br>3. EX - execute (ALU)
-<br>4. MEM - memory access
-<br>5. WB - write back
-<br>
-<br>Throughput: 1 instruction per cycle (instead of 5).
-<br>
-<br>## Pipeline Hazards
-<br>
-<br><strong>Structural hazard:</strong> two instructions want the same hardware. Fix: duplicate hardware (e.g., separate I$ and D$).
-<br>
-<br><strong>Data hazard:</strong> instruction needs a value that hasn't been written yet. Fix: forwarding (bypass) or stalling.
-<br>
-<br><strong>Control hazard:</strong> branch resolution delays fetching. Fix: branch prediction.
-<br>
-<br>## Forwarding
-<br>
-<br>The ALU result from one instruction can be forwarded directly to the next without waiting for WB:
-<br>
-<br>    add r1, r2, r3      # r1 ready at end of EX
-<br>    sub r4, r1, r5      # needs r1 at start of EX
-<br>
-<br>Forward from add's EX output to sub's EX input. Eliminates most stalls.
-<br>
-<br>## Branch Prediction
-<br>
-<br>Predict taken or not-taken. If wrong, flush the pipeline and restart.
-<br>
-<br>Modern predictors: 2-bit saturating counters, gshare, tournament, TAGE. Accuracy &gt; 95%.
-<br>
-<br>## Superscalar
-<br>
-<br>Issue multiple instructions per cycle. Requires:
-<br>- Multiple functional units
-<br>- Register renaming (removes false dependencies)
-<br>- Out-of-order execution
-<br>
-<br>Modern CPUs issue 4-6 instructions per cycle.
-<br>
-<br>## Deep Pipelines
-<br>
-<br>More stages = faster clock, but higher penalty on mispredicts.
-<br>
-<br>Pentium 4 had 31 stages - high clock but poor IPC. Modern CPUs use 14-20 stages as a balance.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Memory hierarchy: small+fast to large+slow
-<br>- SRAM (fast, big) vs DRAM (compact, cheap)
-<br>- Pipelining increases throughput, not latency
-<br>- Hazards: structural, data, control
-<br>- Forwarding and branch prediction key to performance
-<br>- Superscalar and out-of-order push further
-<br>- Balance pipeline depth vs mispredict penalty
-<br></p></div>
+        <div class="lecture-full-content"><h3>Memory Hierarchy</h3>
+<p>Fast memory is small and expensive; large memory is slow and cheap. We use a hierarchy:</p>
+<ul><li>Registers: a few bytes, ~1 cycle</li><li>L1 cache: 32 KB, ~1-4 cycles</li><li>L2 cache: 256 KB, ~10-20 cycles</li><li>L3 cache: 8 MB, ~30-40 cycles</li><li>DRAM: GB, ~200 cycles</li><li>SSD: TB, ~100,000 cycles</li></ul>
+<p>Data moves up on demand. Locality determines hit rate.</p>
+<h3>SRAM</h3>
+<p>Static RAM: 6 transistors per bit (4 for the cross-coupled inverters, 2 for access). Fast, but large. Used for caches.</p>
+<p>Read/write at full clock speed. Retains data while powered.</p>
+<h3>DRAM</h3>
+<p>Dynamic RAM: 1 transistor + 1 capacitor per bit. Compact and cheap, but needs periodic refresh (charge leaks).</p>
+<p>Slower than SRAM. Used for main memory.</p>
+<h3>Pipelining</h3>
+<p>Split a computation into stages, each of which can run independently. Multiple operations are in flight at once.</p>
+<p>Classic 5-stage RISC pipeline:</p>
+<ol><li>IF - instruction fetch</li><li>ID - instruction decode / register read</li><li>EX - execute (ALU)</li><li>MEM - memory access</li><li>WB - write back</li></ol>
+<p>Throughput: 1 instruction per cycle (instead of 5).</p>
+<h3>Pipeline Hazards</h3>
+<p><strong>Structural hazard:</strong> two instructions want the same hardware. Fix: duplicate hardware (e.g., separate I$ and D$).</p>
+<p><strong>Data hazard:</strong> instruction needs a value that hasn't been written yet. Fix: forwarding (bypass) or stalling.</p>
+<p><strong>Control hazard:</strong> branch resolution delays fetching. Fix: branch prediction.</p>
+<h3>Forwarding</h3>
+<p>The ALU result from one instruction can be forwarded directly to the next without waiting for WB:</p>
+<p>add r1, r2, r3      # r1 ready at end of EX<br>    sub r4, r1, r5      # needs r1 at start of EX</p>
+<p>Forward from add's EX output to sub's EX input. Eliminates most stalls.</p>
+<h3>Branch Prediction</h3>
+<p>Predict taken or not-taken. If wrong, flush the pipeline and restart.</p>
+<p>Modern predictors: 2-bit saturating counters, gshare, tournament, TAGE. Accuracy &gt; 95%.</p>
+<h3>Superscalar</h3>
+<p>Issue multiple instructions per cycle. Requires:</p>
+<ul><li>Multiple functional units</li><li>Register renaming (removes false dependencies)</li><li>Out-of-order execution</li></ul>
+<p>Modern CPUs issue 4-6 instructions per cycle.</p>
+<h3>Deep Pipelines</h3>
+<p>More stages = faster clock, but higher penalty on mispredicts.</p>
+<p>Pentium 4 had 31 stages - high clock but poor IPC. Modern CPUs use 14-20 stages as a balance.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Memory hierarchy: small+fast to large+slow</li><li>SRAM (fast, big) vs DRAM (compact, cheap)</li><li>Pipelining increases throughput, not latency</li><li>Hazards: structural, data, control</li><li>Forwarding and branch prediction key to performance</li><li>Superscalar and out-of-order push further</li><li>Balance pipeline depth vs mispredict penalty</li></ul></div>
       </div>
     </div>
   
@@ -563,129 +316,50 @@ Fast memory is small and expensive; large memory is slow and cheap. We use a hie
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>Instruction Set Architecture</h4>
-          <p>
-## What is an ISA?
-
-The Instruction Set Architecture is the contract between hardware and software. It defines:
-- Instructions the CPU can execute
-- Registers available
-- Data types
-- Addressing modes
-- Exceptio...</p>
+          <p>What is an ISA? The Instruction Set Architecture is the contract between hardware and software. It defines: Instructions the CPU can execute Registers available Data types Addressing modes Exceptio...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is an ISA?
-<br>
-<br>The Instruction Set Architecture is the contract between hardware and software. It defines:
-<br>- Instructions the CPU can execute
-<br>- Registers available
-<br>- Data types
-<br>- Addressing modes
-<br>- Exceptions and interrupts
-<br>
-<br>Software written for an ISA runs on any microarchitecture implementing it.
-<br>
-<br>## RISC vs CISC
-<br>
-<br><strong>RISC (Reduced Instruction Set Computer):</strong>
-<br>- Fixed-length instructions
-<br>- Load/store architecture
-<br>- Many registers
-<br>- Simple decoding
-<br>- Compiler does more
-<br>
-<br><strong>CISC (Complex Instruction Set Computer):</strong>
-<br>- Variable-length
-<br>- Many operations can access memory
-<br>- Fewer registers
-<br>- Complex decoding
-<br>- Hardware does more
-<br>
-<br>Examples: x86 is CISC. ARM, RISC-V, MIPS are RISC.
-<br>
-<br>Modern x86 CPUs decode CISC into RISC-like micro-ops internally. The boundary is blurry.
-<br>
-<br>## RISC-V Basics
-<br>
-<br>RISC-V is a clean, open ISA:
-<br>
-<br>- 32 general-purpose registers (x0-x31)
-<br>- Fixed 32-bit instructions (with 16-bit compressed variant)
-<br>- Load/store architecture
-<br>- Simple addressing: base + offset
-<br>
-<br>Instruction formats:
-<br>- R-type: register-register (add, sub, and)
-<br>- I-type: register-immediate (addi, lw)
-<br>- S-type: store
-<br>- B-type: branch
-<br>- J-type: jump
-<br>
-<br>## Sample Instructions
-<br>
-<br>    add x1, x2, x3     # x1 = x2 + x3
-<br>    addi x1, x2, 10    # x1 = x2 + 10
-<br>    lw x1, 0(x2)       # x1 = memory[x2 + 0]
-<br>    sw x1, 0(x2)       # memory[x2 + 0] = x1
-<br>    beq x1, x2, label  # branch if x1 == x2
-<br>    jal x1, func       # call function
-<br>
-<br>## Addressing Modes
-<br>
-<br>- Immediate: value is in the instruction
-<br>- Register: value is in a register
-<br>- Base + offset: memory[x_reg + imm]
-<br>- PC-relative: for branches and jumps
-<br>
-<br>RISC-V keeps it simple. CISC has many more modes.
-<br>
-<br>## Calling Convention
-<br>
-<br>Function call protocol (standardized for RISC-V):
-<br>
-<br>- Arguments passed in a0-a7
-<br>- Return value in a0
-<br>- Return address in ra
-<br>- Callee-saved: s0-s11 (must restore)
-<br>- Caller-saved: t0-t6 (may be clobbered)
-<br>- Stack pointer in sp
-<br>
-<br>Registers make the compiler's job easier.
-<br>
-<br>## Privilege Levels
-<br>
-<br>RISC-V has three:
-<br>- <strong>User (U):</strong> application code
-<br>- <strong>Supervisor (S):</strong> OS kernel
-<br>- <strong>Machine (M):</strong> firmware / hypervisor
-<br>
-<br>Transitions via system calls, exceptions, and interrupts.
-<br>
-<br>## Extensions
-<br>
-<br>Base ISA + optional extensions:
-<br>- M: integer multiply/divide
-<br>- A: atomic operations
-<br>- F: single-precision float
-<br>- D: double-precision float
-<br>- C: compressed 16-bit instructions
-<br>- V: vector
-<br>
-<br>This modular design lets designers pick only what they need.
-<br>
-<br>## Comparison: ISA vs Microarchitecture
-<br>
-<br>ISA: what the software sees. Stable across generations.
-<br>
-<br>Microarchitecture: how it's implemented. Changes every generation.
-<br>
-<br>Example: x86 has been stable since 1978. The implementation went from 29,000 transistors (8086) to billions (modern).
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is an ISA?</h3>
+<p>The Instruction Set Architecture is the contract between hardware and software. It defines:</p>
+<ul><li>Instructions the CPU can execute</li><li>Registers available</li><li>Data types</li><li>Addressing modes</li><li>Exceptions and interrupts</li></ul>
+<p>Software written for an ISA runs on any microarchitecture implementing it.</p>
+<h3>RISC vs CISC</h3>
+<p><strong>RISC (Reduced Instruction Set Computer):</strong></p>
+<ul><li>Fixed-length instructions</li><li>Load/store architecture</li><li>Many registers</li><li>Simple decoding</li><li>Compiler does more</li></ul>
+<p><strong>CISC (Complex Instruction Set Computer):</strong></p>
+<ul><li>Variable-length</li><li>Many operations can access memory</li><li>Fewer registers</li><li>Complex decoding</li><li>Hardware does more</li></ul>
+<p>Examples: x86 is CISC. ARM, RISC-V, MIPS are RISC.</p>
+<p>Modern x86 CPUs decode CISC into RISC-like micro-ops internally. The boundary is blurry.</p>
+<h3>RISC-V Basics</h3>
+<p>RISC-V is a clean, open ISA:</p>
+<ul><li>32 general-purpose registers (x0-x31)</li><li>Fixed 32-bit instructions (with 16-bit compressed variant)</li><li>Load/store architecture</li><li>Simple addressing: base + offset</li></ul>
+<p>Instruction formats:</p>
+<ul><li>R-type: register-register (add, sub, and)</li><li>I-type: register-immediate (addi, lw)</li><li>S-type: store</li><li>B-type: branch</li><li>J-type: jump</li></ul>
+<h3>Sample Instructions</h3>
+<p>add x1, x2, x3     # x1 = x2 + x3<br>    addi x1, x2, 10    # x1 = x2 + 10<br>    lw x1, 0(x2)       # x1 = memory[x2 + 0]<br>    sw x1, 0(x2)       # memory[x2 + 0] = x1<br>    beq x1, x2, label  # branch if x1 == x2<br>    jal x1, func       # call function</p>
+<h3>Addressing Modes</h3>
+<ul><li>Immediate: value is in the instruction</li><li>Register: value is in a register</li><li>Base + offset: memory[x_reg + imm]</li><li>PC-relative: for branches and jumps</li></ul>
+<p>RISC-V keeps it simple. CISC has many more modes.</p>
+<h3>Calling Convention</h3>
+<p>Function call protocol (standardized for RISC-V):</p>
+<ul><li>Arguments passed in a0-a7</li><li>Return value in a0</li><li>Return address in ra</li><li>Callee-saved: s0-s11 (must restore)</li><li>Caller-saved: t0-t6 (may be clobbered)</li><li>Stack pointer in sp</li></ul>
+<p>Registers make the compiler's job easier.</p>
+<h3>Privilege Levels</h3>
+<p>RISC-V has three:</p>
+<ul><li><strong>User (U):</strong> application code</li><li><strong>Supervisor (S):</strong> OS kernel</li><li><strong>Machine (M):</strong> firmware / hypervisor</li></ul>
+<p>Transitions via system calls, exceptions, and interrupts.</p>
+<h3>Extensions</h3>
+<p>Base ISA + optional extensions:</p>
+<ul><li>M: integer multiply/divide</li><li>A: atomic operations</li><li>F: single-precision float</li><li>D: double-precision float</li><li>C: compressed 16-bit instructions</li><li>V: vector</li></ul>
+<p>This modular design lets designers pick only what they need.</p>
+<h3>Comparison: ISA vs Microarchitecture</h3>
+<p>ISA: what the software sees. Stable across generations.</p>
+<p>Microarchitecture: how it's implemented. Changes every generation.</p>
+<p>Example: x86 has been stable since 1978. The implementation went from 29,000 transistors (8086) to billions (modern).</p></div>
       </div>
     </div>
   </div>

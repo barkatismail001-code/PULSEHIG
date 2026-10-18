@@ -108,87 +108,44 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Semiconductor Physics and the PN Junction</h4>
-          <p>
-## From Silicon to Transistor
-
-Silicon is a semiconductor: at absolute zero it is an insulator, at high temperature it conducts. Its four valence electrons form covalent bonds in a crystal lattice. Doping introduces ...</p>
+          <p>From Silicon to Transistor Silicon is a semiconductor: at absolute zero it is an insulator, at high temperature it conducts. Its four valence electrons form covalent bonds in a crystal lattice....</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## From Silicon to Transistor
-<br>
-<br>Silicon is a semiconductor: at absolute zero it is an insulator, at high temperature it conducts. Its four valence electrons form covalent bonds in a crystal lattice. Doping introduces impurities:
-<br>
-<br>- <strong>N-type:</strong> add phosphorus (5 valence electrons) — extra free electrons
-<br>- <strong>P-type:</strong> add boron (3 valence electrons) — holes (missing electrons)
-<br>
-<br>When N-type and P-type silicon touch, electrons diffuse across the junction, leaving behind charged ions. The resulting <strong>depletion region</strong> has a built-in electric field that opposes further diffusion.
-<br>
-<br>## The Diode
-<br>
-<br>A PN junction is a diode. Forward bias (P side +, N side -): the field is reduced, current flows. Reverse bias: the field grows, only leakage current flows.
-<br>
-<br>The Shockley equation:
-<br>
-<br>    I = Is × (e^(V/Vt) - 1)
-<br>
-<br>where Is is the saturation current (10^-12 to 10^-15 A) and Vt = kT/q ≈ 26 mV at room temperature.
-<br>
-<br>At 0.7 V forward, the exponential is enormous: e^(0.7/0.026) ≈ 10^12. This is why diodes "turn on" at ~0.7 V and act as a nearly-constant voltage drop.
-<br>
-<br>## Real Diode Behavior
-<br>
-<br>- Forward drop: 0.6-0.7 V (silicon), 0.2-0.3 V (Schottky), 1.8-3.4 V (LED)
-<br>- Reverse breakdown: 5-1000 V depending on design (Zener)
-<br>- Capacitance: junctions have parasitic capacitance, which limits high-frequency performance
-<br>
-<br>## Applications
-<br>
-<br><strong>Rectifier:</strong> convert AC to DC. A bridge rectifier uses 4 diodes.
-<br>
-<br><strong>Voltage reference:</strong> a Zener diode in reverse breakdown holds a stable voltage.
-<br>
-<br><strong>Protection:</strong> a diode across a relay coil absorbs the inductive kick.
-<br>
-<br><strong>Clamp:</strong> a diode limits a signal to a maximum voltage.
-<br>
-<br>## Small-Signal Model
-<br>
-<br>For AC analysis, we linearize the diode around its DC operating point. The small-signal resistance is:
-<br>
-<br>    rd = Vt / Id
-<br>
-<br>At Id = 1 mA, rd = 26 ohms. At Id = 10 mA, rd = 2.6 ohms.
-<br>
-<br>This lets us treat the diode as a linear resistor for small AC signals — the key trick for analyzing amplifiers.
-<br>
-<br>## MOSFET Preview
-<br>
-<br>A MOSFET is like a voltage-controlled resistor. The gate is separated from the channel by a thin oxide (insulator). Applying Vgs &gt; Vth creates an inversion layer that conducts between source and drain.
-<br>
-<br>Two modes:
-<br>- <strong>Triode:</strong> Vds &lt; Vgs - Vth, acts like a resistor
-<br>- <strong>Saturation:</strong> Vds &gt; Vgs - Vth, acts like a current source
-<br>
-<br>The saturation current:
-<br>
-<br>    Id = (1/2) × kn × (W/L) × (Vgs - Vth)²
-<br>
-<br>This is the foundation of all analog and digital IC design.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Semiconductors are insulators until doped
-<br>- A PN junction is a diode with 0.7 V forward drop
-<br>- Shockley equation governs current-voltage relationship
-<br>- Small-signal linearization is the key analysis trick
-<br>- MOSFETs are voltage-controlled current sources
-<br>- All of modern electronics rests on this foundation
-<br></p></div>
+        <div class="lecture-full-content"><h3>From Silicon to Transistor</h3>
+<p>Silicon is a semiconductor: at absolute zero it is an insulator, at high temperature it conducts. Its four valence electrons form covalent bonds in a crystal lattice. Doping introduces impurities:</p>
+<ul><li><strong>N-type:</strong> add phosphorus (5 valence electrons) — extra free electrons</li><li><strong>P-type:</strong> add boron (3 valence electrons) — holes (missing electrons)</li></ul>
+<p>When N-type and P-type silicon touch, electrons diffuse across the junction, leaving behind charged ions. The resulting <strong>depletion region</strong> has a built-in electric field that opposes further diffusion.</p>
+<h3>The Diode</h3>
+<p>A PN junction is a diode. Forward bias (P side +, N side -): the field is reduced, current flows. Reverse bias: the field grows, only leakage current flows.</p>
+<p>The Shockley equation:</p>
+<p>I = Is × (e^(V/Vt) - 1)</p>
+<p>where Is is the saturation current (10^-12 to 10^-15 A) and Vt = kT/q ≈ 26 mV at room temperature.</p>
+<p>At 0.7 V forward, the exponential is enormous: e^(0.7/0.026) ≈ 10^12. This is why diodes "turn on" at ~0.7 V and act as a nearly-constant voltage drop.</p>
+<h3>Real Diode Behavior</h3>
+<ul><li>Forward drop: 0.6-0.7 V (silicon), 0.2-0.3 V (Schottky), 1.8-3.4 V (LED)</li><li>Reverse breakdown: 5-1000 V depending on design (Zener)</li><li>Capacitance: junctions have parasitic capacitance, which limits high-frequency performance</li></ul>
+<h3>Applications</h3>
+<p><strong>Rectifier:</strong> convert AC to DC. A bridge rectifier uses 4 diodes.</p>
+<p><strong>Voltage reference:</strong> a Zener diode in reverse breakdown holds a stable voltage.</p>
+<p><strong>Protection:</strong> a diode across a relay coil absorbs the inductive kick.</p>
+<p><strong>Clamp:</strong> a diode limits a signal to a maximum voltage.</p>
+<h3>Small-Signal Model</h3>
+<p>For AC analysis, we linearize the diode around its DC operating point. The small-signal resistance is:</p>
+<p>rd = Vt / Id</p>
+<p>At Id = 1 mA, rd = 26 ohms. At Id = 10 mA, rd = 2.6 ohms.</p>
+<p>This lets us treat the diode as a linear resistor for small AC signals — the key trick for analyzing amplifiers.</p>
+<h3>MOSFET Preview</h3>
+<p>A MOSFET is like a voltage-controlled resistor. The gate is separated from the channel by a thin oxide (insulator). Applying Vgs &gt; Vth creates an inversion layer that conducts between source and drain.</p>
+<p>Two modes:</p>
+<ul><li><strong>Triode:</strong> Vds &lt; Vgs - Vth, acts like a resistor</li><li><strong>Saturation:</strong> Vds &gt; Vgs - Vth, acts like a current source</li></ul>
+<p>The saturation current:</p>
+<p>Id = (1/2) × kn × (W/L) × (Vgs - Vth)²</p>
+<p>This is the foundation of all analog and digital IC design.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Semiconductors are insulators until doped</li><li>A PN junction is a diode with 0.7 V forward drop</li><li>Shockley equation governs current-voltage relationship</li><li>Small-signal linearization is the key analysis trick</li><li>MOSFETs are voltage-controlled current sources</li><li>All of modern electronics rests on this foundation</li></ul></div>
       </div>
     </div>
   
@@ -197,110 +154,51 @@ Silicon is a semiconductor: at absolute zero it is an insulator, at high tempera
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>MOSFET Large-Signal and Small-Signal Models</h4>
-          <p>
-## The MOSFET Structure
-
-A MOSFET has four terminals:
-- **Gate (G)** — controls the channel
-- **Source (S)** — where carriers enter
-- **Drain (D)** — where carriers exit
-- **Body (B)** — usually tied to source
-
-...</p>
+          <p>The MOSFET Structure A MOSFET has four terminals: Gate (G) — controls the channel Source (S) — where carriers enter Drain (D) — where carriers exit Body (B) — usually tied to source ...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The MOSFET Structure
-<br>
-<br>A MOSFET has four terminals:
-<br>- <strong>Gate (G)</strong> — controls the channel
-<br>- <strong>Source (S)</strong> — where carriers enter
-<br>- <strong>Drain (D)</strong> — where carriers exit
-<br>- <strong>Body (B)</strong> — usually tied to source
-<br>
-<br>The gate is separated from the channel by a thin oxide layer (SiO₂, ~2 nm for modern nodes). This makes the input impedance essentially infinite.
-<br>
-<br>## Threshold Voltage
-<br>
-<br>Vth is the gate-source voltage needed to create a conducting channel. For modern MOSFETs, Vth ≈ 0.3-0.7 V.
-<br>
-<br>Below Vth (subthreshold): tiny current flows exponentially. This is the leakage current.
-<br>
-<br>Above Vth: inversion layer forms, channel conducts.
-<br>
-<br>## Large-Signal Model
-<br>
-<br><strong>Triode region</strong> (Vds &lt; Vgs - Vth):
-<br>
-<br>    Id = kn × (W/L) × [(Vgs - Vth) × Vds - Vds²/2]
-<br>
-<br>This is a nonlinear resistor: for small Vds, it behaves like a resistor.
-<br>
-<br><strong>Saturation region</strong> (Vds &gt; Vgs - Vth):
-<br>
-<br>    Id = (1/2) × kn × (W/L) × (Vgs - Vth)² × (1 + λ × Vds)
-<br>
-<br>The channel is "pinched off" near the drain. Current depends mainly on Vgs, with a small dependence on Vds through the channel-length modulation parameter λ.
-<br>
-<br>## Transconductance gm
-<br>
-<br>The small-signal gain of a MOSFET is its transconductance:
-<br>
-<br>    gm = ∂Id/∂Vgs = kn × (W/L) × (Vgs - Vth) = 2×Id / (Vgs - Vth)
-<br>
-<br>At 1 mA and Vov = 0.2 V, gm = 10 mA/V.
-<br>
-<br>## Small-Signal Model
-<br>
-<br>For AC analysis, replace the MOSFET with:
-<br>
-<br>- A resistor ro = 1/(λ × Id) from drain to source (output resistance)
-<br>- A current source gm × Vgs from drain to source
-<br>- An open circuit from gate to source (infinite input impedance)
-<br>
-<br>This gives the voltage gain of a common-source amplifier:
-<br>
-<br>    Av = -gm × (ro || RD)
-<br>
-<br>## Common Configurations
-<br>
-<br><strong>Common Source:</strong> highest voltage gain, inverting, moderate input/output impedance. Most common.
-<br>
-<br><strong>Common Gate:</strong> current buffer, low input impedance, non-inverting.
-<br>
-<br><strong>Common Drain (Source Follower):</strong> voltage buffer, gain ≈ 1, low output impedance. Used to drive heavy loads.
-<br>
-<br><strong>Cascode:</strong> common-source + common-gate stacked. Very high output impedance, high gain, good bandwidth.
-<br>
-<br>## Bias and Operating Point
-<br>
-<br>Every MOSFET amplifier must be biased into saturation. Common techniques:
-<br>
-<br>- <strong>Fixed bias:</strong> resistor from VDD to gate. Simple, but sensitive to Vth variation.
-<br>- <strong>Self-bias:</strong> source resistor with gate returned to ground. More stable.
-<br>- <strong>Current-source bias:</strong> the workhorse of analog ICs. Stabilized by a current mirror.
-<br>
-<br>## Current Mirrors
-<br>
-<br>The current mirror copies a reference current into multiple branches:
-<br>
-<br>    Iout = Iref × (W/L)out / (W/L)ref
-<br>
-<br>This is the fundamental building block of analog IC design. It provides a stable bias current independent of VDD.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- MOSFET: voltage-controlled current source
-<br>- Two regions: triode (resistor-like) and saturation (current source)
-<br>- Small-signal model: gm and ro
-<br>- Common configurations: CS, CG, CD, cascode
-<br>- Current mirror is the universal bias building block
-<br>- Analog design = biasing + small-signal analysis
-<br></p></div>
+        <div class="lecture-full-content"><h3>The MOSFET Structure</h3>
+<p>A MOSFET has four terminals:</p>
+<ul><li><strong>Gate (G)</strong> — controls the channel</li><li><strong>Source (S)</strong> — where carriers enter</li><li><strong>Drain (D)</strong> — where carriers exit</li><li><strong>Body (B)</strong> — usually tied to source</li></ul>
+<p>The gate is separated from the channel by a thin oxide layer (SiO₂, ~2 nm for modern nodes). This makes the input impedance essentially infinite.</p>
+<h3>Threshold Voltage</h3>
+<p>Vth is the gate-source voltage needed to create a conducting channel. For modern MOSFETs, Vth ≈ 0.3-0.7 V.</p>
+<p>Below Vth (subthreshold): tiny current flows exponentially. This is the leakage current.</p>
+<p>Above Vth: inversion layer forms, channel conducts.</p>
+<h3>Large-Signal Model</h3>
+<p><strong>Triode region</strong> (Vds &lt; Vgs - Vth):</p>
+<p>Id = kn × (W/L) × [(Vgs - Vth) × Vds - Vds²/2]</p>
+<p>This is a nonlinear resistor: for small Vds, it behaves like a resistor.</p>
+<p><strong>Saturation region</strong> (Vds &gt; Vgs - Vth):</p>
+<p>Id = (1/2) × kn × (W/L) × (Vgs - Vth)² × (1 + λ × Vds)</p>
+<p>The channel is "pinched off" near the drain. Current depends mainly on Vgs, with a small dependence on Vds through the channel-length modulation parameter λ.</p>
+<h3>Transconductance gm</h3>
+<p>The small-signal gain of a MOSFET is its transconductance:</p>
+<p>gm = ∂Id/∂Vgs = kn × (W/L) × (Vgs - Vth) = 2×Id / (Vgs - Vth)</p>
+<p>At 1 mA and Vov = 0.2 V, gm = 10 mA/V.</p>
+<h3>Small-Signal Model</h3>
+<p>For AC analysis, replace the MOSFET with:</p>
+<ul><li>A resistor ro = 1/(λ × Id) from drain to source (output resistance)</li><li>A current source gm × Vgs from drain to source</li><li>An open circuit from gate to source (infinite input impedance)</li></ul>
+<p>This gives the voltage gain of a common-source amplifier:</p>
+<p>Av = -gm × (ro || RD)</p>
+<h3>Common Configurations</h3>
+<p><strong>Common Source:</strong> highest voltage gain, inverting, moderate input/output impedance. Most common.</p>
+<p><strong>Common Gate:</strong> current buffer, low input impedance, non-inverting.</p>
+<p><strong>Common Drain (Source Follower):</strong> voltage buffer, gain ≈ 1, low output impedance. Used to drive heavy loads.</p>
+<p><strong>Cascode:</strong> common-source + common-gate stacked. Very high output impedance, high gain, good bandwidth.</p>
+<h3>Bias and Operating Point</h3>
+<p>Every MOSFET amplifier must be biased into saturation. Common techniques:</p>
+<ul><li><strong>Fixed bias:</strong> resistor from VDD to gate. Simple, but sensitive to Vth variation.</li><li><strong>Self-bias:</strong> source resistor with gate returned to ground. More stable.</li><li><strong>Current-source bias:</strong> the workhorse of analog ICs. Stabilized by a current mirror.</li></ul>
+<h3>Current Mirrors</h3>
+<p>The current mirror copies a reference current into multiple branches:</p>
+<p>Iout = Iref × (W/L)out / (W/L)ref</p>
+<p>This is the fundamental building block of analog IC design. It provides a stable bias current independent of VDD.</p>
+<h3>Key Takeaways</h3>
+<ul><li>MOSFET: voltage-controlled current source</li><li>Two regions: triode (resistor-like) and saturation (current source)</li><li>Small-signal model: gm and ro</li><li>Common configurations: CS, CG, CD, cascode</li><li>Current mirror is the universal bias building block</li><li>Analog design = biasing + small-signal analysis</li></ul></div>
       </div>
     </div>
   
@@ -309,104 +207,47 @@ A MOSFET has four terminals:
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>Bipolar Transistors and Current Mirrors</h4>
-          <p>
-## The BJT Structure
-
-A Bipolar Junction Transistor has three terminals: Base (B), Collector (C), Emitter (E). Two junctions: base-emitter and base-collector.
-
-Current is carried by both electrons and holes (hence ...</p>
+          <p>The BJT Structure A Bipolar Junction Transistor has three terminals: Base (B), Collector (C), Emitter (E). Two junctions: base-emitter and base-collector. Current is carried by both electrons and...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The BJT Structure
-<br>
-<br>A Bipolar Junction Transistor has three terminals: Base (B), Collector (C), Emitter (E). Two junctions: base-emitter and base-collector.
-<br>
-<br>Current is carried by both electrons and holes (hence "bipolar"). The base is very thin and lightly doped.
-<br>
-<br>## Active Region
-<br>
-<br>In active mode (BE forward, BC reverse):
-<br>
-<br>    Ic = Is × e^(Vbe/Vt)
-<br>    Ib = Ic / β
-<br>
-<br>where β is the current gain, typically 100-300 for small-signal BJTs, 20-100 for power devices.
-<br>
-<br>The base current is small but nonzero, unlike the MOSFET where gate current is essentially zero.
-<br>
-<br>## Transconductance
-<br>
-<br>    gm = Ic / Vt
-<br>
-<br>At 1 mA, gm = 38 mA/V. This is the same transconductance formula as a MOSFET in weak inversion, and it's the maximum gm for a given current.
-<br>
-<br>## BJT vs MOSFET
-<br>
-<br>| Property | BJT | MOSFET |
-<br>|----------|-----|--------|
-<br>| Control | Current (Ib) | Voltage (Vgs) |
-<br>| gm at 1 mA | 38 mA/V | 5-10 mA/V |
-<br>| Input impedance | Moderate (rπ) | Infinite |
-<br>| Noise | Lower | Higher |
-<br>| Matching | Poor (process) | Excellent |
-<br>| Speed | High (fT &gt; 100 GHz) | High |
-<br>
-<br>BJT is still used for:
-<br>- High-speed circuits (RF, &gt; 10 GHz)
-<br>- Low-noise amplifiers
-<br>- Bandgap voltage references
-<br>- Some high-voltage applications
-<br>
-<br>## Current Mirrors
-<br>
-<br>The BJT current mirror:
-<br>
-<br>    Iout = Iref × exp((Vbe_out - Vbe_ref)/Vt)
-<br>
-<br>If the two transistors are identical and at the same temperature:
-<br>
-<br>    Iout = Iref
-<br>
-<br>Practical circuits add emitter resistors to reduce sensitivity to Vbe mismatch.
-<br>
-<br>## Differential Pair
-<br>
-<br>The differential pair is the input stage of every op-amp. Two matched transistors with a shared tail current source.
-<br>
-<br>Differential input: V+ - V-. Output: current difference.
-<br>
-<br>Common-mode input: affects both equally — rejected by symmetry.
-<br>
-<br>The tail current source is the key: it "steers" the tail current to one side or the other depending on the differential input.
-<br>
-<br>## Key Parameters
-<br>
-<br>- <strong>gm:</strong> transconductance
-<br>- <strong>rπ:</strong> small-signal input resistance = β/gm
-<br>- <strong>ro:</strong> output resistance = VA/Ic (VA is the Early voltage, typically 50-200 V)
-<br>- <strong>fT:</strong> transition frequency — where current gain drops to 1
-<br>
-<br>## Applications
-<br>
-<br><strong>Bandgap reference:</strong> combines a BJT's predictable Vbe (~600 mV, -2 mV/°C) with a PTAT current (proportional to absolute temperature) to produce a stable 1.2 V reference.
-<br>
-<br><strong>Gilbert cell:</strong> a mixer that multiplies two analog signals. Foundation of all RF receivers.
-<br>
-<br><strong>Current feedback amplifier:</strong> high slew rate, used in video and RF.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- BJTs are current-controlled, MOSFETs are voltage-controlled
-<br>- BJT has higher gm for the same current
-<br>- Current mirrors copy a reference current
-<br>- Differential pair is the input of every op-amp
-<br>- Modern analog ICs use both: BJT where speed/noise matters, MOS elsewhere
-<br></p></div>
+        <div class="lecture-full-content"><h3>The BJT Structure</h3>
+<p>A Bipolar Junction Transistor has three terminals: Base (B), Collector (C), Emitter (E). Two junctions: base-emitter and base-collector.</p>
+<p>Current is carried by both electrons and holes (hence "bipolar"). The base is very thin and lightly doped.</p>
+<h3>Active Region</h3>
+<p>In active mode (BE forward, BC reverse):</p>
+<p>Ic = Is × e^(Vbe/Vt)<br>    Ib = Ic / β</p>
+<p>where β is the current gain, typically 100-300 for small-signal BJTs, 20-100 for power devices.</p>
+<p>The base current is small but nonzero, unlike the MOSFET where gate current is essentially zero.</p>
+<h3>Transconductance</h3>
+<p>gm = Ic / Vt</p>
+<p>At 1 mA, gm = 38 mA/V. This is the same transconductance formula as a MOSFET in weak inversion, and it's the maximum gm for a given current.</p>
+<h3>BJT vs MOSFET</h3>
+<p>| Property | BJT | MOSFET |<br>|----------|-----|--------|<br>| Control | Current (Ib) | Voltage (Vgs) |<br>| gm at 1 mA | 38 mA/V | 5-10 mA/V |<br>| Input impedance | Moderate (rπ) | Infinite |<br>| Noise | Lower | Higher |<br>| Matching | Poor (process) | Excellent |<br>| Speed | High (fT &gt; 100 GHz) | High |</p>
+<p>BJT is still used for:</p>
+<ul><li>High-speed circuits (RF, &gt; 10 GHz)</li><li>Low-noise amplifiers</li><li>Bandgap voltage references</li><li>Some high-voltage applications</li></ul>
+<h3>Current Mirrors</h3>
+<p>The BJT current mirror:</p>
+<p>Iout = Iref × exp((Vbe_out - Vbe_ref)/Vt)</p>
+<p>If the two transistors are identical and at the same temperature:</p>
+<p>Iout = Iref</p>
+<p>Practical circuits add emitter resistors to reduce sensitivity to Vbe mismatch.</p>
+<h3>Differential Pair</h3>
+<p>The differential pair is the input stage of every op-amp. Two matched transistors with a shared tail current source.</p>
+<p>Differential input: V+ - V-. Output: current difference.</p>
+<p>Common-mode input: affects both equally — rejected by symmetry.</p>
+<p>The tail current source is the key: it "steers" the tail current to one side or the other depending on the differential input.</p>
+<h3>Key Parameters</h3>
+<ul><li><strong>gm:</strong> transconductance</li><li><strong>rπ:</strong> small-signal input resistance = β/gm</li><li><strong>ro:</strong> output resistance = VA/Ic (VA is the Early voltage, typically 50-200 V)</li><li><strong>fT:</strong> transition frequency — where current gain drops to 1</li></ul>
+<h3>Applications</h3>
+<p><strong>Bandgap reference:</strong> combines a BJT's predictable Vbe (~600 mV, -2 mV/°C) with a PTAT current (proportional to absolute temperature) to produce a stable 1.2 V reference.</p>
+<p><strong>Gilbert cell:</strong> a mixer that multiplies two analog signals. Foundation of all RF receivers.</p>
+<p><strong>Current feedback amplifier:</strong> high slew rate, used in video and RF.</p>
+<h3>Key Takeaways</h3>
+<ul><li>BJTs are current-controlled, MOSFETs are voltage-controlled</li><li>BJT has higher gm for the same current</li><li>Current mirrors copy a reference current</li><li>Differential pair is the input of every op-amp</li><li>Modern analog ICs use both: BJT where speed/noise matters, MOS elsewhere</li></ul></div>
       </div>
     </div>
   
@@ -415,133 +256,54 @@ Current is carried by both electrons and holes (hence ...</p>
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>Operational Amplifiers and Feedback</h4>
-          <p>
-## The Ideal Op-Amp
-
-An op-amp is a differential amplifier with very high gain. Ideal properties:
-
-- Infinite open-loop gain (A → ∞)
-- Infinite input impedance (no current into inputs)
-- Zero output impedance
-- ...</p>
+          <p>The Ideal Op-Amp An op-amp is a differential amplifier with very high gain. Ideal properties: Infinite open-loop gain (A → ∞) Infinite input impedance (no current into inputs) Zero output impedance...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The Ideal Op-Amp
-<br>
-<br>An op-amp is a differential amplifier with very high gain. Ideal properties:
-<br>
-<br>- Infinite open-loop gain (A → ∞)
-<br>- Infinite input impedance (no current into inputs)
-<br>- Zero output impedance
-<br>- Infinite bandwidth
-<br>
-<br>Real op-amps (e.g., LM741, TL071, OPA192) approximate these:
-<br>- A = 10^5 to 10^7
-<br>- Input impedance: 10^6 (bipolar) to 10^12 (CMOS)
-<br>- Output impedance: 10-100 ohms
-<br>- Unity-gain bandwidth: 1-100 MHz
-<br>
-<br>## The Golden Rules
-<br>
-<br>For an op-amp in negative feedback:
-<br>
-<br>1. <strong>The output does whatever it takes</strong> to make the two inputs equal (virtual short)
-<br>2. <strong>No current flows into the inputs</strong>
-<br>
-<br>These two rules let you analyze any op-amp circuit.
-<br>
-<br>## Inverting Amplifier
-<br>
-<br>    Vin ──R1──┬── (−)
-<br>              │
-<br>              │
-<br>             (−)  op-amp
-<br>              │
-<br>              └──R2── Vout
-<br>              
-<br>    (+): GND
-<br>
-<br>Virtual ground at the (−) input (since + is at 0 V). Current through R1: I = Vin/R1. This current must flow through R2 (no current into op-amp input). So Vout = -I × R2 = -Vin × R2/R1.
-<br>
-<br>    Gain = -R2/R1
-<br>
-<br>## Non-Inverting Amplifier
-<br>
-<br>    Vin ── (+)
-<br>             op-amp
-<br>           (−)──R1──GND
-<br>             │
-<br>             └──R2── Vout
-<br>
-<br>Virtual short: V(-) = V(+). So V(-) = Vin. Voltage divider from Vout to GND through R1 and R2:
-<br>
-<br>    Vin = Vout × R1/(R1+R2)
-<br>
-<br>    Gain = 1 + R2/R1
-<br>
-<br>## Buffer (Voltage Follower)
-<br>
-<br>    Vin ── (+)
-<br>             op-amp
-<br>           (−)──┐
-<br>                └── Vout
-<br>
-<br>Gain = 1. Used to convert a high-impedance source to a low-impedance output. Perfect for driving heavy loads.
-<br>
-<br>## Integrator
-<br>
-<br>    Vin ──R1──┬── (−)
-<br>              │
-<br>              C
-<br>              │
-<br>              └── Vout
-<br>
-<br>    Vout = -(1/(R1×C)) × ∫Vin dt
-<br>
-<br>Applications: analog filters, charge amplifiers, ADCs.
-<br>
-<br>## Differentiator
-<br>
-<br>Capacitor at input, resistor at feedback. Vout = -RC × dVin/dt.
-<br>
-<br>## Filters
-<br>
-<br>Combine R, C, and op-amp to build:
-<br>- Low-pass: gain drops above cutoff
-<br>- High-pass: gain drops below cutoff
-<br>- Band-pass: combination
-<br>- Notch: rejects one frequency
-<br>
-<br>The <strong>Sallen-Key</strong> topology gives a 2nd-order filter with one op-amp.
-<br>
-<br>## Real Op-Amp Limitations
-<br>
-<br><strong>Input offset voltage:</strong> a few µV to a few mV. Limits DC precision.
-<br>
-<br><strong>Input bias current:</strong> nA (bipolar) to pA (CMOS). Causes offsets through source resistance.
-<br>
-<br><strong>Gain-bandwidth product (GBW):</strong> the closed-loop bandwidth is GBW / |Gain|. At 100 MHz GBW, a gain of 10 gives 10 MHz bandwidth.
-<br>
-<br><strong>Slew rate:</strong> max dVout/dt. Typically 1-20 V/µs. Limits large-signal bandwidth.
-<br>
-<br><strong>Common-mode range:</strong> inputs must stay within a range near the rails. Rail-to-rail op-amps extend this.
-<br>
-<br><strong>Output swing:</strong> how close Vout can get to the rails. Rail-to-rail output is 50 mV from each rail.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Ideal op-amp: infinite gain, infinite Zin, zero Zout
-<br>- Golden rules: virtual short, no input current
-<br>- Inverting: -R2/R1, Non-inverting: 1+R2/R1
-<br>- Integrator and differentiator are workhorses
-<br>- Real op-amps have offset, bias current, finite GBW, slew rate
-<br>- Choose op-amp based on: speed, precision, power, cost
-<br></p></div>
+        <div class="lecture-full-content"><h3>The Ideal Op-Amp</h3>
+<p>An op-amp is a differential amplifier with very high gain. Ideal properties:</p>
+<ul><li>Infinite open-loop gain (A → ∞)</li><li>Infinite input impedance (no current into inputs)</li><li>Zero output impedance</li><li>Infinite bandwidth</li></ul>
+<p>Real op-amps (e.g., LM741, TL071, OPA192) approximate these:</p>
+<ul><li>A = 10^5 to 10^7</li><li>Input impedance: 10^6 (bipolar) to 10^12 (CMOS)</li><li>Output impedance: 10-100 ohms</li><li>Unity-gain bandwidth: 1-100 MHz</li></ul>
+<h3>The Golden Rules</h3>
+<p>For an op-amp in negative feedback:</p>
+<ol><li><strong>The output does whatever it takes</strong> to make the two inputs equal (virtual short)</li><li><strong>No current flows into the inputs</strong></li></ol>
+<p>These two rules let you analyze any op-amp circuit.</p>
+<h3>Inverting Amplifier</h3>
+<p>Vin ──R1──┬── (−)<br>              │<br>              │<br>             (−)  op-amp<br>              │<br>              └──R2── Vout</p>
+<p>(+): GND</p>
+<p>Virtual ground at the (−) input (since + is at 0 V). Current through R1: I = Vin/R1. This current must flow through R2 (no current into op-amp input). So Vout = -I × R2 = -Vin × R2/R1.</p>
+<p>Gain = -R2/R1</p>
+<h3>Non-Inverting Amplifier</h3>
+<p>Vin ── (+)<br>             op-amp<br>           (−)──R1──GND<br>             │<br>             └──R2── Vout</p>
+<p>Virtual short: V(-) = V(+). So V(-) = Vin. Voltage divider from Vout to GND through R1 and R2:</p>
+<p>Vin = Vout × R1/(R1+R2)</p>
+<p>Gain = 1 + R2/R1</p>
+<h3>Buffer (Voltage Follower)</h3>
+<p>Vin ── (+)<br>             op-amp<br>           (−)──┐<br>                └── Vout</p>
+<p>Gain = 1. Used to convert a high-impedance source to a low-impedance output. Perfect for driving heavy loads.</p>
+<h3>Integrator</h3>
+<p>Vin ──R1──┬── (−)<br>              │<br>              C<br>              │<br>              └── Vout</p>
+<p>Vout = -(1/(R1×C)) × ∫Vin dt</p>
+<p>Applications: analog filters, charge amplifiers, ADCs.</p>
+<h3>Differentiator</h3>
+<p>Capacitor at input, resistor at feedback. Vout = -RC × dVin/dt.</p>
+<h3>Filters</h3>
+<p>Combine R, C, and op-amp to build:</p>
+<ul><li>Low-pass: gain drops above cutoff</li><li>High-pass: gain drops below cutoff</li><li>Band-pass: combination</li><li>Notch: rejects one frequency</li></ul>
+<p>The <strong>Sallen-Key</strong> topology gives a 2nd-order filter with one op-amp.</p>
+<h3>Real Op-Amp Limitations</h3>
+<p><strong>Input offset voltage:</strong> a few µV to a few mV. Limits DC precision.</p>
+<p><strong>Input bias current:</strong> nA (bipolar) to pA (CMOS). Causes offsets through source resistance.</p>
+<p><strong>Gain-bandwidth product (GBW):</strong> the closed-loop bandwidth is GBW / |Gain|. At 100 MHz GBW, a gain of 10 gives 10 MHz bandwidth.</p>
+<p><strong>Slew rate:</strong> max dVout/dt. Typically 1-20 V/µs. Limits large-signal bandwidth.</p>
+<p><strong>Common-mode range:</strong> inputs must stay within a range near the rails. Rail-to-rail op-amps extend this.</p>
+<p><strong>Output swing:</strong> how close Vout can get to the rails. Rail-to-rail output is 50 mV from each rail.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Ideal op-amp: infinite gain, infinite Zin, zero Zout</li><li>Golden rules: virtual short, no input current</li><li>Inverting: -R2/R1, Non-inverting: 1+R2/R1</li><li>Integrator and differentiator are workhorses</li><li>Real op-amps have offset, bias current, finite GBW, slew rate</li><li>Choose op-amp based on: speed, precision, power, cost</li></ul></div>
       </div>
     </div>
   
@@ -550,127 +312,55 @@ An op-amp is a differential amplifier with very high gain. Ideal properties:
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>Analog Filter Design</h4>
-          <p>
-## Why Filters?
-
-Every real signal has noise. Filters separate signal from noise based on frequency content:
-
-- **Low-pass:** keeps low frequencies, removes high (smoothing, anti-aliasing)
-- **High-pass:** keeps h...</p>
+          <p>Why Filters? Every real signal has noise. Filters separate signal from noise based on frequency content: Low-pass: keeps low frequencies, removes high (smoothing, anti-aliasing) High-pass: keeps h...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Why Filters?
-<br>
-<br>Every real signal has noise. Filters separate signal from noise based on frequency content:
-<br>
-<br>- <strong>Low-pass:</strong> keeps low frequencies, removes high (smoothing, anti-aliasing)
-<br>- <strong>High-pass:</strong> keeps high, removes low (AC coupling, removing DC offset)
-<br>- <strong>Band-pass:</strong> keeps a band (radio receivers, audio equalizers)
-<br>- <strong>Notch:</strong> removes a narrow band (60 Hz hum rejection)
-<br>
-<br>## First-Order RC Low-Pass
-<br>
-<br>    Vin ──R──┬── Vout
-<br>             │
-<br>             C
-<br>             │
-<br>            GND
-<br>
-<br>Transfer function:
-<br>
-<br>    H(jω) = 1 / (1 + jωRC)
-<br>
-<br>Cutoff frequency (where |H| = 0.707):
-<br>
-<br>    fc = 1 / (2πRC)
-<br>
-<br>Roll-off: -20 dB/decade. At 10x fc, gain is -20 dB; at 100x fc, gain is -40 dB.
-<br>
-<br>## Second-Order Filters
-<br>
-<br>Two RC sections in series don't work well — they load each other. Use an active filter (Sallen-Key):
-<br>
-<br>    Vin ──R1──┬──R2──┬── (+)
-<br>              C1    │    op-amp
-<br>              │     C2   │
-<br>             GND   GND  └── Vout
-<br>                       │
-<br>                     (−)──R3──R4──GND
-<br>
-<br>The op-amp buffers and provides the feedback that creates the sharp roll-off.
-<br>
-<br>Roll-off: -40 dB/decade (10x better than first-order).
-<br>
-<br>## Butterworth Response
-<br>
-<br>Maximally flat passband. No ripple. The standard "textbook" response.
-<br>
-<br>For 2nd order:
-<br>    H(s) = ωc² / (s² + √2 ωc s + ωc²)
-<br>
-<br>The Q factor is 0.707.
-<br>
-<br>## Chebyshev Response
-<br>
-<br>Ripple in the passband, but sharper roll-off than Butterworth.
-<br>
-<br>For 0.5 dB ripple, Q = 1.4 for 2nd order.
-<br>
-<br>Trade-off: more ripple = sharper roll-off = worse transient response.
-<br>
-<br>## Bessel Response
-<br>
-<br>Linear phase (constant group delay) — important for pulses and digital signals.
-<br>
-<br>Roll-off is gentler than Butterworth.
-<br>
-<br>## Higher-Order Filters
-<br>
-<br>Cascade multiple 2nd-order sections. A 4th-order filter is two 2nd-order sections in series. A 6th-order is three.
-<br>
-<br>Real components have tolerance, so higher-order filters are harder to build.
-<br>
-<br>## Active Filter Design Example
-<br>
-<br>Design a 2nd-order Butterworth low-pass at 1 kHz.
-<br>
-<br>Given: fc = 1 kHz, Q = 0.707, C = 10 nF
-<br>
-<br>    R = 1 / (2π × 1000 × 10 nF) = 15.9 kΩ
-<br>
-<br>Use standard values: R = 16 kΩ, C = 10 nF, and a second stage with R = 16 kΩ, C = 4.7 nF for the Sallen-Key topology.
-<br>
-<br>## Filter Order and Roll-off
-<br>
-<br>| Order | Roll-off | Components |
-<br>|-------|----------|------------|
-<br>| 1st | -20 dB/dec | 1 R, 1 C |
-<br>| 2nd | -40 dB/dec | 2 R, 2 C, op-amp |
-<br>| 4th | -80 dB/dec | 4 R, 4 C, 2 op-amps |
-<br>| 6th | -120 dB/dec | 6 R, 6 C, 3 op-amps |
-<br>
-<br>For each additional 20 dB of stopband attenuation, add one order.
-<br>
-<br>## Anti-Aliasing Filters
-<br>
-<br>Before sampling an analog signal, you must low-pass filter it to remove frequencies above Nyquist (fs/2). Otherwise, aliasing folds high frequencies into the baseband, corrupting the signal.
-<br>
-<br>Rule: cutoff at 0.4 × fs, sharp enough that fs/2 is attenuated by &gt;60 dB.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Filters separate signal from noise by frequency
-<br>- First-order: -20 dB/dec, simple RC
-<br>- Second-order: -40 dB/dec, needs op-amp
-<br>- Butterworth (flat), Chebyshev (ripple), Bessel (linear phase)
-<br>- Higher order = cascaded 2nd-order sections
-<br>- Anti-aliasing filter is mandatory before ADC
-<br></p></div>
+        <div class="lecture-full-content"><h3>Why Filters?</h3>
+<p>Every real signal has noise. Filters separate signal from noise based on frequency content:</p>
+<ul><li><strong>Low-pass:</strong> keeps low frequencies, removes high (smoothing, anti-aliasing)</li><li><strong>High-pass:</strong> keeps high, removes low (AC coupling, removing DC offset)</li><li><strong>Band-pass:</strong> keeps a band (radio receivers, audio equalizers)</li><li><strong>Notch:</strong> removes a narrow band (60 Hz hum rejection)</li></ul>
+<h3>First-Order RC Low-Pass</h3>
+<p>Vin ──R──┬── Vout<br>             │<br>             C<br>             │<br>            GND</p>
+<p>Transfer function:</p>
+<p>H(jω) = 1 / (1 + jωRC)</p>
+<p>Cutoff frequency (where |H| = 0.707):</p>
+<p>fc = 1 / (2πRC)</p>
+<p>Roll-off: -20 dB/decade. At 10x fc, gain is -20 dB; at 100x fc, gain is -40 dB.</p>
+<h3>Second-Order Filters</h3>
+<p>Two RC sections in series don't work well — they load each other. Use an active filter (Sallen-Key):</p>
+<p>Vin ──R1──┬──R2──┬── (+)<br>              C1    │    op-amp<br>              │     C2   │<br>             GND   GND  └── Vout<br>                       │<br>                     (−)──R3──R4──GND</p>
+<p>The op-amp buffers and provides the feedback that creates the sharp roll-off.</p>
+<p>Roll-off: -40 dB/decade (10x better than first-order).</p>
+<h3>Butterworth Response</h3>
+<p>Maximally flat passband. No ripple. The standard "textbook" response.</p>
+<p>For 2nd order:<br>    H(s) = ωc² / (s² + √2 ωc s + ωc²)</p>
+<p>The Q factor is 0.707.</p>
+<h3>Chebyshev Response</h3>
+<p>Ripple in the passband, but sharper roll-off than Butterworth.</p>
+<p>For 0.5 dB ripple, Q = 1.4 for 2nd order.</p>
+<p>Trade-off: more ripple = sharper roll-off = worse transient response.</p>
+<h3>Bessel Response</h3>
+<p>Linear phase (constant group delay) — important for pulses and digital signals.</p>
+<p>Roll-off is gentler than Butterworth.</p>
+<h3>Higher-Order Filters</h3>
+<p>Cascade multiple 2nd-order sections. A 4th-order filter is two 2nd-order sections in series. A 6th-order is three.</p>
+<p>Real components have tolerance, so higher-order filters are harder to build.</p>
+<h3>Active Filter Design Example</h3>
+<p>Design a 2nd-order Butterworth low-pass at 1 kHz.</p>
+<p>Given: fc = 1 kHz, Q = 0.707, C = 10 nF</p>
+<p>R = 1 / (2π × 1000 × 10 nF) = 15.9 kΩ</p>
+<p>Use standard values: R = 16 kΩ, C = 10 nF, and a second stage with R = 16 kΩ, C = 4.7 nF for the Sallen-Key topology.</p>
+<h3>Filter Order and Roll-off</h3>
+<p>| Order | Roll-off | Components |<br>|-------|----------|------------|<br>| 1st | -20 dB/dec | 1 R, 1 C |<br>| 2nd | -40 dB/dec | 2 R, 2 C, op-amp |<br>| 4th | -80 dB/dec | 4 R, 4 C, 2 op-amps |<br>| 6th | -120 dB/dec | 6 R, 6 C, 3 op-amps |</p>
+<p>For each additional 20 dB of stopband attenuation, add one order.</p>
+<h3>Anti-Aliasing Filters</h3>
+<p>Before sampling an analog signal, you must low-pass filter it to remove frequencies above Nyquist (fs/2). Otherwise, aliasing folds high frequencies into the baseband, corrupting the signal.</p>
+<p>Rule: cutoff at 0.4 × fs, sharp enough that fs/2 is attenuated by &gt;60 dB.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Filters separate signal from noise by frequency</li><li>First-order: -20 dB/dec, simple RC</li><li>Second-order: -40 dB/dec, needs op-amp</li><li>Butterworth (flat), Chebyshev (ripple), Bessel (linear phase)</li><li>Higher order = cascaded 2nd-order sections</li><li>Anti-aliasing filter is mandatory before ADC</li></ul></div>
       </div>
     </div>
   </div>

@@ -108,116 +108,50 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Introduction to Feedback Control</h4>
-          <p>
-## What is a Control System?
-
-A control system is a system that regulates another system. Examples:
-
-- Cruise control keeps a car at a set speed
-- Thermostat keeps a room at a set temperature
-- Autopilot keeps a ...</p>
+          <p>What is a Control System? A control system is a system that regulates another system. Examples: Cruise control keeps a car at a set speed Thermostat keeps a room at a set temperature Autopilot keeps...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is a Control System?
-<br>
-<br>A control system is a system that regulates another system. Examples:
-<br>
-<br>- Cruise control keeps a car at a set speed
-<br>- Thermostat keeps a room at a set temperature
-<br>- Autopilot keeps a plane on course
-<br>- Camera autofocus keeps a subject sharp
-<br>
-<br>The core idea: measure the output, compare to the desired output, and adjust the input.
-<br>
-<br>## Open-Loop vs Closed-Loop
-<br>
-<br><strong>Open-loop:</strong> apply a preset input, hope the output is right. No feedback. Simple, but sensitive to disturbances and model errors.
-<br>
-<br>Example: a toaster has a timer. If the bread is thicker, it burns.
-<br>
-<br><strong>Closed-loop:</strong> measure the output, feed it back, correct the error. Robust to disturbances.
-<br>
-<br>Example: a thermostat with a temperature sensor. When the room is cold, it heats. When warm, it stops.
-<br>
-<br>## The Feedback Loop
-<br>
-<br>    ┌─────────┐    ┌─────────┐    ┌────────┐
-<br>    │ Setpoint├───▶│ Error   ├───▶│Controller├──▶ u(t) ──▶ Plant ──▶ y(t)
-<br>    └─────────┘    └─────────┘    └────────┘                                 │
-<br>                          ▲                                                 │
-<br>                          │                                                 │
-<br>                          └──── r(t) ◀────── Sensor ◀─────────────────────┘
-<br>
-<br>Where:
-<br>- r(t) = setpoint (what we want)
-<br>- y(t) = output (what we have)
-<br>- e(t) = r(t) - y(t) = error
-<br>- u(t) = control input
-<br>
-<br>## The Controller
-<br>
-<br>Three classical controllers (PID):
-<br>
-<br><strong>Proportional (P):</strong> u = Kp × e. Simple, but leaves steady-state error.
-<br>
-<br><strong>Integral (I):</strong> u = Ki × ∫e dt. Removes steady-state error, but can cause oscillation.
-<br>
-<br><strong>Derivative (D):</strong> u = Kd × de/dt. Predicts the future, damps oscillation, but amplifies noise.
-<br>
-<br>Combined:
-<br>
-<br>    u(t) = Kp×e + Ki×∫e + Kd×de/dt
-<br>
-<br>This is the PID controller — the workhorse of industrial control.
-<br>
-<br>## Why Feedback Works
-<br>
-<br>Feedback rejects disturbances:
-<br>
-<br>    If Plant = P, Controller = C, then:
-<br>    y/r = PC / (1 + PC)
-<br>
-<br>As long as PC &gt;&gt; 1 at the relevant frequencies, the closed-loop transfer function ≈ 1.
-<br>
-<br>Feedback also reduces sensitivity to plant variations:
-<br>
-<br>    d(y/r)/(y/r) = (1/(1+PC)) × dP/P
-<br>
-<br>So a 20% variation in plant becomes a 20%/(1+PC) variation in output.
-<br>
-<br>## Stability
-<br>
-<br>Not all feedback is good. Too much gain causes oscillation. The closed-loop poles must be in the left half-plane.
-<br>
-<br>Classical tests:
-<br>- <strong>Nyquist criterion:</strong> plot PC in the complex plane, check encirclements of -1
-<br>- <strong>Bode plots:</strong> gain margin (how much more gain before oscillation) and phase margin (how much more phase lag before oscillation)
-<br>- <strong>Root locus:</strong> where closed-loop poles go as gain increases
-<br>
-<br>Rule of thumb: phase margin &gt; 45° for good damping, &gt; 60° for excellent.
-<br>
-<br>## Applications
-<br>
-<br>- <strong>Robotics:</strong> joint control, trajectory tracking
-<br>- <strong>Aerospace:</strong> autopilot, missile guidance, satellite attitude
-<br>- <strong>Process control:</strong> temperature, pressure, flow
-<br>- <strong>Automotive:</strong> cruise control, ABS, engine management
-<br>- <strong>Power systems:</strong> grid frequency, voltage regulation
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Feedback compares output to setpoint, adjusts input
-<br>- Closed-loop is robust; open-loop is not
-<br>- PID is the universal controller
-<br>- Feedback reduces sensitivity and rejects disturbances
-<br>- Stability is essential; tune for phase margin
-<br>- Control is everywhere in engineering
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is a Control System?</h3>
+<p>A control system is a system that regulates another system. Examples:</p>
+<ul><li>Cruise control keeps a car at a set speed</li><li>Thermostat keeps a room at a set temperature</li><li>Autopilot keeps a plane on course</li><li>Camera autofocus keeps a subject sharp</li></ul>
+<p>The core idea: measure the output, compare to the desired output, and adjust the input.</p>
+<h3>Open-Loop vs Closed-Loop</h3>
+<p><strong>Open-loop:</strong> apply a preset input, hope the output is right. No feedback. Simple, but sensitive to disturbances and model errors.</p>
+<p>Example: a toaster has a timer. If the bread is thicker, it burns.</p>
+<p><strong>Closed-loop:</strong> measure the output, feed it back, correct the error. Robust to disturbances.</p>
+<p>Example: a thermostat with a temperature sensor. When the room is cold, it heats. When warm, it stops.</p>
+<h3>The Feedback Loop</h3>
+<p>┌─────────┐    ┌─────────┐    ┌────────┐<br>    │ Setpoint├───▶│ Error   ├───▶│Controller├──▶ u(t) ──▶ Plant ──▶ y(t)<br>    └─────────┘    └─────────┘    └────────┘                                 │<br>                          ▲                                                 │<br>                          │                                                 │<br>                          └──── r(t) ◀────── Sensor ◀─────────────────────┘</p>
+<p>Where:</p>
+<ul><li>r(t) = setpoint (what we want)</li><li>y(t) = output (what we have)</li><li>e(t) = r(t) - y(t) = error</li><li>u(t) = control input</li></ul>
+<h3>The Controller</h3>
+<p>Three classical controllers (PID):</p>
+<p><strong>Proportional (P):</strong> u = Kp × e. Simple, but leaves steady-state error.</p>
+<p><strong>Integral (I):</strong> u = Ki × ∫e dt. Removes steady-state error, but can cause oscillation.</p>
+<p><strong>Derivative (D):</strong> u = Kd × de/dt. Predicts the future, damps oscillation, but amplifies noise.</p>
+<p>Combined:</p>
+<p>u(t) = Kp×e + Ki×∫e + Kd×de/dt</p>
+<p>This is the PID controller — the workhorse of industrial control.</p>
+<h3>Why Feedback Works</h3>
+<p>Feedback rejects disturbances:</p>
+<p>If Plant = P, Controller = C, then:<br>    y/r = PC / (1 + PC)</p>
+<p>As long as PC &gt;&gt; 1 at the relevant frequencies, the closed-loop transfer function ≈ 1.</p>
+<p>Feedback also reduces sensitivity to plant variations:</p>
+<p>d(y/r)/(y/r) = (1/(1+PC)) × dP/P</p>
+<p>So a 20% variation in plant becomes a 20%/(1+PC) variation in output.</p>
+<h3>Stability</h3>
+<p>Not all feedback is good. Too much gain causes oscillation. The closed-loop poles must be in the left half-plane.</p>
+<p>Classical tests:</p>
+<ul><li><strong>Nyquist criterion:</strong> plot PC in the complex plane, check encirclements of -1</li><li><strong>Bode plots:</strong> gain margin (how much more gain before oscillation) and phase margin (how much more phase lag before oscillation)</li><li><strong>Root locus:</strong> where closed-loop poles go as gain increases</li></ul>
+<p>Rule of thumb: phase margin &gt; 45° for good damping, &gt; 60° for excellent.</p>
+<h3>Applications</h3>
+<ul><li><strong>Robotics:</strong> joint control, trajectory tracking</li><li><strong>Aerospace:</strong> autopilot, missile guidance, satellite attitude</li><li><strong>Process control:</strong> temperature, pressure, flow</li><li><strong>Automotive:</strong> cruise control, ABS, engine management</li><li><strong>Power systems:</strong> grid frequency, voltage regulation</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>Feedback compares output to setpoint, adjusts input</li><li>Closed-loop is robust; open-loop is not</li><li>PID is the universal controller</li><li>Feedback reduces sensitivity and rejects disturbances</li><li>Stability is essential; tune for phase margin</li><li>Control is everywhere in engineering</li></ul></div>
       </div>
     </div>
   
@@ -226,136 +160,58 @@ A control system is a system that regulates another system. Examples:
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>System Modeling and Laplace Transforms</h4>
-          <p>
-## Why Model Systems?
-
-To design a controller, we need a mathematical model of the plant. The model doesn&#39;t have to be perfect — it just needs to capture the essential dynamics.
-
-## Differential Equations
-
-Most p...</p>
+          <p>Why Model Systems? To design a controller, we need a mathematical model of the plant. The model doesn&amp;#39;t have to be perfect — it just needs to capture the essential dynamics. Differential...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Why Model Systems?
-<br>
-<br>To design a controller, we need a mathematical model of the plant. The model doesn't have to be perfect — it just needs to capture the essential dynamics.
-<br>
-<br>## Differential Equations
-<br>
-<br>Most physical systems are described by ODEs:
-<br>
-<br><strong>RC circuit:</strong>
-<br>    RC × dVout/dt + Vout = Vin
-<br>
-<br><strong>Mass-spring-damper:</strong>
-<br>    m × x'' + c × x' + k × x = F(t)
-<br>
-<br><strong>DC motor:</strong>
-<br>    J × ω' + b × ω = Kt × I
-<br>    L × I' + R × I = V - Ke × ω
-<br>
-<br>These couple the physical world (R, m, k) to the dynamics.
-<br>
-<br>## The Laplace Transform
-<br>
-<br>The Laplace transform converts ODEs to algebraic equations:
-<br>
-<br>    L{f(t)} = F(s) = ∫₀^∞ f(t) × e^(-st) dt
-<br>
-<br>Key properties:
-<br>
-<br>- <strong>Linearity:</strong> L{af + bg} = aF + bG
-<br>- <strong>Derivative:</strong> L{f'} = sF(s) - f(0)
-<br>- <strong>Integral:</strong> L{∫f dt} = F(s)/s
-<br>- <strong>Time shift:</strong> L{f(t-T)} = e^(-sT) × F(s)
-<br>- <strong>Final value theorem:</strong> lim(t→∞) f(t) = lim(s→0) sF(s)
-<br>
-<br>## Common Transforms
-<br>
-<br>| f(t) | F(s) |
-<br>|------|------|
-<br>| δ(t) (impulse) | 1 |
-<br>| u(t) (step) | 1/s |
-<br>| t | 1/s² |
-<br>| e^(-at) | 1/(s+a) |
-<br>| sin(ωt) | ω/(s²+ω²) |
-<br>| 1 - e^(-t/τ) | 1/(s(sτ+1)) |
-<br>
-<br>## Transfer Functions
-<br>
-<br>For a linear time-invariant (LTI) system with zero initial conditions:
-<br>
-<br>    H(s) = Y(s) / U(s)
-<br>
-<br>This is the transfer function. It fully characterizes the system's input-output behavior.
-<br>
-<br>For the RC circuit:
-<br>
-<br>    H(s) = 1 / (RCs + 1)
-<br>
-<br>The pole at s = -1/(RC) determines the time constant τ = RC.
-<br>
-<br>## Poles and Zeros
-<br>
-<br>The transfer function is a ratio of polynomials:
-<br>
-<br>    H(s) = N(s) / D(s)
-<br>
-<br><strong>Zeros:</strong> roots of N(s). Cause the output to be zero at certain frequencies.
-<br>
-<br><strong>Poles:</strong> roots of D(s). Determine the natural response.
-<br>
-<br>For a first-order system with pole at s = -a:
-<br>
-<br>    h(t) = e^(-at)
-<br>
-<br>Time constant τ = 1/a.
-<br>
-<br>For a second-order system with poles at s = -σ ± jωd:
-<br>
-<br>    h(t) = e^(-σt) × sin(ωd × t + φ)
-<br>
-<br>Damping ratio ζ = σ / √(σ² + ωd²).
-<br>
-<br>- ζ &gt; 1: overdamped (no oscillation)
-<br>- ζ = 1: critically damped (fastest without overshoot)
-<br>- 0 &lt; ζ &lt; 1: underdamped (oscillates)
-<br>- ζ = 0: undamped (pure oscillation)
-<br>
-<br>## Block Diagrams
-<br>
-<br>Complex systems are built from simple blocks:
-<br>
-<br>- <strong>Series:</strong> H = H1 × H2
-<br>- <strong>Parallel:</strong> H = H1 + H2
-<br>- <strong>Feedback:</strong> H = H1 / (1 + H1 × H2)
-<br>
-<br>Feedback is the key block that changes system behavior dramatically.
-<br>
-<br>## Example: DC Motor Position Control
-<br>
-<br>    θ(s) / V(s) = Kt / (s × (Js + b) × (Ls + R) + Kt × Ke)
-<br>
-<br>For a small motor, L is negligible, so:
-<br>
-<br>    θ(s) / V(s) ≈ Kt / (s × (Js + b) × R + Kt × Ke)
-<br>
-<br>This is a second-order system with one pole at origin (integrator) and one real pole.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Physical systems → ODEs → Laplace → transfer functions
-<br>- Poles and zeros characterize system behavior
-<br>- Second-order: ζ and ωn fully determine response
-<br>- Block diagrams compose simple systems
-<br>- Feedback changes the effective dynamics
-<br>- Modeling is the first step of any control design
-<br></p></div>
+        <div class="lecture-full-content"><h3>Why Model Systems?</h3>
+<p>To design a controller, we need a mathematical model of the plant. The model doesn't have to be perfect — it just needs to capture the essential dynamics.</p>
+<h3>Differential Equations</h3>
+<p>Most physical systems are described by ODEs:</p>
+<p><strong>RC circuit:</strong><br>    RC × dVout/dt + Vout = Vin</p>
+<p><strong>Mass-spring-damper:</strong><br>    m × x'' + c × x' + k × x = F(t)</p>
+<p><strong>DC motor:</strong><br>    J × ω' + b × ω = Kt × I<br>    L × I' + R × I = V - Ke × ω</p>
+<p>These couple the physical world (R, m, k) to the dynamics.</p>
+<h3>The Laplace Transform</h3>
+<p>The Laplace transform converts ODEs to algebraic equations:</p>
+<p>L{f(t)} = F(s) = ∫₀^∞ f(t) × e^(-st) dt</p>
+<p>Key properties:</p>
+<ul><li><strong>Linearity:</strong> L{af + bg} = aF + bG</li><li><strong>Derivative:</strong> L{f'} = sF(s) - f(0)</li><li><strong>Integral:</strong> L{∫f dt} = F(s)/s</li><li><strong>Time shift:</strong> L{f(t-T)} = e^(-sT) × F(s)</li><li><strong>Final value theorem:</strong> lim(t→∞) f(t) = lim(s→0) sF(s)</li></ul>
+<h3>Common Transforms</h3>
+<p>| f(t) | F(s) |<br>|------|------|<br>| δ(t) (impulse) | 1 |<br>| u(t) (step) | 1/s |<br>| t | 1/s² |<br>| e^(-at) | 1/(s+a) |<br>| sin(ωt) | ω/(s²+ω²) |<br>| 1 - e^(-t/τ) | 1/(s(sτ+1)) |</p>
+<h3>Transfer Functions</h3>
+<p>For a linear time-invariant (LTI) system with zero initial conditions:</p>
+<p>H(s) = Y(s) / U(s)</p>
+<p>This is the transfer function. It fully characterizes the system's input-output behavior.</p>
+<p>For the RC circuit:</p>
+<p>H(s) = 1 / (RCs + 1)</p>
+<p>The pole at s = -1/(RC) determines the time constant τ = RC.</p>
+<h3>Poles and Zeros</h3>
+<p>The transfer function is a ratio of polynomials:</p>
+<p>H(s) = N(s) / D(s)</p>
+<p><strong>Zeros:</strong> roots of N(s). Cause the output to be zero at certain frequencies.</p>
+<p><strong>Poles:</strong> roots of D(s). Determine the natural response.</p>
+<p>For a first-order system with pole at s = -a:</p>
+<p>h(t) = e^(-at)</p>
+<p>Time constant τ = 1/a.</p>
+<p>For a second-order system with poles at s = -σ ± jωd:</p>
+<p>h(t) = e^(-σt) × sin(ωd × t + φ)</p>
+<p>Damping ratio ζ = σ / √(σ² + ωd²).</p>
+<ul><li>ζ &gt; 1: overdamped (no oscillation)</li><li>ζ = 1: critically damped (fastest without overshoot)</li><li>0 &lt; ζ &lt; 1: underdamped (oscillates)</li><li>ζ = 0: undamped (pure oscillation)</li></ul>
+<h3>Block Diagrams</h3>
+<p>Complex systems are built from simple blocks:</p>
+<ul><li><strong>Series:</strong> H = H1 × H2</li><li><strong>Parallel:</strong> H = H1 + H2</li><li><strong>Feedback:</strong> H = H1 / (1 + H1 × H2)</li></ul>
+<p>Feedback is the key block that changes system behavior dramatically.</p>
+<h3>Example: DC Motor Position Control</h3>
+<p>θ(s) / V(s) = Kt / (s × (Js + b) × (Ls + R) + Kt × Ke)</p>
+<p>For a small motor, L is negligible, so:</p>
+<p>θ(s) / V(s) ≈ Kt / (s × (Js + b) × R + Kt × Ke)</p>
+<p>This is a second-order system with one pole at origin (integrator) and one real pole.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Physical systems → ODEs → Laplace → transfer functions</li><li>Poles and zeros characterize system behavior</li><li>Second-order: ζ and ωn fully determine response</li><li>Block diagrams compose simple systems</li><li>Feedback changes the effective dynamics</li><li>Modeling is the first step of any control design</li></ul></div>
       </div>
     </div>
   
@@ -364,144 +220,65 @@ Most p...</p>
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>PID Controller Design</h4>
-          <p>
-## The PID Controller
-
-The most widely used controller in industry. Over 90% of control loops use PID.
-
-    u(t) = Kp×e(t) + Ki×∫₀^t e(τ)dτ + Kd×de/dt
-
-In Laplace form:
-
-    C(s) = Kp + Ki/s + Kd×s
-
-Or equiva...</p>
+          <p>The PID Controller The most widely used controller in industry. Over 90% of control loops use PID. u(t) = Kp×e(t) + Ki×∫₀^t e(τ)dτ + Kd×de/dt In Laplace form: C(s) = Kp + Ki/s + Kd×s Or equiva...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The PID Controller
-<br>
-<br>The most widely used controller in industry. Over 90% of control loops use PID.
-<br>
-<br>    u(t) = Kp×e(t) + Ki×∫₀^t e(τ)dτ + Kd×de/dt
-<br>
-<br>In Laplace form:
-<br>
-<br>    C(s) = Kp + Ki/s + Kd×s
-<br>
-<br>Or equivalently:
-<br>
-<br>    C(s) = Kp × (1 + 1/(Ti×s) + Td×s)
-<br>
-<br>where Ti = Kp/Ki is the integral time and Td = Kd/Kp is the derivative time.
-<br>
-<br>## Proportional Term
-<br>
-<br>u = Kp × e
-<br>
-<br>Pros:
-<br>- Fast response
-<br>- Simple
-<br>
-<br>Cons:
-<br>- Steady-state error for step input to type-0 plant
-<br>- Higher Kp = faster but more oscillatory
-<br>
-<br>## Integral Term
-<br>
-<br>u = Ki × ∫e dt
-<br>
-<br>Pros:
-<br>- Eliminates steady-state error
-<br>- Handles constant disturbances
-<br>
-<br>Cons:
-<br>- Adds phase lag → reduces stability
-<br>- Can cause "integral windup" during saturation
-<br>
-<br>## Derivative Term
-<br>
-<br>u = Kd × de/dt
-<br>
-<br>Pros:
-<br>- Adds phase lead → improves stability
-<br>- Predicts future error → damps response
-<br>
-<br>Cons:
-<br>- Amplifies high-frequency noise
-<br>- Difficult to implement in practice
-<br>
-<br>## Tuning Methods
-<br>
-<br>### Ziegler-Nichols (Closed-Loop)
-<br>
-<br>1. Set Ki = Kd = 0
-<br>2. Increase Kp until system oscillates at constant amplitude. Call this Ku (ultimate gain), and the period Tu.
-<br>3. Set:
-<br>   - Kp = 0.6 × Ku
-<br>   - Ki = 2 × Kp / Tu
-<br>   - Kd = Kp × Tu / 8
-<br>
-<br>This gives a "quarter-wave decay" response — moderately aggressive.
-<br>
-<br>### Ziegler-Nichols (Open-Loop)
-<br>
-<br>From the step response, find the inflection point. Draw a tangent. Read off the delay L and time constant T.
-<br>
-<br>Then:
-<br>- Kp = 1.2 × T / (K × L)
-<br>- Ki = Kp / (2L)
-<br>- Kd = Kp × 0.5 × L
-<br>
-<br>where K is the plant DC gain.
-<br>
-<br>### Manual Tuning
-<br>
-<br>1. Start with Ki = Kd = 0
-<br>2. Increase Kp until response is fast but stable (no sustained oscillation)
-<br>3. Add Ki to eliminate steady-state error — small at first
-<br>4. Add Kd to reduce overshoot and speed up response
-<br>5. Iterate
-<br>
-<br>## Typical Issues
-<br>
-<br><strong>Integral windup:</strong> during saturation (e.g., actuator limit), the integrator keeps accumulating. When the error reverses, the integrator takes time to unwind → overshoot.
-<br>
-<br>Solution: anti-windup — clamp the integrator or freeze it during saturation.
-<br>
-<br><strong>Noise amplification:</strong> the derivative term amplifies sensor noise. Solution: use a low-pass filter on the derivative, or use a "dirty derivative" (filtered derivative).
-<br>
-<br><strong>Setpoint kick:</strong> differentiating the setpoint causes a spike when the reference changes. Solution: differentiate only the measurement, not the error.
-<br>
-<br>## PID in Discrete Time
-<br>
-<br>Real controllers run on microcontrollers with a fixed sample period Ts.
-<br>
-<br>    u[n] = u[n-1] + Kp×(e[n]-e[n-1]) + Ki×Ts×e[n] + (Kd/Ts)×(e[n]-2e[n-1]+e[n-2])
-<br>
-<br>The sampling rate should be at least 10x the fastest dynamics.
-<br>
-<br>## Example: Temperature Control
-<br>
-<br>A 3D printer hot end has a thermal time constant of ~30 seconds. Sample at 1 Hz.
-<br>
-<br>Typical PID gains: Kp = 20, Ki = 0.5, Kd = 100.
-<br>
-<br>At startup, the heater runs full power until the temperature nears the setpoint. Then PID takes over.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- PID is the universal industrial controller
-<br>- P = speed, I = eliminate steady-state error, D = damping
-<br>- Ziegler-Nichols gives starting gains
-<br>- Anti-windup is essential in practice
-<br>- Filter the derivative to reduce noise
-<br>- Discrete-time implementation is standard
-<br></p></div>
+        <div class="lecture-full-content"><h3>The PID Controller</h3>
+<p>The most widely used controller in industry. Over 90% of control loops use PID.</p>
+<p>u(t) = Kp×e(t) + Ki×∫₀^t e(τ)dτ + Kd×de/dt</p>
+<p>In Laplace form:</p>
+<p>C(s) = Kp + Ki/s + Kd×s</p>
+<p>Or equivalently:</p>
+<p>C(s) = Kp × (1 + 1/(Ti×s) + Td×s)</p>
+<p>where Ti = Kp/Ki is the integral time and Td = Kd/Kp is the derivative time.</p>
+<h3>Proportional Term</h3>
+<p>u = Kp × e</p>
+<p>Pros:</p>
+<ul><li>Fast response</li><li>Simple</li></ul>
+<p>Cons:</p>
+<ul><li>Steady-state error for step input to type-0 plant</li><li>Higher Kp = faster but more oscillatory</li></ul>
+<h3>Integral Term</h3>
+<p>u = Ki × ∫e dt</p>
+<p>Pros:</p>
+<ul><li>Eliminates steady-state error</li><li>Handles constant disturbances</li></ul>
+<p>Cons:</p>
+<ul><li>Adds phase lag → reduces stability</li><li>Can cause "integral windup" during saturation</li></ul>
+<h3>Derivative Term</h3>
+<p>u = Kd × de/dt</p>
+<p>Pros:</p>
+<ul><li>Adds phase lead → improves stability</li><li>Predicts future error → damps response</li></ul>
+<p>Cons:</p>
+<ul><li>Amplifies high-frequency noise</li><li>Difficult to implement in practice</li></ul>
+<h3>Tuning Methods</h3>
+<h4>Ziegler-Nichols (Closed-Loop)</h4>
+<p>1. Set Ki = Kd = 0<br>2. Increase Kp until system oscillates at constant amplitude. Call this Ku (ultimate gain), and the period Tu.<br>3. Set:<br>   - Kp = 0.6 × Ku<br>   - Ki = 2 × Kp / Tu<br>   - Kd = Kp × Tu / 8</p>
+<p>This gives a "quarter-wave decay" response — moderately aggressive.</p>
+<h4>Ziegler-Nichols (Open-Loop)</h4>
+<p>From the step response, find the inflection point. Draw a tangent. Read off the delay L and time constant T.</p>
+<p>Then:</p>
+<ul><li>Kp = 1.2 × T / (K × L)</li><li>Ki = Kp / (2L)</li><li>Kd = Kp × 0.5 × L</li></ul>
+<p>where K is the plant DC gain.</p>
+<h4>Manual Tuning</h4>
+<ol><li>Start with Ki = Kd = 0</li><li>Increase Kp until response is fast but stable (no sustained oscillation)</li><li>Add Ki to eliminate steady-state error — small at first</li><li>Add Kd to reduce overshoot and speed up response</li><li>Iterate</li></ol>
+<h3>Typical Issues</h3>
+<p><strong>Integral windup:</strong> during saturation (e.g., actuator limit), the integrator keeps accumulating. When the error reverses, the integrator takes time to unwind → overshoot.</p>
+<p>Solution: anti-windup — clamp the integrator or freeze it during saturation.</p>
+<p><strong>Noise amplification:</strong> the derivative term amplifies sensor noise. Solution: use a low-pass filter on the derivative, or use a "dirty derivative" (filtered derivative).</p>
+<p><strong>Setpoint kick:</strong> differentiating the setpoint causes a spike when the reference changes. Solution: differentiate only the measurement, not the error.</p>
+<h3>PID in Discrete Time</h3>
+<p>Real controllers run on microcontrollers with a fixed sample period Ts.</p>
+<p>u[n] = u[n-1] + Kp×(e[n]-e[n-1]) + Ki×Ts×e[n] + (Kd/Ts)×(e[n]-2e[n-1]+e[n-2])</p>
+<p>The sampling rate should be at least 10x the fastest dynamics.</p>
+<h3>Example: Temperature Control</h3>
+<p>A 3D printer hot end has a thermal time constant of ~30 seconds. Sample at 1 Hz.</p>
+<p>Typical PID gains: Kp = 20, Ki = 0.5, Kd = 100.</p>
+<p>At startup, the heater runs full power until the temperature nears the setpoint. Then PID takes over.</p>
+<h3>Key Takeaways</h3>
+<ul><li>PID is the universal industrial controller</li><li>P = speed, I = eliminate steady-state error, D = damping</li><li>Ziegler-Nichols gives starting gains</li><li>Anti-windup is essential in practice</li><li>Filter the derivative to reduce noise</li><li>Discrete-time implementation is standard</li></ul></div>
       </div>
     </div>
   
@@ -510,117 +287,57 @@ Or equiva...</p>
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>Stability Analysis: Bode and Nyquist</h4>
-          <p>
-## Stability
-
-A system is stable if its output returns to equilibrium after a disturbance. Formally, all poles of the closed-loop transfer function must be in the left half of the complex plane.
-
-Feedback can make ...</p>
+          <p>Stability A system is stable if its output returns to equilibrium after a disturbance. Formally, all poles of the closed-loop transfer function must be in the left half of the complex plane. Feedback...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Stability
-<br>
-<br>A system is stable if its output returns to equilibrium after a disturbance. Formally, all poles of the closed-loop transfer function must be in the left half of the complex plane.
-<br>
-<br>Feedback can make a stable plant unstable if the gain is too high. Understanding stability margins is essential.
-<br>
-<br>## Gain and Phase Margin
-<br>
-<br>Consider the loop transfer function L(s) = C(s) × P(s).
-<br>
-<br>The <strong>crossover frequency</strong> ωc is where |L(jωc)| = 1 (0 dB).
-<br>
-<br>The <strong>phase margin</strong> (PM) is the difference between the phase of L at crossover and -180°:
-<br>
-<br>    PM = 180° + ∠L(jωc)
-<br>
-<br>Rule of thumb:
-<br>- PM &gt; 0: stable
-<br>- PM = 45°: good, moderate overshoot
-<br>- PM = 60°: excellent, minimal overshoot
-<br>- PM = 90°: very conservative, slow
-<br>
-<br>The <strong>gain margin</strong> (GM) is how much the gain can increase before instability:
-<br>
-<br>    GM = 1 / |L(jωpc)|
-<br>
-<br>where ωpc is the phase crossover frequency (where ∠L = -180°).
-<br>
-<br>## Bode Plots
-<br>
-<br>Two plots:
-<br>1. Magnitude |L(jω)| in dB vs frequency (log scale)
-<br>2. Phase ∠L(jω) in degrees vs frequency (log scale)
-<br>
-<br>Read off:
-<br>- Crossover frequency (where magnitude = 0 dB)
-<br>- Phase margin (180 + phase at crossover)
-<br>- Phase crossover (where phase = -180°)
-<br>- Gain margin (negative of magnitude at phase crossover)
-<br>
-<br>## Rules of Thumb
-<br>
-<br>Each pole contributes -20 dB/decade and -90° of phase.
-<br>
-<br>Each zero contributes +20 dB/decade and +90° of phase.
-<br>
-<br>For a typical system, if the slope at crossover is -20 dB/decade, phase margin is roughly 90°. If -40 dB/decade, phase margin is roughly 0°.
-<br>
-<br>Rule: keep the slope at crossover at -20 dB/decade for good phase margin.
-<br>
-<br>## Nyquist Criterion
-<br>
-<br>Plot L(jω) for ω from 0 to ∞ in the complex plane. This is the Nyquist plot.
-<br>
-<br>The number of encirclements of the point -1 equals the number of unstable closed-loop poles minus the number of unstable open-loop poles.
-<br>
-<br>For a stable open-loop system:
-<br>- No encirclement of -1 → stable closed-loop
-<br>- Encirclement → unstable closed-loop
-<br>
-<br>Nyquist is more powerful than Bode for two reasons:
-<br>1. It handles right-half-plane poles correctly
-<br>2. It captures the behavior at all frequencies
-<br>
-<br>## Frequency Response Intuition
-<br>
-<br>At low frequency, integrators give high gain — good for tracking.
-<br>
-<br>At high frequency, the plant rolls off — good for noise rejection.
-<br>
-<br>A well-designed controller has:
-<br>- High gain at low frequency (tracking)
-<br>- Crossover at a frequency where phase margin &gt; 45°
-<br>- Low gain at high frequency (noise rejection)
-<br>
-<br>This is the "loop shaping" approach to control design.
-<br>
-<br>## Example: PI Control of First-Order Plant
-<br>
-<br>Plant: P(s) = K / (τs + 1)
-<br>
-<br>Controller: C(s) = Kp + Ki/s
-<br>
-<br>Loop: L(s) = (Kp + Ki/s) × K / (τs + 1)
-<br>
-<br>At low frequency, the integrator gives high gain. At high frequency, the plant rolls off.
-<br>
-<br>Design Kp and Ki so crossover is at ωc with 60° phase margin.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Stability requires all closed-loop poles in the left half-plane
-<br>- Phase margin &gt; 45° for good response
-<br>- Gain margin &gt; 6 dB for robustness
-<br>- Bode plots are the standard visualization
-<br>- Nyquist is more rigorous
-<br>- Loop shaping: high gain low freq, crossover with margin, low gain high freq
-<br></p></div>
+        <div class="lecture-full-content"><h3>Stability</h3>
+<p>A system is stable if its output returns to equilibrium after a disturbance. Formally, all poles of the closed-loop transfer function must be in the left half of the complex plane.</p>
+<p>Feedback can make a stable plant unstable if the gain is too high. Understanding stability margins is essential.</p>
+<h3>Gain and Phase Margin</h3>
+<p>Consider the loop transfer function L(s) = C(s) × P(s).</p>
+<p>The <strong>crossover frequency</strong> ωc is where |L(jωc)| = 1 (0 dB).</p>
+<p>The <strong>phase margin</strong> (PM) is the difference between the phase of L at crossover and -180°:</p>
+<p>PM = 180° + ∠L(jωc)</p>
+<p>Rule of thumb:</p>
+<ul><li>PM &gt; 0: stable</li><li>PM = 45°: good, moderate overshoot</li><li>PM = 60°: excellent, minimal overshoot</li><li>PM = 90°: very conservative, slow</li></ul>
+<p>The <strong>gain margin</strong> (GM) is how much the gain can increase before instability:</p>
+<p>GM = 1 / |L(jωpc)|</p>
+<p>where ωpc is the phase crossover frequency (where ∠L = -180°).</p>
+<h3>Bode Plots</h3>
+<p>Two plots:</p>
+<ol><li>Magnitude |L(jω)| in dB vs frequency (log scale)</li><li>Phase ∠L(jω) in degrees vs frequency (log scale)</li></ol>
+<p>Read off:</p>
+<ul><li>Crossover frequency (where magnitude = 0 dB)</li><li>Phase margin (180 + phase at crossover)</li><li>Phase crossover (where phase = -180°)</li><li>Gain margin (negative of magnitude at phase crossover)</li></ul>
+<h3>Rules of Thumb</h3>
+<p>Each pole contributes -20 dB/decade and -90° of phase.</p>
+<p>Each zero contributes +20 dB/decade and +90° of phase.</p>
+<p>For a typical system, if the slope at crossover is -20 dB/decade, phase margin is roughly 90°. If -40 dB/decade, phase margin is roughly 0°.</p>
+<p>Rule: keep the slope at crossover at -20 dB/decade for good phase margin.</p>
+<h3>Nyquist Criterion</h3>
+<p>Plot L(jω) for ω from 0 to ∞ in the complex plane. This is the Nyquist plot.</p>
+<p>The number of encirclements of the point -1 equals the number of unstable closed-loop poles minus the number of unstable open-loop poles.</p>
+<p>For a stable open-loop system:</p>
+<ul><li>No encirclement of -1 → stable closed-loop</li><li>Encirclement → unstable closed-loop</li></ul>
+<p>Nyquist is more powerful than Bode for two reasons:</p>
+<ol><li>It handles right-half-plane poles correctly</li><li>It captures the behavior at all frequencies</li></ol>
+<h3>Frequency Response Intuition</h3>
+<p>At low frequency, integrators give high gain — good for tracking.</p>
+<p>At high frequency, the plant rolls off — good for noise rejection.</p>
+<p>A well-designed controller has:</p>
+<ul><li>High gain at low frequency (tracking)</li><li>Crossover at a frequency where phase margin &gt; 45°</li><li>Low gain at high frequency (noise rejection)</li></ul>
+<p>This is the "loop shaping" approach to control design.</p>
+<h3>Example: PI Control of First-Order Plant</h3>
+<p>Plant: P(s) = K / (τs + 1)</p>
+<p>Controller: C(s) = Kp + Ki/s</p>
+<p>Loop: L(s) = (Kp + Ki/s) × K / (τs + 1)</p>
+<p>At low frequency, the integrator gives high gain. At high frequency, the plant rolls off.</p>
+<p>Design Kp and Ki so crossover is at ωc with 60° phase margin.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Stability requires all closed-loop poles in the left half-plane</li><li>Phase margin &gt; 45° for good response</li><li>Gain margin &gt; 6 dB for robustness</li><li>Bode plots are the standard visualization</li><li>Nyquist is more rigorous</li><li>Loop shaping: high gain low freq, crossover with margin, low gain high freq</li></ul></div>
       </div>
     </div>
   
@@ -629,135 +346,62 @@ Feedback can make ...</p>
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>State-Space Control</h4>
-          <p>
-## Beyond Transfer Functions
-
-Transfer functions work for SISO systems with zero initial conditions. For MIMO systems, or systems with nonzero initial conditions, we use state-space.
-
-## State-Space Representation
-...</p>
+          <p>Beyond Transfer Functions Transfer functions work for SISO systems with zero initial conditions. For MIMO systems, or systems with nonzero initial conditions, we use state-space. State-Space...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Beyond Transfer Functions
-<br>
-<br>Transfer functions work for SISO systems with zero initial conditions. For MIMO systems, or systems with nonzero initial conditions, we use state-space.
-<br>
-<br>## State-Space Representation
-<br>
-<br>Any linear system can be written as:
-<br>
-<br>    ẋ = A x + B u
-<br>    y = C x + D u
-<br>
-<br>where:
-<br>- x ∈ R^n is the state vector
-<br>- u ∈ R^m is the input
-<br>- y ∈ R^p is the output
-<br>- A, B, C, D are constant matrices
-<br>
-<br>## Example: Mass-Spring-Damper
-<br>
-<br>    m x'' + c x' + k x = F
-<br>
-<br>Define state: x1 = x, x2 = x'
-<br>
-<br>    x1' = x2
-<br>    x2' = -k/m × x1 - c/m × x2 + 1/m × F
-<br>
-<br>So:
-<br>    A = [0, 1; -k/m, -c/m]
-<br>    B = [0; 1/m]
-<br>    C = [1, 0]
-<br>    D = [0]
-<br>
-<br>## Controllability
-<br>
-<br>The system is controllable if we can drive the state from any initial value to any final value in finite time.
-<br>
-<br>Controllability matrix:
-<br>
-<br>    C = [B  AB  A²B  ...  A^(n-1)B]
-<br>
-<br>The system is controllable iff C has full rank (rank n).
-<br>
-<br>## Observability
-<br>
-<br>The system is observable if the initial state can be determined from the output over time.
-<br>
-<br>Observability matrix:
-<br>
-<br>    O = [C; CA; CA²; ...; CA^(n-1)]
-<br>
-<br>Full rank (n) → observable.
-<br>
-<br>## Pole Placement
-<br>
-<br>If the system is controllable, we can place the closed-loop poles anywhere via state feedback:
-<br>
-<br>    u = -K x
-<br>
-<br>The closed-loop system becomes:
-<br>
-<br>    ẋ = (A - BK) x
-<br>
-<br>Choose K so that the eigenvalues of (A - BK) are the desired poles.
-<br>
-<br>This is like PID tuning but more powerful: we can shape the entire closed-loop response.
-<br>
-<br>## Linear Quadratic Regulator (LQR)
-<br>
-<br>Instead of picking poles directly, we minimize a cost function:
-<br>
-<br>    J = ∫₀^∞ (x'Qx + u'Ru) dt
-<br>
-<br>where Q and R are weighting matrices chosen by the designer.
-<br>
-<br>The solution is:
-<br>
-<br>    K = R^(-1) B' P
-<br>
-<br>where P solves the algebraic Riccati equation:
-<br>
-<br>    A'P + PA - PBR^(-1)B'P + Q = 0
-<br>
-<br>LQR gives optimal trade-off between state regulation and control effort.
-<br>
-<br>## Observer Design
-<br>
-<br>If we can't measure all states, we build an observer:
-<br>
-<br>    x̂' = A x̂ + B u + L(y - C x̂)
-<br>
-<br>The observer error (x - x̂) evolves as:
-<br>
-<br>    (x - x̂)' = (A - LC)(x - x̂)
-<br>
-<br>Choose L so that A - LC is stable (eigenvalues in left half-plane).
-<br>
-<br>The combined controller-observer is called a "compensator" and has the same input-output behavior as a state-feedback controller on the true state (separation principle).
-<br>
-<br>## Applications
-<br>
-<br>- Aerospace: rocket guidance, satellite attitude
-<br>- Robotics: multi-joint control, trajectory tracking
-<br>- Power systems: wide-area control
-<br>- Process control: distillation columns
-<br>
-<br>## Key Takeaways
-<br>
-<br>- State-space handles MIMO and nonzero ICs
-<br>- Controllability: can we steer the state anywhere?
-<br>- Observability: can we determine the state?
-<br>- Pole placement: put closed-loop poles where we want
-<br>- LQR: optimal state feedback via cost minimization
-<br>- Observer: reconstruct unmeasured states
-<br>- State-space is the modern approach to control
-<br></p></div>
+        <div class="lecture-full-content"><h3>Beyond Transfer Functions</h3>
+<p>Transfer functions work for SISO systems with zero initial conditions. For MIMO systems, or systems with nonzero initial conditions, we use state-space.</p>
+<h3>State-Space Representation</h3>
+<p>Any linear system can be written as:</p>
+<p>ẋ = A x + B u<br>    y = C x + D u</p>
+<p>where:</p>
+<ul><li>x ∈ R^n is the state vector</li><li>u ∈ R^m is the input</li><li>y ∈ R^p is the output</li><li>A, B, C, D are constant matrices</li></ul>
+<h3>Example: Mass-Spring-Damper</h3>
+<p>m x'' + c x' + k x = F</p>
+<p>Define state: x1 = x, x2 = x'</p>
+<p>x1' = x2<br>    x2' = -k/m × x1 - c/m × x2 + 1/m × F</p>
+<p>So:<br>    A = [0, 1; -k/m, -c/m]<br>    B = [0; 1/m]<br>    C = [1, 0]<br>    D = [0]</p>
+<h3>Controllability</h3>
+<p>The system is controllable if we can drive the state from any initial value to any final value in finite time.</p>
+<p>Controllability matrix:</p>
+<p>C = [B  AB  A²B  ...  A^(n-1)B]</p>
+<p>The system is controllable iff C has full rank (rank n).</p>
+<h3>Observability</h3>
+<p>The system is observable if the initial state can be determined from the output over time.</p>
+<p>Observability matrix:</p>
+<p>O = [C; CA; CA²; ...; CA^(n-1)]</p>
+<p>Full rank (n) → observable.</p>
+<h3>Pole Placement</h3>
+<p>If the system is controllable, we can place the closed-loop poles anywhere via state feedback:</p>
+<p>u = -K x</p>
+<p>The closed-loop system becomes:</p>
+<p>ẋ = (A - BK) x</p>
+<p>Choose K so that the eigenvalues of (A - BK) are the desired poles.</p>
+<p>This is like PID tuning but more powerful: we can shape the entire closed-loop response.</p>
+<h3>Linear Quadratic Regulator (LQR)</h3>
+<p>Instead of picking poles directly, we minimize a cost function:</p>
+<p>J = ∫₀^∞ (x'Qx + u'Ru) dt</p>
+<p>where Q and R are weighting matrices chosen by the designer.</p>
+<p>The solution is:</p>
+<p>K = R^(-1) B' P</p>
+<p>where P solves the algebraic Riccati equation:</p>
+<p>A'P + PA - PBR^(-1)B'P + Q = 0</p>
+<p>LQR gives optimal trade-off between state regulation and control effort.</p>
+<h3>Observer Design</h3>
+<p>If we can't measure all states, we build an observer:</p>
+<p>x̂' = A x̂ + B u + L(y - C x̂)</p>
+<p>The observer error (x - x̂) evolves as:</p>
+<p>(x - x̂)' = (A - LC)(x - x̂)</p>
+<p>Choose L so that A - LC is stable (eigenvalues in left half-plane).</p>
+<p>The combined controller-observer is called a "compensator" and has the same input-output behavior as a state-feedback controller on the true state (separation principle).</p>
+<h3>Applications</h3>
+<ul><li>Aerospace: rocket guidance, satellite attitude</li><li>Robotics: multi-joint control, trajectory tracking</li><li>Power systems: wide-area control</li><li>Process control: distillation columns</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>State-space handles MIMO and nonzero ICs</li><li>Controllability: can we steer the state anywhere?</li><li>Observability: can we determine the state?</li><li>Pole placement: put closed-loop poles where we want</li><li>LQR: optimal state feedback via cost minimization</li><li>Observer: reconstruct unmeasured states</li><li>State-space is the modern approach to control</li></ul></div>
       </div>
     </div>
   </div>

@@ -108,120 +108,57 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Signals and Systems: An Introduction</h4>
-          <p>
-## What is a Signal?
-
-A signal is a function that carries information. Examples:
-- Audio: air pressure vs time
-- Video: pixel intensity vs (x, y, t)
-- Sensor: voltage vs time
-- Image: brightness vs (x, y)
-
-Math...</p>
+          <p>What is a Signal? A signal is a function that carries information. Examples: Audio: air pressure vs time Video: pixel intensity vs (x, y, t) Sensor: voltage vs time Image: brightness vs (x, y) Math...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is a Signal?
-<br>
-<br>A signal is a function that carries information. Examples:
-<br>- Audio: air pressure vs time
-<br>- Video: pixel intensity vs (x, y, t)
-<br>- Sensor: voltage vs time
-<br>- Image: brightness vs (x, y)
-<br>
-<br>Mathematically, a signal is a function of one or more independent variables.
-<br>
-<br>## Continuous vs Discrete
-<br>
-<br><strong>Continuous-time (CT):</strong> x(t) defined for all t. Example: analog audio.
-<br>
-<br><strong>Discrete-time (DT):</strong> x[n] defined only for integer n. Example: sampled audio at 44.1 kHz.
-<br>
-<br>Almost all modern signal processing is digital (DT), but CT analysis is the foundation.
-<br>
-<br>## Common Signals
-<br>
-<br><strong>Unit impulse δ(t):</strong> infinite at t=0, zero elsewhere, area = 1.
-<br>
-<br><strong>Unit step u(t):</strong> 0 for t&lt;0, 1 for t&gt;0.
-<br>
-<br><strong>Sinusoid:</strong> x(t) = A cos(ωt + φ). Frequency ω (rad/s), phase φ.
-<br>
-<br><strong>Complex exponential:</strong> x(t) = e^(st), where s = σ + jω. The most fundamental signal — from it, all others are built.
-<br>
-<br><strong>Unit ramp:</strong> x(t) = t × u(t).
-<br>
-<br>## Signal Operations
-<br>
-<br><strong>Time shift:</strong> x(t - t₀) shifts right by t₀.
-<br>
-<br><strong>Time scale:</strong> x(at) compresses by a (a &gt; 1) or stretches (a &lt; 1).
-<br>
-<br><strong>Time reversal:</strong> x(-t) flips around t=0.
-<br>
-<br><strong>Amplitude scaling:</strong> A × x(t).
-<br>
-<br><strong>Addition:</strong> (x₁ + x₂)(t) = x₁(t) + x₂(t).
-<br>
-<br>## Signal Properties
-<br>
-<br><strong>Even:</strong> x(-t) = x(t). Symmetric about 0.
-<br>
-<br><strong>Odd:</strong> x(-t) = -x(t). Antisymmetric.
-<br>
-<br><strong>Periodic:</strong> x(t) = x(t + T) for all t. Smallest T is the fundamental period.
-<br>
-<br><strong>Energy signal:</strong> finite total energy ∫|x(t)|² dt &lt; ∞.
-<br>
-<br><strong>Power signal:</strong> finite average power lim(T→∞) (1/T) ∫|x(t)|² dt &lt; ∞.
-<br>
-<br><strong>Causal:</strong> x(t) = 0 for t &lt; 0.
-<br>
-<br>## What is a System?
-<br>
-<br>A system transforms an input signal into an output signal. Examples:
-<br>- Amplifier: multiplies by gain
-<br>- Filter: removes frequency components
-<br>- Sampler: converts CT to DT
-<br>- Modulator: shifts frequency
-<br>
-<br>## System Properties
-<br>
-<br><strong>Linear:</strong> superposition holds. S(ax₁ + bx₂) = aS(x₁) + bS(x₂).
-<br>
-<br><strong>Time-invariant:</strong> S(x(t - t₀)) = y(t - t₀). Same behavior at all times.
-<br>
-<br><strong>Causal:</strong> output depends only on present and past inputs.
-<br>
-<br><strong>Stable (BIBO):</strong> bounded input → bounded output.
-<br>
-<br><strong>Memoryless:</strong> output depends only on current input.
-<br>
-<br><strong>Invertible:</strong> distinct inputs give distinct outputs.
-<br>
-<br>## LTI Systems — The Big Idea
-<br>
-<br>Linear Time-Invariant (LTI) systems are the most important class. They are completely characterized by their <strong>impulse response</strong> h(t).
-<br>
-<br>For any input x(t), the output is:
-<br>
-<br>    y(t) = x(t) * h(t) = ∫ x(τ) h(t - τ) dτ
-<br>
-<br>This convolution integral is the foundation of signals and systems.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Signals are functions carrying information
-<br>- CT vs DT, energy vs power, causal vs noncausal
-<br>- Systems transform signals
-<br>- Linear + time-invariant = LTI — the fundamental class
-<br>- LTI systems described by impulse response
-<br>- Convolution gives the output for any input
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is a Signal?</h3>
+<p>A signal is a function that carries information. Examples:</p>
+<ul><li>Audio: air pressure vs time</li><li>Video: pixel intensity vs (x, y, t)</li><li>Sensor: voltage vs time</li><li>Image: brightness vs (x, y)</li></ul>
+<p>Mathematically, a signal is a function of one or more independent variables.</p>
+<h3>Continuous vs Discrete</h3>
+<p><strong>Continuous-time (CT):</strong> x(t) defined for all t. Example: analog audio.</p>
+<p><strong>Discrete-time (DT):</strong> x[n] defined only for integer n. Example: sampled audio at 44.1 kHz.</p>
+<p>Almost all modern signal processing is digital (DT), but CT analysis is the foundation.</p>
+<h3>Common Signals</h3>
+<p><strong>Unit impulse δ(t):</strong> infinite at t=0, zero elsewhere, area = 1.</p>
+<p><strong>Unit step u(t):</strong> 0 for t&lt;0, 1 for t&gt;0.</p>
+<p><strong>Sinusoid:</strong> x(t) = A cos(ωt + φ). Frequency ω (rad/s), phase φ.</p>
+<p><strong>Complex exponential:</strong> x(t) = e^(st), where s = σ + jω. The most fundamental signal — from it, all others are built.</p>
+<p><strong>Unit ramp:</strong> x(t) = t × u(t).</p>
+<h3>Signal Operations</h3>
+<p><strong>Time shift:</strong> x(t - t₀) shifts right by t₀.</p>
+<p><strong>Time scale:</strong> x(at) compresses by a (a &gt; 1) or stretches (a &lt; 1).</p>
+<p><strong>Time reversal:</strong> x(-t) flips around t=0.</p>
+<p><strong>Amplitude scaling:</strong> A × x(t).</p>
+<p><strong>Addition:</strong> (x₁ + x₂)(t) = x₁(t) + x₂(t).</p>
+<h3>Signal Properties</h3>
+<p><strong>Even:</strong> x(-t) = x(t). Symmetric about 0.</p>
+<p><strong>Odd:</strong> x(-t) = -x(t). Antisymmetric.</p>
+<p><strong>Periodic:</strong> x(t) = x(t + T) for all t. Smallest T is the fundamental period.</p>
+<p><strong>Energy signal:</strong> finite total energy ∫|x(t)|² dt &lt; ∞.</p>
+<p><strong>Power signal:</strong> finite average power lim(T→∞) (1/T) ∫|x(t)|² dt &lt; ∞.</p>
+<p><strong>Causal:</strong> x(t) = 0 for t &lt; 0.</p>
+<h3>What is a System?</h3>
+<p>A system transforms an input signal into an output signal. Examples:</p>
+<ul><li>Amplifier: multiplies by gain</li><li>Filter: removes frequency components</li><li>Sampler: converts CT to DT</li><li>Modulator: shifts frequency</li></ul>
+<h3>System Properties</h3>
+<p><strong>Linear:</strong> superposition holds. S(ax₁ + bx₂) = aS(x₁) + bS(x₂).</p>
+<p><strong>Time-invariant:</strong> S(x(t - t₀)) = y(t - t₀). Same behavior at all times.</p>
+<p><strong>Causal:</strong> output depends only on present and past inputs.</p>
+<p><strong>Stable (BIBO):</strong> bounded input → bounded output.</p>
+<p><strong>Memoryless:</strong> output depends only on current input.</p>
+<p><strong>Invertible:</strong> distinct inputs give distinct outputs.</p>
+<h3>LTI Systems — The Big Idea</h3>
+<p>Linear Time-Invariant (LTI) systems are the most important class. They are completely characterized by their <strong>impulse response</strong> h(t).</p>
+<p>For any input x(t), the output is:</p>
+<p>y(t) = x(t) * h(t) = ∫ x(τ) h(t - τ) dτ</p>
+<p>This convolution integral is the foundation of signals and systems.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Signals are functions carrying information</li><li>CT vs DT, energy vs power, causal vs noncausal</li><li>Systems transform signals</li><li>Linear + time-invariant = LTI — the fundamental class</li><li>LTI systems described by impulse response</li><li>Convolution gives the output for any input</li></ul></div>
       </div>
     </div>
   
@@ -230,116 +167,54 @@ Math...</p>
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>Convolution and LTI Systems</h4>
-          <p>
-## Convolution
-
-Convolution is the operation that combines two signals to produce a third:
-
-    y(t) = (x * h)(t) = ∫_{-∞}^{∞} x(τ) h(t - τ) dτ
-
-For discrete-time signals:
-
-    y[n] = (x * h)[n] = Σ_{k=-∞}^{∞} ...</p>
+          <p>Convolution Convolution is the operation that combines two signals to produce a third: y(t) = (x * h)(t) = ∫_{-∞}^{∞} x(τ) h(t - τ) dτ For discrete-time signals: y[n] = (x * h)[n] = Σ_{k=-∞}^{∞} ...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Convolution
-<br>
-<br>Convolution is the operation that combines two signals to produce a third:
-<br>
-<br>    y(t) = (x * h)(t) = ∫_{-∞}^{∞} x(τ) h(t - τ) dτ
-<br>
-<br>For discrete-time signals:
-<br>
-<br>    y[n] = (x * h)[n] = Σ_{k=-∞}^{∞} x[k] h[n - k]
-<br>
-<br>Convolution is the fundamental operation of LTI systems.
-<br>
-<br>## Properties
-<br>
-<br><strong>Commutative:</strong> x * h = h * x
-<br>
-<br><strong>Associative:</strong> (x * h₁) * h₂ = x * (h₁ * h₂)
-<br>
-<br><strong>Distributive:</strong> x * (h₁ + h₂) = x * h₁ + x * h₂
-<br>
-<br>These properties make it easy to combine systems.
-<br>
-<br>## Impulse Response
-<br>
-<br>If x(t) = δ(t), then y(t) = h(t). The impulse response is the output when the input is an impulse.
-<br>
-<br>Everything about an LTI system is determined by its impulse response:
-<br>- Cascade of LTI systems → convolve their impulse responses
-<br>- Parallel combination → sum impulse responses
-<br>
-<br>## Step Response
-<br>
-<br>If x(t) = u(t), then y(t) = ∫h(τ)dτ (integral of impulse response).
-<br>
-<br>The step response is often easier to measure than the impulse response.
-<br>
-<br>## Convolution with Simple Signals
-<br>
-<br><strong>Impulse:</strong> x(t) * δ(t - t₀) = x(t - t₀). Just a shift.
-<br>
-<br><strong>Step:</strong> x(t) * u(t) = ∫_{-∞}^{t} x(τ) dτ. Integrator.
-<br>
-<br><strong>Exponential:</strong> x(t) * e^(-at)u(t) gives a smoothed version of x.
-<br>
-<br>## Convolution as a Filter
-<br>
-<br>Convolution smooths, sharpens, or shifts a signal, depending on h:
-<br>- Moving average → low-pass filter
-<br>- Differentiator → high-pass filter
-<br>- Gaussian → smoothing
-<br>
-<br>Every FIR filter is a convolution with its coefficient sequence.
-<br>
-<br>## Visual Example
-<br>
-<br>Convolving a rectangle (width T) with itself gives a triangle (width 2T). This is the classic example — it's why pulse shapes change as they pass through filters.
-<br>
-<br>## Convolution in Matrix Form
-<br>
-<br>For discrete-time, convolution can be written as matrix multiplication:
-<br>
-<br>    y = H × x
-<br>
-<br>where H is a Toeplitz matrix containing shifted copies of h.
-<br>
-<br>This is why convolution is a linear operator — it's a matrix.
-<br>
-<br>## Deconvolution
-<br>
-<br>Given y and h, recover x:
-<br>
-<br>    X = Y / H (in frequency domain)
-<br>
-<br>Often unstable due to noise amplification. Regularization (Tikhonov) helps.
-<br>
-<br>## Applications
-<br>
-<br>- Audio filtering (EQ, reverb)
-<br>- Image blurring and sharpening
-<br>- Radar and sonar pulse compression
-<br>- Communication channel equalization
-<br>- Seismic deconvolution
-<br>- Neural network convolution layers
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Convolution: y = x * h
-<br>- LTI systems are fully described by h(t)
-<br>- Properties: commutative, associative, distributive
-<br>- Cascade = convolve, parallel = add
-<br>- Convolution is a linear operator (matrix form)
-<br>- The fundamental operation for filtering
-<br></p></div>
+        <div class="lecture-full-content"><h3>Convolution</h3>
+<p>Convolution is the operation that combines two signals to produce a third:</p>
+<p>y(t) = (x * h)(t) = ∫_{-∞}^{∞} x(τ) h(t - τ) dτ</p>
+<p>For discrete-time signals:</p>
+<p>y[n] = (x * h)[n] = Σ_{k=-∞}^{∞} x[k] h[n - k]</p>
+<p>Convolution is the fundamental operation of LTI systems.</p>
+<h3>Properties</h3>
+<p><strong>Commutative:</strong> x * h = h * x</p>
+<p><strong>Associative:</strong> (x * h₁) * h₂ = x * (h₁ * h₂)</p>
+<p><strong>Distributive:</strong> x * (h₁ + h₂) = x * h₁ + x * h₂</p>
+<p>These properties make it easy to combine systems.</p>
+<h3>Impulse Response</h3>
+<p>If x(t) = δ(t), then y(t) = h(t). The impulse response is the output when the input is an impulse.</p>
+<p>Everything about an LTI system is determined by its impulse response:</p>
+<ul><li>Cascade of LTI systems → convolve their impulse responses</li><li>Parallel combination → sum impulse responses</li></ul>
+<h3>Step Response</h3>
+<p>If x(t) = u(t), then y(t) = ∫h(τ)dτ (integral of impulse response).</p>
+<p>The step response is often easier to measure than the impulse response.</p>
+<h3>Convolution with Simple Signals</h3>
+<p><strong>Impulse:</strong> x(t) * δ(t - t₀) = x(t - t₀). Just a shift.</p>
+<p><strong>Step:</strong> x(t) * u(t) = ∫_{-∞}^{t} x(τ) dτ. Integrator.</p>
+<p><strong>Exponential:</strong> x(t) * e^(-at)u(t) gives a smoothed version of x.</p>
+<h3>Convolution as a Filter</h3>
+<p>Convolution smooths, sharpens, or shifts a signal, depending on h:</p>
+<ul><li>Moving average → low-pass filter</li><li>Differentiator → high-pass filter</li><li>Gaussian → smoothing</li></ul>
+<p>Every FIR filter is a convolution with its coefficient sequence.</p>
+<h3>Visual Example</h3>
+<p>Convolving a rectangle (width T) with itself gives a triangle (width 2T). This is the classic example — it's why pulse shapes change as they pass through filters.</p>
+<h3>Convolution in Matrix Form</h3>
+<p>For discrete-time, convolution can be written as matrix multiplication:</p>
+<p>y = H × x</p>
+<p>where H is a Toeplitz matrix containing shifted copies of h.</p>
+<p>This is why convolution is a linear operator — it's a matrix.</p>
+<h3>Deconvolution</h3>
+<p>Given y and h, recover x:</p>
+<p>X = Y / H (in frequency domain)</p>
+<p>Often unstable due to noise amplification. Regularization (Tikhonov) helps.</p>
+<h3>Applications</h3>
+<ul><li>Audio filtering (EQ, reverb)</li><li>Image blurring and sharpening</li><li>Radar and sonar pulse compression</li><li>Communication channel equalization</li><li>Seismic deconvolution</li><li>Neural network convolution layers</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>Convolution: y = x * h</li><li>LTI systems are fully described by h(t)</li><li>Properties: commutative, associative, distributive</li><li>Cascade = convolve, parallel = add</li><li>Convolution is a linear operator (matrix form)</li><li>The fundamental operation for filtering</li></ul></div>
       </div>
     </div>
   
@@ -348,129 +223,56 @@ For discrete-time signals:
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>Fourier Series and Fourier Transform</h4>
-          <p>
-## Fourier Series
-
-Any periodic signal x(t) with period T can be written as:
-
-    x(t) = Σ_{k=-∞}^{∞} c_k × e^(j2πkt/T)
-
-where the coefficients are:
-
-    c_k = (1/T) × ∫₀^T x(t) × e^(-j2πkt/T) dt
-
-The signal ...</p>
+          <p>Fourier Series Any periodic signal x(t) with period T can be written as: x(t) = Σ_{k=-∞}^{∞} c_k × e^(j2πkt/T) where the coefficients are: c_k = (1/T) × ∫₀^T x(t) × e^(-j2πkt/T) dt The signal ...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Fourier Series
-<br>
-<br>Any periodic signal x(t) with period T can be written as:
-<br>
-<br>    x(t) = Σ_{k=-∞}^{∞} c_k × e^(j2πkt/T)
-<br>
-<br>where the coefficients are:
-<br>
-<br>    c_k = (1/T) × ∫₀^T x(t) × e^(-j2πkt/T) dt
-<br>
-<br>The signal is decomposed into complex exponentials at frequencies k/T.
-<br>
-<br>## Trigonometric Form
-<br>
-<br>Equivalent form using sine and cosine:
-<br>
-<br>    x(t) = a₀ + Σ a_k cos(2πkt/T) + Σ b_k sin(2πkt/T)
-<br>
-<br>where a₀ is the DC component.
-<br>
-<br>## Example: Square Wave
-<br>
-<br>A square wave of amplitude A and period T:
-<br>
-<br>    x(t) = (4A/π) × [sin(ωt) + sin(3ωt)/3 + sin(5ωt)/5 + ...]
-<br>
-<br>Only odd harmonics. Amplitudes 1, 1/3, 1/5...
-<br>
-<br>## Fourier Transform
-<br>
-<br>For aperiodic signals, take T → ∞. The Fourier transform:
-<br>
-<br>    X(jω) = ∫_{-∞}^{∞} x(t) × e^(-jωt) dt
-<br>
-<br>Inverse:
-<br>
-<br>    x(t) = (1/2π) × ∫_{-∞}^{∞} X(jω) × e^(jωt) dω
-<br>
-<br>X(jω) tells us the "amount" of each frequency in x(t).
-<br>
-<br>## Transform Pairs
-<br>
-<br>| x(t) | X(jω) |
-<br>|------|-------|
-<br>| δ(t) | 1 |
-<br>| u(t) | 1/(jω) + πδ(ω) |
-<br>| e^(-at) u(t) | 1/(a + jω) |
-<br>| cos(ω₀t) | π[δ(ω-ω₀) + δ(ω+ω₀)] |
-<br>| sin(ω₀t)/πt | rect(ω) |
-<br>
-<br>## Properties
-<br>
-<br><strong>Linearity:</strong> a x₁ + b x₂ ↔ a X₁ + b X₂
-<br>
-<br><strong>Time shift:</strong> x(t - t₀) ↔ e^(-jωt₀) X(jω)
-<br>
-<br><strong>Frequency shift:</strong> e^(jω₀t) x(t) ↔ X(j(ω - ω₀))
-<br>
-<br><strong>Scaling:</strong> x(at) ↔ (1/|a|) X(jω/a)
-<br>
-<br><strong>Differentiation:</strong> dx/dt ↔ jω X(jω)
-<br>
-<br><strong>Integration:</strong> ∫x dt ↔ X(jω)/(jω) + π X(0)δ(ω)
-<br>
-<br><strong>Convolution:</strong> x * h ↔ X × H
-<br>
-<br><strong>Multiplication:</strong> x × h ↔ (1/2π) X * H
-<br>
-<br>## Parseval's Theorem
-<br>
-<br>    ∫|x(t)|² dt = (1/2π) × ∫|X(jω)|² dω
-<br>
-<br>Energy in time domain = energy in frequency domain.
-<br>
-<br>## Frequency Response
-<br>
-<br>For an LTI system with impulse response h(t), the frequency response is H(jω) = FT{h(t)}.
-<br>
-<br>For input x(t), output spectrum:
-<br>
-<br>    Y(jω) = H(jω) × X(jω)
-<br>
-<br>The system multiplies the input spectrum by H. This is why frequency-domain analysis is so powerful.
-<br>
-<br>## Applications
-<br>
-<br>- Filter design (specify H(jω), find h(t))
-<br>- Modulation (shift signal to a new frequency band)
-<br>- Sampling theory (Nyquist rate)
-<br>- Power spectral density
-<br>- Image processing (2D FT)
-<br>- Solving differential equations
-<br>- Quantum mechanics (wave functions)
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Fourier series decomposes periodic signals into harmonics
-<br>- Fourier transform extends to aperiodic signals
-<br>- X(jω) shows the frequency content of x(t)
-<br>- Convolution in time = multiplication in frequency
-<br>- Parseval: energy conservation between domains
-<br>- LTI systems act as frequency filters
-<br>- Every signal can be analyzed in the frequency domain
-<br></p></div>
+        <div class="lecture-full-content"><h3>Fourier Series</h3>
+<p>Any periodic signal x(t) with period T can be written as:</p>
+<p>x(t) = Σ_{k=-∞}^{∞} c_k × e^(j2πkt/T)</p>
+<p>where the coefficients are:</p>
+<p>c_k = (1/T) × ∫₀^T x(t) × e^(-j2πkt/T) dt</p>
+<p>The signal is decomposed into complex exponentials at frequencies k/T.</p>
+<h3>Trigonometric Form</h3>
+<p>Equivalent form using sine and cosine:</p>
+<p>x(t) = a₀ + Σ a_k cos(2πkt/T) + Σ b_k sin(2πkt/T)</p>
+<p>where a₀ is the DC component.</p>
+<h3>Example: Square Wave</h3>
+<p>A square wave of amplitude A and period T:</p>
+<p>x(t) = (4A/π) × [sin(ωt) + sin(3ωt)/3 + sin(5ωt)/5 + ...]</p>
+<p>Only odd harmonics. Amplitudes 1, 1/3, 1/5...</p>
+<h3>Fourier Transform</h3>
+<p>For aperiodic signals, take T → ∞. The Fourier transform:</p>
+<p>X(jω) = ∫_{-∞}^{∞} x(t) × e^(-jωt) dt</p>
+<p>Inverse:</p>
+<p>x(t) = (1/2π) × ∫_{-∞}^{∞} X(jω) × e^(jωt) dω</p>
+<p>X(jω) tells us the "amount" of each frequency in x(t).</p>
+<h3>Transform Pairs</h3>
+<p>| x(t) | X(jω) |<br>|------|-------|<br>| δ(t) | 1 |<br>| u(t) | 1/(jω) + πδ(ω) |<br>| e^(-at) u(t) | 1/(a + jω) |<br>| cos(ω₀t) | π[δ(ω-ω₀) + δ(ω+ω₀)] |<br>| sin(ω₀t)/πt | rect(ω) |</p>
+<h3>Properties</h3>
+<p><strong>Linearity:</strong> a x₁ + b x₂ ↔ a X₁ + b X₂</p>
+<p><strong>Time shift:</strong> x(t - t₀) ↔ e^(-jωt₀) X(jω)</p>
+<p><strong>Frequency shift:</strong> e^(jω₀t) x(t) ↔ X(j(ω - ω₀))</p>
+<p><strong>Scaling:</strong> x(at) ↔ (1/|a|) X(jω/a)</p>
+<p><strong>Differentiation:</strong> dx/dt ↔ jω X(jω)</p>
+<p><strong>Integration:</strong> ∫x dt ↔ X(jω)/(jω) + π X(0)δ(ω)</p>
+<p><strong>Convolution:</strong> x * h ↔ X × H</p>
+<p><strong>Multiplication:</strong> x × h ↔ (1/2π) X * H</p>
+<h3>Parseval's Theorem</h3>
+<p>∫|x(t)|² dt = (1/2π) × ∫|X(jω)|² dω</p>
+<p>Energy in time domain = energy in frequency domain.</p>
+<h3>Frequency Response</h3>
+<p>For an LTI system with impulse response h(t), the frequency response is H(jω) = FT{h(t)}.</p>
+<p>For input x(t), output spectrum:</p>
+<p>Y(jω) = H(jω) × X(jω)</p>
+<p>The system multiplies the input spectrum by H. This is why frequency-domain analysis is so powerful.</p>
+<h3>Applications</h3>
+<ul><li>Filter design (specify H(jω), find h(t))</li><li>Modulation (shift signal to a new frequency band)</li><li>Sampling theory (Nyquist rate)</li><li>Power spectral density</li><li>Image processing (2D FT)</li><li>Solving differential equations</li><li>Quantum mechanics (wave functions)</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>Fourier series decomposes periodic signals into harmonics</li><li>Fourier transform extends to aperiodic signals</li><li>X(jω) shows the frequency content of x(t)</li><li>Convolution in time = multiplication in frequency</li><li>Parseval: energy conservation between domains</li><li>LTI systems act as frequency filters</li><li>Every signal can be analyzed in the frequency domain</li></ul></div>
       </div>
     </div>
   
@@ -479,140 +281,62 @@ The signal ...</p>
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>Laplace Transform and Transfer Functions</h4>
-          <p>
-## The Laplace Transform
-
-Generalizes the Fourier transform to complex frequencies:
-
-    X(s) = ∫₀^∞ x(t) × e^(-st) dt
-
-where s = σ + jω is a complex variable.
-
-The Laplace transform handles signals that grow e...</p>
+          <p>The Laplace Transform Generalizes the Fourier transform to complex frequencies: X(s) = ∫₀^∞ x(t) × e^(-st) dt where s = σ + jω is a complex variable. The Laplace transform handles signals that grow...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The Laplace Transform
-<br>
-<br>Generalizes the Fourier transform to complex frequencies:
-<br>
-<br>    X(s) = ∫₀^∞ x(t) × e^(-st) dt
-<br>
-<br>where s = σ + jω is a complex variable.
-<br>
-<br>The Laplace transform handles signals that grow exponentially (Fourier doesn't), and is the natural tool for differential equations.
-<br>
-<br>## Region of Convergence
-<br>
-<br>The set of s values for which X(s) converges is the ROC. It's usually a vertical strip in the s-plane.
-<br>
-<br>For a causal signal like e^(-at)u(t), ROC is Re(s) &gt; -a.
-<br>
-<br>## Common Transforms
-<br>
-<br>| x(t) | X(s) |
-<br>|------|------|
-<br>| δ(t) | 1 |
-<br>| u(t) | 1/s |
-<br>| t u(t) | 1/s² |
-<br>| e^(-at) u(t) | 1/(s + a) |
-<br>| sin(ωt) u(t) | ω/(s² + ω²) |
-<br>| cos(ωt) u(t) | s/(s² + ω²) |
-<br>
-<br>## Properties
-<br>
-<br><strong>Linearity:</strong> a x₁ + b x₂ ↔ a X₁ + b X₂
-<br>
-<br><strong>Time shift:</strong> x(t - T) u(t - T) ↔ e^(-sT) X(s)
-<br>
-<br><strong>Scaling:</strong> x(at) ↔ (1/a) X(s/a)
-<br>
-<br><strong>Differentiation:</strong> dx/dt ↔ sX(s) - x(0⁻)
-<br>
-<br><strong>Integration:</strong> ∫₀^t x dt ↔ X(s)/s
-<br>
-<br><strong>Initial value:</strong> x(0⁺) = lim(s→∞) sX(s)
-<br>
-<br><strong>Final value:</strong> lim(t→∞) x(t) = lim(s→0) sX(s)
-<br>
-<br><strong>Convolution:</strong> x * h ↔ X × H
-<br>
-<br>The derivative and convolution properties are what make Laplace so useful for circuit and control analysis.
-<br>
-<br>## Transfer Functions
-<br>
-<br>For an LTI system with input u(t) and output y(t):
-<br>
-<br>    H(s) = Y(s) / U(s) (zero initial conditions)
-<br>
-<br>This is the transfer function. It fully describes the system.
-<br>
-<br>For a linear ODE:
-<br>
-<br>    a_n y^(n) + ... + a₁ y' + a₀ y = b_m u^(m) + ... + b₁ u' + b₀ u
-<br>
-<br>Taking Laplace:
-<br>
-<br>    H(s) = (b_m s^m + ... + b₀) / (a_n s^n + ... + a₀)
-<br>
-<br>The numerator gives the zeros, the denominator gives the poles.
-<br>
-<br>## Poles and Stability
-<br>
-<br>A system is stable if all poles are in the left half-plane (Re(s) &lt; 0).
-<br>
-<br>Poles on the imaginary axis: marginally stable (constant amplitude oscillation).
-<br>Poles in the right half-plane: unstable (exponential growth).
-<br>
-<br>This is why we compute poles for stability analysis.
-<br>
-<br>## Example: RC Circuit
-<br>
-<br>Circuit equation: RC × dV/dt + V = Vin
-<br>
-<br>Laplace: (RC s + 1) V(s) = Vin(s)
-<br>
-<br>Transfer function: H(s) = 1 / (RCs + 1)
-<br>
-<br>Pole at s = -1/RC. Time constant τ = RC.
-<br>
-<br>Step response: V(t) = Vin(1 - e^(-t/τ)).
-<br>
-<br>## State-Space to Transfer Function
-<br>
-<br>Given state-space equations:
-<br>
-<br>    ẋ = A x + B u
-<br>    y = C x + D u
-<br>
-<br>Transfer function:
-<br>
-<br>    H(s) = C(sI - A)^(-1) B + D
-<br>
-<br>This bridges the state-space and transfer-function views.
-<br>
-<br>## Applications
-<br>
-<br>- Circuit analysis (impedance method)
-<br>- Control system design
-<br>- Filter design
-<br>- Solving ODEs
-<br>- Process modeling
-<br>- Signal processing
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Laplace generalizes Fourier to complex s
-<br>- Converts ODEs to algebraic equations
-<br>- Transfer function H(s) = Y(s)/U(s)
-<br>- Poles determine stability (LH plane = stable)
-<br>- Properties: derivative → sX, convolution → multiplication
-<br>- Foundation for circuit and control analysis
-<br></p></div>
+        <div class="lecture-full-content"><h3>The Laplace Transform</h3>
+<p>Generalizes the Fourier transform to complex frequencies:</p>
+<p>X(s) = ∫₀^∞ x(t) × e^(-st) dt</p>
+<p>where s = σ + jω is a complex variable.</p>
+<p>The Laplace transform handles signals that grow exponentially (Fourier doesn't), and is the natural tool for differential equations.</p>
+<h3>Region of Convergence</h3>
+<p>The set of s values for which X(s) converges is the ROC. It's usually a vertical strip in the s-plane.</p>
+<p>For a causal signal like e^(-at)u(t), ROC is Re(s) &gt; -a.</p>
+<h3>Common Transforms</h3>
+<p>| x(t) | X(s) |<br>|------|------|<br>| δ(t) | 1 |<br>| u(t) | 1/s |<br>| t u(t) | 1/s² |<br>| e^(-at) u(t) | 1/(s + a) |<br>| sin(ωt) u(t) | ω/(s² + ω²) |<br>| cos(ωt) u(t) | s/(s² + ω²) |</p>
+<h3>Properties</h3>
+<p><strong>Linearity:</strong> a x₁ + b x₂ ↔ a X₁ + b X₂</p>
+<p><strong>Time shift:</strong> x(t - T) u(t - T) ↔ e^(-sT) X(s)</p>
+<p><strong>Scaling:</strong> x(at) ↔ (1/a) X(s/a)</p>
+<p><strong>Differentiation:</strong> dx/dt ↔ sX(s) - x(0⁻)</p>
+<p><strong>Integration:</strong> ∫₀^t x dt ↔ X(s)/s</p>
+<p><strong>Initial value:</strong> x(0⁺) = lim(s→∞) sX(s)</p>
+<p><strong>Final value:</strong> lim(t→∞) x(t) = lim(s→0) sX(s)</p>
+<p><strong>Convolution:</strong> x * h ↔ X × H</p>
+<p>The derivative and convolution properties are what make Laplace so useful for circuit and control analysis.</p>
+<h3>Transfer Functions</h3>
+<p>For an LTI system with input u(t) and output y(t):</p>
+<p>H(s) = Y(s) / U(s) (zero initial conditions)</p>
+<p>This is the transfer function. It fully describes the system.</p>
+<p>For a linear ODE:</p>
+<p>a_n y^(n) + ... + a₁ y' + a₀ y = b_m u^(m) + ... + b₁ u' + b₀ u</p>
+<p>Taking Laplace:</p>
+<p>H(s) = (b_m s^m + ... + b₀) / (a_n s^n + ... + a₀)</p>
+<p>The numerator gives the zeros, the denominator gives the poles.</p>
+<h3>Poles and Stability</h3>
+<p>A system is stable if all poles are in the left half-plane (Re(s) &lt; 0).</p>
+<p>Poles on the imaginary axis: marginally stable (constant amplitude oscillation).<br>Poles in the right half-plane: unstable (exponential growth).</p>
+<p>This is why we compute poles for stability analysis.</p>
+<h3>Example: RC Circuit</h3>
+<p>Circuit equation: RC × dV/dt + V = Vin</p>
+<p>Laplace: (RC s + 1) V(s) = Vin(s)</p>
+<p>Transfer function: H(s) = 1 / (RCs + 1)</p>
+<p>Pole at s = -1/RC. Time constant τ = RC.</p>
+<p>Step response: V(t) = Vin(1 - e^(-t/τ)).</p>
+<h3>State-Space to Transfer Function</h3>
+<p>Given state-space equations:</p>
+<p>ẋ = A x + B u<br>    y = C x + D u</p>
+<p>Transfer function:</p>
+<p>H(s) = C(sI - A)^(-1) B + D</p>
+<p>This bridges the state-space and transfer-function views.</p>
+<h3>Applications</h3>
+<ul><li>Circuit analysis (impedance method)</li><li>Control system design</li><li>Filter design</li><li>Solving ODEs</li><li>Process modeling</li><li>Signal processing</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>Laplace generalizes Fourier to complex s</li><li>Converts ODEs to algebraic equations</li><li>Transfer function H(s) = Y(s)/U(s)</li><li>Poles determine stability (LH plane = stable)</li><li>Properties: derivative → sX, convolution → multiplication</li><li>Foundation for circuit and control analysis</li></ul></div>
       </div>
     </div>
   
@@ -621,131 +345,63 @@ The Laplace transform handles signals that grow e...</p>
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>Sampling and the Discrete-Time World</h4>
-          <p>
-## Why Sample?
-
-Digital computers can&#39;t process continuous signals directly. We must sample: take instantaneous values at regular intervals.
-
-Sampling rate fs determines everything about the resulting digital signa...</p>
+          <p>Why Sample? Digital computers can&amp;#39;t process continuous signals directly. We must sample: take instantaneous values at regular intervals. Sampling rate fs determines everything about the resulting...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Why Sample?
-<br>
-<br>Digital computers can't process continuous signals directly. We must sample: take instantaneous values at regular intervals.
-<br>
-<br>Sampling rate fs determines everything about the resulting digital signal.
-<br>
-<br>## Sampling Theorem (Nyquist-Shannon)
-<br>
-<br>A bandlimited signal with maximum frequency fmax can be perfectly reconstructed from samples taken at:
-<br>
-<br>    fs &gt; 2 × fmax
-<br>
-<br>2 × fmax is the <strong>Nyquist rate</strong>. fs/2 is the <strong>Nyquist frequency</strong>.
-<br>
-<br>If fs &lt; 2 fmax, aliasing occurs — high frequencies appear as low frequencies.
-<br>
-<br>## Aliasing
-<br>
-<br>When sampled below Nyquist, a frequency f appears as:
-<br>
-<br>    f_alias = |f - k × fs| (closest to f)
-<br>
-<br>Example: fs = 1000 Hz, f = 1200 Hz → alias = 200 Hz (indistinguishable from a real 200 Hz signal).
-<br>
-<br>Aliasing is why:
-<br>- Audio is sampled at 44.1 kHz (human hearing to 20 kHz)
-<br>- Anti-aliasing filters are essential before ADCs
-<br>- "Wagon wheel effect" in movies
-<br>
-<br>## Sampling in Frequency Domain
-<br>
-<br>Sampling in time = periodic replication in frequency:
-<br>
-<br>    X_s(jω) = (1/T) × Σ X(j(ω - k ωs))
-<br>
-<br>The spectrum is repeated every ωs = 2π fs. If the original signal is not bandlimited, the replicas overlap → aliasing.
-<br>
-<br>## Reconstruction
-<br>
-<br>Ideal reconstruction uses a sinc filter:
-<br>
-<br>    x(t) = Σ x[n] × sinc((t - nT)/T)
-<br>
-<br>This is a perfect interpolation if the sampling theorem holds.
-<br>
-<br>Real DACs use zero-order hold (staircase) followed by a smoothing filter.
-<br>
-<br>## Discrete-Time Processing
-<br>
-<br>Once sampled, we work in discrete time:
-<br>
-<br>    y[n] = Σ h[k] × x[n - k]
-<br>
-<br>The DTFT (discrete-time Fourier transform):
-<br>
-<br>    X(e^(jΩ)) = Σ x[n] × e^(-jΩn)
-<br>
-<br>Where Ω is digital frequency (rad/sample).
-<br>
-<br>## The DFT and FFT
-<br>
-<br>For finite-length sequences, use the Discrete Fourier Transform (DFT):
-<br>
-<br>    X[k] = Σ_{n=0}^{N-1} x[n] × e^(-j2πnk/N)
-<br>
-<br>Computes N frequency samples. Time: O(N²).
-<br>
-<br>The FFT (Fast Fourier Transform) does it in O(N log N). This is one of the most important algorithms ever invented.
-<br>
-<br>## Nyquist Zones
-<br>
-<br>Above fs/2, frequencies fold back. The range 0 to fs/2 is the first Nyquist zone, fs/2 to fs is the second, and so on.
-<br>
-<br>Undersampling (deliberately sampling below Nyquist) is used in radio receivers to down-convert signals to lower frequencies.
-<br>
-<br>## Quantization
-<br>
-<br>Real ADCs quantize amplitudes to a finite number of levels. This adds quantization noise.
-<br>
-<br>For an N-bit ADC, the SNR due to quantization is:
-<br>
-<br>    SNR = 6.02 N + 1.76 dB
-<br>
-<br>A 12-bit ADC gives ~74 dB SNR.
-<br>
-<br>## Oversampling
-<br>
-<br>Sampling faster than needed allows:
-<br>- Higher SNR (noise spreads over wider band)
-<br>- Simpler anti-aliasing filter
-<br>- 4× oversampling gives 6 dB SNR improvement (1 extra bit)
-<br>
-<br>Used in audio (delta-sigma converters) to achieve 24-bit effective resolution from 1-bit quantizers.
-<br>
-<br>## Applications
-<br>
-<br>- Digital audio (CD: 44.1 kHz, 16-bit)
-<br>- Digital video (multiple sampling rates)
-<br>- Software-defined radio (direct RF sampling)
-<br>- Medical imaging (CT, MRI)
-<br>- Industrial control (sensor sampling)
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Sampling: fs &gt; 2 fmax for perfect reconstruction
-<br>- Aliasing: high frequencies appear as low frequencies
-<br>- Anti-aliasing filters essential before ADC
-<br>- FFT: O(N log N) for frequency analysis
-<br>- Quantization adds noise: 6 dB per bit
-<br>- Oversampling improves SNR
-<br>- Nyquist zones and undersampling in RF
-<br></p></div>
+        <div class="lecture-full-content"><h3>Why Sample?</h3>
+<p>Digital computers can't process continuous signals directly. We must sample: take instantaneous values at regular intervals.</p>
+<p>Sampling rate fs determines everything about the resulting digital signal.</p>
+<h3>Sampling Theorem (Nyquist-Shannon)</h3>
+<p>A bandlimited signal with maximum frequency fmax can be perfectly reconstructed from samples taken at:</p>
+<p>fs &gt; 2 × fmax</p>
+<p>2 × fmax is the <strong>Nyquist rate</strong>. fs/2 is the <strong>Nyquist frequency</strong>.</p>
+<p>If fs &lt; 2 fmax, aliasing occurs — high frequencies appear as low frequencies.</p>
+<h3>Aliasing</h3>
+<p>When sampled below Nyquist, a frequency f appears as:</p>
+<p>f_alias = |f - k × fs| (closest to f)</p>
+<p>Example: fs = 1000 Hz, f = 1200 Hz → alias = 200 Hz (indistinguishable from a real 200 Hz signal).</p>
+<p>Aliasing is why:</p>
+<ul><li>Audio is sampled at 44.1 kHz (human hearing to 20 kHz)</li><li>Anti-aliasing filters are essential before ADCs</li><li>"Wagon wheel effect" in movies</li></ul>
+<h3>Sampling in Frequency Domain</h3>
+<p>Sampling in time = periodic replication in frequency:</p>
+<p>X_s(jω) = (1/T) × Σ X(j(ω - k ωs))</p>
+<p>The spectrum is repeated every ωs = 2π fs. If the original signal is not bandlimited, the replicas overlap → aliasing.</p>
+<h3>Reconstruction</h3>
+<p>Ideal reconstruction uses a sinc filter:</p>
+<p>x(t) = Σ x[n] × sinc((t - nT)/T)</p>
+<p>This is a perfect interpolation if the sampling theorem holds.</p>
+<p>Real DACs use zero-order hold (staircase) followed by a smoothing filter.</p>
+<h3>Discrete-Time Processing</h3>
+<p>Once sampled, we work in discrete time:</p>
+<p>y[n] = Σ h[k] × x[n - k]</p>
+<p>The DTFT (discrete-time Fourier transform):</p>
+<p>X(e^(jΩ)) = Σ x[n] × e^(-jΩn)</p>
+<p>Where Ω is digital frequency (rad/sample).</p>
+<h3>The DFT and FFT</h3>
+<p>For finite-length sequences, use the Discrete Fourier Transform (DFT):</p>
+<p>X[k] = Σ_{n=0}^{N-1} x[n] × e^(-j2πnk/N)</p>
+<p>Computes N frequency samples. Time: O(N²).</p>
+<p>The FFT (Fast Fourier Transform) does it in O(N log N). This is one of the most important algorithms ever invented.</p>
+<h3>Nyquist Zones</h3>
+<p>Above fs/2, frequencies fold back. The range 0 to fs/2 is the first Nyquist zone, fs/2 to fs is the second, and so on.</p>
+<p>Undersampling (deliberately sampling below Nyquist) is used in radio receivers to down-convert signals to lower frequencies.</p>
+<h3>Quantization</h3>
+<p>Real ADCs quantize amplitudes to a finite number of levels. This adds quantization noise.</p>
+<p>For an N-bit ADC, the SNR due to quantization is:</p>
+<p>SNR = 6.02 N + 1.76 dB</p>
+<p>A 12-bit ADC gives ~74 dB SNR.</p>
+<h3>Oversampling</h3>
+<p>Sampling faster than needed allows:</p>
+<ul><li>Higher SNR (noise spreads over wider band)</li><li>Simpler anti-aliasing filter</li><li>4× oversampling gives 6 dB SNR improvement (1 extra bit)</li></ul>
+<p>Used in audio (delta-sigma converters) to achieve 24-bit effective resolution from 1-bit quantizers.</p>
+<h3>Applications</h3>
+<ul><li>Digital audio (CD: 44.1 kHz, 16-bit)</li><li>Digital video (multiple sampling rates)</li><li>Software-defined radio (direct RF sampling)</li><li>Medical imaging (CT, MRI)</li><li>Industrial control (sensor sampling)</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>Sampling: fs &gt; 2 fmax for perfect reconstruction</li><li>Aliasing: high frequencies appear as low frequencies</li><li>Anti-aliasing filters essential before ADC</li><li>FFT: O(N log N) for frequency analysis</li><li>Quantization adds noise: 6 dB per bit</li><li>Oversampling improves SNR</li><li>Nyquist zones and undersampling in RF</li></ul></div>
       </div>
     </div>
   </div>

@@ -108,148 +108,60 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Introduction to Operating Systems</h4>
-          <p>
-## What is an Operating System?
-
-An OS is software that manages hardware resources and provides services to applications. It&#39;s the layer between your code and the bare metal.
-
-Components:
-- **Kernel:** the core, r...</p>
+          <p>What is an Operating System? An OS is software that manages hardware resources and provides services to applications. It&amp;#39;s the layer between your code and the bare metal. Components: Kernel: the...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is an Operating System?
-<br>
-<br>An OS is software that manages hardware resources and provides services to applications. It's the layer between your code and the bare metal.
-<br>
-<br>Components:
-<br>- <strong>Kernel:</strong> the core, runs in privileged mode
-<br>- <strong>Shells and utilities:</strong> user-facing tools
-<br>- <strong>Libraries:</strong> standard functions (libc)
-<br>- <strong>System calls:</strong> interface from user to kernel
-<br>
-<br>Examples: Linux, Windows, macOS, FreeBSD, xv6 (teaching OS).
-<br>
-<br>## Why Do We Need an OS?
-<br>
-<br>Multiple programs want to run simultaneously. They compete for:
-<br>- CPU time
-<br>- Memory
-<br>- Disk space
-<br>- Network bandwidth
-<br>- I/O devices
-<br>
-<br>The OS multiplexes these resources, ensures isolation, and provides abstractions.
-<br>
-<br>## The Three Big Ideas
-<br>
-<br><strong>Virtualization:</strong> each process thinks it has the machine to itself. The OS multiplexes the CPU, memory, disk.
-<br>
-<br><strong>Concurrency:</strong> many activities happen at once. The OS must coordinate them safely.
-<br>
-<br><strong>Persistence:</strong> data survives across crashes and reboots. The OS provides filesystems.
-<br>
-<br>## Kernel Mode vs User Mode
-<br>
-<br>CPUs have at least two privilege levels:
-<br>- <strong>Kernel mode (Ring 0):</strong> can execute any instruction, access any memory
-<br>- <strong>User mode (Ring 3):</strong> limited instruction set, restricted memory
-<br>
-<br>System calls transition from user to kernel mode. The CPU switches privilege, jumps to the kernel's handler, then returns.
-<br>
-<br>This protects the kernel from misbehaving applications.
-<br>
-<br>## Processes
-<br>
-<br>A process is a running program with:
-<br>- Address space (virtual memory)
-<br>- Threads of execution
-<br>- Open file descriptors
-<br>- Registers, stack, heap
-<br>- PID, parent, children
-<br>
-<br>The OS switches between processes using a <strong>context switch</strong>: save one process's state, load another's.
-<br>
-<br>Context switch overhead: 1-5 microseconds typically.
-<br>
-<br>## System Calls
-<br>
-<br>The interface from user programs to the kernel:
-<br>
-<br>- <strong>Process:</strong> fork, exec, wait, exit, getpid
-<br>- <strong>File:</strong> open, read, write, close, lseek, stat
-<br>- <strong>Memory:</strong> mmap, brk, sbrk
-<br>- <strong>Network:</strong> socket, bind, listen, accept
-<br>- <strong>IPC:</strong> pipe, shmget, msgget
-<br>
-<br>POSIX defines a standard API implemented by most Unix-like systems.
-<br>
-<br>## Example: Running <code>ls</code>
-<br>
-<br>1. Shell forks a child process
-<br>2. Child calls exec("ls")
-<br>3. Kernel loads ls binary, sets up its address space
-<br>4. ls runs, opens the current directory (open syscall)
-<br>5. ls reads directory entries (getdents syscall)
-<br>6. For each entry, ls calls stat to get metadata
-<br>7. ls writes output to stdout (write syscall)
-<br>8. ls exits, kernel notifies parent
-<br>9. Shell prints prompt
-<br>
-<br>Hundreds of syscalls for a simple command.
-<br>
-<br>## The Kernel Interface
-<br>
-<br>Applications should never call the kernel directly. They use libc wrappers:
-<br>
-<br>    // C code
-<br>    fd = open("/etc/passwd", O_RDONLY);
-<br>    
-<br>    // Assembly equivalent (x86-64)
-<br>    mov $2, %rax          ; SYS_open
-<br>    lea filename(%rip), %rdi
-<br>    mov $0, %rsi          ; O_RDONLY
-<br>    syscall
-<br>
-<br>The wrapper handles the syscall instruction and error return.
-<br>
-<br>## Monolithic vs Microkernel
-<br>
-<br><strong>Monolithic kernel:</strong> all OS services in kernel space. Linux, Windows, xv6.
-<br>
-<br>Pros: fast (no message passing). Cons: less isolation, harder to debug.
-<br>
-<br><strong>Microkernel:</strong> only essential services (scheduling, IPC, memory) in kernel. Servers in user space. QNX, L4, Mach.
-<br>
-<br>Pros: better isolation, more modular. Cons: slower IPC.
-<br>
-<br><strong>Hybrid:</strong> most in kernel, some as servers. macOS (XNU).
-<br>
-<br>## Layered OS Structure
-<br>
-<br>Modern OS architecture (bottom to top):
-<br>1. Hardware
-<br>2. Kernel (memory, processes, drivers)
-<br>3. System calls
-<br>4. Libraries (libc, libc++)
-<br>5. Applications
-<br>
-<br>Each layer trusts the one below, provides services to the one above.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- OS = manager of hardware + provider of services
-<br>- Virtualization, concurrency, persistence are the three big ideas
-<br>- Kernel mode vs user mode protects the system
-<br>- Processes are isolated execution contexts
-<br>- System calls are the interface
-<br>- Monolithic vs microkernel trade-offs
-<br>- Layered architecture scales from phone to server
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is an Operating System?</h3>
+<p>An OS is software that manages hardware resources and provides services to applications. It's the layer between your code and the bare metal.</p>
+<p>Components:</p>
+<ul><li><strong>Kernel:</strong> the core, runs in privileged mode</li><li><strong>Shells and utilities:</strong> user-facing tools</li><li><strong>Libraries:</strong> standard functions (libc)</li><li><strong>System calls:</strong> interface from user to kernel</li></ul>
+<p>Examples: Linux, Windows, macOS, FreeBSD, xv6 (teaching OS).</p>
+<h3>Why Do We Need an OS?</h3>
+<p>Multiple programs want to run simultaneously. They compete for:</p>
+<ul><li>CPU time</li><li>Memory</li><li>Disk space</li><li>Network bandwidth</li><li>I/O devices</li></ul>
+<p>The OS multiplexes these resources, ensures isolation, and provides abstractions.</p>
+<h3>The Three Big Ideas</h3>
+<p><strong>Virtualization:</strong> each process thinks it has the machine to itself. The OS multiplexes the CPU, memory, disk.</p>
+<p><strong>Concurrency:</strong> many activities happen at once. The OS must coordinate them safely.</p>
+<p><strong>Persistence:</strong> data survives across crashes and reboots. The OS provides filesystems.</p>
+<h3>Kernel Mode vs User Mode</h3>
+<p>CPUs have at least two privilege levels:</p>
+<ul><li><strong>Kernel mode (Ring 0):</strong> can execute any instruction, access any memory</li><li><strong>User mode (Ring 3):</strong> limited instruction set, restricted memory</li></ul>
+<p>System calls transition from user to kernel mode. The CPU switches privilege, jumps to the kernel's handler, then returns.</p>
+<p>This protects the kernel from misbehaving applications.</p>
+<h3>Processes</h3>
+<p>A process is a running program with:</p>
+<ul><li>Address space (virtual memory)</li><li>Threads of execution</li><li>Open file descriptors</li><li>Registers, stack, heap</li><li>PID, parent, children</li></ul>
+<p>The OS switches between processes using a <strong>context switch</strong>: save one process's state, load another's.</p>
+<p>Context switch overhead: 1-5 microseconds typically.</p>
+<h3>System Calls</h3>
+<p>The interface from user programs to the kernel:</p>
+<ul><li><strong>Process:</strong> fork, exec, wait, exit, getpid</li><li><strong>File:</strong> open, read, write, close, lseek, stat</li><li><strong>Memory:</strong> mmap, brk, sbrk</li><li><strong>Network:</strong> socket, bind, listen, accept</li><li><strong>IPC:</strong> pipe, shmget, msgget</li></ul>
+<p>POSIX defines a standard API implemented by most Unix-like systems.</p>
+<h3>Example: Running <code>ls</code></h3>
+<ol><li>Shell forks a child process</li><li>Child calls exec("ls")</li><li>Kernel loads ls binary, sets up its address space</li><li>ls runs, opens the current directory (open syscall)</li><li>ls reads directory entries (getdents syscall)</li><li>For each entry, ls calls stat to get metadata</li><li>ls writes output to stdout (write syscall)</li><li>ls exits, kernel notifies parent</li><li>Shell prints prompt</li></ol>
+<p>Hundreds of syscalls for a simple command.</p>
+<h3>The Kernel Interface</h3>
+<p>Applications should never call the kernel directly. They use libc wrappers:</p>
+<p>// C code<br>    fd = open("/etc/passwd", O_RDONLY);</p>
+<p>// Assembly equivalent (x86-64)<br>    mov $2, %rax          ; SYS_open<br>    lea filename(%rip), %rdi<br>    mov $0, %rsi          ; O_RDONLY<br>    syscall</p>
+<p>The wrapper handles the syscall instruction and error return.</p>
+<h3>Monolithic vs Microkernel</h3>
+<p><strong>Monolithic kernel:</strong> all OS services in kernel space. Linux, Windows, xv6.</p>
+<p>Pros: fast (no message passing). Cons: less isolation, harder to debug.</p>
+<p><strong>Microkernel:</strong> only essential services (scheduling, IPC, memory) in kernel. Servers in user space. QNX, L4, Mach.</p>
+<p>Pros: better isolation, more modular. Cons: slower IPC.</p>
+<p><strong>Hybrid:</strong> most in kernel, some as servers. macOS (XNU).</p>
+<h3>Layered OS Structure</h3>
+<p>Modern OS architecture (bottom to top):</p>
+<ol><li>Hardware</li><li>Kernel (memory, processes, drivers)</li><li>System calls</li><li>Libraries (libc, libc++)</li><li>Applications</li></ol>
+<p>Each layer trusts the one below, provides services to the one above.</p>
+<h3>Key Takeaways</h3>
+<ul><li>OS = manager of hardware + provider of services</li><li>Virtualization, concurrency, persistence are the three big ideas</li><li>Kernel mode vs user mode protects the system</li><li>Processes are isolated execution contexts</li><li>System calls are the interface</li><li>Monolithic vs microkernel trade-offs</li><li>Layered architecture scales from phone to server</li></ul></div>
       </div>
     </div>
   
@@ -258,159 +170,65 @@ Components:
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>Processes and Scheduling</h4>
-          <p>
-## What is a Process?
-
-A process is a program in execution. It has:
-- **Address space:** virtual memory, code, data, heap, stack
-- **Thread of control:** PC, registers, stack
-- **Resources:** open files, sockets, ...</p>
+          <p>What is a Process? A process is a program in execution. It has: Address space: virtual memory, code, data, heap, stack Thread of control: PC, registers, stack Resources: open files, sockets, ...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is a Process?
-<br>
-<br>A process is a program in execution. It has:
-<br>- <strong>Address space:</strong> virtual memory, code, data, heap, stack
-<br>- <strong>Thread of control:</strong> PC, registers, stack
-<br>- <strong>Resources:</strong> open files, sockets, signals
-<br>- <strong>Metadata:</strong> PID, parent PID, owner, priority, state
-<br>
-<br>The kernel maintains a process table (or list of task_struct in Linux).
-<br>
-<br>## Process States
-<br>
-<br>- <strong>New:</strong> being created
-<br>- <strong>Ready:</strong> waiting for CPU
-<br>- <strong>Running:</strong> executing on CPU
-<br>- <strong>Blocked:</strong> waiting for I/O or event
-<br>- <strong>Terminated:</strong> finished
-<br>
-<br>Transitions:
-<br>- New → Ready: admitted
-<br>- Ready → Running: scheduled
-<br>- Running → Ready: preempted (time slice)
-<br>- Running → Blocked: I/O request or wait
-<br>- Blocked → Ready: I/O complete or event
-<br>- Running → Terminated: exit
-<br>
-<br>## Context Switch
-<br>
-<br>When the OS switches from process A to process B:
-<br>
-<br>1. Save A's registers to its PCB (process control block)
-<br>2. Restore B's registers from its PCB
-<br>3. Switch page tables (memory management)
-<br>4. Flush TLB (unless tagged)
-<br>5. Resume B
-<br>
-<br>Cost: 1-10 µs, depending on architecture. Heavy in virtualized environments.
-<br>
-<br>## fork() — Creating a Process
-<br>
-<br><code>fork()</code> creates a copy of the calling process. Both parent and child continue from the same instruction.
-<br>
-<br>    pid_t pid = fork();
-<br>    if (pid == 0) {
-<br>        // child
-<br>    } else if (pid &gt; 0) {
-<br>        // parent (pid is child's PID)
-<br>    } else {
-<br>        // error
-<br>    }
-<br>
-<br>The child gets a copy of the parent's address space (copy-on-write optimization). File descriptors are duplicated.
-<br>
-<br>## exec() — Replacing the Program
-<br>
-<br><code>exec()</code> replaces the current process's image with a new program:
-<br>
-<br>    execl("/bin/ls", "ls", "-l", NULL);
-<br>
-<br>The address space is replaced. Only the PID, open file descriptors, and some signals survive.
-<br>
-<br>## The fork-exec Pattern
-<br>
-<br>To run a program:
-<br>1. fork() to create a child
-<br>2. Child calls exec() to replace itself
-<br>3. Parent wait()s for the child to finish
-<br>
-<br>This is how the shell runs commands.
-<br>
-<br>## wait() — Reaping Children
-<br>
-<br>    int status;
-<br>    pid_t pid = wait(&amp;status);
-<br>
-<br>Blocks until a child exits. Returns the child's PID and exit status.
-<br>
-<br>Zombies: children that exited but weren't waited for. Occupy a process slot. Must be reaped.
-<br>
-<br>Orphans: children whose parent exited first. Reparented to init (PID 1).
-<br>
-<br>## Scheduling Algorithms
-<br>
-<br><strong>FCFS (First-Come First-Served):</strong> simple, non-preemptive. Convoy effect — long jobs block short ones.
-<br>
-<br><strong>SJF (Shortest Job First):</strong> optimal average wait time. Requires knowing execution time (impossible in advance).
-<br>
-<br><strong>Round Robin:</strong> each process runs for a time slice (quantum). Fair, responsive.
-<br>
-<br><strong>Priority:</strong> higher priority runs first. Starvation risk — aging fixes it.
-<br>
-<br><strong>Multilevel Feedback Queue:</strong> multiple queues with different priorities. Process moves between queues based on behavior. Used in general-purpose OSes.
-<br>
-<br><strong>CFS (Completely Fair Scheduler):</strong> Linux's current scheduler. Uses a red-black tree keyed by virtual runtime. O(log n) per decision.
-<br>
-<br>## Scheduling Metrics
-<br>
-<br>- <strong>Throughput:</strong> jobs completed per unit time
-<br>- <strong>Turnaround time:</strong> from submission to completion
-<br>- <strong>Waiting time:</strong> time spent ready, not running
-<br>- <strong>Response time:</strong> from submission to first output
-<br>- <strong>Fairness:</strong> how evenly CPU is distributed
-<br>
-<br>Different systems optimize different metrics. Batch systems want throughput, interactive systems want response time.
-<br>
-<br>## Threads
-<br>
-<br>A thread is a lightweight unit of execution. Multiple threads share the process's address space.
-<br>
-<br>Benefits:
-<br>- Concurrency (overlap I/O with compute)
-<br>- Parallelism (use multiple cores)
-<br>- Responsiveness (UI thread stays free)
-<br>
-<br>Costs:
-<br>- Race conditions (shared data)
-<br>- Lock overhead
-<br>- Debugging complexity
-<br>
-<br>Kernel threads vs user threads vs hybrid (most common).
-<br>
-<br>## Context Switching Cost
-<br>
-<br>Direct cost: saving/restoring registers (~100 ns).
-<br>
-<br>Indirect cost: cache pollution. Switching between processes touches different memory, evicting cached data. Can cost microseconds in cache misses.
-<br>
-<br>Reducing context switches is a key optimization.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Process = running program + address space + resources
-<br>- fork, exec, wait are the basic primitives
-<br>- fork creates, exec replaces, wait reaps
-<br>- Many scheduling algorithms, each with trade-offs
-<br>- CFS uses virtual runtime and a red-black tree
-<br>- Threads share address space, process switch is heavier
-<br>- Context switch cost includes cache pollution
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is a Process?</h3>
+<p>A process is a program in execution. It has:</p>
+<ul><li><strong>Address space:</strong> virtual memory, code, data, heap, stack</li><li><strong>Thread of control:</strong> PC, registers, stack</li><li><strong>Resources:</strong> open files, sockets, signals</li><li><strong>Metadata:</strong> PID, parent PID, owner, priority, state</li></ul>
+<p>The kernel maintains a process table (or list of task_struct in Linux).</p>
+<h3>Process States</h3>
+<ul><li><strong>New:</strong> being created</li><li><strong>Ready:</strong> waiting for CPU</li><li><strong>Running:</strong> executing on CPU</li><li><strong>Blocked:</strong> waiting for I/O or event</li><li><strong>Terminated:</strong> finished</li></ul>
+<p>Transitions:</p>
+<ul><li>New → Ready: admitted</li><li>Ready → Running: scheduled</li><li>Running → Ready: preempted (time slice)</li><li>Running → Blocked: I/O request or wait</li><li>Blocked → Ready: I/O complete or event</li><li>Running → Terminated: exit</li></ul>
+<h3>Context Switch</h3>
+<p>When the OS switches from process A to process B:</p>
+<ol><li>Save A's registers to its PCB (process control block)</li><li>Restore B's registers from its PCB</li><li>Switch page tables (memory management)</li><li>Flush TLB (unless tagged)</li><li>Resume B</li></ol>
+<p>Cost: 1-10 µs, depending on architecture. Heavy in virtualized environments.</p>
+<h3>fork() — Creating a Process</h3>
+<p><code>fork()</code> creates a copy of the calling process. Both parent and child continue from the same instruction.</p>
+<p>pid_t pid = fork();<br>    if (pid == 0) {<br>        // child<br>    } else if (pid &gt; 0) {<br>        // parent (pid is child's PID)<br>    } else {<br>        // error<br>    }</p>
+<p>The child gets a copy of the parent's address space (copy-on-write optimization). File descriptors are duplicated.</p>
+<h3>exec() — Replacing the Program</h3>
+<p><code>exec()</code> replaces the current process's image with a new program:</p>
+<p>execl("/bin/ls", "ls", "-l", NULL);</p>
+<p>The address space is replaced. Only the PID, open file descriptors, and some signals survive.</p>
+<h3>The fork-exec Pattern</h3>
+<p>To run a program:</p>
+<ol><li>fork() to create a child</li><li>Child calls exec() to replace itself</li><li>Parent wait()s for the child to finish</li></ol>
+<p>This is how the shell runs commands.</p>
+<h3>wait() — Reaping Children</h3>
+<p>int status;<br>    pid_t pid = wait(&amp;status);</p>
+<p>Blocks until a child exits. Returns the child's PID and exit status.</p>
+<p>Zombies: children that exited but weren't waited for. Occupy a process slot. Must be reaped.</p>
+<p>Orphans: children whose parent exited first. Reparented to init (PID 1).</p>
+<h3>Scheduling Algorithms</h3>
+<p><strong>FCFS (First-Come First-Served):</strong> simple, non-preemptive. Convoy effect — long jobs block short ones.</p>
+<p><strong>SJF (Shortest Job First):</strong> optimal average wait time. Requires knowing execution time (impossible in advance).</p>
+<p><strong>Round Robin:</strong> each process runs for a time slice (quantum). Fair, responsive.</p>
+<p><strong>Priority:</strong> higher priority runs first. Starvation risk — aging fixes it.</p>
+<p><strong>Multilevel Feedback Queue:</strong> multiple queues with different priorities. Process moves between queues based on behavior. Used in general-purpose OSes.</p>
+<p><strong>CFS (Completely Fair Scheduler):</strong> Linux's current scheduler. Uses a red-black tree keyed by virtual runtime. O(log n) per decision.</p>
+<h3>Scheduling Metrics</h3>
+<ul><li><strong>Throughput:</strong> jobs completed per unit time</li><li><strong>Turnaround time:</strong> from submission to completion</li><li><strong>Waiting time:</strong> time spent ready, not running</li><li><strong>Response time:</strong> from submission to first output</li><li><strong>Fairness:</strong> how evenly CPU is distributed</li></ul>
+<p>Different systems optimize different metrics. Batch systems want throughput, interactive systems want response time.</p>
+<h3>Threads</h3>
+<p>A thread is a lightweight unit of execution. Multiple threads share the process's address space.</p>
+<p>Benefits:</p>
+<ul><li>Concurrency (overlap I/O with compute)</li><li>Parallelism (use multiple cores)</li><li>Responsiveness (UI thread stays free)</li></ul>
+<p>Costs:</p>
+<ul><li>Race conditions (shared data)</li><li>Lock overhead</li><li>Debugging complexity</li></ul>
+<p>Kernel threads vs user threads vs hybrid (most common).</p>
+<h3>Context Switching Cost</h3>
+<p>Direct cost: saving/restoring registers (~100 ns).</p>
+<p>Indirect cost: cache pollution. Switching between processes touches different memory, evicting cached data. Can cost microseconds in cache misses.</p>
+<p>Reducing context switches is a key optimization.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Process = running program + address space + resources</li><li>fork, exec, wait are the basic primitives</li><li>fork creates, exec replaces, wait reaps</li><li>Many scheduling algorithms, each with trade-offs</li><li>CFS uses virtual runtime and a red-black tree</li><li>Threads share address space, process switch is heavier</li><li>Context switch cost includes cache pollution</li></ul></div>
       </div>
     </div>
   
@@ -419,175 +237,77 @@ A process is a program in execution. It has:
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>Virtual Memory and Paging</h4>
-          <p>
-## The Problem
-
-Each process wants its own private address space. Physical memory is shared and limited.
-
-Solution: virtual memory. The CPU translates virtual addresses to physical addresses. Each process sees a la...</p>
+          <p>The Problem Each process wants its own private address space. Physical memory is shared and limited. Solution: virtual memory. The CPU translates virtual addresses to physical addresses. Each process...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The Problem
-<br>
-<br>Each process wants its own private address space. Physical memory is shared and limited.
-<br>
-<br>Solution: virtual memory. The CPU translates virtual addresses to physical addresses. Each process sees a large, contiguous, private space.
-<br>
-<br>## Benefits
-<br>
-<br>- <strong>Isolation:</strong> process A can't read B's memory
-<br>- <strong>Protection:</strong> read-only regions enforced by hardware
-<br>- <strong>Flexibility:</strong> programs don't need physical layout
-<br>- <strong>Overcommit:</strong> sum of virtual spaces &gt; physical RAM
-<br>- <strong>Sharing:</strong> libraries mapped read-only into many processes
-<br>
-<br>## Pages and Frames
-<br>
-<br>Virtual memory is divided into fixed-size <strong>pages</strong> (typically 4 KB).
-<br>Physical memory is divided into <strong>frames</strong> of the same size.
-<br>
-<br>    Virtual address: [ VPN | offset ]
-<br>    Physical address: [ PFN | offset ]
-<br>
-<br>The offset is copied directly. The page number is translated via the page table.
-<br>
-<br>On x86-64: 48-bit virtual (256 TB), 52-bit physical (4 PB). 4 KB pages.
-<br>
-<br>## Page Tables
-<br>
-<br>A page table is an array of <strong>page table entries (PTEs)</strong>. Each PTE contains:
-<br>- Physical frame number
-<br>- Valid bit
-<br>- Read/write/execute permissions
-<br>- Accessed and dirty bits
-<br>- Cache control bits
-<br>
-<br>Flat page table for 48-bit virtual with 4 KB pages: 2^36 × 8 bytes = 512 GB. Impossible.
-<br>
-<br>## Multi-Level Page Tables
-<br>
-<br>Split the virtual address into pieces. Each level indexes a smaller table.
-<br>
-<br>For 48-bit addresses, 4-level page table:
-<br>    [ PGD 9b | PUD 9b | PMD 9b | PTE 9b | offset 12b ]
-<br>
-<br>Each table has 512 entries × 8 bytes = 4 KB (one page).
-<br>
-<br>Sparse allocation: unused address ranges have null pointers. Typically a few MB per process.
-<br>
-<br>## The TLB
-<br>
-<br>Every memory access requires a page table walk (4 reads). That's 4x slower.
-<br>
-<br>Solution: the Translation Lookaside Buffer. A small cache of recent translations. Typically 32-2048 entries, fully associative.
-<br>
-<br>TLB hit: translation is essentially free.
-<br>TLB miss: walk the page table (~20-100 cycles).
-<br>
-<br>Hit rate &gt;99% typical because of locality.
-<br>
-<br>## Page Faults
-<br>
-<br>If the VPN has no valid PTE:
-<br>
-<br>1. CPU raises page fault exception
-<br>2. Kernel's page fault handler runs
-<br>3. If page is in swap: allocate frame, read from disk, update PTE, return
-<br>4. If page is illegal: send SIGSEGV to process
-<br>
-<br>Page fault cost: ~1-10 microseconds (dominated by disk I/O).
-<br>
-<br>## Demand Paging
-<br>
-<br>Don't load pages until accessed. Lazy allocation.
-<br>
-<br>Advantages:
-<br>- Faster program startup
-<br>- Less memory used
-<br>- Allows overcommit
-<br>
-<br>Disadvantages:
-<br>- Page faults during execution
-<br>- Must track which pages are on disk
-<br>
-<br>## Page Replacement
-<br>
-<br>When physical memory is full, evict a page.
-<br>
-<br><strong>OPT (Belady):</strong> evict page used furthest in future. Optimal but unimplementable.
-<br>
-<br><strong>LRU:</strong> evict least recently used. Good but expensive to track.
-<br>
-<br><strong>Clock:</strong> approximate LRU with a reference bit. Used in Linux.
-<br>
-<br><strong>FIFO:</strong> simple but can exhibit Belady's anomaly.
-<br>
-<br>Linux uses a variant of LRU with active/inactive lists.
-<br>
-<br>## Working Set
-<br>
-<br>The set of pages a process is actively using. If physical memory ≥ sum of working sets, no thrashing. If &lt; , thrashing — pages are evicted before they're reused.
-<br>
-<br>Detect: high page fault rate. Fix: reduce multiprogramming (swap out processes) or add memory.
-<br>
-<br>## Copy-on-Write (COW)
-<br>
-<br>When fork() is called, don't copy all pages. Mark them read-only and shared. On write, copy the page and update the PTE.
-<br>
-<br>Benefits:
-<br>- fork is fast
-<br>- Memory shared until modified
-<br>- Used by Linux, macOS, Windows
-<br>
-<br>## Memory-Mapped Files
-<br>
-<br>Map a file into the address space:
-<br>
-<br>    void *addr = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, offset);
-<br>
-<br>Access the file like memory. Kernel handles paging.
-<br>
-<br>Used for:
-<br>- Executables (text and data sections)
-<br>- Shared libraries
-<br>- Databases (SQLite uses mmap)
-<br>- Shared memory between processes
-<br>
-<br>## Huge Pages
-<br>
-<br>Standard 4 KB pages require many TLB entries. Huge pages (2 MB or 1 GB) cover more memory per entry.
-<br>
-<br>Used for:
-<br>- Databases (MySQL, PostgreSQL)
-<br>- Virtual machines
-<br>- Scientific computing
-<br>
-<br>Trade-off: internal fragmentation (page is allocated whole).
-<br>
-<br>## Swapping
-<br>
-<br>When memory is overcommitted, evict pages to disk. Linux uses swap files or partitions.
-<br>
-<br>Cost: 1-10 ms per page (SSD) to 10-100 ms (HDD). Minimize swapping for performance.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Virtual memory gives isolation and flexibility
-<br>- Multi-level page tables save memory
-<br>- TLB makes translation fast in the common case
-<br>- Page faults handle missing pages
-<br>- Demand paging allows overcommit
-<br>- LRU/Clock for replacement
-<br>- COW speeds up fork
-<br>- mmap for file-backed memory
-<br>- Huge pages reduce TLB pressure
-<br>- Swapping is expensive
-<br></p></div>
+        <div class="lecture-full-content"><h3>The Problem</h3>
+<p>Each process wants its own private address space. Physical memory is shared and limited.</p>
+<p>Solution: virtual memory. The CPU translates virtual addresses to physical addresses. Each process sees a large, contiguous, private space.</p>
+<h3>Benefits</h3>
+<ul><li><strong>Isolation:</strong> process A can't read B's memory</li><li><strong>Protection:</strong> read-only regions enforced by hardware</li><li><strong>Flexibility:</strong> programs don't need physical layout</li><li><strong>Overcommit:</strong> sum of virtual spaces &gt; physical RAM</li><li><strong>Sharing:</strong> libraries mapped read-only into many processes</li></ul>
+<h3>Pages and Frames</h3>
+<p>Virtual memory is divided into fixed-size <strong>pages</strong> (typically 4 KB).<br>Physical memory is divided into <strong>frames</strong> of the same size.</p>
+<p>Virtual address: [ VPN | offset ]<br>    Physical address: [ PFN | offset ]</p>
+<p>The offset is copied directly. The page number is translated via the page table.</p>
+<p>On x86-64: 48-bit virtual (256 TB), 52-bit physical (4 PB). 4 KB pages.</p>
+<h3>Page Tables</h3>
+<p>A page table is an array of <strong>page table entries (PTEs)</strong>. Each PTE contains:</p>
+<ul><li>Physical frame number</li><li>Valid bit</li><li>Read/write/execute permissions</li><li>Accessed and dirty bits</li><li>Cache control bits</li></ul>
+<p>Flat page table for 48-bit virtual with 4 KB pages: 2^36 × 8 bytes = 512 GB. Impossible.</p>
+<h3>Multi-Level Page Tables</h3>
+<p>Split the virtual address into pieces. Each level indexes a smaller table.</p>
+<p>For 48-bit addresses, 4-level page table:<br>    [ PGD 9b | PUD 9b | PMD 9b | PTE 9b | offset 12b ]</p>
+<p>Each table has 512 entries × 8 bytes = 4 KB (one page).</p>
+<p>Sparse allocation: unused address ranges have null pointers. Typically a few MB per process.</p>
+<h3>The TLB</h3>
+<p>Every memory access requires a page table walk (4 reads). That's 4x slower.</p>
+<p>Solution: the Translation Lookaside Buffer. A small cache of recent translations. Typically 32-2048 entries, fully associative.</p>
+<p>TLB hit: translation is essentially free.<br>TLB miss: walk the page table (~20-100 cycles).</p>
+<p>Hit rate &gt;99% typical because of locality.</p>
+<h3>Page Faults</h3>
+<p>If the VPN has no valid PTE:</p>
+<ol><li>CPU raises page fault exception</li><li>Kernel's page fault handler runs</li><li>If page is in swap: allocate frame, read from disk, update PTE, return</li><li>If page is illegal: send SIGSEGV to process</li></ol>
+<p>Page fault cost: ~1-10 microseconds (dominated by disk I/O).</p>
+<h3>Demand Paging</h3>
+<p>Don't load pages until accessed. Lazy allocation.</p>
+<p>Advantages:</p>
+<ul><li>Faster program startup</li><li>Less memory used</li><li>Allows overcommit</li></ul>
+<p>Disadvantages:</p>
+<ul><li>Page faults during execution</li><li>Must track which pages are on disk</li></ul>
+<h3>Page Replacement</h3>
+<p>When physical memory is full, evict a page.</p>
+<p><strong>OPT (Belady):</strong> evict page used furthest in future. Optimal but unimplementable.</p>
+<p><strong>LRU:</strong> evict least recently used. Good but expensive to track.</p>
+<p><strong>Clock:</strong> approximate LRU with a reference bit. Used in Linux.</p>
+<p><strong>FIFO:</strong> simple but can exhibit Belady's anomaly.</p>
+<p>Linux uses a variant of LRU with active/inactive lists.</p>
+<h3>Working Set</h3>
+<p>The set of pages a process is actively using. If physical memory ≥ sum of working sets, no thrashing. If &lt; , thrashing — pages are evicted before they're reused.</p>
+<p>Detect: high page fault rate. Fix: reduce multiprogramming (swap out processes) or add memory.</p>
+<h3>Copy-on-Write (COW)</h3>
+<p>When fork() is called, don't copy all pages. Mark them read-only and shared. On write, copy the page and update the PTE.</p>
+<p>Benefits:</p>
+<ul><li>fork is fast</li><li>Memory shared until modified</li><li>Used by Linux, macOS, Windows</li></ul>
+<h3>Memory-Mapped Files</h3>
+<p>Map a file into the address space:</p>
+<p>void *addr = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, offset);</p>
+<p>Access the file like memory. Kernel handles paging.</p>
+<p>Used for:</p>
+<ul><li>Executables (text and data sections)</li><li>Shared libraries</li><li>Databases (SQLite uses mmap)</li><li>Shared memory between processes</li></ul>
+<h3>Huge Pages</h3>
+<p>Standard 4 KB pages require many TLB entries. Huge pages (2 MB or 1 GB) cover more memory per entry.</p>
+<p>Used for:</p>
+<ul><li>Databases (MySQL, PostgreSQL)</li><li>Virtual machines</li><li>Scientific computing</li></ul>
+<p>Trade-off: internal fragmentation (page is allocated whole).</p>
+<h3>Swapping</h3>
+<p>When memory is overcommitted, evict pages to disk. Linux uses swap files or partitions.</p>
+<p>Cost: 1-10 ms per page (SSD) to 10-100 ms (HDD). Minimize swapping for performance.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Virtual memory gives isolation and flexibility</li><li>Multi-level page tables save memory</li><li>TLB makes translation fast in the common case</li><li>Page faults handle missing pages</li><li>Demand paging allows overcommit</li><li>LRU/Clock for replacement</li><li>COW speeds up fork</li><li>mmap for file-backed memory</li><li>Huge pages reduce TLB pressure</li><li>Swapping is expensive</li></ul></div>
       </div>
     </div>
   
@@ -596,195 +316,76 @@ Solution: virtual memory. The CPU translates virtual addresses to physical addre
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>Concurrency and Synchronization</h4>
-          <p>
-## Why Concurrency?
-
-Multiple threads or processes need to coordinate access to shared resources: memory, files, devices.
-
-Without synchronization, race conditions occur — the result depends on timing.
-
-## Race C...</p>
+          <p>Why Concurrency? Multiple threads or processes need to coordinate access to shared resources: memory, files, devices. Without synchronization, race conditions occur — the result depends on timing....</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Why Concurrency?
-<br>
-<br>Multiple threads or processes need to coordinate access to shared resources: memory, files, devices.
-<br>
-<br>Without synchronization, race conditions occur — the result depends on timing.
-<br>
-<br>## Race Condition Example
-<br>
-<br>Two threads increment a shared counter:
-<br>
-<br>    counter = counter + 1;
-<br>
-<br>In assembly:
-<br>    load  r1, [counter]
-<br>    add   r1, r1, 1
-<br>    store r1, [counter]
-<br>
-<br>If both threads execute simultaneously:
-<br>
-<br>    Thread A              Thread B              counter
-<br>    load r1 = 0
-<br>                          load r1 = 0         0
-<br>    add r1 = 1
-<br>                          add r1 = 1
-<br>    store [counter] = 1
-<br>                          store [counter] = 1  1 (lost update!)
-<br>
-<br>Expected: 2. Got: 1. Classic race condition.
-<br>
-<br>## Critical Section
-<br>
-<br>The part of code that must run atomically (no interleaving).
-<br>
-<br>Solution properties:
-<br>- <strong>Mutual exclusion:</strong> only one thread in CS at a time
-<br>- <strong>Progress:</strong> if no thread in CS and one wants in, it gets in
-<br>- <strong>Bounded waiting:</strong> a waiting thread eventually enters
-<br>
-<br>## Locks (Mutexes)
-<br>
-<br>    lock(m);
-<br>    // critical section
-<br>    unlock(m);
-<br>
-<br>A mutex ensures only one thread in the CS.
-<br>
-<br>Implementation requires hardware support:
-<br>- <strong>Test-and-set:</strong> atomically sets a flag and returns old value
-<br>- <strong>Compare-and-swap (CAS):</strong> atomically compares and swaps
-<br>
-<br>    while (test_and_set(&amp;lock)) { /* spin */ }
-<br>    // critical section
-<br>    lock = 0;
-<br>
-<br>Spinlock: busy-wait. Good for short critical sections on multicore.
-<br>
-<br>Blocking lock: put waiting threads to sleep, wake on release. Better for long CS.
-<br>
-<br>## Semaphores
-<br>
-<br>Dijkstra's semaphore: an integer with two atomic operations:
-<br>
-<br>    P(s): wait until s &gt; 0, then s--  (Dutch: proberen)
-<br>    V(s): s++                        (Dutch: verhogen)
-<br>
-<br>Used for:
-<br>- Mutual exclusion (s initialized to 1)
-<br>- Signaling between threads (s initialized to 0)
-<br>- Resource counting (s initialized to N)
-<br>
-<br>## Condition Variables
-<br>
-<br>Wait for a condition to become true:
-<br>
-<br>    pthread_mutex_lock(&amp;m);
-<br>    while (!condition) {
-<br>        pthread_cond_wait(&amp;c, &amp;m);
-<br>    }
-<br>    // condition is true
-<br>    pthread_mutex_unlock(&amp;m);
-<br>
-<br>    // In another thread:
-<br>    pthread_mutex_lock(&amp;m);
-<br>    condition = 1;
-<br>    pthread_cond_signal(&amp;c);
-<br>    pthread_mutex_unlock(&amp;m);
-<br>
-<br>Always wait in a loop. Spurious wakeups are allowed.
-<br>
-<br>## Monitors
-<br>
-<br>Higher-level abstraction: a lock + condition variables bundled with data. Languages like Java provide synchronized methods.
-<br>
-<br>    public synchronized void deposit(int amount) {
-<br>        balance += amount;
-<br>        notifyAll();
-<br>    }
-<br>
-<br>The compiler inserts lock/unlock automatically.
-<br>
-<br>## Classic Problems
-<br>
-<br><strong>Producer-Consumer:</strong>
-<br>- Bounded buffer
-<br>- Producers wait if full, consumers wait if empty
-<br>- Uses a mutex + two condition variables
-<br>
-<br><strong>Readers-Writers:</strong>
-<br>- Multiple readers can access simultaneously
-<br>- Writers need exclusive access
-<br>- Variants: reader-priority, writer-priority
-<br>
-<br><strong>Dining Philosophers:</strong>
-<br>- Five philosophers, five forks
-<br>- Each needs two forks to eat
-<br>- Deadlock if all grab left fork simultaneously
-<br>
-<br>## Deadlock
-<br>
-<br>Four conditions for deadlock (all must hold):
-<br>1. Mutual exclusion
-<br>2. Hold and wait
-<br>3. No preemption
-<br>4. Circular wait
-<br>
-<br>Break any one to prevent deadlock.
-<br>
-<br>Solutions:
-<br>- <strong>Prevention:</strong> eliminate one of the four conditions
-<br>- <strong>Avoidance:</strong> Banker's algorithm (rarely used)
-<br>- <strong>Detection and recovery:</strong> find cycles, kill a process
-<br>- <strong>Ignore:</strong> most OSes do this
-<br>
-<br>## Atomic Operations
-<br>
-<br>Hardware provides primitives:
-<br>- Compare-and-swap (CAS)
-<br>- Fetch-and-add
-<br>- Load-linked / store-conditional (LL/SC, ARM, RISC-V)
-<br>
-<br>Lock-free data structures use these to avoid locks entirely. Powerful but tricky.
-<br>
-<br>## Memory Barriers
-<br>
-<br>Modern CPUs reorder memory operations for performance. A barrier forces ordering:
-<br>
-<br>    store x
-<br>    barrier
-<br>    store y
-<br>
-<br>Ensures store to y doesn't happen before store to x from another core's view.
-<br>
-<br>Critical for lock-free code and device drivers.
-<br>
-<br>## Concurrency Bugs
-<br>
-<br>- <strong>Race condition:</strong> timing-dependent result
-<br>- <strong>Deadlock:</strong> circular wait
-<br>- <strong>Livelock:</strong> threads keep retrying, no progress
-<br>- <strong>Starvation:</strong> a thread never gets to run
-<br>- <strong>Priority inversion:</strong> low-priority thread holds lock needed by high-priority
-<br>
-<br>Careful design and tools (ThreadSanitizer, Helgrind) help.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Race conditions arise from unsynchronized access
-<br>- Locks, semaphores, condition variables synchronize
-<br>- Monitors for higher-level abstraction
-<br>- Classic problems: producer-consumer, readers-writers, dining philosophers
-<br>- Deadlock: four conditions, break any one
-<br>- Atomics and barriers for lock-free code
-<br>- Many concurrency bugs; use tools
-<br></p></div>
+        <div class="lecture-full-content"><h3>Why Concurrency?</h3>
+<p>Multiple threads or processes need to coordinate access to shared resources: memory, files, devices.</p>
+<p>Without synchronization, race conditions occur — the result depends on timing.</p>
+<h3>Race Condition Example</h3>
+<p>Two threads increment a shared counter:</p>
+<p>counter = counter + 1;</p>
+<p>In assembly:<br>    load  r1, [counter]<br>    add   r1, r1, 1<br>    store r1, [counter]</p>
+<p>If both threads execute simultaneously:</p>
+<p>Thread A              Thread B              counter<br>    load r1 = 0<br>                          load r1 = 0         0<br>    add r1 = 1<br>                          add r1 = 1<br>    store [counter] = 1<br>                          store [counter] = 1  1 (lost update!)</p>
+<p>Expected: 2. Got: 1. Classic race condition.</p>
+<h3>Critical Section</h3>
+<p>The part of code that must run atomically (no interleaving).</p>
+<p>Solution properties:</p>
+<ul><li><strong>Mutual exclusion:</strong> only one thread in CS at a time</li><li><strong>Progress:</strong> if no thread in CS and one wants in, it gets in</li><li><strong>Bounded waiting:</strong> a waiting thread eventually enters</li></ul>
+<h3>Locks (Mutexes)</h3>
+<p>lock(m);<br>    // critical section<br>    unlock(m);</p>
+<p>A mutex ensures only one thread in the CS.</p>
+<p>Implementation requires hardware support:</p>
+<ul><li><strong>Test-and-set:</strong> atomically sets a flag and returns old value</li><li><strong>Compare-and-swap (CAS):</strong> atomically compares and swaps</li></ul>
+<p>while (test_and_set(&amp;lock)) { /* spin */ }<br>    // critical section<br>    lock = 0;</p>
+<p>Spinlock: busy-wait. Good for short critical sections on multicore.</p>
+<p>Blocking lock: put waiting threads to sleep, wake on release. Better for long CS.</p>
+<h3>Semaphores</h3>
+<p>Dijkstra's semaphore: an integer with two atomic operations:</p>
+<p>P(s): wait until s &gt; 0, then s--  (Dutch: proberen)<br>    V(s): s++                        (Dutch: verhogen)</p>
+<p>Used for:</p>
+<ul><li>Mutual exclusion (s initialized to 1)</li><li>Signaling between threads (s initialized to 0)</li><li>Resource counting (s initialized to N)</li></ul>
+<h3>Condition Variables</h3>
+<p>Wait for a condition to become true:</p>
+<p>pthread_mutex_lock(&amp;m);<br>    while (!condition) {<br>        pthread_cond_wait(&amp;c, &amp;m);<br>    }<br>    // condition is true<br>    pthread_mutex_unlock(&amp;m);</p>
+<p>// In another thread:<br>    pthread_mutex_lock(&amp;m);<br>    condition = 1;<br>    pthread_cond_signal(&amp;c);<br>    pthread_mutex_unlock(&amp;m);</p>
+<p>Always wait in a loop. Spurious wakeups are allowed.</p>
+<h3>Monitors</h3>
+<p>Higher-level abstraction: a lock + condition variables bundled with data. Languages like Java provide synchronized methods.</p>
+<p>public synchronized void deposit(int amount) {<br>        balance += amount;<br>        notifyAll();<br>    }</p>
+<p>The compiler inserts lock/unlock automatically.</p>
+<h3>Classic Problems</h3>
+<p><strong>Producer-Consumer:</strong></p>
+<ul><li>Bounded buffer</li><li>Producers wait if full, consumers wait if empty</li><li>Uses a mutex + two condition variables</li></ul>
+<p><strong>Readers-Writers:</strong></p>
+<ul><li>Multiple readers can access simultaneously</li><li>Writers need exclusive access</li><li>Variants: reader-priority, writer-priority</li></ul>
+<p><strong>Dining Philosophers:</strong></p>
+<ul><li>Five philosophers, five forks</li><li>Each needs two forks to eat</li><li>Deadlock if all grab left fork simultaneously</li></ul>
+<h3>Deadlock</h3>
+<p>Four conditions for deadlock (all must hold):</p>
+<ol><li>Mutual exclusion</li><li>Hold and wait</li><li>No preemption</li><li>Circular wait</li></ol>
+<p>Break any one to prevent deadlock.</p>
+<p>Solutions:</p>
+<ul><li><strong>Prevention:</strong> eliminate one of the four conditions</li><li><strong>Avoidance:</strong> Banker's algorithm (rarely used)</li><li><strong>Detection and recovery:</strong> find cycles, kill a process</li><li><strong>Ignore:</strong> most OSes do this</li></ul>
+<h3>Atomic Operations</h3>
+<p>Hardware provides primitives:</p>
+<ul><li>Compare-and-swap (CAS)</li><li>Fetch-and-add</li><li>Load-linked / store-conditional (LL/SC, ARM, RISC-V)</li></ul>
+<p>Lock-free data structures use these to avoid locks entirely. Powerful but tricky.</p>
+<h3>Memory Barriers</h3>
+<p>Modern CPUs reorder memory operations for performance. A barrier forces ordering:</p>
+<p>store x<br>    barrier<br>    store y</p>
+<p>Ensures store to y doesn't happen before store to x from another core's view.</p>
+<p>Critical for lock-free code and device drivers.</p>
+<h3>Concurrency Bugs</h3>
+<ul><li><strong>Race condition:</strong> timing-dependent result</li><li><strong>Deadlock:</strong> circular wait</li><li><strong>Livelock:</strong> threads keep retrying, no progress</li><li><strong>Starvation:</strong> a thread never gets to run</li><li><strong>Priority inversion:</strong> low-priority thread holds lock needed by high-priority</li></ul>
+<p>Careful design and tools (ThreadSanitizer, Helgrind) help.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Race conditions arise from unsynchronized access</li><li>Locks, semaphores, condition variables synchronize</li><li>Monitors for higher-level abstraction</li><li>Classic problems: producer-consumer, readers-writers, dining philosophers</li><li>Deadlock: four conditions, break any one</li><li>Atomics and barriers for lock-free code</li><li>Many concurrency bugs; use tools</li></ul></div>
       </div>
     </div>
   
@@ -793,205 +394,85 @@ Without synchronization, race conditions occur — the result depends on timing.
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>File Systems and Persistence</h4>
-          <p>
-## What is a File System?
-
-A file system organizes data on persistent storage (disk, SSD). It provides:
-- Named files
-- Hierarchical directories
-- Byte-addressable files
-- Metadata (permissions, timestamps)
-- At...</p>
+          <p>What is a File System? A file system organizes data on persistent storage (disk, SSD). It provides: Named files Hierarchical directories Byte-addressable files Metadata (permissions, timestamps) At...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is a File System?
-<br>
-<br>A file system organizes data on persistent storage (disk, SSD). It provides:
-<br>- Named files
-<br>- Hierarchical directories
-<br>- Byte-addressable files
-<br>- Metadata (permissions, timestamps)
-<br>- Atomic operations (rename)
-<br>
-<br>The filesystem is an abstraction over block devices.
-<br>
-<br>## Block Devices
-<br>
-<br>Disks expose a linear array of fixed-size blocks (typically 512 B or 4 KB).
-<br>
-<br>Operations:
-<br>- Read a block
-<br>- Write a block
-<br>
-<br>The filesystem maps file operations to block operations.
-<br>
-<br>## The File Abstraction
-<br>
-<br>A file is a sequence of bytes with a name. The kernel maintains:
-<br>- <strong>inode:</strong> metadata (size, permissions, timestamps, block pointers)
-<br>- <strong>dentry:</strong> directory entry (name → inode)
-<br>- <strong>file descriptor:</strong> per-process open file handle (offset, mode)
-<br>
-<br>## Directory Structure
-<br>
-<br>A directory is a special file that maps names to inodes.
-<br>
-<br>    /home/alice/Documents/report.pdf
-<br>
-<br>Lookup: start at root inode, find "home", then "alice", then "Documents", then "report.pdf".
-<br>
-<br>Each lookup is a filesystem operation. Path walk can be slow. Caches (dentry cache) help.
-<br>
-<br>## inodes
-<br>
-<br>The inode stores:
-<br>- File type (regular, directory, symlink, device)
-<br>- Size in bytes
-<br>- Owner, group, permissions
-<br>- Timestamps (atime, mtime, ctime)
-<br>- Link count
-<br>- Pointers to data blocks
-<br>
-<br>In ext4: 12 direct pointers + 1 single indirect + 1 double indirect + 1 triple indirect.
-<br>
-<br>Small files (≤12 blocks) fit entirely in direct pointers. Large files use indirect blocks.
-<br>
-<br>## Block Allocation
-<br>
-<br><strong>Contiguous:</strong> simple, fast, but fragmentation. Rare in practice.
-<br>
-<br><strong>Linked:</strong> each block points to next. Simple but slow random access.
-<br>
-<br><strong>Indexed:</strong> inode points to blocks. Common (ext, XFS).
-<br>
-<br><strong>Extent-based:</strong> inode stores extents (start block + length). Reduces metadata for large files. Used in ext4, XFS, btrfs.
-<br>
-<br>## Free Space Management
-<br>
-<br>Track which blocks are free:
-<br>- <strong>Bitmap:</strong> one bit per block. Simple, fast.
-<br>- <strong>Free list:</strong> linked list of free blocks.
-<br>
-<br>Bitmaps are common in modern filesystems.
-<br>
-<br>## Journaling
-<br>
-<br>A crash during a write can leave the filesystem inconsistent. Journaling prevents this.
-<br>
-<br>Write the intended change to a <strong>journal</strong> (log) first, then apply to the actual location.
-<br>
-<br>On crash, replay the journal — the change is either fully done or not at all.
-<br>
-<br>Modes:
-<br>- <strong>writeback:</strong> journal only metadata
-<br>- <strong>ordered:</strong> metadata journaled, data written before metadata
-<br>- <strong>journal:</strong> everything journaled (slowest, safest)
-<br>
-<br>ext4, XFS, NTFS use journaling.
-<br>
-<br>## Log-Structured File Systems
-<br>
-<br>Alternative: never overwrite. Always write to fresh locations. Old versions become garbage, collected later.
-<br>
-<br>Benefits:
-<br>- Sequential writes (good for SSD)
-<br>- Fast crash recovery (only check the tail)
-<br>- Snapshots easy
-<br>
-<br>Used in: NILFS2, F2FS, and (partially) in ZFS.
-<br>
-<br>## Copy-on-Write (CoW) Filesystems
-<br>
-<br>Modify by writing new copies, never overwrite existing blocks.
-<br>
-<br>Benefits:
-<br>- Atomic updates (write new tree, swap root pointer)
-<br>- Easy snapshots
-<br>- Data integrity (checksums)
-<br>
-<br>Used in: ZFS, btrfs.
-<br>
-<br>## SSD-Specific Optimizations
-<br>
-<br>SSDs have unique characteristics:
-<br>- No seek time (random = sequential)
-<br>- Limited write cycles per cell
-<br>- Must erase blocks before writing
-<br>- <strong>Wear leveling:</strong> spread writes evenly
-<br>
-<br>Filesystems for SSD: <strong>F2FS</strong> (Flash-Friendly File System), designed by Samsung.
-<br>
-<br>TRIM: OS tells SSD which blocks are free. Improves performance and longevity.
-<br>
-<br>## The Read/Write Path
-<br>
-<br>When you call read(fd, buf, n):
-<br>
-<br>1. Look up fd in process's file table → file struct
-<br>2. Get offset from file struct
-<br>3. Look up inode in inode cache
-<br>4. Translate offset to block numbers
-<br>5. Check page cache for those blocks
-<br>6. If hit: copy from page cache to buf
-<br>7. If miss: read from disk into page cache, then copy
-<br>
-<br>The page cache is critical for performance. Most reads hit it.
-<br>
-<br>Writes go to the page cache first ("write-back" caching). Synced to disk later.
-<br>
-<br>## fsync() and Durability
-<br>
-<br>By default, writes are not immediately durable. To force:
-<br>
-<br>    fsync(fd);  // flush file data to disk
-<br>    fdatasync(fd);  // flush data, skip metadata if safe
-<br>
-<br>Essential for databases, editors.
-<br>
-<br>## fsck — File System Check
-<br>
-<br>After a crash, run fsck to verify consistency:
-<br>- inode link counts
-<br>- Block allocation bitmaps
-<br>- Directory structure
-<br>- Free inode counts
-<br>
-<br>Journaling filesystems avoid long fsck — replay is faster.
-<br>
-<br>## Modern Filesystems
-<br>
-<br>- <strong>ext4:</strong> Linux default. Stable, mature.
-<br>- <strong>XFS:</strong> Linux, high-performance parallel.
-<br>- <strong>btrfs:</strong> Linux, CoW, snapshots, checksums.
-<br>- <strong>ZFS:</strong> Solaris, FreeBSD, Linux. Powerful, complex.
-<br>- <strong>APFS:</strong> macOS. Snapshots, encryption.
-<br>- <strong>NTFS:</strong> Windows. Journaling, ACLs.
-<br>
-<br>## Distributed Filesystems
-<br>
-<br>- <strong>NFS:</strong> network file system, POSIX-like
-<br>- <strong>SMB/CIFS:</strong> Windows file sharing
-<br>- <strong>HDFS:</strong> Hadoop distributed file system
-<br>- <strong>Ceph:</strong> scalable distributed storage
-<br>- <strong>S3:</strong> object storage (not a filesystem)
-<br>
-<br>## Key Takeaways
-<br>
-<br>- File systems abstract block devices
-<br>- inodes + dentries + file descriptors
-<br>- Block allocation: indexed, extent-based
-<br>- Journaling for crash consistency
-<br>- Log-structured and CoW for special cases
-<br>- SSD-optimized: F2FS, TRIM, wear leveling
-<br>- Page cache is critical for performance
-<br>- fsync for durability
-<br>- Many filesystems for different needs
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is a File System?</h3>
+<p>A file system organizes data on persistent storage (disk, SSD). It provides:</p>
+<ul><li>Named files</li><li>Hierarchical directories</li><li>Byte-addressable files</li><li>Metadata (permissions, timestamps)</li><li>Atomic operations (rename)</li></ul>
+<p>The filesystem is an abstraction over block devices.</p>
+<h3>Block Devices</h3>
+<p>Disks expose a linear array of fixed-size blocks (typically 512 B or 4 KB).</p>
+<p>Operations:</p>
+<ul><li>Read a block</li><li>Write a block</li></ul>
+<p>The filesystem maps file operations to block operations.</p>
+<h3>The File Abstraction</h3>
+<p>A file is a sequence of bytes with a name. The kernel maintains:</p>
+<ul><li><strong>inode:</strong> metadata (size, permissions, timestamps, block pointers)</li><li><strong>dentry:</strong> directory entry (name → inode)</li><li><strong>file descriptor:</strong> per-process open file handle (offset, mode)</li></ul>
+<h3>Directory Structure</h3>
+<p>A directory is a special file that maps names to inodes.</p>
+<p>/home/alice/Documents/report.pdf</p>
+<p>Lookup: start at root inode, find "home", then "alice", then "Documents", then "report.pdf".</p>
+<p>Each lookup is a filesystem operation. Path walk can be slow. Caches (dentry cache) help.</p>
+<h3>inodes</h3>
+<p>The inode stores:</p>
+<ul><li>File type (regular, directory, symlink, device)</li><li>Size in bytes</li><li>Owner, group, permissions</li><li>Timestamps (atime, mtime, ctime)</li><li>Link count</li><li>Pointers to data blocks</li></ul>
+<p>In ext4: 12 direct pointers + 1 single indirect + 1 double indirect + 1 triple indirect.</p>
+<p>Small files (≤12 blocks) fit entirely in direct pointers. Large files use indirect blocks.</p>
+<h3>Block Allocation</h3>
+<p><strong>Contiguous:</strong> simple, fast, but fragmentation. Rare in practice.</p>
+<p><strong>Linked:</strong> each block points to next. Simple but slow random access.</p>
+<p><strong>Indexed:</strong> inode points to blocks. Common (ext, XFS).</p>
+<p><strong>Extent-based:</strong> inode stores extents (start block + length). Reduces metadata for large files. Used in ext4, XFS, btrfs.</p>
+<h3>Free Space Management</h3>
+<p>Track which blocks are free:</p>
+<ul><li><strong>Bitmap:</strong> one bit per block. Simple, fast.</li><li><strong>Free list:</strong> linked list of free blocks.</li></ul>
+<p>Bitmaps are common in modern filesystems.</p>
+<h3>Journaling</h3>
+<p>A crash during a write can leave the filesystem inconsistent. Journaling prevents this.</p>
+<p>Write the intended change to a <strong>journal</strong> (log) first, then apply to the actual location.</p>
+<p>On crash, replay the journal — the change is either fully done or not at all.</p>
+<p>Modes:</p>
+<ul><li><strong>writeback:</strong> journal only metadata</li><li><strong>ordered:</strong> metadata journaled, data written before metadata</li><li><strong>journal:</strong> everything journaled (slowest, safest)</li></ul>
+<p>ext4, XFS, NTFS use journaling.</p>
+<h3>Log-Structured File Systems</h3>
+<p>Alternative: never overwrite. Always write to fresh locations. Old versions become garbage, collected later.</p>
+<p>Benefits:</p>
+<ul><li>Sequential writes (good for SSD)</li><li>Fast crash recovery (only check the tail)</li><li>Snapshots easy</li></ul>
+<p>Used in: NILFS2, F2FS, and (partially) in ZFS.</p>
+<h3>Copy-on-Write (CoW) Filesystems</h3>
+<p>Modify by writing new copies, never overwrite existing blocks.</p>
+<p>Benefits:</p>
+<ul><li>Atomic updates (write new tree, swap root pointer)</li><li>Easy snapshots</li><li>Data integrity (checksums)</li></ul>
+<p>Used in: ZFS, btrfs.</p>
+<h3>SSD-Specific Optimizations</h3>
+<p>SSDs have unique characteristics:</p>
+<ul><li>No seek time (random = sequential)</li><li>Limited write cycles per cell</li><li>Must erase blocks before writing</li><li><strong>Wear leveling:</strong> spread writes evenly</li></ul>
+<p>Filesystems for SSD: <strong>F2FS</strong> (Flash-Friendly File System), designed by Samsung.</p>
+<p>TRIM: OS tells SSD which blocks are free. Improves performance and longevity.</p>
+<h3>The Read/Write Path</h3>
+<p>When you call read(fd, buf, n):</p>
+<ol><li>Look up fd in process's file table → file struct</li><li>Get offset from file struct</li><li>Look up inode in inode cache</li><li>Translate offset to block numbers</li><li>Check page cache for those blocks</li><li>If hit: copy from page cache to buf</li><li>If miss: read from disk into page cache, then copy</li></ol>
+<p>The page cache is critical for performance. Most reads hit it.</p>
+<p>Writes go to the page cache first ("write-back" caching). Synced to disk later.</p>
+<h3>fsync() and Durability</h3>
+<p>By default, writes are not immediately durable. To force:</p>
+<p>fsync(fd);  // flush file data to disk<br>    fdatasync(fd);  // flush data, skip metadata if safe</p>
+<p>Essential for databases, editors.</p>
+<h3>fsck — File System Check</h3>
+<p>After a crash, run fsck to verify consistency:</p>
+<ul><li>inode link counts</li><li>Block allocation bitmaps</li><li>Directory structure</li><li>Free inode counts</li></ul>
+<p>Journaling filesystems avoid long fsck — replay is faster.</p>
+<h3>Modern Filesystems</h3>
+<ul><li><strong>ext4:</strong> Linux default. Stable, mature.</li><li><strong>XFS:</strong> Linux, high-performance parallel.</li><li><strong>btrfs:</strong> Linux, CoW, snapshots, checksums.</li><li><strong>ZFS:</strong> Solaris, FreeBSD, Linux. Powerful, complex.</li><li><strong>APFS:</strong> macOS. Snapshots, encryption.</li><li><strong>NTFS:</strong> Windows. Journaling, ACLs.</li></ul>
+<h3>Distributed Filesystems</h3>
+<ul><li><strong>NFS:</strong> network file system, POSIX-like</li><li><strong>SMB/CIFS:</strong> Windows file sharing</li><li><strong>HDFS:</strong> Hadoop distributed file system</li><li><strong>Ceph:</strong> scalable distributed storage</li><li><strong>S3:</strong> object storage (not a filesystem)</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>File systems abstract block devices</li><li>inodes + dentries + file descriptors</li><li>Block allocation: indexed, extent-based</li><li>Journaling for crash consistency</li><li>Log-structured and CoW for special cases</li><li>SSD-optimized: F2FS, TRIM, wear leveling</li><li>Page cache is critical for performance</li><li>fsync for durability</li><li>Many filesystems for different needs</li></ul></div>
       </div>
     </div>
   </div>

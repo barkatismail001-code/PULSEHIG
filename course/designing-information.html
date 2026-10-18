@@ -108,124 +108,58 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Linear Systems and Circuit Basics</h4>
-          <p>
-## Why Linear Systems?
-
-Linear systems are the foundation of all engineering analysis. If a system is linear, superposition applies: the response to a sum of inputs is the sum of the individual responses.
-
-Most rea...</p>
+          <p>Why Linear Systems? Linear systems are the foundation of all engineering analysis. If a system is linear, superposition applies: the response to a sum of inputs is the sum of the individual...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Why Linear Systems?
-<br>
-<br>Linear systems are the foundation of all engineering analysis. If a system is linear, superposition applies: the response to a sum of inputs is the sum of the individual responses.
-<br>
-<br>Most real systems are approximately linear over some range. Even nonlinear systems are often analyzed by linearizing around an operating point.
-<br>
-<br>## Linearity Definition
-<br>
-<br>A system S is linear if for all inputs x₁, x₂ and scalars a, b:
-<br>
-<br>    S(a x₁ + b x₂) = a S(x₁) + b S(x₂)
-<br>
-<br>This is the <strong>superposition principle</strong>.
-<br>
-<br>Linearity implies:
-<br>- Homogeneity: S(ax) = a S(x)
-<br>- Additivity: S(x₁ + x₂) = S(x₁) + S(x₂)
-<br>- Zero input → zero output (for linear systems with no offset)
-<br>
-<br>## Circuit Elements as Linear Systems
-<br>
-<br><strong>Resistor:</strong> V = I × R. Linear.
-<br>
-<br><strong>Capacitor:</strong> I = C × dV/dt. Linear (differential operator).
-<br>
-<br><strong>Inductor:</strong> V = L × dI/dt. Linear.
-<br>
-<br><strong>Op-amp (ideal):</strong> Vout = A × (V+ - V-). Linear.
-<br>
-<br><strong>Diode:</strong> I = Is × (e^(V/Vt) - 1). Nonlinear.
-<br>
-<br>## Nodal Analysis
-<br>
-<br>The standard method for solving circuits:
-<br>
-<br>1. Choose a reference node (ground)
-<br>2. Assign node voltages to all other nodes
-<br>3. Write KCL at each node: sum of currents leaving = 0
-<br>4. Solve the system of equations
-<br>
-<br>For n-1 unknown nodes, we get n-1 equations. Express in matrix form: G × v = i.
-<br>
-<br>## Example: Two-Node Circuit
-<br>
-<br>    Vin ──R1──┬──R2── GND
-<br>              │
-<br>              R3
-<br>              │
-<br>             GND
-<br>
-<br>KCL at node 1:
-<br>
-<br>    (V1 - Vin)/R1 + V1/R2 + V1/R3 = 0
-<br>
-<br>    V1 × (1/R1 + 1/R2 + 1/R3) = Vin/R1
-<br>
-<br>    V1 = Vin/R1 / (1/R1 + 1/R2 + 1/R3)
-<br>
-<br>The circuit is a voltage divider (R2 || R3 in series with R1).
-<br>
-<br>## Matrix Form
-<br>
-<br>For larger circuits, the conductance matrix G is symmetric, which allows efficient solution.
-<br>
-<br>    G = [g11 g12 ...; g21 g22 ...; ...]
-<br>
-<br>where gii = sum of conductances at node i, and gij = -conductance between i and j (i ≠ j).
-<br>
-<br>Modern circuit simulators (SPICE) solve circuits this way.
-<br>
-<br>## Thevenin and Norton Equivalents
-<br>
-<br>Any linear two-terminal network can be replaced by:
-<br>
-<br><strong>Thevenin:</strong> a voltage source V_th in series with a resistor R_th.
-<br>
-<br><strong>Norton:</strong> a current source I_n in parallel with a resistor R_n.
-<br>
-<br>Conversion: V_th = I_n × R_n, R_th = R_n.
-<br>
-<br>Finding Thevenin:
-<br>1. Compute open-circuit voltage V_oc = V_th
-<br>2. Zero out sources (short V sources, open I sources)
-<br>3. Compute resistance between terminals = R_th
-<br>
-<br>This is fundamental to circuit design.
-<br>
-<br>## Superposition Example
-<br>
-<br>Given a circuit with two sources, compute the response by:
-<br>1. Turn off source 1, compute response to source 2
-<br>2. Turn off source 2, compute response to source 1
-<br>3. Add the two responses
-<br>
-<br>This is often easier than solving the full system at once.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Linearity = superposition principle
-<br>- Nodal analysis is the standard method
-<br>- G × v = i matrix form for larger circuits
-<br>- Thevenin and Norton equivalents simplify analysis
-<br>- Linear approximations work for small signals
-<br>- Superposition applies only to linear systems
-<br></p></div>
+        <div class="lecture-full-content"><h3>Why Linear Systems?</h3>
+<p>Linear systems are the foundation of all engineering analysis. If a system is linear, superposition applies: the response to a sum of inputs is the sum of the individual responses.</p>
+<p>Most real systems are approximately linear over some range. Even nonlinear systems are often analyzed by linearizing around an operating point.</p>
+<h3>Linearity Definition</h3>
+<p>A system S is linear if for all inputs x₁, x₂ and scalars a, b:</p>
+<p>S(a x₁ + b x₂) = a S(x₁) + b S(x₂)</p>
+<p>This is the <strong>superposition principle</strong>.</p>
+<p>Linearity implies:</p>
+<ul><li>Homogeneity: S(ax) = a S(x)</li><li>Additivity: S(x₁ + x₂) = S(x₁) + S(x₂)</li><li>Zero input → zero output (for linear systems with no offset)</li></ul>
+<h3>Circuit Elements as Linear Systems</h3>
+<p><strong>Resistor:</strong> V = I × R. Linear.</p>
+<p><strong>Capacitor:</strong> I = C × dV/dt. Linear (differential operator).</p>
+<p><strong>Inductor:</strong> V = L × dI/dt. Linear.</p>
+<p><strong>Op-amp (ideal):</strong> Vout = A × (V+ - V-). Linear.</p>
+<p><strong>Diode:</strong> I = Is × (e^(V/Vt) - 1). Nonlinear.</p>
+<h3>Nodal Analysis</h3>
+<p>The standard method for solving circuits:</p>
+<ol><li>Choose a reference node (ground)</li><li>Assign node voltages to all other nodes</li><li>Write KCL at each node: sum of currents leaving = 0</li><li>Solve the system of equations</li></ol>
+<p>For n-1 unknown nodes, we get n-1 equations. Express in matrix form: G × v = i.</p>
+<h3>Example: Two-Node Circuit</h3>
+<p>Vin ──R1──┬──R2── GND<br>              │<br>              R3<br>              │<br>             GND</p>
+<p>KCL at node 1:</p>
+<p>(V1 - Vin)/R1 + V1/R2 + V1/R3 = 0</p>
+<p>V1 × (1/R1 + 1/R2 + 1/R3) = Vin/R1</p>
+<p>V1 = Vin/R1 / (1/R1 + 1/R2 + 1/R3)</p>
+<p>The circuit is a voltage divider (R2 || R3 in series with R1).</p>
+<h3>Matrix Form</h3>
+<p>For larger circuits, the conductance matrix G is symmetric, which allows efficient solution.</p>
+<p>G = [g11 g12 ...; g21 g22 ...; ...]</p>
+<p>where gii = sum of conductances at node i, and gij = -conductance between i and j (i ≠ j).</p>
+<p>Modern circuit simulators (SPICE) solve circuits this way.</p>
+<h3>Thevenin and Norton Equivalents</h3>
+<p>Any linear two-terminal network can be replaced by:</p>
+<p><strong>Thevenin:</strong> a voltage source V_th in series with a resistor R_th.</p>
+<p><strong>Norton:</strong> a current source I_n in parallel with a resistor R_n.</p>
+<p>Conversion: V_th = I_n × R_n, R_th = R_n.</p>
+<p>Finding Thevenin:</p>
+<ol><li>Compute open-circuit voltage V_oc = V_th</li><li>Zero out sources (short V sources, open I sources)</li><li>Compute resistance between terminals = R_th</li></ol>
+<p>This is fundamental to circuit design.</p>
+<h3>Superposition Example</h3>
+<p>Given a circuit with two sources, compute the response by:</p>
+<ol><li>Turn off source 1, compute response to source 2</li><li>Turn off source 2, compute response to source 1</li><li>Add the two responses</li></ol>
+<p>This is often easier than solving the full system at once.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Linearity = superposition principle</li><li>Nodal analysis is the standard method</li><li>G × v = i matrix form for larger circuits</li><li>Thevenin and Norton equivalents simplify analysis</li><li>Linear approximations work for small signals</li><li>Superposition applies only to linear systems</li></ul></div>
       </div>
     </div>
   
@@ -234,148 +168,62 @@ Most rea...</p>
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>Matrix Methods for Circuits</h4>
-          <p>
-## Why Matrices?
-
-Real circuits have many nodes and meshes. Hand-solving becomes impractical. Matrix methods let computers solve circuits with thousands of nodes efficiently.
-
-## Node vs Mesh Analysis
-
-**Node ana...</p>
+          <p>Why Matrices? Real circuits have many nodes and meshes. Hand-solving becomes impractical. Matrix methods let computers solve circuits with thousands of nodes efficiently. Node vs Mesh Analysis Node...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Why Matrices?
-<br>
-<br>Real circuits have many nodes and meshes. Hand-solving becomes impractical. Matrix methods let computers solve circuits with thousands of nodes efficiently.
-<br>
-<br>## Node vs Mesh Analysis
-<br>
-<br><strong>Node analysis:</strong> variables are node voltages. KCL at each node.
-<br>
-<br><strong>Mesh analysis:</strong> variables are loop currents. KVL around each mesh.
-<br>
-<br>Node analysis is more general (works with any circuit including non-planar). Mesh analysis is simpler for planar circuits.
-<br>
-<br>For a circuit with n nodes (excluding ground) and m meshes:
-<br>- Node: n equations
-<br>- Mesh: m equations
-<br>
-<br>## The Node Conductance Matrix
-<br>
-<br>For a circuit with n nodes, the conductance matrix G is n × n:
-<br>
-<br>    G = [G11 G12 ... G1n;
-<br>         G21 G22 ... G2n;
-<br>         ...              ;
-<br>         Gn1 Gn2 ... Gnn]
-<br>
-<br>Diagonal Gii = sum of conductances connected to node i.
-<br>
-<br>Off-diagonal Gij = -conductance between nodes i and j.
-<br>
-<br>G is symmetric: Gij = Gji.
-<br>
-<br>The system:
-<br>
-<br>    G × v = i
-<br>
-<br>where v is the vector of node voltages and i is the vector of current sources.
-<br>
-<br>## Example: 3-Node Circuit
-<br>
-<br>Nodes: 1, 2, 3. Ground is 0.
-<br>
-<br>    R12 between nodes 1 and 2
-<br>    R13 between 1 and 3
-<br>    R23 between 2 and 3
-<br>    Current source I1 into node 1
-<br>    Current source I3 into node 3
-<br>
-<br>G matrix:
-<br>
-<br>    G11 = 1/R12 + 1/R13
-<br>    G12 = -1/R12
-<br>    G13 = -1/R13
-<br>    G21 = -1/R12
-<br>    G22 = 1/R12 + 1/R23
-<br>    G23 = -1/R23
-<br>    G31 = -1/R13
-<br>    G32 = -1/R23
-<br>    G33 = 1/R13 + 1/R23
-<br>
-<br>Current vector:
-<br>
-<br>    i1 = I1
-<br>    i2 = 0
-<br>    i3 = I3
-<br>
-<br>Solve G × v = i for v. Then currents are computed from Ohm's law.
-<br>
-<br>## Gaussian Elimination
-<br>
-<br>The standard algorithm for solving G × v = i:
-<br>
-<br>1. Forward elimination: eliminate variables to get upper triangular form
-<br>2. Back substitution: solve from last equation upward
-<br>
-<br>Time: O(n³) for dense systems. Much faster for sparse (most circuit matrices are sparse).
-<br>
-<br>## LU Decomposition
-<br>
-<br>Factor G = L × U where L is lower triangular and U is upper triangular.
-<br>
-<br>Then solve L × y = i (easy forward substitution), then U × v = y (easy back substitution).
-<br>
-<br>The factorization is done once and reused if only i changes. Useful when the circuit topology is fixed but sources vary.
-<br>
-<br>## Sparse Matrix Methods
-<br>
-<br>Real circuits have very sparse G (most entries are zero). Sparse solvers store only the nonzero entries:
-<br>
-<br>- Compressed sparse row (CSR)
-<br>- Compressed sparse column (CSC)
-<br>
-<br>They use graph-based reordering (e.g., Markowitz, minimum degree, nested dissection) to reduce fill-in during elimination.
-<br>
-<br>SPICE uses these techniques to handle millions of nodes.
-<br>
-<br>## Iterative Methods
-<br>
-<br>For very large systems, direct methods are too slow. Iterative methods (Jacobi, Gauss-Seidel, conjugate gradient) converge to the solution gradually.
-<br>
-<br>Used in:
-<br>- Power grid simulation (millions of nodes)
-<br>- Thermal simulation
-<br>- 3D circuit extraction
-<br>
-<br>Conjugate gradient is the workhorse for symmetric positive definite systems.
-<br>
-<br>## Applications Beyond Circuits
-<br>
-<br>The same matrix methods apply to:
-<br>- Structural analysis (FEA)
-<br>- Fluid dynamics (CFD)
-<br>- Heat transfer
-<br>- Electromagnetics
-<br>- Any physical system described by linear PDEs
-<br>
-<br>Learn matrix methods for circuits, and you can apply them anywhere.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- G × v = i is the master equation for circuits
-<br>- Node conductance matrix is symmetric
-<br>- Gaussian elimination is O(n³) for dense
-<br>- LU decomposition reuses factorization
-<br>- Sparse methods essential for large circuits
-<br>- Iterative methods for very large systems
-<br>- Same methods apply across engineering
-<br></p></div>
+        <div class="lecture-full-content"><h3>Why Matrices?</h3>
+<p>Real circuits have many nodes and meshes. Hand-solving becomes impractical. Matrix methods let computers solve circuits with thousands of nodes efficiently.</p>
+<h3>Node vs Mesh Analysis</h3>
+<p><strong>Node analysis:</strong> variables are node voltages. KCL at each node.</p>
+<p><strong>Mesh analysis:</strong> variables are loop currents. KVL around each mesh.</p>
+<p>Node analysis is more general (works with any circuit including non-planar). Mesh analysis is simpler for planar circuits.</p>
+<p>For a circuit with n nodes (excluding ground) and m meshes:</p>
+<ul><li>Node: n equations</li><li>Mesh: m equations</li></ul>
+<h3>The Node Conductance Matrix</h3>
+<p>For a circuit with n nodes, the conductance matrix G is n × n:</p>
+<p>G = [G11 G12 ... G1n;<br>         G21 G22 ... G2n;<br>         ...              ;<br>         Gn1 Gn2 ... Gnn]</p>
+<p>Diagonal Gii = sum of conductances connected to node i.</p>
+<p>Off-diagonal Gij = -conductance between nodes i and j.</p>
+<p>G is symmetric: Gij = Gji.</p>
+<p>The system:</p>
+<p>G × v = i</p>
+<p>where v is the vector of node voltages and i is the vector of current sources.</p>
+<h3>Example: 3-Node Circuit</h3>
+<p>Nodes: 1, 2, 3. Ground is 0.</p>
+<p>R12 between nodes 1 and 2<br>    R13 between 1 and 3<br>    R23 between 2 and 3<br>    Current source I1 into node 1<br>    Current source I3 into node 3</p>
+<p>G matrix:</p>
+<p>G11 = 1/R12 + 1/R13<br>    G12 = -1/R12<br>    G13 = -1/R13<br>    G21 = -1/R12<br>    G22 = 1/R12 + 1/R23<br>    G23 = -1/R23<br>    G31 = -1/R13<br>    G32 = -1/R23<br>    G33 = 1/R13 + 1/R23</p>
+<p>Current vector:</p>
+<p>i1 = I1<br>    i2 = 0<br>    i3 = I3</p>
+<p>Solve G × v = i for v. Then currents are computed from Ohm's law.</p>
+<h3>Gaussian Elimination</h3>
+<p>The standard algorithm for solving G × v = i:</p>
+<ol><li>Forward elimination: eliminate variables to get upper triangular form</li><li>Back substitution: solve from last equation upward</li></ol>
+<p>Time: O(n³) for dense systems. Much faster for sparse (most circuit matrices are sparse).</p>
+<h3>LU Decomposition</h3>
+<p>Factor G = L × U where L is lower triangular and U is upper triangular.</p>
+<p>Then solve L × y = i (easy forward substitution), then U × v = y (easy back substitution).</p>
+<p>The factorization is done once and reused if only i changes. Useful when the circuit topology is fixed but sources vary.</p>
+<h3>Sparse Matrix Methods</h3>
+<p>Real circuits have very sparse G (most entries are zero). Sparse solvers store only the nonzero entries:</p>
+<ul><li>Compressed sparse row (CSR)</li><li>Compressed sparse column (CSC)</li></ul>
+<p>They use graph-based reordering (e.g., Markowitz, minimum degree, nested dissection) to reduce fill-in during elimination.</p>
+<p>SPICE uses these techniques to handle millions of nodes.</p>
+<h3>Iterative Methods</h3>
+<p>For very large systems, direct methods are too slow. Iterative methods (Jacobi, Gauss-Seidel, conjugate gradient) converge to the solution gradually.</p>
+<p>Used in:</p>
+<ul><li>Power grid simulation (millions of nodes)</li><li>Thermal simulation</li><li>3D circuit extraction</li></ul>
+<p>Conjugate gradient is the workhorse for symmetric positive definite systems.</p>
+<h3>Applications Beyond Circuits</h3>
+<p>The same matrix methods apply to:</p>
+<ul><li>Structural analysis (FEA)</li><li>Fluid dynamics (CFD)</li><li>Heat transfer</li><li>Electromagnetics</li><li>Any physical system described by linear PDEs</li></ul>
+<p>Learn matrix methods for circuits, and you can apply them anywhere.</p>
+<h3>Key Takeaways</h3>
+<ul><li>G × v = i is the master equation for circuits</li><li>Node conductance matrix is symmetric</li><li>Gaussian elimination is O(n³) for dense</li><li>LU decomposition reuses factorization</li><li>Sparse methods essential for large circuits</li><li>Iterative methods for very large systems</li><li>Same methods apply across engineering</li></ul></div>
       </div>
     </div>
   
@@ -384,152 +232,66 @@ Real circuits have many nodes and meshes. Hand-solving becomes impractical. Matr
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>Capacitors, Inductors, and Transients</h4>
-          <p>
-## Energy Storage Elements
-
-Unlike resistors (which dissipate energy), capacitors and inductors store energy:
-
-**Capacitor:** stores energy in electric field.
-
-    I = C × dV/dt
-    E = ½ × C × V²
-
-**Inductor:...</p>
+          <p>Energy Storage Elements Unlike resistors (which dissipate energy), capacitors and inductors store energy: Capacitor: stores energy in electric field. I = C × dV/dt E = ½ × C × V² Inductor:...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Energy Storage Elements
-<br>
-<br>Unlike resistors (which dissipate energy), capacitors and inductors store energy:
-<br>
-<br><strong>Capacitor:</strong> stores energy in electric field.
-<br>
-<br>    I = C × dV/dt
-<br>    E = ½ × C × V²
-<br>
-<br><strong>Inductor:</strong> stores energy in magnetic field.
-<br>
-<br>    V = L × dI/dt
-<br>    E = ½ × L × I²
-<br>
-<br>## RC Circuit — Charging
-<br>
-<br>Given a resistor and capacitor in series with a DC voltage source:
-<br>
-<br>    Vin ──R──┬── Vcap
-<br>             │
-<br>             C
-<br>             │
-<br>            GND
-<br>
-<br>The differential equation:
-<br>
-<br>    Vin = I × R + Vcap = RC × dVcap/dt + Vcap
-<br>
-<br>Solution (charging from 0):
-<br>
-<br>    Vcap(t) = Vin × (1 - e^(-t/τ))
-<br>
-<br>where τ = RC is the <strong>time constant</strong>.
-<br>
-<br>After 1τ: 63% of final value.
-<br>After 5τ: 99.3% of final value (considered fully charged).
-<br>
-<br>## RC Circuit — Discharging
-<br>
-<br>Starting from Vcap(0) = Vin, with the source removed:
-<br>
-<br>    Vcap(t) = Vin × e^(-t/τ)
-<br>
-<br>The capacitor discharges to 37% after 1τ.
-<br>
-<br>## RL Circuit
-<br>
-<br>Same math with inductor:
-<br>
-<br>    I(t) = (Vin/R) × (1 - e^(-t/τ))
-<br>
-<br>where τ = L/R.
-<br>
-<br>## Step Response
-<br>
-<br>The general form for a first-order system:
-<br>
-<br>    y(t) = y_final + (y_initial - y_final) × e^(-t/τ)
-<br>
-<br>This applies to RC, RL, and any first-order linear system.
-<br>
-<br>## Second-Order Systems — RLC
-<br>
-<br>Add an inductor to an RC circuit:
-<br>
-<br>    Vin ──R──L──┬── Vcap
-<br>                │
-<br>                C
-<br>                │
-<br>               GND
-<br>
-<br>The equation:
-<br>
-<br>    LC × d²Vcap/dt² + RC × dVcap/dt + Vcap = Vin
-<br>
-<br>Standard form:
-<br>
-<br>    d²V/dτ² + 2ζ × dV/dτ + V = Vin
-<br>
-<br>where ζ (zeta) is the <strong>damping ratio</strong>, and ω_n = 1/√(LC).
-<br>
-<br>Three regimes:
-<br>- ζ &gt; 1: overdamped (two real poles, slow response)
-<br>- ζ = 1: critically damped (fastest without overshoot)
-<br>- ζ &lt; 1: underdamped (oscillates, decays)
-<br>
-<br>## Damping Ratio
-<br>
-<br>    ζ = (R/2) × √(C/L)
-<br>
-<br>For ζ &lt; 1, the natural frequency of oscillation:
-<br>
-<br>    ω_d = ω_n × √(1 - ζ²)
-<br>
-<br>The period of oscillation:
-<br>
-<br>    T = 2π / ω_d
-<br>
-<br>## Applications
-<br>
-<br><strong>RC low-pass filter:</strong> smooths out high-frequency noise.
-<br>
-<br><strong>RLC resonant circuit:</strong> tuned circuits in radios (selective frequency).
-<br>
-<br><strong>Snubber circuits:</strong> RC across switches to absorb voltage spikes.
-<br>
-<br><strong>Timing circuits:</strong> 555 timer uses RC to generate delays.
-<br>
-<br><strong>Speaker crossover:</strong> LC filters separate high and low frequencies to different drivers.
-<br>
-<br>## Key Insights
-<br>
-<br>- Capacitors resist voltage changes
-<br>- Inductors resist current changes
-<br>- Time constant τ = RC or L/R
-<br>- After 5τ, transient is essentially over
-<br>- Second-order response depends on ζ
-<br>- RLC oscillations decay at rate determined by R
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Capacitors and inductors store energy
-<br>- RC/RL time constant τ
-<br>- First-order step response: exponential approach
-<br>- Second-order RLC: depends on damping ratio ζ
-<br>- Underdamped → oscillations, critically damped → fastest without overshoot
-<br>- Applications everywhere in electronics
-<br></p></div>
+        <div class="lecture-full-content"><h3>Energy Storage Elements</h3>
+<p>Unlike resistors (which dissipate energy), capacitors and inductors store energy:</p>
+<p><strong>Capacitor:</strong> stores energy in electric field.</p>
+<p>I = C × dV/dt<br>    E = ½ × C × V²</p>
+<p><strong>Inductor:</strong> stores energy in magnetic field.</p>
+<p>V = L × dI/dt<br>    E = ½ × L × I²</p>
+<h3>RC Circuit — Charging</h3>
+<p>Given a resistor and capacitor in series with a DC voltage source:</p>
+<p>Vin ──R──┬── Vcap<br>             │<br>             C<br>             │<br>            GND</p>
+<p>The differential equation:</p>
+<p>Vin = I × R + Vcap = RC × dVcap/dt + Vcap</p>
+<p>Solution (charging from 0):</p>
+<p>Vcap(t) = Vin × (1 - e^(-t/τ))</p>
+<p>where τ = RC is the <strong>time constant</strong>.</p>
+<p>After 1τ: 63% of final value.<br>After 5τ: 99.3% of final value (considered fully charged).</p>
+<h3>RC Circuit — Discharging</h3>
+<p>Starting from Vcap(0) = Vin, with the source removed:</p>
+<p>Vcap(t) = Vin × e^(-t/τ)</p>
+<p>The capacitor discharges to 37% after 1τ.</p>
+<h3>RL Circuit</h3>
+<p>Same math with inductor:</p>
+<p>I(t) = (Vin/R) × (1 - e^(-t/τ))</p>
+<p>where τ = L/R.</p>
+<h3>Step Response</h3>
+<p>The general form for a first-order system:</p>
+<p>y(t) = y_final + (y_initial - y_final) × e^(-t/τ)</p>
+<p>This applies to RC, RL, and any first-order linear system.</p>
+<h3>Second-Order Systems — RLC</h3>
+<p>Add an inductor to an RC circuit:</p>
+<p>Vin ──R──L──┬── Vcap<br>                │<br>                C<br>                │<br>               GND</p>
+<p>The equation:</p>
+<p>LC × d²Vcap/dt² + RC × dVcap/dt + Vcap = Vin</p>
+<p>Standard form:</p>
+<p>d²V/dτ² + 2ζ × dV/dτ + V = Vin</p>
+<p>where ζ (zeta) is the <strong>damping ratio</strong>, and ω_n = 1/√(LC).</p>
+<p>Three regimes:</p>
+<ul><li>ζ &gt; 1: overdamped (two real poles, slow response)</li><li>ζ = 1: critically damped (fastest without overshoot)</li><li>ζ &lt; 1: underdamped (oscillates, decays)</li></ul>
+<h3>Damping Ratio</h3>
+<p>ζ = (R/2) × √(C/L)</p>
+<p>For ζ &lt; 1, the natural frequency of oscillation:</p>
+<p>ω_d = ω_n × √(1 - ζ²)</p>
+<p>The period of oscillation:</p>
+<p>T = 2π / ω_d</p>
+<h3>Applications</h3>
+<p><strong>RC low-pass filter:</strong> smooths out high-frequency noise.</p>
+<p><strong>RLC resonant circuit:</strong> tuned circuits in radios (selective frequency).</p>
+<p><strong>Snubber circuits:</strong> RC across switches to absorb voltage spikes.</p>
+<p><strong>Timing circuits:</strong> 555 timer uses RC to generate delays.</p>
+<p><strong>Speaker crossover:</strong> LC filters separate high and low frequencies to different drivers.</p>
+<h3>Key Insights</h3>
+<ul><li>Capacitors resist voltage changes</li><li>Inductors resist current changes</li><li>Time constant τ = RC or L/R</li><li>After 5τ, transient is essentially over</li><li>Second-order response depends on ζ</li><li>RLC oscillations decay at rate determined by R</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>Capacitors and inductors store energy</li><li>RC/RL time constant τ</li><li>First-order step response: exponential approach</li><li>Second-order RLC: depends on damping ratio ζ</li><li>Underdamped → oscillations, critically damped → fastest without overshoot</li><li>Applications everywhere in electronics</li></ul></div>
       </div>
     </div>
   
@@ -538,148 +300,68 @@ Unlike resistors (which dissipate energy), capacitors and inductors store energy
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>Fourier Analysis and Frequency Response</h4>
-          <p>
-## Why Fourier?
-
-Any periodic signal can be decomposed into a sum of sinusoids at harmonic frequencies. This lets us:
-- Analyze any input as a sum of sine waves
-- Apply linear system theory to each sine wave
-- Rec...</p>
+          <p>Why Fourier? Any periodic signal can be decomposed into a sum of sinusoids at harmonic frequencies. This lets us: Analyze any input as a sum of sine waves Apply linear system theory to each sine wave...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Why Fourier?
-<br>
-<br>Any periodic signal can be decomposed into a sum of sinusoids at harmonic frequencies. This lets us:
-<br>- Analyze any input as a sum of sine waves
-<br>- Apply linear system theory to each sine wave
-<br>- Reconstruct the output by summing
-<br>
-<br>The Fourier transform is the most powerful tool in signal processing.
-<br>
-<br>## Fourier Series
-<br>
-<br>For a periodic signal with period T:
-<br>
-<br>    f(t) = a₀/2 + Σ [a_n × cos(2πnt/T) + b_n × sin(2πnt/T)]
-<br>
-<br>Coefficients:
-<br>
-<br>    a_n = (2/T) × ∫ f(t) cos(2πnt/T) dt
-<br>    b_n = (2/T) × ∫ f(t) sin(2πnt/T) dt
-<br>
-<br>The signal is decomposed into harmonics at 1/T, 2/T, 3/T, ...
-<br>
-<br>## Square Wave Example
-<br>
-<br>A square wave of amplitude A and period T decomposes as:
-<br>
-<br>    f(t) = (4A/π) × [sin(ωt) + sin(3ωt)/3 + sin(5ωt)/5 + ...]
-<br>
-<br>Only odd harmonics. Amplitudes decrease as 1/n. This is why a square wave sounds "buzzy" — it has lots of high harmonics.
-<br>
-<br>## Fourier Transform
-<br>
-<br>For aperiodic signals, extend the period to infinity:
-<br>
-<br>    F(ω) = ∫ f(t) × e^(-jωt) dt
-<br>
-<br>The inverse:
-<br>
-<br>    f(t) = (1/2π) × ∫ F(ω) × e^(jωt) dω
-<br>
-<br>F(ω) is the <strong>spectrum</strong> — how much of each frequency is present.
-<br>
-<br>## Common Transform Pairs
-<br>
-<br>| Time signal | Fourier transform |
-<br>|-------------|-------------------|
-<br>| δ(t) | 1 |
-<br>| u(t) (step) | 1/(jω) + πδ(ω) |
-<br>| e^(-at) u(t) | 1/(a + jω) |
-<br>| sin(ω₀t) | π[δ(ω - ω₀) - δ(ω + ω₀)]/j |
-<br>| Rect pulse | Sinc function |
-<br>
-<br>## Frequency Response
-<br>
-<br>For a linear time-invariant system with impulse response h(t), the frequency response is H(ω) = Fourier transform of h(t).
-<br>
-<br>If the input is x(t) with spectrum X(ω), the output spectrum is:
-<br>
-<br>    Y(ω) = H(ω) × X(ω)
-<br>
-<br>The system multiplies each frequency component by H(ω). Amplitude and phase change but not frequency.
-<br>
-<br>## Bode Plots
-<br>
-<br>Plot |H(ω)| in dB vs ω on log scale, and ∠H(ω) in degrees vs ω.
-<br>
-<br>Key features:
-<br>- Poles → -20 dB/decade per pole, -90° phase
-<br>- Zeros → +20 dB/decade, +90° phase
-<br>- Crossover where |H| = 0 dB (unity gain)
-<br>
-<br>## RC Low-Pass Filter
-<br>
-<br>    H(ω) = 1 / (1 + jωRC)
-<br>
-<br>Magnitude: |H| = 1 / √(1 + (ωRC)²)
-<br>
-<br>At ω = 1/RC: |H| = 1/√2 = -3 dB. This is the cutoff frequency.
-<br>
-<br>Above cutoff: -20 dB/decade.
-<br>
-<br>Phase: 0° at DC, -45° at cutoff, -90° at high frequencies.
-<br>
-<br>## RC High-Pass Filter
-<br>
-<br>Swap R and C. Magnitude increases with frequency up to 1, then flat. Used for AC coupling.
-<br>
-<br>## Bandpass and Notch
-<br>
-<br>Cascade low-pass and high-pass for bandpass.
-<br>
-<br>Parallel LC forms a notch (rejects one frequency).
-<br>
-<br>## Applications
-<br>
-<br><strong>Audio:</strong> equalizers split signal into frequency bands.
-<br>
-<br><strong>Communications:</strong> filters select the desired channel.
-<br>
-<br><strong>Power:</strong> filters remove 50/60 Hz noise.
-<br>
-<br><strong>Imaging:</strong> 2D Fourier transform for image processing.
-<br>
-<br><strong>Vibration analysis:</strong> FFT to find resonances.
-<br>
-<br>## FFT — the Algorithm
-<br>
-<br>The Discrete Fourier Transform (DFT) computes N frequency samples from N time samples in O(N²).
-<br>
-<br>The Fast Fourier Transform (FFT) computes it in O(N log N). For N = 1,000,000: 10¹² vs 10⁷ operations — a 100,000x speedup.
-<br>
-<br>FFT is one of the most important algorithms ever invented. It enables:
-<br>- Real-time audio processing
-<br>- Radar
-<br>- Medical imaging (MRI, CT)
-<br>- 5G communications
-<br>- Astronomy (signal detection)
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Fourier series: decompose periodic signals into harmonics
-<br>- Fourier transform: extend to aperiodic signals
-<br>- Frequency response H(ω) describes LTI system behavior
-<br>- Bode plots visualize magnitude and phase
-<br>- RC filters are first-order low/high-pass
-<br>- FFT makes frequency analysis practical
-<br>- Fourier analysis is universal in engineering
-<br></p></div>
+        <div class="lecture-full-content"><h3>Why Fourier?</h3>
+<p>Any periodic signal can be decomposed into a sum of sinusoids at harmonic frequencies. This lets us:</p>
+<ul><li>Analyze any input as a sum of sine waves</li><li>Apply linear system theory to each sine wave</li><li>Reconstruct the output by summing</li></ul>
+<p>The Fourier transform is the most powerful tool in signal processing.</p>
+<h3>Fourier Series</h3>
+<p>For a periodic signal with period T:</p>
+<p>f(t) = a₀/2 + Σ [a_n × cos(2πnt/T) + b_n × sin(2πnt/T)]</p>
+<p>Coefficients:</p>
+<p>a_n = (2/T) × ∫ f(t) cos(2πnt/T) dt<br>    b_n = (2/T) × ∫ f(t) sin(2πnt/T) dt</p>
+<p>The signal is decomposed into harmonics at 1/T, 2/T, 3/T, ...</p>
+<h3>Square Wave Example</h3>
+<p>A square wave of amplitude A and period T decomposes as:</p>
+<p>f(t) = (4A/π) × [sin(ωt) + sin(3ωt)/3 + sin(5ωt)/5 + ...]</p>
+<p>Only odd harmonics. Amplitudes decrease as 1/n. This is why a square wave sounds "buzzy" — it has lots of high harmonics.</p>
+<h3>Fourier Transform</h3>
+<p>For aperiodic signals, extend the period to infinity:</p>
+<p>F(ω) = ∫ f(t) × e^(-jωt) dt</p>
+<p>The inverse:</p>
+<p>f(t) = (1/2π) × ∫ F(ω) × e^(jωt) dω</p>
+<p>F(ω) is the <strong>spectrum</strong> — how much of each frequency is present.</p>
+<h3>Common Transform Pairs</h3>
+<p>| Time signal | Fourier transform |<br>|-------------|-------------------|<br>| δ(t) | 1 |<br>| u(t) (step) | 1/(jω) + πδ(ω) |<br>| e^(-at) u(t) | 1/(a + jω) |<br>| sin(ω₀t) | π[δ(ω - ω₀) - δ(ω + ω₀)]/j |<br>| Rect pulse | Sinc function |</p>
+<h3>Frequency Response</h3>
+<p>For a linear time-invariant system with impulse response h(t), the frequency response is H(ω) = Fourier transform of h(t).</p>
+<p>If the input is x(t) with spectrum X(ω), the output spectrum is:</p>
+<p>Y(ω) = H(ω) × X(ω)</p>
+<p>The system multiplies each frequency component by H(ω). Amplitude and phase change but not frequency.</p>
+<h3>Bode Plots</h3>
+<p>Plot |H(ω)| in dB vs ω on log scale, and ∠H(ω) in degrees vs ω.</p>
+<p>Key features:</p>
+<ul><li>Poles → -20 dB/decade per pole, -90° phase</li><li>Zeros → +20 dB/decade, +90° phase</li><li>Crossover where |H| = 0 dB (unity gain)</li></ul>
+<h3>RC Low-Pass Filter</h3>
+<p>H(ω) = 1 / (1 + jωRC)</p>
+<p>Magnitude: |H| = 1 / √(1 + (ωRC)²)</p>
+<p>At ω = 1/RC: |H| = 1/√2 = -3 dB. This is the cutoff frequency.</p>
+<p>Above cutoff: -20 dB/decade.</p>
+<p>Phase: 0° at DC, -45° at cutoff, -90° at high frequencies.</p>
+<h3>RC High-Pass Filter</h3>
+<p>Swap R and C. Magnitude increases with frequency up to 1, then flat. Used for AC coupling.</p>
+<h3>Bandpass and Notch</h3>
+<p>Cascade low-pass and high-pass for bandpass.</p>
+<p>Parallel LC forms a notch (rejects one frequency).</p>
+<h3>Applications</h3>
+<p><strong>Audio:</strong> equalizers split signal into frequency bands.</p>
+<p><strong>Communications:</strong> filters select the desired channel.</p>
+<p><strong>Power:</strong> filters remove 50/60 Hz noise.</p>
+<p><strong>Imaging:</strong> 2D Fourier transform for image processing.</p>
+<p><strong>Vibration analysis:</strong> FFT to find resonances.</p>
+<h3>FFT — the Algorithm</h3>
+<p>The Discrete Fourier Transform (DFT) computes N frequency samples from N time samples in O(N²).</p>
+<p>The Fast Fourier Transform (FFT) computes it in O(N log N). For N = 1,000,000: 10¹² vs 10⁷ operations — a 100,000x speedup.</p>
+<p>FFT is one of the most important algorithms ever invented. It enables:</p>
+<ul><li>Real-time audio processing</li><li>Radar</li><li>Medical imaging (MRI, CT)</li><li>5G communications</li><li>Astronomy (signal detection)</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>Fourier series: decompose periodic signals into harmonics</li><li>Fourier transform: extend to aperiodic signals</li><li>Frequency response H(ω) describes LTI system behavior</li><li>Bode plots visualize magnitude and phase</li><li>RC filters are first-order low/high-pass</li><li>FFT makes frequency analysis practical</li><li>Fourier analysis is universal in engineering</li></ul></div>
       </div>
     </div>
   
@@ -688,123 +370,60 @@ Any periodic signal can be decomposed into a sum of sinusoids at harmonic freque
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>Information Theory and Coding</h4>
-          <p>
-## What is Information?
-
-Claude Shannon (1948) defined information as the reduction of uncertainty. If a message tells you something you already knew, it contains no information.
-
-Information is measured in **bits*...</p>
+          <p>What is Information? Claude Shannon (1948) defined information as the reduction of uncertainty. If a message tells you something you already knew, it contains no information. Information is measured...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is Information?
-<br>
-<br>Claude Shannon (1948) defined information as the reduction of uncertainty. If a message tells you something you already knew, it contains no information.
-<br>
-<br>Information is measured in <strong>bits</strong>. One bit is the information content of a yes/no answer when both are equally likely.
-<br>
-<br>## Shannon Entropy
-<br>
-<br>For a discrete random variable X with probabilities p₁, p₂, ..., pn:
-<br>
-<br>    H(X) = -Σ p_i × log₂(p_i)
-<br>
-<br>Units: bits.
-<br>
-<br>Examples:
-<br>- Fair coin: H = -0.5 log 0.5 - 0.5 log 0.5 = 1 bit
-<br>- Biased coin (p=0.9): H = -0.9 log 0.9 - 0.1 log 0.1 ≈ 0.47 bits
-<br>- Certain event (p=1): H = 0 bits
-<br>
-<br>Higher entropy = more information per symbol.
-<br>
-<br>## Source Coding Theorem
-<br>
-<br>Shannon's theorem: the minimum average number of bits per symbol needed to encode a source is H(X).
-<br>
-<br>You cannot compress below the entropy. You can get arbitrarily close with the right code.
-<br>
-<br>This is the foundation of data compression.
-<br>
-<br>## Huffman Coding
-<br>
-<br>A simple optimal prefix code:
-<br>1. Build a binary tree from symbol frequencies
-<br>2. Assign shorter codes to frequent symbols
-<br>3. Longer codes to rare symbols
-<br>
-<br>Example:
-<br>- A: 0.4, B: 0.3, C: 0.2, D: 0.1
-<br>- Huffman: A → 0, B → 10, C → 110, D → 111
-<br>- Average length: 0.4 + 0.6 + 0.6 + 0.3 = 1.9 bits/symbol
-<br>- Entropy: 1.846 bits/symbol (close!)
-<br>
-<br>Used in JPEG, DEFLATE, MP3, and many other formats.
-<br>
-<br>## Channel Capacity
-<br>
-<br>A <strong>channel</strong> has noise, which limits how much information can be reliably transmitted.
-<br>
-<br>Shannon's channel capacity for a channel with bandwidth B and signal-to-noise ratio SNR:
-<br>
-<br>    C = B × log₂(1 + SNR)
-<br>
-<br>Units: bits per second.
-<br>
-<br>Example: a phone line with B = 3 kHz and SNR = 30 dB (1000 linear):
-<br>
-<br>    C = 3000 × log₂(1001) ≈ 30 kbps
-<br>
-<br>This is why early modems topped out at 33.6 kbps.
-<br>
-<br>## Error-Correcting Codes
-<br>
-<br>To combat channel noise, add redundancy so errors can be detected and corrected.
-<br>
-<br><strong>Repetition code:</strong> send each bit 3 times, majority vote. Simple, but only 1/3 efficiency.
-<br>
-<br><strong>Parity bit:</strong> add one bit to detect single-bit errors. No correction.
-<br>
-<br><strong>Hamming codes:</strong> detect and correct single-bit errors. Hamming(7,4) uses 7 bits to send 4 data bits.
-<br>
-<br><strong>Reed-Solomon:</strong> corrects bursts of errors. Used in CDs, DVDs, QR codes, deep space probes.
-<br>
-<br><strong>LDPC and Turbo codes:</strong> near-Shannon-limit performance. Used in 4G/5G, Wi-Fi, DVB.
-<br>
-<br><strong>Polar codes:</strong> the first codes to achieve Shannon capacity. Used in 5G control channels.
-<br>
-<br>## The Shannon Limit
-<br>
-<br>For any noisy channel, there's a maximum rate C below which error-free communication is possible (with the right code). Above C, errors are unavoidable.
-<br>
-<br>This is a profound result. Before Shannon, engineers thought noise imposed fundamental limits. Shannon showed that with clever coding, you can approach zero error rate.
-<br>
-<br>## Applications
-<br>
-<br><strong>Compression:</strong> ZIP, JPEG, MP3, MP4 — all use Huffman, LZ, or arithmetic coding.
-<br>
-<br><strong>Storage:</strong> CDs, DVDs, hard drives — Reed-Solomon corrects physical defects.
-<br>
-<br><strong>Communication:</strong> 4G/5G, Wi-Fi, Bluetooth — LDPC, Turbo, Polar codes.
-<br>
-<br><strong>Space:</strong> deep space probes use powerful Reed-Solomon and convolutional codes.
-<br>
-<br><strong>Cryptography:</strong> information-theoretic security (one-time pad) requires key as long as message.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Information = reduction of uncertainty
-<br>- Shannon entropy H(X) = -Σ p log p
-<br>- Source coding theorem: minimum bits = entropy
-<br>- Huffman codes are optimal prefix codes
-<br>- Channel capacity C = B log₂(1 + SNR)
-<br>- Error-correcting codes approach Shannon limit
-<br>- Information theory is the foundation of all communication
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is Information?</h3>
+<p>Claude Shannon (1948) defined information as the reduction of uncertainty. If a message tells you something you already knew, it contains no information.</p>
+<p>Information is measured in <strong>bits</strong>. One bit is the information content of a yes/no answer when both are equally likely.</p>
+<h3>Shannon Entropy</h3>
+<p>For a discrete random variable X with probabilities p₁, p₂, ..., pn:</p>
+<p>H(X) = -Σ p_i × log₂(p_i)</p>
+<p>Units: bits.</p>
+<p>Examples:</p>
+<ul><li>Fair coin: H = -0.5 log 0.5 - 0.5 log 0.5 = 1 bit</li><li>Biased coin (p=0.9): H = -0.9 log 0.9 - 0.1 log 0.1 ≈ 0.47 bits</li><li>Certain event (p=1): H = 0 bits</li></ul>
+<p>Higher entropy = more information per symbol.</p>
+<h3>Source Coding Theorem</h3>
+<p>Shannon's theorem: the minimum average number of bits per symbol needed to encode a source is H(X).</p>
+<p>You cannot compress below the entropy. You can get arbitrarily close with the right code.</p>
+<p>This is the foundation of data compression.</p>
+<h3>Huffman Coding</h3>
+<p>A simple optimal prefix code:</p>
+<ol><li>Build a binary tree from symbol frequencies</li><li>Assign shorter codes to frequent symbols</li><li>Longer codes to rare symbols</li></ol>
+<p>Example:</p>
+<ul><li>A: 0.4, B: 0.3, C: 0.2, D: 0.1</li><li>Huffman: A → 0, B → 10, C → 110, D → 111</li><li>Average length: 0.4 + 0.6 + 0.6 + 0.3 = 1.9 bits/symbol</li><li>Entropy: 1.846 bits/symbol (close!)</li></ul>
+<p>Used in JPEG, DEFLATE, MP3, and many other formats.</p>
+<h3>Channel Capacity</h3>
+<p>A <strong>channel</strong> has noise, which limits how much information can be reliably transmitted.</p>
+<p>Shannon's channel capacity for a channel with bandwidth B and signal-to-noise ratio SNR:</p>
+<p>C = B × log₂(1 + SNR)</p>
+<p>Units: bits per second.</p>
+<p>Example: a phone line with B = 3 kHz and SNR = 30 dB (1000 linear):</p>
+<p>C = 3000 × log₂(1001) ≈ 30 kbps</p>
+<p>This is why early modems topped out at 33.6 kbps.</p>
+<h3>Error-Correcting Codes</h3>
+<p>To combat channel noise, add redundancy so errors can be detected and corrected.</p>
+<p><strong>Repetition code:</strong> send each bit 3 times, majority vote. Simple, but only 1/3 efficiency.</p>
+<p><strong>Parity bit:</strong> add one bit to detect single-bit errors. No correction.</p>
+<p><strong>Hamming codes:</strong> detect and correct single-bit errors. Hamming(7,4) uses 7 bits to send 4 data bits.</p>
+<p><strong>Reed-Solomon:</strong> corrects bursts of errors. Used in CDs, DVDs, QR codes, deep space probes.</p>
+<p><strong>LDPC and Turbo codes:</strong> near-Shannon-limit performance. Used in 4G/5G, Wi-Fi, DVB.</p>
+<p><strong>Polar codes:</strong> the first codes to achieve Shannon capacity. Used in 5G control channels.</p>
+<h3>The Shannon Limit</h3>
+<p>For any noisy channel, there's a maximum rate C below which error-free communication is possible (with the right code). Above C, errors are unavoidable.</p>
+<p>This is a profound result. Before Shannon, engineers thought noise imposed fundamental limits. Shannon showed that with clever coding, you can approach zero error rate.</p>
+<h3>Applications</h3>
+<p><strong>Compression:</strong> ZIP, JPEG, MP3, MP4 — all use Huffman, LZ, or arithmetic coding.</p>
+<p><strong>Storage:</strong> CDs, DVDs, hard drives — Reed-Solomon corrects physical defects.</p>
+<p><strong>Communication:</strong> 4G/5G, Wi-Fi, Bluetooth — LDPC, Turbo, Polar codes.</p>
+<p><strong>Space:</strong> deep space probes use powerful Reed-Solomon and convolutional codes.</p>
+<p><strong>Cryptography:</strong> information-theoretic security (one-time pad) requires key as long as message.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Information = reduction of uncertainty</li><li>Shannon entropy H(X) = -Σ p log p</li><li>Source coding theorem: minimum bits = entropy</li><li>Huffman codes are optimal prefix codes</li><li>Channel capacity C = B log₂(1 + SNR)</li><li>Error-correcting codes approach Shannon limit</li><li>Information theory is the foundation of all communication</li></ul></div>
       </div>
     </div>
   </div>

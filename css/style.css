@@ -1443,3 +1443,9 @@ img, picture, video { max-width: 100%; height: auto; display: block; }
 .best-picks, .home-tech-grid, .academy-preview { min-height: 140px; }
 .sidebar .widget { min-height: 60px; }
 .loading-state { min-height: 120px; }
+
+/* Wait indicator without any text (replaces "Loading..." messages) */
+.loading-state:empty { display:flex; align-items:center; justify-content:center; min-height:120px; }
+.loading-state:empty::before { content:""; width:34px; height:34px; border-radius:50%; border:3px solid var(--border, #ddd); border-top-color:var(--primary, #0ea5e9); animation:tp-spin .8s linear infinite; }
+@keyframes tp-spin { to { transform:rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .loading-state:empty::before { animation:none; } }

@@ -108,168 +108,70 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Introduction to Computer Vision and CNNs</h4>
-          <p>
-## What is Computer Vision?
-
-Making computers understand images and video. Tasks:
-- **Classification:** &quot;this is a cat&quot;
-- **Detection:** &quot;there&#39;s a cat here&quot; (bounding box)
-- **Segmentation:** pixel-level labels
-...</p>
+          <p>What is Computer Vision? Making computers understand images and video. Tasks: Classification: &amp;quot;this is a cat&amp;quot; Detection: &amp;quot;there&amp;#39;s a cat here&amp;quot; (bounding box) Segmentation:...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is Computer Vision?
-<br>
-<br>Making computers understand images and video. Tasks:
-<br>- <strong>Classification:</strong> "this is a cat"
-<br>- <strong>Detection:</strong> "there's a cat here" (bounding box)
-<br>- <strong>Segmentation:</strong> pixel-level labels
-<br>- <strong>Pose estimation:</strong> skeleton of a person
-<br>- <strong>Depth estimation:</strong> 3D structure
-<br>- <strong>Optical flow:</strong> motion between frames
-<br>
-<br>CV has exploded with deep learning since 2012.
-<br>
-<br>## Why Vision is Hard
-<br>
-<br>An image is a 3D array (H × W × 3). For a 224×224 RGB image: 150,528 numbers.
-<br>
-<br>Naive fully-connected layers would have ~150,000 inputs × thousands of hidden units = billions of parameters.
-<br>
-<br>Images have structure:
-<br>- <strong>Locality:</strong> nearby pixels are related
-<br>- <strong>Translation invariance:</strong> a cat is a cat regardless of position
-<br>- <strong>Hierarchical features:</strong> edges → textures → parts → objects
-<br>
-<br>CNNs exploit this structure.
-<br>
-<br>## Convolutional Neural Networks
-<br>
-<br>A CNN uses <strong>convolutional layers</strong> that slide small filters across the input.
-<br>
-<br>For a 3×3 filter on a H × W × C input:
-<br>- Filter has 3×3×C weights
-<br>- Slides across all positions
-<br>- Produces a H' × W' × 1 feature map (one per filter)
-<br>
-<br>Each filter detects a specific pattern (edge, corner, texture). Multiple filters → multiple feature maps.
-<br>
-<br>## Properties of Convolution
-<br>
-<br><strong>Local connectivity:</strong> each output depends on a small input region.
-<br>
-<br><strong>Weight sharing:</strong> same filter across all positions.
-<br>
-<br><strong>Translation equivariance:</strong> shift input → shift output.
-<br>
-<br>Parameter count: 3×3×C per filter. Much smaller than dense.
-<br>
-<br>## Pooling
-<br>
-<br>Downsample feature maps to reduce spatial size and add translation invariance.
-<br>
-<br><strong>Max pooling:</strong> take max in each 2×2 region.
-<br><strong>Average pooling:</strong> take average.
-<br>
-<br>Pooling has no learnable parameters. Reduces H and W by factor 2 (for 2×2).
-<br>
-<br>## CNN Architecture
-<br>
-<br>Typical pattern:
-<br>
-<br>    [Conv → ReLU] × N → Pool → [Conv → ReLU] × M → Pool → ... → Flatten → FC → Softmax
-<br>
-<br>Features get smaller spatially, deeper in channels. Final layers are fully connected.
-<br>
-<br>## LeNet (1998)
-<br>
-<br>Yann LeCun's classic for handwritten digit recognition.
-<br>
-<br>- 2 conv layers
-<br>- 2 pooling layers
-<br>- 3 fully connected
-<br>- ~60,000 parameters
-<br>
-<br>Trained on MNIST. Used in ATMs for check reading.
-<br>
-<br>## AlexNet (2012)
-<br>
-<br>The breakthrough. Won ImageNet 2012 by a huge margin.
-<br>
-<br>- 5 conv layers, 3 FC layers
-<br>- 60M parameters
-<br>- ReLU instead of sigmoid
-<br>- Dropout for regularization
-<br>- Data augmentation
-<br>- Trained on 2 GPUs (GTX 580, 3GB each)
-<br>
-<br>Started the deep learning revolution.
-<br>
-<br>## VGG (2014)
-<br>
-<br>Very deep networks using only 3×3 convolutions. VGG-16 has 16 layers.
-<br>
-<br>Simple, uniform architecture. Popular for transfer learning.
-<br>
-<br>Downside: 138M parameters, slow.
-<br>
-<br>## ResNet (2015)
-<br>
-<br>Deep residual networks. Introduced <strong>skip connections</strong>:
-<br>
-<br>    y = F(x) + x
-<br>
-<br>Where F is a few conv layers. The +x is the identity shortcut.
-<br>
-<br>Benefits:
-<br>- Trains very deep networks (100-1000 layers)
-<br>- Solves vanishing gradient
-<br>- Won ImageNet 2015
-<br>
-<br>ResNet-50 is a workhorse for vision tasks.
-<br>
-<br>## Modern Architectures
-<br>
-<br>- <strong>Inception (GoogLeNet):</strong> multi-scale filters
-<br>- <strong>DenseNet:</strong> dense connections between layers
-<br>- <strong>EfficientNet:</strong> scaled depth, width, resolution
-<br>- <strong>MobileNet:</strong> for mobile, depthwise separable convs
-<br>- <strong>ViT:</strong> vision transformer, patches as tokens
-<br>- <strong>ConvNeXt:</strong> modernized CNN, competitive with ViT
-<br>
-<br>## Training CNNs
-<br>
-<br>- <strong>Loss:</strong> cross-entropy for classification
-<br>- <strong>Optimizer:</strong> SGD with momentum, Adam, AdamW
-<br>- <strong>Regularization:</strong> dropout, weight decay, data augmentation
-<br>- <strong>Learning rate:</strong> step decay, cosine, warmup
-<br>- <strong>Batch norm:</strong> normalize activations per batch, speeds training
-<br>
-<br>## Transfer Learning
-<br>
-<br>Pretrain on ImageNet, fine-tune on your task.
-<br>
-<br>- Freeze early layers (generic features)
-<br>- Fine-tune later layers (task-specific)
-<br>- Works with small datasets (100s of examples)
-<br>
-<br>Standard practice for most CV tasks.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Images are 3D arrays; CNNs exploit locality
-<br>- Convolution: local, weight-shared, translation-equivariant
-<br>- Pooling: downsample, add invariance
-<br>- AlexNet (2012) started the revolution
-<br>- VGG, ResNet, Inception, EfficientNet, ViT
-<br>- Transfer learning standard
-<br>- Modern: transformers competing with CNNs
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is Computer Vision?</h3>
+<p>Making computers understand images and video. Tasks:</p>
+<ul><li><strong>Classification:</strong> "this is a cat"</li><li><strong>Detection:</strong> "there's a cat here" (bounding box)</li><li><strong>Segmentation:</strong> pixel-level labels</li><li><strong>Pose estimation:</strong> skeleton of a person</li><li><strong>Depth estimation:</strong> 3D structure</li><li><strong>Optical flow:</strong> motion between frames</li></ul>
+<p>CV has exploded with deep learning since 2012.</p>
+<h3>Why Vision is Hard</h3>
+<p>An image is a 3D array (H × W × 3). For a 224×224 RGB image: 150,528 numbers.</p>
+<p>Naive fully-connected layers would have ~150,000 inputs × thousands of hidden units = billions of parameters.</p>
+<p>Images have structure:</p>
+<ul><li><strong>Locality:</strong> nearby pixels are related</li><li><strong>Translation invariance:</strong> a cat is a cat regardless of position</li><li><strong>Hierarchical features:</strong> edges → textures → parts → objects</li></ul>
+<p>CNNs exploit this structure.</p>
+<h3>Convolutional Neural Networks</h3>
+<p>A CNN uses <strong>convolutional layers</strong> that slide small filters across the input.</p>
+<p>For a 3×3 filter on a H × W × C input:</p>
+<ul><li>Filter has 3×3×C weights</li><li>Slides across all positions</li><li>Produces a H' × W' × 1 feature map (one per filter)</li></ul>
+<p>Each filter detects a specific pattern (edge, corner, texture). Multiple filters → multiple feature maps.</p>
+<h3>Properties of Convolution</h3>
+<p><strong>Local connectivity:</strong> each output depends on a small input region.</p>
+<p><strong>Weight sharing:</strong> same filter across all positions.</p>
+<p><strong>Translation equivariance:</strong> shift input → shift output.</p>
+<p>Parameter count: 3×3×C per filter. Much smaller than dense.</p>
+<h3>Pooling</h3>
+<p>Downsample feature maps to reduce spatial size and add translation invariance.</p>
+<p><strong>Max pooling:</strong> take max in each 2×2 region.<br><strong>Average pooling:</strong> take average.</p>
+<p>Pooling has no learnable parameters. Reduces H and W by factor 2 (for 2×2).</p>
+<h3>CNN Architecture</h3>
+<p>Typical pattern:</p>
+<p>[Conv → ReLU] × N → Pool → [Conv → ReLU] × M → Pool → ... → Flatten → FC → Softmax</p>
+<p>Features get smaller spatially, deeper in channels. Final layers are fully connected.</p>
+<h3>LeNet (1998)</h3>
+<p>Yann LeCun's classic for handwritten digit recognition.</p>
+<ul><li>2 conv layers</li><li>2 pooling layers</li><li>3 fully connected</li><li>~60,000 parameters</li></ul>
+<p>Trained on MNIST. Used in ATMs for check reading.</p>
+<h3>AlexNet (2012)</h3>
+<p>The breakthrough. Won ImageNet 2012 by a huge margin.</p>
+<ul><li>5 conv layers, 3 FC layers</li><li>60M parameters</li><li>ReLU instead of sigmoid</li><li>Dropout for regularization</li><li>Data augmentation</li><li>Trained on 2 GPUs (GTX 580, 3GB each)</li></ul>
+<p>Started the deep learning revolution.</p>
+<h3>VGG (2014)</h3>
+<p>Very deep networks using only 3×3 convolutions. VGG-16 has 16 layers.</p>
+<p>Simple, uniform architecture. Popular for transfer learning.</p>
+<p>Downside: 138M parameters, slow.</p>
+<h3>ResNet (2015)</h3>
+<p>Deep residual networks. Introduced <strong>skip connections</strong>:</p>
+<p>y = F(x) + x</p>
+<p>Where F is a few conv layers. The +x is the identity shortcut.</p>
+<p>Benefits:</p>
+<ul><li>Trains very deep networks (100-1000 layers)</li><li>Solves vanishing gradient</li><li>Won ImageNet 2015</li></ul>
+<p>ResNet-50 is a workhorse for vision tasks.</p>
+<h3>Modern Architectures</h3>
+<ul><li><strong>Inception (GoogLeNet):</strong> multi-scale filters</li><li><strong>DenseNet:</strong> dense connections between layers</li><li><strong>EfficientNet:</strong> scaled depth, width, resolution</li><li><strong>MobileNet:</strong> for mobile, depthwise separable convs</li><li><strong>ViT:</strong> vision transformer, patches as tokens</li><li><strong>ConvNeXt:</strong> modernized CNN, competitive with ViT</li></ul>
+<h3>Training CNNs</h3>
+<ul><li><strong>Loss:</strong> cross-entropy for classification</li><li><strong>Optimizer:</strong> SGD with momentum, Adam, AdamW</li><li><strong>Regularization:</strong> dropout, weight decay, data augmentation</li><li><strong>Learning rate:</strong> step decay, cosine, warmup</li><li><strong>Batch norm:</strong> normalize activations per batch, speeds training</li></ul>
+<h3>Transfer Learning</h3>
+<p>Pretrain on ImageNet, fine-tune on your task.</p>
+<ul><li>Freeze early layers (generic features)</li><li>Fine-tune later layers (task-specific)</li><li>Works with small datasets (100s of examples)</li></ul>
+<p>Standard practice for most CV tasks.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Images are 3D arrays; CNNs exploit locality</li><li>Convolution: local, weight-shared, translation-equivariant</li><li>Pooling: downsample, add invariance</li><li>AlexNet (2012) started the revolution</li><li>VGG, ResNet, Inception, EfficientNet, ViT</li><li>Transfer learning standard</li><li>Modern: transformers competing with CNNs</li></ul></div>
       </div>
     </div>
   
@@ -278,187 +180,76 @@ Making computers understand images and video. Tasks:
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>Training Neural Networks</h4>
-          <p>
-## The Training Loop
-
-For each batch:
-1. Forward pass: compute predictions
-2. Compute loss
-3. Backward pass: compute gradients
-4. Update weights
-
-Repeat until convergence.
-
-## Loss Functions
-
-**Classificati...</p>
+          <p>The Training Loop For each batch: 1. Forward pass: compute predictions 2. Compute loss 3. Backward pass: compute gradients 4. Update weights Repeat until convergence. Loss Functions Classificati...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The Training Loop
-<br>
-<br>For each batch:
-<br>1. Forward pass: compute predictions
-<br>2. Compute loss
-<br>3. Backward pass: compute gradients
-<br>4. Update weights
-<br>
-<br>Repeat until convergence.
-<br>
-<br>## Loss Functions
-<br>
-<br><strong>Classification:</strong> cross-entropy.
-<br>
-<br>    L = -Σ y_i log(p_i)
-<br>
-<br><strong>Regression:</strong> MSE.
-<br>
-<br>    L = (1/N) Σ (y_i - ŷ_i)²
-<br>
-<br><strong>Object detection:</strong> combined classification + localization.
-<br><strong>Segmentation:</strong> per-pixel cross-entropy or Dice.
-<br>
-<br>## Gradient Descent Variants
-<br>
-<br><strong>Batch GD:</strong> use all data per step. Accurate but slow.
-<br>
-<br><strong>Stochastic GD (SGD):</strong> one example per step. Noisy but fast.
-<br>
-<br><strong>Mini-batch GD:</strong> 32-256 examples per step. Standard.
-<br>
-<br><strong>Momentum:</strong> add velocity term.
-<br>
-<br>    v = β v + ∇L
-<br>    θ = θ - α v
-<br>
-<br>Helps escape local minima, faster convergence.
-<br>
-<br><strong>Adam:</strong> adaptive per-parameter learning rates. Combines momentum + RMSprop.
-<br>
-<br>    m = β₁ m + (1-β₁) ∇L
-<br>    v = β₂ v + (1-β₂) (∇L)²
-<br>    θ = θ - α m / (√v + ε)
-<br>
-<br>AdamW decouples weight decay from gradient update. Standard for transformers.
-<br>
-<br>## Backpropagation
-<br>
-<br>The chain rule applied to computational graphs. For each layer, compute gradient w.r.t. inputs and weights.
-<br>
-<br>For a linear layer y = Wx:
-<br>- dL/dW = dL/dy × x^T
-<br>- dL/dx = W^T × dL/dy
-<br>
-<br>Automatic differentiation (autograd) handles this in PyTorch, JAX, TensorFlow.
-<br>
-<br>## Vanishing and Exploding Gradients
-<br>
-<br>Deep networks suffer from unstable gradients:
-<br>- <strong>Vanishing:</strong> gradients shrink through layers, early layers barely update.
-<br>- <strong>Exploding:</strong> gradients blow up, training diverges.
-<br>
-<br>Solutions:
-<br>- <strong>ReLU activation:</strong> no saturation in positive range.
-<br>- <strong>Batch normalization:</strong> normalizes each layer's inputs.
-<br>- <strong>Residual connections:</strong> skip connections provide gradient highway.
-<br>- <strong>Careful initialization:</strong> He, Xavier.
-<br>
-<br>## Activation Functions
-<br>
-<br>- <strong>Sigmoid:</strong> σ(x) = 1/(1+e^-x). Saturates; rarely used in hidden layers.
-<br>- <strong>Tanh:</strong> range [-1, 1]. Still saturates.
-<br>- <strong>ReLU:</strong> max(0, x). Simple, fast, standard.
-<br>- <strong>Leaky ReLU:</strong> small slope for x&lt;0.
-<br>- <strong>ELU, SELU:</strong> smooth variants.
-<br>- <strong>GELU:</strong> used in BERT, GPT.
-<br>- <strong>SiLU/Swish:</strong> used in EfficientNet, modern nets.
-<br>
-<br>ReLU is default unless there's a reason.
-<br>
-<br>## Weight Initialization
-<br>
-<br>Bad initialization → dead networks.
-<br>
-<br><strong>Xavier/Glorot:</strong> for tanh/sigmoid. Var = 2/(fan_in + fan_out).
-<br>
-<br><strong>He:</strong> for ReLU. Var = 2/fan_in.
-<br>
-<br>Too small → activations vanish. Too large → explode.
-<br>
-<br>## Batch Normalization
-<br>
-<br>Normalize each mini-batch:
-<br>
-<br>    x̂ = (x - mean) / √(var + ε)
-<br>    y = γ x̂ + β
-<br>
-<br>γ, β are learned. Standard in CNNs.
-<br>
-<br>Benefits: faster training, allows higher LR, less sensitive to init.
-<br>
-<br><strong>Layer norm:</strong> normalize across features. Used in transformers.
-<br>
-<br><strong>Group norm, instance norm:</strong> alternatives for small batch sizes.
-<br>
-<br>## Regularization
-<br>
-<br><strong>Dropout:</strong> randomly zero activations during training. Forces redundancy.
-<br>
-<br><strong>Weight decay (L2):</strong> penalize large weights.
-<br>
-<br><strong>Data augmentation:</strong> random crops, flips, color jitter. Cheap and effective.
-<br>
-<br><strong>Early stopping:</strong> stop when validation loss increases.
-<br>
-<br><strong>Label smoothing:</strong> soft targets prevent overconfidence.
-<br>
-<br>## Learning Rate Schedules
-<br>
-<br>- <strong>Step decay:</strong> divide LR by 10 every N epochs.
-<br>- <strong>Cosine annealing:</strong> LR follows cosine curve.
-<br>- <strong>Warmup:</strong> start small, increase for a few epochs, then decay.
-<br>- <strong>One-cycle:</strong> fast increase then decrease.
-<br>
-<br>Critical for good convergence.
-<br>
-<br>## Hyperparameter Tuning
-<br>
-<br>Key hyperparameters:
-<br>- Learning rate (most important)
-<br>- Batch size
-<br>- Weight decay
-<br>- Dropout rate
-<br>- Number of layers, hidden size
-<br>- Optimizer choice
-<br>
-<br>Approach: random search &gt; grid search. Bayesian optimization for expensive models.
-<br>
-<br>## Debugging Training
-<br>
-<br><strong>Loss not decreasing:</strong> LR too low, wrong loss, bug in forward.
-<br><strong>Loss NaN:</strong> LR too high, numerical instability.
-<br><strong>Overfitting:</strong> regularization, more data, smaller model.
-<br><strong>Underfitting:</strong> bigger model, train longer.
-<br>
-<br>Sanity checks: overfit a small batch. Verify loss on trivial data.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Training loop: forward, loss, backward, update
-<br>- Many optimizers; Adam/AdamW standard
-<br>- Backprop via chain rule
-<br>- Vanishing/exploding gradients solved by ReLU, batchnorm, residuals
-<br>- ReLU standard activation
-<br>- He init for ReLU
-<br>- Batch norm speeds training
-<br>- Regularization: dropout, weight decay, augmentation
-<br>- Learning rate schedule matters
-<br>- Random search for hyperparameters
-<br></p></div>
+        <div class="lecture-full-content"><h3>The Training Loop</h3>
+<p>For each batch:</p>
+<ol><li>Forward pass: compute predictions</li><li>Compute loss</li><li>Backward pass: compute gradients</li><li>Update weights</li></ol>
+<p>Repeat until convergence.</p>
+<h3>Loss Functions</h3>
+<p><strong>Classification:</strong> cross-entropy.</p>
+<p>L = -Σ y_i log(p_i)</p>
+<p><strong>Regression:</strong> MSE.</p>
+<p>L = (1/N) Σ (y_i - ŷ_i)²</p>
+<p><strong>Object detection:</strong> combined classification + localization.<br><strong>Segmentation:</strong> per-pixel cross-entropy or Dice.</p>
+<h3>Gradient Descent Variants</h3>
+<p><strong>Batch GD:</strong> use all data per step. Accurate but slow.</p>
+<p><strong>Stochastic GD (SGD):</strong> one example per step. Noisy but fast.</p>
+<p><strong>Mini-batch GD:</strong> 32-256 examples per step. Standard.</p>
+<p><strong>Momentum:</strong> add velocity term.</p>
+<p>v = β v + ∇L<br>    θ = θ - α v</p>
+<p>Helps escape local minima, faster convergence.</p>
+<p><strong>Adam:</strong> adaptive per-parameter learning rates. Combines momentum + RMSprop.</p>
+<p>m = β₁ m + (1-β₁) ∇L<br>    v = β₂ v + (1-β₂) (∇L)²<br>    θ = θ - α m / (√v + ε)</p>
+<p>AdamW decouples weight decay from gradient update. Standard for transformers.</p>
+<h3>Backpropagation</h3>
+<p>The chain rule applied to computational graphs. For each layer, compute gradient w.r.t. inputs and weights.</p>
+<p>For a linear layer y = Wx:</p>
+<ul><li>dL/dW = dL/dy × x^T</li><li>dL/dx = W^T × dL/dy</li></ul>
+<p>Automatic differentiation (autograd) handles this in PyTorch, JAX, TensorFlow.</p>
+<h3>Vanishing and Exploding Gradients</h3>
+<p>Deep networks suffer from unstable gradients:</p>
+<ul><li><strong>Vanishing:</strong> gradients shrink through layers, early layers barely update.</li><li><strong>Exploding:</strong> gradients blow up, training diverges.</li></ul>
+<p>Solutions:</p>
+<ul><li><strong>ReLU activation:</strong> no saturation in positive range.</li><li><strong>Batch normalization:</strong> normalizes each layer's inputs.</li><li><strong>Residual connections:</strong> skip connections provide gradient highway.</li><li><strong>Careful initialization:</strong> He, Xavier.</li></ul>
+<h3>Activation Functions</h3>
+<ul><li><strong>Sigmoid:</strong> σ(x) = 1/(1+e^-x). Saturates; rarely used in hidden layers.</li><li><strong>Tanh:</strong> range [-1, 1]. Still saturates.</li><li><strong>ReLU:</strong> max(0, x). Simple, fast, standard.</li><li><strong>Leaky ReLU:</strong> small slope for x&lt;0.</li><li><strong>ELU, SELU:</strong> smooth variants.</li><li><strong>GELU:</strong> used in BERT, GPT.</li><li><strong>SiLU/Swish:</strong> used in EfficientNet, modern nets.</li></ul>
+<p>ReLU is default unless there's a reason.</p>
+<h3>Weight Initialization</h3>
+<p>Bad initialization → dead networks.</p>
+<p><strong>Xavier/Glorot:</strong> for tanh/sigmoid. Var = 2/(fan_in + fan_out).</p>
+<p><strong>He:</strong> for ReLU. Var = 2/fan_in.</p>
+<p>Too small → activations vanish. Too large → explode.</p>
+<h3>Batch Normalization</h3>
+<p>Normalize each mini-batch:</p>
+<p>x̂ = (x - mean) / √(var + ε)<br>    y = γ x̂ + β</p>
+<p>γ, β are learned. Standard in CNNs.</p>
+<p>Benefits: faster training, allows higher LR, less sensitive to init.</p>
+<p><strong>Layer norm:</strong> normalize across features. Used in transformers.</p>
+<p><strong>Group norm, instance norm:</strong> alternatives for small batch sizes.</p>
+<h3>Regularization</h3>
+<p><strong>Dropout:</strong> randomly zero activations during training. Forces redundancy.</p>
+<p><strong>Weight decay (L2):</strong> penalize large weights.</p>
+<p><strong>Data augmentation:</strong> random crops, flips, color jitter. Cheap and effective.</p>
+<p><strong>Early stopping:</strong> stop when validation loss increases.</p>
+<p><strong>Label smoothing:</strong> soft targets prevent overconfidence.</p>
+<h3>Learning Rate Schedules</h3>
+<ul><li><strong>Step decay:</strong> divide LR by 10 every N epochs.</li><li><strong>Cosine annealing:</strong> LR follows cosine curve.</li><li><strong>Warmup:</strong> start small, increase for a few epochs, then decay.</li><li><strong>One-cycle:</strong> fast increase then decrease.</li></ul>
+<p>Critical for good convergence.</p>
+<h3>Hyperparameter Tuning</h3>
+<p>Key hyperparameters:</p>
+<ul><li>Learning rate (most important)</li><li>Batch size</li><li>Weight decay</li><li>Dropout rate</li><li>Number of layers, hidden size</li><li>Optimizer choice</li></ul>
+<p>Approach: random search &gt; grid search. Bayesian optimization for expensive models.</p>
+<h3>Debugging Training</h3>
+<p><strong>Loss not decreasing:</strong> LR too low, wrong loss, bug in forward.<br><strong>Loss NaN:</strong> LR too high, numerical instability.<br><strong>Overfitting:</strong> regularization, more data, smaller model.<br><strong>Underfitting:</strong> bigger model, train longer.</p>
+<p>Sanity checks: overfit a small batch. Verify loss on trivial data.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Training loop: forward, loss, backward, update</li><li>Many optimizers; Adam/AdamW standard</li><li>Backprop via chain rule</li><li>Vanishing/exploding gradients solved by ReLU, batchnorm, residuals</li><li>ReLU standard activation</li><li>He init for ReLU</li><li>Batch norm speeds training</li><li>Regularization: dropout, weight decay, augmentation</li><li>Learning rate schedule matters</li><li>Random search for hyperparameters</li></ul></div>
       </div>
     </div>
   
@@ -467,163 +258,75 @@ Repeat until convergence.
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>Object Detection and Segmentation</h4>
-          <p>
-## From Classification to Detection
-
-Classification: &quot;this image contains a cat.&quot;
-Detection: &quot;there&#39;s a cat at (x, y, w, h).&quot;
-
-Detection is harder: multiple objects, varying sizes, occlusions.
-
-## Two-Stage Dete...</p>
+          <p>From Classification to Detection Classification: &amp;quot;this image contains a cat.&amp;quot; Detection: &amp;quot;there&amp;#39;s a cat at (x, y, w, h).&amp;quot; Detection is harder: multiple objects, varying sizes,...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## From Classification to Detection
-<br>
-<br>Classification: "this image contains a cat."
-<br>Detection: "there's a cat at (x, y, w, h)."
-<br>
-<br>Detection is harder: multiple objects, varying sizes, occlusions.
-<br>
-<br>## Two-Stage Detectors
-<br>
-<br><strong>R-CNN (2014):</strong> region proposals → CNN per region → classify. Slow.
-<br>
-<br><strong>Fast R-CNN (2015):</strong> single CNN pass, ROI pooling. Faster.
-<br>
-<br><strong>Faster R-CNN (2015):</strong> add Region Proposal Network (RPN). End-to-end.
-<br>
-<br>Still two-stage, still relatively slow (~5-10 FPS).
-<br>
-<br>Used when accuracy matters more than speed.
-<br>
-<br>## One-Stage Detectors
-<br>
-<br><strong>YOLO (2016):</strong> divide image into grid, predict boxes + classes per cell. Fast.
-<br>
-<br><strong>SSD (2016):</strong> multi-scale feature maps for different object sizes.
-<br>
-<br><strong>RetinaNet (2017):</strong> focal loss to handle class imbalance.
-<br>
-<br><strong>YOLOv5/v7/v8:</strong> modern versions, fast and accurate.
-<br>
-<br><strong>EfficientDet:</strong> scaled, efficient.
-<br>
-<br>One-stage is now standard for real-time detection.
-<br>
-<br>## Anchor Boxes
-<br>
-<br>Pre-defined boxes of various sizes and aspect ratios at each position.
-<br>
-<br>Each detection predicts:
-<br>- Offset from nearest anchor
-<br>- Class probabilities
-<br>- Objectness score
-<br>
-<br>Recent models (FCOS, CenterNet) are anchor-free.
-<br>
-<br>## Non-Maximum Suppression (NMS)
-<br>
-<br>Many overlapping boxes for the same object. NMS:
-<br>1. Sort boxes by score
-<br>2. Keep highest
-<br>3. Remove boxes with IoU &gt; threshold
-<br>4. Repeat
-<br>
-<br>IoU (Intersection over Union) measures overlap.
-<br>
-<br>## Evaluation Metrics
-<br>
-<br><strong>IoU:</strong> overlap between predicted and ground truth boxes.
-<br>
-<br><strong>mAP (mean Average Precision):</strong> average precision across classes and IoU thresholds.
-<br>
-<br><strong>COCO mAP:</strong> averages over IoU 0.5 to 0.95, small/medium/large objects.
-<br>
-<br><strong>FPS:</strong> frames per second (speed).
-<br>
-<br>Trade-off: accuracy vs speed.
-<br>
-<br>## Semantic Segmentation
-<br>
-<br>Classify every pixel.
-<br>
-<br><strong>FCN (2014):</strong> replace FC layers with conv layers. Output is a heatmap.
-<br>
-<br><strong>U-Net (2015):</strong> encoder-decoder with skip connections. Standard for medical imaging.
-<br>
-<br><strong>DeepLab:</strong> atrous convolutions for multi-scale context.
-<br>
-<br><strong>SegFormer, Mask2Former:</strong> transformer-based, state-of-the-art.
-<br>
-<br>Loss: per-pixel cross-entropy, Dice, or focal.
-<br>
-<br>## Instance Segmentation
-<br>
-<br>Separate objects of the same class.
-<br>
-<br><strong>Mask R-CNN (2017):</strong> Faster R-CNN + mask branch. Standard.
-<br>
-<br><strong>YOLACT:</strong> real-time instance segmentation.
-<br>
-<br><strong>SOLOv2, CondInst:</strong> alternatives.
-<br>
-<br>Used in robotics, autonomous driving.
-<br>
-<br>## Panoptic Segmentation
-<br>
-<br>Combine semantic (all pixels) + instance (individual objects).
-<br>
-<br>Each pixel is labeled with a class AND an instance ID (for countable things).
-<br>
-<br>Used in autonomous driving scene understanding.
-<br>
-<br>## Keypoint Detection
-<br>
-<br>Find specific points on objects (joints, facial landmarks).
-<br>
-<br><strong>OpenPose:</strong> bottom-up, detects all keypoints, groups into people.
-<br>
-<br><strong>HRNet:</strong> high-resolution network, accurate.
-<br>
-<br><strong>MediaPipe:</strong> Google's, real-time on mobile.
-<br>
-<br>## 3D Vision
-<br>
-<br>Beyond 2D images:
-<br>- <strong>Depth estimation:</strong> monocular or stereo
-<br>- <strong>3D object detection:</strong> LiDAR + camera
-<br>- <strong>NeRF:</strong> neural radiance fields for view synthesis
-<br>- <strong>Gaussian Splatting:</strong> fast 3D scene rendering
-<br>- <strong>SLAM:</strong> simultaneous localization and mapping
-<br>
-<br>## Video Understanding
-<br>
-<br>Beyond single images:
-<br>- <strong>Action recognition:</strong> classify actions in video
-<br>- <strong>Temporal detection:</strong> when does action happen
-<br>- <strong>Video captioning:</strong> describe video
-<br>- <strong>Tracking:</strong> follow objects across frames
-<br>
-<br>Models: 3D CNNs, two-stream networks, transformers (TimeSformer, VideoMAE).
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Detection: locate + classify objects
-<br>- Two-stage (Faster R-CNN) vs one-stage (YOLO)
-<br>- Anchors, NMS, IoU
-<br>- mAP is the standard metric
-<br>- Segmentation: semantic, instance, panoptic
-<br>- U-Net for medical, Mask R-CNN for general
-<br>- Keypoint detection: OpenPose, MediaPipe
-<br>- 3D vision: depth, NeRF, Gaussian Splatting
-<br>- Video: 3D CNNs, transformers
-<br></p></div>
+        <div class="lecture-full-content"><h3>From Classification to Detection</h3>
+<p>Classification: "this image contains a cat."<br>Detection: "there's a cat at (x, y, w, h)."</p>
+<p>Detection is harder: multiple objects, varying sizes, occlusions.</p>
+<h3>Two-Stage Detectors</h3>
+<p><strong>R-CNN (2014):</strong> region proposals → CNN per region → classify. Slow.</p>
+<p><strong>Fast R-CNN (2015):</strong> single CNN pass, ROI pooling. Faster.</p>
+<p><strong>Faster R-CNN (2015):</strong> add Region Proposal Network (RPN). End-to-end.</p>
+<p>Still two-stage, still relatively slow (~5-10 FPS).</p>
+<p>Used when accuracy matters more than speed.</p>
+<h3>One-Stage Detectors</h3>
+<p><strong>YOLO (2016):</strong> divide image into grid, predict boxes + classes per cell. Fast.</p>
+<p><strong>SSD (2016):</strong> multi-scale feature maps for different object sizes.</p>
+<p><strong>RetinaNet (2017):</strong> focal loss to handle class imbalance.</p>
+<p><strong>YOLOv5/v7/v8:</strong> modern versions, fast and accurate.</p>
+<p><strong>EfficientDet:</strong> scaled, efficient.</p>
+<p>One-stage is now standard for real-time detection.</p>
+<h3>Anchor Boxes</h3>
+<p>Pre-defined boxes of various sizes and aspect ratios at each position.</p>
+<p>Each detection predicts:</p>
+<ul><li>Offset from nearest anchor</li><li>Class probabilities</li><li>Objectness score</li></ul>
+<p>Recent models (FCOS, CenterNet) are anchor-free.</p>
+<h3>Non-Maximum Suppression (NMS)</h3>
+<p>Many overlapping boxes for the same object. NMS:</p>
+<ol><li>Sort boxes by score</li><li>Keep highest</li><li>Remove boxes with IoU &gt; threshold</li><li>Repeat</li></ol>
+<p>IoU (Intersection over Union) measures overlap.</p>
+<h3>Evaluation Metrics</h3>
+<p><strong>IoU:</strong> overlap between predicted and ground truth boxes.</p>
+<p><strong>mAP (mean Average Precision):</strong> average precision across classes and IoU thresholds.</p>
+<p><strong>COCO mAP:</strong> averages over IoU 0.5 to 0.95, small/medium/large objects.</p>
+<p><strong>FPS:</strong> frames per second (speed).</p>
+<p>Trade-off: accuracy vs speed.</p>
+<h3>Semantic Segmentation</h3>
+<p>Classify every pixel.</p>
+<p><strong>FCN (2014):</strong> replace FC layers with conv layers. Output is a heatmap.</p>
+<p><strong>U-Net (2015):</strong> encoder-decoder with skip connections. Standard for medical imaging.</p>
+<p><strong>DeepLab:</strong> atrous convolutions for multi-scale context.</p>
+<p><strong>SegFormer, Mask2Former:</strong> transformer-based, state-of-the-art.</p>
+<p>Loss: per-pixel cross-entropy, Dice, or focal.</p>
+<h3>Instance Segmentation</h3>
+<p>Separate objects of the same class.</p>
+<p><strong>Mask R-CNN (2017):</strong> Faster R-CNN + mask branch. Standard.</p>
+<p><strong>YOLACT:</strong> real-time instance segmentation.</p>
+<p><strong>SOLOv2, CondInst:</strong> alternatives.</p>
+<p>Used in robotics, autonomous driving.</p>
+<h3>Panoptic Segmentation</h3>
+<p>Combine semantic (all pixels) + instance (individual objects).</p>
+<p>Each pixel is labeled with a class AND an instance ID (for countable things).</p>
+<p>Used in autonomous driving scene understanding.</p>
+<h3>Keypoint Detection</h3>
+<p>Find specific points on objects (joints, facial landmarks).</p>
+<p><strong>OpenPose:</strong> bottom-up, detects all keypoints, groups into people.</p>
+<p><strong>HRNet:</strong> high-resolution network, accurate.</p>
+<p><strong>MediaPipe:</strong> Google's, real-time on mobile.</p>
+<h3>3D Vision</h3>
+<p>Beyond 2D images:</p>
+<ul><li><strong>Depth estimation:</strong> monocular or stereo</li><li><strong>3D object detection:</strong> LiDAR + camera</li><li><strong>NeRF:</strong> neural radiance fields for view synthesis</li><li><strong>Gaussian Splatting:</strong> fast 3D scene rendering</li><li><strong>SLAM:</strong> simultaneous localization and mapping</li></ul>
+<h3>Video Understanding</h3>
+<p>Beyond single images:</p>
+<ul><li><strong>Action recognition:</strong> classify actions in video</li><li><strong>Temporal detection:</strong> when does action happen</li><li><strong>Video captioning:</strong> describe video</li><li><strong>Tracking:</strong> follow objects across frames</li></ul>
+<p>Models: 3D CNNs, two-stream networks, transformers (TimeSformer, VideoMAE).</p>
+<h3>Key Takeaways</h3>
+<ul><li>Detection: locate + classify objects</li><li>Two-stage (Faster R-CNN) vs one-stage (YOLO)</li><li>Anchors, NMS, IoU</li><li>mAP is the standard metric</li><li>Segmentation: semantic, instance, panoptic</li><li>U-Net for medical, Mask R-CNN for general</li><li>Keypoint detection: OpenPose, MediaPipe</li><li>3D vision: depth, NeRF, Gaussian Splatting</li><li>Video: 3D CNNs, transformers</li></ul></div>
       </div>
     </div>
   
@@ -632,174 +335,74 @@ Detection is harder: multiple objects, varying sizes, occlusions.
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>Generative Models: GANs, VAEs, Diffusion</h4>
-          <p>
-## What are Generative Models?
-
-Models that learn the distribution of data and generate new samples.
-
-Tasks:
-- Image generation (DALL-E, Stable Diffusion, Midjourney)
-- Image editing (inpainting, style transfer)
-...</p>
+          <p>What are Generative Models? Models that learn the distribution of data and generate new samples. Tasks: Image generation (DALL-E, Stable Diffusion, Midjourney) Image editing (inpainting, style...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What are Generative Models?
-<br>
-<br>Models that learn the distribution of data and generate new samples.
-<br>
-<br>Tasks:
-<br>- Image generation (DALL-E, Stable Diffusion, Midjourney)
-<br>- Image editing (inpainting, style transfer)
-<br>- Super-resolution
-<br>- Data augmentation
-<br>- Anomaly detection
-<br>
-<br>## Taxonomy
-<br>
-<br>- <strong>Explicit density:</strong> model P(x) directly (VAE, autoregressive)
-<br>- <strong>Implicit density:</strong> learn to sample without P(x) (GAN)
-<br>- <strong>Score-based / diffusion:</strong> learn the gradient of log P(x)
-<br>
-<br>Each has strengths.
-<br>
-<br>## Autoencoders
-<br>
-<br>Compress input to a latent code, reconstruct:
-<br>
-<br>    x → Encoder → z → Decoder → x̂
-<br>
-<br>Trained to minimize ||x - x̂||. Bottleneck forces compact representation.
-<br>
-<br>Used for dimensionality reduction, denoising, feature learning.
-<br>
-<br>But autoencoders are not generative — no way to sample new data.
-<br>
-<br>## Variational Autoencoders (VAEs)
-<br>
-<br>Encoder outputs a distribution (μ, σ), not a point. Sample z from it, decode.
-<br>
-<br>Loss = reconstruction loss + KL divergence to prior.
-<br>
-<br>    L = ||x - x̂||² + KL(q(z|x) || p(z))
-<br>
-<br>Benefits:
-<br>- Smooth latent space
-<br>- Can sample new data
-<br>- Principled probabilistic framework
-<br>
-<br>Downside: blurry samples (from MSE loss).
-<br>
-<br>## GANs (Generative Adversarial Networks)
-<br>
-<br>Goodfellow et al. (2014). Two networks:
-<br>- <strong>Generator:</strong> produces fake images from noise
-<br>- <strong>Discriminator:</strong> distinguishes real from fake
-<br>
-<br>Trained adversarially:
-<br>
-<br>    min_G max_D E[log D(x)] + E[log(1 - D(G(z)))]
-<br>
-<br>Generator tries to fool discriminator; discriminator tries not to be fooled.
-<br>
-<br>Result: generator produces realistic images.
-<br>
-<br>## GAN Variants
-<br>
-<br>- <strong>DCGAN:</strong> convolutional GAN, stable architecture
-<br>- <strong>CycleGAN:</strong> unpaired image translation (horse ↔ zebra)
-<br>- <strong>StyleGAN:</strong> high-quality faces, controllable style
-<br>- <strong>Pix2Pix:</strong> paired image translation (edges → photos)
-<br>- <strong>BigGAN:</strong> class-conditional, high fidelity
-<br>- <strong>Progressive GAN:</strong> grow resolution during training
-<br>
-<br>## GAN Challenges
-<br>
-<br>- <strong>Mode collapse:</strong> generator produces limited variety
-<br>- <strong>Training instability:</strong> hard to balance G and D
-<br>- <strong>Evaluation:</strong> hard to measure quality (FID, IS)
-<br>
-<br>## Diffusion Models
-<br>
-<br>Sohl-Dickstein et al. (2015), popularized by Ho et al. (2020).
-<br>
-<br>Forward process: gradually add noise to image.
-<br>
-<br>    x_t = √(1-β_t) x_{t-1} + √β_t ε
-<br>
-<br>After T steps, x_T is pure noise.
-<br>
-<br>Reverse process: learn to denoise step by step.
-<br>
-<br>    x_{t-1} = (1/√α_t) (x_t - (1-α_t)/√(1-ᾱ_t) ε_θ(x_t, t))
-<br>
-<br>Train network to predict noise ε at each step.
-<br>
-<br>## Why Diffusion Works
-<br>
-<br>- Stable training (simple MSE loss)
-<br>- High-quality samples
-<br>- Covers the data distribution (no mode collapse)
-<br>- Controllable generation
-<br>
-<br>Downside: slow sampling (many steps). Solved by DDIM, DPM-Solver.
-<br>
-<br>## Stable Diffusion
-<br>
-<br>Latent diffusion: apply diffusion in a compressed latent space (VAE encoded).
-<br>
-<br>Benefits: much faster, lower compute.
-<br>
-<br>Text conditioning via CLIP text encoder → cross-attention.
-<br>
-<br>Powers DALL-E 2, Stable Diffusion, Midjourney, Imagen.
-<br>
-<br>## Classifier-Free Guidance
-<br>
-<br>Improve sample quality by combining conditional and unconditional predictions:
-<br>
-<br>    ε = ε_uncond + w (ε_cond - ε_uncond)
-<br>
-<br>w is the guidance scale. Higher w → more fidelity to prompt, less diversity.
-<br>
-<br>## ControlNet
-<br>
-<br>Add spatial conditioning (pose, edges, depth) to diffusion models.
-<br>
-<br>Enables precise control over generation.
-<br>
-<br>## Evaluation Metrics
-<br>
-<br>- <strong>FID (Fréchet Inception Distance):</strong> distance between real and generated distributions in feature space. Lower is better.
-<br>- <strong>IS (Inception Score):</strong> quality + diversity. Higher is better.
-<br>- <strong>CLIP Score:</strong> text-image alignment.
-<br>
-<br>No metric is perfect; human eval still matters.
-<br>
-<br>## Applications
-<br>
-<br>- Text-to-image (DALL-E 3, SDXL, Midjourney)
-<br>- Text-to-video (Sora, Runway)
-<br>- Image editing (inpainting, outpainting)
-<br>- 3D generation (DreamFusion)
-<br>- Drug discovery (molecule generation)
-<br>- Audio generation (MusicGen, AudioLM)
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Generative models learn P(x)
-<br>- Autoencoders compress; VAEs sample
-<br>- GANs: adversarial, sharp but unstable
-<br>- Diffusion: iterative denoising, high quality, stable
-<br>- Stable Diffusion: latent diffusion + text conditioning
-<br>- Guidance, ControlNet for control
-<br>- FID is standard metric
-<br>- Diffusions dominate image generation
-<br></p></div>
+        <div class="lecture-full-content"><h3>What are Generative Models?</h3>
+<p>Models that learn the distribution of data and generate new samples.</p>
+<p>Tasks:</p>
+<ul><li>Image generation (DALL-E, Stable Diffusion, Midjourney)</li><li>Image editing (inpainting, style transfer)</li><li>Super-resolution</li><li>Data augmentation</li><li>Anomaly detection</li></ul>
+<h3>Taxonomy</h3>
+<ul><li><strong>Explicit density:</strong> model P(x) directly (VAE, autoregressive)</li><li><strong>Implicit density:</strong> learn to sample without P(x) (GAN)</li><li><strong>Score-based / diffusion:</strong> learn the gradient of log P(x)</li></ul>
+<p>Each has strengths.</p>
+<h3>Autoencoders</h3>
+<p>Compress input to a latent code, reconstruct:</p>
+<p>x → Encoder → z → Decoder → x̂</p>
+<p>Trained to minimize ||x - x̂||. Bottleneck forces compact representation.</p>
+<p>Used for dimensionality reduction, denoising, feature learning.</p>
+<p>But autoencoders are not generative — no way to sample new data.</p>
+<h3>Variational Autoencoders (VAEs)</h3>
+<p>Encoder outputs a distribution (μ, σ), not a point. Sample z from it, decode.</p>
+<p>Loss = reconstruction loss + KL divergence to prior.</p>
+<p>L = ||x - x̂||² + KL(q(z|x) || p(z))</p>
+<p>Benefits:</p>
+<ul><li>Smooth latent space</li><li>Can sample new data</li><li>Principled probabilistic framework</li></ul>
+<p>Downside: blurry samples (from MSE loss).</p>
+<h3>GANs (Generative Adversarial Networks)</h3>
+<p>Goodfellow et al. (2014). Two networks:</p>
+<ul><li><strong>Generator:</strong> produces fake images from noise</li><li><strong>Discriminator:</strong> distinguishes real from fake</li></ul>
+<p>Trained adversarially:</p>
+<p>min_G max_D E[log D(x)] + E[log(1 - D(G(z)))]</p>
+<p>Generator tries to fool discriminator; discriminator tries not to be fooled.</p>
+<p>Result: generator produces realistic images.</p>
+<h3>GAN Variants</h3>
+<ul><li><strong>DCGAN:</strong> convolutional GAN, stable architecture</li><li><strong>CycleGAN:</strong> unpaired image translation (horse ↔ zebra)</li><li><strong>StyleGAN:</strong> high-quality faces, controllable style</li><li><strong>Pix2Pix:</strong> paired image translation (edges → photos)</li><li><strong>BigGAN:</strong> class-conditional, high fidelity</li><li><strong>Progressive GAN:</strong> grow resolution during training</li></ul>
+<h3>GAN Challenges</h3>
+<ul><li><strong>Mode collapse:</strong> generator produces limited variety</li><li><strong>Training instability:</strong> hard to balance G and D</li><li><strong>Evaluation:</strong> hard to measure quality (FID, IS)</li></ul>
+<h3>Diffusion Models</h3>
+<p>Sohl-Dickstein et al. (2015), popularized by Ho et al. (2020).</p>
+<p>Forward process: gradually add noise to image.</p>
+<p>x_t = √(1-β_t) x_{t-1} + √β_t ε</p>
+<p>After T steps, x_T is pure noise.</p>
+<p>Reverse process: learn to denoise step by step.</p>
+<p>x_{t-1} = (1/√α_t) (x_t - (1-α_t)/√(1-ᾱ_t) ε_θ(x_t, t))</p>
+<p>Train network to predict noise ε at each step.</p>
+<h3>Why Diffusion Works</h3>
+<ul><li>Stable training (simple MSE loss)</li><li>High-quality samples</li><li>Covers the data distribution (no mode collapse)</li><li>Controllable generation</li></ul>
+<p>Downside: slow sampling (many steps). Solved by DDIM, DPM-Solver.</p>
+<h3>Stable Diffusion</h3>
+<p>Latent diffusion: apply diffusion in a compressed latent space (VAE encoded).</p>
+<p>Benefits: much faster, lower compute.</p>
+<p>Text conditioning via CLIP text encoder → cross-attention.</p>
+<p>Powers DALL-E 2, Stable Diffusion, Midjourney, Imagen.</p>
+<h3>Classifier-Free Guidance</h3>
+<p>Improve sample quality by combining conditional and unconditional predictions:</p>
+<p>ε = ε_uncond + w (ε_cond - ε_uncond)</p>
+<p>w is the guidance scale. Higher w → more fidelity to prompt, less diversity.</p>
+<h3>ControlNet</h3>
+<p>Add spatial conditioning (pose, edges, depth) to diffusion models.</p>
+<p>Enables precise control over generation.</p>
+<h3>Evaluation Metrics</h3>
+<ul><li><strong>FID (Fréchet Inception Distance):</strong> distance between real and generated distributions in feature space. Lower is better.</li><li><strong>IS (Inception Score):</strong> quality + diversity. Higher is better.</li><li><strong>CLIP Score:</strong> text-image alignment.</li></ul>
+<p>No metric is perfect; human eval still matters.</p>
+<h3>Applications</h3>
+<ul><li>Text-to-image (DALL-E 3, SDXL, Midjourney)</li><li>Text-to-video (Sora, Runway)</li><li>Image editing (inpainting, outpainting)</li><li>3D generation (DreamFusion)</li><li>Drug discovery (molecule generation)</li><li>Audio generation (MusicGen, AudioLM)</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>Generative models learn P(x)</li><li>Autoencoders compress; VAEs sample</li><li>GANs: adversarial, sharp but unstable</li><li>Diffusion: iterative denoising, high quality, stable</li><li>Stable Diffusion: latent diffusion + text conditioning</li><li>Guidance, ControlNet for control</li><li>FID is standard metric</li><li>Diffusions dominate image generation</li></ul></div>
       </div>
     </div>
   
@@ -808,178 +411,69 @@ Tasks:
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>Advanced Topics and Deployment</h4>
-          <p>
-## Self-Supervised Learning
-
-Learn representations without labels. Use pretext tasks:
-- **Contrastive:** pull similar pairs together, push dissimilar apart
-- **Masked prediction:** predict masked parts
-- **Rotatio...</p>
+          <p>Self-Supervised Learning Learn representations without labels. Use pretext tasks: Contrastive: pull similar pairs together, push dissimilar apart Masked prediction: predict masked parts Rotatio...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Self-Supervised Learning
-<br>
-<br>Learn representations without labels. Use pretext tasks:
-<br>- <strong>Contrastive:</strong> pull similar pairs together, push dissimilar apart
-<br>- <strong>Masked prediction:</strong> predict masked parts
-<br>- <strong>Rotation:</strong> predict how image was rotated
-<br>
-<br>Methods: SimCLR, MoCo, BYOL, DINO, MAE.
-<br>
-<br>Why it matters: unlabeled data is abundant; labels are expensive.
-<br>
-<br>Foundation models (CLIP, DINOv2) trained self-supervised.
-<br>
-<br>## Vision Transformers (ViT)
-<br>
-<br>Apply transformer to images: split into patches, treat as tokens.
-<br>
-<br>    Image (224×224) → 16×16 patches → 196 tokens → Transformer
-<br>
-<br>Requires more data than CNNs. On ImageNet alone, ViT underperforms ResNet. On larger datasets (JFT-300M), it surpasses.
-<br>
-<br>Modern: Swin, DeiT, BEiT, DINOv2.
-<br>
-<br>## Multimodal Models
-<br>
-<br>Combine vision + language:
-<br>- <strong>CLIP:</strong> contrastive image-text pretraining
-<br>- <strong>BLIP:</strong> captioning, VQA
-<br>- <strong>Flamingo:</strong> few-shot visual understanding
-<br>- <strong>GPT-4V, Gemini:</strong> native multimodal LLMs
-<br>- <strong>LLaVA:</strong> open-source vision-language
-<br>
-<br>Enables image captioning, VQA, image-grounded dialogue.
-<br>
-<br>## Neural Architecture Search (NAS)
-<br>
-<br>Automate architecture design.
-<br>
-<br>- <strong>Reinforcement learning:</strong> controller proposes architectures
-<br>- <strong>Evolutionary:</strong> mutate and select
-<br>- <strong>Differentiable (DARTS):</strong> relax discrete choices
-<br>
-<br>Found architectures: NASNet, AmoebaNet, EfficientNet.
-<br>
-<br>Expensive to run but produces efficient models.
-<br>
-<br>## Model Compression
-<br>
-<br>Deploy large models on small devices.
-<br>
-<br><strong>Pruning:</strong> remove weights/neurons. Sparse models run faster.
-<br>
-<br><strong>Quantization:</strong> reduce precision.
-<br>- Post-training: quantize trained model (INT8)
-<br>- Quantization-aware training: simulate quantization during training
-<br>- 4-bit, 2-bit for LLMs
-<br>
-<br><strong>Knowledge distillation:</strong> train small student to mimic large teacher.
-<br>
-<br><strong>Low-rank factorization:</strong> replace layers with smaller matrices.
-<br>
-<br>Combined: 10-100x smaller models with minor quality loss.
-<br>
-<br>## Efficient Architectures
-<br>
-<br>- <strong>MobileNet:</strong> depthwise separable convolutions
-<br>- <strong>ShuffleNet:</strong> channel shuffle for efficiency
-<br>- <strong>EfficientNet:</strong> compound scaling
-<br>- <strong>MobileViT:</strong> hybrid CNN + transformer
-<br>
-<br>Used in mobile, embedded, edge.
-<br>
-<br>## Hardware for Deep Learning
-<br>
-<br>- <strong>GPUs:</strong> NVIDIA dominates (A100, H100, RTX 4090)
-<br>- <strong>TPUs:</strong> Google's tensor processing units
-<br>- <strong>NPUs:</strong> dedicated neural network accelerators (Apple Neural Engine, Qualcomm Hexagon)
-<br>- <strong>FPGAs:</strong> reconfigurable, flexible
-<br>- <strong>ASICs:</strong> custom silicon (Google TPU, Tesla FSD)
-<br>- <strong>Neuromorphic:</strong> brain-inspired (Intel Loihi)
-<br>
-<br>Each has trade-offs in speed, power, cost, flexibility.
-<br>
-<br>## Frameworks
-<br>
-<br>- <strong>PyTorch:</strong> research standard, dynamic graphs
-<br>- <strong>TensorFlow:</strong> production, Keras API
-<br>- <strong>JAX:</strong> functional, autograd, XLA
-<br>- <strong>MXNet:</strong> Amazon, legacy
-<br>- <strong>ONNX:</strong> interchange format
-<br>- <strong>TVM:</strong> compiler for deployment
-<br>
-<br>PyTorch dominates research; TF/JAX in production.
-<br>
-<br>## Deployment
-<br>
-<br>From trained model to production:
-<br>1. Export to ONNX or TorchScript
-<br>2. Optimize (quantization, pruning)
-<br>3. Convert to target (TensorRT, CoreML, TFLite)
-<br>4. Serve (REST API, gRPC)
-<br>5. Monitor (latency, accuracy, drift)
-<br>
-<br>Tools: TorchServe, Triton, KServe, BentoML.
-<br>
-<br>## Ethics and Fairness
-<br>
-<br>Models can be biased, unfair, or harmful.
-<br>
-<br>Issues:
-<br>- <strong>Bias:</strong> racial, gender, age in predictions
-<br>- <strong>Privacy:</strong> models memorize training data
-<br>- <strong>Deepfakes:</strong> realistic fake media
-<br>- <strong>Misuse:</strong> surveillance, manipulation
-<br>- <strong>Environmental:</strong> energy cost of training
-<br>
-<br>Mitigation:
-<br>- Bias testing and correction
-<br>- Differential privacy
-<br>- Watermarking generated content
-<br>- Regulation (EU AI Act)
-<br>
-<br>## Interpretability
-<br>
-<br>Understanding why models predict what they do.
-<br>
-<br>- <strong>Saliency maps:</strong> which pixels matter
-<br>- <strong>Grad-CAM:</strong> class activation maps
-<br>- <strong>Attention visualization:</strong> what the model attends to
-<br>- <strong>LIME, SHAP:</strong> local explanations
-<br>
-<br>Important for high-stakes applications (medical, legal, autonomous).
-<br>
-<br>## Future Directions
-<br>
-<br>- <strong>Foundation models:</strong> one model for many tasks
-<br>- <strong>Multimodal:</strong> text, image, audio, video
-<br>- <strong>Efficient:</strong> smaller, faster, cheaper
-<br>- <strong>Robust:</strong> handle distribution shift, adversarial attacks
-<br>- <strong>Aligned:</strong> safe, honest, helpful
-<br>- <strong>Reasoning:</strong> chain-of-thought, planning
-<br>- <strong>Agents:</strong> LLMs that take actions
-<br>
-<br>The field moves fast. Stay curious.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Self-supervised learning uses unlabeled data
-<br>- ViT brings transformers to vision
-<br>- Multimodal models combine vision + language
-<br>- NAS automates architecture design
-<br>- Compression: pruning, quantization, distillation
-<br>- Efficient architectures for edge
-<br>- GPUs/TPUs/NPUs/FPGAs for training and inference
-<br>- PyTorch, TF, JAX frameworks
-<br>- Deployment: export, optimize, serve, monitor
-<br>- Ethics, interpretability, and safety are critical
-<br></p></div>
+        <div class="lecture-full-content"><h3>Self-Supervised Learning</h3>
+<p>Learn representations without labels. Use pretext tasks:</p>
+<ul><li><strong>Contrastive:</strong> pull similar pairs together, push dissimilar apart</li><li><strong>Masked prediction:</strong> predict masked parts</li><li><strong>Rotation:</strong> predict how image was rotated</li></ul>
+<p>Methods: SimCLR, MoCo, BYOL, DINO, MAE.</p>
+<p>Why it matters: unlabeled data is abundant; labels are expensive.</p>
+<p>Foundation models (CLIP, DINOv2) trained self-supervised.</p>
+<h3>Vision Transformers (ViT)</h3>
+<p>Apply transformer to images: split into patches, treat as tokens.</p>
+<p>Image (224×224) → 16×16 patches → 196 tokens → Transformer</p>
+<p>Requires more data than CNNs. On ImageNet alone, ViT underperforms ResNet. On larger datasets (JFT-300M), it surpasses.</p>
+<p>Modern: Swin, DeiT, BEiT, DINOv2.</p>
+<h3>Multimodal Models</h3>
+<p>Combine vision + language:</p>
+<ul><li><strong>CLIP:</strong> contrastive image-text pretraining</li><li><strong>BLIP:</strong> captioning, VQA</li><li><strong>Flamingo:</strong> few-shot visual understanding</li><li><strong>GPT-4V, Gemini:</strong> native multimodal LLMs</li><li><strong>LLaVA:</strong> open-source vision-language</li></ul>
+<p>Enables image captioning, VQA, image-grounded dialogue.</p>
+<h3>Neural Architecture Search (NAS)</h3>
+<p>Automate architecture design.</p>
+<ul><li><strong>Reinforcement learning:</strong> controller proposes architectures</li><li><strong>Evolutionary:</strong> mutate and select</li><li><strong>Differentiable (DARTS):</strong> relax discrete choices</li></ul>
+<p>Found architectures: NASNet, AmoebaNet, EfficientNet.</p>
+<p>Expensive to run but produces efficient models.</p>
+<h3>Model Compression</h3>
+<p>Deploy large models on small devices.</p>
+<p><strong>Pruning:</strong> remove weights/neurons. Sparse models run faster.</p>
+<p><strong>Quantization:</strong> reduce precision.</p>
+<ul><li>Post-training: quantize trained model (INT8)</li><li>Quantization-aware training: simulate quantization during training</li><li>4-bit, 2-bit for LLMs</li></ul>
+<p><strong>Knowledge distillation:</strong> train small student to mimic large teacher.</p>
+<p><strong>Low-rank factorization:</strong> replace layers with smaller matrices.</p>
+<p>Combined: 10-100x smaller models with minor quality loss.</p>
+<h3>Efficient Architectures</h3>
+<ul><li><strong>MobileNet:</strong> depthwise separable convolutions</li><li><strong>ShuffleNet:</strong> channel shuffle for efficiency</li><li><strong>EfficientNet:</strong> compound scaling</li><li><strong>MobileViT:</strong> hybrid CNN + transformer</li></ul>
+<p>Used in mobile, embedded, edge.</p>
+<h3>Hardware for Deep Learning</h3>
+<ul><li><strong>GPUs:</strong> NVIDIA dominates (A100, H100, RTX 4090)</li><li><strong>TPUs:</strong> Google's tensor processing units</li><li><strong>NPUs:</strong> dedicated neural network accelerators (Apple Neural Engine, Qualcomm Hexagon)</li><li><strong>FPGAs:</strong> reconfigurable, flexible</li><li><strong>ASICs:</strong> custom silicon (Google TPU, Tesla FSD)</li><li><strong>Neuromorphic:</strong> brain-inspired (Intel Loihi)</li></ul>
+<p>Each has trade-offs in speed, power, cost, flexibility.</p>
+<h3>Frameworks</h3>
+<ul><li><strong>PyTorch:</strong> research standard, dynamic graphs</li><li><strong>TensorFlow:</strong> production, Keras API</li><li><strong>JAX:</strong> functional, autograd, XLA</li><li><strong>MXNet:</strong> Amazon, legacy</li><li><strong>ONNX:</strong> interchange format</li><li><strong>TVM:</strong> compiler for deployment</li></ul>
+<p>PyTorch dominates research; TF/JAX in production.</p>
+<h3>Deployment</h3>
+<p>From trained model to production:</p>
+<ol><li>Export to ONNX or TorchScript</li><li>Optimize (quantization, pruning)</li><li>Convert to target (TensorRT, CoreML, TFLite)</li><li>Serve (REST API, gRPC)</li><li>Monitor (latency, accuracy, drift)</li></ol>
+<p>Tools: TorchServe, Triton, KServe, BentoML.</p>
+<h3>Ethics and Fairness</h3>
+<p>Models can be biased, unfair, or harmful.</p>
+<p>Issues:</p>
+<ul><li><strong>Bias:</strong> racial, gender, age in predictions</li><li><strong>Privacy:</strong> models memorize training data</li><li><strong>Deepfakes:</strong> realistic fake media</li><li><strong>Misuse:</strong> surveillance, manipulation</li><li><strong>Environmental:</strong> energy cost of training</li></ul>
+<p>Mitigation:</p>
+<ul><li>Bias testing and correction</li><li>Differential privacy</li><li>Watermarking generated content</li><li>Regulation (EU AI Act)</li></ul>
+<h3>Interpretability</h3>
+<p>Understanding why models predict what they do.</p>
+<ul><li><strong>Saliency maps:</strong> which pixels matter</li><li><strong>Grad-CAM:</strong> class activation maps</li><li><strong>Attention visualization:</strong> what the model attends to</li><li><strong>LIME, SHAP:</strong> local explanations</li></ul>
+<p>Important for high-stakes applications (medical, legal, autonomous).</p>
+<h3>Future Directions</h3>
+<ul><li><strong>Foundation models:</strong> one model for many tasks</li><li><strong>Multimodal:</strong> text, image, audio, video</li><li><strong>Efficient:</strong> smaller, faster, cheaper</li><li><strong>Robust:</strong> handle distribution shift, adversarial attacks</li><li><strong>Aligned:</strong> safe, honest, helpful</li><li><strong>Reasoning:</strong> chain-of-thought, planning</li><li><strong>Agents:</strong> LLMs that take actions</li></ul>
+<p>The field moves fast. Stay curious.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Self-supervised learning uses unlabeled data</li><li>ViT brings transformers to vision</li><li>Multimodal models combine vision + language</li><li>NAS automates architecture design</li><li>Compression: pruning, quantization, distillation</li><li>Efficient architectures for edge</li><li>GPUs/TPUs/NPUs/FPGAs for training and inference</li><li>PyTorch, TF, JAX frameworks</li><li>Deployment: export, optimize, serve, monitor</li><li>Ethics, interpretability, and safety are critical</li></ul></div>
       </div>
     </div>
   </div>

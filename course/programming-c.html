@@ -108,219 +108,84 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Introduction to C; Compilation Model</h4>
-          <p>
-## Why Learn C in 2026?
-
-C is over 50 years old, yet it powers:
-- Operating systems - Linux, Windows kernel, macOS core
-- Embedded systems - from ESP32 to satellites
-- Databases - PostgreSQL, SQLite, Redis
-- Comp...</p>
+          <p>Why Learn C in 2026? C is over 50 years old, yet it powers: Operating systems - Linux, Windows kernel, macOS core Embedded systems - from ESP32 to satellites Databases - PostgreSQL, SQLite, Redis...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Why Learn C in 2026?
-<br>
-<br>C is over 50 years old, yet it powers:
-<br>- Operating systems - Linux, Windows kernel, macOS core
-<br>- Embedded systems - from ESP32 to satellites
-<br>- Databases - PostgreSQL, SQLite, Redis
-<br>- Compilers - CPython, the JVM itself
-<br>- Everything under Python, Ruby, Node.js
-<br>
-<br>Learning C teaches you how memory actually works. Once you understand pointers, you understand why Python is slow, why garbage collection exists, and why Rust was invented.
-<br>
-<br>## Hello, World - But Let's Understand What Happens
-<br>
-<br>    #include &lt;stdio.h&gt;
-<br>    
-<br>    int main(void) {
-<br>        printf("Hello, World!\n");
-<br>        return 0;
-<br>    }
-<br>
-<br>Compile and run:
-<br>
-<br>    gcc -o hello hello.c
-<br>    ./hello
-<br>
-<br>But what actually happens?
-<br>
-<br>## The Compilation Pipeline
-<br>
-<br>C compilation has four stages:
-<br>
-<br>### 1. Preprocessing
-<br>
-<br>    gcc -E hello.c
-<br>
-<br>Expands:
-<br>- #include &lt;stdio.h&gt; inserts the entire stdio.h header (thousands of lines)
-<br>- #define PI 3.14 text replacement
-<br>- #ifdef DEBUG ... #endif conditional compilation
-<br>
-<br>Output: a single .i file with no more # directives.
-<br>
-<br>### 2. Compilation
-<br>
-<br>    gcc -S hello.i
-<br>
-<br>Translates C to assembly (.s file). Example for int x = a + b:
-<br>
-<br>    movl  -4(%rbp), %eax     # load a
-<br>    movl  -8(%rbp), %edx     # load b
-<br>    addl  %edx, %eax         # a + b
-<br>    movl  %eax, -12(%rbp)    # store to x
-<br>
-<br>This is where the compiler optimizes.
-<br>
-<br>### 3. Assembly
-<br>
-<br>    gcc -c hello.s
-<br>
-<br>Assembles to machine code, producing hello.o (object file).
-<br>
-<br>### 4. Linking
-<br>
-<br>    gcc -o hello hello.o
-<br>
-<br>Links your object file with:
-<br>- C runtime library (libc.so)
-<br>- Your other object files
-<br>- Any libraries you link against (-lm for math)
-<br>
-<br>Output: hello executable.
-<br>
-<br>## Types in C
-<br>
-<br>C has a small set of primitive types:
-<br>
-<br>Type      | Typical size | Range
-<br>----------|--------------|-------
-<br>char      | 1 byte       | -128 to 127
-<br>short     | 2 bytes      | -32,768 to 32,767
-<br>int       | 4 bytes      | +/- 2.1 billion
-<br>long      | 8 bytes      | +/- 9.2 quintillion
-<br>float     | 4 bytes      | ~7 digits precision
-<br>double    | 8 bytes      | ~15 digits precision
-<br>void*     | 8 bytes      | any pointer
-<br>
-<br>Use stdint.h for exact sizes:
-<br>
-<br>    #include &lt;stdint.h&gt;
-<br>    int32_t x = 42;    // exactly 32 bits, guaranteed
-<br>    uint8_t y = 255;   // exactly 8 bits, unsigned
-<br>
-<br>## Variables and Memory
-<br>
-<br>Every variable lives at a memory address:
-<br>
-<br>    int a = 10;
-<br>    int b = 20;
-<br>    int c = a + b;
-<br>
-<br>In memory:
-<br>
-<br>    Address       Value   Name
-<br>    0x7ffe1000    10      a
-<br>    0x7ffe1004    20      b
-<br>    0x7ffe1008    30      c
-<br>
-<br>The &amp; operator gives the address:
-<br>
-<br>    printf("%p\n", (void*)&amp;a);   // prints 0x7ffe1000
-<br>
-<br>The * operator dereferences a pointer:
-<br>
-<br>    int *p = &amp;a;                 // p points to a
-<br>    printf("%d\n", *p);          // prints 10
-<br>    *p = 42;                     // changes a to 42
-<br>
-<br>## Functions and the Call Stack
-<br>
-<br>    int add(int x, int y) {
-<br>        return x + y;
-<br>    }
-<br>    
-<br>    int main(void) {
-<br>        int result = add(3, 4);
-<br>        printf("%d\n", result);
-<br>        return 0;
-<br>    }
-<br>
-<br>When main calls add:
-<br>1. The caller pushes arguments onto the stack
-<br>2. A new stack frame is created for add with room for locals
-<br>3. add runs, places result in a register
-<br>4. add returns, stack frame is destroyed
-<br>
-<br>The stack grows downward on most architectures (x86, ARM).
-<br>
-<br>## Common Beginner Mistakes
-<br>
-<br>1. Forgetting &amp; when calling scanf:
-<br>
-<br>    int x;
-<br>    scanf("%d", &amp;x);   // correct
-<br>    scanf("%d", x);    // WRONG - segfault
-<br>
-<br>2. Using = instead of ==:
-<br>
-<br>    if (x = 5) { ... }    // always true; assigns 5 to x
-<br>    if (x == 5) { ... }   // correct
-<br>
-<br>3. Buffer overflow:
-<br>
-<br>    char buf[10];
-<br>    strcpy(buf, "Hello, World!");  // overflow! 14 bytes into 10-byte buffer
-<br>
-<br>4. Uninitialized variables:
-<br>
-<br>    int x;
-<br>    printf("%d\n", x);   // undefined value
-<br>
-<br>5. Dangling pointers:
-<br>
-<br>    int *p = malloc(sizeof(int));
-<br>    free(p);
-<br>    *p = 5;   // undefined behavior
-<br>
-<br>## Debugging with GDB
-<br>
-<br>    gcc -g -o hello hello.c   # -g adds debug symbols
-<br>    gdb ./hello
-<br>
-<br>Inside GDB:
-<br>- break main - set breakpoint
-<br>- run - start program
-<br>- next - step over
-<br>- step - step into
-<br>- print x - print variable
-<br>- bt - backtrace
-<br>
-<br>## Valgrind for Memory Bugs
-<br>
-<br>    valgrind --leak-check=full ./hello
-<br>
-<br>Detects:
-<br>- Memory leaks
-<br>- Use of uninitialized values
-<br>- Buffer overflows
-<br>- Invalid frees
-<br>
-<br>## Key Takeaways
-<br>
-<br>- C compilation = preprocess -&gt; compile -&gt; assemble -&gt; link
-<br>- Types have fixed sizes; use stdint.h for portability
-<br>- Every variable has an address; pointers store addresses
-<br>- Stack grows downward; each function call creates a frame
-<br>- The 5 most common bugs: missing &amp;, = vs ==, overflow, uninit, dangling
-<br>- Always use -Wall -Wextra and Valgrind
-<br></p></div>
+        <div class="lecture-full-content"><h3>Why Learn C in 2026?</h3>
+<p>C is over 50 years old, yet it powers:</p>
+<ul><li>Operating systems - Linux, Windows kernel, macOS core</li><li>Embedded systems - from ESP32 to satellites</li><li>Databases - PostgreSQL, SQLite, Redis</li><li>Compilers - CPython, the JVM itself</li><li>Everything under Python, Ruby, Node.js</li></ul>
+<p>Learning C teaches you how memory actually works. Once you understand pointers, you understand why Python is slow, why garbage collection exists, and why Rust was invented.</p>
+<h3>Hello, World - But Let's Understand What Happens</h3>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {<br>        printf("Hello, World!\n");<br>        return 0;<br>    }</p>
+<p>Compile and run:</p>
+<p>gcc -o hello hello.c<br>    ./hello</p>
+<p>But what actually happens?</p>
+<h3>The Compilation Pipeline</h3>
+<p>C compilation has four stages:</p>
+<h4>1. Preprocessing</h4>
+<p>gcc -E hello.c</p>
+<p>Expands:</p>
+<ul><li>#include &lt;stdio.h&gt; inserts the entire stdio.h header (thousands of lines)</li><li>#define PI 3.14 text replacement</li><li>#ifdef DEBUG ... #endif conditional compilation</li></ul>
+<p>Output: a single .i file with no more # directives.</p>
+<h4>2. Compilation</h4>
+<p>gcc -S hello.i</p>
+<p>Translates C to assembly (.s file). Example for int x = a + b:</p>
+<p>movl  -4(%rbp), %eax     # load a<br>    movl  -8(%rbp), %edx     # load b<br>    addl  %edx, %eax         # a + b<br>    movl  %eax, -12(%rbp)    # store to x</p>
+<p>This is where the compiler optimizes.</p>
+<h4>3. Assembly</h4>
+<p>gcc -c hello.s</p>
+<p>Assembles to machine code, producing hello.o (object file).</p>
+<h4>4. Linking</h4>
+<p>gcc -o hello hello.o</p>
+<p>Links your object file with:</p>
+<ul><li>C runtime library (libc.so)</li><li>Your other object files</li><li>Any libraries you link against (-lm for math)</li></ul>
+<p>Output: hello executable.</p>
+<h3>Types in C</h3>
+<p>C has a small set of primitive types:</p>
+<p>Type      | Typical size | Range<br>----------|--------------|-------<br>char      | 1 byte       | -128 to 127<br>short     | 2 bytes      | -32,768 to 32,767<br>int       | 4 bytes      | +/- 2.1 billion<br>long      | 8 bytes      | +/- 9.2 quintillion<br>float     | 4 bytes      | ~7 digits precision<br>double    | 8 bytes      | ~15 digits precision<br>void*     | 8 bytes      | any pointer</p>
+<p>Use stdint.h for exact sizes:</p>
+<p>#include &lt;stdint.h&gt;<br>    int32_t x = 42;    // exactly 32 bits, guaranteed<br>    uint8_t y = 255;   // exactly 8 bits, unsigned</p>
+<h3>Variables and Memory</h3>
+<p>Every variable lives at a memory address:</p>
+<p>int a = 10;<br>    int b = 20;<br>    int c = a + b;</p>
+<p>In memory:</p>
+<p>Address       Value   Name<br>    0x7ffe1000    10      a<br>    0x7ffe1004    20      b<br>    0x7ffe1008    30      c</p>
+<p>The &amp; operator gives the address:</p>
+<p>printf("%p\n", (void*)&amp;a);   // prints 0x7ffe1000</p>
+<p>The * operator dereferences a pointer:</p>
+<p>int *p = &amp;a;                 // p points to a<br>    printf("%d\n", *p);          // prints 10<br>    *p = 42;                     // changes a to 42</p>
+<h3>Functions and the Call Stack</h3>
+<p>int add(int x, int y) {<br>        return x + y;<br>    }</p>
+<p>int main(void) {<br>        int result = add(3, 4);<br>        printf("%d\n", result);<br>        return 0;<br>    }</p>
+<p>When main calls add:</p>
+<ol><li>The caller pushes arguments onto the stack</li><li>A new stack frame is created for add with room for locals</li><li>add runs, places result in a register</li><li>add returns, stack frame is destroyed</li></ol>
+<p>The stack grows downward on most architectures (x86, ARM).</p>
+<h3>Common Beginner Mistakes</h3>
+<ol><li>Forgetting &amp; when calling scanf:</li></ol>
+<p>int x;<br>    scanf("%d", &amp;x);   // correct<br>    scanf("%d", x);    // WRONG - segfault</p>
+<ol><li>Using = instead of ==:</li></ol>
+<p>if (x = 5) { ... }    // always true; assigns 5 to x<br>    if (x == 5) { ... }   // correct</p>
+<ol><li>Buffer overflow:</li></ol>
+<p>char buf[10];<br>    strcpy(buf, "Hello, World!");  // overflow! 14 bytes into 10-byte buffer</p>
+<ol><li>Uninitialized variables:</li></ol>
+<p>int x;<br>    printf("%d\n", x);   // undefined value</p>
+<ol><li>Dangling pointers:</li></ol>
+<p>int *p = malloc(sizeof(int));<br>    free(p);<br>    *p = 5;   // undefined behavior</p>
+<h3>Debugging with GDB</h3>
+<p>gcc -g -o hello hello.c   # -g adds debug symbols<br>    gdb ./hello</p>
+<p>Inside GDB:</p>
+<ul><li>break main - set breakpoint</li><li>run - start program</li><li>next - step over</li><li>step - step into</li><li>print x - print variable</li><li>bt - backtrace</li></ul>
+<h3>Valgrind for Memory Bugs</h3>
+<p>valgrind --leak-check=full ./hello</p>
+<p>Detects:</p>
+<ul><li>Memory leaks</li><li>Use of uninitialized values</li><li>Buffer overflows</li><li>Invalid frees</li></ul>
+<h3>Key Takeaways</h3>
+<ul><li>C compilation = preprocess -&gt; compile -&gt; assemble -&gt; link</li><li>Types have fixed sizes; use stdint.h for portability</li><li>Every variable has an address; pointers store addresses</li><li>Stack grows downward; each function call creates a frame</li><li>The 5 most common bugs: missing &amp;, = vs ==, overflow, uninit, dangling</li><li>Always use -Wall -Wextra and Valgrind</li></ul></div>
       </div>
     </div>
   

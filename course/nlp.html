@@ -108,150 +108,71 @@
         <div class="lecture-num">1</div>
         <div class="lecture-content">
           <h4>Introduction to NLP and Word Vectors</h4>
-          <p>
-## What is Natural Language Processing?
-
-NLP is the field of AI that deals with understanding and generating human language. It spans:
-
-- **Syntax:** structure of sentences (parsing, part-of-speech tagging)
-- **Se...</p>
+          <p>What is Natural Language Processing? NLP is the field of AI that deals with understanding and generating human language. It spans: Syntax: structure of sentences (parsing, part-of-speech tagging)...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## What is Natural Language Processing?
-<br>
-<br>NLP is the field of AI that deals with understanding and generating human language. It spans:
-<br>
-<br>- <strong>Syntax:</strong> structure of sentences (parsing, part-of-speech tagging)
-<br>- <strong>Semantics:</strong> meaning of words and sentences
-<br>- <strong>Pragmatics:</strong> meaning in context (dialogue, implicature)
-<br>- <strong>Applications:</strong> translation, summarization, question answering, sentiment analysis, chatbots
-<br>
-<br>NLP is hard because language is ambiguous, context-dependent, and continually evolving.
-<br>
-<br>## Why is Language Hard for Computers?
-<br>
-<br>Consider: "I saw the man with the telescope."
-<br>
-<br>Two meanings:
-<br>1. I used a telescope to see the man.
-<br>2. I saw a man who had a telescope.
-<br>
-<br>The same words, different syntactic structures, different meanings.
-<br>
-<br>Add pragmatics: "Can you pass the salt?" is a request, not a question. Sarcasm, idioms, cultural references make it even harder.
-<br>
-<br>## Classical NLP vs Neural NLP
-<br>
-<br><strong>Classical (pre-2013):</strong> hand-crafted features, statistical models (HMMs, CRFs, SVMs). Rule-based systems.
-<br>
-<br><strong>Neural (2013+):</strong> word embeddings, RNNs, then transformers. Learned representations end-to-end.
-<br>
-<br>The shift happened because neural methods scaled with data and compute.
-<br>
-<br>## Word Representations
-<br>
-<br>How do we represent a word as a vector?
-<br>
-<br><strong>One-hot:</strong> vector of size |V|, one 1 for the word, rest 0s. Simple, but:
-<br>- No notion of similarity
-<br>- Huge vectors (|V| = 50,000+)
-<br>- No generalization
-<br>
-<br><strong>Word embeddings:</strong> dense, low-dimensional vectors (50-300 dims) where similar words are close.
-<br>
-<br>## Word2Vec
-<br>
-<br>Mikolov et al. (2013) introduced Word2Vec. Two variants:
-<br>
-<br><strong>Skip-gram:</strong> predict context words from center word.
-<br>
-<br>    P(w_{t+j} | w_t) for j = -m..m
-<br>
-<br><strong>CBOW:</strong> predict center word from context.
-<br>
-<br>Both train a neural network on a large corpus. The learned weights become the embeddings.
-<br>
-<br>## The Skip-gram Objective
-<br>
-<br>Maximize the log probability of context words given center words:
-<br>
-<br>    J(θ) = (1/T) Σ_t Σ_{j=-m, j≠0}^m log P(w_{t+j} | w_t; θ)
-<br>
-<br>Where P uses softmax:
-<br>
-<br>    P(o | c) = exp(u_o^T v_c) / Σ_w exp(u_w^T v_c)
-<br>
-<br>Softmax over the entire vocabulary is expensive. Solutions:
-<br>- <strong>Negative sampling:</strong> sample a few "negative" words, train binary classifier
-<br>- <strong>Hierarchical softmax:</strong> tree-structured computation
-<br>
-<br>## Properties of Word2Vec Embeddings
-<br>
-<br>Learned embeddings capture semantic relationships:
-<br>
-<br>    king - man + woman ≈ queen
-<br>    Paris - France + Italy ≈ Rome
-<br>    walking - walk + swim ≈ swimming
-<br>
-<br>Analogies work in the embedding space. This surprised everyone.
-<br>
-<br>## GloVe
-<br>
-<br>Global Vectors (Pennington et al., 2014). Combines:
-<br>- Global matrix factorization (like LSA)
-<br>- Local context windows (like Word2Vec)
-<br>
-<br>Factorizes the co-occurrence matrix directly. Often works as well as Word2Vec.
-<br>
-<br>## FastText
-<br>
-<br>Facebook's extension. Represents words as bags of character n-grams.
-<br>
-<br>Benefits:
-<br>- Handles out-of-vocabulary words (morphology)
-<br>- Better for morphologically rich languages
-<br>- Robust to typos
-<br>
-<br>## Contextual Embeddings
-<br>
-<br>Word2Vec and GloVe give <strong>one vector per word</strong>, regardless of context. But "bank" means different things in "river bank" and "bank account".
-<br>
-<br><strong>ELMo (2018):</strong> bidirectional LSTM, context-dependent embeddings. First big win.
-<br>
-<br><strong>BERT (2018):</strong> transformer-based, deep bidirectional. State-of-the-art on many tasks.
-<br>
-<br><strong>GPT (2018+):</strong> transformer decoder, generative. Powers ChatGPT.
-<br>
-<br>Contextual embeddings replaced static ones almost entirely.
-<br>
-<br>## Subword Tokenization
-<br>
-<br>Modern NLP uses subword units (BPE, WordPiece, SentencePiece) instead of whole words.
-<br>
-<br>Benefits:
-<br>- Fixed vocabulary size
-<br>- Handles rare words
-<br>- Language-agnostic
-<br>
-<br>"unhappiness" → "un", "happi", "ness"
-<br>
-<br>This is what GPT/BERT use.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- NLP spans syntax, semantics, pragmatics
-<br>- Language is ambiguous and context-dependent
-<br>- One-hot encoding is simple but weak
-<br>- Word2Vec/GloVe: static embeddings, capture analogies
-<br>- FastText: handles morphology
-<br>- Contextual embeddings (ELMo, BERT, GPT) are current standard
-<br>- Subword tokenization handles open vocabulary
-<br></p></div>
+        <div class="lecture-full-content"><h3>What is Natural Language Processing?</h3>
+<p>NLP is the field of AI that deals with understanding and generating human language. It spans:</p>
+<ul><li><strong>Syntax:</strong> structure of sentences (parsing, part-of-speech tagging)</li><li><strong>Semantics:</strong> meaning of words and sentences</li><li><strong>Pragmatics:</strong> meaning in context (dialogue, implicature)</li><li><strong>Applications:</strong> translation, summarization, question answering, sentiment analysis, chatbots</li></ul>
+<p>NLP is hard because language is ambiguous, context-dependent, and continually evolving.</p>
+<h3>Why is Language Hard for Computers?</h3>
+<p>Consider: "I saw the man with the telescope."</p>
+<p>Two meanings:</p>
+<ol><li>I used a telescope to see the man.</li><li>I saw a man who had a telescope.</li></ol>
+<p>The same words, different syntactic structures, different meanings.</p>
+<p>Add pragmatics: "Can you pass the salt?" is a request, not a question. Sarcasm, idioms, cultural references make it even harder.</p>
+<h3>Classical NLP vs Neural NLP</h3>
+<p><strong>Classical (pre-2013):</strong> hand-crafted features, statistical models (HMMs, CRFs, SVMs). Rule-based systems.</p>
+<p><strong>Neural (2013+):</strong> word embeddings, RNNs, then transformers. Learned representations end-to-end.</p>
+<p>The shift happened because neural methods scaled with data and compute.</p>
+<h3>Word Representations</h3>
+<p>How do we represent a word as a vector?</p>
+<p><strong>One-hot:</strong> vector of size |V|, one 1 for the word, rest 0s. Simple, but:</p>
+<ul><li>No notion of similarity</li><li>Huge vectors (|V| = 50,000+)</li><li>No generalization</li></ul>
+<p><strong>Word embeddings:</strong> dense, low-dimensional vectors (50-300 dims) where similar words are close.</p>
+<h3>Word2Vec</h3>
+<p>Mikolov et al. (2013) introduced Word2Vec. Two variants:</p>
+<p><strong>Skip-gram:</strong> predict context words from center word.</p>
+<p>P(w_{t+j} | w_t) for j = -m..m</p>
+<p><strong>CBOW:</strong> predict center word from context.</p>
+<p>Both train a neural network on a large corpus. The learned weights become the embeddings.</p>
+<h3>The Skip-gram Objective</h3>
+<p>Maximize the log probability of context words given center words:</p>
+<p>J(θ) = (1/T) Σ_t Σ_{j=-m, j≠0}^m log P(w_{t+j} | w_t; θ)</p>
+<p>Where P uses softmax:</p>
+<p>P(o | c) = exp(u_o^T v_c) / Σ_w exp(u_w^T v_c)</p>
+<p>Softmax over the entire vocabulary is expensive. Solutions:</p>
+<ul><li><strong>Negative sampling:</strong> sample a few "negative" words, train binary classifier</li><li><strong>Hierarchical softmax:</strong> tree-structured computation</li></ul>
+<h3>Properties of Word2Vec Embeddings</h3>
+<p>Learned embeddings capture semantic relationships:</p>
+<p>king - man + woman ≈ queen<br>    Paris - France + Italy ≈ Rome<br>    walking - walk + swim ≈ swimming</p>
+<p>Analogies work in the embedding space. This surprised everyone.</p>
+<h3>GloVe</h3>
+<p>Global Vectors (Pennington et al., 2014). Combines:</p>
+<ul><li>Global matrix factorization (like LSA)</li><li>Local context windows (like Word2Vec)</li></ul>
+<p>Factorizes the co-occurrence matrix directly. Often works as well as Word2Vec.</p>
+<h3>FastText</h3>
+<p>Facebook's extension. Represents words as bags of character n-grams.</p>
+<p>Benefits:</p>
+<ul><li>Handles out-of-vocabulary words (morphology)</li><li>Better for morphologically rich languages</li><li>Robust to typos</li></ul>
+<h3>Contextual Embeddings</h3>
+<p>Word2Vec and GloVe give <strong>one vector per word</strong>, regardless of context. But "bank" means different things in "river bank" and "bank account".</p>
+<p><strong>ELMo (2018):</strong> bidirectional LSTM, context-dependent embeddings. First big win.</p>
+<p><strong>BERT (2018):</strong> transformer-based, deep bidirectional. State-of-the-art on many tasks.</p>
+<p><strong>GPT (2018+):</strong> transformer decoder, generative. Powers ChatGPT.</p>
+<p>Contextual embeddings replaced static ones almost entirely.</p>
+<h3>Subword Tokenization</h3>
+<p>Modern NLP uses subword units (BPE, WordPiece, SentencePiece) instead of whole words.</p>
+<p>Benefits:</p>
+<ul><li>Fixed vocabulary size</li><li>Handles rare words</li><li>Language-agnostic</li></ul>
+<p>"unhappiness" → "un", "happi", "ness"</p>
+<p>This is what GPT/BERT use.</p>
+<h3>Key Takeaways</h3>
+<ul><li>NLP spans syntax, semantics, pragmatics</li><li>Language is ambiguous and context-dependent</li><li>One-hot encoding is simple but weak</li><li>Word2Vec/GloVe: static embeddings, capture analogies</li><li>FastText: handles morphology</li><li>Contextual embeddings (ELMo, BERT, GPT) are current standard</li><li>Subword tokenization handles open vocabulary</li></ul></div>
       </div>
     </div>
   
@@ -260,160 +181,70 @@ NLP is the field of AI that deals with understanding and generating human langua
         <div class="lecture-num">2</div>
         <div class="lecture-content">
           <h4>Recurrent Neural Networks and Language Models</h4>
-          <p>
-## Language Modeling
-
-A language model assigns probabilities to sequences:
-
-    P(w_1, w_2, ..., w_n) = P(w_1) × P(w_2 | w_1) × ... × P(w_n | w_1..w_{n-1})
-
-Used for:
-- Speech recognition (pick most likely trans...</p>
+          <p>Language Modeling A language model assigns probabilities to sequences: P(w_1, w_2, ..., w_n) = P(w_1) × P(w_2 | w_1) × ... × P(w_n | w_1..w_{n-1}) Used for: Speech recognition (pick most likely...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Language Modeling
-<br>
-<br>A language model assigns probabilities to sequences:
-<br>
-<br>    P(w_1, w_2, ..., w_n) = P(w_1) × P(w_2 | w_1) × ... × P(w_n | w_1..w_{n-1})
-<br>
-<br>Used for:
-<br>- Speech recognition (pick most likely transcript)
-<br>- Machine translation
-<br>- Text generation
-<br>- Autocomplete
-<br>
-<br>## N-gram Models
-<br>
-<br>Approximate P(w_n | w_1..w_{n-1}) ≈ P(w_n | w_{n-k}..w_{n-1}).
-<br>
-<br>For bigrams (k=1), trigrams (k=2). Estimate from counts:
-<br>
-<br>    P(w_n | w_{n-1}) = count(w_{n-1}, w_n) / count(w_{n-1})
-<br>
-<br>Simple but:
-<br>- Sparse (many n-grams never seen)
-<br>- Curse of dimensionality (exponential in n)
-<br>- No generalization (can't relate similar contexts)
-<br>
-<br>## Neural Language Models
-<br>
-<br>Bengio et al. (2003): feed-forward NN with embeddings.
-<br>
-<br>    Input: previous n-1 words (embeddings)
-<br>    Hidden: nonlinear transformation
-<br>    Output: softmax over vocabulary
-<br>
-<br>Benefits: shared parameters across contexts, smooth probabilities.
-<br>
-<br>## Recurrent Neural Networks
-<br>
-<br>An RNN processes a sequence one element at a time, maintaining a hidden state.
-<br>
-<br>    h_t = tanh(W_hh × h_{t-1} + W_xh × x_t + b_h)
-<br>    y_t = W_hy × h_t + b_y
-<br>
-<br>The hidden state h_t summarizes everything seen so far.
-<br>
-<br>Unrolled through time, an RNN shares weights across timesteps.
-<br>
-<br>## RNN for Language Modeling
-<br>
-<br>At each step t:
-<br>- Input: word embedding x_t
-<br>- Hidden: h_t
-<br>- Output: distribution over next word
-<br>
-<br>    P(w_{t+1} | w_1..w_t) = softmax(W × h_t)
-<br>
-<br>## Backpropagation Through Time (BPTT)
-<br>
-<br>Train RNN by unrolling and backpropagating. Gradients flow from output at time t back through all earlier steps.
-<br>
-<br>Problem: vanishing/exploding gradients.
-<br>
-<br>- <strong>Vanishing:</strong> gradients shrink exponentially with sequence length. Network can't learn long-term dependencies.
-<br>- <strong>Exploding:</strong> gradients grow exponentially. Training diverges.
-<br>
-<br>Solutions:
-<br>- <strong>Gradient clipping:</strong> cap gradient magnitude
-<br>- <strong>Better activations:</strong> ReLU helps
-<br>- <strong>LSTM, GRU:</strong> gated architectures
-<br>
-<br>## LSTM (Long Short-Term Memory)
-<br>
-<br>Hochreiter &amp; Schmidhuber (1997). Introduces:
-<br>- <strong>Cell state c_t:</strong> long-term memory
-<br>- <strong>Forget gate:</strong> what to forget
-<br>- <strong>Input gate:</strong> what to add
-<br>- <strong>Output gate:</strong> what to output
-<br>
-<br>Gate equations (simplified):
-<br>
-<br>    f_t = σ(W_f [h_{t-1}, x_t])
-<br>    i_t = σ(W_i [h_{t-1}, x_t])
-<br>    o_t = σ(W_o [h_{t-1}, x_t])
-<br>    c_t = f_t ⊙ c_{t-1} + i_t ⊙ tanh(W_c [h_{t-1}, x_t])
-<br>    h_t = o_t ⊙ tanh(c_t)
-<br>
-<br>Gates let the network learn to preserve or reset information. Solves vanishing gradient for long sequences.
-<br>
-<br>## GRU (Gated Recurrent Unit)
-<br>
-<br>Simpler than LSTM. Two gates:
-<br>- <strong>Update gate:</strong> combine forget and input
-<br>- <strong>Reset gate:</strong> how much past to forget
-<br>
-<br>Fewer parameters, similar performance. Popular when compute-limited.
-<br>
-<br>## Bidirectional RNNs
-<br>
-<br>For tasks where the entire sequence is available (e.g., encoding), process forward and backward, concatenate hidden states.
-<br>
-<br>    h_t = [h_t_forward; h_t_backward]
-<br>
-<br>Captures context from both directions. Used in ELMo, BERT-style encoders.
-<br>
-<br>## Sequence-to-Sequence Models
-<br>
-<br>Sutskever et al. (2014). Encoder RNN → context vector → decoder RNN.
-<br>
-<br>Encoder reads input, produces final hidden state.
-<br>Decoder generates output, conditioned on that state.
-<br>
-<br>Applications: translation, summarization, dialogue.
-<br>
-<br>Problem: bottleneck — the entire input compressed to one vector.
-<br>
-<br>## Attention Mechanism
-<br>
-<br>Bahdanau et al. (2014). Decoder can "look at" all encoder states, not just the final one.
-<br>
-<br>At each decoder step, compute attention weights over encoder states:
-<br>
-<br>    α_t = softmax(score(h_dec, h_enc))
-<br>    context = Σ α_t × h_enc
-<br>
-<br>Decoder uses context plus its own state.
-<br>
-<br>Revolutionized NLP. Now transformers use self-attention everywhere.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Language models predict next word
-<br>- N-gram models are simple but limited
-<br>- RNNs process sequences with shared weights
-<br>- Vanishing/exploding gradients are key issues
-<br>- LSTM, GRU solve long-term dependency
-<br>- Bidirectional for encoding tasks
-<br>- Seq2seq for translation
-<br>- Attention removes the bottleneck
-<br></p></div>
+        <div class="lecture-full-content"><h3>Language Modeling</h3>
+<p>A language model assigns probabilities to sequences:</p>
+<p>P(w_1, w_2, ..., w_n) = P(w_1) × P(w_2 | w_1) × ... × P(w_n | w_1..w_{n-1})</p>
+<p>Used for:</p>
+<ul><li>Speech recognition (pick most likely transcript)</li><li>Machine translation</li><li>Text generation</li><li>Autocomplete</li></ul>
+<h3>N-gram Models</h3>
+<p>Approximate P(w_n | w_1..w_{n-1}) ≈ P(w_n | w_{n-k}..w_{n-1}).</p>
+<p>For bigrams (k=1), trigrams (k=2). Estimate from counts:</p>
+<p>P(w_n | w_{n-1}) = count(w_{n-1}, w_n) / count(w_{n-1})</p>
+<p>Simple but:</p>
+<ul><li>Sparse (many n-grams never seen)</li><li>Curse of dimensionality (exponential in n)</li><li>No generalization (can't relate similar contexts)</li></ul>
+<h3>Neural Language Models</h3>
+<p>Bengio et al. (2003): feed-forward NN with embeddings.</p>
+<p>Input: previous n-1 words (embeddings)<br>    Hidden: nonlinear transformation<br>    Output: softmax over vocabulary</p>
+<p>Benefits: shared parameters across contexts, smooth probabilities.</p>
+<h3>Recurrent Neural Networks</h3>
+<p>An RNN processes a sequence one element at a time, maintaining a hidden state.</p>
+<p>h_t = tanh(W_hh × h_{t-1} + W_xh × x_t + b_h)<br>    y_t = W_hy × h_t + b_y</p>
+<p>The hidden state h_t summarizes everything seen so far.</p>
+<p>Unrolled through time, an RNN shares weights across timesteps.</p>
+<h3>RNN for Language Modeling</h3>
+<p>At each step t:</p>
+<ul><li>Input: word embedding x_t</li><li>Hidden: h_t</li><li>Output: distribution over next word</li></ul>
+<p>P(w_{t+1} | w_1..w_t) = softmax(W × h_t)</p>
+<h3>Backpropagation Through Time (BPTT)</h3>
+<p>Train RNN by unrolling and backpropagating. Gradients flow from output at time t back through all earlier steps.</p>
+<p>Problem: vanishing/exploding gradients.</p>
+<ul><li><strong>Vanishing:</strong> gradients shrink exponentially with sequence length. Network can't learn long-term dependencies.</li><li><strong>Exploding:</strong> gradients grow exponentially. Training diverges.</li></ul>
+<p>Solutions:</p>
+<ul><li><strong>Gradient clipping:</strong> cap gradient magnitude</li><li><strong>Better activations:</strong> ReLU helps</li><li><strong>LSTM, GRU:</strong> gated architectures</li></ul>
+<h3>LSTM (Long Short-Term Memory)</h3>
+<p>Hochreiter &amp; Schmidhuber (1997). Introduces:</p>
+<ul><li><strong>Cell state c_t:</strong> long-term memory</li><li><strong>Forget gate:</strong> what to forget</li><li><strong>Input gate:</strong> what to add</li><li><strong>Output gate:</strong> what to output</li></ul>
+<p>Gate equations (simplified):</p>
+<p>f_t = σ(W_f [h_{t-1}, x_t])<br>    i_t = σ(W_i [h_{t-1}, x_t])<br>    o_t = σ(W_o [h_{t-1}, x_t])<br>    c_t = f_t ⊙ c_{t-1} + i_t ⊙ tanh(W_c [h_{t-1}, x_t])<br>    h_t = o_t ⊙ tanh(c_t)</p>
+<p>Gates let the network learn to preserve or reset information. Solves vanishing gradient for long sequences.</p>
+<h3>GRU (Gated Recurrent Unit)</h3>
+<p>Simpler than LSTM. Two gates:</p>
+<ul><li><strong>Update gate:</strong> combine forget and input</li><li><strong>Reset gate:</strong> how much past to forget</li></ul>
+<p>Fewer parameters, similar performance. Popular when compute-limited.</p>
+<h3>Bidirectional RNNs</h3>
+<p>For tasks where the entire sequence is available (e.g., encoding), process forward and backward, concatenate hidden states.</p>
+<p>h_t = [h_t_forward; h_t_backward]</p>
+<p>Captures context from both directions. Used in ELMo, BERT-style encoders.</p>
+<h3>Sequence-to-Sequence Models</h3>
+<p>Sutskever et al. (2014). Encoder RNN → context vector → decoder RNN.</p>
+<p>Encoder reads input, produces final hidden state.<br>Decoder generates output, conditioned on that state.</p>
+<p>Applications: translation, summarization, dialogue.</p>
+<p>Problem: bottleneck — the entire input compressed to one vector.</p>
+<h3>Attention Mechanism</h3>
+<p>Bahdanau et al. (2014). Decoder can "look at" all encoder states, not just the final one.</p>
+<p>At each decoder step, compute attention weights over encoder states:</p>
+<p>α_t = softmax(score(h_dec, h_enc))<br>    context = Σ α_t × h_enc</p>
+<p>Decoder uses context plus its own state.</p>
+<p>Revolutionized NLP. Now transformers use self-attention everywhere.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Language models predict next word</li><li>N-gram models are simple but limited</li><li>RNNs process sequences with shared weights</li><li>Vanishing/exploding gradients are key issues</li><li>LSTM, GRU solve long-term dependency</li><li>Bidirectional for encoding tasks</li><li>Seq2seq for translation</li><li>Attention removes the bottleneck</li></ul></div>
       </div>
     </div>
   
@@ -422,144 +253,65 @@ Used for:
         <div class="lecture-num">3</div>
         <div class="lecture-content">
           <h4>Transformers and Attention</h4>
-          <p>
-## The Transformer Revolution
-
-Vaswani et al. (2017): &quot;Attention Is All You Need.&quot; Replaced RNNs entirely. Now the standard for NLP, vision, speech, and more.
-
-Key innovation: **self-attention** — every position at...</p>
+          <p>The Transformer Revolution Vaswani et al. (2017): &amp;quot;Attention Is All You Need.&amp;quot; Replaced RNNs entirely. Now the standard for NLP, vision, speech, and more. Key innovation: self-attention —...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The Transformer Revolution
-<br>
-<br>Vaswani et al. (2017): "Attention Is All You Need." Replaced RNNs entirely. Now the standard for NLP, vision, speech, and more.
-<br>
-<br>Key innovation: <strong>self-attention</strong> — every position attends to every other position in parallel.
-<br>
-<br>Benefits:
-<br>- Parallelizable (no sequential recurrence)
-<br>- Captures long-range dependencies
-<br>- Scales to billions of parameters
-<br>
-<br>## Self-Attention
-<br>
-<br>Given input embeddings X (n × d), compute:
-<br>
-<br>    Q = X W_Q    (queries)
-<br>    K = X W_K    (keys)
-<br>    V = X W_V    (values)
-<br>
-<br>Attention:
-<br>
-<br>    Attention(Q, K, V) = softmax(Q K^T / √d_k) V
-<br>
-<br>Interpretation:
-<br>- Q K^T: similarity between each pair of positions
-<br>- Softmax: attention weights
-<br>- Multiply by V: weighted average of values
-<br>
-<br>Every position gets a new representation that's a weighted sum of all positions.
-<br>
-<br>## Why √d_k?
-<br>
-<br>Without scaling, dot products grow with d_k, pushing softmax into saturation (near 0 or 1). Scaling by √d_k keeps them in a reasonable range.
-<br>
-<br>## Multi-Head Attention
-<br>
-<br>Instead of one attention operation, run h parallel "heads," each with its own W_Q, W_K, W_V.
-<br>
-<br>    MultiHead = Concat(head_1, ..., head_h) W_O
-<br>
-<br>Each head can focus on different relationships (syntactic, semantic, positional).
-<br>
-<br>Typical h = 8 or 16.
-<br>
-<br>## Positional Encoding
-<br>
-<br>Self-attention is permutation-invariant — it doesn't know word order. Add positional information:
-<br>
-<br>    PE(pos, 2i) = sin(pos / 10000^(2i/d))
-<br>    PE(pos, 2i+1) = cos(pos / 10000^(2i/d))
-<br>
-<br>Or learnable position embeddings (BERT, GPT).
-<br>
-<br>## The Transformer Block
-<br>
-<br>Each layer:
-<br>
-<br>1. Multi-head self-attention
-<br>2. Add &amp; Norm (residual + layer norm)
-<br>3. Feed-forward (2 linear layers with ReLU)
-<br>4. Add &amp; Norm
-<br>
-<br>Stack N such blocks (6 in original, 12-96 in modern models).
-<br>
-<br>## Encoder-Decoder Architecture
-<br>
-<br><strong>Encoder:</strong> stack of self-attention blocks. Each position attends to all positions.
-<br>
-<br><strong>Decoder:</strong> masked self-attention (each position attends only to earlier positions) + cross-attention to encoder outputs.
-<br>
-<br>Used in translation (T5, BART).
-<br>
-<br>## BERT (Bidirectional Encoder Representations)
-<br>
-<br>Devlin et al. (2018). Encoder-only transformer.
-<br>
-<br>Pre-trained with two tasks:
-<br>- <strong>Masked language modeling (MLM):</strong> predict randomly masked words
-<br>- <strong>Next sentence prediction (NSP):</strong> predict if two sentences are consecutive
-<br>
-<br>Fine-tuned per task (classification, QA, NER).
-<br>
-<br>BERT-Base: 12 layers, 110M params.
-<br>BERT-Large: 24 layers, 340M params.
-<br>
-<br>## GPT (Generative Pre-trained Transformer)
-<br>
-<br>OpenAI. Decoder-only transformer. Trained to predict the next token on massive text.
-<br>
-<br>GPT-1 (2018): 117M params.
-<br>GPT-2 (2019): 1.5B.
-<br>GPT-3 (2020): 175B.
-<br>GPT-4 (2023): ~1.7T (estimated, MoE).
-<br>
-<br>Zero-shot and few-shot learning via prompting.
-<br>
-<br>## Scaling Laws
-<br>
-<br>Kaplan et al. (2020): model performance follows a power law in compute, parameters, and data.
-<br>
-<br>Chinchilla (2022): models were undertrained. Optimal: ~20 tokens per parameter.
-<br>
-<br>Modern models train on trillions of tokens.
-<br>
-<br>## Beyond NLP
-<br>
-<br>Transformers now dominate:
-<br>- <strong>Vision (ViT):</strong> patches as tokens
-<br>- <strong>Speech (Whisper):</strong> spectrograms as tokens
-<br>- <strong>Protein folding (AlphaFold):</strong> amino acids as tokens
-<br>- <strong>Reinforcement learning (Decision Transformer):</strong> states as tokens
-<br>
-<br>A single architecture for everything.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Transformers replaced RNNs entirely
-<br>- Self-attention: every position attends to every other
-<br>- Multi-head for diverse relationships
-<br>- Positional encoding for order
-<br>- BERT (encoder) for understanding
-<br>- GPT (decoder) for generation
-<br>- Scaling laws guide model size
-<br>- Transformers dominate NLP, vision, speech, biology
-<br></p></div>
+        <div class="lecture-full-content"><h3>The Transformer Revolution</h3>
+<p>Vaswani et al. (2017): "Attention Is All You Need." Replaced RNNs entirely. Now the standard for NLP, vision, speech, and more.</p>
+<p>Key innovation: <strong>self-attention</strong> — every position attends to every other position in parallel.</p>
+<p>Benefits:</p>
+<ul><li>Parallelizable (no sequential recurrence)</li><li>Captures long-range dependencies</li><li>Scales to billions of parameters</li></ul>
+<h3>Self-Attention</h3>
+<p>Given input embeddings X (n × d), compute:</p>
+<p>Q = X W_Q    (queries)<br>    K = X W_K    (keys)<br>    V = X W_V    (values)</p>
+<p>Attention:</p>
+<p>Attention(Q, K, V) = softmax(Q K^T / √d_k) V</p>
+<p>Interpretation:</p>
+<ul><li>Q K^T: similarity between each pair of positions</li><li>Softmax: attention weights</li><li>Multiply by V: weighted average of values</li></ul>
+<p>Every position gets a new representation that's a weighted sum of all positions.</p>
+<h3>Why √d_k?</h3>
+<p>Without scaling, dot products grow with d_k, pushing softmax into saturation (near 0 or 1). Scaling by √d_k keeps them in a reasonable range.</p>
+<h3>Multi-Head Attention</h3>
+<p>Instead of one attention operation, run h parallel "heads," each with its own W_Q, W_K, W_V.</p>
+<p>MultiHead = Concat(head_1, ..., head_h) W_O</p>
+<p>Each head can focus on different relationships (syntactic, semantic, positional).</p>
+<p>Typical h = 8 or 16.</p>
+<h3>Positional Encoding</h3>
+<p>Self-attention is permutation-invariant — it doesn't know word order. Add positional information:</p>
+<p>PE(pos, 2i) = sin(pos / 10000^(2i/d))<br>    PE(pos, 2i+1) = cos(pos / 10000^(2i/d))</p>
+<p>Or learnable position embeddings (BERT, GPT).</p>
+<h3>The Transformer Block</h3>
+<p>Each layer:</p>
+<ol><li>Multi-head self-attention</li><li>Add &amp; Norm (residual + layer norm)</li><li>Feed-forward (2 linear layers with ReLU)</li><li>Add &amp; Norm</li></ol>
+<p>Stack N such blocks (6 in original, 12-96 in modern models).</p>
+<h3>Encoder-Decoder Architecture</h3>
+<p><strong>Encoder:</strong> stack of self-attention blocks. Each position attends to all positions.</p>
+<p><strong>Decoder:</strong> masked self-attention (each position attends only to earlier positions) + cross-attention to encoder outputs.</p>
+<p>Used in translation (T5, BART).</p>
+<h3>BERT (Bidirectional Encoder Representations)</h3>
+<p>Devlin et al. (2018). Encoder-only transformer.</p>
+<p>Pre-trained with two tasks:</p>
+<ul><li><strong>Masked language modeling (MLM):</strong> predict randomly masked words</li><li><strong>Next sentence prediction (NSP):</strong> predict if two sentences are consecutive</li></ul>
+<p>Fine-tuned per task (classification, QA, NER).</p>
+<p>BERT-Base: 12 layers, 110M params.<br>BERT-Large: 24 layers, 340M params.</p>
+<h3>GPT (Generative Pre-trained Transformer)</h3>
+<p>OpenAI. Decoder-only transformer. Trained to predict the next token on massive text.</p>
+<p>GPT-1 (2018): 117M params.<br>GPT-2 (2019): 1.5B.<br>GPT-3 (2020): 175B.<br>GPT-4 (2023): ~1.7T (estimated, MoE).</p>
+<p>Zero-shot and few-shot learning via prompting.</p>
+<h3>Scaling Laws</h3>
+<p>Kaplan et al. (2020): model performance follows a power law in compute, parameters, and data.</p>
+<p>Chinchilla (2022): models were undertrained. Optimal: ~20 tokens per parameter.</p>
+<p>Modern models train on trillions of tokens.</p>
+<h3>Beyond NLP</h3>
+<p>Transformers now dominate:</p>
+<ul><li><strong>Vision (ViT):</strong> patches as tokens</li><li><strong>Speech (Whisper):</strong> spectrograms as tokens</li><li><strong>Protein folding (AlphaFold):</strong> amino acids as tokens</li><li><strong>Reinforcement learning (Decision Transformer):</strong> states as tokens</li></ul>
+<p>A single architecture for everything.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Transformers replaced RNNs entirely</li><li>Self-attention: every position attends to every other</li><li>Multi-head for diverse relationships</li><li>Positional encoding for order</li><li>BERT (encoder) for understanding</li><li>GPT (decoder) for generation</li><li>Scaling laws guide model size</li><li>Transformers dominate NLP, vision, speech, biology</li></ul></div>
       </div>
     </div>
   
@@ -568,182 +320,80 @@ Key innovation: **self-attention** — every position at...</p>
         <div class="lecture-num">4</div>
         <div class="lecture-content">
           <h4>Pretraining, Fine-tuning, and Transfer Learning</h4>
-          <p>
-## The Pretrain-Finetune Paradigm
-
-Training large models from scratch is expensive. Instead:
-
-1. **Pretrain** on massive unlabeled text (months of GPU time)
-2. **Fine-tune** on task-specific data (hours-days)
-3. ...</p>
+          <p>The Pretrain-Finetune Paradigm Training large models from scratch is expensive. Instead: 1. Pretrain on massive unlabeled text (months of GPU time) 2. Fine-tune on task-specific data (hours-days) 3....</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## The Pretrain-Finetune Paradigm
-<br>
-<br>Training large models from scratch is expensive. Instead:
-<br>
-<br>1. <strong>Pretrain</strong> on massive unlabeled text (months of GPU time)
-<br>2. <strong>Fine-tune</strong> on task-specific data (hours-days)
-<br>3. <strong>Deploy</strong> on the target task
-<br>
-<br>Transfer learning is now standard in NLP.
-<br>
-<br>## Why Does Pretraining Work?
-<br>
-<br>The model learns general language understanding:
-<br>- Syntax (grammatical structure)
-<br>- Semantics (word meanings)
-<br>- World knowledge (facts about the world)
-<br>- Reasoning patterns
-<br>
-<br>This knowledge transfers to any downstream NLP task.
-<br>
-<br>## Pretraining Objectives
-<br>
-<br><strong>Causal LM (GPT):</strong> predict next token.
-<br>
-<br>    P(x_t | x_1, ..., x_{t-1})
-<br>
-<br><strong>Masked LM (BERT):</strong> predict masked tokens.
-<br>
-<br>    P(x_masked | context)
-<br>
-<br><strong>Span corruption (T5):</strong> replace spans with sentinel tokens, predict them.
-<br>
-<br><strong>Prefix LM (PaLM, UL2):</strong> hybrid.
-<br>
-<br>Each has different strengths.
-<br>
-<br>## Fine-tuning
-<br>
-<br>Add a task-specific head and train on labeled data:
-<br>
-<br>    [CLS] The movie was great [SEP]
-<br>       ↓
-<br>    Encoder
-<br>       ↓
-<br>    [CLS] representation → classifier → positive
-<br>
-<br>Small dataset: 1k-100k examples. Training: hours.
-<br>
-<br>## Few-shot and Zero-shot Learning
-<br>
-<br>Modern large LMs can perform tasks without fine-tuning:
-<br>
-<br><strong>Zero-shot:</strong> just a prompt.
-<br>
-<br>    "Translate to French: Hello"
-<br>
-<br><strong>Few-shot:</strong> include a few examples in the prompt.
-<br>
-<br>    "cat: chat. dog: chien. bird:"
-<br>
-<br>GPT-3 popularized this. No gradient updates needed.
-<br>
-<br>## Instruction Tuning
-<br>
-<br>Fine-tune on (instruction, response) pairs:
-<br>
-<br>    Instruction: "Summarize the following..."
-<br>    Response: "..."
-<br>
-<br>Models like InstructGPT, FLAN-T5, Alpaca are instruction-tuned.
-<br>
-<br>Result: models follow instructions much better.
-<br>
-<br>## RLHF (Reinforcement Learning from Human Feedback)
-<br>
-<br>Align model with human preferences:
-<br>
-<br>1. <strong>Supervised fine-tuning:</strong> train on demonstrations
-<br>2. <strong>Reward model:</strong> learn to predict human preference
-<br>3. <strong>RL (PPO):</strong> optimize model to maximize reward
-<br>
-<br>Used for ChatGPT, Claude, Gemini.
-<br>
-<br>The reward model captures what humans want (helpful, harmless, honest).
-<br>
-<br>## LoRA (Low-Rank Adaptation)
-<br>
-<br>Fine-tuning large models is expensive. LoRA freezes the base model and adds small trainable matrices:
-<br>
-<br>    W' = W + B × A
-<br>
-<br>Where A and B are low-rank (rank 4-64). Only these are trained.
-<br>
-<br>Benefits: 10,000x fewer parameters, similar performance, easy to swap.
-<br>
-<br>QLoRA: quantized base + LoRA → fine-tune 65B on a single 48GB GPU.
-<br>
-<br>## Prompt Engineering
-<br>
-<br>Crafting prompts to get desired outputs:
-<br>
-<br>- <strong>Zero-shot:</strong> "Classify sentiment: This product is amazing."
-<br>- <strong>Chain-of-thought:</strong> "Let's think step by step..."
-<br>- <strong>Role prompting:</strong> "You are a helpful assistant..."
-<br>- <strong>Few-shot:</strong> include examples
-<br>- <strong>ReAct:</strong> reason + act (for tool use)
-<br>
-<br>Prompt engineering is now a skill, but its importance may fade as models improve.
-<br>
-<br>## Adapters
-<br>
-<br>Add small trainable modules between frozen layers. Alternative to LoRA.
-<br>
-<br>Multi-task adapters: one adapter per task, switch at inference.
-<br>
-<br>## Distillation
-<br>
-<br>Train a small "student" model to mimic a large "teacher."
-<br>
-<br>Student is faster, cheaper, sometimes nearly as good.
-<br>
-<br>Examples:
-<br>- DistilBERT: 40% smaller, 60% faster, 97% of BERT performance
-<br>- TinyLlama, Phi-2: small but capable
-<br>
-<br>## In-Context Learning
-<br>
-<br>The model learns from examples in the prompt without parameter updates.
-<br>
-<br>Emergent behavior: only appears in large models (&gt;1B params).
-<br>
-<br>Why it works is still debated — implicit gradient descent? Pattern matching?
-<br>
-<br>## Retrieval-Augmented Generation (RAG)
-<br>
-<br>Combine language model with a retrieval system:
-<br>
-<br>1. Query a database for relevant documents
-<br>2. Feed documents + question into the LLM
-<br>3. LLM generates answer grounded in the documents
-<br>
-<br>Benefits:
-<br>- Up-to-date knowledge (no retraining)
-<br>- Cite sources
-<br>- Reduce hallucination
-<br>
-<br>Used in customer support, legal, medical.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Pretrain-finetune is standard
-<br>- Pretraining learns general language understanding
-<br>- Fine-tuning adapts to tasks
-<br>- Few-shot and zero-shot via prompting
-<br>- Instruction tuning improves following
-<br>- RLHF aligns with human preferences
-<br>- LoRA makes fine-tuning affordable
-<br>- Prompt engineering is a new skill
-<br>- Distillation compresses large models
-<br>- RAG combines retrieval with generation
-<br></p></div>
+        <div class="lecture-full-content"><h3>The Pretrain-Finetune Paradigm</h3>
+<p>Training large models from scratch is expensive. Instead:</p>
+<ol><li><strong>Pretrain</strong> on massive unlabeled text (months of GPU time)</li><li><strong>Fine-tune</strong> on task-specific data (hours-days)</li><li><strong>Deploy</strong> on the target task</li></ol>
+<p>Transfer learning is now standard in NLP.</p>
+<h3>Why Does Pretraining Work?</h3>
+<p>The model learns general language understanding:</p>
+<ul><li>Syntax (grammatical structure)</li><li>Semantics (word meanings)</li><li>World knowledge (facts about the world)</li><li>Reasoning patterns</li></ul>
+<p>This knowledge transfers to any downstream NLP task.</p>
+<h3>Pretraining Objectives</h3>
+<p><strong>Causal LM (GPT):</strong> predict next token.</p>
+<p>P(x_t | x_1, ..., x_{t-1})</p>
+<p><strong>Masked LM (BERT):</strong> predict masked tokens.</p>
+<p>P(x_masked | context)</p>
+<p><strong>Span corruption (T5):</strong> replace spans with sentinel tokens, predict them.</p>
+<p><strong>Prefix LM (PaLM, UL2):</strong> hybrid.</p>
+<p>Each has different strengths.</p>
+<h3>Fine-tuning</h3>
+<p>Add a task-specific head and train on labeled data:</p>
+<p>[CLS] The movie was great [SEP]<br>       ↓<br>    Encoder<br>       ↓<br>    [CLS] representation → classifier → positive</p>
+<p>Small dataset: 1k-100k examples. Training: hours.</p>
+<h3>Few-shot and Zero-shot Learning</h3>
+<p>Modern large LMs can perform tasks without fine-tuning:</p>
+<p><strong>Zero-shot:</strong> just a prompt.</p>
+<p>"Translate to French: Hello"</p>
+<p><strong>Few-shot:</strong> include a few examples in the prompt.</p>
+<p>"cat: chat. dog: chien. bird:"</p>
+<p>GPT-3 popularized this. No gradient updates needed.</p>
+<h3>Instruction Tuning</h3>
+<p>Fine-tune on (instruction, response) pairs:</p>
+<p>Instruction: "Summarize the following..."<br>    Response: "..."</p>
+<p>Models like InstructGPT, FLAN-T5, Alpaca are instruction-tuned.</p>
+<p>Result: models follow instructions much better.</p>
+<h3>RLHF (Reinforcement Learning from Human Feedback)</h3>
+<p>Align model with human preferences:</p>
+<ol><li><strong>Supervised fine-tuning:</strong> train on demonstrations</li><li><strong>Reward model:</strong> learn to predict human preference</li><li><strong>RL (PPO):</strong> optimize model to maximize reward</li></ol>
+<p>Used for ChatGPT, Claude, Gemini.</p>
+<p>The reward model captures what humans want (helpful, harmless, honest).</p>
+<h3>LoRA (Low-Rank Adaptation)</h3>
+<p>Fine-tuning large models is expensive. LoRA freezes the base model and adds small trainable matrices:</p>
+<p>W' = W + B × A</p>
+<p>Where A and B are low-rank (rank 4-64). Only these are trained.</p>
+<p>Benefits: 10,000x fewer parameters, similar performance, easy to swap.</p>
+<p>QLoRA: quantized base + LoRA → fine-tune 65B on a single 48GB GPU.</p>
+<h3>Prompt Engineering</h3>
+<p>Crafting prompts to get desired outputs:</p>
+<ul><li><strong>Zero-shot:</strong> "Classify sentiment: This product is amazing."</li><li><strong>Chain-of-thought:</strong> "Let's think step by step..."</li><li><strong>Role prompting:</strong> "You are a helpful assistant..."</li><li><strong>Few-shot:</strong> include examples</li><li><strong>ReAct:</strong> reason + act (for tool use)</li></ul>
+<p>Prompt engineering is now a skill, but its importance may fade as models improve.</p>
+<h3>Adapters</h3>
+<p>Add small trainable modules between frozen layers. Alternative to LoRA.</p>
+<p>Multi-task adapters: one adapter per task, switch at inference.</p>
+<h3>Distillation</h3>
+<p>Train a small "student" model to mimic a large "teacher."</p>
+<p>Student is faster, cheaper, sometimes nearly as good.</p>
+<p>Examples:</p>
+<ul><li>DistilBERT: 40% smaller, 60% faster, 97% of BERT performance</li><li>TinyLlama, Phi-2: small but capable</li></ul>
+<h3>In-Context Learning</h3>
+<p>The model learns from examples in the prompt without parameter updates.</p>
+<p>Emergent behavior: only appears in large models (&gt;1B params).</p>
+<p>Why it works is still debated — implicit gradient descent? Pattern matching?</p>
+<h3>Retrieval-Augmented Generation (RAG)</h3>
+<p>Combine language model with a retrieval system:</p>
+<ol><li>Query a database for relevant documents</li><li>Feed documents + question into the LLM</li><li>LLM generates answer grounded in the documents</li></ol>
+<p>Benefits:</p>
+<ul><li>Up-to-date knowledge (no retraining)</li><li>Cite sources</li><li>Reduce hallucination</li></ul>
+<p>Used in customer support, legal, medical.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Pretrain-finetune is standard</li><li>Pretraining learns general language understanding</li><li>Fine-tuning adapts to tasks</li><li>Few-shot and zero-shot via prompting</li><li>Instruction tuning improves following</li><li>RLHF aligns with human preferences</li><li>LoRA makes fine-tuning affordable</li><li>Prompt engineering is a new skill</li><li>Distillation compresses large models</li><li>RAG combines retrieval with generation</li></ul></div>
       </div>
     </div>
   
@@ -752,185 +402,78 @@ Training large models from scratch is expensive. Instead:
         <div class="lecture-num">5</div>
         <div class="lecture-content">
           <h4>Modern NLP Applications</h4>
-          <p>
-## Machine Translation
-
-Translate from source to target language.
-
-Classical: rule-based → statistical (phrase-based) → neural (seq2seq).
-
-**Neural MT:** encoder-decoder transformer. State-of-the-art since 2016.
-...</p>
+          <p>Machine Translation Translate from source to target language. Classical: rule-based → statistical (phrase-based) → neural (seq2seq). Neural MT: encoder-decoder transformer. State-of-the-art since...</p>
           <div class="lecture-meta">
             <span>⏱ 50 min read</span>
           </div>
         </div>
       </div>
       <div class="lecture-full">
-        <div class="lecture-full-content"><p>
-<br>## Machine Translation
-<br>
-<br>Translate from source to target language.
-<br>
-<br>Classical: rule-based → statistical (phrase-based) → neural (seq2seq).
-<br>
-<br><strong>Neural MT:</strong> encoder-decoder transformer. State-of-the-art since 2016.
-<br>
-<br>Challenges:
-<br>- Low-resource languages (limited parallel data)
-<br>- Long documents (coherence)
-<br>- Idioms, cultural references
-<br>- Morphologically rich languages
-<br>
-<br>Modern systems: Google Translate, DeepL, Meta NLLB.
-<br>
-<br>## Question Answering
-<br>
-<br>Given a question and context, produce an answer.
-<br>
-<br><strong>Extractive:</strong> select a span from context (BERT fine-tuned on SQuAD).
-<br>
-<br><strong>Generative:</strong> produce answer from scratch (GPT).
-<br>
-<br><strong>Retrieval-based:</strong> find answer in a knowledge base.
-<br>
-<br><strong>Open-domain:</strong> combine retrieval + reader (DPR, RAG).
-<br>
-<br>Examples: ChatGPT, Google Search's "People also ask."
-<br>
-<br>## Text Summarization
-<br>
-<br>Condense long text into a shorter version.
-<br>
-<br><strong>Extractive:</strong> select important sentences.
-<br>
-<br><strong>Abstractive:</strong> generate new text (transformer seq2seq).
-<br>
-<br><strong>Multi-document:</strong> summarize many documents.
-<br>
-<br>Evaluation: ROUGE (n-gram overlap), BERTScore (semantic similarity), human eval.
-<br>
-<br>Challenges: factual consistency (hallucination), length control, style.
-<br>
-<br>## Sentiment Analysis
-<br>
-<br>Classify text as positive, negative, neutral. Or with fine-grained labels (1-5 stars).
-<br>
-<br>Applications: product reviews, social media monitoring, customer feedback.
-<br>
-<br>Simple with BERT fine-tuning. ~95% accuracy on standard benchmarks.
-<br>
-<br>Beyond binary: aspect-based sentiment ("The food was great but the service was slow").
-<br>
-<br>## Named Entity Recognition (NER)
-<br>
-<br>Identify people, organizations, locations, dates, etc.
-<br>
-<br>Classical: CRF, HMM.
-<br>Neural: BiLSTM-CRF, BERT.
-<br>Modern: LLM with prompting.
-<br>
-<br>Standard datasets: CoNLL-2003, OntoNotes.
-<br>
-<br>## Text Classification
-<br>
-<br>Any task that assigns labels to text:
-<br>- Spam detection
-<br>- Topic classification
-<br>- Intent recognition (chatbots)
-<br>- Hate speech detection
-<br>- Fake news detection
-<br>
-<br>BERT + softmax head is the standard approach.
-<br>
-<br>## Dialogue Systems
-<br>
-<br><strong>Task-oriented:</strong> book flights, order food. Slot filling + intent.
-<br>
-<br><strong>Open-domain:</strong> chat about anything. GPT-based.
-<br>
-<br><strong>Retrieval-based:</strong> select response from a database.
-<br>
-<br><strong>Generative:</strong> produce response from scratch.
-<br>
-<br>Modern: LLMs are open-domain dialogue systems.
-<br>
-<br>## Information Extraction
-<br>
-<br>Turn unstructured text into structured data:
-<br>- <strong>Relation extraction:</strong> (Obama, born_in, Hawaii)
-<br>- <strong>Event extraction:</strong> who, what, when, where
-<br>- <strong>Coreference resolution:</strong> "He" → "Obama"
-<br>
-<br>Foundation for knowledge graphs.
-<br>
-<br>## Text Generation
-<br>
-<br>Generate coherent, fluent text:
-<br>- <strong>Story generation:</strong> given prompt, write story
-<br>- <strong>Code generation:</strong> given description, write code
-<br>- <strong>Dialogue:</strong> chatbot responses
-<br>- <strong>Data-to-text:</strong> describe a table in natural language
-<br>
-<br>Modern: GPT-4, Claude, Gemini generate human-quality text.
-<br>
-<br>## Ethics and Bias
-<br>
-<br>NLP models learn from human text, which contains bias.
-<br>
-<br>Issues:
-<br>- <strong>Gender bias:</strong> "doctor" → male, "nurse" → female
-<br>- <strong>Racial bias:</strong> sentiment differs by dialect
-<br>- <strong>Political bias:</strong> training data skews
-<br>- <strong>Toxicity:</strong> models generate harmful content
-<br>
-<br>Mitigation: data filtering, debiasing techniques, RLHF, red-teaming.
-<br>
-<br>## Evaluation
-<br>
-<br><strong>BLEU:</strong> n-gram overlap, machine translation.
-<br><strong>ROUGE:</strong> n-gram overlap, summarization.
-<br><strong>METEOR:</strong> synonyms and stemming.
-<br><strong>BERTScore:</strong> semantic similarity via embeddings.
-<br><strong>Perplexity:</strong> language model quality.
-<br><strong>Human eval:</strong> gold standard, but expensive.
-<br>
-<br>No metric is perfect. Multiple metrics + human eval is best.
-<br>
-<br>## Deployment
-<br>
-<br>Large models are expensive to serve:
-<br>- <strong>Quantization:</strong> 8-bit, 4-bit reduce memory
-<br>- <strong>Distillation:</strong> train smaller student
-<br>- <strong>Pruning:</strong> remove weights
-<br>- <strong>Batching:</strong> process multiple requests
-<br>- <strong>Caching:</strong> store frequent responses
-<br>- <strong>Edge deployment:</strong> small models on device
-<br>
-<br>Trade-offs between latency, cost, and quality.
-<br>
-<br>## Future Directions
-<br>
-<br>- <strong>Multimodal:</strong> text + image + audio (GPT-4V, Gemini)
-<br>- <strong>Agents:</strong> LLMs that use tools, take actions
-<br>- <strong>Long context:</strong> million-token windows
-<br>- <strong>Efficiency:</strong> sparse models, MoE
-<br>- <strong>Reasoning:</strong> chain-of-thought, tree search
-<br>- <strong>Alignment:</strong> ensuring helpful, harmless, honest
-<br>
-<br>Rapidly evolving field.
-<br>
-<br>## Key Takeaways
-<br>
-<br>- Translation, QA, summarization are mature
-<br>- NER, classification, sentiment standard
-<br>- Dialogue systems revolutionized by LLMs
-<br>- Text generation approaching human quality
-<br>- Bias and ethics are serious concerns
-<br>- Multiple evaluation metrics needed
-<br>- Deployment requires efficiency techniques
-<br>- Future: multimodal, agents, long context
-<br></p></div>
+        <div class="lecture-full-content"><h3>Machine Translation</h3>
+<p>Translate from source to target language.</p>
+<p>Classical: rule-based → statistical (phrase-based) → neural (seq2seq).</p>
+<p><strong>Neural MT:</strong> encoder-decoder transformer. State-of-the-art since 2016.</p>
+<p>Challenges:</p>
+<ul><li>Low-resource languages (limited parallel data)</li><li>Long documents (coherence)</li><li>Idioms, cultural references</li><li>Morphologically rich languages</li></ul>
+<p>Modern systems: Google Translate, DeepL, Meta NLLB.</p>
+<h3>Question Answering</h3>
+<p>Given a question and context, produce an answer.</p>
+<p><strong>Extractive:</strong> select a span from context (BERT fine-tuned on SQuAD).</p>
+<p><strong>Generative:</strong> produce answer from scratch (GPT).</p>
+<p><strong>Retrieval-based:</strong> find answer in a knowledge base.</p>
+<p><strong>Open-domain:</strong> combine retrieval + reader (DPR, RAG).</p>
+<p>Examples: ChatGPT, Google Search's "People also ask."</p>
+<h3>Text Summarization</h3>
+<p>Condense long text into a shorter version.</p>
+<p><strong>Extractive:</strong> select important sentences.</p>
+<p><strong>Abstractive:</strong> generate new text (transformer seq2seq).</p>
+<p><strong>Multi-document:</strong> summarize many documents.</p>
+<p>Evaluation: ROUGE (n-gram overlap), BERTScore (semantic similarity), human eval.</p>
+<p>Challenges: factual consistency (hallucination), length control, style.</p>
+<h3>Sentiment Analysis</h3>
+<p>Classify text as positive, negative, neutral. Or with fine-grained labels (1-5 stars).</p>
+<p>Applications: product reviews, social media monitoring, customer feedback.</p>
+<p>Simple with BERT fine-tuning. ~95% accuracy on standard benchmarks.</p>
+<p>Beyond binary: aspect-based sentiment ("The food was great but the service was slow").</p>
+<h3>Named Entity Recognition (NER)</h3>
+<p>Identify people, organizations, locations, dates, etc.</p>
+<p>Classical: CRF, HMM.<br>Neural: BiLSTM-CRF, BERT.<br>Modern: LLM with prompting.</p>
+<p>Standard datasets: CoNLL-2003, OntoNotes.</p>
+<h3>Text Classification</h3>
+<p>Any task that assigns labels to text:</p>
+<ul><li>Spam detection</li><li>Topic classification</li><li>Intent recognition (chatbots)</li><li>Hate speech detection</li><li>Fake news detection</li></ul>
+<p>BERT + softmax head is the standard approach.</p>
+<h3>Dialogue Systems</h3>
+<p><strong>Task-oriented:</strong> book flights, order food. Slot filling + intent.</p>
+<p><strong>Open-domain:</strong> chat about anything. GPT-based.</p>
+<p><strong>Retrieval-based:</strong> select response from a database.</p>
+<p><strong>Generative:</strong> produce response from scratch.</p>
+<p>Modern: LLMs are open-domain dialogue systems.</p>
+<h3>Information Extraction</h3>
+<p>Turn unstructured text into structured data:</p>
+<ul><li><strong>Relation extraction:</strong> (Obama, born_in, Hawaii)</li><li><strong>Event extraction:</strong> who, what, when, where</li><li><strong>Coreference resolution:</strong> "He" → "Obama"</li></ul>
+<p>Foundation for knowledge graphs.</p>
+<h3>Text Generation</h3>
+<p>Generate coherent, fluent text:</p>
+<ul><li><strong>Story generation:</strong> given prompt, write story</li><li><strong>Code generation:</strong> given description, write code</li><li><strong>Dialogue:</strong> chatbot responses</li><li><strong>Data-to-text:</strong> describe a table in natural language</li></ul>
+<p>Modern: GPT-4, Claude, Gemini generate human-quality text.</p>
+<h3>Ethics and Bias</h3>
+<p>NLP models learn from human text, which contains bias.</p>
+<p>Issues:</p>
+<ul><li><strong>Gender bias:</strong> "doctor" → male, "nurse" → female</li><li><strong>Racial bias:</strong> sentiment differs by dialect</li><li><strong>Political bias:</strong> training data skews</li><li><strong>Toxicity:</strong> models generate harmful content</li></ul>
+<p>Mitigation: data filtering, debiasing techniques, RLHF, red-teaming.</p>
+<h3>Evaluation</h3>
+<p><strong>BLEU:</strong> n-gram overlap, machine translation.<br><strong>ROUGE:</strong> n-gram overlap, summarization.<br><strong>METEOR:</strong> synonyms and stemming.<br><strong>BERTScore:</strong> semantic similarity via embeddings.<br><strong>Perplexity:</strong> language model quality.<br><strong>Human eval:</strong> gold standard, but expensive.</p>
+<p>No metric is perfect. Multiple metrics + human eval is best.</p>
+<h3>Deployment</h3>
+<p>Large models are expensive to serve:</p>
+<ul><li><strong>Quantization:</strong> 8-bit, 4-bit reduce memory</li><li><strong>Distillation:</strong> train smaller student</li><li><strong>Pruning:</strong> remove weights</li><li><strong>Batching:</strong> process multiple requests</li><li><strong>Caching:</strong> store frequent responses</li><li><strong>Edge deployment:</strong> small models on device</li></ul>
+<p>Trade-offs between latency, cost, and quality.</p>
+<h3>Future Directions</h3>
+<ul><li><strong>Multimodal:</strong> text + image + audio (GPT-4V, Gemini)</li><li><strong>Agents:</strong> LLMs that use tools, take actions</li><li><strong>Long context:</strong> million-token windows</li><li><strong>Efficiency:</strong> sparse models, MoE</li><li><strong>Reasoning:</strong> chain-of-thought, tree search</li><li><strong>Alignment:</strong> ensuring helpful, harmless, honest</li></ul>
+<p>Rapidly evolving field.</p>
+<h3>Key Takeaways</h3>
+<ul><li>Translation, QA, summarization are mature</li><li>NER, classification, sentiment standard</li><li>Dialogue systems revolutionized by LLMs</li><li>Text generation approaching human quality</li><li>Bias and ethics are serious concerns</li><li>Multiple evaluation metrics needed</li><li>Deployment requires efficiency techniques</li><li>Future: multimodal, agents, long context</li></ul></div>
       </div>
     </div>
   </div>
