@@ -1,14 +1,10 @@
 name: Run database fix (Supabase)
 
 # Runs database/fix_missing_columns.sql on your Supabase project.
-# Triggers: automatically when that file changes on main, or manually (Actions tab -> Run workflow).
+# Trigger: manual only (Actions tab -> Run workflow).
 # The SQL is idempotent (IF NOT EXISTS), so running it again is harmless.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'database/fix_missing_columns.sql'
   workflow_dispatch:
 
 permissions:
