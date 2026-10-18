@@ -29,11 +29,11 @@ window.TPI18N = (function () {
       ht_security: 'Home Security', ht_security_desc: 'Repurpose an old phone as a security camera',
       ht_energy: 'Energy Savings', ht_energy_desc: 'Cut your electric bill by 30% with telemetry',
       academy_preview_title: 'Free University-Level Engineering Courses',
-      academy_preview_desc: 'Complete lectures, assignments, past exams and step-by-step solutions.',
+      academy_preview_desc: 'Independent study notes, lectures, assignments and worked solutions for core engineering subjects.',
       stat_courses: 'Courses', stat_lectures: 'Lectures', stat_problems: 'Problems',
       enter_academy: 'Enter Academy →',
       academy_title: 'TechPulse Academy', academy_subtitle: 'Free university-level engineering courses',
-      academy_hero_desc: 'Complete lectures, assignments, past exams and step-by-step solutions.',
+      academy_hero_desc: 'Independent study notes, lectures, assignments and worked solutions for core engineering subjects.',
       academy_badge: '100% Free · No Signup Required',
       academy_learning_paths: 'Learning Paths', academy_all_courses: 'All Courses',
       academy_course_week: 'Course of the Week', academy_start_learning: 'Start Learning',
@@ -49,7 +49,7 @@ window.TPI18N = (function () {
       widget_news: '📡 Latest News', widget_bookmarks: '🔖 Saved Articles',
       widget_trending: '🔥 Trending', widget_newsletter: '📬 Newsletter',
       widget_topics: '🏷 Topics', no_bookmarks: 'No saved articles yet.',
-      news_updated: 'Updated hourly', view_all_news: 'View all news →',
+      news_updated: '', view_all_news: 'View all news →',
       newsletter_desc: 'Weekly digest of the best tech articles. No spam.',
       btn_subscribe: 'Subscribe', newsletter_success: '✓ Thanks for subscribing!',
       newsletter_error: '✗ Something went wrong. Try again.',
@@ -522,7 +522,7 @@ window.TPI18N = (function () {
   };
 
   const STORAGE_KEY = 'tp_language';
-  const SUPPORTED = ['en', 'zh', 'es', 'hi', 'fr', 'pt'];
+  const SUPPORTED = ['en'];   // English only (machine translations removed)
   let currentLang = 'en';
 
   try {

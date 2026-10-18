@@ -118,9 +118,8 @@ function page(course, lectures, assignments, exams) {
     '@type': 'Course',
     name: title,
     description: course.description,
-    provider: { '@type': 'Organization', name: course.university || 'TechPulse Academy' },
+    provider: { '@type': 'Organization', name: 'TechPulse Academy' },
     url: url,
-    courseCode: course.code,
     hasCourseInstance: lectures.map(l => ({
       '@type': 'CourseInstance',
       name: l.title,
@@ -134,7 +133,7 @@ function page(course, lectures, assignments, exams) {
 <meta charset="UTF-8">
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(title)} — ${esc(course.university)} | TechPulse Academy</title>
+<title>${esc(title)} | TechPulse Academy</title>
 <meta name="description" content="${esc(course.description)}">
 <link rel="canonical" href="${url}">
 ${hreflang}
@@ -209,7 +208,7 @@ ${hreflang}
     </nav>
     
     <div class="course-hero">
-      <span class="course-code-badge">${esc(course.code)} · ${esc(course.university)}</span>
+      <span class="course-code-badge">Reference topics: ${esc(course.code)} · independent study notes, not affiliated</span>
       <h1>${esc(title)}</h1>
       <p>${esc(course.description)}</p>
       <div class="course-hero-stats">

@@ -1,363 +1,261 @@
 /*
- * ADMIN PANEL — NOT FOR PUBLIC INDEXING
- * X-Robots-Tag: noindex, nofollow
- * This file is protected via robots.txt and admin.html noindex meta.
- */
-/* ==========================================================================
-   TechPulse — Admin Controller (admin.js) v20261005
-   Handles: article CRUD, image upload to Supabase Storage, Gemini AI generation
-   from 3 images + title, translation queue trigger.
-   Requires js/common.js and js/i18n.js
-   ========================================================================== */
+ * ADMIN PANEL — NOT FOR PUBLIC INDEXING (noindex, nofollow)
+ * ==========================================================================
+ * TechPulse — Admin Controller (admin.js) v20261018
+ *
+ * Every article is written by a person in six fixed sections (English only):
+ *   1. The Problem          2. Possible Causes        3. Tools and Components Needed
+ *   4. Step-by-Step Solution 5. Images and Diagrams   6. Common Mistakes
+ * (+ an optional "Safety notes & extra sections" box)
+ *
+ * There is NO AI generation, NO automatic translation and NO automatic publishing.
+ * After saving, run  GitHub -> Actions -> "Rebuild Static Pages (manual)"  to publish
+ * the static HTML page that search engines and AdSense crawl.
+ * Requires js/common.js (TPCommon) and the Supabase client created in admin.html.
+ * ========================================================================== */
 (function () {
   'use strict';
 
   var C = window.TPCommon;
-  if (!C) {
-    console.warn('[TP] admin.js requires common.js');
-    return;
-  }
+  if (!C) { console.warn('[TP] admin.js requires common.js'); return; }
 
   var $ = function (s, ctx) { return (ctx || document).querySelector(s); };
-  var $$ = function (s, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(s)); };
+  var supabaseClient = window.adminSb ||
+    (window.supabase && window.supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY));
+  if (!supabaseClient) { console.warn('[TP] Admin: no supabase client'); return; }
 
-  var SUPABASE_URL = C.SUPABASE_URL;
-  var SUPABASE_ANON_KEY = C.SUPABASE_ANON_KEY;
-  var supabaseClient = window.adminSb || (window.supabase && window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY));
-  if (!supabaseClient) {
-    console.warn('[TP] Admin: no supabase client');
-    return;
-  }
+  var MIN_WORDS = 600;            // below this the static build keeps the page noindex + unlisted
+  var MAX_EXCERPT = 155;
+  var SECTIONS = [
+    { key: 'problem',  head: 'The Problem',                 field: 'sec-problem',  re: /^(the )?problem( faced by the user)?$/i, required: true },
+    { key: 'causes',   head: 'Possible Causes',             field: 'sec-causes',   re: /^(possible|potential) causes( of the problem)?$/i, required: true },
+    { key: 'tools',    head: 'Tools and Components Needed', field: 'sec-tools',    re: /^(required )?tools (and|&) components( needed| required)?$/i, required: true },
+    { key: 'steps',    head: 'Step-by-Step Solution',       field: 'sec-steps',    re: /^(detailed )?step[- ]by[- ]step solution( guide)?$/i, required: true },
+    { key: 'images',   head: 'Images and Diagrams',         field: 'sec-images',   re: /^(images (and|or) diagrams|diagrams)$/i, required: false },
+    { key: 'mistakes', head: 'Common Mistakes',             field: 'sec-mistakes', re: /^common mistakes( to avoid)?$/i, required: true }
+  ];
+  var NON_ENGLISH = /[\u0400-\u04FF\u0590-\u06FF\u0700-\u08FF\u0900-\u0DFF\u0E00-\u0EFF\u3040-\u30FF\u3400-\u9FFF\uAC00-\uD7AF]/;
+  var ALLOWED_IMG = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif' };
 
-  // ---- Gemini API Key: save to localStorage so it persists ----
-  var GEMINI_KEY_STORAGE = 'tp_gemini_key';
-  function loadGeminiKey() {
-    try { return localStorage.getItem(GEMINI_KEY_STORAGE) || ''; } catch (e) { return ''; }
-  }
-  function saveGeminiKey(val) {
-    try {
-      if (val && val.trim()) localStorage.setItem(GEMINI_KEY_STORAGE, val.trim());
-      else localStorage.removeItem(GEMINI_KEY_STORAGE);
-    } catch (e) {}
-  }
   var articlesCache = [];
   var currentImageData = '';
   var currentImageFile = null;
-  var aiImageFiles = [];
-
-  /* ============================================
-     Section Images — optional uploads per ## heading
-     ============================================ */
-  var SECTION_SLOTS = [
-    { key: 'problem',  label: 'Problem',              heading: '## Problem' },
-    { key: 'causes',   label: 'Possible Causes',      heading: '## Possible Causes' },
-    { key: 'tools',    label: 'Tools & Components',   heading: '## Tools and Components Needed' },
-    { key: 'solution', label: 'Step-by-Step',         heading: '## Step-by-Step Solution' },
-    { key: 'diagrams', label: 'Diagrams',             heading: '## Diagrams' },
-    { key: 'mistakes', label: 'Common Mistakes',      heading: '## Common Mistakes' },
-    { key: 'safety',   label: 'Safety',               heading: '## Safety Precautions' },
-    { key: 'verify',   label: 'How to Verify',        heading: '## How to Verify the Fix' }
-  ];
-  var sectionImages = {};        // { key: { url, alt } }
-  var pendingSlotKey = null;     // currently uploading
-
-  function getContentEl() { return document.getElementById('content'); }
-
-  function renderSectionSlots() {
-    var grid = document.getElementById('sectionImagesGrid');
-    if (!grid) return;
-    grid.innerHTML = SECTION_SLOTS.map(function (s) {
-      var img = sectionImages[s.key];
-      var cls = 'section-image-slot' + (img ? ' filled' : '');
-      return '<div class="' + cls + '" data-slot="' + s.key + '">' +
-        (img ? '<img src="' + img.url + '" alt="' + s.label + '">' : '') +
-        '<div class="slot-label">' + s.label + '</div>' +
-        '<div class="slot-hint">' + (img ? 'Click to replace' : 'Click to upload') + '</div>' +
-        (img ? '<button type="button" class="slot-remove" data-remove="' + s.key + '">×</button>' : '') +
-      '</div>';
-    }).join('');
-  }
-
-  function insertImageInContent(heading, url, alt) {
-    var el = getContentEl();
-    if (!el) return;
-    var content = el.value || '';
-    var marker = '![' + alt + '](' + url + ')';
-    // remove any previous image right after this heading (any URL)
-    var headingEsc = heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    var re = new RegExp('(' + headingEsc + '\\s*\\n+)(!\\[[^\\]]*\\]\\([^)]+\\)\\s*\\n+)?', 'g');
-    if (re.test(content)) {
-      content = content.replace(re, '$1' + marker + '\n\n');
-    } else {
-      content = marker + '\n\n' + content;
-    }
-    el.value = content;
-  }
-
-  function removeImageFromContent(heading) {
-    var el = getContentEl();
-    if (!el) return;
-    var headingEsc = heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    var re = new RegExp('(' + headingEsc + '\\s*\\n+)(!\\[[^\\]]*\\]\\([^)]+\\)\\s*\\n+)', 'g');
-    el.value = el.value.replace(re, '$1');
-  }
-
-  async function handleSectionImageUpload(slotKey, file) {
-    var slot = SECTION_SLOTS.find(function (s) { return s.key === slotKey; });
-    if (!slot || !file) return;
-    C.showToast('⏳ Uploading section image...');
-    try {
-      var url = await uploadToStorage(file, 'sec_' + slotKey + '_');
-      sectionImages[slotKey] = { url: url, alt: slot.label };
-      insertImageInContent(slot.heading, url, slot.label);
-      renderSectionSlots();
-      C.showToast('✅ Image inserted into content');
-    } catch (err) {
-      console.error(err);
-      C.showToast('❌ ' + err.message);
-    }
-  }
-
-  // Wire slot clicks (delegation)
-  document.addEventListener('click', function (e) {
-    var removeBtn = e.target.closest('[data-remove]');
-    if (removeBtn) {
-      e.stopPropagation();
-      var key = removeBtn.dataset.remove;
-      var slot = SECTION_SLOTS.find(function (s) { return s.key === key; });
-      if (slot) {
-        removeImageFromContent(slot.heading);
-        delete sectionImages[key];
-        renderSectionSlots();
-      }
-      return;
-    }
-    var slotEl = e.target.closest('.section-image-slot');
-    if (slotEl) {
-      pendingSlotKey = slotEl.dataset.slot;
-      var input = document.getElementById('sectionImageInput');
-      if (input) { input.value = ''; input.click(); }
-    }
-  });
-
-  // File input
-  document.addEventListener('change', function (e) {
-    if (e.target && e.target.id === 'sectionImageInput' && e.target.files[0]) {
-      handleSectionImageUpload(pendingSlotKey, e.target.files[0]);
-      pendingSlotKey = null;
-    }
-  });
-
-
-  /* ============================================
-     Load Articles
-     ============================================ */
-  async function loadArticles() {
-    var res = await supabaseClient.from('articles').select('*').order('id', { ascending: false }).limit(200);
-    if (res.error) {
-      console.error('[TP] loadArticles error', res.error);
-      articlesCache = [];
-      C.showToast('Failed to load articles');
-    } else {
-      articlesCache = res.data || [];
-    }
-    return articlesCache;
-  }
-
-  function getArticles() { return articlesCache; }
-
-  /* ============================================
-     UI Elements
-     ============================================ */
-  var form = $('#article-form');
-  var articleIdInput = $('#article-id');
-  var titleInput = $('#title');
-  var slugInput = $('#slug');
-  var excerptInput = $('#excerpt');
-  var contentInput = $('#content');
-  var categoryInput = $('#category');
-  var authorInput = $('#author');
-  var dateInput = $('#date');
-  var readTimeInput = $('#readTime');
-  var tagsInput = $('#tags');
-  var featuredInput = $('#featured');
-  var imageInput = $('#image-file');
-  var imagePreview = $('#image-preview');
-  var removeImageBtn = $('#remove-image');
-  var formTitle = $('#form-title');
-  var resetBtn = $('#reset-btn');
-  var listContainer = $('#admin-articles-list');
-
-  /* ============================================
-     Hero image upload
-     ============================================ */
-  if (imagePreview && imageInput) {
-    imagePreview.addEventListener('click', function () { imageInput.click(); });
-
-    imageInput.addEventListener('change', function () {
-      var file = imageInput.files[0];
-      if (!file) return;
-      if (file.size > 3 * 1024 * 1024) {
-        C.showToast('Image too large (max 3 MB)');
-        imageInput.value = '';
-        return;
-      }
-      currentImageFile = file;
-      var reader = new FileReader();
-      reader.onload = function (ev) {
-        currentImageData = ev.target.result;
-        imagePreview.innerHTML = '<img src="' + currentImageData + '" alt="Preview" style="width:150px;height:100px;object-fit:cover;border-radius:4px">';
-        if (removeImageBtn) removeImageBtn.style.display = 'inline-block';
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  if (removeImageBtn) {
-    removeImageBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      currentImageData = '';
-      currentImageFile = null;
-      if (imageInput) imageInput.value = '';
-      imagePreview.innerHTML = '<span class="image-hint">Click to upload an image (max 3 MB)</span>';
-      removeImageBtn.style.display = 'none';
-    });
-  }
-
-  /* ============================================
-     Slug generation
-     ============================================ */
+  var diagrams = [];              // [{ url, alt, caption }]
   var slugEdited = false;
-  if (slugInput && titleInput) {
-    slugInput.addEventListener('input', function () { slugEdited = true; });
-    titleInput.addEventListener('input', function () {
-      if (!slugEdited) slugInput.value = C.slugify(titleInput.value);
+
+  var form = $('#article-form');
+  var el = {
+    id: $('#article-id'), title: $('#title'), slug: $('#slug'), category: $('#category'),
+    author: $('#author'), date: $('#date'), readTime: $('#readTime'), excerpt: $('#excerpt'),
+    tags: $('#tags'), featured: $('#featured'), extra: $('#sec-extra'), legacy: $('#legacy-content'),
+    legacyBox: $('#legacy-box'), original: $('#confirm-original'),
+    imgFile: $('#image-file'), imgPreview: $('#image-preview'), imgRemove: $('#remove-image'),
+    diagramList: $('#diagram-list'), diagramFile: $('#diagram-file'), diagramAdd: $('#diagram-add'),
+    formTitle: $('#form-title'), reset: $('#reset-btn'), list: $('#admin-articles-list'),
+    wordCount: $('#word-count'), excerptCount: $('#excerpt-count'), checklist: $('#readiness'),
+    note: $('#publish-note')
+  };
+  SECTIONS.forEach(function (s) { s.el = document.getElementById(s.field); });
+
+  function words(t) { return String(t || '').replace(/!\[[^\]]*\]\([^)]*\)/g, ' ').split(/\s+/).filter(Boolean).length; }
+  function val(node) { return node ? String(node.value || '').trim() : ''; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function today() { return new Date().toISOString().slice(0, 10); }
+  function readTimeOf(text) { return Math.max(1, Math.round(words(text) / 200)) + ' min read'; }
+
+  /* ---------- Compose the article body (Markdown) from the six sections ---------- */
+  function diagramsMarkdown() {
+    return diagrams.map(function (d, i) {
+      var cap = (d.caption || '').trim();
+      return '![' + (d.alt || '').trim() + '](' + d.url + ')' + (cap ? '\n\nFigure ' + (i + 1) + ': ' + cap : '');
+    }).join('\n\n');
+  }
+
+  function compose() {
+    var parts = [];
+    SECTIONS.forEach(function (s) {
+      var body = val(s.el);
+      if (s.key === 'images') body = [diagramsMarkdown(), body].filter(Boolean).join('\n\n');
+      if (body) parts.push('## ' + s.head + '\n\n' + body);
+    });
+    var extra = val(el.extra);
+    if (extra) parts.push(extra);
+    return parts.join('\n\n').trim();
+  }
+
+  /* ---------- Parse an existing article back into the sections ---------- */
+  function parseContent(md) {
+    var out = { problem: '', causes: '', tools: '', steps: '', images: '', mistakes: '', extra: '', legacy: '', diagrams: [] };
+    var text = String(md || '').replace(/\r\n/g, '\n').trim();
+    if (!text) return out;
+    if (/<\s*(h[1-6]|p|ul|ol|div)\b/i.test(text) || !/^##\s+/m.test(text)) { out.legacy = text; return out; }
+
+    var blocks = [], cur = { head: null, body: [] }, inFence = false;
+    text.split('\n').forEach(function (ln) {
+      if (/^```/.test(ln)) inFence = !inFence;
+      var m = !inFence && /^##\s+(.+?)\s*$/.exec(ln);
+      if (m) { blocks.push(cur); cur = { head: m[1], body: [] }; } else { cur.body.push(ln); }
+    });
+    blocks.push(cur);
+
+    var extras = [];
+    blocks.forEach(function (b) {
+      var body = b.body.join('\n').trim();
+      if (!b.head) { if (body) extras.push(body); return; }
+      var clean = b.head.replace(/^\d+\.\s*/, '').trim();
+      var sec = SECTIONS.filter(function (s) { return s.re.test(clean); })[0];
+      if (!sec || out[sec.key] || (sec.key === 'images' && (out.diagrams.length || out.images))) { extras.push('## ' + b.head + '\n\n' + body); return; }
+      if (sec.key === 'images') {
+        var rest = [], arr = body.split(/\n{2,}/);
+        for (var i = 0; i < arr.length; i++) {
+          var im = /^!\[([^\]]*)\]\(([^)]+)\)\s*$/.exec(arr[i].trim());
+          if (im) {
+            var d = { alt: im[1], url: im[2], caption: '' };
+            var nx = /^Figure \d+:\s*(.+)$/.exec((arr[i + 1] || '').trim());
+            if (nx) { d.caption = nx[1]; i++; }
+            out.diagrams.push(d);
+          } else { rest.push(arr[i]); }
+        }
+        out.images = rest.join('\n\n').trim();
+      } else { out[sec.key] = body; }
+    });
+    out.extra = extras.join('\n\n').trim();
+    return out;
+  }
+
+  /* ---------- Images / diagrams list ---------- */
+  function renderDiagrams() {
+    if (!el.diagramList) return;
+    if (!diagrams.length) {
+      el.diagramList.innerHTML = '<p class="sec-hint">No images yet. Add a diagram or photo where it helps the reader (wiring diagram, before/after photo, screenshot).</p>';
+    } else {
+      el.diagramList.innerHTML = diagrams.map(function (d, i) {
+        return '<div class="diagram-item" data-i="' + i + '">' +
+          '<img src="' + esc(d.url) + '" alt="' + esc(d.alt || 'Preview') + '">' +
+          '<div class="diagram-fields">' +
+            '<label>Alt text * <small>(describe what the image shows)</small></label>' +
+            '<input type="text" data-f="alt" maxlength="140" value="' + esc(d.alt) + '" placeholder="e.g. ESP32 wired to a relay module with a flyback diode">' +
+            '<label>Caption <small>(optional)</small></label>' +
+            '<input type="text" data-f="caption" maxlength="160" value="' + esc(d.caption) + '" placeholder="e.g. Wiring for the low-side switch">' +
+            '<button type="button" class="btn-secondary" data-rm="' + i + '">Remove</button>' +
+          '</div></div>';
+      }).join('');
+    }
+    updateMeta();
+  }
+
+  if (el.diagramList) {
+    el.diagramList.addEventListener('input', function (e) {
+      var item = e.target.closest('.diagram-item'); if (!item) return;
+      var d = diagrams[Number(item.dataset.i)]; if (!d) return;
+      d[e.target.dataset.f] = e.target.value; updateMeta();
+    });
+    el.diagramList.addEventListener('click', function (e) {
+      var rm = e.target.closest('[data-rm]'); if (!rm) return;
+      diagrams.splice(Number(rm.dataset.rm), 1); renderDiagrams();
+    });
+  }
+  if (el.diagramAdd && el.diagramFile) {
+    el.diagramAdd.addEventListener('click', function () { el.diagramFile.value = ''; el.diagramFile.click(); });
+    el.diagramFile.addEventListener('change', async function () {
+      var f = el.diagramFile.files[0]; if (!f) return;
+      C.showToast('⏳ Uploading image...');
+      try {
+        var url = await uploadToStorage(f, 'fig_');
+        diagrams.push({ url: url, alt: '', caption: '' });
+        renderDiagrams();
+        C.showToast('✅ Image added — now describe it in the alt text');
+      } catch (err) { C.showToast('❌ ' + err.message); }
     });
   }
 
-  /* ============================================
-     Upload image to Supabase Storage
-     ============================================ */
+  /* ---------- Hero image ---------- */
+  var HERO_HINT = '<span class="image-hint">Click to upload a real photo or diagram (max 3 MB). Do not reuse the same image on every article.</span>';
+  if (el.imgPreview && el.imgFile) {
+    el.imgPreview.addEventListener('click', function () { el.imgFile.click(); });
+    el.imgFile.addEventListener('change', function () {
+      var f = el.imgFile.files[0]; if (!f) return;
+      if (f.size > 3 * 1024 * 1024) { C.showToast('Image too large (max 3 MB)'); el.imgFile.value = ''; return; }
+      currentImageFile = f;
+      var r = new FileReader();
+      r.onload = function (ev) {
+        currentImageData = ev.target.result;
+        el.imgPreview.innerHTML = '<img src="' + currentImageData + '" alt="Preview" style="width:150px;height:100px;object-fit:cover;border-radius:4px">';
+        if (el.imgRemove) el.imgRemove.style.display = 'inline-block';
+      };
+      r.readAsDataURL(f);
+    });
+  }
+  if (el.imgRemove) {
+    el.imgRemove.addEventListener('click', function (e) {
+      e.stopPropagation(); currentImageData = ''; currentImageFile = null;
+      if (el.imgFile) el.imgFile.value = '';
+      el.imgPreview.innerHTML = HERO_HINT; el.imgRemove.style.display = 'none';
+    });
+  }
+
   async function uploadToStorage(file, prefix) {
     if (!file) return '';
-    var ALLOWED = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif' };
-    if (!ALLOWED[file.type]) throw new Error('Unsupported image type (use JPG, PNG, WebP or GIF)');
+    if (!ALLOWED_IMG[file.type]) throw new Error('Unsupported image type (use JPG, PNG, WebP or GIF)');
     if (file.size > 5 * 1024 * 1024) throw new Error('Image too large (max 5 MB)');
-    var ext = ALLOWED[file.type];
-    var fileName = (prefix || 'img_') + Date.now() + '_' + Math.random().toString(36).substring(2, 9) + '.' + ext;
-    var filePath = 'articles/' + fileName;
+    var path = 'articles/' + (prefix || 'img_') + Date.now() + '_' + Math.random().toString(36).substring(2, 9) + '.' + ALLOWED_IMG[file.type];
+    var res = await supabaseClient.storage.from('article-images').upload(path, file);
+    if (res.error) throw new Error('Upload failed: ' + res.error.message);
+    var u = supabaseClient.storage.from('article-images').getPublicUrl(path);
+    return (u.data && u.data.publicUrl) || '';
+  }
 
-    var res = await supabaseClient.storage.from('article-images').upload(filePath, file);
-    if (res.error) {
-      console.warn('[TP] upload error', res.error);
-      throw new Error('Upload failed: ' + res.error.message);
+  /* ---------- Slug + validation + live counters ---------- */
+  if (el.slug && el.title) {
+    el.slug.addEventListener('input', function () { slugEdited = true; });
+    el.title.addEventListener('input', function () { if (!slugEdited) el.slug.value = C.slugify(el.title.value); });
+  }
+
+  function problems() {
+    var list = [], content = compose(), wc = words(content);
+    SECTIONS.forEach(function (s) { if (s.required && !val(s.el)) list.push('Section "' + s.head + '" is empty'); });
+    if (!val(el.title)) list.push('Title is empty');
+    if (val(el.title).length > 70) list.push('Title is ' + val(el.title).length + ' characters (keep it under 70)');
+    if (!val(el.category)) list.push('Choose a category');
+    if (!val(el.author)) list.push('Enter the author name');
+    if (!val(el.excerpt)) list.push('Excerpt is empty');
+    if (val(el.excerpt).length > MAX_EXCERPT) list.push('Excerpt is ' + val(el.excerpt).length + '/' + MAX_EXCERPT + ' characters');
+    var slug = val(el.slug) || C.slugify(val(el.title));
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) list.push('Slug may only contain lowercase letters, numbers and hyphens');
+    if (wc < MIN_WORDS) list.push('Article has ' + wc + ' words (minimum ' + MIN_WORDS + ')');
+    var steps = val(SECTIONS[3].el);
+    if (steps && (steps.match(/^\s*(\d+[.)]|###)\s+/gm) || []).length < 3) list.push('Step-by-Step Solution needs at least 3 numbered steps (1. 2. 3.) or ### sub-headings');
+    diagrams.forEach(function (d, i) { if (!(d.alt || '').trim()) list.push('Image ' + (i + 1) + ' needs alt text'); });
+    if (NON_ENGLISH.test(content + ' ' + val(el.title) + ' ' + val(el.excerpt))) list.push('Write everything in English (non-English characters found)');
+    if (!el.original || !el.original.checked) list.push('Tick the originality confirmation');
+    return list;
+  }
+
+  function updateMeta() {
+    var content = compose(), wc = words(content);
+    if (el.wordCount) {
+      el.wordCount.textContent = wc + ' / ' + MIN_WORDS + ' words minimum';
+      el.wordCount.style.color = wc >= MIN_WORDS ? '#16a34a' : '#dc2626';
     }
-    var urlRes = supabaseClient.storage.from('article-images').getPublicUrl(filePath);
-    return (urlRes.data && urlRes.data.publicUrl) || '';
+    if (el.excerptCount) {
+      var n = val(el.excerpt).length;
+      el.excerptCount.textContent = n + ' / ' + MAX_EXCERPT;
+      el.excerptCount.style.color = n <= MAX_EXCERPT ? '#16a34a' : '#dc2626';
+    }
+    if (el.readTime && !el.readTime.dataset.touched) el.readTime.value = readTimeOf(content);
+    if (el.checklist) {
+      var p = problems();
+      el.checklist.innerHTML = p.length
+        ? '<strong>Before you can publish:</strong><ul>' + p.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'
+        : '<strong style="color:#16a34a">✓ Ready to publish</strong>';
+    }
   }
-
-  /* ============================================
-     Save article
-     ============================================ */
   if (form) {
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      var id = articleIdInput.value ? Number(articleIdInput.value) : undefined;
-      var title = titleInput.value.trim();
-      var excerpt = excerptInput.value.trim();
-      var content = contentInput.value.trim();
-      var category = categoryInput.value;
-      var author = authorInput.value.trim() || 'TechPulse Team';
-      var date = dateInput.value || new Date().toISOString().slice(0, 10);
-      var readTime = readTimeInput.value.trim() || calcReadTime(content);
-      var tags = tagsInput.value.split(',').map(function (t) { return t.trim(); }).filter(Boolean);
-      var featured = featuredInput.checked;
-      var slug = slugInput.value.trim() || C.slugify(title);
-
-      if (!title || !excerpt || !content || !category) {
-        C.showToast('⚠️ Please fill all required fields');
-        return;
-      }
-
-      try {
-        var imageUrl = currentImageData && currentImageData.indexOf('http') === 0 ? currentImageData : '';
-
-        if (currentImageFile) {
-          C.showToast('⏳ Uploading image...');
-          imageUrl = await uploadToStorage(currentImageFile, 'hero_');
-        }
-
-        var existing = id ? articlesCache.find(function (a) { return String(a.id) === String(id); }) : null;
-        function mergeI18n(oldObj, enVal, oldEn) {
-          if (oldEn !== undefined && oldEn !== enVal) return { en: enVal };
-          var out = Object.assign({}, oldObj || {});
-          out.en = enVal;
-          return out;
-        }
-        var titleI18n   = mergeI18n(existing && existing.title_i18n,   title,   existing && existing.title);
-        var excerptI18n = mergeI18n(existing && existing.excerpt_i18n, excerpt, existing && existing.excerpt);
-        var contentI18n = mergeI18n(existing && existing.content_i18n, content, existing && existing.content);
-        var keptLangs = ['en'].concat(['fr','es','zh','hi','pt'].filter(function (l) {
-          return titleI18n[l] && excerptI18n[l] && contentI18n[l];
-        }));
-
-        // SEO pre-publish validation
-        var seoWc = content.split(/\s+/).filter(Boolean).length;
-        var seoFails = [];
-        if (seoWc < 800) seoFails.push('Content is ' + seoWc + ' words (min 800)');
-        if (title.length > 60) seoFails.push('Title is ' + title.length + '/60 chars');
-        if (excerpt.length > 155) seoFails.push('Excerpt is ' + excerpt.length + '/155 chars');
-        if (!slug || !/^[a-z0-9-]+$/.test(slug)) seoFails.push('Invalid slug (lowercase/numbers/hyphens)');
-        if (seoFails.length > 0) {
-          var seoMsg = 'SEO warnings:' + String.fromCharCode(10) + String.fromCharCode(10) + seoFails.join(String.fromCharCode(10)) + String.fromCharCode(10) + String.fromCharCode(10) + 'Publish anyway?';
-          if (!confirm(seoMsg)) return;
-        }
-
-        var payload = {
-          title: title,
-          excerpt: excerpt,
-          content: content,
-          category: category,
-          author: author,
-          date: date,
-          readtime: readTime,
-          tags: tags,
-          featured: featured,
-          image: imageUrl || '',
-          likes: 0,
-          slug: slug,
-          title_i18n: titleI18n,
-          excerpt_i18n: excerptI18n,
-          content_i18n: contentI18n,
-          translation_status: keptLangs.length === 6 ? 'done' : 'pending',
-          translation_langs: keptLangs
-        };
-
-        if (id) {
-          await saveArticle(function (p) { return supabaseClient.from('articles').update(p).eq('id', id); }, payload);
-          C.showToast('✨ Article updated successfully');
-          startTranslation(id, { title: title, excerpt: excerpt, content: content });
-        } else {
-          var insRes = await saveArticle(function (p) { return supabaseClient.from('articles').insert([p]).select('id'); }, payload);
-          C.showToast('🚀 Article published successfully');
-          var newId = insRes && insRes.data && insRes.data[0] && insRes.data[0].id;
-          startTranslation(newId, { title: title, excerpt: excerpt, content: content });
-        }
-
-        resetForm();
-        await loadArticles();
-        renderAdminList();
-      } catch (err) {
-        console.error('[TP] save error', err);
-        C.showToast('❌ Error: ' + err.message);
-      }
-    });
+    form.addEventListener('input', function (e) { if (e.target === el.readTime) el.readTime.dataset.touched = '1'; updateMeta(); });
+    form.addEventListener('change', updateMeta);
   }
 
-  /* Save with automatic fallback: if Supabase says a column does not exist in the
-     table (e.g. "readtime"), drop that field from the payload and retry, so a missing
-     optional column never blocks publishing. Run database/fix_missing_columns.sql to add them. */
+  /* ---------- Save ---------- */
   async function saveArticle(run, payload) {
     var p = Object.assign({}, payload);
     for (var attempt = 0; attempt < 8; attempt++) {
@@ -365,496 +263,159 @@
       if (!res.error) return res;
       var m = /find the ['"]([A-Za-z0-9_]+)['"] column/i.exec(res.error.message || '');
       if (!m || !(m[1] in p) || m[1] === 'title' || m[1] === 'content') throw res.error;
-      console.warn('[TP] column missing in DB, saving without it:', m[1]);
-      delete p[m[1]];
+      delete p[m[1]];                       // optional column missing in the DB: save without it
     }
-    throw new Error('Could not save: too many missing columns - run database/fix_missing_columns.sql');
+    throw new Error('Could not save: run database/fix_missing_columns.sql');
   }
+  function showNote(html) { if (el.note) { el.note.innerHTML = html; el.note.style.display = 'block'; } }
 
-  /* ============================================
-     Instant translation (Gemini, straight from this page)
-     The article is already saved in Supabase. Right after saving, each missing language
-     (fr, es, zh, hi, pt) is translated and written back to the same row, so readers get
-     it immediately. If Gemini is busy, the page retries every 5 minutes while it stays open.
-     The server (GitHub Actions) also translates anything still "pending" every day at 03:00 UTC (or when you run it manually).
-     ============================================ */
-  var TR_LANGS = [
-    { code: 'fr', name: 'French' },
-    { code: 'es', name: 'Spanish' },
-    { code: 'zh', name: 'Simplified Chinese' },
-    { code: 'hi', name: 'Hindi' },
-    { code: 'pt', name: 'Portuguese' }
-  ];
-  var TR_RETRY_MS = 5 * 60 * 1000;
-  var TR_MAX_PASSES = 12;           // about one hour of page-side retries
-  var trTimers = {};
-
-  function trSay(msg) {
-    var el = document.getElementById('translate-status');
-    if (el) el.textContent = msg;
-  }
-  function trSleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
-
-  function trParse(raw) {
-    var t = String(raw).trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
-    return JSON.parse(t);
-  }
-
-  async function translateFields(apiKey, lang, src) {
-    var prompt = 'Translate these article fields from English to ' + lang.name + '.\n' +
-      'Rules: keep every HTML tag and attribute exactly as written; do NOT translate code inside <pre> or <code>, ' +
-      'URLs, file names, or part/product names; keep the same structure. ' +
-      'Return ONLY valid JSON: {"title":"...","excerpt":"...","content":"..."}\n\n' +
-      JSON.stringify({ title: src.title, excerpt: src.excerpt, content: src.content });
-    var o = trParse(await callGemini(apiKey, [{ text: prompt }], 24000, true));
-    if (!o || !o.title || !o.excerpt || !o.content) throw new Error('Incomplete translation');
-    return o;
-  }
-
-  function trPending(state) {
-    return TR_LANGS.filter(function (l) { return !(state.ti[l.code] && state.ei[l.code] && state.ci[l.code]); });
-  }
-
-  async function trSave(id, state) {
-    var left = trPending(state).length;
-    var done = TR_LANGS.filter(function (l) { return state.ti[l.code] && state.ei[l.code] && state.ci[l.code]; })
-      .map(function (l) { return l.code; });
-    var payload = {
-      title_i18n: state.ti, excerpt_i18n: state.ei, content_i18n: state.ci,
-      translation_langs: ['en'].concat(done),
-      translation_status: left === 0 ? 'done' : 'pending'
-    };
-    await saveArticle(function (p) { return supabaseClient.from('articles').update(p).eq('id', id); }, payload);
-  }
-
-  async function runTranslation(id, src, apiKey, state, pass) {
-    var todo = trPending(state);
-    var fatal = false;
-    for (var i = 0; i < todo.length && !fatal; i++) {
-      var lang = todo[i];
-      trSay('⏳ Translating article #' + id + ' → ' + lang.name + ' (' + (TR_LANGS.length - todo.length + i + 1) + '/' + TR_LANGS.length + ')…');
-      try {
-        var o = await translateFields(apiKey, lang, src);
-        state.ti[lang.code] = o.title;
-        state.ei[lang.code] = o.excerpt;
-        state.ci[lang.code] = o.content;
-        await trSave(id, state);
-      } catch (e) {
-        console.warn('[TP] translation failed for', lang.code, e);
-        // A bad key / no permission will not fix itself: stop and let the server handle it.
-        if (/API key|permission|PERMISSION_DENIED|not valid|unauthenticated/i.test(e.message || '')) fatal = true;
+  if (form) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var id = el.id.value ? Number(el.id.value) : undefined;
+      var legacyOnly = !compose() && !!val(el.legacy);
+      var list = problems();
+      if (legacyOnly) {   // old free-form article: allow small edits without migrating
+        list = list.filter(function (x) { return !/^Section |^Step-by-Step|^Article has/.test(x); });
+        if (words(val(el.legacy)) < MIN_WORDS && !confirm('This legacy article has fewer than ' + MIN_WORDS + ' words and will stay unlisted. Save anyway?')) return;
       }
-      await trSleep(1500);
-    }
+      if (list.length) { C.showToast('⚠️ ' + list[0]); updateMeta(); return; }
+      if (!legacyOnly && val(el.legacy) && !confirm('The old free-form text will be replaced by the structured sections. Continue?')) return;
 
-    var left = trPending(state).length;
-    if (left === 0) {
-      trSay('✅ Article #' + id + ' translated into all 5 languages and saved.');
-      C.showToast('🌍 Translations saved');
-      return;
-    }
-    if (fatal) {
-      trSay('⚠️ Gemini rejected the request (check the API key). The server will translate this article automatically daily at 03:00 UTC.');
-      return;
-    }
-    if (pass >= TR_MAX_PASSES) {
-      trSay('⚠️ ' + left + ' language(s) still missing. The server will finish them automatically (daily at 03:00 UTC, or run "Translate Articles (Auto)" manually).');
-      return;
-    }
-    trSay('⏳ Gemini is busy: ' + left + ' language(s) left. Retrying in 5 minutes (keep this page open; the server also translates daily).');
-    trTimers[id] = setTimeout(function () { runTranslation(id, src, apiKey, state, pass + 1); }, TR_RETRY_MS);
-  }
+      var content = legacyOnly ? val(el.legacy) : compose();
+      var title = val(el.title), excerpt = val(el.excerpt);
+      var slug = val(el.slug) || C.slugify(title);
+      var tags = val(el.tags).split(',').map(function (t) { return t.trim(); }).filter(Boolean);
 
-  function startTranslation(id, src) {
-    if (!id) return;
-    var keyEl = document.getElementById('ai-api-key');
-    var apiKey = keyEl ? keyEl.value.trim() : '';
-    clearTimeout(trTimers[id]);
-    if (!apiKey) {
-      trSay('ℹ️ Saved. No Gemini key entered here, so the server will translate this article automatically daily at 03:00 UTC.');
-      return;
-    }
-    var state = { ti: { en: src.title }, ei: { en: src.excerpt }, ci: { en: src.content } };
-    runTranslation(id, src, apiKey, state, 1);   // runs in the background
-  }
-
-  function calcReadTime(text) {
-    var words = String(text || '').trim().split(/\s+/).length;
-    return Math.max(1, Math.round(words / 200)) + ' min read';
-  }
-
-  /* ============================================
-     Edit + Delete
-     ============================================ */
-  if (listContainer) {
-    listContainer.addEventListener('click', function (e) {
-      var editBtn = e.target.closest('[data-edit]');
-      var delBtn = e.target.closest('[data-delete]');
-      if (editBtn) editArticle(editBtn.dataset.edit);
-      if (delBtn) deleteArticle(delBtn.dataset.delete);
+      try {
+        var imageUrl = currentImageData && currentImageData.indexOf('http') === 0 ? currentImageData : '';
+        if (currentImageFile) { C.showToast('⏳ Uploading image...'); imageUrl = await uploadToStorage(currentImageFile, 'hero_'); }
+        var payload = {
+          title: title, excerpt: excerpt, content: content, category: val(el.category),
+          author: val(el.author), date: el.date.value || today(),
+          readtime: val(el.readTime) || readTimeOf(content), tags: tags,
+          featured: !!el.featured.checked, image: imageUrl || '', slug: slug,
+          // English only: drop any machine translations so they cannot go out of sync
+          title_i18n: { en: title }, excerpt_i18n: { en: excerpt }, content_i18n: { en: content },
+          translation_status: 'done', translation_langs: ['en']
+        };
+        if (id) {
+          await saveArticle(function (p) { return supabaseClient.from('articles').update(p).eq('id', id); }, payload);
+          C.showToast('✨ Article updated');
+        } else {
+          payload.likes = 0;
+          await saveArticle(function (p) { return supabaseClient.from('articles').insert([p]).select('id'); }, payload);
+          C.showToast('🚀 Article saved');
+        }
+        resetForm();
+        showNote('<strong>Saved to the database.</strong> It is <u>not live yet</u>. To publish the static page: ' +
+          'GitHub → <em>Actions</em> → <em>Rebuild Static Pages (manual)</em> → <em>Run workflow</em> ' +
+          '(or run <code>node scripts/generate-seo.mjs</code> locally and push).');
+        await loadArticles(); renderAdminList();
+      } catch (err) {
+        console.error('[TP] save error', err);
+        C.showToast('❌ Error: ' + (err.message || err));
+      }
     });
   }
 
-  function editArticle(id) {
-    var art = getArticles().find(function (a) { return String(a.id) === String(id); });
-    if (!art) return;
+  /* ---------- Load / list / edit / delete / reset ---------- */
+  async function loadArticles() {
+    var res = await supabaseClient.from('articles').select('*').order('id', { ascending: false }).limit(300);
+    if (res.error) { console.error('[TP] loadArticles', res.error); articlesCache = []; C.showToast('Failed to load articles'); }
+    else articlesCache = res.data || [];
+    return articlesCache;
+  }
 
-    articleIdInput.value = art.id;
-    titleInput.value = art.title || '';
-    excerptInput.value = art.excerpt || '';
-    contentInput.value = art.content || '';
-    slugInput.value = art.slug || '';
-    slugEdited = true;
-    categoryInput.value = art.category || '';
-    authorInput.value = art.author || '';
-    dateInput.value = art.date || '';
-    readTimeInput.value = art.readtime || '';
-    tagsInput.value = Array.isArray(art.tags) ? art.tags.join(', ') : (art.tags || '');
-    featuredInput.checked = !!art.featured;
-
-    currentImageData = art.image || '';
-    currentImageFile = null;
-    if (currentImageData) {
-      imagePreview.innerHTML = '<img src="' + currentImageData + '" alt="Preview" style="width:150px;height:100px;object-fit:cover;border-radius:4px">';
-      if (removeImageBtn) removeImageBtn.style.display = 'inline-block';
-    } else {
-      imagePreview.innerHTML = '<span class="image-hint">Click to upload an image (max 3 MB)</span>';
-      if (removeImageBtn) removeImageBtn.style.display = 'none';
+  function renderAdminList() {
+    var arts = articlesCache.slice().sort(function (a, b) { return String(b.date || '').localeCompare(String(a.date || '')); });
+    var info = arts.map(function (a) { return { a: a, wc: words(a.content), fmt: /^##\s+The Problem/m.test(a.content || '') }; });
+    var stats = $('#adminStats');
+    if (stats) {
+      var ready = info.filter(function (x) { return x.wc >= MIN_WORDS; }).length;
+      stats.innerHTML =
+        '<div class="stat"><div class="stat-label">Total Articles</div><div class="stat-value">' + arts.length + '</div></div>' +
+        '<div class="stat"><div class="stat-label">Indexable (' + MIN_WORDS + '+ words)</div><div class="stat-value" style="color:#16a34a">' + ready + '</div></div>' +
+        '<div class="stat"><div class="stat-label">Thin / unlisted</div><div class="stat-value" style="color:#dc2626">' + (arts.length - ready) + '</div></div>' +
+        '<div class="stat"><div class="stat-label">Featured</div><div class="stat-value">' + arts.filter(function (a) { return a.featured; }).length + '</div></div>';
     }
+    if (!arts.length) { el.list.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px">No articles yet.</p>'; return; }
+    el.list.innerHTML = info.map(function (x) {
+      var ok = x.wc >= MIN_WORDS;
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);gap:12px">' +
+        '<div style="flex:1;min-width:0"><h4 style="margin:0 0 4px;font-size:0.95rem;word-break:break-word">' + esc(x.a.title) + '</h4>' +
+        '<small style="color:var(--text-muted)">' + esc(x.a.category || '—') + ' · ' + esc(x.a.date || '') + ' · ' + x.wc + ' words · ' +
+        '<span style="color:' + (ok ? '#16a34a' : '#dc2626') + ';font-weight:600">' + (ok ? 'indexable' : 'thin — expand to ' + MIN_WORDS + '+') + '</span>' +
+        (x.fmt ? '' : ' · <span style="color:#f59e0b;font-weight:600">legacy format</span>') + '</small></div>' +
+        '<div style="display:flex;gap:6px;flex-shrink:0">' +
+        '<button type="button" data-edit="' + esc(x.a.id) + '" style="background:#0284c7;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:600;font-size:0.8rem">Edit</button>' +
+        '<button type="button" data-delete="' + esc(x.a.id) + '" style="background:#ef4444;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:600;font-size:0.8rem">Delete</button>' +
+        '</div></div>';
+    }).join('');
+  }
 
-    formTitle.textContent = 'Edit Article';
-    resetBtn.style.display = 'inline-block';
+  if (el.list) el.list.addEventListener('click', function (e) {
+    var ed = e.target.closest('[data-edit]'), del = e.target.closest('[data-delete]');
+    if (ed) editArticle(ed.dataset.edit);
+    if (del) deleteArticle(del.dataset.delete);
+  });
+
+  function editArticle(id) {
+    var art = articlesCache.filter(function (a) { return String(a.id) === String(id); })[0];
+    if (!art) return;
+    resetForm();
+    var p = parseContent(art.content);
+    el.id.value = art.id; el.title.value = art.title || ''; el.excerpt.value = art.excerpt || '';
+    el.slug.value = art.slug || ''; slugEdited = true;
+    el.category.value = art.category || ''; el.author.value = art.author || '';
+    el.date.value = art.date || today();
+    el.readTime.value = art.readtime || ''; if (art.readtime) el.readTime.dataset.touched = '1';
+    el.tags.value = Array.isArray(art.tags) ? art.tags.join(', ') : (art.tags || '');
+    el.featured.checked = !!art.featured;
+    SECTIONS.forEach(function (s) { if (s.el) s.el.value = p[s.key] || ''; });
+    el.extra.value = p.extra; el.legacy.value = p.legacy; diagrams = p.diagrams.slice();
+    if (el.legacyBox) el.legacyBox.style.display = p.legacy ? 'block' : 'none';
+    renderDiagrams();
+    currentImageData = art.image || ''; currentImageFile = null;
+    if (currentImageData) {
+      el.imgPreview.innerHTML = '<img src="' + esc(currentImageData) + '" alt="Preview" style="width:150px;height:100px;object-fit:cover;border-radius:4px">';
+      el.imgRemove.style.display = 'inline-block';
+    }
+    el.formTitle.textContent = p.legacy ? 'Edit Article (legacy format: move the text into the sections)' : 'Edit Article';
+    el.reset.style.display = 'inline-block';
+    updateMeta();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function deleteArticle(id) {
     if (!confirm('Delete this article permanently?')) return;
     var res = await supabaseClient.from('articles').delete().eq('id', id);
-    if (res.error) {
-      C.showToast('❌ ' + res.error.message);
-      return;
-    }
-    await loadArticles();
-    renderAdminList();
-    C.showToast('🗑 Article deleted');
+    if (res.error) { C.showToast('❌ ' + res.error.message); return; }
+    await loadArticles(); renderAdminList(); C.showToast('🗑 Article deleted');
   }
 
   function resetForm() {
     form.reset();
-    articleIdInput.value = '';
-    slugEdited = false;
-    currentImageData = '';
-    currentImageFile = null;
-    imagePreview.innerHTML = '<span class="image-hint">Click to upload an image (max 3 MB)</span>';
-    if (removeImageBtn) removeImageBtn.style.display = 'none';
-    sectionImages = {};
-    renderSectionSlots();
-    formTitle.textContent = 'Add New Article';
-    resetBtn.style.display = 'none';
-    if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
-
-  // Auto-load Gemini API key from localStorage
-  var _aiKeyEl = document.getElementById('ai-api-key');
-  if (_aiKeyEl) {
-    var saved = loadGeminiKey();
-    if (saved && !_aiKeyEl.value) _aiKeyEl.value = saved;
-    // Save on change
-    _aiKeyEl.addEventListener('change', function () { saveGeminiKey(this.value); });
-    _aiKeyEl.addEventListener('blur', function () { saveGeminiKey(this.value); });
+    el.id.value = ''; slugEdited = false; currentImageData = ''; currentImageFile = null; diagrams = [];
+    if (el.readTime) delete el.readTime.dataset.touched;
+    el.imgPreview.innerHTML = HERO_HINT; el.imgRemove.style.display = 'none';
+    if (el.legacyBox) el.legacyBox.style.display = 'none';
+    if (el.legacy) el.legacy.value = '';
+    el.formTitle.textContent = 'Add New Article'; el.reset.style.display = 'none';
+    if (el.date) el.date.value = today();
+    renderDiagrams(); updateMeta();
   }
-  }
+  if (el.reset) el.reset.addEventListener('click', function () { resetForm(); if (el.note) el.note.style.display = 'none'; });
 
-  if (resetBtn) resetBtn.addEventListener('click', resetForm);
-
-  /* ============================================
-     Render admin list
-     ============================================ */
-  function renderAdminList() {
-    var articles = getArticles().slice().sort(function (a, b) {
-      return (b.date || '').localeCompare(a.date || '');
-    });
-
-    var stats = $('#adminStats');
-    if (stats) {
-      var cats = {};
-      articles.forEach(function (a) { if (a.category) cats[a.category] = 1; });
-      var featured = articles.filter(function (a) { return a.featured; }).length;
-      var pending = articles.filter(function (a) { return a.translation_status === 'pending'; }).length;
-      stats.innerHTML =
-        '<div class="stat"><div class="stat-label">Total Articles</div><div class="stat-value">' + articles.length + '</div></div>' +
-        '<div class="stat"><div class="stat-label">Categories</div><div class="stat-value">' + Object.keys(cats).length + '</div></div>' +
-        '<div class="stat"><div class="stat-label">Featured</div><div class="stat-value">' + featured + '</div></div>' +
-        '<div class="stat"><div class="stat-label">Pending Translation</div><div class="stat-value" style="color:#f59e0b">' + pending + '</div></div>';
-    }
-
-    if (!articles.length) {
-      listContainer.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px">No articles yet.</p>';
-      return;
-    }
-
-    listContainer.innerHTML = articles.map(function (art) {
-      var status = art.translation_status || 'pending';
-      var statusColor = (status === 'done' || status === 'completed') ? '#16a34a' : status === 'in_progress' ? '#f59e0b' : '#64748b';
-      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);gap:12px">' +
-        '<div style="flex:1;min-width:0">' +
-          '<h4 style="margin:0 0 4px;font-size:0.95rem;color:var(--text);word-break:break-word">' + C.esc(art.title) + '</h4>' +
-          '<p style="margin:0 0 6px;font-size:0.83rem;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">' + C.esc(art.excerpt || '') + '</p>' +
-          '<small style="color:var(--text-muted);font-size:0.75rem">' + C.esc(art.category || '—') + ' · ' + C.esc(art.date || '') + ' · <span style="color:' + statusColor + ';font-weight:600">' + status + '</span></small>' +
-        '</div>' +
-        '<div style="display:flex;gap:6px;flex-shrink:0">' +
-          '<button type="button" data-edit="' + art.id + '" style="background:#0284c7;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:600;font-size:0.8rem">Edit</button>' +
-          '<button type="button" data-delete="' + art.id + '" style="background:#ef4444;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:600;font-size:0.8rem">Delete</button>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-  }
-
-  /* ============================================
-     Gemini AI Generation
-     ============================================ */
-  var GEMINI_MODEL = 'gemini-flash-latest';
-  var MIN_WORDS = 1800;
-  var MAX_WORDS = 2800;
-
-  function compressImage(file, maxWidth, quality) {
-    maxWidth = maxWidth || 1200;
-    quality = quality || 0.85;
-    return new Promise(function (resolve, reject) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        var img = new Image();
-        img.onload = function () {
-          try {
-            var canvas = document.createElement('canvas');
-            var scale = Math.min(1, maxWidth / img.width);
-            canvas.width = Math.round(img.width * scale);
-            canvas.height = Math.round(img.height * scale);
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            resolve(canvas.toDataURL('image/jpeg', quality));
-          } catch (err) { reject(err); }
-        };
-        img.onerror = reject;
-        img.src = e.target.result;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function tpWords(t) { return String(t || '').split(/\s+/).filter(Boolean).length; }
-
-  /* Convert a data: URL (from compressImage) to a Gemini inlineData part */
-  function dataUrlToPart(dataUrl) {
-    var m = /^data:([^;]+);base64,(.+)$/.exec(dataUrl || '');
-    if (!m) return null;
-    return { inlineData: { mimeType: m[1], data: m[2] } };
-  }
-
-  /* Call Gemini (generateContent). `parts` = array of {text} / {inlineData} parts. */
-  async function callGemini(apiKey, parts, maxTokens, wantJson) {
-    var cfg = { temperature: 0.75, maxOutputTokens: maxTokens || 8192 };
-    if (wantJson) cfg.responseMimeType = 'application/json';
-    var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + GEMINI_MODEL + ':generateContent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-      body: JSON.stringify({
-        contents: [{ role: 'user', parts: parts }],
-        generationConfig: cfg
-      })
-    });
-    var d = await res.json();
-    if (d.error) throw new Error(d.error.message || JSON.stringify(d.error));
-    if (d.promptFeedback && d.promptFeedback.blockReason) {
-      throw new Error('Gemini blocked the request: ' + d.promptFeedback.blockReason);
-    }
-    var cand = d.candidates && d.candidates[0];
-    var txt = cand && cand.content && cand.content.parts
-      ? cand.content.parts.map(function (p) { return p.text || ''; }).join('')
-      : '';
-    if (!txt) throw new Error('Empty response from Gemini' + (cand && cand.finishReason ? ' (' + cand.finishReason + ')' : ''));
-    return String(txt).trim();
-  }
-
-  /* AI generate button */
-  var generateBtn = $('#ai-generate-btn');
-  var aiStatus = $('#ai-status');
-  var aiKeyInput = $('#ai-api-key');
-  var aiTitleInput = $('#ai-custom-title');
-  var aiImagesInput = $('#ai-images-input');
-  var aiCategorySelect = $('#ai-category');
-  var aiThumbs = $('#aiImageThumbs');
-
-  if (aiImagesInput) {
-    aiImagesInput.addEventListener('change', function () {
-      var files = Array.prototype.slice.call(aiImagesInput.files);
-      if (files.length > 3) {
-        C.showToast('Maximum 3 images');
-        aiImagesInput.value = '';
-        aiThumbs.innerHTML = '';
-        return;
-      }
-      aiImageFiles = files;
-      aiThumbs.innerHTML = '';
-      files.forEach(function (f) {
-        var reader = new FileReader();
-        reader.onload = function (ev) {
-          var img = document.createElement('img');
-          img.src = ev.target.result;
-          img.className = 'image-thumb';
-          aiThumbs.appendChild(img);
-        };
-        reader.readAsDataURL(f);
-      });
-    });
-  }
-
-  if (generateBtn) {
-    generateBtn.addEventListener('click', async function () {
-      var apiKey = aiKeyInput.value.trim();
-      var customTitle = aiTitleInput ? aiTitleInput.value.trim() : '';
-      var category = aiCategorySelect ? aiCategorySelect.value : 'Technology';
-
-      if (!apiKey) { C.showToast('Please enter your Gemini API Key'); return; }
-      if (!customTitle) { C.showToast('Please enter an article title'); return; }
-      if (!aiImageFiles || aiImageFiles.length < 1) { C.showToast('Please select at least 1 image'); return; }
-      generateBtn.disabled = true;
-
-      try {
-        aiStatus.style.color = '#38bdf8';
-        aiStatus.innerText = '⏳ Compressing images...';
-        var imageDataUrls = await Promise.all(aiImageFiles.map(function (f) { return compressImage(f); }));
-
-        aiStatus.innerText = '⏳ Analyzing images and writing article (this may take 30–60 seconds)...';
-
-        var prompt = 'You are a senior technical writer for TechPulse, an engineering platform about ESP32/Arduino, embedded systems, and home repair.\n\n' +
-          'Write a long, deep, professional technical article titled: "' + customTitle + '"\n\n' +
-          'Write a detailed engineering tutorial based on real experience. Use concrete component values, units, and step-by-step verification. Use the attached images as real context for what the project looks like.\n\n' +
-          'AVOID these AI-typical phrases: delve, navigate the complexities, leverage, seamless, robust solution, game-changer, in today\'s fast-paced world. Never use them.\n\n' +
-          'USE specific numbers with units (4.7k ohm, 3.3V, 12.4mA), first-person experience (I tested, we measured), one real failure story (what broke and how you debugged it), and a Sources section with 3-5 verifiable URLs at the end. Include one markdown table of real measurements.\n\n' +
-          'STRUCTURE (mandatory, use these exact ## headings in this order):\n' +
-          "STRUCTURE (mandatory, use these exact ## headings in this order):\n" +
-          "## Problem\n" +
-          "2-3 sentences describing the symptom a user would notice.\n" +
-          "\n" +
-          "## Possible Causes\n" +
-          "Bulleted list of 4-6 likely root causes, one line each.\n" +
-          "\n" +
-          "## Tools and Components Needed\n" +
-          "Bulleted list of specific tools (multimeter, screwdriver sizes, soldering iron wattage, etc.) and replacement parts with model numbers where relevant.\n" +
-          "\n" +
-          "## Step-by-Step Solution\n" +
-          "6-10 sub-sections, each starting with \"### Step N: Short Title\" followed by 1-3 paragraphs of concrete instructions with real values, measurements, pin names, and code snippets where relevant.\n" +
-          "\n" +
-          "## Diagrams\n" +
-          "Bulleted descriptions of what a photo or diagram should show at each key step.\n" +
-          "\n" +
-          "## Common Mistakes\n" +
-          "Bulleted list of 4-6 mistakes beginners make, with the fix for each.\n" +
-          "\n" +
-          "## Safety Precautions\n" +
-          "Two sub-bullets: \"**Electrical:**\" and \"**Mechanical:**\" with concrete warnings (voltages, lockout/tagout, PPE, sharp edges, capacitor discharge).\n" +
-          "\n" +
-          "## How to Verify the Fix\n" +
-          "Numbered list of 4-6 validation steps ending with the expected measured result (voltage, resistance, temperature, etc.).\n" +
-          'Use real component values, units, and how-to-verify steps. No fluff. Never invent statistics or quotes.\n\n' +
-          'Return ONLY a raw JSON object (no markdown fences):\n' +
-          '{\n' +
-          '  "title": "' + customTitle + '",\n' +
-          '  "category": "' + category + '",\n' +
-          '  "excerpt": "value-driven abstract, 140-155 chars",\n' +
-          '  "tags": "embedded-systems, hardware, ESP32, tutorial",\n' +
-          '  "content": "the full article in markdown format as described"\n' +
-          '}';
-
-        var genParts = imageDataUrls.map(dataUrlToPart).filter(Boolean);
-        genParts.push({ text: prompt });
-        var rawText = await callGemini(apiKey, genParts, 16000, true);
-        var cleanJson = rawText.replace(/```json|```/g, '').trim();
-        cleanJson = cleanJson.slice(cleanJson.indexOf('{'), cleanJson.lastIndexOf('}') + 1);
-
-        var parsed = JSON.parse(cleanJson);
-
-        if (!parsed.content || parsed.content.length < 500) {
-          throw new Error('Generated content is too short');
-        }
-
-        aiStatus.innerText = '⏳ Checking word count...';
-        var wc = tpWords(parsed.content);
-
-        if (wc < MIN_WORDS) {
-          var need = MIN_WORDS - wc + 150;
-          aiStatus.innerText = '⏳ Expanding article (' + wc + ' words → ' + MIN_WORDS + '+)...';
-          var extra = await callGemini(apiKey, [{ text: 'Article titled "' + parsed.title + '":\n\n' + parsed.content + '\n\nWrite ' + need + ' to ' + (need + 200) + ' words of NEW material as 1-2 additional sections. Each section starts with "## Heading". Do not repeat existing content. Output only the new sections as plain markdown.' }], 8000, false);
-
-          var faqIndex = parsed.content.search(/\n##\s+(Frequently Asked Questions|Conclusion)/i);
-          if (faqIndex > -1) {
-            parsed.content = parsed.content.slice(0, faqIndex) + '\n\n' + extra + '\n\n' + parsed.content.slice(faqIndex);
-          } else {
-            parsed.content += '\n\n' + extra;
-          }
-          wc = tpWords(parsed.content);
-        }
-
-        /* Fill form */
-        titleInput.value = parsed.title || customTitle;
-        excerptInput.value = parsed.excerpt || '';
-        contentInput.value = parsed.content || '';
-        tagsInput.value = parsed.tags || '';
-        readTimeInput.value = Math.max(1, Math.round(wc / 200)) + ' min read';
-        if (!authorInput.value) authorInput.value = 'TechPulse Engineering Team';
-        if (!dateInput.value) dateInput.value = new Date().toISOString().slice(0, 10);
-        categoryInput.value = parsed.category || category;
-
-        /* Set hero image + upload to storage */
-        aiStatus.innerText = '⏳ Uploading hero image to Supabase Storage...';
-        try {
-          var heroFile = aiImageFiles[0];
-          var heroUrl = await uploadToStorage(heroFile, 'hero_');
-          currentImageData = heroUrl;
-          currentImageFile = null;
-          imagePreview.innerHTML = '<img src="' + heroUrl + '" alt="Preview" style="width:150px;height:100px;object-fit:cover;border-radius:4px">';
-          if (removeImageBtn) removeImageBtn.style.display = 'inline-block';
-        } catch (uploadErr) {
-          console.warn('[TP] hero upload failed', uploadErr);
-          currentImageData = imageDataUrls[0];
-          currentImageFile = null;
-          imagePreview.innerHTML = '<img src="' + currentImageData + '" alt="Preview" style="width:150px;height:100px;object-fit:cover;border-radius:4px">';
-        }
-
-        if (titleInput) titleInput.dispatchEvent(new Event('input'));
-        slugEdited = false;
-
-        aiStatus.style.color = '#4ade80';
-        aiStatus.innerText = '✅ Article generated (' + wc + ' words). Review the form below and click "Save Article to Database".';
-      } catch (err) {
-        console.error('[TP] AI generation error', err);
-        aiStatus.style.color = '#f87171';
-        aiStatus.innerText = '❌ Error: ' + err.message;
-      } finally {
-        generateBtn.disabled = false;
-      }
-    });
-  }
-
-  /* ============================================
-     Initial load
-     ============================================ */
-  if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
+  /* ---------- Init ---------- */
+  if (el.date) el.date.value = today();
+  renderDiagrams();
+  updateMeta();
   loadArticles().then(renderAdminList);
 
-  /* ============================================
-     Expose helpers (used by external scripts if needed)
-     ============================================ */
   window.TPAdmin = {
-    setFeaturedImage: function (dataUrl) {
-      currentImageData = dataUrl || '';
-      currentImageFile = null;
-      if (currentImageData) {
-        imagePreview.innerHTML = '<img src="' + currentImageData + '" alt="Preview" style="width:150px;height:100px;object-fit:cover;border-radius:4px">';
-        if (removeImageBtn) removeImageBtn.style.display = 'inline-block';
-      }
-    },
+    compose: compose, parseContent: parseContent,
+    setFeaturedImage: function (u) { currentImageData = u || ''; currentImageFile = null; },
     getFeaturedImage: function () { return currentImageData; }
   };
 })();

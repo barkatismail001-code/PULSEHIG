@@ -1,10 +1,10 @@
-import 'dotenv/config';
+await import('dotenv/config').catch(() => {});   // optional: only needed for a local .env file
 // TechPulse — SEO Build Step (generate-seo.mjs) v20261006
 // Generates article pages, series pages, sitemaps, RSS feeds.
 // Reads from Supabase (published) + data/manual-articles.json (manual)
 // Run: node scripts/generate-seo.mjs
 
-import { readFile, writeFile, mkdir, access, readdir, stat } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, access, readdir, stat, unlink } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -51,9 +51,6 @@ const STATIC_PAGES = [
   ['/tools.html', 'weekly', '0.9'],
   ['/best-picks.html', 'weekly', '0.8'],
   ['/guides.html', 'weekly', '0.8'],
-  ['/qa.html', 'daily', '0.7'],
-  ['/forum.html', 'daily', '0.6'],
-  ['/news.html', 'hourly', '0.6'],
   ['/glossary.html', 'monthly', '0.5'],
   ['/pinout.html', 'monthly', '0.5'],
   ['/about.html', 'monthly', '0.4'],
@@ -81,7 +78,12 @@ function seoTitle(title) {
   const full = t + ' | ' + SITE_NAME;
   if (full.length <= TITLE_MAX) return full;
   if (t.length <= TITLE_MAX) return t;
-  return cutWords(t, TITLE_MAX);
+  let r = cutWords(t, TITLE_MAX);
+  for (;;) {
+    const w = r.split(' ');
+    if (w.length > 3 && TITLE_STOP_END.has(w[w.length - 1].toLowerCase().replace(/[^a-z]/g, ''))) { w.pop(); r = w.join(' ').replace(/[\s,;:\-–—(\[]+$/, ''); } else break;
+  }
+  return r;
 }
 function seoDesc(desc) {
   const d = plain(desc);
@@ -90,6 +92,48 @@ function seoDesc(desc) {
 }
 const toDate = (d) => { const t = new Date(d); return isNaN(t) ? new Date(today) : t; };
 const iso = (d) => d.toISOString().slice(0, 10);
+
+// ---------------------------------------------------------------------------
+// Quality gates (AdSense-friendly): short articles stay online but are NOT indexed,
+// NOT listed and NOT in the sitemap until they reach MIN_INDEX_WORDS.
+// ---------------------------------------------------------------------------
+const MIN_INDEX_WORDS = 600;
+const TITLE_STOP_END = new Set(['and', 'or', 'to', 'of', 'the', 'a', 'an', 'in', 'for', 'with', 'on', 'at', 'by', 'from', 'vs', 'your', 'is', 'are']);
+const wordCount = (t) => plain(String(t || '').replace(/[#*`>|_-]{1,}/g, ' ')).split(/\s+/).filter(Boolean).length;
+
+const SECTION_TITLES = [
+  [/^the problem( faced by the user)?$/i, 'The Problem'],
+  [/^(potential|possible) causes( of the problem)?$/i, 'Possible Causes'],
+  [/^(required )?tools and components( needed| required)?$/i, 'Tools and Components Needed'],
+  [/^(detailed )?step[- ]by[- ]step solution( guide)?$/i, 'Step-by-Step Solution'],
+  [/^(images or diagrams|images and diagrams|diagrams)$/i, 'Images and Diagrams'],
+  [/^common mistakes( to avoid)?$/i, 'Common Mistakes'],
+  [/^(electrical and mechanical )?safety precautions$/i, 'Safety Precautions'],
+  [/^how to (test the solution and )?verify( the fix| success)?$/i, 'How to Verify the Fix']
+];
+const FLAT_TITLES = 'The Problem Faced by the User|Potential Causes of the Problem|Possible Causes|Required Tools and Components|Tools and Components Needed|Detailed Step-by-Step Solution Guide|Step-by-Step Solution|Images or Diagrams|Common Mistakes to Avoid|Common Mistakes|Electrical and Mechanical Safety Precautions|Safety Precautions|How to Test the Solution and Verify Success|How to Verify the Fix';
+
+// Repairs content that was saved with literal "\n" text, or as one flat line with glued numbered headings.
+function normalizeContent(raw) {
+  let src = String(raw || '').replace(/\r\n/g, '\n');
+  const literal = (src.match(/\\n/g) || []).length;
+  const real = (src.match(/\n/g) || []).length;
+  if (literal > real) src = src.replace(/\\n/g, '\n');
+  if (!/\n/.test(src.trim()) && !/<\s*(h[1-6]|p|ul|li)\b/i.test(src)) {
+    const re = new RegExp('(?:^|\\s)\\d+\\.\\s*(' + FLAT_TITLES + ')\\s*', 'g');
+    src = src.replace(re, (m, t) => '\n\n## ' + t + '\n\n');
+    src = src.replace(/\s{3,}/g, '\n\n').replace(/([.!?)])(?=[A-Z][a-z])/g, '$1\n- ').trim();
+  }
+  // unify section names to the standard structure
+  src = src.replace(/^(#{2})\s+(?:\d+\.\s*)?(.+?)\s*$/gm, (m, h, t) => {
+    const hit = SECTION_TITLES.find(([re]) => re.test(t.trim()));
+    return hit ? '## ' + hit[1] : m;
+  });
+  return src;
+}
+function cleanExcerpt(e) {
+  return plain(e).replace(/^Summary of the Article\s*/i, '').replace(/\s+/g, ' ').trim();
+}
 
 function slugOf(a) {
   const en = plain(typeof a.title === 'object' ? (a.title.en || Object.values(a.title).find(Boolean)) : a.title);
@@ -126,6 +170,19 @@ async function loadFromSupabase() {
     console.warn('Supabase HTTP', res.status);
   } catch (e) { console.warn('Supabase unreachable:', e.message); }
   return [];
+}
+
+async function loadLocal() {
+  // Offline / no-key mode: data/articles-source.json holds ALL articles (including thin drafts).
+  // (a/articles.json is only the public feed of indexable articles and is regenerated.)
+  try {
+    const j = JSON.parse(await readFile(join(ROOT, 'data/articles-source.json'), 'utf8'));
+    console.log('Local mode: ' + j.length + ' articles from data/articles-source.json');
+    return Array.isArray(j) ? j : [];
+  } catch (e) { return []; }
+}
+async function loadRedirects() {
+  try { return JSON.parse(await readFile(join(ROOT, 'data/redirects.json'), 'utf8')); } catch { return {}; }
 }
 
 async function loadManual() {
@@ -192,7 +249,7 @@ function htmlToMarkdown(html) {
 }
 
 function renderContent(text) {
-  const src = String(text || '').replace(/\r\n/g, '\n');
+  const src = normalizeContent(text);
   // Real HTML tags → convert first
   if (/<\s*(h[1-6]|p|ul|ol|li|pre|code|strong|em|a|img|blockquote|table|div|section)\b/i.test(src)) {
     return renderMarkdown(htmlToMarkdown(src));
@@ -252,25 +309,21 @@ function seriesFor(a) {
   return SERIES.filter((s) => s.matchSlugs.includes(a.slug));
 }
 
-const NAV = '<a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><a href="/news.html">News</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>';
+const NAV = '<a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button>';
 
 function page(a, all) {
   const url = SITE + '/a/' + a.slug + '.html';
   const img = a.image || DEFAULT_IMG;
   const desc = seoDesc(a.excerpt || plain((a.content || '').replace(/[#*`]/g, '')));
-  const words = plain(a.content || '').split(/\s+/).filter(Boolean).length;
+  const words = a.words || wordCount(normalizeContent(a.content));
   const mins = a.minutes || Math.max(1, Math.round(words / 200));
-  const faqParsed = parseFaq(a.content);
+  const faqParsed = parseFaq(normalizeContent(a.content));
   const faqs = faqParsed ? faqParsed.items : [];
   const body = renderContent(faqParsed ? faqParsed.rest : a.content);
   const related = relatedFor(a, all, 3);
   const inSeries = seriesFor(a);
 
-  const availableLangs = ['en'].concat(Object.keys(LANGS).filter((l) => l !== 'en' && a.title_i18n && a.title_i18n[l]));
-  const hreflangTags = availableLangs.map((lang) => {
-    const href = lang === 'en' ? url : url + '?lang=' + lang;
-    return '  <link rel="alternate" hreflang="' + (LANGS[lang] ? LANGS[lang].htmlLang : lang) + '" href="' + href + '">';
-  }).join('\n');
+  const hreflangTags = '';
 
   const faqLd = faqs.length ? {
     '@type': 'FAQPage',
@@ -307,9 +360,8 @@ function page(a, all) {
     '<meta charset="UTF-8">\n<meta name="google" content="notranslate">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
     '<title>' + esc(seoTitle(a.title)) + '</title>\n' +
     '<meta name="description" content="' + esc(desc) + '">\n' +
-    '<link rel="canonical" href="' + url + '">\n' + hreflangTags + '\n' +
-    '<link rel="alternate" hreflang="x-default" href="' + url + '">\n' +
-    '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">\n' +
+    '<link rel="canonical" href="' + url + '">\n' +
+    '<meta name="robots" content="' + (a.indexable === false ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1') + '">\n' +
     '<meta property="og:type" content="article">\n<meta property="og:site_name" content="' + SITE_NAME + '">\n' +
     '<meta property="og:title" content="' + esc(a.title) + '">\n' +
     '<meta property="og:description" content="' + esc(desc) + '">\n' +
@@ -352,6 +404,7 @@ function page(a, all) {
     '<p>&copy; ' + new Date().getFullYear() + ' ' + SITE_NAME + '. All rights reserved.</p>\n' +
     '<div class="footer-links"><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy-policy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/rss.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></div>\n' +
     '</div></footer>\n<button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>\n' +
+    '<script src="/js/cookie-consent.js?v=' + ASSET_V + '" defer></script>\n' +
     '<script src="/js/common.js?v=' + ASSET_V + '" defer></script>\n' +
     '<script src="/js/i18n.js?v=' + ASSET_V + '" defer></script>\n' +
     '<script src="/js/toc.js?v=' + ASSET_V + '" defer></script>\n' +
@@ -543,13 +596,55 @@ function depStubPage(title, canonicalSlug) {
     '</head><body><p>Redirecting to <a href="/a/' + canonicalSlug + '.html">/a/' + canonicalSlug + '.html</a></p></body></html>\n';
 }
 
+// Puts real article links into the HTML (no JavaScript needed) between the TP_ARTICLES markers.
+async function injectStatic(listed) {
+  const card = (a) => '<article class="article-card"><span class="card-category">' + esc(a.category) + '</span><h3><a href="/a/' + a.slug + '.html">' + esc(a.title) + '</a></h3><p>' + esc(a.excerpt) + '</p><a href="/a/' + a.slug + '.html" class="read-more">Read more →</a></article>';
+  for (const f of ['index.html', 'articles.html']) {
+    let h; try { h = await readFile(join(ROOT, f), 'utf8'); } catch { continue; }
+    const re = /<!--TP_ARTICLES_START-->[\s\S]*?<!--TP_ARTICLES_END-->/;
+    if (!re.test(h)) { console.warn('No TP_ARTICLES markers in ' + f); continue; }
+    const list = (f === 'index.html' ? listed.slice(0, 9) : listed).map(card).join('\n');
+    h = h.replace(re, () => '<!--TP_ARTICLES_START-->\n' + list + '\n<!--TP_ARTICLES_END-->');
+    // real counts instead of JS placeholders
+    let courseCount = 0;
+    try { courseCount = (await readdir(join(ROOT, 'course'))).filter((x) => x.endsWith('.html')).length; } catch {}
+    h = h.replace(/(<strong id="previewCourses">)[^<]*(<\/strong>)/, '$1' + courseCount + '$2');
+    await writeFile(join(ROOT, f), h);
+  }
+  console.log('✓ static article lists injected (' + listed.length + ' articles)');
+}
+
+// Course pages with too little text are kept but marked noindex and left out of the sitemap.
+async function gateCourses() {
+  let files = [];
+  try { files = (await readdir(join(ROOT, 'course'))).filter((x) => x.endsWith('.html')); } catch { return; }
+  const ok = [];
+  for (const f of files) {
+    const p = join(ROOT, 'course', f);
+    let h = await readFile(p, 'utf8');
+    const text = h.replace(/<(script|style|nav|header|footer)[^>]*>[\s\S]*?<\/\1>/gi, ' ');
+    const words = plain(text).split(/\s+/).filter(Boolean).length;
+    const robots = /<meta\s+name="robots"[^>]*>/i;
+    const want = words >= MIN_INDEX_WORDS ? 'index, follow, max-image-preview:large' : 'noindex, follow';
+    if (robots.test(h)) h = h.replace(robots, '<meta name="robots" content="' + want + '">');
+    else h = h.replace('</head>', '<meta name="robots" content="' + want + '">\n</head>');
+    await writeFile(p, h);
+    if (words >= MIN_INDEX_WORDS) ok.push(f.replace(/\.html$/, ''));
+  }
+  await writeFile(join(ROOT, 'sitemap-courses.xml'),
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    ok.map((slug) => '  <url><loc>' + SITE + '/course/' + slug + '.html</loc><lastmod>' + today + '</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>').join('\n') + '\n</urlset>\n');
+  console.log('✓ courses: ' + ok.length + ' indexable of ' + files.length);
+}
+
 async function main() {
   await mkdir(join(ROOT, 'a'), { recursive: true });
   await mkdir(join(ROOT, 'series'), { recursive: true });
   await mkdir(join(ROOT, 'rss'), { recursive: true });
 
   // Load from Supabase
-  const rawAll = (await loadFromSupabase()).filter((a) => a && a.id);
+  let rawAll = (await loadFromSupabase()).filter((a) => a && a.id);
+  if (rawAll.length === 0 && !SUPABASE_KEY) rawAll = (await loadLocal()).filter((a) => a && a.id);
 
   // SAFETY-GUARD: refuse to wipe when Supabase is empty
   if (rawAll.length === 0 && !process.env.SUPABASE_ALLOW_EMPTY) {
@@ -564,7 +659,7 @@ async function main() {
   const existingSlugs = await loadExistingSlugs();
   rawAll.sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
   const raw = rawAll.filter((a) => !overrides[String(a.id)]);
-  const articles = [];
+  let articles = [];
   const seenSlugs = new Set();
 
   for (const a of raw) {
@@ -577,7 +672,7 @@ async function main() {
     articles.push({
       id: String(a.id), slug,
       title: plain(typeof a.title === 'object' ? (a.title.en || Object.values(a.title).find(Boolean)) : a.title),
-      excerpt: plain(typeof a.excerpt === 'object' ? (a.excerpt.en || Object.values(a.excerpt).find(Boolean)) : a.excerpt).slice(0, 300),
+      excerpt: cleanExcerpt(typeof a.excerpt === 'object' ? (a.excerpt.en || Object.values(a.excerpt).find(Boolean)) : a.excerpt).slice(0, 300),
       content: String(a.content || ''),
       title_i18n: a.title_i18n || {}, excerpt_i18n: a.excerpt_i18n || {}, content_i18n: a.content_i18n || {},
       category: a.category || 'Technology',
@@ -632,12 +727,18 @@ async function main() {
   // Sort by date
   articles.sort((x, y) => y.date - x.date);
 
+  // Quality gate: only articles with enough original depth are indexed / listed
+  for (const a of articles) { a.words = wordCount(normalizeContent(a.content)); a.indexable = a.words >= MIN_INDEX_WORDS; }
+  const listed = articles.filter((a) => a.indexable);
+  const hiddenIds = [...Object.keys(overrides), ...articles.filter((a) => !a.indexable).map((a) => a.id)];
+  console.log('Indexable: ' + listed.length + ' / ' + articles.length + ' (min ' + MIN_INDEX_WORDS + ' words). Hidden thin: ' + (articles.length - listed.length));
+
   // Write article pages
   let written = 0;
   for (const a of articles) {
     // Skip writing if it's a manual article WITH a file that we should preserve
     if (a.preserveFile) continue;
-    await writeFile(join(ROOT, 'a', a.slug + '.html'), page(a, articles));
+    await writeFile(join(ROOT, 'a', a.slug + '.html'), page(a, listed));
     written++;
   }
   console.log('✓ ' + written + ' article pages written');
@@ -649,6 +750,20 @@ async function main() {
     written++;
   }
   console.log('OK +' + deprecatedArticles.length + ' deprecated noindex pages');
+  // Redirect stubs for old / duplicate URLs + removal of stale duplicate pages
+  const produced = new Set(articles.map((x) => x.slug + '.html'));
+  deprecatedArticles.forEach((d) => produced.add(d.canonicalSlug + '-' + d.id + '.html'));
+  const redirects = await loadRedirects();
+  for (const [oldSlug, newSlug] of Object.entries(redirects)) {
+    if (!articles.some((x) => x.slug === newSlug) || produced.has(oldSlug + '.html')) continue;
+    await writeFile(join(ROOT, 'a', oldSlug + '.html'), depStubPage(oldSlug, newSlug));
+    produced.add(oldSlug + '.html');
+  }
+  for (const f of await readdir(join(ROOT, 'a'))) {
+    if (f.endsWith('.html') && !produced.has(f)) { await unlink(join(ROOT, 'a', f)); console.log('removed stale a/' + f); }
+  }
+  const allArticles = articles;
+  articles = listed;   // everything below (feeds, sitemaps, series, lists) uses only indexable articles
   // a/articles.json — fallback feed consumed by common.js loadFromA()
   const aIndex = articles.map((a) => ({
     id: a.id, slug: a.slug, title: a.title, excerpt: a.excerpt, content: a.content,
@@ -671,13 +786,13 @@ async function main() {
 
   // Save static-slugs.json (only Supabase articles, not manual)
   const slugMap = {};
-  articles.filter((a) => !a.manual).forEach((a) => { slugMap[a.id] = a.slug; });
+  allArticles.filter((a) => !a.manual).forEach((a) => { slugMap[a.id] = a.slug; });
   await writeFile(join(ROOT, 'data', 'static-slugs.json'), JSON.stringify(slugMap, null, 1) + '\n');
 
   // write synchronous slug-map for GitHub Pages static-only hosting
   await mkdir(join(ROOT, 'js'), { recursive: true });
   await writeFile(join(ROOT, 'js', 'slug-map.js'),
-    'window.TP_SLUG_MAP = ' + JSON.stringify(slugMap) + ';\n');
+    'window.TP_SLUG_MAP = ' + JSON.stringify(slugMap) + ';\nwindow.TP_HIDDEN_IDS = ' + JSON.stringify(hiddenIds) + ';\n');
   console.log('OK js/slug-map.js written (' + Object.keys(slugMap).length + ' entries)');
   await buildToolsSitemap();
   await buildGuidesSitemap();
@@ -756,6 +871,8 @@ async function main() {
   console.log('✓ sitemap.xml, sub-sitemaps, rss.xml, per-category rss, robots.txt, llms.txt written');
   console.log('✅ Done. Total: ' + articles.length + ' articles, ' + SERIES.length + ' series');
 
+  await injectStatic(articles);
+  await gateCourses();
   await postBuildConsistency();
 }
 

@@ -613,9 +613,7 @@
       if (previewProblems) previewProblems.textContent = String(totalProblems);
     } catch (e) {
       console.warn('[TP] academy preview stats failed', e);
-      if (previewCourses) previewCourses.textContent = '0';
-      if (previewLectures) previewLectures.textContent = '0';
-      if (previewProblems) previewProblems.textContent = '0';
+      /* keep the static value written at build time */
     }
   }
 })();

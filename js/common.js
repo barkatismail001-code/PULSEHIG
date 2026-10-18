@@ -206,6 +206,9 @@ window.TPCommon = (function () {
         console.warn('[TP] SDK failed too', err2);
       }
     }
+    // hide duplicates / thin drafts listed by the static build (js/slug-map.js)
+    var hidden = window.TP_HIDDEN_IDS || [];
+    if (hidden.length) published = published.filter(function (a) { return hidden.indexOf(String(a.id)) === -1; });
     published.forEach(function (a) { a.category = normalizeCategory(a.category); });
 
     if (restOk) {
