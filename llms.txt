@@ -15,9 +15,9 @@
 - [ESP32 Won't Wake from Deep Sleep: Causes and Fixes](https://www.pulsehig.com/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes.html)
 - [Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)](https://www.pulsehig.com/a/why-your-esp32-wi-fi-keeps-dropping-and-how-to-fix-it.html)
 - [Why Your LED Strip Flickers: PWM, Power and Ground Explained](https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html)
-- [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet-24.html)
-- [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32-25.html)
-- [Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide](https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide-28.html)
+- [Driving a DC Motor from an ESP32 with a Low-Side MOSFET](https://www.pulsehig.com/a/driving-a-dc-motor-from-an-esp32-with-a-low-side-mosfet.html)
+- [Fixing Relay Chatter When Switching AC Loads from an ESP32](https://www.pulsehig.com/a/fixing-relay-chatter-when-switching-ac-loads-from-an-esp32.html)
+- [Turn a 2015 Laptop into a Fast Machine: SSD + RAM Upgrade Guide](https://www.pulsehig.com/a/turn-a-2015-laptop-into-a-fast-machine-ssd-ram-upgrade-guide.html)
 
 ## Contact
 - Website: https://www.pulsehig.com
