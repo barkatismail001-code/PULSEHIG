@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" translate="no">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https:; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://ijgvrjkpiofamwcmkmgi.supabase.co wss://ijgvrjkpiofamwcmkmgi.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com; frame-src https://disqus.com https://*.disqus.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://plausible.io https://techpulse-1.disqus.com https://*.disqus.com https://*.disquscdn.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://partner.googleadservices.com https://www.googletagservices.com https://fundingchoicesmessages.google.com; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; img-src 'self' data: https: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com; font-src 'self' data: https://*.disquscdn.com; connect-src 'self' https://ijgvrjkpiofamwcmkmgi.supabase.co wss://ijgvrjkpiofamwcmkmgi.supabase.co https://hacker-news.firebaseio.com https://buttondown.email https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://plausible.io https://*.disqus.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://fundingchoicesmessages.google.com; frame-src https://disqus.com https://*.disqus.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://buttondown.email">
 <meta charset="UTF-8">
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Structures — Berkeley | TechPulse Academy</title>
+<title>Data Structures | TechPulse Academy</title>
 <meta name="description" content="Lists, trees, graphs, hash tables, heaps, tries, sorting algorithms, and algorithm analysis in Java.">
 <link rel="canonical" href="https://www.pulsehig.com/course/data-structures.html">
   <link rel="alternate" hreflang="en" href="https://www.pulsehig.com/course/data-structures.html">
@@ -24,7 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="/css/style.css?v=20261011">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Data Structures","description":"Lists, trees, graphs, hash tables, heaps, tries, sorting algorithms, and algorithm analysis in Java.","provider":{"@type":"Organization","name":"Berkeley"},"url":"https://www.pulsehig.com/course/data-structures.html","courseCode":"Berkeley CS61B","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Data Structures","courseMode":"online"},{"@type":"CourseInstance","name":"Arrays and Linked Lists","courseMode":"online"},{"@type":"CourseInstance","name":"Stacks and Queues","courseMode":"online"},{"@type":"CourseInstance","name":"Binary Search Trees","courseMode":"online"},{"@type":"CourseInstance","name":"Balanced Trees: AVL and Red-Black","courseMode":"online"},{"@type":"CourseInstance","name":"Hash Tables","courseMode":"online"},{"@type":"CourseInstance","name":"Heaps and Priority Queues","courseMode":"online"},{"@type":"CourseInstance","name":"Graphs: Representations and Traversals","courseMode":"online"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Data Structures","description":"Lists, trees, graphs, hash tables, heaps, tries, sorting algorithms, and algorithm analysis in Java.","provider":{"@type":"Organization","name":"TechPulse Academy"},"url":"https://www.pulsehig.com/course/data-structures.html","hasCourseInstance":[{"@type":"CourseInstance","name":"Introduction to Data Structures","courseMode":"online"},{"@type":"CourseInstance","name":"Arrays and Linked Lists","courseMode":"online"},{"@type":"CourseInstance","name":"Stacks and Queues","courseMode":"online"},{"@type":"CourseInstance","name":"Binary Search Trees","courseMode":"online"},{"@type":"CourseInstance","name":"Balanced Trees: AVL and Red-Black","courseMode":"online"},{"@type":"CourseInstance","name":"Hash Tables","courseMode":"online"},{"@type":"CourseInstance","name":"Heaps and Priority Queues","courseMode":"online"},{"@type":"CourseInstance","name":"Graphs: Representations and Traversals","courseMode":"online"}]}</script>
 <style>
   .course-page-wrap { max-width: 980px; margin: 24px auto 60px; }
   .course-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border-radius: 16px; padding: 40px 36px; margin-bottom: 28px; }
@@ -73,7 +73,6 @@
       <a href="/guides.html">Guides</a>
       <a href="/qa.html">Q&A</a>
       <a href="/forum.html">Forum</a>
-      <a href="/news.html">News</a>
     </nav>
   </div>
 </header>
@@ -85,7 +84,7 @@
     </nav>
     
     <div class="course-hero">
-      <span class="course-code-badge">Berkeley CS61B · Berkeley</span>
+      <span class="course-code-badge">Reference topics: Berkeley CS61B · independent study notes, not affiliated</span>
       <h1>Data Structures</h1>
       <p>Lists, trees, graphs, hash tables, heaps, tries, sorting algorithms, and algorithm analysis in Java.</p>
       <div class="course-hero-stats">
@@ -1372,6 +1371,7 @@ A 2D array adj[i][j] = weight if there&#39;s an edge from i to j.
   </div>
 </footer>
 
+  <script src="/js/slug-map.js?v=20261010"></script>
 <script src="/js/common.js?v=20261011" defer></script>
 <script src="/js/i18n.js?v=20261011" defer></script>
 <script>
@@ -1403,5 +1403,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 </script>
+  <script>window.TP_ANALYTICS = { plausible: 'pulsehig.com' };</script>
+  <script src="/js/analytics.js?v=20261010" defer></script>
 </body>
 </html>
