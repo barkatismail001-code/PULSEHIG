@@ -1,4 +1,4 @@
-await import('dotenv/config').catch(() => {});   // optional: only needed for a local .env file
+﻿await import('dotenv/config').catch(() => {});   // optional: only needed for a local .env file
 // TechPulse — SEO Build Step (generate-seo.mjs) v20261006
 // Generates article pages, series pages, sitemaps, RSS feeds.
 // Reads from Supabase (published) + data/manual-articles.json (manual)
@@ -97,7 +97,7 @@ const iso = (d) => d.toISOString().slice(0, 10);
 // Quality gates (AdSense-friendly): short articles stay online but are NOT indexed,
 // NOT listed and NOT in the sitemap until they reach MIN_INDEX_WORDS.
 // ---------------------------------------------------------------------------
-const MIN_INDEX_WORDS = 600;
+const MIN_INDEX_WORDS = 0;
 const TITLE_STOP_END = new Set(['and', 'or', 'to', 'of', 'the', 'a', 'an', 'in', 'for', 'with', 'on', 'at', 'by', 'from', 'vs', 'your', 'is', 'are']);
 const wordCount = (t) => plain(String(t || '').replace(/[#*`>|_-]{1,}/g, ' ')).split(/\s+/).filter(Boolean).length;
 
@@ -687,7 +687,7 @@ async function main() {
   const seenSlugs = new Set();
 
   for (const a of raw) {
-    let slug = existingSlugs[String(a.id)];
+    let slug = a.slug || existingSlugs[String(a.id)];
     if (!slug) {
       slug = slugOf(a);
       if (seenSlugs.has(slug)) slug += '-' + String(a.id).replace(/[^a-z0-9]/gi, '').slice(-4);
