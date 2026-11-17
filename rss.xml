@@ -5,7 +5,7 @@
 <link>https://www.pulsehig.com/</link>
 <description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
 <language>en</language>
-<lastBuildDate>Tue, 17 Nov 2026 08:58:13 GMT</lastBuildDate>
+<lastBuildDate>Tue, 17 Nov 2026 09:53:35 GMT</lastBuildDate>
 <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>Solving Central Heating Temperature Regulation Failures Using ESP32</title>
@@ -14,6 +14,14 @@
       <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
       <category>Embedded Systems</category>
       <description><![CDATA[Fix central heating temperature swings, thermal overshoot, and hysteresis using an ESP32 microcontroller, DS18B20 sensors, and custom PID code.]]></description>
+    </item>
+    <item>
+      <title>Fix a stuck ESP8266 central heating relay using multimeter diagnostics</title>
+      <link>https://www.pulsehig.com/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter-diagnostics.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter-diagnostics.html</guid>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[Learn how to diagnose and fix a stuck relay on an ESP8266 central heating controller using multimeter diagnostics and firmware debugging.]]></description>
     </item>
     <item>
       <title>Troubleshooting and Replacing a Tripped or Faulty Miniature Circuit Breaker (MCB) in a Home Distribution Board</title>
@@ -32,6 +40,14 @@
       <description><![CDATA[Diagnose bladder ruptures, repair bottom flange leaks, and rebuild a well pump pressure tank with exact torque specs and pressure calibrations.]]></description>
     </item>
     <item>
+      <title>Building a Production-Ready RAG Pipeline with Local LLMs and Vector Databases: A Complete Architecture Guide</title>
+      <link>https://www.pulsehig.com/a/building-a-production-ready-rag-pipeline-with-local-llms-and-vector-databases-a-complete-architecture-guide.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/building-a-production-ready-rag-pipeline-with-local-llms-and-vector-databases-a-complete-architecture-guide.html</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[Architect a secure, production-grade local RAG pipeline using quantized LLMs, HNSW vector indexing, and hybrid re-ranking on dedicated hardware.]]></description>
+    </item>
+    <item>
       <title>How to Fix a Washing Machine That Won’t Drain</title>
       <link>https://www.pulsehig.com/a/how-to-fix-a-washing-machine-that-wont-drain.html</link>
       <guid isPermaLink="true">https://www.pulsehig.com/a/how-to-fix-a-washing-machine-that-wont-drain.html</guid>
@@ -40,28 +56,12 @@
       <description><![CDATA[Diagnose and repair washing machine drainage failures with step-by-step mechanical extraction, pump coil testing, and pressure transducer troubleshooting.]]></description>
     </item>
     <item>
-      <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
-      <link>https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Embedded Systems</category>
-      <description><![CDATA[Deep sleep is the single most useful feature of a battery ESP32 — and the one that trips up the most people. If your board never wakes, wakes instantly, or drains a 18650 in three days, one of the six causes below is almost certainly the reason.]]></description>
-    </item>
-    <item>
-      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
-      <link>https://www.pulsehig.com/a/led-strip-flicker-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/led-strip-flicker-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Embedded Systems</category>
-      <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
-    </item>
-    <item>
-      <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
-      <link>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</guid>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <category>Embedded Systems</category>
-      <description><![CDATA[A Raspberry Pi inside a sealed 3D-printed box will happily hit 85 °C under load, throttle itself to 600 MHz, and feel &quot;slow&quot; without ever crashing. The fix is not a bigger heatsink — it is understanding airflow, thermal mass and the throttle flags the Pi already reports.]]></description>
+      <title>Demystifying CORS: The Ultimate Guide to Solving Web API Connection Blocks</title>
+      <link>https://www.pulsehig.com/a/demystifying-cors-the-ultimate-guide-to-solving-web-api-connection-blocks.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/demystifying-cors-the-ultimate-guide-to-solving-web-api-connection-blocks.html</guid>
+      <pubDate>Tue, 13 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <description><![CDATA[Solve frustrating CORS policy connection blocks across modern web applications, reverse proxies, and embedded ESP32 microcontrollers with this guide.]]></description>
     </item>
     <item>
       <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
@@ -104,9 +104,17 @@
       <description><![CDATA[An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.]]></description>
     </item>
     <item>
+      <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
+      <link>https://www.pulsehig.com/a/stop-your-raspberry-pi-from-overheating-in-a-closed-case.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/stop-your-raspberry-pi-from-overheating-in-a-closed-case.html</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[A Raspberry Pi inside a sealed 3D-printed box will happily hit 85 °C under load, throttle itself to 600 MHz, and feel &quot;slow&quot; without ever crashing. The fix is not a bigger heatsink — it is understanding airflow, thermal mass and the throttle flags the Pi already reports.]]></description>
+    </item>
+    <item>
       <title>I2C Timeouts: When Your ESP32 Freezes in Real Life</title>
-      <link>https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</link>
-      <guid isPermaLink="true">https://www.pulsehig.com/a/esp32-i2c-clock-stretching-timeout-fix.html</guid>
+      <link>https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/i2c-timeouts-when-your-esp32-freezes-in-real-life.html</guid>
       <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
       <category>Technology</category>
       <description><![CDATA[Your smart home dims the lights at 2 AM. Your fitness tracker loses your heart rate mid-run. Your factory robot halts production. The culprit is often the same: I2C clock stretching timeouts on ESP32. This deep-dive connects the technical to the tangible, showing you why these failures happen and ho]]></description>

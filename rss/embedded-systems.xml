@@ -9,22 +9,10 @@
       <description>Fix central heating temperature swings, thermal overshoot, and hysteresis using an ESP32 microcontroller, DS18B20 sensors, and custom PID code.</description>
     </item>
     <item>
-      <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
-      <link>https://www.pulsehig.com/a/esp32-deep-sleep-fix.html</link>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <description>Deep sleep is the single most useful feature of a battery ESP32 — and the one that trips up the most people. If your board never wakes, wakes instantly, or drains a 18650 in three days, one of the six causes below is almost certainly the reason.</description>
-    </item>
-    <item>
-      <title>Why Your LED Strip Flickers: PWM, Power and Ground Explained</title>
-      <link>https://www.pulsehig.com/a/led-strip-flicker-fix.html</link>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <description>An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.</description>
-    </item>
-    <item>
-      <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
-      <link>https://www.pulsehig.com/a/raspberry-pi-overheating-fix.html</link>
-      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
-      <description>A Raspberry Pi inside a sealed 3D-printed box will happily hit 85 °C under load, throttle itself to 600 MHz, and feel &quot;slow&quot; without ever crashing. The fix is not a bigger heatsink — it is understanding airflow, thermal mass and the throttle flags the Pi already reports.</description>
+      <title>Fix a stuck ESP8266 central heating relay using multimeter diagnostics</title>
+      <link>https://www.pulsehig.com/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter-diagnostics.html</link>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Learn how to diagnose and fix a stuck relay on an ESP8266 central heating controller using multimeter diagnostics and firmware debugging.</description>
     </item>
     <item>
       <title>ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</title>
@@ -55,6 +43,12 @@
       <link>https://www.pulsehig.com/a/why-your-led-strip-flickers-pwm-power-and-ground-explained.html</link>
       <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
       <description>An LED strip that flickers, dims unevenly or shows random colours is telling you one of four things: not enough power, too much voltage drop, a data signal that is too weak, or a ground that is not shared. Each has a different fix, and each is measurable in minutes.</description>
+    </item>
+    <item>
+      <title>Stop Your Raspberry Pi from Overheating in a Closed Case</title>
+      <link>https://www.pulsehig.com/a/stop-your-raspberry-pi-from-overheating-in-a-closed-case.html</link>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <description>A Raspberry Pi inside a sealed 3D-printed box will happily hit 85 °C under load, throttle itself to 600 MHz, and feel &quot;slow&quot; without ever crashing. The fix is not a bigger heatsink — it is understanding airflow, thermal mass and the throttle flags the Pi already reports.</description>
     </item>
 </channel>
 </rss>
