@@ -87,3 +87,4 @@ Nothing is generated or published automatically. There is no AI writer, no machi
 
 Quality gates in `scripts/generate-seo.mjs`: articles under 600 words stay `noindex`, are hidden from lists and are left out of the sitemap. Duplicate/old URLs are redirected via `data/redirects.json`.
 Offline mode: without `SUPABASE_SERVICE_KEY` the build reads `data/articles-source.json`.
+
