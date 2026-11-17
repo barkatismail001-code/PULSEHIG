@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.pulsehig.com/course/algorithms.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/analog-electronics.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/circuits-i.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/compilers.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -11,8 +12,10 @@
   <url><loc>https://www.pulsehig.com/course/digital-design.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/dsp.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/electromagnetics.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/embedded-systems.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/fluid-mechanics.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/heat-transfer.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.pulsehig.com/course/machine-learning.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/mechanics-materials.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/microcontrollers.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.pulsehig.com/course/mit-6-0001-intro-cs-python.html</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
