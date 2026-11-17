@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solving Central Heating Temperature Regulation Failures</title>
+<meta name="description" content="Fix central heating temperature swings, thermal overshoot, and hysteresis using an ESP32 microcontroller, DS18B20 sensors, and custom PID code.">
+<link rel="canonical" href="https://www.pulsehig.com/a/solving-central-heating-temperature-regulation-failures.html">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TechPulse">
+<meta property="og:title" content="Solving Central Heating Temperature Regulation Failures Using ESP32">
+<meta property="og:description" content="Fix central heating temperature swings, thermal overshoot, and hysteresis using an ESP32 microcontroller, DS18B20 sensors, and custom PID code.">
+<meta property="og:url" content="https://www.pulsehig.com/a/solving-central-heating-temperature-regulation-failures.html">
+<meta property="og:image" content="https://cescfarawvpzmilteufq.supabase.co/storage/v1/object/public/article-images/articles/hero_1794899290826_rsl3gy7.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-11-17">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/css/style.css?v=20261010">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
+<link rel="llms" href="/llms.txt">
+<link rel="alternate" type="application/rss+xml" title="TechPulse" href="/rss.xml">
+<script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Solving Central Heating Temperature Regulation Failures Using ESP32","description":"Fix central heating temperature swings, thermal overshoot, and hysteresis using an ESP32 microcontroller, DS18B20 sensors, and custom PID code.","image":["https://cescfarawvpzmilteufq.supabase.co/storage/v1/object/public/article-images/articles/hero_1794899290826_rsl3gy7.jpg"],"datePublished":"2026-11-17","dateModified":"2026-11-17","mainEntityOfPage":"https://www.pulsehig.com/a/solving-central-heating-temperature-regulation-failures.html","author":{"@type":"Person","name":"TechPulse Team"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://www.pulsehig.com/assets/og-default.png"}},"keywords":"ESP32, PID Control, DS18B20, Central Heating, Embedded Systems, Automation, C++","articleSection":"Embedded Systems","wordCount":1046,"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.pulsehig.com/"},{"@type":"ListItem","position":2,"name":"Embedded Systems","item":"https://www.pulsehig.com/"},{"@type":"ListItem","position":3,"name":"Solving Central Heating Temperature Regulation Failures Using ESP32","item":"https://www.pulsehig.com/a/solving-central-heating-temperature-regulation-failures.html"}]}]}</script>
+</head>
+<body>
+<div id="readingProgressBar"></div>
+<header class="main-header"><div class="container">
+<div class="logo"><a href="/index.html" aria-label="TechPulse Home"><span>TechPulse</span></a></div>
+<nav class="nav-links" aria-label="Main navigation"><a href="/index.html">Home</a><a href="/academy.html">Academy</a><a href="/tools.html">Tools</a><a href="/best-picks.html">Best Picks</a><a href="/guides.html">Guides</a><a href="/qa.html">Q&amp;A</a><a href="/forum.html">Forum</a><button id="darkModeToggle" type="button" aria-pressed="false" aria-label="Switch theme">🌙</button></nav>
+</div></header>
+<main class="container">
+<nav class="breadcrumb" style="margin:16px 0;font-size:0.9rem;color:var(--text-muted)" aria-label="Breadcrumb"><a href="/index.html">Home</a> &gt; <span>Embedded Systems</span></nav>
+<article class="single-article" data-id="54">
+<header class="article-header">
+<span class="article-category">Embedded Systems</span>
+<h1>Solving Central Heating Temperature Regulation Failures Using ESP32</h1>
+<div class="article-meta">
+<span>👤 TechPulse Team</span>
+<span>📅 2026-11-17</span>
+<span>⏱ 5 min read</span>
+<span id="tpViewsWrap" hidden>👁️ <span id="tpViews">0</span> views</span>
+</div>
+</header>
+<img src="https://cescfarawvpzmilteufq.supabase.co/storage/v1/object/public/article-images/articles/hero_1794899290826_rsl3gy7.jpg" alt="Solving Central Heating Temperature Regulation Failures Using ESP32" class="article-hero-img" width="1200" height="630" loading="eager" fetchpriority="high">
+<div class="article-excerpt"><p>Fix central heating temperature swings, thermal overshoot, and hysteresis using an ESP32 microcontroller, DS18B20 sensors, and custom PID code.</p></div>
+<div id="articleToc" class="article-toc-slot"></div>
+<div class="article-content">
+<h2>The Problem</h2>
+      <p>When operating a domestic or semi-industrial central heating system controlled by legacy mechanical or cheap digital on-off (bang-bang) thermostats, users frequently experience severe temperature swings, excessive thermal hysteresis, and slow transient responses. The living space or loop fluid overheats past the target setpoint, followed by a long period of chilling before the boiler or circulation pump kicks back in.Specifically, the user sees erratic temperature fluctuations exceeding $\pm 3^\circ\text{C}$ to $\pm 5^\circ\text{C}$ around the target value. This happens during ambient weather shifts or rapid load changes. Users typically try adjusting mechanical bimetallic dials or replacing basic room thermostats with standard wireless relay switches, but these fail because they lack proportional integral derivative (PID) mathematical damping, resulting in perpetual system hunting and thermal fatigue on valves and burners.</p>
+      <h2>Possible Causes</h2>
+      <p>Bang-Bang Control Hysteresis: Binary ON/OFF logic lacks modulation capability, forcing the heating element or circulation pump to run at 100% capacity until overshooting the threshold.Sensor Placement Lag: Placing temperature sensors inside poorly ventilated enclosures or far from the actual heat exchange manifold introduces severe thermal inertia, delaying control loops.Lack of Derivative Damping: Without accounting for the rate of temperature change ($de/dt$), the system overshoots violently during rapid startup phases.Integral Windup Saturation: Unbounded error accumulation during long heating cycles causes the actuator to remain fully saturated long after the setpoint has been reached.</p>
+      <h2>Tools and Components Needed</h2>
+      <p>ESP32 NodeMCU Development Board (38-pin or standard dual-core module, 240 MHz).</p>
+      <p>DS18B20 Waterproof Digital Temperature Sensor (Stainless steel probe sleeve, 1-Wire protocol interface).</p>
+      <p>4.7k ohm Pull-up Resistor (1/4W metal film, required for the 1-Wire data line).</p>
+      <p>IRLR8259 logic-level N-channel MOSFET or Zero-Crossing Solid State Relay (SSR) (e.g., Fotek SSR-40DA) for safe power actuation.</p>
+      <p>External 5V / 2A Regulated Power Supply (To power the ESP32 and switching logic safely away from high-voltage noise).</p>
+      <p>Digital Multimeter (True RMS for voltage and continuity verification).</p>
+      <p>Soldering station, heat shrink tubing, and 22 AWG copper wiring.</p>
+      <h2>Step-by-Step Solution</h2>
+      <ol><li>Hardware Assembly and 1-Wire Bus Wiring: Connect the waterproof DS18B20 sensor to the ESP32. Wire the VCC pin of the sensor to 3V3, GND to GND, and DQ (Data) to GPIO 4. Solder a 4.7k ohm pull-up resistor between the DQ line and 3V3. Connect the control gate of the IRLR8259 MOSFET or the input trigger of the SSR to GPIO 16 (ACTUATOR_PWM_PIN) through a 220 ohm current-limiting resistor.</li></ol>
+      <ol><li>Flashing the Closed-Loop PID Firmware: Open your development environment, install the DallasTemperature and OneWire libraries, and upload the following production-grade C++ script to your ESP32:</li></ol>
+      <p>C++<br>#include &lt;Arduino.h&gt;<br>#include &lt;OneWire.h&gt;<br>#include &lt;DallasTemperature.h&gt;</p>
+      <p>const int ONE_WIRE_BUS = 4;      // DS18B20 data line on GPIO 4<br>const int ACTUATOR_PWM_PIN = 16; // PWM output to MOSFET/SSR gate on GPIO 16</p>
+      <p>OneWire oneWire(ONE_WIRE_BUS);<br>DallasTemperature sensors(&amp;oneWire);</p>
+      <p>// Tunable PID constants for thermal mass stability<br>double Kp = 20.0;<br>double Ki = 0.5;<br>double Kd = 4.0;</p>
+      <p>double setpoint = 45.0; // Target water temperature in degrees Celsius<br>double input, output, lastInput;<br>double errSum, lastErr;<br>unsigned long lastTime;<br>unsigned long sampleTime = 1000; // 1-second sample rate</p>
+      <p>void computePID() {<br>    unsigned long now = millis();<br>    unsigned long timeChange = (now - lastTime);<br>    <br>    if (timeChange &gt;= sampleTime) {<br>        sensors.requestTemperatures();<br>        input = sensors.getTempCByIndex(0);<br>        <br>        if (input == DEVICE_DISCONNECTED_C) return; // Fault handling check</p>
+      <p>double error = setpoint - input;<br>        <br>        // Anti-windup clamping to restrict integral accumulation<br>        errSum += (error * timeChange);<br>        if (errSum &gt; 400) errSum = 400;<br>        else if (errSum &lt; -400) errSum = -400;<br>        <br>        double dInput = (input - lastInput);</p>
+      <p>// Compute standard PID output equation<br>        output = (Kp * error) + (Ki * errSum) - (Kd * dInput);<br>        <br>        // Constrain output to 8-bit PWM duty cycle limits (0 to 255)<br>        if (output &lt; 0) output = 0;<br>        if (output &gt; 255) output = 255;</p>
+      <p>// Apply actuation signal<br>        analogWrite(ACTUATOR_PWM_PIN, (int)output);</p>
+      <p>lastInput = input;<br>        lastTime = now;<br>    }<br>}</p>
+      <p>void setup() {<br>    Serial.begin(115200);<br>    sensors.begin();<br>    pinMode(ACTUATOR_PWM_PIN, OUTPUT);<br>    lastTime = millis();<br>}</p>
+      <p>void loop() {<br>    computePID();<br>}<br>3. Calibration and Fine-Tuning of PID Gains: Power on the system and monitor serial output at 115200 baud. Observe the transient response. If the system oscillates continuously, reduce Kp by 20%. If the temperature rises too slowly without reaching the setpoint, increase Ki incrementally.</p>
+      <h2>Images and Diagrams</h2>
+      <p><img src="https://cescfarawvpzmilteufq.supabase.co/storage/v1/object/public/article-images/articles/fig_1794899004309_9fxn8vv.jpg" alt="Waterproof DS18B20 Probe Sensor." loading="lazy" decoding="async" style="max-width:100%;height:auto;border-radius:8px;margin:16px 0;display:block"></p>
+      <p>Figure 1: Waterproof DS18B20 Probe Sensor.</p>
+      <h2>Common Mistakes</h2>
+      <p>Omitting the 1-Wire Pull-Up Resistor: Forgetting the 4.7k ohm resistor between data and VCC results in a 85.00°C persistent reading or complete sensor communication failure.</p>
+      <p>Unshielded Wiring Near AC Mains: Running low-voltage sensor cables parallel to high-voltage 230V lines induces electromagnetic interference (EMI), causing erratic ADC/digital jumps. Always use twisted-pair or shielded cables.</p>
+      <p>Neglecting Anti-Windup Limits: Allowing the integral error term (errSum) to grow infinitely during long initial heat-up cycles causes massive, uncontrollable temperature overshoots.</p>
+      <p>Mains Voltage Isolation: When interfacing with 230V AC heating pumps or burner solenoids, always use properly rated optoisolated solid-state relays (SSRs) or electromechanical relays with complete physical galvanic isolation.Thermal Burns Hazard: Exercise extreme caution when attaching sensors or working near copper manifolds and heating pipes during active system operation.Fail-Safe Overheating Protection: Always install an independent, non-software mechanical thermal safety cutoff fuse in series with the actuator power supply to prevent runaway heating if the microcontroller freezes.How to Verify the FixVerify that sensor readings match a calibrated reference thermometer touching the same pipe surface within $\pm 0.5^\circ\text{C}$.Inspect the Serial Monitor to confirm that the PWM output duty cycle smoothly ramps down as the process variable approaches the target setpoint.Test a step response by introducing a temporary thermal load and confirming the loop recovers without ringing or sustained oscillation.Frequently Asked Questions### Can I monitor this heating controller remotely over Wi-Fi?Yes. Because the ESP32 features built-in Wi-Fi and Bluetooth capabilities, you can integrate a lightweight AsyncWebServer or connect the firmware to a Telegram Bot API (@Chauffage03_bot) to monitor temperatures and adjust the setpoint remotely.### Why use DS18B20 sensors instead of standard thermistors?DS18B20 sensors communicate digitally over the 1-Wire protocol, providing factory-calibrated 12-bit Celsius measurements directly without requiring complex analog-to-digital calibration curves or voltage divider math.</p>
+</div>
+
+<p class="tags-list"><span class="tag">#ESP32</span> <span class="tag">#PID Control</span> <span class="tag">#DS18B20</span> <span class="tag">#Central Heating</span> <span class="tag">#Embedded Systems</span> <span class="tag">#Automation</span> <span class="tag">#C++</span></p>
+<div class="share-buttons" id="tpActions">
+<button class="like-btn" id="tpLike" type="button" aria-label="Like">🤍 <span class="like-count">0</span></button>
+<button class="share-btn" id="tpSave" type="button">🔖 Save</button>
+<button class="share-btn" data-share="twitter" type="button">𝕏 Twitter</button>
+<button class="share-btn" data-share="facebook" type="button">Facebook</button>
+<button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
+<button class="share-btn" data-share="whatsapp" type="button">WhatsApp</button>
+<button class="share-btn" data-share="copy" type="button">🔗 Copy Link</button>
+</div>
+<section class="comments-section" id="tpComments"><h2 class="section-heading">Comments</h2><div id="commentsContainer"></div></section>
+<div class="back-row" style="text-align:center;margin-top:24px"><a href="/index.html" class="btn-secondary">← All articles</a></div>
+</article>
+
+    <section class="related-section"><h2 class="section-heading">📚 Related Articles</h2><div class="articles-grid"><article class="article-card"><span class="card-category">Embedded Systems</span><h3><a href="/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter.html">Fix a stuck ESP8266 central heating relay using multimeter diagnostics</a></h3><p>Learn how to diagnose and fix a stuck relay on an ESP8266 central heating controller using multimeter diagnostics and firmware debugging.</p><a href="/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter.html" class="read-more">Read More →</a></article><article class="article-card"><span class="card-category">Embedded Systems</span><h3><a href="/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes.html">ESP32 Won&#39;t Wake from Deep Sleep: Causes and Fixes</a></h3><p>Deep sleep is the single most useful feature of a battery ESP32 — and the one that trips up the most people. If your board never wakes, wakes instantly, or drains a 18650 in three days, one of the six causes below is almost certainly the reason.</p><a href="/a/esp32-won-t-wake-from-deep-sleep-causes-and-fixes.html" class="read-more">Read More →</a></article><article class="article-card"><span class="card-category">Embedded Systems</span><h3><a href="/a/why-your-esp32-wi-fi-keeps-dropping-and-how-to-fix-it.html">Why Your ESP32 Wi-Fi Keeps Dropping (and How to Fix It Permanently)</a></h3><p>An ESP32 that connects once, then drops, reconnects, or loses packets is rarely a faulty chip. In almost every case, the cause is one of five things: weak power, bad antenna placement, wrong Wi-Fi power-save settings, a missing reconnect routine, or interference from your own 2.4 GHz network.</p><a href="/a/why-your-esp32-wi-fi-keeps-dropping-and-how-to-fix-it.html" class="read-more">Read More →</a></article></div></section>
+</main>
+<footer class="main-footer"><div class="container">
+<p>&copy; 2026 TechPulse. All rights reserved.</p>
+<div class="footer-links"><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy-policy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/rss.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></div>
+</div></footer>
+<button id="scrollTopBtn" type="button" aria-label="Scroll to top">↑</button>
+<script src="/js/cookie-consent.js?v=20261010" defer></script>
+  <script src="/js/slug-map.js?v=20261010"></script>
+<script src="/js/common.js?v=20261010" defer></script>
+<script src="/js/i18n.js?v=20261010" defer></script>
+<script src="/js/toc.js?v=20261010" defer></script>
+<script src="/js/static-article.js?v=20261010" defer></script>
+  <script>window.TP_ANALYTICS = { plausible: 'pulsehig.com' };</script>
+  <script src="/js/analytics.js?v=20261010" defer></script>
+</body>
+</html>

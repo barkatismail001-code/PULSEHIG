@@ -5,8 +5,16 @@
 <link>https://www.pulsehig.com/</link>
 <description>Engineering platform for embedded systems, microcontrollers, home repair, and programming.</description>
 <language>en</language>
-<lastBuildDate>Mon, 16 Nov 2026 10:53:11 GMT</lastBuildDate>
+<lastBuildDate>Tue, 17 Nov 2026 08:28:05 GMT</lastBuildDate>
 <atom:link href="https://www.pulsehig.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Solving Central Heating Temperature Regulation Failures Using ESP32</title>
+      <link>https://www.pulsehig.com/a/solving-central-heating-temperature-regulation-failures.html</link>
+      <guid isPermaLink="true">https://www.pulsehig.com/a/solving-central-heating-temperature-regulation-failures.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Embedded Systems</category>
+      <description><![CDATA[Fix central heating temperature swings, thermal overshoot, and hysteresis using an ESP32 microcontroller, DS18B20 sensors, and custom PID code.]]></description>
+    </item>
     <item>
       <title>Fix a stuck ESP8266 central heating relay using multimeter diagnostics</title>
       <link>https://www.pulsehig.com/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter.html</link>

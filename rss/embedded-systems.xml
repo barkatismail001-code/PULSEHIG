@@ -3,6 +3,12 @@
 <title>TechPulse — Embedded Systems</title>
 <link>https://www.pulsehig.com/</link>
     <item>
+      <title>Solving Central Heating Temperature Regulation Failures Using ESP32</title>
+      <link>https://www.pulsehig.com/a/solving-central-heating-temperature-regulation-failures.html</link>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Fix central heating temperature swings, thermal overshoot, and hysteresis using an ESP32 microcontroller, DS18B20 sensors, and custom PID code.</description>
+    </item>
+    <item>
       <title>Fix a stuck ESP8266 central heating relay using multimeter diagnostics</title>
       <link>https://www.pulsehig.com/a/fix-a-stuck-esp8266-central-heating-relay-using-multimeter.html</link>
       <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
