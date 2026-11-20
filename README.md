@@ -49,4 +49,3 @@ Edit `CATEGORIES` in `js/config.js`, push, then run the *Build pages* workflow: 
 - `increment_views(p_slug)` records published-article views.
 - `increment_page_view(p_path)` records aggregate page views for public pages. The browser deduplicates each path per tab session using `sessionStorage`; this is a lightweight analytics safeguard, not server-side bot protection or a strict rate limit.
 - For strong abuse prevention, put a rate-limiting layer (for example, an Edge Function plus a trusted request/IP strategy) in front of public analytics RPCs. Do not expose a Supabase service-role key in browser code.
-- 
