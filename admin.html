@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-bhV/zGziN4P1gIM8lkwif7zwp0uXqZV0dEpCNP7uaz4=' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.web3forms.com https://hacker-news.firebaseio.com https://dev.to https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://www.youtube-nocookie.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | TechPulse</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css?v=47d6b918">
+  <link rel="stylesheet" href="/css/extra.css?v=f1d86b38">
+  <link rel="stylesheet" href="/css/admin.css?v=36b8a71d">
+</head>
+<body data-page="admin">
+  <div id="tp-header"></div>
+
+  <main class="container adm">
+
+    <section id="login" class="adm-login" hidden>
+      <h2>Admin sign in</h2>
+      <label for="email">Email</label>
+      <input type="email" id="email" autocomplete="username">
+      <label for="password">Password</label>
+      <input type="password" id="password" autocomplete="current-password">
+      <p class="adm-msg err" id="loginMsg" hidden></p>
+      <div class="adm-actions"><button type="button" class="btn-primary" id="loginBtn">Sign in</button></div>
+    </section>
+
+    <div id="app" hidden>
+      <div class="adm-top">
+        <div><h1>Admin</h1><small id="who"></small></div>
+        <button type="button" class="adm-mini" id="logout">Sign out</button>
+      </div>
+
+      <div class="adm-tabs" role="tablist">
+        <button type="button" data-tab="write" class="active">✍️ Write</button>
+        <button type="button" data-tab="list">📚 Articles</button>
+        <button type="button" data-tab="facts">💡 Did you know</button>
+      </div>
+
+      <!-- ===== WRITE ===== -->
+      <section id="tab-write" class="adm-card">
+        <h2 id="formTitle">New article</h2>
+        <input type="hidden" id="articleId">
+
+        <label for="title">Title <small id="titleCount"></small></label>
+        <input type="text" id="title" maxlength="160" placeholder="e.g. How to Fix a Washing Machine That Won't Drain">
+
+        <label for="slug">URL slug</label>
+        <input type="text" id="slug" maxlength="120" placeholder="created from the title">
+        <small id="slugHint"></small>
+
+        <div class="adm-row">
+          <div><label for="category">Topic</label><select id="category"></select></div>
+          <div><label for="subcategory">Sub-topic</label><select id="subcategory"></select></div>
+        </div>
+        <div class="adm-row">
+          <div><label for="kind">Article type</label><select id="kind"></select></div>
+          <div><label for="author">Author</label><input type="text" id="author" maxlength="60" value="TechPulse"></div>
+        </div>
+
+        <label for="excerpt">Short summary — shown on cards and in Google <small id="excerptCount"></small></label>
+        <textarea id="excerpt" rows="2" maxlength="200" placeholder="One clear sentence: what problem this guide solves (about 150 characters)"></textarea>
+
+        <label for="tags">Tags (comma separated, at least 3)</label>
+        <input type="text" id="tags" maxlength="200" placeholder="esp32, relay, central heating">
+
+        <fieldset class="adm-fs">
+          <legend>At a glance (shown in a box at the top of the article)</legend>
+          <div class="adm-row">
+            <div><label for="skill">Skill level</label><select id="skill"></select></div>
+            <div><label for="safety">Safety level</label><select id="safety"></select></div>
+          </div>
+          <div class="adm-row">
+            <div><label for="timeEst">Estimated time</label><input type="text" id="timeEst" maxlength="40" placeholder="e.g. 30–45 min"></div>
+            <div><label for="costEst">Estimated cost</label><input type="text" id="costEst" maxlength="40" placeholder="e.g. $10–$25"></div>
+          </div>
+          <div class="adm-row">
+            <div><label for="toolsList">Tools required <small>(one per line)</small></label><textarea id="toolsList" rows="4" placeholder="Multimeter&#10;10 mm socket"></textarea></div>
+            <div><label for="partsList">Parts &amp; materials <small>(one per line)</small></label><textarea id="partsList" rows="4" placeholder="Crankshaft sensor&#10;Electrical contact cleaner"></textarea></div>
+          </div>
+        </fieldset>
+
+        <label for="videoUrl">YouTube video (optional — loads only when the visitor presses play)</label>
+        <input type="text" id="videoUrl" maxlength="200" placeholder="https://www.youtube.com/watch?v=…">
+
+        <fieldset class="adm-fs" id="reviewBox" hidden>
+          <legend>Review box</legend>
+          <div class="adm-row">
+            <div><label for="rating">Rating (0–5, e.g. 4.5)</label><input type="text" id="rating" maxlength="3" placeholder="4.5"></div>
+            <div><label for="verdict">Verdict (one or two sentences)</label><input type="text" id="verdict" maxlength="400" placeholder="Buy it if… skip it if…"></div>
+          </div>
+          <div class="adm-row">
+            <div><label for="pros">Pros <small>(one per line)</small></label><textarea id="pros" rows="4"></textarea></div>
+            <div><label for="cons">Cons <small>(one per line)</small></label><textarea id="cons" rows="4"></textarea></div>
+          </div>
+        </fieldset>
+
+        <label>Cover image</label>
+        <div class="adm-cover">
+          <div id="coverBox" class="adm-drop">No cover yet</div>
+          <div style="flex:1;min-width:220px">
+            <input type="file" id="coverFile" accept="image/*" hidden>
+            <button type="button" class="adm-mini" id="coverBtn">Choose cover image…</button>
+            <button type="button" class="adm-mini danger" id="coverRemove" hidden>Remove</button>
+            <label for="coverAlt">Cover description (alt text)</label>
+            <input type="text" id="coverAlt" maxlength="160" placeholder="What the picture shows">
+            <small class="hint">Any image type works. It is converted automatically to WebP at 1200×630 (about 120 KB or less), without cropping.</small>
+          </div>
+        </div>
+
+        <label for="content">Article <small id="wordCount"></small></label>
+        <div class="adm-toolbar" id="toolbar">
+          <button type="button" data-act="h2" title="Section heading">H2</button>
+          <button type="button" data-act="h3" title="Sub-heading">H3</button>
+          <button type="button" data-act="bold" title="Bold"><b>B</b></button>
+          <button type="button" data-act="italic" title="Italic"><i>I</i></button>
+          <button type="button" data-act="ul" title="Bullet list">• List</button>
+          <button type="button" data-act="ol" title="Numbered steps">1. Steps</button>
+          <button type="button" data-act="link" title="Link">🔗 Link</button>
+          <button type="button" data-act="code" title="Code block">{ } Code</button>
+          <button type="button" data-act="warn" title="Warning box">⚠️ Warning</button>
+          <button type="button" data-act="tip" title="Tip box">💡 Tip</button>
+          <button type="button" data-act="table" title="Table">▦ Table</button>
+          <button type="button" data-act="image" title="Upload and insert images">🖼 Image</button>
+          <span class="sep"></span>
+          <select id="tplSel" title="Insert an outline"><option value="">📋 Template…</option><option value="repair">Repair guide</option><option value="diagnosis">Diagnosis (symptom → fix)</option><option value="project">ESP32 / electronics project</option><option value="review">Product review</option></select>
+          <button type="button" data-act="preview" id="previewBtn">👁 Preview</button>
+        </div>
+        <input type="file" id="imgFile" accept="image/*,.heic,.heif,.avif" multiple hidden>
+        <textarea id="content" placeholder="Write here. Paste or drop photos straight into the text to upload them."></textarea>
+        <div id="preview" hidden></div>
+
+        <details>
+          <summary>Formatting cheat sheet</summary>
+<pre>## Section heading            ### Sub-heading
+**bold**   *italic*   `inline code`
+- bullet item               1. numbered step
+[link text](https://example.com)
+![Describe the photo](https://…image-url)      ← use the 🖼 button instead
+&gt; **Warning:** text         &gt; **Tip:** text         &gt; **Note:** text
+| Part | Value |
+|------|-------|
+| Resistor | 220 Ω |
+```cpp
+digitalWrite(2, HIGH);
+```</pre>
+        </details>
+
+        <ul class="adm-check" id="check"></ul>
+
+        <div class="adm-actions">
+          <label><input type="checkbox" id="published" checked> Published</label>
+          <label><input type="checkbox" id="featured"> Featured (shown first on the home page)</label>
+        </div>
+        <div class="adm-actions">
+          <button type="button" class="btn-primary" id="saveBtn">Save article</button>
+          <button type="button" class="adm-mini" id="newBtn">Clear / new article</button>
+        </div>
+        <div class="adm-msg" id="msg" hidden></div>
+      </section>
+
+      <!-- ===== LIST ===== -->
+      <section id="tab-list" class="adm-card" hidden>
+        <div class="adm-row">
+          <div><input type="text" id="listSearch" placeholder="Search by title…"></div>
+          <div><select id="listFilter"><option value="">All</option><option value="pub">Published</option><option value="draft">Drafts</option></select></div>
+        </div>
+        <div class="adm-list" id="listBox"></div>
+      </section>
+
+      <!-- ===== FACTS ===== -->
+      <section id="tab-facts" class="adm-card" hidden>
+        <p class="hint">Short, true facts shown in the “Did you know?” box on the home page (one is picked each day).</p>
+        <label for="factText">New fact</label>
+        <textarea id="factText" rows="2" maxlength="400" placeholder="A short, accurate fact (10–400 characters)"></textarea>
+        <div class="adm-actions"><button type="button" class="btn-primary" id="factAdd">Add fact</button></div>
+        <div class="adm-msg" id="factMsg" hidden></div>
+        <div class="adm-list" id="factList"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="tp-footer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0"></script>
+  <script src="/js/config.js?v=6e0b38d8" defer></script>
+  <script src="/js/render.js?v=3c63cfe1" defer></script>
+  <script src="/js/site.js?v=1a0dfd23" defer></script>
+  <script src="/js/admin.js?v=bc5e40e9" defer></script>
+</body>
+</html>

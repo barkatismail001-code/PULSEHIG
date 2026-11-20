@@ -1,0 +1,15 @@
+{
+  "name": "techpulse",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Static site on GitHub Pages + Supabase. English only.",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node scripts/checks.mjs",
+    "check": "node scripts/checks.mjs",
+    "build": "node scripts/build-feeds.mjs",
+    "build:offline": "node scripts/build-feeds.mjs --offline",
+    "serve": "npx --yes serve ."
+  }
+}

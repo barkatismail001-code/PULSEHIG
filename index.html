@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-bhV/zGziN4P1gIM8lkwif7zwp0uXqZV0dEpCNP7uaz4=' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.web3forms.com https://hacker-news.firebaseio.com https://dev.to https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://www.youtube-nocookie.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechPulse — Home Repair, ESP32 & Everyday Tech Guides</title>
+  <meta name="description" content="Practical step-by-step guides for home repair, ESP32 and Arduino projects, electronics, car care and smart-home tech — plus live tech news.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://pulsehig.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TechPulse">
+  <meta property="og:title" content="TechPulse — Home Repair, ESP32 & Everyday Tech Guides">
+  <meta property="og:description" content="Practical step-by-step guides for home repair, ESP32 and Arduino projects, electronics, car care and smart-home tech — plus live tech news.">
+  <meta property="og:url" content="https://pulsehig.com/">
+  <meta property="og:image" content="https://pulsehig.com/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="alternate" type="application/rss+xml" title="TechPulse RSS" href="/rss.xml">
+  <script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css?v=47d6b918">
+  <link rel="stylesheet" href="/css/extra.css?v=f1d86b38">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://pulsehig.com/#website",
+      "url": "https://pulsehig.com/",
+      "name": "TechPulse",
+      "description": "Practical guides for home repair, ESP32 projects, electronics, car care and everyday tech.",
+      "inLanguage": "en",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://pulsehig.com/articles.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://pulsehig.com/#org",
+      "name": "TechPulse",
+      "url": "https://pulsehig.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pulsehig.com/assets/icon-512.png"
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body data-page="home">
+  <div id="tp-header"></div>
+  <main class="container">
+    <section class="hero-section" aria-labelledby="heroTitle">
+      <h1 id="heroTitle">Fix it yourself. Build it smart.</h1>
+      <p>Step-by-step repair guides, honest tool reviews and ESP32 projects — with the time, cost, tools and safety level up front.</p>
+      <form class="tp-search" action="/articles.html" method="get" role="search">
+        <input type="search" name="q" placeholder="Search guides, e.g. crankshaft sensor, washing machine, ESP32 relay…" aria-label="Search articles">
+        <button type="submit">Search</button>
+      </form>
+      <div class="tp-chips" id="homeChips"></div>
+    </section>
+
+    <section class="tp-section" id="picksSection" aria-labelledby="picksTitle">
+      <div class="tp-section-head"><h2 id="picksTitle">⭐ Today's Top Picks</h2><a class="read-more" href="/articles.html">All articles →</a></div>
+      <div id="picksBox"><div class="loading-state" role="status">Loading…</div></div>
+    </section>
+
+    <section class="tp-section" id="featSection" aria-labelledby="featTitle" hidden>
+      <div class="tp-section-head"><h2 id="featTitle">📖 Featured Stories</h2></div>
+      <div class="tp-split">
+        <div class="articles-grid" id="featBox"></div>
+        <aside class="tp-side-card" id="popSide" aria-labelledby="popTitle" hidden><h3 id="popTitle">🔥 Most Popular</h3><div id="popBox"></div></aside>
+      </div>
+    </section>
+
+    <section class="tp-section" aria-labelledby="exploreTitle">
+      <div class="tp-section-head"><h2 id="exploreTitle">🧭 Explore TechPulse</h2></div>
+      <div class="tp-tiles" id="tiles"></div>
+    </section>
+
+    <section class="tp-section" id="diagSection" aria-labelledby="diagTitle" hidden>
+      <div class="tp-section-head"><h2 id="diagTitle">🩺 Symptoms &amp; Fixes</h2><a class="read-more" href="/articles.html?kind=diagnosis">More diagnoses →</a></div>
+      <div class="articles-grid" id="diagBox"></div>
+    </section>
+
+    <section class="tp-section" aria-labelledby="techTitle">
+      <div class="tp-section-head"><h2 id="techTitle">🔌 Smart Tech &amp; Live News</h2><a class="read-more" href="/news.html">More news →</a></div>
+      <div id="techBox"><div class="loading-state" role="status">Loading…</div></div>
+    </section>
+
+    <section class="tp-section" id="gearSection" aria-labelledby="gearTitle" hidden>
+      <div class="tp-section-head"><h2 id="gearTitle">🧰 Tools &amp; Gear We Love</h2><a class="read-more" href="/c/tools-gear.html">All reviews →</a></div>
+      <div class="articles-grid" id="gearBox"></div>
+    </section>
+
+    <section class="did-you-know" id="dyk" aria-live="polite">
+      <h3>💡 Did you know?</h3>
+      <p id="dykText">Loading a fun fact…</p>
+      <div class="dyk-actions"><button type="button" id="dykNext">Another fact</button></div>
+    </section>
+
+    <section class="tp-section" id="moreSection" aria-labelledby="moreTitle" hidden>
+      <div class="tp-section-head"><h2 id="moreTitle">🆕 More Guides</h2><a class="read-more" href="/articles.html">Browse all →</a></div>
+      <div class="articles-grid" id="moreBox"></div>
+    </section>
+
+    <section class="tp-section tp-band" id="nlBand"></section>
+
+    <section class="tp-about">
+      <div><h2>Do it right, do it yourself</h2>
+        <p>TechPulse explains how to fix things at home and build useful things with simple electronics. Every guide shows the skill level, time, cost, tools and safety level before you pick up a tool.</p></div>
+      <a class="btn-primary" href="/about.html">About TechPulse</a>
+    </section>
+  </main>
+  <div id="tp-footer"></div>
+  <script src="/js/config.js?v=6e0b38d8" defer></script>
+  <script src="/js/render.js?v=3c63cfe1" defer></script>
+  <script src="/js/site.js?v=1a0dfd23" defer></script>
+  <script src="/js/home.js?v=83471452" defer></script>
+</body>
+</html>

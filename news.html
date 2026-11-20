@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-bhV/zGziN4P1gIM8lkwif7zwp0uXqZV0dEpCNP7uaz4=' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.web3forms.com https://hacker-news.firebaseio.com https://dev.to https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://www.youtube-nocookie.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest Tech News | TechPulse</title>
+  <meta name="description" content="Live tech headlines from Hacker News and DEV, refreshed all day. Open any story at its original source.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://pulsehig.com/news.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TechPulse">
+  <meta property="og:title" content="Latest Tech News | TechPulse">
+  <meta property="og:description" content="Live tech headlines from Hacker News and DEV, refreshed all day. Open any story at its original source.">
+  <meta property="og:url" content="https://pulsehig.com/news.html">
+  <meta property="og:image" content="https://pulsehig.com/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="alternate" type="application/rss+xml" title="TechPulse RSS" href="/rss.xml">
+  <script>try{if(localStorage.getItem("tp_theme")==="dark")document.documentElement.classList.add("dark-theme")}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css?v=47d6b918">
+  <link rel="stylesheet" href="/css/extra.css?v=f1d86b38">
+</head>
+<body data-page="news">
+  <div id="tp-header"></div>
+  <main class="container">
+    <section class="hero-section" style="margin-bottom:8px">
+      <h1>📰 Latest Tech News</h1>
+      <p>Live headlines from Hacker News and DEV. Stories open at the original source.</p>
+    </section>
+    <div class="tp-chips" id="srcChips" style="justify-content:flex-start;margin:0 0 22px"></div>
+    <div class="tp-news-grid" id="newsGrid"><div class="loading-state" role="status">Loading headlines…</div></div>
+  </main>
+  <div id="tp-footer"></div>
+  <script src="/js/config.js?v=6e0b38d8" defer></script>
+  <script src="/js/render.js?v=3c63cfe1" defer></script>
+  <script src="/js/site.js?v=1a0dfd23" defer></script>
+  <script src="/js/news.js?v=78d5ea12" defer></script>
+</body>
+</html>
